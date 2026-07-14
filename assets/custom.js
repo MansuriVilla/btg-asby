@@ -349,6 +349,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             menu.classList.remove("site_megaMenu__Active");
             link?.classList.remove("site_megaMenu__Active");
+            link?.setAttribute("aria-expanded", "false");
 
             gsap.to(menu, { height: 0, duration: 0.3, ease: "power2.out" });
 
@@ -388,6 +389,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.querySelectorAll(".item_has--dropdown").forEach(link => {
             link.classList.remove("site_megaMenu__Active");
+            link.setAttribute("aria-expanded", "false");
         });
 
         toggleMenu(false);
@@ -483,6 +485,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isMenuDisabled) {
             megaMenu.classList.add("site_megaMenu__Active");
             navLink?.classList.add("site_megaMenu__Active");
+            navLink?.setAttribute("aria-expanded", "true");
             gsap.set(megaMenu, { height: "auto" });
             animateColumns(megaMenu, true);
             toggleMenu(true);
@@ -495,6 +498,7 @@ document.addEventListener("DOMContentLoaded", function () {
             closeAllMenus(item);
             megaMenu.classList.add("site_megaMenu__Active");
             navLink?.classList.add("site_megaMenu__Active");
+            navLink?.setAttribute("aria-expanded", "true");
             animateToAutoHeight(megaMenu);
             animateColumns(megaMenu, true);
             toggleMenu(true);
@@ -512,6 +516,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             } else {
                 gsap.to(megaMenu, { height: 0, duration: 0.3, ease: "power2.out" });
+                navLink?.setAttribute("aria-expanded", "false");
                 animateColumns(megaMenu, false);
                 closeAllMenus();
                 toggleMenu(false);
@@ -522,6 +527,7 @@ document.addEventListener("DOMContentLoaded", function () {
             closeAllMenus(item);
             megaMenu.classList.add("site_megaMenu__Active");
             navLink?.classList.add("site_megaMenu__Active");
+            navLink?.setAttribute("aria-expanded", "true");
             animateToAutoHeight(megaMenu);
             animateColumns(megaMenu, true);
             toggleMenu(true);
@@ -530,6 +536,7 @@ document.addEventListener("DOMContentLoaded", function () {
         item.addEventListener("focusout", (e) => {
             if (!item.contains(e.relatedTarget)) {
                 gsap.to(megaMenu, { height: 0, duration: 0.3, ease: "power2.out" });
+                navLink?.setAttribute("aria-expanded", "false");
                 animateColumns(megaMenu, false);
                 closeAllMenus();
                 toggleMenu(false);
@@ -2671,8 +2678,25 @@ changeImageOnVarient();
         }, 100);
       }
     };
-    document.addEventListener('ajaxProduct:added', () => announceToLive('Item added to cart'));
-    document.addEventListener('cart:updated', () => announceToLive('Item added to cart'));
+    document.addEventListener('ajaxProduct:added', (e) => {
+      if (e.detail && (e.detail.product?.title || e.detail.title)) {
+        let itemName = e.detail.product?.title || e.detail.title;
+        announceToLive(`${itemName} added to cart`);
+      } else {
+        fetch(window.Shopify.routes ? window.Shopify.routes.root + 'cart.js' : '/cart.js')
+          .then(response => response.json())
+          .then(cart => {
+            let itemName = 'Item';
+            if (cart.items && cart.items.length > 0) {
+              itemName = cart.items[0].product_title || cart.items[0].title || 'Item';
+            }
+            announceToLive(`${itemName} added to cart`);
+          })
+          .catch(() => {
+            announceToLive('Item added to cart');
+          });
+      }
+    });
 
     // 4. Loop Subscription Widget Accessibility Enhancements (A11Y-06)
     const fixLoopWidget = () => {

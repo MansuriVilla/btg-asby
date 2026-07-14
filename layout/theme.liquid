@@ -606,35 +606,37 @@
           cartChange: "{{ routes.cart_change_url | append: '.js' }}",
           search: "{{ routes.search_url }}"
         };
+        /* prettier-ignore */
         theme.strings = {
           soldOut: {{ 'products.product.sold_out' | t | json }},
-        unavailable: { { 'products.product.unavailable' | t | json } },
-        inStockLabel: { { 'products.product.in_stock_label' | t | json } },
-        stockLabel: { { 'products.product.stock_label' | t: count: '[count]' | json } },
-        willNotShipUntil: { { 'products.product.will_not_ship_until' | t: date: '[date]' | json } },
-        willBeInStockAfter: { { 'products.product.will_be_in_stock_after' | t: date: '[date]' | json } },
-        waitingForStock: { { 'products.product.waiting_for_stock' | t | json } },
-        savePrice: { { 'products.general.save_html' | t: saved_amount: '[saved_amount]' | json } },
-        cartEmpty: { { 'cart.general.empty' | t | json } },
-        cartTermsConfirmation: { { 'cart.general.terms_confirm' | t | json } },
-        searchCollections: { { 'general.search.collections' | t | json } },
-        searchPages: { { 'general.search.pages' | t | json } },
-        searchArticles: { { 'general.search.articles' | t | json } }
-      };
+          unavailable: {{ 'products.product.unavailable' | t | json }},
+          inStockLabel: {{ 'products.product.in_stock_label' | t | json }},
+          stockLabel: {{ 'products.product.stock_label' | t: count: '[count]' | json }},
+          willNotShipUntil: {{ 'products.product.will_not_ship_until' | t: date: '[date]' | json }},
+          willBeInStockAfter: {{ 'products.product.will_be_in_stock_after' | t: date: '[date]' | json }},
+          waitingForStock: {{ 'products.product.waiting_for_stock' | t | json }},
+          savePrice: {{ 'products.general.save_html' | t: saved_amount: '[saved_amount]' | json }},
+          cartEmpty: {{ 'cart.general.empty' | t | json }},
+          cartTermsConfirmation: {{ 'cart.general.terms_confirm' | t | json }},
+          searchCollections: {{ 'general.search.collections' | t | json }},
+          searchPages: {{ 'general.search.pages' | t | json }},
+          searchArticles: {{ 'general.search.articles' | t | json }}
+        };
+        /* prettier-ignore */
         theme.settings = {
           dynamicVariantsEnable: true,
           cartType: {{ settings.cart_type | json }},
-        isCustomerTemplate: {% if request.page_type contains 'customers/' %} true{% else %} false{% endif %},
-        moneyFormat: { { shop.money_format | json } },
-        saveType: { { settings.product_save_type | json } },
-        productImageSize: { { settings.product_grid_image_size | json } },
-        productImageCover: { { settings.product_grid_image_fill } },
-        predictiveSearch: { { settings.predictive_search_enabled } },
-        predictiveSearchType: { { settings.search_type | json } },
-        quickView: { { settings.quick_shop_enable } },
-        themeName: 'Impulse',
+          isCustomerTemplate: {% if request.page_type contains 'customers/' %}true{% else %}false{% endif %},
+          moneyFormat: {{ shop.money_format | json }},
+          saveType: {{ settings.product_save_type | json }},
+          productImageSize: {{ settings.product_grid_image_size | json }},
+          productImageCover: {{ settings.product_grid_image_fill }},
+          predictiveSearch: {{ settings.predictive_search_enabled }},
+          predictiveSearchType: {{ settings.search_type | json }},
+          quickView: {{ settings.quick_shop_enable }},
+          themeName: 'Impulse',
           themeVersion: "5.5.3"
-      };
+        };
       </script>
 
       {{ content_for_header }}

@@ -192,12 +192,12 @@ li.site-nav--has-dropdown.site-nav--is-megamenu ul.if-megamenu { display:none !i
 ul.site__megaMenu_content__inner { display:flex; padding: clamp(20px, 2.2vw,40px) 0px; }
 .site__megaMenu_container { overflow: hidden; height: 0; position: absolute; background: #fff; width: 100%; left: 0; }
 .site__megaMenu_content ul { list-style: none; margin: 0; row-gap: 30px; }
-.site__megaMenu_content :is(ul li.site_megaMenu__item, span:not(span[class])) { opacity: 0; transform: translateY(20px); }
+/* .site__megaMenu_content :is(ul li.site_megaMenu__item, span:not(span[class])) { opacity: 0; transform: translateY(20px); } */
 .site_megaMenu_left-ul { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; max-width:45%; width: 100%; }
 .site_megaMenu_Link { position:relative; font-size:clamp(16px, 1.5vw, 20px);/*  font-weight:900;  */color:#000; }
 .site_megaMenu_Link::before { content:''; position:absolute; bottom:-2px; height:2px; width:0px; background:#000; transition:.2s all ease; transform-origin:left; }
 .site_megaMenu_Link:hover::before { width:100%; }
-.site_megaMenu__Title { color:#BABABA; letter-spacing:1.6px; font-weight:600; text-transform: uppercase; }
+.site_megaMenu__Title { color:#BABABA; letter-spacing:1.6px; font-weight:600; text-transform: uppercase;  font-size:12px; font-family: 'Blue Tees Subhead';}
 .site__megaMenu_content span.site_megaMenu__Title { margin-bottom: 14px; display: flex; font-size: clamp(12px, 0.8vw, 14px); }
 .site_megaMenu__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(clamp(90px, 9vw, 142px), 1fr)); gap: clamp(15px,2vw,35px); }
 .site__megaMenu_right { flex: 60%; }
@@ -304,7 +304,7 @@ ul.site__megaMenu_content__inner { display:flex; padding: clamp(20px, 2.2vw,40px
   [data-nav-grid] .site_megaMenu__Title{ margin-block:0 clamp(15px,2vw,23px); display:flex; font-size:12px; max-width: fit-content;}
   [data-nav-grid][data-nav-grid-col="3"]{grid-template-columns: repeat(3, 1fr); }
   .dropdown_opener.mega-toggle { display: none; }
-  .mega-title-wrapper { display: flex; align-items: center; gap: 8px; }
+  .mega-title-wrapper { display: flex; align-items: center; gap: 8px; font-family: 'Blue Tees Subhead'; line-height:1; }
   .mega-title-link { margin: 0; }
   .mega-toggle { cursor: pointer; display: inline-flex; align-items: center; padding: 4px; }
   .mega-toggle svg { transition: transform 0.3s ease; }

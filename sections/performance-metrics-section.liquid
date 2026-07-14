@@ -36,18 +36,18 @@
     </div>
 
     <div class="performance-metrics__tiles-wrapper">
-      <div class="performance-metrics__tiles-grid">
+      <ul class="performance-metrics__tiles-grid">
         {%- for block in section.blocks -%}
           {%- if block.type == 'metric_tile' -%}
-            <div class="performance-metrics__tile" {{ block.shopify_attributes }}>
+            <li class="performance-metrics__tile" {{ block.shopify_attributes }}>
               <span class="performance-metrics__tile-label">
                 {{ block.settings.label -}}
                 {%- if block.settings.is_special %}*{% endif %}
               </span>
-            </div>
+            </li>
           {%- endif -%}
         {%- endfor -%}
-      </div>
+      </ul>
     </div>
 
     {%- if section.settings.product_image != blank -%}
@@ -153,8 +153,9 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: clamp(8px, 1.5vw, 16px);
-
       margin: 0 auto;
+      list-style: none;
+      padding: 0;
     }
 
 

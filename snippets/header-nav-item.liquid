@@ -1,4 +1,4 @@
-<div class="site_megaMenu__item site_megaMenu__item--{{ item_title | handleize }}">
+<li class="site_megaMenu__item site_megaMenu__item--{{ item_title | handleize }}">
   <a
     class="site_megaMenu_Link{% if hover_effect %} hover_enable--item{% endif %}"
     href="{{item_url}}"
@@ -21,4 +21,4 @@
     {% endif %}
     <span class="site_megaMenu_linkText site_megaMenu_linkText--{{ item_title | handleize }}">{{ item_title | strip }}</span>
   </a>
-</div>
+</li>

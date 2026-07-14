@@ -425,6 +425,8 @@
               target="_blank" rel="noopener noreferrer"
             {% endif %}
             data-shop-now-link
+            tabindex="-1"
+            aria-hidden="true"
             aria-label="{% if v.available or product.template_suffix == 'new-s3-max' %}Shop {{ product.title | escape }}{% else %}{{ product.title | escape }} - Sold Out{% endif %}"
           >
             {% if v.available or product.template_suffix == 'new-s3-max'%}

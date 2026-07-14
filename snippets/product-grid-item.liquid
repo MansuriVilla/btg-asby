@@ -228,7 +228,7 @@
         {% form "product" , product %}
            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"> 
            <input type="hidden" name="quantity" value="1">
-           <a href="{{ product.url | within: collection }}" class="bottom-add-to-cart" {%- if on_sale -%}id="product_on_sale" {%- endif -%} aria-label="Shop {{ product.title | escape }}">SHOP NOW</a>
+           <a href="{{ product.url | within: collection }}" class="bottom-add-to-cart" {%- if on_sale -%}id="product_on_sale" {%- endif -%} tabindex="-1" aria-hidden="true" aria-label="Shop {{ product.title | escape }}">SHOP NOW</a>
         {% endform %}
       </div>
     </a>

@@ -1835,8 +1835,26 @@ lazySizesConfig.expFactor = 4;
         }
         
         this.reInit();
+
+        // Restore focus to the plus/minus button if we were adjusting quantity
+        if (theme.lastFocusedQtyBtn) {
+           var restoredInput = document.getElementById(theme.lastFocusedQtyBtn.id);
+           if (restoredInput) {
+              var btn = restoredInput.parentElement.querySelector('.js-qty__adjust--' + theme.lastFocusedQtyBtn.action);
+              if (btn) btn.focus();
+           }
+           theme.lastFocusedQtyBtn = null;
+        }
   
         if (window.AOS) { AOS.refreshHard() }
+
+        var liveRegion = document.getElementById('a11y-live-region');
+        if (liveRegion) {
+          setTimeout(function() {
+             var formattedSubtotal = theme.Currency.formatMoney(subtotal, theme.settings.moneyFormat).replace(/<\/?[^>]+(>|$)/g, "");
+             liveRegion.textContent = 'Cart updated. Subtotal is now ' + formattedSubtotal;
+          }, 100);
+        }
   
         if (Shopify && Shopify.StorefrontExpressButtons) {
           Shopify.StorefrontExpressButtons.initialize();
@@ -1876,6 +1894,18 @@ lazySizesConfig.expFactor = 4;
         if (el) {
           el.classList.add('is-loading');
         }
+
+        // Save active element for focus restoration
+        var activeBtn = document.activeElement;
+        if (activeBtn && activeBtn.classList.contains('js-qty__adjust')) {
+           var inputEl = activeBtn.parentElement.querySelector('.js-qty__num');
+           if (inputEl) {
+             theme.lastFocusedQtyBtn = {
+               id: inputEl.id,
+               action: activeBtn.classList.contains('js-qty__adjust--plus') ? 'plus' : 'minus'
+             };
+           }
+        }
   
         theme.cart.changeItem(key, qty)
           .then(function(cart) {
@@ -1887,6 +1917,27 @@ lazySizesConfig.expFactor = 4;
   
             this.buildCart();
   
+            // A11y: Announce the quantity change
+            var updatedItem = cart.items.find(function(item) { return item.key === key || item.id == key; });
+            var announcement = '';
+            if (updatedItem) {
+              var actionText = 'updated';
+              if (theme.lastFocusedQtyBtn && theme.lastFocusedQtyBtn.action) {
+                actionText = theme.lastFocusedQtyBtn.action === 'plus' ? 'increased' : 'decreased';
+              }
+              announcement = updatedItem.product_title + " quantity " + actionText + " to " + updatedItem.quantity + ".";
+            } else if (parseInt(qty, 10) === 0) {
+              announcement = "Item removed from cart.";
+            }
+            if (announcement) {
+              var liveRegion = document.getElementById('a11y-live-region');
+              if (liveRegion) {
+                 setTimeout(function() {
+                   liveRegion.textContent = announcement;
+                 }, 200);
+              }
+            }
+
             document.dispatchEvent(new CustomEvent('cart:updated', {
               detail: {
                 cart: cart

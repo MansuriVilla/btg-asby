@@ -146,8 +146,7 @@
         alt="Profile Icon"
       />
     </a>
-    <a
-      href="{{ routes.cart_url }}"
+    <button type="button" aria-expanded="false"
       class="cart_custom site__header-cartIcon site-nav__link site-nav__link--icon js-drawer-open-cart"
       aria-controls="CartDrawer"
       data-icon="{{ settings.cart_icon }}"
@@ -180,6 +179,6 @@
           class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"
         ></span>
       </span>
-    </a>
+    </button>
   </div>
 </div>
