@@ -1,0 +1,276 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_button }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://cdn.shopify.com">
+  <link rel="preconnect" href="https://fonts.shopifycdn.com">
+  <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
+  <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+  <link rel="dns-prefetch" href="https://maps.googleapis.com">
+  <link rel="dns-prefetch" href="https://maps.gstatic.com">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,900&family=Roboto:ital,wght@1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-720010703"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-720010703');
+    </script>
+  
+  
+    <script>
+    var head = document.head;
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = "https://181813.tracking.hyros.com/v1/lst/universal-script?ph=ad8c7cdb2127f2f95a2108d8459dd9087ec9382b4c93b16e48d069b8529fc4f0&tag=!tracking";
+    head.appendChild(script);
+    </script>
+  
+  
+    <!--script>
+      gtag('event', 'page_view', {
+        'send_to': 'AW-720010703',
+        'value': {{ checkout.subtotal_price | money_without_currency }},
+        'items': [{
+        'id': {{ product.id }},
+        'google_business_vertical': 'retail'
+      }]
+           });
+    </script-->
+	<meta name="facebook-domain-verification" content="79kwt1p2v1iobw4b3iltqovd721dfh" />
+  
+  	<!-- Hotjar Tracking Code for https://www.blueteesgolf.com/ -->
+    <script>
+      (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1838883,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+  
+  	<!--NeonPixel Tracking Pixel-->
+    <!-- INSTALL ON ALL PAGES OF SITE-->
+    <script type="text/javascript">
+      (function(){"use strict";var e=null,b="4.0.0",
+          n="32388",
+          additional="term=value",
+          t,r,i;try{t=top.document.referer!==""?encodeURIComponent(top.document.referrer.substring(0,2048)):""}catch(o){t=document.referrer!==null?document.referrer.toString().substring(0,2048):""}try{r=window&&window.top&&document.location&&window.top.location===document.location?document.location:window&&window.top&&window.top.location&&""!==window.top.location?window.top.location:document.location}catch(u){r=document.location}try{i=parent.location.href!==""?encodeURIComponent(parent.location.href.toString().substring(0,2048)):""}catch(a){try{i=r!==null?encodeURIComponent(r.toString().substring(0,2048)):""}catch(f){i=""}}var l,c=document.createElement("script"),h=null,p=document.getElementsByTagName("script"),d=Number(p.length)-1,v=document.getElementsByTagName("script")[d];if(typeof l==="undefined"){l=Math.floor(Math.random()*1e17)}h="dx.mountain.com/spx?"+"dxver="+b+"&shaid="+n+"&tdr="+t+"&plh="+i+"&cb="+l+additional;c.type="text/javascript";c.src=("https:"===document.location.protocol?"https://":"http://")+h;v.parentNode.insertBefore(c,v)})()
+    </script>
+
+    <!-- Third Party Tracking Goaffpro -->
+
+    <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"56296754"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script> 
+
+    {% include 'ufe-offer' %}
+
+    <!-- Extend - Add necessary SDK script tags and configure the store -->
+    <script src="https://sdk.helloextend.com/extend-sdk-client/v1/extend-sdk-client.min.js"></script>  
+    <script src="https://sdk.helloextend.com/extend-sdk-client-shopify-addon/v1/extend-sdk-client-shopify-addon.min.js"></script>  
+    <script>Extend.config({ storeId: 'a51df5f4-70a1-4840-bdd4-e4a8ed0e4ae5', environment: 'production' })</script>
+
+      <!-- Extend - Render polyfills to enable IE11 support -->
+      {% render 'extend-polyfills' %}
+
+      <!-- Extend - Render aftermarket integration snippet -->
+      {% render 'extend-aftermarket-integration' %}
+      <!-- Extend - End Extend code -->
+
+      <!-- Extend - Render analytics -->
+      {% render 'extend-analytics' %}
+
+		
+      <!-- Extend -- Load cart integration script -->
+      {% render 'extend-cart-drawer-integration' %}
+
+      <!-- Extend -- Load buy it now integration script -->
+      {% render 'extend-buy-it-now' %}
+
+      <!-- Extend -- End Extend code --> 
+
+
+  
+  {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
+  {%- endif -%}
+
+  {%- render 'seo-title' -%}
+
+  {%- if page_description -%}
+  <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {%- render 'social-meta-tags' -%}
+
+  {%- render 'font-face' -%}
+  {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+  {%- render 'css-variables' -%}
+
+  <script>
+    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+
+    window.theme = window.theme || {};
+    theme.routes = {
+      home: "{{ routes.root_url }}",
+      cart: "{{ routes.cart_url | append: '.js' }}",
+      cartPage: "{{ routes.cart_url }}",
+      cartAdd: "{{ routes.cart_add_url | append: '.js' }}",
+      cartChange: "{{ routes.cart_change_url | append: '.js' }}",
+      search: "{{ routes.search_url }}"
+    };
+    theme.strings = {
+      soldOut: {{ 'products.product.sold_out' | t | json }},
+      unavailable: {{ 'products.product.unavailable' | t | json }},
+      inStockLabel: {{ 'products.product.in_stock_label' | t | json }},
+      stockLabel: {{ 'products.product.stock_label' | t: count: '[count]' | json }},
+      willNotShipUntil: {{ 'products.product.will_not_ship_until' | t: date: '[date]' | json }},
+      willBeInStockAfter: {{ 'products.product.will_be_in_stock_after' | t: date: '[date]' | json }},
+      waitingForStock: {{ 'products.product.waiting_for_stock' | t | json }},
+      savePrice: {{ 'products.general.save_html' | t: saved_amount: '[saved_amount]' | json }},
+      cartEmpty: {{ 'cart.general.empty' | t | json }},
+      cartTermsConfirmation: {{ 'cart.general.terms_confirm' | t | json }},
+      searchCollections: {{ 'general.search.collections' | t | json }},
+      searchPages: {{ 'general.search.pages' | t | json }},
+      searchArticles: {{ 'general.search.articles' | t | json }}
+    };
+    theme.settings = {
+      dynamicVariantsEnable: true,
+      cartType: {{ settings.cart_type | json }},
+      isCustomerTemplate: {% if request.page_type contains 'customers/' %}true{% else %}false{% endif %},
+      moneyFormat: {{ shop.money_format | json }},
+      saveType: {{ settings.product_save_type | json }},
+      productImageSize: {{ settings.product_grid_image_size | json }},
+      productImageCover: {{ settings.product_grid_image_fill }},
+      predictiveSearch: {{ settings.predictive_search_enabled }},
+      predictiveSearchType: {{ settings.search_type | json }},
+      quickView: {{ settings.quick_shop_enable }},
+      themeName: 'Impulse',
+      themeVersion: "5.5.3"
+    };
+  </script>
+
+  {{ content_for_header }}
+
+  <script src="{{ 'vendor-scripts-v11.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+
+  {%- if shop.enabled_currencies.size > 1 -%}
+    <link rel="stylesheet" href="{{ 'country-flags.css' | asset_url | split: '?' | first }}">
+  {%- endif -%}
+
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+  {%- if request.page_type contains 'customers/' -%}
+    <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
+  {%- endif -%}
+	{% comment %}{% render 'minmaxify-head' %}{% endcomment %}
+
+	{{ shop.metafields.loox["global_html_head"] }}
+  
+  
+  	<link rel="preload" href="{{ 'try-with-nok.js' | asset_url }}" as="script">
+    <link rel="preload" href="{{ 'try-with-nok.css' | asset_url }}" as="style">
+    <link rel="stylesheet" href="{{ 'try-with-nok.css' | asset_url }}" type="text/css" >
+  	{{ 'custom.css' | asset_url | stylesheet_tag }}	
+  
+</head>
+
+<body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}" data-center-text="{{ settings.type_body_align_text }}" data-button_style="{{ settings.button_style }}" data-type_header_capitalize="{{ settings.type_header_capitalize }}" data-type_headers_align_text="{{ settings.type_headers_align_text }}" data-type_product_capitalize="{{ settings.type_product_capitalize }}" data-swatch_style="{{ settings.swatch_style }}" {% if settings.disable_animations %}data-disable-animations="true"{% endif %}>
+
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+  <div id="PageContainer" class="page-container">
+    <div class="transition-body">
+
+    {%- section 'header' -%}
+
+      <main class="main-content" id="MainContent">
+        {{ content_for_layout }}
+      </main>
+
+      {%- section 'footer-promotions' -%}
+      {%- section 'footer' -%}
+
+    </div>
+  </div>
+
+  {%- section 'newsletter-popup' -%}
+
+  {%- liquid
+    render 'video-modal'
+    render 'photoswipe-template'
+    render 'tool-tip'
+  -%}
+
+	{{ shop.metafields.loox["global_html_body"] }}
+  
+  
+  	<!-- Begin Shopify-Afterpay JavaScript Snippet (v1.0.12) -->
+    <script type="text/javascript">
+    // Editable fields (remove "//" from the start of each line to activate):
+    var afterpay_min = 0.04;  // As per your Afterpay contract.
+    var afterpay_max = 2000.00;  // As per your Afterpay contract.
+
+    var afterpay_product_selector = '.page-content--product .after-pay';  // The selector used to identify the price on the Product pages.
+      var afterpay_product_css = {'margin': '15px 0','font-size':'14px'};  // The CSS styling of the Afterpay assets on the Product pages.
+    // var afterpay_logo_theme = 'black';  // The Afterpay logo colour. Can be 'colour' (default), 'black' or 'white'.
+    var afterpay_modal_open_icon = true;	 // If enabled, an "ⓘ" icon is displayed next to the Afterpay logo in place of the "More info" text.
+    // var afterpay_cbt_enabled = true;  // As per your Afterpay contract. Enable to true to display Cross Border Trade artwork (for AU/NZ).
+
+    // var afterpay_variable_price_fallback_selector = '.product-price-selector';  // The selector used to identify the price on the Product pages if the Afterpay assets are disappearing after page-load or price is incorrect when a variant is selected.
+    // var afterpay_variable_price_fallback_method = "interval";  // Ensures the instalment price updates when the price changes. Can be "mutation" (default) or "interval".
+
+    var afterpay_cart_integration_enabled = true;  // Enables/disables the Cart page display. Can be true or false (default).
+    // var afterpay_cart_static_selector = '.cart-subtotal-selector';  // The selector used to identify the price on the Cart page.
+    var afterpay_cart_static_css = {'margin': '15px 0'};  // The CSS styling of the Afterpay assets on the Cart page.
+    // var afterpay_cart_static_logo_theme = 'black';  // The Afterpay logo colour. Can be 'colour' (default), 'black' or 'white'.
+
+    // var afterpay_variable_subtotal_fallback_selector = '.cart-subtotal-selector';  // The selector used to identify the price on the Cart page if the Afterpay assets are disappearing after page-load.
+    // var afterpay_variable_subtotal_fallback_method = "interval";  // Ensures the instalment price updates when the price changes. Can be "mutation" (default) or "interval".
+
+    var afterpay_footer_logo_enabled = true;  // Enables/disables the footer payment icon. Can be true (default) or false.
+    // var afterpay_footer_logo_container = '.payment-icons';  // The selector used to identify the payment icons in the footer.
+    // var afterpay_footer_logo_format = 'logo';  // The Afterpay payment icon style. Can be 'icon' (default), 'stacked' or 'logo'.
+    // var afterpay_footer_logo_theme = 'black';  // The Afterpay payment icon colour. Can be 'colour' (default), 'black' or 'white'.
+    // var afterpay_footer_logo_background = 'transparent';  // The Afterpay payment icon border style. Can be 'border' (default) or 'transparent'.
+    // var afterpay_footer_logo_css = {'width': 'auto', 'height': 'auto', 'vertical-align': 'baseline'};  // The CSS styling of the Afterpay payment icon in the footer.
+
+    // Non-editable fields:
+    var afterpay_shop_currency = {{ shop.currency | json }};
+    var afterpay_cart_currency = {{ cart.currency.iso_code | json }};
+    var afterpay_shop_money_format = {{ shop.money_format | json }};
+    var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
+    var afterpay_theme_name = {{ theme.name | json }};
+    var afterpay_product = {{ product | json }};
+    var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
+    var afterpay_cart_total_price = {{ cart.total_price | json }};
+    var afterpay_js_snippet_version = '1.0.12';
+    </script>
+    <script type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script>
+    <!-- End Shopify-Afterpay JavaScript Snippet (v1.0.12) -->
+  
+    {% comment %}
+  	<script src="{{ 'try-with-nok.js' | asset_url }}" async="async"></script>
+  	{% render "try-with-nok-modal" %}
+  {% endcomment %} 
+  	  <!--Gorgias Chat Widget Start--><script id="gorgias-chat-widget-install-v2" src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=15222"></script><!--Gorgias Chat Widget End-->
+    
+      <script async type="text/javascript"  src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=LuhztW"> </script>
+  <script> (function(){ var s = document.createElement('script'); var h = document.querySelector('head') || document.body; s.src = 'https://acsbapp.com/apps/app/dist/js/app.js'; s.async = true; s.onload = function(){ acsbJS.init({ statementLink : '', footerHtml : '', hideMobile : false, hideTrigger : false, disableBgProcess : false, language : 'en', position : 'right', leadColor : '#146FF8', triggerColor : '#146FF8', triggerRadius : '50%', triggerPositionX : 'right', triggerPositionY : 'bottom', triggerIcon : 'people', triggerSize : 'bottom', triggerOffsetX : 20, triggerOffsetY : 20, mobile : { triggerSize : 'small', triggerPositionX : 'right', triggerPositionY : 'bottom', triggerOffsetX : 20, triggerOffsetY : 20, triggerRadius : '20' } }); }; h.appendChild(s); })(); </script>
+{% render 'oneclickupsellapp-theme', oneclickupsellapp: oneclickupsellapp %}
+{% assign oneclickupsellapp = true %}
+</body>
+</html>

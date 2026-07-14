@@ -1,0 +1,210 @@
+<div class="page-width page-content">
+  <div class="loginPage__container">
+    <div class="site_LoginArea flex_col">
+      <header class="section-header">
+        <h1 class="section-header__title">{{ 'customer.login.title' | t }}</h1>
+      </header>
+      <div class="note note--success hide" id="ResetSuccess">
+        {{ 'customer.recover_password.success' | t }}
+      </div>
+      <div id="CustomerLoginForm" class="form-vertical">
+        {%- form 'customer_login' -%}
+    
+          {{ form.errors | default_errors }}
+    
+          <label for="CustomerEmail">{{ 'customer.login.email' | t }}</label>
+          <input type="email" name="customer[email]" id="CustomerEmail" class="input-full{% if form.errors contains 'email' %} error{% endif %}" autocorrect="off" autocapitalize="off" autofocus>
+    
+          {%- if form.password_needed -%}
+            <div class="grid">
+              <div class="grid__item one-half">
+                <label for="CustomerPassword">{{ 'customer.login.password' | t }}</label>
+              </div>
+              <div class="grid__item one-half text-right">
+                <small class="label-info">
+                  <a href="#recover" id="RecoverPassword">
+                    {{ 'customer.login.forgot_password' | t }}
+                  </a>
+                </small>
+              </div>
+            </div>
+            <input type="password" value="" name="customer[password]" id="CustomerPassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}">
+          {%- endif -%}
+    
+          <p style="margin-bottom: 20px;">
+            <button type="submit" class="btn ">
+              {{ 'customer.login.sign_in' | t }}
+            </button>
+          </p>
+          <p>{{ 'layout.customer.create_account' | t | customer_register_link }}</p>
+    
+        {%- endform -%}
+      </div>
+    
+      <div id="RecoverPasswordForm" class="hide">
+        <div class="form-vertical">
+          <h2>{{ 'customer.recover_password.title' | t }}</h2>
+          <p>{{ 'customer.recover_password.subtext' | t }}</p>
+    
+          {%- form 'recover_customer_password' -%}
+    
+            {{ form.errors | default_errors }}
+    
+            {%- if form.posted_successfully? -%}
+              <span class="hide reset-password-success"></span>
+            {%- endif -%}
+    
+            <label for="RecoverEmail">{{ 'customer.recover_password.email' | t }}</label>
+            <input type="email" value="" name="email" id="RecoverEmail" class="input-full" autocorrect="off" autocapitalize="off">
+    
+            <p>
+              <button type="submit" class="btn">
+                {{ 'customer.recover_password.submit' | t }}
+              </button>
+            </p>
+            <button type="button" id="HideRecoverPasswordLink">{{ 'customer.recover_password.cancel' | t }}</button>
+          {%- endform -%}
+        </div>
+    
+      </div>
+    
+      {%- if shop.checkout.guest_login -%}
+        <hr class="hr--clear">
+    
+        <h1>{{ 'customer.login.guest_title' | t }}</h1>
+        <hr class="hr--small">
+    
+        {%- form 'guest_login' -%}
+          <button type="submit" class="btn">
+            {{ 'customer.login.guest_continue' | t }}
+          </button>
+        {%- endform -%}
+      {%- endif -%}
+    </div>
+
+
+      <span class="loginBorder">
+      </span>
+    
+    <div class="gameApp_loginArea flex_col">
+      <div class="gameApp_loginInner">
+        <div class="gameApp_title">
+          <picture>
+            <source srcset="{{ 'login-text-postgame-btgg.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'login-text-postgame-btgg.png' | asset_url }}" media="(max-width:768px)">
+            <img src="{{ 'login-text-postgame-btgg.png' | asset_url }}" alt="">
+          </picture>
+        </div>
+        <div class="gameApp_cta">
+          <a href="https://postgame.blueteesgolf.com/login">POST GAME LOGIN</a>
+          <a href="https://postgame.blueteesgolf.com/register">Create Account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .loginPage__container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+    column-gap: 40px;
+}
+
+
+  #CustomerLoginForm {
+  width: 100%;
+  max-width: 360px;
+    margin:0px;
+}
+  
+
+
+  #CustomerLoginForm p {
+  padding:
+0;
+}
+
+
+  #CustomerLoginForm input {
+  border:
+2px solid #000;
+  border-radius:
+50px;
+}
+
+  .flex_col {
+  flex:
+33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+
+
+  .gameApp_loginInner {
+  display: grid;
+  height: 100%;
+}
+  .gameApp_loginInner > * {
+  align-self: self-end;
+}
+  
+  .gameApp_title img {
+  max-width: clamp(180px, 30vw, 291px);
+  width: 100%;
+    margin: 0 auto;
+}
+  .gameApp_loginInner picture {
+  display: flex;
+}
+
+.gameApp_cta {
+  display: flex;
+  row-gap: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+  .gameApp_cta a:first-child, .btn {
+  color: #fff;
+  background: #004DF5;
+  padding: 17px 30px;
+  border-radius: 50px;
+  font-weight: 900;
+  letter-spacing: 1.6px;
+    width: 100%;
+  text-align: center;
+  max-width: 230px;
+    border:1px solid #fff0;
+}
+ .gameApp_cta a:first-child:hover, .btn:hover{color: #004DF5; background:#fff !important; border-color: #004DF5;}
+ .gameApp_cta a:last-child:hover, #customer_register_link:hover{text-decoration: underline;}
+ #customer_register_link{text-transform: capitalize;}
+
+
+  
+  .loginBorder {
+  width: 4px;
+  height: auto;
+  background:
+#000;
+  display: flex;
+}
+
+  @media only screen and (max-width:768px){
+     .flex_col{flex:100%;}
+    .loginBorder {
+  width: 100%;
+  height: 4px; margin: 20px 0;}
+  }
+  
+  @media only screen and (max-width:575px){
+     .gameApp_cta a:first-child, .btn{padding: 10px 20px; max-width: 200px; font-size: 14px;}
+    .gameApp_loginInner{row-gap: 20px;}
+  }
+</style>

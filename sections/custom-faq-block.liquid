@@ -1,0 +1,114 @@
+<div class="rigner-funnel__faq">
+  <div class="faq__inner">
+    <div class="faq__heading">
+      <h2>
+        {{ section.settings.faq_heading }}
+      </h2>
+    </div>
+    <div class="faq_items" data-stagger-container>
+      {% for block in section.blocks %}
+        <div class="faq_item">
+          <div class="according__que">
+            <p>{{ block.settings.faq_que }}</p>
+            <span>
+              <svg
+                width="23"
+                height="23"
+                viewBox="0 0 23 23"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path class="icon-path-1" d="M1.78125 11.8555H21.2473" stroke="black"
+                    stroke-width="2.43326" stroke-linecap="round" stroke-linejoin="round" />
+                <path class="icon-path-2" d="M11.5156 21.5911V2.125" stroke="black"
+                    stroke-width="2.43326" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </div>
+          <div class="accoding__ans">
+            <p>
+              {{ block.settings.faq_ans }}
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    function faq() {
+      document.querySelectorAll('.according__que').forEach((title) => {
+        title.addEventListener('click', () => {
+          const desc = title.nextElementSibling;
+          const isOpen = desc.style.height === '0px' || desc.style.height === '';
+
+          if (isOpen) {
+            desc.style.height = 'auto';
+            const height = desc.scrollHeight + 'px';
+            desc.style.height = '0px';
+            gsap.to(desc, {
+              height: height,
+              duration: 0.5,
+              ease: 'power2.out',
+              onComplete: () => {
+                desc.style.height = 'auto';
+              },
+            });
+
+            title.classList.add('active');
+          } else {
+            gsap.to(desc, {
+              height: '0px',
+              duration: 0.5,
+              ease: 'power2.out',
+              onComplete: () => {
+                desc.style.height = '';
+              },
+            });
+
+            title.classList.remove('active');
+          }
+        });
+      });
+    }
+    faq();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Faq Block",
+  "settings": [
+    {
+      "type": "html",
+      "id": "faq_heading",
+      "label": "Heading Faq"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Custom Faq Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "faq_que",
+          "label": "Faq Item Question"
+        },
+        {
+          "type": "text",
+          "id": "faq_ans",
+          "label": "Faq Item Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Faq Block"
+    }
+  ]
+}
+{% endschema %}

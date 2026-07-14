@@ -1,0 +1,1049 @@
+{% comment %} {% assign is_v2 = false %}
+{% if product.handle contains 'v2' %}
+  {% assign is_v2 = true %}
+{% endif %}
+
+{% assign speaker_handle = 'speaker-bundle' %}
+{% assign gps_handle = 'gps-offer' %}
+{% assign laser_handle = 'laser-offer' %}
+{% assign offer_page = 'deal-1' %}
+{% assign special_link = 'player-gps-speaker-bundle-v2' %}
+
+{% if is_v2 %}
+  {% assign speaker_handle = 'player-gps-speaker-bundle-v2' %}
+  {% assign gps_handle = 'ringer-gps-handheld-bundle-v2' %}
+  {% assign laser_handle = 'series-4-ultra-bundle-v2' %}
+  {% assign offer_page = 'deal-2' %}
+{% endif %}
+
+{% assign open_in_new_tab = false %}
+{% if settings.open_new_tab %}
+  {% assign open_in_new_tab = true %}
+{% endif %}
+
+{% assign hover_effect = true %}
+
+{% assign captain_pro = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Captain_Pro_hover_state.png?v=1771476046' %}
+{% assign captain_air = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Captain_Air_hover_state.png?v=1771476046' %}
+{% assign s3_max = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/S3MAX__hover_state.png?v=1771476046' %}
+{% assign player_pro = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PlayerPro_hover_state.png?v=1771476046' %}
+{% assign player_plus = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Player__hover_state.png?v=1771476047' %}
+{% assign player_go = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PlayerGO_hover_state.png?v=1771476046' %}
+{% assign mag_towel = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/MagTowel_hover_state.png?v=1771476047' %}
+{% assign divot_tools = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Divot_Tooll_hover_state.png?v=1771476046' %}
+{% assign carrying_case = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Cases_hover_state.png?v=1771476046' %}
+{% assign ringer = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Ringer_hover_state.png?v=1771476047' %}
+{% assign playmaker_plus = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Playmaker__hover_state.png?v=1771476047' %}
+{% assign rainmaker = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Rainmaker_hover_state.png?v=1771476047' %}
+{% assign gift_cards = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/GC_hover_state_bb62512c-5b4e-4d31-afc2-a08f16556fd2.png?v=1772169794' %}
+{% assign hats = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Hat_hover_state.png?v=1771476046' %}
+{% assign rangefinder = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Rangefinders_hover_state.png?v=1771475917' %}
+{% assign gps_speakers = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/GPS_Speakers_hover_state.png?v=1771475917' %}
+{% assign launch_monitor = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Launch_Monitors_hover_state.png?v=1771475917' %}
+{% assign handhelds_wearables = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Handhelds_Wearables_hover_state.png?v=1771475917' %}
+{% assign extras = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Extras_hover_state_US.png?v=1772169732' %}
+{% assign accessories = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Accessories_hover_state.png?v=1771561341' %}
+
+<div class="site_flex site_header-content nav_left">
+  <div class="menu-toggle" id="menuToggle">
+    <img
+      class="isMenu_close"
+      src="{{ 'menu_icon-new-header.png' | asset_url }}"
+      alt=" Menu icon "
+    >
+    <img
+      class="isMenu_open"
+      src="{{ 'menu_icon-new-header_close.png' | asset_url }}"
+      alt=" Menu icon "
+    >
+  </div>
+  <div class="site_header-left">
+    <div class="header_logo">
+      <a href="/" aria-label="Blue Tees logo Homepage">
+        <picture>
+          <source
+            srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bluetees-logo-full-new.svg?v=1767964501"
+            media="(min-width:992px)"
+          >
+          <source
+            srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bluetees-logo-full-new.svg?v=1767964501"
+            media="(max-width:991px)"
+          >
+          <img
+            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bluetees-logo-full-new.svg?v=1767964501"
+            alt="Blue Tees logo Homepage"
+            height="100%"
+            width="100%"
+          >
+        </picture>
+      </a>
+    </div>
+  </div>
+  <span class="site_header__border"></span>
+  <nav class="site_header-center menu_custom" data-lenis-prevent>
+    {% if product.handle == 'speaker-bundle'
+      or product.handle == 'gps-offer'
+      or product.handle == 'laser-offer'
+      or product.handle == 'player-gps-speaker-bundle-v2'
+      or product.handle == 'ringer-gps-handheld-bundle-v2'
+      or product.handle == 'series-4-ultra-bundle-v2'
+    %}
+      <ul class="site_header-links header__nav-offer">
+        <li
+          class="site_header-link{% if product.handle contains speaker_handle %} active{% endif %}"
+          style="border-bottom: 0px;"
+        >
+          <a href="/products/{{ speaker_handle }}" class="nav_link nav_offer--link">SPEAKER BUNDLE</a>
+        </li>
+        <li
+          class="site_header-link{% if product.handle contains gps_handle %} active{% endif %}"
+          style="border-bottom: 0px;"
+        >
+          <a href="/products/{{ gps_handle }}" class="nav_link nav_offer--link">GPS OFFER</a>
+        </li>
+        <li
+          class="site_header-link{% if product.handle contains laser_handle %} active{% endif %}"
+          style="border-bottom: 0px;"
+        >
+          <a href="/products/{{ laser_handle }}" class="nav_link nav_offer--link">LASER OFFER</a>
+        </li>
+        {% if is_v2 == false %}
+          <li
+            class="site_header-link"
+            style="border-bottom: 0px;"
+          >
+            <span class="cta_pluse-pdp cta_pluse" style="--ripple-clr: #CB000080">
+              <a
+                href="/products/{{ special_link }}"
+                class="nav_link nav_offer--link special__link "
+                style="z-index:1; position:relative;"
+                >3 BIGGER BUNDLES</a
+              >
+            </span>
+          </li>
+        {% endif %}
+
+        <li class="site_header-link mobile-menu-bottom-image">
+          <a href="/pages/{{ offer_page }}">
+            <img src="{{ 'playmaker_promo-banner-header-mobile.png' | asset_url }}" alt="Profile Icon">
+          </a>
+        </li>
+      </ul>
+      <span class="megaMenu_backface"></span>
+      <style>
+        .hero__ticker-init__list li{color:#fff;}
+        .hero__ticker-init__list span svg *{fill:#fff;}
+      </style>
+    {% else %}
+      <ul class="site_header-links">
+        <li
+          class="site_header-link site_headerContains__megaMenu"
+          data-disable-menu="false"
+          data-menu="products"
+        >
+          <button type="button" class="nav_link item_has--dropdown" aria-expanded="false" aria-haspopup="menu">PRODUCTS</button>
+          <div class="site__megaMenu_container">
+            <div class="site__megaMenu_content new-page-width">
+              <button class="back-button">Back</button>
+              <ul class="site__megaMenu_content__inner" data-nav-has-grid>
+                <li class="site__megaMenu_left">
+                  <div
+                    class="site_megaMenu_left-inner{% if hover_effect %} hover_enable{% endif %}"
+                    data-nav-grid
+                    data-nav-grid-col="3"
+                  >
+                    <ul
+                      class="site_megaMenu_left-ul"
+                    >
+                      <div class="site_megaMenu_ul-inner mega-dropdown-parent">
+                        <h2 class="site_megaMenu_title mega-title-wrapper">
+                          <a
+                            href="{{ collections['rangefinders'].url }}"
+                            {% if open_in_new_tab %}
+                              target="_blank" rel="noopener noreferrer"
+                            {% endif %}
+                            {% if hover_effect or rangefinder != blank %}
+                              data-img="{{rangefinder}}"
+                            {% endif %}
+                            class="site_megaMenu__item site_megaMenu__Title mega-title-link{% if hover_effect %} hover_enable--item{% endif %}"
+                          >
+                            RANGEFINDERS
+                          </a>
+                          <span class="dropdown_opener mega-toggle" data-toggle-dropdown>
+                            <svg
+                              width="15"
+                              height="8"
+                              viewBox="0 0 15 8"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M1.33689 0.420929C1.27777 0.366738 1.20758 0.323752 1.13033 0.294423C1.05309 0.265095 0.970296 0.249999 0.886685 0.249999C0.803075 0.249999 0.720284 0.265095 0.643037 0.294423C0.56579 0.323752 0.495603 0.366738 0.436481 0.42093C0.377359 0.475121 0.330463 0.539457 0.298466 0.610261C0.266469 0.681066 0.25 0.756954 0.25 0.833593C0.25 0.910231 0.266469 0.98612 0.298466 1.05692C0.330463 1.12773 0.377359 1.19206 0.436481 1.24626L6.7998 7.07894C6.85889 7.13317 6.92907 7.17619 7.00632 7.20554C7.08357 7.23489 7.16638 7.25 7.25 7.25C7.33362 7.25 7.41643 7.23489 7.49368 7.20554C7.57093 7.17619 7.64111 7.13317 7.70021 7.07894L14.0635 1.24625C14.1829 1.13681 14.25 0.988369 14.25 0.833591C14.25 0.678812 14.1829 0.530372 14.0635 0.420928C13.9441 0.311483 13.7822 0.249997 13.6133 0.249997C13.4445 0.249997 13.2825 0.311483 13.1631 0.420928L7.25 5.84168L1.33689 0.420929Z" fill="#101010" stroke="#101010" stroke-width="0.5"/>
+                            </svg>
+                          </span>
+                        </h2>
+                        <div class="mega-dropdown-content" data-dropdown-content>
+                          <div class="site__megaMenu_left-top">
+                            {% render 'header-nav-item',
+                              item_title: 'Captain Pro',
+                              item_url: '/products/captain-pro',
+                              item_image_var: captain_pro,
+                              item_image_var_mobile: captain_pro,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                            {% render 'header-nav-item',
+                              item_title: 'Captain Air',
+                              item_url: '/products/captain-air',
+                              item_image_var: captain_air,
+                              item_image_var_mobile: captain_air,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                            {% render 'header-nav-item',
+                              item_title: 'Series 3 Max+',
+                              item_url: '/products/series-3-max-golf-rangefinder-with-slope',
+                              item_image_var: s3_max,
+                              item_image_var_mobile: s3_max,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                          </div>
+                        </div>
+                      </div>
+                    </ul>
+                    <ul class="site_megaMenu_left-ul">
+                      <div class="site_megaMenu_ul-inner mega-dropdown-parent">
+                        <h2 class="site_megaMenu_title mega-title-wrapper">
+                          <a
+                            href="{{ collections['gps-speakers'].url }}"
+                            {% if open_in_new_tab %}
+                              target="_blank" rel="noopener noreferrer"
+                            {% endif %}
+                            class="site_megaMenu__item site_megaMenu__Title mega-title-link{% if hover_effect %} hover_enable--item{% endif %}"
+                            {% if hover_effect or gps_speakers != blank %}
+                              data-img="{{gps_speakers}}"
+                            {% endif %}
+                            >GPS SPEAKERS</a
+                          >
+                          <span class="dropdown_opener mega-toggle" data-toggle-dropdown>
+                            <svg
+                              width="15"
+                              height="8"
+                              viewBox="0 0 15 8"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M1.33689 0.420929C1.27777 0.366738 1.20758 0.323752 1.13033 0.294423C1.05309 0.265095 0.970296 0.249999 0.886685 0.249999C0.803075 0.249999 0.720284 0.265095 0.643037 0.294423C0.56579 0.323752 0.495603 0.366738 0.436481 0.42093C0.377359 0.475121 0.330463 0.539457 0.298466 0.610261C0.266469 0.681066 0.25 0.756954 0.25 0.833593C0.25 0.910231 0.266469 0.98612 0.298466 1.05692C0.330463 1.12773 0.377359 1.19206 0.436481 1.24626L6.7998 7.07894C6.85889 7.13317 6.92907 7.17619 7.00632 7.20554C7.08357 7.23489 7.16638 7.25 7.25 7.25C7.33362 7.25 7.41643 7.23489 7.49368 7.20554C7.57093 7.17619 7.64111 7.13317 7.70021 7.07894L14.0635 1.24625C14.1829 1.13681 14.25 0.988369 14.25 0.833591C14.25 0.678812 14.1829 0.530372 14.0635 0.420928C13.9441 0.311483 13.7822 0.249997 13.6133 0.249997C13.4445 0.249997 13.2825 0.311483 13.1631 0.420928L7.25 5.84168L1.33689 0.420929Z" fill="#101010" stroke="#101010" stroke-width="0.5"/>
+                            </svg>
+                          </span>
+                        </h2>
+                        <div class="mega-dropdown-content" data-dropdown-content>
+                          <div class="site__megaMenu_left-top">
+                            {% render 'header-nav-item',
+                              item_title: 'Player Pro',
+                              item_url: '/products/player-pro',
+                              item_image_var: player_pro,
+                              item_image_var_mobile: player_pro,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                            {% render 'header-nav-item',
+                              item_title: 'Player+',
+                              item_url: '/products/player-gps-speaker',
+                              item_image_var: player_plus,
+                              item_image_var_mobile: player_plus,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                            {% render 'header-nav-item',
+                              item_title: 'Player GO',
+                              item_url: '/products/magnetic-golf-speaker',
+                              item_image_var: player_go,
+                              item_image_var_mobile: player_go,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                          </div>
+                        </div>
+                      </div>
+                    </ul>
+                    <ul class="site_megaMenu_left-ul">
+                      <div class="site_megaMenu_ul-inner mega-dropdown-parent">
+                        <h2 class="site_megaMenu_title mega-title-wrapper">
+                          <a
+                            href="{{ collections['accessories'].url }}"
+                            {% if open_in_new_tab %}
+                              target="_blank" rel="noopener noreferrer"
+                            {% endif %}
+                            class="site_megaMenu__item site_megaMenu__Title mega-title-link{% if hover_effect %} hover_enable--item{% endif %}"
+                            {% if hover_effect or accessories != blank %}
+                              data-img="{{accessories}}"
+                            {% endif %}
+                            >ACCESSORIES</a
+                          >
+                          <span class="dropdown_opener mega-toggle" data-toggle-dropdown>
+                            <svg
+                              width="15"
+                              height="8"
+                              viewBox="0 0 15 8"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M1.33689 0.420929C1.27777 0.366738 1.20758 0.323752 1.13033 0.294423C1.05309 0.265095 0.970296 0.249999 0.886685 0.249999C0.803075 0.249999 0.720284 0.265095 0.643037 0.294423C0.56579 0.323752 0.495603 0.366738 0.436481 0.42093C0.377359 0.475121 0.330463 0.539457 0.298466 0.610261C0.266469 0.681066 0.25 0.756954 0.25 0.833593C0.25 0.910231 0.266469 0.98612 0.298466 1.05692C0.330463 1.12773 0.377359 1.19206 0.436481 1.24626L6.7998 7.07894C6.85889 7.13317 6.92907 7.17619 7.00632 7.20554C7.08357 7.23489 7.16638 7.25 7.25 7.25C7.33362 7.25 7.41643 7.23489 7.49368 7.20554C7.57093 7.17619 7.64111 7.13317 7.70021 7.07894L14.0635 1.24625C14.1829 1.13681 14.25 0.988369 14.25 0.833591C14.25 0.678812 14.1829 0.530372 14.0635 0.420928C13.9441 0.311483 13.7822 0.249997 13.6133 0.249997C13.4445 0.249997 13.2825 0.311483 13.1631 0.420928L7.25 5.84168L1.33689 0.420929Z" fill="#101010" stroke="#101010" stroke-width="0.5"/>
+                            </svg>
+                          </span>
+                        </h2>
+                        <div class="mega-dropdown-content" data-dropdown-content>
+                          <div class="site__megaMenu_left-top">
+                            {% render 'header-nav-item',
+                              item_title: 'Mag Towel',
+                              item_url: '/products/magnetic-golf-towel',
+                              item_image_var: mag_towel,
+                              item_image_var_mobile: mag_towel,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                            {% render 'header-nav-item',
+                              item_title: 'Divot Tools',
+                              item_url: '/products/divot-repair-tool',
+                              item_image_var: divot_tools,
+                              item_image_var_mobile: divot_tools,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                            {% render 'header-nav-item',
+                              item_title: 'Carrying Cases',
+                              item_url: '/collections/accessories',
+                              item_image_var: carrying_case,
+                              item_image_var_mobile: carrying_case,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                          </div>
+                        </div>
+                      </div>
+                    </ul>
+                    <ul class="site_megaMenu_left-ul">
+                      <div class="site_megaMenu_ul-inner mega-dropdown-parent">
+                        <h2 class="site_megaMenu_title mega-title-wrapper">
+                          <a
+                            href="{{ collections['gps-devices'].url }}"
+                            {% if open_in_new_tab %}
+                              target="_blank" rel="noopener noreferrer"
+                            {% endif %}
+                            class="site_megaMenu__item site_megaMenu__Title mega-title-link{% if hover_effect %} hover_enable--item{% endif %}"
+                            {% if hover_effect or handhelds_wearables != blank %}
+                              data-img="{{handhelds_wearables}}"
+                            {% endif %}
+                            >Handhelds & Wearables</a
+                          >
+                          <span class="dropdown_opener mega-toggle" data-toggle-dropdown>
+                            <svg
+                              width="15"
+                              height="8"
+                              viewBox="0 0 15 8"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M1.33689 0.420929C1.27777 0.366738 1.20758 0.323752 1.13033 0.294423C1.05309 0.265095 0.970296 0.249999 0.886685 0.249999C0.803075 0.249999 0.720284 0.265095 0.643037 0.294423C0.56579 0.323752 0.495603 0.366738 0.436481 0.42093C0.377359 0.475121 0.330463 0.539457 0.298466 0.610261C0.266469 0.681066 0.25 0.756954 0.25 0.833593C0.25 0.910231 0.266469 0.98612 0.298466 1.05692C0.330463 1.12773 0.377359 1.19206 0.436481 1.24626L6.7998 7.07894C6.85889 7.13317 6.92907 7.17619 7.00632 7.20554C7.08357 7.23489 7.16638 7.25 7.25 7.25C7.33362 7.25 7.41643 7.23489 7.49368 7.20554C7.57093 7.17619 7.64111 7.13317 7.70021 7.07894L14.0635 1.24625C14.1829 1.13681 14.25 0.988369 14.25 0.833591C14.25 0.678812 14.1829 0.530372 14.0635 0.420928C13.9441 0.311483 13.7822 0.249997 13.6133 0.249997C13.4445 0.249997 13.2825 0.311483 13.1631 0.420928L7.25 5.84168L1.33689 0.420929Z" fill="#101010" stroke="#101010" stroke-width="0.5"/>
+                            </svg>
+                          </span>
+                        </h2>
+                        <div class="mega-dropdown-content" data-dropdown-content>
+                          <div class="site__megaMenu_left-top">
+                            {% render 'header-nav-item',
+                              item_title: 'Ringer',
+                              item_url: '/products/ringer',
+                              item_image_var: ringer,
+                              item_image_var_mobile: ringer,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                            {% render 'header-nav-item',
+                              item_title: 'Playmaker+',
+                              item_url: '/products/playmaker-watch',
+                              item_image_var: playmaker_plus,
+                              item_image_var_mobile: playmaker_plus,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                          </div>
+                        </div>
+                      </div>
+                    </ul>
+                    <ul class="site_megaMenu_left-ul">
+                      <div class="site_megaMenu_ul-inner mega-dropdown-parent">
+                        <h2 class="site_megaMenu_title mega-title-wrapper">
+                          <a
+                            href="{{ collections['launch-monitors'].url }}"
+                            {% if open_in_new_tab %}
+                              target="_blank" rel="noopener noreferrer"
+                            {% endif %}
+                            class="site_megaMenu__item site_megaMenu__Title mega-title-link{% if hover_effect %} hover_enable--item{% endif %}"
+                            {% if hover_effect or launch_monitor != blank %}
+                              data-img="{{launch_monitor}}"
+                            {% endif %}
+                            >LAUNCH MONITORS</a
+                          >
+                          <span class="dropdown_opener mega-toggle" data-toggle-dropdown>
+                            <svg
+                              width="15"
+                              height="8"
+                              viewBox="0 0 15 8"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M1.33689 0.420929C1.27777 0.366738 1.20758 0.323752 1.13033 0.294423C1.05309 0.265095 0.970296 0.249999 0.886685 0.249999C0.803075 0.249999 0.720284 0.265095 0.643037 0.294423C0.56579 0.323752 0.495603 0.366738 0.436481 0.42093C0.377359 0.475121 0.330463 0.539457 0.298466 0.610261C0.266469 0.681066 0.25 0.756954 0.25 0.833593C0.25 0.910231 0.266469 0.98612 0.298466 1.05692C0.330463 1.12773 0.377359 1.19206 0.436481 1.24626L6.7998 7.07894C6.85889 7.13317 6.92907 7.17619 7.00632 7.20554C7.08357 7.23489 7.16638 7.25 7.25 7.25C7.33362 7.25 7.41643 7.23489 7.49368 7.20554C7.57093 7.17619 7.64111 7.13317 7.70021 7.07894L14.0635 1.24625C14.1829 1.13681 14.25 0.988369 14.25 0.833591C14.25 0.678812 14.1829 0.530372 14.0635 0.420928C13.9441 0.311483 13.7822 0.249997 13.6133 0.249997C13.4445 0.249997 13.2825 0.311483 13.1631 0.420928L7.25 5.84168L1.33689 0.420929Z" fill="#101010" stroke="#101010" stroke-width="0.5"/>
+                            </svg>
+                          </span>
+                        </h2>
+                        <div class="mega-dropdown-content" data-dropdown-content>
+                          <div class="site__megaMenu_left-top">
+                            {% render 'header-nav-item',
+                              item_title: 'Rainmaker',
+                              item_url: '/products/rainmaker',
+                              item_image_var: rainmaker,
+                              item_image_var_mobile: rainmaker,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                          </div>
+                        </div>
+                      </div>
+                    </ul>
+                    <ul class="site_megaMenu_left-ul">
+                      <div class="site_megaMenu_ul-inner mega-dropdown-parent no_border-mobile">
+                        <h2 class="site_megaMenu_title mega-title-wrapper">
+                          <a
+                            href="{{ collections['extras'].url }}"
+                            {% if open_in_new_tab %}
+                              target="_blank" rel="noopener noreferrer"
+                            {% endif %}
+                            class="site_megaMenu__item site_megaMenu__Title mega-title-link{% if hover_effect %} hover_enable--item{% endif %}"
+                            {% if hover_effect or extras != blank %}
+                              data-img="{{extras}}"
+                            {% endif %}
+                            >EXTRAS</a
+                          >
+                          <span class="dropdown_opener mega-toggle" data-toggle-dropdown>
+                            <svg
+                              width="15"
+                              height="8"
+                              viewBox="0 0 15 8"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M1.33689 0.420929C1.27777 0.366738 1.20758 0.323752 1.13033 0.294423C1.05309 0.265095 0.970296 0.249999 0.886685 0.249999C0.803075 0.249999 0.720284 0.265095 0.643037 0.294423C0.56579 0.323752 0.495603 0.366738 0.436481 0.42093C0.377359 0.475121 0.330463 0.539457 0.298466 0.610261C0.266469 0.681066 0.25 0.756954 0.25 0.833593C0.25 0.910231 0.266469 0.98612 0.298466 1.05692C0.330463 1.12773 0.377359 1.19206 0.436481 1.24626L6.7998 7.07894C6.85889 7.13317 6.92907 7.17619 7.00632 7.20554C7.08357 7.23489 7.16638 7.25 7.25 7.25C7.33362 7.25 7.41643 7.23489 7.49368 7.20554C7.57093 7.17619 7.64111 7.13317 7.70021 7.07894L14.0635 1.24625C14.1829 1.13681 14.25 0.988369 14.25 0.833591C14.25 0.678812 14.1829 0.530372 14.0635 0.420928C13.9441 0.311483 13.7822 0.249997 13.6133 0.249997C13.4445 0.249997 13.2825 0.311483 13.1631 0.420928L7.25 5.84168L1.33689 0.420929Z" fill="#101010" stroke="#101010" stroke-width="0.5"/>
+                            </svg>
+                          </span>
+                        </h2>
+                        <div class="mega-dropdown-content" data-dropdown-content>
+                          <div class="site__megaMenu_left-top">
+                            {% render 'header-nav-item',
+                              item_title: 'Hats',
+                              item_url: '/collections/extras',
+                              item_image_var: hats,
+                              item_image_var_mobile: hats,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                            {% render 'header-nav-item',
+                              item_title: 'Gift Cards',
+                              item_url: '/pages/gift-card',
+                              item_image_var: gift_cards,
+                              item_image_var_mobile: gift_cards,
+                              open_in_new_tab: open_in_new_tab,
+                              hover_effect: hover_effect
+                            %}
+                          </div>
+                        </div>
+                      </div>
+                    </ul>
+                    <div class="site_planText_Link">
+                      <div class="top__bar-right Hover__arrow">
+                        {% comment %} href="{{ collections['all-products'].url }}" {% endcomment %}
+                        <a
+                          class="top__bar-right--inner Arrow Arrow--right"
+                          href="{{ collections['all-products'].url }}"
+                          {% if open_in_new_tab %}
+                            target="_blank" rel="noopener noreferrer"
+                          {% endif %}
+                        >
+                          <span class="anchor_hover arrow__text" style="--hover-clr:#000;">Shop all Products</span>
+                          <span class="Site_arrow__container bar-right__left">
+                            <svg
+                              class="Site_arrow__hover"
+                              style="--arrow-clr:#000;"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              fill="none"
+                            >
+                              <path class="Arrow__path Arrow__path--one" fill="currentColor" d="M7.28033 3.21967C6.98744 2.92678 6.51256 2.92678 6.21967 3.21967C5.92678 3.51256 5.92678 3.98744 6.21967 4.28033L7.28033 3.21967ZM11 8L11.5303 8.53033C11.8232 8.23744 11.8232 7.76256 11.5303 7.46967L11 8ZM6.21967 11.7197C5.92678 12.0126 5.92678 12.4874 6.21967 12.7803C6.51256 13.0732 6.98744 13.0732 7.28033 12.7803L6.21967 11.7197ZM6.21967 4.28033L10.4697 8.53033L11.5303 7.46967L7.28033 3.21967L6.21967 4.28033ZM10.4697 7.46967L6.21967 11.7197L7.28033 12.7803L11.5303 8.53033L10.4697 7.46967Z"></path>
+                              <path class="Arrow__path Arrow__path--two" stroke="currentColor" d="M1.75 8H11" stroke-width="1.5" stroke-linecap="round"></path>
+                            </svg>
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="site__megaMenu_right">
+                  <a
+                    class="promo_banner_prod"
+                    href="/products/rainmaker"
+                    {% if open_in_new_tab %}
+                      target="_blank" rel="noopener noreferrer"
+                    {% endif %}
+                  >
+                    <picture class="promo_banner_prod_render">
+                      <source
+                        srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105287.png?v=1771239559"
+                        media="(min-width:992px)"
+                      >
+                      <source
+                        srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.png?v=1771239594"
+                        media="(max-width:991px)"
+                      >
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105287.png?v=1771239559"
+                        alt="Rainmaker is now available for pre order"
+                        height="100%"
+                        width="100%"
+                      >
+                    </picture>
+                    {% if hover_effect %}
+                      <div class="project-hover-reveal">
+                        <div class="project-hover-reveal__inner">
+                          <div class="project-hover-reveal__img"></div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li
+          class="site_header-link site_headerContains__megaMenu"
+          data-disable-menu="false"
+          data-menu="apps"
+        >
+          <button type="button" class="nav_link item_has--dropdown" aria-expanded="false" aria-haspopup="menu">APPS</button>
+          <div class="site__megaMenu_container">
+            <div class="site__megaMenu_content new-page-width">
+              <button class="back-button">Back</button>
+              <ul class="site__megaMenu_content__inner">
+                <li class="site__megaMenu_left">
+                  <div class="site_megaMenu_left-inner">
+                    <ul class="site_megaMenu_left-ul">
+                      <div class="site_megaMenu_ul-inner">
+                        <span class="site_megaMenu__item site_megaMenu__Title">QUICK LINKS</span>
+                        <div class="site__megaMenu_left-top">
+                          {% render 'header-nav-item',
+                            item_title: 'GAME AI GPS Golf App',
+                            item_url: '/pages/app-download-lp',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                          {% render 'header-nav-item',
+                            item_title: 'POST GAME Analytics Dashboard',
+                            item_url: 'https://postgame.blueteesgolf.com/',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+
+                          {% comment %}
+                            <li class="site_megaMenu__item">
+                              <a
+                                class="site_megaMenu_Link"
+                                href="/pages/membership"
+                                >Become a Member</a
+                              >
+                            </li>
+                            <li class="site_megaMenu__item">
+                              <a
+                                class="site_megaMenu_Link"
+                                href="/pages/all-products#gps"
+                                >World Course List</a
+                              >
+                            </li>
+                          {% endcomment %}
+                          {% render 'header-nav-item',
+                            item_title: 'Release Notes',
+                            item_url: '/blogs/game-app',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                        </div>
+                      </div>
+                      <div class="site_planText_Link">
+                        <span class="site_megaMenu__item site_megaMenu__Title">DOWNLOAD THE GAME APP:</span>
+                        <div class="site_store-icons">
+                          <a
+                            href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
+                            {% if open_in_new_tab %}
+                              target="_blank" rel="noopener noreferrer"
+                            {% endif %}
+                            ><img
+                              class="store_ico"
+                              src="{{ 'app_store-ico-header.svg' | asset_url }}"
+                              alt="Download on the App Store – Blue Tees Game app"
+                          ></a>
+                          <a
+                            href="https://play.google.com/store/apps/details?id=com.bluetees"
+                            {% if open_in_new_tab %}
+                              target="_blank" rel="noopener noreferrer"
+                            {% endif %}
+                            ><img
+                              class="store_ico"
+                              src="{{ 'play_store-ico-header.svg' | asset_url }}"
+                              alt="Get it on Google Play – Blue Tees Game app"
+                          ></a>
+                        </div>
+                      </div>
+                    </ul>
+                  </div>
+                </li>
+                <li class="site__megaMenu_right">
+                  {% comment %}
+                    <span class="site_megaMenu__Title Fsite_megaMenu__Title_hidden"
+                      >MOST POPULAR</span
+                    >
+                  {% endcomment %}
+
+                  <div class="site_megaMenu_flex">
+                    <div class="site_megaMenu_promoArea">
+                      <a
+                        href="/pages/app-download-lp"
+                        class="site_promoArea_a"
+                        {% if open_in_new_tab %}
+                          target="_blank" rel="noopener noreferrer"
+                        {% endif %}
+                      >
+                        <picture>
+                          <source
+                            srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1000011308.png?v=1771251269"
+                            media="(min-width:992px)"
+                          >
+                          <source
+                            srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1000011308.png?v=1771251269"
+                            media="(max-width:991px)"
+                          >
+                          <img
+                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1000011308.png?v=1771251269"
+                            height="100%"
+                            width="100%"
+                            alt="Promotionl banner"
+                          >
+                        </picture>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="site_planText_Link mobile-menu-bottom-image">
+                    <span class="site_megaMenu__item site_megaMenu__Title">DOWNLOAD THE GAME APP:</span>
+                    <div class="site_store-icons">
+                      <a
+                        href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
+                        {% if open_in_new_tab %}
+                          target="_blank" rel="noopener noreferrer"
+                        {% endif %}
+                        ><img
+                          class="store_ico"
+                          src="{{ 'app_store-ico-header.svg' | asset_url }}"
+                          alt="Download on the App Store – Blue Tees Game app"
+                      ></a>
+                      <a
+                        href="https://play.google.com/store/apps/details?id=com.bluetees"
+                        {% if open_in_new_tab %}
+                          target="_blank" rel="noopener noreferrer"
+                        {% endif %}
+                        ><img
+                          class="store_ico"
+                          src="{{ 'play_store-ico-header.svg' | asset_url }}"
+                          alt="Get it on Google Play – Blue Tees Game app"
+                      ></a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="site_header-link site_headerContains__megaMenu" data-disable-menu="false" data-menu="community">
+          <button type="button" class="nav_link item_has--dropdown" aria-expanded="false" aria-haspopup="menu">COMMUNITY</button>
+          <div class="site__megaMenu_container">
+            <div class="site__megaMenu_content new-page-width">
+              <button class="back-button">Back</button>
+              <ul class="site__megaMenu_content__inner">
+                <li class="site__megaMenu_left">
+                  <div class="site_megaMenu_left-inner">
+                    <ul class="site_megaMenu_left-ul">
+                      <div class="site_megaMenu_ul-inner">
+                        <span class="site_megaMenu__item site_megaMenu__Title">INSIDE BLUE TEES</span>
+                        <div class="site__megaMenu_left-top">
+                          {% render 'header-nav-item',
+                            item_title: 'About Us',
+                            item_url: '/pages/about-us',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                          {% render 'header-nav-item',
+                            item_title: 'Careers',
+                            item_url: 'https://www.linkedin.com/company/blue-tees',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                          {% render 'header-nav-item',
+                            item_title: 'Press & Media',
+                            item_url: '/blogs/press-release',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                          {% render 'header-nav-item',
+                            item_title: 'News',
+                            item_url: '/blogs/news',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                        </div>
+                      </div>
+                      <div class="site_planText_Link">
+                        <span class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</span>
+                        {% render 'site-social-icon-new', icon_theme: 'dark' %}
+                      </div>
+                    </ul>
+                    <ul class="site_megaMenu_left-ul">
+                      <div class="site_megaMenu_ul-inner">
+                        <span class="site_megaMenu__item site_megaMenu__Title">PARTNERS</span>
+                        <div class="site__megaMenu_left-top">
+                          {% render 'header-nav-item',
+                            item_title: 'Custom Branding Program',
+                            item_url: '/pages/customs',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                          {% render 'header-nav-item',
+                            item_title: 'Become a Retail or Distribution Partner',
+                            item_url: '/pages/become-an-authorized-retailer',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                          {% render 'header-nav-item',
+                            item_title: 'School Programs',
+                            item_url: '/pages/school-programs',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                          {% render 'header-nav-item',
+                            item_title: 'Ambassador Program',
+                            item_url: '/pages/brand-ambassador',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                          {% render 'header-nav-item',
+                            item_title: 'Military Discounts',
+                            item_url: '/pages/govx-id-military-discount',
+                            open_in_new_tab: open_in_new_tab
+                          %}
+                          {% comment %}
+                            <li class="site_megaMenu__item">
+                              <a class="site_megaMenu_Link" href="/pages/manuals">2025 Product Catalogue</a>
+                            </li>
+                            <li class="site_megaMenu__item">
+                              <a class="site_megaMenu_Link" href="/pages/contact-us">Become an Authortized Retailer</a>
+                            </li>
+                          {% endcomment %}
+                        </div>
+                      </div>
+                      <div class="site_planText_Link mobile-menu-bottom-image desktop-text">
+                        <span class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</span>
+                        {% render 'site-social-icon-new', icon_theme: 'dark' %}
+                      </div>
+                    </ul>
+                  </div>
+                </li>
+                <li class="site__megaMenu_right">
+                  <span class="site_megaMenu__Title"> LATEST NEWS </span>
+                  <div class="latest_news-container site_megaMenu_flex">
+                    {% assign blog_handles = 'news,press-release,game-app' | split: ',' %}
+
+                    {% assign latest_article = null %}
+                    {% assign latest_article_date = '' %}
+
+                    {% for handle in blog_handles %}
+                      {% assign blog = blogs[handle] %}
+                      {% if blog %}
+                        {% assign article = blog.articles.first %}
+                        {% if article %}
+                          {% if latest_article == null or article.published_at > latest_article_date %}
+                            {% assign latest_article = article %}
+                            {% assign latest_article_date = article.published_at %}
+                          {% endif %}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+
+                    {% if latest_article %}
+                      <div class="latest_newsImage site_megaMenu_flex">
+                        <a
+                          href="{{ latest_article.url }}"
+                          style="display: flex;"
+                          {% if open_in_new_tab %}
+                            target="_blank" rel="noopener noreferrer"
+                          {% endif %}
+                        >
+                          {% if latest_article.image %}
+                            <img
+                              class="newsImage"
+                              src="{{ latest_article.image | img_url: 'master' }}"
+                              alt="{{ latest_article.title }}"
+                              loading="lazy"
+                              decoding="async"
+                              height="100%"
+                              width="100%"
+                            >
+                          {% endif %}
+                        </a>
+                      </div>
+                      <div class="latest_news_title">
+                        <h4>
+                          <a href="{{ latest_article.url }}">{{ latest_article.title }}</a>
+                        </h4>
+                      </div>
+                      <p>{{ latest_article.excerpt | truncate: 150 }}</p>
+                      <div class="site_planText_Link">
+                        <a
+                          href="{{ latest_article.url }}"
+                          {% if open_in_new_tab %}
+                            target="_blank" rel="noopener noreferrer"
+                          {% endif %}
+                        >
+                          <span class="blog_anchor-text" aria-label="Read more about our latest news">Read More</span>
+                          <span class="site_arrow">
+                            <img src="{{ 'menu-arrow-icons-s.svg' | asset_url }}" alt="arrow icon">
+                          </span>
+                        </a>
+                      </div>
+                    {% else %}
+                      <p>No blog posts available.</p>
+                    {% endif %}
+                  </div>
+                  <div class="site_planText_Link mobile-menu-bottom-image mobile-text">
+                    <span class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</span>
+                    {% render 'site-social-icon-new', icon_theme: 'dark' %}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <li class="site_header-link FF" style="border-bottom: 0px;">
+          <a href="/pages/sale-page-bfcm-v1" class="nav_link site__highLighted_clr">SALE</a>
+        </li>
+        <li class="site_header-link mobile-menu-bottom-image">
+          <a href="/products/rainmaker">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202_1.png?v=1771323995"
+              alt="Profile Icon"
+            >
+          </a>
+        </li>
+        <li class="site_header-link profileIcon_parent mobile-text">
+          <a
+            class="site__header-profileIcon mobile_profileIcon"
+            href="/account/login"
+            style="{%  if product.handle == 'speaker-bundle' or product.handle == 'gps-offer' or product.handle == 'laser-offer'  or product.handle == 'player-gps-speaker-bundle-v2' or product.handle == 'ringer-gps-handheld-bundle-v2' or product.handle == 'series-4-ultra-bundle-v2' %} display:none; {% endif %}"
+          >
+            <img
+              src="{{ 'profile-icon-neew-header.svg' | asset_url }}"
+              alt="Profile Icon"
+            >
+            <span>LOGIN</span>
+          </a>
+        </li>
+      </ul>
+      <span class="megaMenu_backface"></span>
+    {% endif %}
+  </nav>
+  <div class="site_header-right">
+    <a
+      class="site__header-profileIcon"
+      href="/account/login"
+      style="{%  if product.handle == 'speaker-bundle' or product.handle == 'gps-offer' or product.handle == 'laser-offer'  or product.handle == 'player-gps-speaker-bundle-v2' or product.handle == 'ringer-gps-handheld-bundle-v2' or product.handle == 'series-4-ultra-bundle-v2' %} display:none; {% endif %}"
+    >
+      <img
+        src="{{ 'profile-icon-neew-header.svg' | asset_url }}"
+        alt="Profile Icon"
+      >
+      <span>LOGIN</span>
+    </a>
+    <button type="button" aria-expanded="false" class="cart_custom site__header-cartIcon site-nav__link site-nav__link--icon js-drawer-open-cart"
+      aria-controls="CartDrawer"
+      data-icon="{{ settings.cart_icon }}"
+    >
+      <span class="cart-link">
+        {%- if settings.cart_icon == 'cart' -%}
+          <svg
+            width="33"
+            height="27"
+            viewBox="0 0 33 27"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M25.6068 10.5673V16.4972H20.0498C19.7873 16.4624 19.5496 16.335 19.3865 16.1416C19.2233 15.9483 19.1474 15.7041 19.1745 15.4601C19.1432 15.2154 19.2176 14.9692 19.3815 14.7749C19.5454 14.5807 19.7856 14.4542 20.0498 14.4229H23.3399V10.5902C23.3775 10.3474 23.5153 10.1275 23.7243 9.97656C23.9333 9.82563 24.1973 9.75536 24.461 9.78047C24.7475 9.77944 25.0277 9.8579 25.2654 10.0057C25.3654 10.069 25.4482 10.1529 25.5074 10.2507C25.5666 10.3485 25.6006 10.4576 25.6068 10.5696V10.5673ZM9.42273 22.5405C9.42273 23.3253 9.17115 24.0925 8.69982 24.7451C8.22848 25.3977 7.55856 25.9063 6.77476 26.2066C5.99095 26.507 5.12848 26.5856 4.2964 26.4324C3.46432 26.2793 2.70001 25.9014 2.10011 25.3464C1.50022 24.7915 1.09168 24.0844 0.926173 23.3146C0.760662 22.5449 0.845609 21.747 1.17027 21.0219C1.49493 20.2968 2.04473 19.677 2.75013 19.241C3.45553 18.805 4.28486 18.5722 5.13324 18.5722C6.2703 18.574 7.36025 18.9926 8.16427 19.7364C8.9683 20.4803 9.42083 21.4886 9.42273 22.5405V22.5405ZM6.61956 22.5405C6.61956 22.2684 6.53234 22.0024 6.36894 21.7761C6.20553 21.5499 5.97327 21.3736 5.70154 21.2694C5.4298 21.1653 5.13079 21.1381 4.84232 21.1912C4.55385 21.2442 4.28887 21.3753 4.08089 21.5677C3.87292 21.7601 3.73128 22.0052 3.6739 22.2721C3.61652 22.5389 3.64597 22.8156 3.75853 23.0669C3.87108 23.3183 4.06169 23.5332 4.30625 23.6843C4.5508 23.8355 4.83832 23.9162 5.13244 23.9162C5.32819 23.9176 5.52227 23.8829 5.70341 23.8143C5.88455 23.7456 6.04913 23.6444 6.18758 23.5164C6.32603 23.3883 6.43559 23.2361 6.50989 23.0686C6.58418 22.9011 6.62173 22.7215 6.62036 22.5405H6.61956ZM30.579 22.5405C30.579 23.3253 30.3274 24.0925 29.856 24.7451C29.3847 25.3977 28.7148 25.9063 27.931 26.2066C27.1472 26.507 26.2847 26.5856 25.4526 26.4324C24.6205 26.2793 23.8562 25.9014 23.2563 25.3464C22.6564 24.7915 22.2479 24.0844 22.0824 23.3146C21.9169 22.5449 22.0018 21.747 22.3265 21.0219C22.6512 20.2968 23.2009 19.677 23.9064 19.241C24.6118 18.805 25.4411 18.5722 26.2895 18.5722C27.4265 18.574 28.5165 18.9926 29.3205 19.7364C30.1245 20.4803 30.5771 21.4886 30.579 22.5405ZM27.7758 22.5405C27.7758 22.2684 27.6886 22.0024 27.5252 21.7761C27.3618 21.5499 27.1295 21.3736 26.8578 21.2694C26.586 21.1653 26.287 21.1381 25.9985 21.1912C25.7101 21.2442 25.4451 21.3753 25.2371 21.5677C25.0291 21.7601 24.8875 22.0052 24.8301 22.2721C24.7727 22.5389 24.8022 22.8156 24.9147 23.0669C25.0273 23.3183 25.2179 23.5332 25.4625 23.6843C25.707 23.8355 25.9945 23.9162 26.2887 23.9162C26.4843 23.9175 26.6783 23.8828 26.8594 23.8141C27.0404 23.7454 27.2049 23.6441 27.3433 23.5161C27.4817 23.3881 27.5911 23.2359 27.6654 23.0684C27.7396 22.901 27.7772 22.7215 27.7758 22.5405V22.5405ZM29.068 2.42774V10.2972H31.7247V21.9074L31.2131 22.539C31.2214 21.936 31.1002 21.3375 30.8565 20.7782C30.6128 20.2189 30.2514 19.7099 29.7935 19.2808C29.3355 18.8517 28.7899 18.511 28.1885 18.2785C27.5871 18.046 26.9417 17.9262 26.2899 17.9262C25.638 17.9262 24.9927 18.046 24.3912 18.2785C23.7898 18.511 23.2442 18.8517 22.7863 19.2808C22.3283 19.7099 21.967 20.2189 21.7233 20.7782C21.4796 21.3375 21.3583 21.936 21.3666 22.539C21.3737 22.9495 21.4308 23.3579 21.5369 23.7565H9.88581C10.0037 23.3678 10.061 22.9655 10.0561 22.5618C10.0517 22.0151 9.94395 21.4733 9.73782 20.9608C7.76613 16.0018 1.45324 18.5951 1.45324 18.5951V17.3768C1.92421 16.4559 2.60625 15.6408 3.45198 14.9883C3.4318 14.8737 3.44869 14.7561 3.50051 14.6504L7.66826 2.43142H5.76739C5.40218 2.43142 5.10937 2.04792 5.10937 1.5518C5.10937 1.0785 5.40218 0.67218 5.76739 0.67218H31.3587C31.7239 0.67218 32.0167 1.05568 32.0167 1.5518C32.0167 2.04792 31.7239 2.43142 31.3587 2.43142L29.068 2.42774ZM27.849 2.42774H8.98431C8.97972 2.49002 8.96329 2.55107 8.93577 2.60808L4.96297 14.105C5.69937 13.8374 6.48789 13.7146 7.27838 13.7443C7.77091 13.7834 8.249 13.9181 8.68153 14.1395C9.11405 14.361 9.49131 14.6642 9.78874 15.0295C9.8134 15.0067 9.83728 14.9846 9.86194 14.9846L16.0038 11.8732L15.3943 10.7911C15.324 10.6654 15.3102 10.5192 15.3558 10.3841C15.4014 10.2491 15.5027 10.1361 15.6378 10.0698C15.7182 10.0238 15.8113 10.0002 15.9059 10.002C16.0091 10.0028 16.1104 10.0281 16.2 10.0755C16.2896 10.123 16.3645 10.1909 16.4175 10.2729L18.0996 13.2908C18.1699 13.4142 18.1863 13.5578 18.1455 13.6921C18.1046 13.8263 18.0096 13.9409 17.88 14.0122C17.747 14.079 17.5911 14.0951 17.4455 14.0571C17.2999 14.0192 17.176 13.9302 17.1002 13.8091L16.5639 12.8168L10.4714 15.8892C11.5377 17.6968 12.2707 19.6561 12.6404 21.6866H19.6114L20.5861 16.997H26.3149V13.4763H27.8744V2.42774H27.849Z"
+              fill="black"
+            />
+          </svg>
+        {%- elsif settings.cart_icon == 'bag-minimal' -%}
+          <svg
+            width="33"
+            height="27"
+            viewBox="0 0 33 27"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M25.6068 10.5673V16.4972H20.0498C19.7873 16.4624 19.5496 16.335 19.3865 16.1416C19.2233 15.9483 19.1474 15.7041 19.1745 15.4601C19.1432 15.2154 19.2176 14.9692 19.3815 14.7749C19.5454 14.5807 19.7856 14.4542 20.0498 14.4229H23.3399V10.5902C23.3775 10.3474 23.5153 10.1275 23.7243 9.97656C23.9333 9.82563 24.1973 9.75536 24.461 9.78047C24.7475 9.77944 25.0277 9.8579 25.2654 10.0057C25.3654 10.069 25.4482 10.1529 25.5074 10.2507C25.5666 10.3485 25.6006 10.4576 25.6068 10.5696V10.5673ZM9.42273 22.5405C9.42273 23.3253 9.17115 24.0925 8.69982 24.7451C8.22848 25.3977 7.55856 25.9063 6.77476 26.2066C5.99095 26.507 5.12848 26.5856 4.2964 26.4324C3.46432 26.2793 2.70001 25.9014 2.10011 25.3464C1.50022 24.7915 1.09168 24.0844 0.926173 23.3146C0.760662 22.5449 0.845609 21.747 1.17027 21.0219C1.49493 20.2968 2.04473 19.677 2.75013 19.241C3.45553 18.805 4.28486 18.5722 5.13324 18.5722C6.2703 18.574 7.36025 18.9926 8.16427 19.7364C8.9683 20.4803 9.42083 21.4886 9.42273 22.5405V22.5405ZM6.61956 22.5405C6.61956 22.2684 6.53234 22.0024 6.36894 21.7761C6.20553 21.5499 5.97327 21.3736 5.70154 21.2694C5.4298 21.1653 5.13079 21.1381 4.84232 21.1912C4.55385 21.2442 4.28887 21.3753 4.08089 21.5677C3.87292 21.7601 3.73128 22.0052 3.6739 22.2721C3.61652 22.5389 3.64597 22.8156 3.75853 23.0669C3.87108 23.3183 4.06169 23.5332 4.30625 23.6843C4.5508 23.8355 4.83832 23.9162 5.13244 23.9162C5.32819 23.9176 5.52227 23.8829 5.70341 23.8143C5.88455 23.7456 6.04913 23.6444 6.18758 23.5164C6.32603 23.3883 6.43559 23.2361 6.50989 23.0686C6.58418 22.9011 6.62173 22.7215 6.62036 22.5405H6.61956ZM30.579 22.5405C30.579 23.3253 30.3274 24.0925 29.856 24.7451C29.3847 25.3977 28.7148 25.9063 27.931 26.2066C27.1472 26.507 26.2847 26.5856 25.4526 26.4324C24.6205 26.2793 23.8562 25.9014 23.2563 25.3464C22.6564 24.7915 22.2479 24.0844 22.0824 23.3146C21.9169 22.5449 22.0018 21.747 22.3265 21.0219C22.6512 20.2968 23.2009 19.677 23.9064 19.241C24.6118 18.805 25.4411 18.5722 26.2895 18.5722C27.4265 18.574 28.5165 18.9926 29.3205 19.7364C30.1245 20.4803 30.5771 21.4886 30.579 22.5405ZM27.7758 22.5405C27.7758 22.2684 27.6886 22.0024 27.5252 21.7761C27.3618 21.5499 27.1295 21.3736 26.8578 21.2694C26.586 21.1653 26.287 21.1381 25.9985 21.1912C25.7101 21.2442 25.4451 21.3753 25.2371 21.5677C25.0291 21.7601 24.8875 22.0052 24.8301 22.2721C24.7727 22.5389 24.8022 22.8156 24.9147 23.0669C25.0273 23.3183 25.2179 23.5332 25.4625 23.6843C25.707 23.8355 25.9945 23.9162 26.2887 23.9162C26.4843 23.9175 26.6783 23.8828 26.8594 23.8141C27.0404 23.7454 27.2049 23.6441 27.3433 23.5161C27.4817 23.3881 27.5911 23.2359 27.6654 23.0684C27.7396 22.901 27.7772 22.7215 27.7758 22.5405V22.5405ZM29.068 2.42774V10.2972H31.7247V21.9074L31.2131 22.539C31.2214 21.936 31.1002 21.3375 30.8565 20.7782C30.6128 20.2189 30.2514 19.7099 29.7935 19.2808C29.3355 18.8517 28.7899 18.511 28.1885 18.2785C27.5871 18.046 26.9417 17.9262 26.2899 17.9262C25.638 17.9262 24.9927 18.046 24.3912 18.2785C23.7898 18.511 23.2442 18.8517 22.7863 19.2808C22.3283 19.7099 21.967 20.2189 21.7233 20.7782C21.4796 21.3375 21.3583 21.936 21.3666 22.539C21.3737 22.9495 21.4308 23.3579 21.5369 23.7565H9.88581C10.0037 23.3678 10.061 22.9655 10.0561 22.5618C10.0517 22.0151 9.94395 21.4733 9.73782 20.9608C7.76613 16.0018 1.45324 18.5951 1.45324 18.5951V17.3768C1.92421 16.4559 2.60625 15.6408 3.45198 14.9883C3.4318 14.8737 3.44869 14.7561 3.50051 14.6504L7.66826 2.43142H5.76739C5.40218 2.43142 5.10937 2.04792 5.10937 1.5518C5.10937 1.0785 5.40218 0.67218 5.76739 0.67218H31.3587C31.7239 0.67218 32.0167 1.05568 32.0167 1.5518C32.0167 2.04792 31.7239 2.43142 31.3587 2.43142L29.068 2.42774ZM27.849 2.42774H8.98431C8.97972 2.49002 8.96329 2.55107 8.93577 2.60808L4.96297 14.105C5.69937 13.8374 6.48789 13.7146 7.27838 13.7443C7.77091 13.7834 8.249 13.9181 8.68153 14.1395C9.11405 14.361 9.49131 14.6642 9.78874 15.0295C9.8134 15.0067 9.83728 14.9846 9.86194 14.9846L16.0038 11.8732L15.3943 10.7911C15.324 10.6654 15.3102 10.5192 15.3558 10.3841C15.4014 10.2491 15.5027 10.1361 15.6378 10.0698C15.7182 10.0238 15.8113 10.0002 15.9059 10.002C16.0091 10.0028 16.1104 10.0281 16.2 10.0755C16.2896 10.123 16.3645 10.1909 16.4175 10.2729L18.0996 13.2908C18.1699 13.4142 18.1863 13.5578 18.1455 13.6921C18.1046 13.8263 18.0096 13.9409 17.88 14.0122C17.747 14.079 17.5911 14.0951 17.4455 14.0571C17.2999 14.0192 17.176 13.9302 17.1002 13.8091L16.5639 12.8168L10.4714 15.8892C11.5377 17.6968 12.2707 19.6561 12.6404 21.6866H19.6114L20.5861 16.997H26.3149V13.4763H27.8744V2.42774H27.849Z"
+              fill="black"
+            />
+          </svg>
+        {%- else -%}
+          <svg
+            width="33"
+            height="27"
+            viewBox="0 0 33 27"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M25.6068 10.5673V16.4972H20.0498C19.7873 16.4624 19.5496 16.335 19.3865 16.1416C19.2233 15.9483 19.1474 15.7041 19.1745 15.4601C19.1432 15.2154 19.2176 14.9692 19.3815 14.7749C19.5454 14.5807 19.7856 14.4542 20.0498 14.4229H23.3399V10.5902C23.3775 10.3474 23.5153 10.1275 23.7243 9.97656C23.9333 9.82563 24.1973 9.75536 24.461 9.78047C24.7475 9.77944 25.0277 9.8579 25.2654 10.0057C25.3654 10.069 25.4482 10.1529 25.5074 10.2507C25.5666 10.3485 25.6006 10.4576 25.6068 10.5696V10.5673ZM9.42273 22.5405C9.42273 23.3253 9.17115 24.0925 8.69982 24.7451C8.22848 25.3977 7.55856 25.9063 6.77476 26.2066C5.99095 26.507 5.12848 26.5856 4.2964 26.4324C3.46432 26.2793 2.70001 25.9014 2.10011 25.3464C1.50022 24.7915 1.09168 24.0844 0.926173 23.3146C0.760662 22.5449 0.845609 21.747 1.17027 21.0219C1.49493 20.2968 2.04473 19.677 2.75013 19.241C3.45553 18.805 4.28486 18.5722 5.13324 18.5722C6.2703 18.574 7.36025 18.9926 8.16427 19.7364C8.9683 20.4803 9.42083 21.4886 9.42273 22.5405V22.5405ZM6.61956 22.5405C6.61956 22.2684 6.53234 22.0024 6.36894 21.7761C6.20553 21.5499 5.97327 21.3736 5.70154 21.2694C5.4298 21.1653 5.13079 21.1381 4.84232 21.1912C4.55385 21.2442 4.28887 21.3753 4.08089 21.5677C3.87292 21.7601 3.73128 22.0052 3.6739 22.2721C3.61652 22.5389 3.64597 22.8156 3.75853 23.0669C3.87108 23.3183 4.06169 23.5332 4.30625 23.6843C4.5508 23.8355 4.83832 23.9162 5.13244 23.9162C5.32819 23.9176 5.52227 23.8829 5.70341 23.8143C5.88455 23.7456 6.04913 23.6444 6.18758 23.5164C6.32603 23.3883 6.43559 23.2361 6.50989 23.0686C6.58418 22.9011 6.62173 22.7215 6.62036 22.5405H6.61956ZM30.579 22.5405C30.579 23.3253 30.3274 24.0925 29.856 24.7451C29.3847 25.3977 28.7148 25.9063 27.931 26.2066C27.1472 26.507 26.2847 26.5856 25.4526 26.4324C24.6205 26.2793 23.8562 25.9014 23.2563 25.3464C22.6564 24.7915 22.2479 24.0844 22.0824 23.3146C21.9169 22.5449 22.0018 21.747 22.3265 21.0219C22.6512 20.2968 23.2009 19.677 23.9064 19.241C24.6118 18.805 25.4411 18.5722 26.2895 18.5722C27.4265 18.574 28.5165 18.9926 29.3205 19.7364C30.1245 20.4803 30.5771 21.4886 30.579 22.5405ZM27.7758 22.5405C27.7758 22.2684 27.6886 22.0024 27.5252 21.7761C27.3618 21.5499 27.1295 21.3736 26.8578 21.2694C26.586 21.1653 26.287 21.1381 25.9985 21.1912C25.7101 21.2442 25.4451 21.3753 25.2371 21.5677C25.0291 21.7601 24.8875 22.0052 24.8301 22.2721C24.7727 22.5389 24.8022 22.8156 24.9147 23.0669C25.0273 23.3183 25.2179 23.5332 25.4625 23.6843C25.707 23.8355 25.9945 23.9162 26.2887 23.9162C26.4843 23.9175 26.6783 23.8828 26.8594 23.8141C27.0404 23.7454 27.2049 23.6441 27.3433 23.5161C27.4817 23.3881 27.5911 23.2359 27.6654 23.0684C27.7396 22.901 27.7772 22.7215 27.7758 22.5405V22.5405ZM29.068 2.42774V10.2972H31.7247V21.9074L31.2131 22.539C31.2214 21.936 31.1002 21.3375 30.8565 20.7782C30.6128 20.2189 30.2514 19.7099 29.7935 19.2808C29.3355 18.8517 28.7899 18.511 28.1885 18.2785C27.5871 18.046 26.9417 17.9262 26.2899 17.9262C25.638 17.9262 24.9927 18.046 24.3912 18.2785C23.7898 18.511 23.2442 18.8517 22.7863 19.2808C22.3283 19.7099 21.967 20.2189 21.7233 20.7782C21.4796 21.3375 21.3583 21.936 21.3666 22.539C21.3737 22.9495 21.4308 23.3579 21.5369 23.7565H9.88581C10.0037 23.3678 10.061 22.9655 10.0561 22.5618C10.0517 22.0151 9.94395 21.4733 9.73782 20.9608C7.76613 16.0018 1.45324 18.5951 1.45324 18.5951V17.3768C1.92421 16.4559 2.60625 15.6408 3.45198 14.9883C3.4318 14.8737 3.44869 14.7561 3.50051 14.6504L7.66826 2.43142H5.76739C5.40218 2.43142 5.10937 2.04792 5.10937 1.5518C5.10937 1.0785 5.40218 0.67218 5.76739 0.67218H31.3587C31.7239 0.67218 32.0167 1.05568 32.0167 1.5518C32.0167 2.04792 31.7239 2.43142 31.3587 2.43142L29.068 2.42774ZM27.849 2.42774H8.98431C8.97972 2.49002 8.96329 2.55107 8.93577 2.60808L4.96297 14.105C5.69937 13.8374 6.48789 13.7146 7.27838 13.7443C7.77091 13.7834 8.249 13.9181 8.68153 14.1395C9.11405 14.361 9.49131 14.6642 9.78874 15.0295C9.8134 15.0067 9.83728 14.9846 9.86194 14.9846L16.0038 11.8732L15.3943 10.7911C15.324 10.6654 15.3102 10.5192 15.3558 10.3841C15.4014 10.2491 15.5027 10.1361 15.6378 10.0698C15.7182 10.0238 15.8113 10.0002 15.9059 10.002C16.0091 10.0028 16.1104 10.0281 16.2 10.0755C16.2896 10.123 16.3645 10.1909 16.4175 10.2729L18.0996 13.2908C18.1699 13.4142 18.1863 13.5578 18.1455 13.6921C18.1046 13.8263 18.0096 13.9409 17.88 14.0122C17.747 14.079 17.5911 14.0951 17.4455 14.0571C17.2999 14.0192 17.176 13.9302 17.1002 13.8091L16.5639 12.8168L10.4714 15.8892C11.5377 17.6968 12.2707 19.6561 12.6404 21.6866H19.6114L20.5861 16.997H26.3149V13.4763H27.8744V2.42774H27.849Z"
+              fill="black"
+            />
+          </svg>
+        {%- endif -%}
+        <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+        <span
+          class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"
+        ></span>
+      </span>
+    </a>
+  </div>
+</div>
+
+{% if hover_effect %}
+  <style>
+    .project-hover-reveal {
+      --ratio:100%;
+      width: var(--ratio);
+      height: var(--ratio);
+      pointer-events: none;
+      opacity: 0;
+      z-index: 10;
+      overflow: hidden;
+      border-radius: 10px;
+      visibility: hidden;
+      will-change: transform, opacity;
+      position: absolute;
+      background:#E1E3E5;
+    }
+
+    .project-hover-reveal__inner {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-hover-reveal__img {
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: all 0.5s ease;
+    }
+    .project-list__mobile-img { display: none; }
+
+    @media only screen and (max-width:991px){
+      .project-list__mobile-img { display: flex; aspect-ratio: 1/0.9; height: 100%;  width: 100%; padding:12px; object-fit: cover; object-position: center center; background: #E1E3E5; border-radius: 12px;}
+
+       .project-hover-reveal {
+        display: none;
+      }
+    }
+  </style>
+
+  <script>
+    function initProjectListAnimation() {
+      // Only run on screens wider than 991px
+      if (window.innerWidth <= 991) return;
+
+      const projectList = document.querySelector('.hover_enable');
+      const reveal = document.querySelector('.project-hover-reveal');
+      const revealImg = document.querySelector('.project-hover-reveal__img');
+      const items = document.querySelectorAll('.hover_enable--item');
+      const banner = document.querySelector('.promo_banner_prod_render');
+      
+
+      if (!projectList || !reveal || !revealImg || items.length === 0) return;
+
+      // Initial state for reveal
+      {% comment %} gsap.set(reveal, { xPercent: 50, yPercent: -30 }); {% endcomment %}
+
+      // Hint browser for performance
+      reveal.style.willChange = 'transform, opacity';
+
+      {% comment %} let xTo, yTo;
+
+      if (gsap.quickTo) {
+        xTo = gsap.quickTo(reveal, 'x', { duration: 0.5, ease: 'power2.out' });
+        yTo = gsap.quickTo(reveal, 'y', { duration: 0.5, ease: 'power2.out' });
+      } {% endcomment %}
+
+      {% comment %} const moveReveal = (e) => {
+        // Respect reduced motion preference
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        if (xTo && yTo) {
+          xTo(e.clientX);
+          yTo(e.clientY);
+        } else {
+          gsap.to(reveal, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.5,
+            ease: 'power2.out',
+            overwrite: 'auto',
+          });
+        }
+      }; {% endcomment %}
+
+      {% comment %} projectList.addEventListener('mousemove', moveReveal); {% endcomment %}
+
+      items.forEach((item) => {
+        item.addEventListener('mouseenter', (e) => {
+          const imgPath = item.getAttribute('data-img');
+          
+          banner.classList.add("hover_item")
+          if (imgPath) {
+            revealImg.style.backgroundImage = `url(${imgPath})`;
+          }
+
+          gsap.to(reveal, {
+            autoAlpha: 1,
+            {% comment %} scale: 1, {% endcomment %}
+            duration: 0.3,
+            ease: 'power2.out',
+            overwrite: 'auto',
+          });
+
+          {% comment %} gsap.fromTo(revealImg, { scale: 1.2 }, { scale: 1, duration: 0.5, ease: 'power2.out', overwrite: true }); {% endcomment %}
+        });
+
+        item.addEventListener('mouseleave', () => {
+          banner.classList.remove("hover_item")
+          gsap.to(reveal, {
+            autoAlpha: 0,
+            {% comment %} scale: 0.8, {% endcomment %}
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+      });
+    }
+    initProjectListAnimation();
+  </script>
+{% endif %} {% endcomment %}

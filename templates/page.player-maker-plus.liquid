@@ -1,0 +1,1387 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+{%- render 'cart-drawer' -%}
+
+<div class="site_page_header">
+  <div class="site_page_headerInner page-width">
+    <div class="site_page_headerLeft">
+      <a href="/"> <img src="{{ 'blueTees-header-logoss.png' | asset_url }}" alt="Blue Tees Golf Logo"></a>
+      <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.41174" y="0.000976562" width="19.2564" height="1.99609" transform="rotate(45 1.41174 0.000976562)"
+            fill="white" />
+          <rect x="15.032" y="1.41016" width="19.2564" height="1.99609" transform="rotate(135 15.032 1.41016)"
+            fill="white" />
+        </svg>
+      </span>
+      <a href="https://upperdeckgolfing.com/"> <img src="{{ 'upperdeck-logo.png' | asset_url }}"
+          alt="UPPER DECK GOLF LOGO"></a>
+    </div>
+    <div class="site_page_headerRight cartArea_page">
+      <a href="{{ routes.cart_url }}" class="cart_custom site-nav__link site-nav__link--icon js-drawer-open-cart" aria-controls="CartDrawer" data-icon="{{ settings.cart_icon }}">
+        <span class="cart-link">
+          {%- if settings.cart_icon == 'cart' -%}
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cart" viewBox="0 0 64 64"><path fill="none" d="M14 17.44h46.79l-7.94 25.61H20.96l-9.65-35.1H3"/><circle cx="27" cy="53" r="2"/><circle cx="47" cy="53" r="2"/></svg>
+          {%- elsif settings.cart_icon == 'bag-minimal' -%}
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-bag-minimal" viewBox="0 0 64 64"><path stroke="null" id="svg_4" fill-opacity="null" stroke-opacity="null" fill="null" d="M11.375 17.863h41.25v36.75h-41.25z"/><path stroke="null" id="svg_2" d="M22.25 18c0-7.105 4.35-9 9.75-9s9.75 1.895 9.75 9"/></svg>
+          {%- else -%}
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-bag" viewBox="0 0 64 64"><g fill="none" stroke="#000" stroke-width="2"><path d="M25 26c0-15.79 3.57-20 8-20s8 4.21 8 20"/><path d="M14.74 18h36.51l3.59 36.73h-43.7z"/></g></svg>
+          {%- endif -%}
+          <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+          <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div class="playMakerPlus__contentContainer">
+
+
+  <div class="playMakerPlus__heroArea">
+    <img class="playMakerPlus__Ico" src="{{ 'playmaker-text-hero_png.png' | asset_url }}" alt="">
+    <div class="page-width">
+      <div class="heroArea__inner ">
+        <div class="heroArea__imageContainer">
+          <img src="{{ 'playermakerherologo-2.png' | asset_url }}" alt="">
+        </div>
+        <div class="heroArea__titleHolder content__Container">
+          <h1>
+            Precision, Performance, and GPS Power— <br>
+            All in One Watch.
+          </h1>
+        </div>
+        <div class="heroArea__paragraph content__Container">
+          <p>
+            More than a watch<strong>—Playmaker+</strong> is your on-course caddie, performance tracker, and scorecard,
+            all in one sleek design. With a stunning AMOLED touchscreen, built-in GPS, and advanced green view,
+            Playmaker+ gives you the insights you need to take your game to the next level.
+          </p>
+        </div>
+        <div class="heroArea__priceSection">
+          <div class="heroArea__priceTop">
+            <div class="Offer_Bug-Container" >
+              <span class="Offer_Bug-Icon">
+                <img class="BlueTees_Icon-Fav Image_has-noclr"
+                  src="//blueteesgolf.com/cdn/shop/t/107/assets/tees-black-friday.svg?v=25913278501006835301740471417"
+                  alt="Blue Tees Icon">
+              </span>
+              <span class="Offer_Bug-Title"> EXCLUSIVE OFFER </span>
+
+            </div>
+          </div>
+          <div class="heroArea__priceBottom">
+            <h2 style="display: none;">PRE-ORDER AVAILABLE 4/2</h2>
+            <h2 >$40 OFF</h2>
+            <p class="deck_price" > <span>$299</span> $259</p>
+            <div class="playMakerPlus_ctaHolder">
+              <a class="playMakerPlus_cta" id="playmaker-watch" href="javascript:void(0);">PRE-ORDER NOW</a>
+               
+              <p class="promo_text">PROMO CODE:<span>UPPERDECK40</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="heroArea__imageContainer_mockUp">
+          <img src="{{ 'play-maker-mockup.png' | asset_url }}" alt="Play Maker Mockup">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="playMakerPlus__slderArea">
+    <div class="siteVelocity__slider--Container">
+      <div class="siteVelocity__slider" data-direction="1">
+        <img class="siteVelocity__sliderImage" src="{{ 'Group 1000012058.png' | asset_url }}" alt="">
+        <img class="siteVelocity__sliderImage" src="{{ 'Group 1000012057.png' | asset_url }}" alt="">
+        <img class="siteVelocity__sliderImage" src="{{ 'Group.png' | asset_url }}" alt="">
+        <img class="siteVelocity__sliderImage" src="{{ 'Group-1.png' | asset_url }}" alt="">
+        <img class="siteVelocity__sliderImage" src="{{ 'Group-3.png' | asset_url }}" alt="">
+        <img class="siteVelocity__sliderImage" src="{{ 'Group 1000012060.png' | asset_url }}" alt="">
+        <img class="siteVelocity__sliderImage" src="{{ 'Group 1000012059.png' | asset_url }}" alt="">
+        <img class="siteVelocity__sliderImage" src="{{ 'Group-2.png' | asset_url }}" alt="">
+      </div>
+    </div>
+
+    <div class="playMakerPlus__sectionBanner">
+      <picture>
+        <source srcset="{{ 'play-maker-feature-img.png' | asset_url }}" media="(min-width:769px)">
+        <source srcset="{{ 'play-maker-feature-img.png' | asset_url }}" media="(max-width:768px)">
+        <img class="sectionBanner__image" src="{{ 'play-maker-feature-img.png' | asset_url }}" alt="">
+      </picture>
+    </div>
+  </div>
+
+
+  <div class="playMakerPlus__bigFeature-Area">
+    <div class="bigFeature-Area__inner page-width">
+      <div class="bigFeature-Area__innerTop">
+        <div class="bigFeature-Area__topTitle">
+          <picture>
+            <source srcset="{{ 'big-features_title-desktop.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'big-features_title-desktop.png' | asset_url }}" media="(max-width:768px)">
+            <img class="sectionBanner__image site_sectionTitle" src="{{ 'big-features_title-desktop.png' | asset_url }}"
+              alt="">
+          </picture>
+        </div>
+        <div class="bigFeature-Area__topParagraph">
+          <p class="small__text">
+            Designed specifically with your golf swing in mind, the PlayMaker+ GPS Golf Watch is ultra-lightweight,
+            crown-free, and built for effortless motion so you can stay dialed in without disrupting your game.
+          </p>
+        </div>
+      </div>
+      <div class="bigFeature-Area__innerBottom">
+        <div class="bentoGrid__areaContainer">
+          <div class="bentoGrid__item bentoGrid__item-1">
+            <div class="bentoGrid__item__title">
+              <h5>
+                LOW-PROFILE <br>
+                ACTION BUTTON
+              </h5>
+              <p>Streamlined for Swinging Performance</p>
+            </div>
+            <div class="bentoGrid__item__video">
+              <picture>
+                <source srcset="{{ 'low-profile-watch-img.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'low-profile-watch-img.png' | asset_url }}" media="(max-width:768px)">
+                <img class="no__h" src="{{ 'low-profile-watch-img.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="bentoGrid__item bentoGrid__item-2">
+            <div class="bentoGrid__item__title">
+              <h5>
+                CUSTOMIZABLE <br>
+                FAVOURITES MENU
+              </h5>
+              <p>Personalize your game</p>
+            </div>
+            <div class="bentoGrid__item__video">
+              <picture>
+                <source srcset="{{ 'menu-change-watch-img.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'menu-change-watch-img.png' | asset_url }}" media="(max-width:768px)">
+                <img class="no__h" src="{{ 'menu-change-watch-img.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="bentoGrid__item bentoGrid__item-3">
+            <div class="bentoGrid__item__title">
+              <h5>
+                WEATHERPROOF <br>
+                CONSTRUCTION
+              </h5>
+              <p>Rated IP67</p>
+            </div>
+            <div class="bentoGrid__item__video">
+              <video class="videoPlays__Hover" muted loop preload playsinline webkit-playsinline>
+                <source src="https://cdn.shopify.com/videos/c/o/v/19fc312bfeb94262b21e202f60708bc2.mp4"
+                  type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+          <div class="bentoGrid__item bentoGrid__item-4">
+            <div class="bentoGrid__item__title">
+              <h5>
+                AMOLED DISPLAY WITH <br>
+                GORILLA GLASS 3 COVER
+              </h5>
+              <p>Crystal-clear visuals on a durable screen</p>
+            </div>
+            <div class="bentoGrid__item__video">
+              <video class="videoPlays__Hover" muted loop preload playsinline webkit-playsinline>
+                <source src="https://cdn.shopify.com/videos/c/o/v/7e1ecdc99e3a4631a1378c8415e5c790.mp4"
+                  type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+          <div class="bentoGrid__item bentoGrid__item-5">
+            <div class="bentoGrid__item__title">
+              <h5>
+                MAGNETIC CHARGING <br>
+                WITH USB-C INPUT
+              </h5>
+              <p>Power up your game</p>
+            </div>
+            <div class="bentoGrid__item__video">
+              <picture>
+                <source srcset="{{ 'usb-c-input-watch-img.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'usb-c-input-watch-img.png' | asset_url }}" media="(max-width:768px)">
+                <img class="no__h" src="{{ 'usb-c-input-watch-img.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="bentoGrid__item bentoGrid__item-6">
+            <div class="bentoGrid__item__title">
+              <h5>
+                ULTRALIGHT <br>
+                SWING-READY FIT
+              </h5>
+              <p>Engineered for effortless wear</p>
+            </div>
+            <div class="bentoGrid__item__video">
+              <picture>
+                <source srcset="{{ 'ultralight-swing-img.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'ultralight-swing-img.png' | asset_url }}" media="(max-width:768px)">
+                <img class="sectionBanner__image" src="{{ 'ultralight-swing-img.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="playMakerPlus_ctaHolder">
+        <a id="playmaker-watch" href="javascript:void(0);">PRE-ORDER NOW</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="playMakerPlus__whiteArea">
+    <div class="playMakerPlus__whiteArea_inner page-width">
+      <div class="bigFeature-Area__innerTop">
+        <div class="bigFeature-Area__topTitle whiteArea__topMockup">
+          <picture>
+            <source srcset="{{ 'play-maker-smartwatch-img.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'play-maker-smartwatch-img.png' | asset_url }}" media="(max-width:768px)">
+            <img class="sectionBanner__image" src="{{ 'play-maker-smartwatch-img.png' | asset_url }}" alt="">
+          </picture>
+        </div>
+        <div class="bigFeature-Area__topTitle whiteArea__topTitle">
+          <picture>
+            <source srcset="{{ 'smartwatch-title-desktop.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'smartwatch-title-mobile.png' | asset_url }}" media="(max-width:768px)">
+            <img class="sectionBanner__image" src="{{ 'smartwatch-title-desktop.png' | asset_url }}" alt="">
+          </picture>
+        </div>
+        <div class="bigFeature-Area__topParagraph">
+          <p class="paragraph__whiteArea">
+            The Playmaker+ puts the most important golf insights right on your wrist, giving you instant access to GPS
+            distances, shot tracking, green views, and scoring. Whether you're lining up a crucial putt or planning your
+            next shot, every screen is designed for clarity, precision, and speed. And with an ultra-responsive AMOLED
+            display, the Playmaker+ ensures that your focus stays on the game—not on navigating menus.
+          </p>
+        </div>
+      </div>
+
+      <div class="towColumn__Rows--main">
+        <div class="twoColumn__Row page-width">
+          <div class="twoColumn__left">
+            <div class="twoColumn__ImageContainer">
+              <picture class="twoColumn__BackgroundImage twoClumn__Right--imageContainer">
+                <source srcset="{{ 'course-view-bottom-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'course-view-bottom-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img class="scaling_image-img" src="{{ 'course-view-bottom-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+              <picture class="twoColumn__ForegroundImage">
+                <source srcset="{{ 'course-view-top-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'course-view-top-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img src="{{ 'course-view-top-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="twoColumn__right">
+            <div class="twoColumn__TextArea--Container">
+              <h3 class="twoColumn__TextArea--Title">
+                ADVANCED <br>
+                COURSE VIEW
+              </h3>
+              <p class="twoColumn__TextArea--Desc has_splitting--effect">
+                Get the full picture. Playmaker+ offers a detailed Course View with greens, hazards. and even club
+                recommendations to give you a strategic edge. Know your surroundings and plan every shot with precision.
+              </p>
+              <span>*Club Recommendation feature included with
+                <strong style="font-weight:900;">Premium Membership</strong></span>
+            </div>
+          </div>
+        </div>
+        <div class="twoColumn__Row page-width">
+          <div class="twoColumn__left">
+            <div class="twoColumn__ImageContainer">
+              <picture class="twoColumn__BackgroundImage twoClumn__Right--imageContainer">
+                <source srcset="{{ 'fcb-bottom-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'fcb-bottom-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img class="scaling_image-img" src="{{ 'fcb-bottom-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+              <picture class="twoColumn__ForegroundImage">
+                <source srcset="{{ 'fcb-top-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'fcb-top-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img src="{{ 'fcb-top-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="twoColumn__right">
+            <div class="twoColumn__TextArea--Container">
+              <h3 class="twoColumn__TextArea--Title">
+                FRONT/CENTER/BACK <br>
+                DISTANCES
+              </h3>
+              <p class="twoColumn__TextArea--Desc has_splitting--effect">
+                Get precise measurements of key distances on the course, including the Front, Center, and Back of
+                greens, as well as Hazard distances. This data enhances decision-making by offering exact yardages to
+                target areas and obstacles, improving overall performance.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="twoColumn__Row page-width">
+          <div class="twoColumn__left">
+            <div class="twoColumn__ImageContainer">
+              <picture class="twoColumn__BackgroundImage twoClumn__Right--imageContainer">
+                <source srcset="{{ 'green-campass-view-bottom-img-desktop.png' | asset_url }}"
+                  media="(min-width:769px)">
+                <source srcset="{{ 'green-campass-view-bottom-img-desktop.png' | asset_url }}"
+                  media="(max-width:768px)">
+                <img class="scaling_image-img" src="{{ 'green-campass-view-bottom-img-desktop.png' | asset_url }}"
+                  alt="">
+              </picture>
+              <picture class="twoColumn__ForegroundImage">
+                <source srcset="{{ 'green-campass-view-top-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'green-campass-view-top-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img src="{{ 'green-campass-view-top-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="twoColumn__right">
+            <div class="twoColumn__TextArea--Container">
+              <h3 class="twoColumn__TextArea--Title">
+                GREEN <br>
+                COMPASS
+              </h3>
+              <p class="twoColumn__TextArea--Desc has_splitting--effect">
+                Never lose your direction. The Playmaker+'s Green Compass feature points you straight to the green from
+                any position, letting you plan your shots with confidence.
+              </p>
+              <span>*Included with <br> <strong style="font-weight:900;">Premium Membership</strong></span>
+            </div>
+          </div>
+        </div>
+        <div class="twoColumn__Row page-width">
+          <div class="twoColumn__left">
+            <div class="twoColumn__ImageContainer">
+              <picture class="twoColumn__BackgroundImage twoClumn__Right--imageContainer">
+                <source srcset="{{ 'shot-tracking-view-bottom-img-desktop.png' | asset_url }}"
+                  media="(min-width:769px)">
+                <source srcset="{{ 'shot-tracking-view-bottom-img-desktop.png' | asset_url }}"
+                  media="(max-width:768px)">
+                <img class="scaling_image-img" src="{{ 'shot-tracking-view-bottom-img-desktop.png' | asset_url }}"
+                  alt="">
+              </picture>
+              <picture class="twoColumn__ForegroundImage">
+                <source srcset="{{ 'shot-tracking-view-top-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'shot-tracking-view-top-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img src="{{ 'shot-tracking-view-top-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="twoColumn__right">
+            <div class="twoColumn__TextArea--Container">
+              <h3 class="twoColumn__TextArea--Title">
+                ADVANCED <br>
+                SHOT TRACKING
+              </h3>
+              <p class="twoColumn__TextArea--Desc has_splitting--effect">
+                Measure every shot, track every stat. The Playmaker+ automatically records and uploads shot distances
+                and performance data your personalized POST-GAME dashboard, providing valuable inslghts to help you
+                improve and lower your scores.
+              </p>
+              <span>*Advanced Analytics Dashboard Access included
+                <strong style="font-weight:900;">Premium Membership</strong></span>
+            </div>
+          </div>
+        </div>
+        <div class="twoColumn__Row page-width">
+          <div class="twoColumn__left">
+            <div class="twoColumn__ImageContainer">
+              <picture class="twoColumn__BackgroundImage twoClumn__Right--imageContainer">
+                <source srcset="{{ 'dynamic-distances-bottom-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'dynamic-distances-bottom-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img class="scaling_image-img" src="{{ 'dynamic-distances-bottom-img-desktop.png' | asset_url }}"
+                  alt="">
+              </picture>
+              <picture class="twoColumn__ForegroundImage">
+                <source srcset="{{ 'dynamic-distances-top-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'dynamic-distances-top-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img src="{{ 'dynamic-distances-top-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="twoColumn__right">
+            <div class="twoColumn__TextArea--Container">
+              <h3 class="twoColumn__TextArea--Title">
+                DYANAMIC <br>
+                HAZARD DISTANCES
+              </h3>
+              <p class="twoColumn__TextArea--Desc has_splitting--effect">
+                Conquer every challenge. Get real-time distances to bunkers, water, and other hazards. The Playmaker+
+                ensures you're always a step ahead of the course.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="twoColumn__Row page-width">
+          <div class="twoColumn__left">
+            <div class="twoColumn__ImageContainer">
+              <picture class="twoColumn__BackgroundImage twoClumn__Right--imageContainer">
+                <source srcset="{{ 'weather-updates-bottom-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'weather-updates-bottom-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img class="scaling_image-img" src="{{ 'weather-updates-bottom-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+              <picture class="twoColumn__ForegroundImage">
+                <source srcset="{{ 'weather-updates-top-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'weather-updates-top-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img src="{{ 'weather-updates-top-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="twoColumn__right">
+            <div class="twoColumn__TextArea--Container">
+              <h3 class="twoColumn__TextArea--Title">
+                WEATHER <br>
+                UPDATES
+              </h3>
+              <p class="twoColumn__TextArea--Desc has_splitting--effect">
+                Stay ahead of the elements. With real-time weather updates, including temperature and precipitation,
+                Playmaker+ helps you adjust your strategy to match the conditions.
+              </p>
+              <span>*Included with <br> <strong style="font-weight:900;">Premium Membership</strong></span>
+            </div>
+          </div>
+        </div>
+        <div class="twoColumn__Row page-width">
+          <div class="twoColumn__left">
+            <div class="twoColumn__ImageContainer">
+              <picture class="twoColumn__BackgroundImage twoClumn__Right--imageContainer">
+                <source srcset="{{ 'score-tracking-bottom-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'score-tracking-bottom-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img class="scaling_image-img" src="{{ 'score-tracking-bottom-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+              <picture class="twoColumn__ForegroundImage">
+                <source srcset="{{ 'score-tracking-top-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'score-tracking-top-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img src="{{ 'score-tracking-top-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="twoColumn__right">
+            <div class="twoColumn__TextArea--Container">
+              <h3 class="twoColumn__TextArea--Title">
+                SCORE <br>
+                TRACKING
+              </h3>
+              <p class="twoColumn__TextArea--Desc has_splitting--effect">
+                Track every putt and stroke with ease. The Playmaker+ offers a seamless scorekeeping feature that
+                ensures you never miss a beat on the course. Stay on top of your game and keep your rounds organized,
+                right from your wrist.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="twoColumn__Row page-width">
+          <div class="twoColumn__left">
+            <div class="twoColumn__ImageContainer">
+              <picture class="twoColumn__BackgroundImage twoClumn__Right--imageContainer">
+                <source srcset="{{ 'advanced-scorecard-bottom-img-desktop.png' | asset_url }}"
+                  media="(min-width:769px)">
+                <source srcset="{{ 'advanced-scorecard-bottom-img-desktop.png' | asset_url }}"
+                  media="(max-width:768px)">
+                <img class="scaling_image-img" src="{{ 'advanced-scorecard-bottom-img-desktop.png' | asset_url }}"
+                  alt="">
+              </picture>
+              <picture class="twoColumn__ForegroundImage">
+                <source srcset="{{ 'advanced-scorecard-top-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'advanced-scorecard-top-img-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img src="{{ 'advanced-scorecard-top-img-desktop.png' | asset_url }}" alt="">
+              </picture>
+            </div>
+          </div>
+          <div class="twoColumn__right">
+            <div class="twoColumn__TextArea--Container">
+              <h3 class="twoColumn__TextArea--Title">
+                ADVANCED <br>
+                SCORECARD
+              </h3>
+              <p class="twoColumn__TextArea--Desc has_splitting--effect">
+                See your current score, total strokes, and longest drive-all updated in real time. It's your round at a
+                glance, perfectly organized to help you stay focused. informed. and ready to crush your goals on every
+                hole.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="playMakerPlus_ctaHolder">
+        <a class="playMakerPlus_cta" id="playmaker-watch" href="javascript:void(0);">PRE-ORDER NOW</a>
+      </div>
+    </div>
+    <div class="playMakerPlus__sectionBanner">
+      <picture>
+        <source srcset="{{ 'play-maker-feature-img-2.png' | asset_url }}" media="(min-width:769px)">
+        <source srcset="{{ 'play-maker-feature-img-2-mobile.png' | asset_url }}" media="(max-width:768px)">
+        <img class="sectionBanner__image" src="{{ 'play-maker-feature-img-2.png' | asset_url }}" alt="">
+      </picture>
+    </div>
+    <div class="bigFeature-Area__innerTop">
+      <div class="bigFeature-Area__topTitle">
+        <picture>
+          <source srcset="{{ 'stay-connected-title-desktop.png' | asset_url }}" media="(min-width:769px)">
+          <source srcset="{{ 'stay-connected-title-desktop.png' | asset_url }}" media="(max-width:768px)">
+          <img class="sectionBanner__image site_sectionTitle" src="{{ 'stay-connected-title-desktop.png' | asset_url }}"
+            alt="">
+        </picture>
+      </div>
+      <div class="bigFeature-Area__topParagraph">
+        <p>
+          The Playmaker+ isn’t only about improving your golf game —it’s designed to help you maintain a healthier
+          active lifestyle. Whether you're tracking your steps on the course, setting timers for your training sessions,
+          or controlling your music on the go, the Playmaker+ has you covered.
+        </p>
+      </div>
+    </div>
+    <div class="playMakerPlus__sectionBanner">
+      <picture>
+        <source srcset="{{ 'play-maker-feature-img-3.png' | asset_url }}" media="(min-width:769px)">
+        <source srcset="{{ 'play-maker-feature-img-3-mobile.png' | asset_url }}" media="(max-width:768px)">
+        <img class="sectionBanner__image" src="{{ 'play-maker-feature-img-3.png' | asset_url }}" alt="">
+      </picture>
+    </div>
+
+    <div class="monitoringSection page-width">
+      <div class="bigFeature-Area__topParagraph">
+        <p>
+          Monitor your steps, calories burned, and overall activity to stay on top of your fitness goals. The Playmaker+
+          keeps you moving, both on and off the course, ensuring you perform at your best every day.
+        </p>
+      </div>
+      <div class="monitoringCard__gridArea">
+        <div class="monitoringCard__gridItem">
+          <div class="bentoGrid__item__title">
+            <h5>
+              Step Up <br>
+              Your Game
+            </h5>
+            <p>
+              Track every step you take throughout the day, whether on the course or off. Keep up with your movement and
+              set personal goals.
+            </p>
+          </div>
+          <div class="monitoringCard__Bottom">
+            <picture>
+              <source srcset="{{ 'steps-tracking-ico.png' | asset_url }}" media="(min-width:769px)">
+              <source srcset="{{ 'steps-tracking-ico.png' | asset_url }}" media="(max-width:768px)">
+              <img class="sectionBanner__image" src="{{ 'steps-tracking-ico.png' | asset_url }}" alt="">
+            </picture>
+          </div>
+        </div>
+        <div class="monitoringCard__gridItem">
+          <div class="bentoGrid__item__title">
+            <h5>
+              Distance <br>
+              That Matters
+            </h5>
+            <p>
+              Measure how far you've walked during your round or daily activities. Stay aware of your progress and
+              endurance levels.
+            </p>
+          </div>
+          <div class="monitoringCard__Bottom">
+            <picture>
+              <source srcset="{{ 'distance-matter-card-img.png' | asset_url }}" media="(min-width:769px)">
+              <source srcset="{{ 'distance-matter-card-img.png' | asset_url }}" media="(max-width:768px)">
+              <img class="sectionBanner__image" src="{{ 'distance-matter-card-img.png' | asset_url }}" alt="">
+            </picture>
+          </div>
+        </div>
+        <div class="monitoringCard__gridItem girdItem__last">
+          <div class="bentoGrid__item__title">
+            <h5>
+              PLAY MORE, <br>
+              BURN MORE
+            </h5>
+            <p>
+              Stay active on and off the fairway. Monitor your calorie burn and optimize your endurance for peak
+              performance.
+            </p>
+          </div>
+          <div class="monitoringCard__Bottom">
+            <picture>
+              <source srcset="{{ 'play-more-watch-img.png' | asset_url }}" media="(min-width:769px)">
+              <source srcset="{{ 'play-more-watch-img.png' | asset_url }}" media="(max-width:768px)">
+              <img class="sectionBanner__image" src="{{ 'play-more-watch-img.png' | asset_url }}" alt="">
+            </picture>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="playMakerPlus__yourSoundArea">
+    <div class="playMakerPlus__yourSoundInner page-width">
+      <div class="bigFeature-Area__innerTop">
+        <div class="bigFeature-Area__topTitle">
+          <picture>
+            <source srcset="{{ 'your-sound-desktop-title.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'your-sound-desktop-title.png' | asset_url }}" media="(max-width:768px)">
+            <img class="sectionBanner__image site_sectionTitle" src="{{ 'your-sound-desktop-title.png' | asset_url }}"
+              alt="">
+          </picture>
+        </div>
+        <div class="bigFeature-Area__topParagraph">
+          <p>
+            The Playmaker+ lets you control your favorite playlists, podcasts, and more right from your wrist.
+            Seamlessly connect to your Player+ and Player GO speakers to keep the music going on and off the course.
+          </p>
+        </div>
+      </div>
+      <div class="playMakerPlus__sectionBanner">
+        <picture>
+          <source srcset="{{ 'play-maker-watch-wave-gif.png' | asset_url }}" media="(min-width:769px)">
+          <source srcset="{{ 'play-maker-watch-wave-gif.png' | asset_url }}" media="(max-width:768px)">
+          <img class="sectionBanner__image" src="{{ 'play-maker-watch-wave-gif.png' | asset_url }}" alt="">
+        </picture>
+      </div>
+
+      <div class="monitoringCard__gridArea">
+        <div class="monitoringCard__gridItem">
+          <div class="bentoGrid__item__title">
+            <h5>
+              SEAMLESS <br>
+              BLUETOOTH PAIRING
+            </h5>
+            <p>
+              Instantly connect to Blue Tees Golf speakers like Player+ and PlayerGO for uninterrupted audio sessions on
+              and off the course.
+            </p>
+          </div>
+          <div class="monitoringCard__Bottom">
+            <picture>
+              <source srcset="{{ 'seamless_product-img.png' | asset_url }}" media="(min-width:769px)">
+              <source srcset="{{ 'seamless_product-img.png' | asset_url }}" media="(max-width:768px)">
+              <img class="sectionBanner__image" src="{{ 'seamless_product-img.png' | asset_url }}" alt="">
+            </picture>
+          </div>
+        </div>
+
+        <div class="monitoringCard__gridItem girdItem__last">
+          <div class="bentoGrid__item__title">
+            <h5>
+              ONE TOUCH <br>
+              MUSIC CONTROL
+            </h5>
+            <p>Play/Pause, Skip & Repeat Tracks, and Adjust Volume – All from your wrist with a single tap.</p>
+          </div>
+          <div class="monitoringCard__Bottom">
+            <picture>
+              <source srcset="{{ 'one-touch-watch-img.png' | asset_url }}" media="(min-width:769px)">
+              <source srcset="{{ 'one-touch-watch-img.png' | asset_url }}" media="(max-width:768px)">
+              <img class="sectionBanner__image" src="{{ 'one-touch-watch-img.png' | asset_url }}" alt="">
+            </picture>
+          </div>
+        </div>
+      </div>
+
+      <div class="playMakerPlus_ctaHolder">
+        <a class="playMakerPlus_cta" id="playmaker-watch" href="javascript:void(0);">PRE-ORDER NOW</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="playMakerPlus__whiteArea styleMatches__area">
+    <div class="playMakerPlus__sectionBanner">
+      <picture>
+        <source srcset="{{ 'watchs-bundles-img.png' | asset_url }}" media="(min-width:769px)">
+        <source srcset="{{ 'watchs-bundles-img-mobile.png' | asset_url }}" media="(max-width:768px)">
+        <img class="sectionBanner__image" src="{{ 'watchs-bundles-img.png' | asset_url }}" alt="">
+      </picture>
+    </div>
+    <div class="styleMatches__contentArea">
+      <picture>
+        <source srcset="{{ 'style-matches-desktop-title.png' | asset_url }}" media="(min-width:769px)">
+        <source srcset="{{ 'style-matches-desktop-title.png' | asset_url }}" media="(max-width:768px)">
+        <img class="sectionBanner__image site_sectionTitle" src="{{ 'style-matches-desktop-title.png' | asset_url }}"
+          alt="">
+      </picture>
+      <p>Choose from 6 elegantly designed watch faces, crafted with precision, style, and functionality in mind.</p>
+      <div class="playMakerPlus_ctaHolder">
+        <a class="playMakerPlus_cta" href="#">ADD TO CART</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="playMakerPlus__goFeature_area">
+    <div class="goFeature__areaInner page-width">
+      <div class="goFeature_innerTop">
+        <div class="goFeature_topLeft">
+          <picture>
+            <source srcset="{{ 'gofeature-mockup-desktop.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'gofeature-mockup-mobile.png' | asset_url }}" media="(max-width:768px)">
+            <img class="sectionBanner__image" src="{{ 'gofeature-mockup-desktop.png' | asset_url }}" alt="">
+          </picture>
+        </div>
+        <div class="goFeature_topRight">
+          <div class="goFeature_topRight__inner">
+            <div class="goFeature_rightTop">
+              <picture>
+                <source srcset="{{ 'gofeature-title-desktop.png' | asset_url }}" media="(min-width:769px)">
+                <source srcset="{{ 'gofeature-title-desktop.png' | asset_url }}" media="(max-width:768px)">
+                <img class="sectionBanner__image" src="{{ 'gofeature-title-desktop.png' | asset_url }}" alt="">
+              </picture>
+              <span>1 YEAR FREE WITH PLAYMAKER+ PURCHASE</span>
+              <p>Take your game to the next level by syncing your Playmaker+ smartwatch with the GAME App. Unlock
+                powerful insights, track every round with precision, and gain AI-powered recommendations tailored to
+                improve your performance. Whether you're analyzing past games or strategizing for your next round, the
+                GAME App provides real-time data to help you refine your skills and stay ahead on the course.</p>
+            </div>
+            <div class="goFeature_rightBottom">
+              <div class="goFeature_rightBottomInner">
+
+
+                <img src="{{ 'game_icon-feature.png' | asset_url }}" alt="">
+                <div class="game_linkArea_store">
+                  <a href="https://apps.apple.com/us/app/blue-tees-game/id6448720121" target="_blank">
+
+                    <img src="{{ 'game_icon-ios.png' | asset_url }}" alt="">
+                  </a>
+                  <a href="https://play.google.com/store/apps/details?id=com.bluetees" target="_blank">
+
+                    <img src="{{ 'game_icon-android.png' | asset_url }}" alt="">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="goFeature_innerBottom">
+        <div class="goFeature_bottomInner">
+          <div class="bottomInner__title">
+            <h4>WITH GAME YOU'LL ALSO GET ACCESS TO</h4>
+          </div>
+          <div class="monitoringCard__gridArea">
+            <div class="monitoringCard__gridItem">
+              <div class="bentoGrid__item__title">
+                <h5>
+                  AI-ASSISTED CLub <br>
+                  Recommendation
+                </h5>
+                <p>
+                  Get AI-driven suggestions based on your playstyle
+                </p>
+              </div>
+              <div class="monitoringCard__Bottom">
+                <picture>
+                  <source srcset="{{ 'ai-club-card-img.png' | asset_url }}" media="(min-width:769px)">
+                  <source srcset="{{ 'ai-club-card-img.png' | asset_url }}" media="(max-width:768px)">
+                  <img class="sectionBanner__image" src="{{ 'ai-club-card-img.png' | asset_url }}" alt="">
+                </picture>
+              </div>
+            </div>
+            <div class="monitoringCard__gridItem">
+              <div class="bentoGrid__item__title">
+                <h5>
+                  ADDITIONAL <br>
+                  SCREENS
+                </h5>
+                <p>
+                  Unlock Green Compass, Advanced Shot Tracking, and Weather.
+                </p>
+              </div>
+              <div class="monitoringCard__Bottom">
+                <picture>
+                  <source srcset="{{ 'screen-watch-card-img.png' | asset_url }}" media="(min-width:769px)">
+                  <source srcset="{{ 'screen-watch-card-img.png' | asset_url }}" media="(max-width:768px)">
+                  <img class="sectionBanner__image" src="{{ 'screen-watch-card-img.png' | asset_url }}" alt="">
+                </picture>
+              </div>
+            </div>
+            <div class="monitoringCard__gridItem">
+              <div class="bentoGrid__item__title">
+                <h5>
+                  3D Round playbacks <br>
+                  & SUMMARIES
+                </h5>
+                <p>
+                  Visually analyze each stroke with post-round shot arcs and playback features.
+                </p>
+              </div>
+              <div class="monitoringCard__Bottom">
+                <picture>
+                  <source srcset="{{ '3d-round-card-img.png' | asset_url }}" media="(min-width:769px)">
+                  <source srcset="{{ '3d-round-card-img.png' | asset_url }}" media="(max-width:768px)">
+                  <img class="sectionBanner__image" src="{{ '3d-round-card-img.png' | asset_url }}" alt="">
+                </picture>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="playMakerPlus_ctaHolder">
+        <a class="playMakerPlus_cta" id="playmaker-watch" href="javascript:void(0);">PRE-ORDER NOW</a>
+      </div>
+    </div>
+  </div>
+  <div class="playMakerPlus__whiteArea playMakerPlus___compareArea">
+    <div class="compareArea__Inner page-width">
+      <div class="compareArea__Title">
+        <h3 class="compare__title">SEE HOW THE PLAYMAKER+ STACKS UP AGAINST COMPETITION</h3>
+      </div>
+      <div class="compare__imageArea">
+        <picture>
+          <source srcset="{{ 'playmaker-compare-section-img.png' | asset_url }}" media="(min-width:769px)">
+          <source srcset="{{ 'playmaker-compare-section-img.png' | asset_url }}" media="(min-width:768px)">
+          <img src="{{ 'playmaker-compare-section-img.png' | asset_url }}" alt="">
+        </picture>
+      </div>
+    </div>
+  </div>
+  
+  <div class="playMakerPlus_proArea">
+    <div class="playMakerPlus_proArea_inner">
+        <div class="proArea_inner__title">
+          <h3>
+ELEVATE YOUR GAME WITH PLAYMAKER+ TODAY</h3>
+          <p>It's time to join the golf revolution.
+What are you waiting for?</p>
+        </div>
+      <div class="playMakerPlus_ctaHolder">
+        <a class="playMakerPlus_cta" id="playmaker-watch" href="javascript:void(0);">PRE-ORDER NOW</a>
+              <span>(A $40 SAVINGS)</span>
+      </div>
+
+      <div class="discout_block">
+        <p>USE CODE:</p>
+        <p>UPPERDECK40</p>
+        <p>AT CHECKOUT</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<div class="site_footer-page">
+  <div class="site_footer-page-inner">
+    <picture>
+      <source srcset="{{ 'tees-ico-footer-k.png' | asset_url }}" media="(min-width:769px)">
+      <source srcset="{{ 'tees-ico-footer-k.png' | asset_url }}" media="(max-width:768px)">
+      <img class="sectionBanner__image" src="{{ 'tees-ico-footer-k.png' | asset_url }}" alt="">
+    </picture>
+    <p>©2025 Blue Tees Golf, LLC. All Rights Reserved.</p>
+
+  </div>
+</div>
+
+
+
+
+<style>
+
+
+
+
+
+
+.playMakerPlus_proArea_inner {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: clamp(30px, 4vw, 60px) 0px;
+}
+
+
+
+
+
+
+
+.proArea_inner__title h3 {
+  font-size: clamp(30px, 6vw, 55px);
+  max-width: 700px;
+  font-style: italic;
+  line-height: 1;
+  margin-bottom: clamp(25px, 4vw, 30px);
+}
+
+
+
+  
+.proArea_inner__title p {
+  max-width: clamp(200px, 40vw, 330px);
+  width: 100%;
+  margin:
+0 auto;
+  line-height: 170%;
+}
+
+
+  
+  .playMakerPlus_proArea_inner .playMakerPlus_ctaHolder {
+  width: 100%;
+    padding: 0;
+    flex-direction: column;
+  row-gap: 10px;
+}
+  .playMakerPlus_proArea{background: url('https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bg-deack.png?v=1742897656') no-repeat center center / cover;}
+.discout_block {
+  background:
+linear-gradient(122.09deg, #2F2F2F -9.63%, #111111 106.81%);
+  border-radius:
+clamp(10px, 4vw, 20px);
+  overflow:
+hidden;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  padding:
+15px 30px;
+}
+
+  .discout_block p:nth-child(2) {
+  font-size: clamp(15px,4vw, 30px);
+  font-weight: 900;
+}
+
+  .discout_block p {
+  line-height: 1;
+}
+
+
+
+
+
+
+  
+  .compareArea__Inner { padding-top: 60px; padding-bottom: 60px; display: flex; flex-direction: column; row-gap: 50px; justify-content: center; align-items: center; }
+.compareArea__Title { text-align: center; color: #000; max-width: 590px; width: 100%; margin:
+      0 auto; font-style: italic; }
+.compare__imageArea img { max-width: 1130px; margin:
+      0 auto; width: 100%; }
+.site_page_header { background:
+      #000; padding:
+      20px 0; }
+.site_page_headerInner { display: flex; justify-content: space-between; align-items: center; color: #fff; gap: 30px; }
+.site_page_headerLeft { display: flex; align-items: center; justify-content: center; gap:
+      18px; }
+.site_page_headerLeft span { display: flex; }
+.site_page_headerLeft a img { max-height: clamp(25px, 5vw, 40px); height: 100%; }
+.cartArea_page img { filter: invert(1); max-height: clamp(20px, 5vw, 25px); object-fit: contain; object-position: center center; height: 100%; }
+.site-footer,
+  .custom-header { display: none; }
+h1,
+  h2 { font-weight: 900; font-style: italic; letter-spacing: 0.66px; }
+h1 { font-size: clamp(30px, 4.3vw, 40px); }
+h2 { font-size: clamp(30px, 3.5vw, 55px); }
+h3.compare__title { font-size: clamp(20px, 3.3vw, 36px); }
+h4 { font-size: clamp(24px, 2.8vw, 30px); }
+h5 { font-size: clamp(16px, 2.5vw, 24px); }
+p { font-size: clamp(16px, 2.5vw, 18px); padding: 0px; line-height: 28px; }
+img { display: flex; }
+video { width: 100%; height: 100%; object-fit: cover; }
+.sectionBanner__image { width: 100%; }
+.content__Container { max-width: clamp(320px, 60vw, 638px); width: 100%; margin: 0 auto; text-align: center; }
+.Offer_Bug-Container { background: #004DF5; color: #fff; margin-bottom: 0px; font-size: 13px; gap: 10px; }
+.BlueTees_Icon-Fav.Image_has-noclr { filter: invert(1); width: 20px; max-width: inherit; }
+.playMakerPlus__heroArea { position: relative; padding-top: clamp(30px, 4vw, 65px); }
+.playMakerPlus__Ico { position: absolute; top: clamp(42px, 4vw, 50px); }
+.playMakerPlus__contentContainer { background: #000; color: #fff; }
+.heroArea__inner { display: flex; flex-direction: column; row-gap: clamp(15px, 4vw, 35px); justify-content: center; align-items: center; }
+.heroArea__imageContainer img { max-width: clamp(150px, 20vw, 336px); margin-bottom: 9px; }
+.heroArea__imageContainer_mockUp img { max-width: clamp(320px, 30vw, 560px); }
+.heroArea__paragraph p { text-align: center; }
+.siteVelocity__slider--Container { width: 100%; height: 100%; overflow: hidden; flex-direction: column; display: flex; justify-content: center; align-items: center; row-gap: clamp(20px, 5vw, 50px); position: relative; padding: clamp(20px, 5vw, 40px) 0; }
+.siteVelocity__slider { display: flex; align-items: center; gap: clamp(25px, 4vw, 70px); white-space: nowrap; }
+.siteVelocity__slider .siteVelocity__sliderImage { object-fit: contain; max-height: clamp(60px, 4vw, 90px); object-position: center bottom; opacity: 0.5; }
+.bigFeature-Area__innerTop { padding: clamp(40px, 5vw, 90px) 0px clamp(30px, 5vw, 60px); display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: 20px; }
+.bigFeature-Area__topParagraph p { max-width: 663px; text-align: center; line-height: clamp(22px, 4vw, 33px); }
+.bigFeature-Area__topParagraph p.small__text { max-width: clamp(290px, 60vw, 663px); }
+.bentoGrid__areaContainer { display: grid; grid-template-columns: repeat(10, 1fr); grid-auto-rows: clamp(300px, 30vw, 414px); gap: 20px; max-width: 1500px; }
+.bentoGrid__item { display: flex; align-items: flex-start; justify-content: flex-start; border-radius: 20px; min-height: 300px; background: linear-gradient(225deg, #505469 -95.08%, #020202 150.57%); position: relative; padding: clamp(20px, 2.2vw, 30px); overflow: hidden; }
+.bentoGrid__item__title { position: relative; z-index: 1; width: 100%; }
+.bentoGrid__item :is(video, img) { position: absolute; left: 0; bottom: 0; cursor: pointer; }
+.bentoGrid__item img { cursor: auto; height: 100%; object-fit: cover; }
+.bentoGrid__item img.no__h { height: auto; }
+.bentoGrid__item__title h5 { font-style: italic; line-height: 100%; }
+.bentoGrid__item-1 { grid-column: span 6; }
+.bentoGrid__item-2 { grid-column: span 4; }
+.bentoGrid__item.bentoGrid__item-2 .no__h { height: 90%; position: absolute; left: 50%; bottom: 0; }
+.bentoGrid__item-3 { grid-column: span 4; }
+.bentoGrid__item-4 { grid-column: span 6; }
+.bentoGrid__item-5 { grid-column: span 6; }
+.bentoGrid__item-6 { grid-column: span 4; }
+.playMakerPlus_ctaHolder { display: flex; justify-content: center; align-items: center; padding: clamp(30px, 5vw, 60px) 0px;  }
+/*HIDE BUTTON*/
+.playMakerPlus_cta { background: #D80027; overflow:hidden; padding: 20px 0px; border-radius: 50px; color: #fff; font-weight: 900; max-width: 300px; width: 100%; text-align: center; letter-spacing: 1.6px; font-size: 18px; line-height: 100%; }
+.playMakerPlus_cta:hover { background: #fff; color: #D80027; }
+img.site_sectionTitle { max-width: clamp(360px, 50vw, 606px); }
+.playMakerPlus__whiteArea { background: #fff; border-radius: 30px 30px 0 0; overflow: hidden; }
+.playMakerPlus__whiteArea p { color: #000; line-height: clamp(22px, 4vw, 33px); }
+.playMakerPlus__whiteArea .bigFeature-Area__innerTop { row-gap: 30px; }
+.playMakerPlus__whiteArea .bigFeature-Area__innerTop:nth-child(1) { padding-bottom: 0; }
+.paragraph__whiteArea { max-width: 630px; }
+.bigFeature-Area__topTitle.whiteArea__topTitle img { max-width: 900px; }
+.bigFeature-Area__topTitle.whiteArea__topMockup img { max-width: 100%; }
+.playMakerPlus__whiteArea .playMakerPlus_cta { border: 1px solid #0000; }
+.playMakerPlus__whiteArea .playMakerPlus_cta:hover { background: #fff; border: 1px solid #D80027; }
+.monitoringSection .bigFeature-Area__topParagraph p { max-width: clamp(350px, 50vw, 600px); }
+.twoColumn__Row:nth-child(odd) { flex-direction: row-reverse; }
+.twoColumn__Row { display: flex; column-gap: clamp(80px, 11vw, 178px); padding: clamp(30px, 6vw, 100px) 0px; }
+.twoColumn__left { flex: 54%; }
+.twoColumn__ImageContainer { position: relative; display: flex; align-items: center; }
+.twoColumn__BackgroundImage, .twoColumn__ForegroundImage { display: flex; }
+.twoColumn__ForegroundImage { position: absolute; right: -20%; max-width: clamp(100px, 16vw, 280px); width: 100%; }
+.twoColumn__BackgroundImage { max-width: 740px; width: 100%; }
+.twoColumn__right { flex: 40%; }
+.twoColumn__TextArea--Container { max-width: 450px; width: 100%; margin-top: 31%; display: flex; flex-direction: column; row-gap: 20px; }
+.twoColumn__TextArea--Title { color: #000; max-width: inherit; }
+.twoColumn__TextArea--Desc { padding-top: 0; }
+.twoColumn__TextArea--Desc+span { color: #1C4FD6; display: block; max-width: 240px; font-style: italic; font-size: 12px; }
+.monitoringSection { display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: clamp(10px, 4vw, 60px); padding-top: clamp(25px, 3vw, 20px); padding-bottom: clamp(15px, 5vw, 70px); }
+.monitoringCard__gridItem h5 { color: #000; line-height: normal; }
+.monitoringCard__gridArea { grid-template-columns: repeat(auto-fill, minmax(clamp(270px, 23vw, 450px), 1fr)); display: grid; gap: 30px; width: 100%; }
+.monitoringCard__gridItem { padding: clamp(15px, 4vw, 30px) clamp(15px, 4vw, 30px) clamp(20px, 6vw, 60px); background: linear-gradient(180deg, #F5F5F5 0%, #D2D2D2 96.5%); border-radius: 20px; gap: 30px; display: flex; flex-direction: column; }
+.monitoringCard__Bottom { display: flex; justify-content: center; height: 100%; align-items: center; }
+.monitoringCard__Bottom picture { max-height: 200px; height: 100%; display: flex; justify-content: center; align-items: end; }
+.monitoringCard__gridItem.girdItem__last { padding: 30px 0px 0px 30px; overflow: hidden; }
+.monitoringCard__gridItem.girdItem__last .monitoringCard__Bottom { justify-content: flex-end; align-items: flex-end; height: 100%; }
+.monitoringCard__gridItem.girdItem__last .monitoringCard__Bottom img { max-height: clamp(220px, 30vw, 280px); height: initial; }
+.monitoringCard__gridItem.girdItem__last p { max-width: 213px; width: 100%; }
+.styleMatches__contentArea, .playMakerPlus__yourSoundInner .monitoringCard__gridArea, .bentoGrid__areaContainer { padding-bottom: clamp(15px, 4vw, 50px); }
+.styleMatches__contentArea { display: flex; flex-direction: column; row-gap: 30px; justify-content: center; align-items: center; padding-top: 20px; }
+.styleMatches__contentArea p { max-width: 500px; text-align: center; }
+.styleMatches__contentArea .playMakerPlus_ctaHolder { padding-top: 0; padding-bottom: 0; width: 100%; }
+.game_linkArea_store { display: flex; max-width: 300px; gap: 4px; }
+p.deck_price { letter-spacing: 0; font-size: 20px; font-weight: 900; margin-bottom: 13px; }
+p.deck_price span { opacity: 0.5; text-decoration: line-through; margin-right: 0px; font-weight: 400; }
+.heroArea__priceBottom h2 { line-height: clamp(40px, 6vw, 88px); font-size: clamp(32px, 4.5vw, 55px); }
+.twoColumn__Row:last-child { padding-bottom: 30px; }
+.heroArea__priceBottom { text-align: center; display: flex; flex-direction: column; row-gap: 10px; }
+.heroArea__priceSection { display: flex; flex-direction: column; row-gap: 10px; width: 100%; }
+.heroArea__priceBottom .playMakerPlus_ctaHolder { padding: 0; width: 100%; flex-direction: column; row-gap: 10px; }
+.promo_text { font-size: 14px; }
+.promo_text span { font-weight: 900; margin-left: 6px; }
+.playMakerPlus__yourSoundInner .playMakerPlus__sectionBanner img { max-width: clamp(400px, 60vw, 680px); margin: 0 auto; }
+.monitoringCard__Bottom img { height: 100%; }
+.playMakerPlus__yourSoundInner .bigFeature-Area__topParagraph p { max-width: clamp(300px, 50vw, 615px); }
+.playMakerPlus__yourSoundInner .bigFeature-Area__innerTop { row-gap: 35px; }
+.playMakerPlus__yourSoundInner .monitoringCard__gridItem .bentoGrid__item__title { display: flex; flex-direction: column; row-gap: 15px; }
+.playMakerPlus__yourSoundInner .monitoringCard__gridItem h5 { color: #fff; }
+.playMakerPlus__yourSoundInner .monitoringCard__gridItem { padding: 20px; background: linear-gradient(225deg, #505469 -95.08%, #020202 150.57%); row-gap: 20px; }
+.playMakerPlus__yourSoundInner .monitoringCard__gridItem.girdItem__last { padding: 20px 0 0 20px; }
+.playMakerPlus__yourSoundInner .monitoringCard__gridItem .monitoringCard__Bottom { align-items: flex-end; }
+.playMakerPlus__yourSoundInner .playMakerPlus__sectionBanner { margin-bottom: 80px; }
+.playMakerPlus__yourSoundInner .monitoringCard__gridArea { max-width: clamp(860px, 50vw, 950px); margin: 0 auto; }
+.playMakerPlus__yourSoundInner .monitoringCard__gridItem.girdItem__last p { max-width: 224px; }
+.game_linkArea_store img { width: 100%; }
+.goFeature_rightBottomInner { max-width: 270px; width: 100%; }
+.goFeature_rightBottomInner img:first-child:not(.game_linkArea_store img) { margin-bottom: clamp(15px, 5vw, 32px); }
+.goFeature_topRight__inner { display: flex; flex-direction: column; row-gap: clamp(20px, 4vw, 42px); }
+.goFeature_innerTop { display: flex; align-items: flex-start; column-gap: clamp(30px, 6vw, 60px); }
+.goFeature_topLeft { flex:
+      50%; }
+.goFeature_topLeft { display: flex; justify-content: center; align-items: center; }
+.goFeature_topLeft img { max-width: 500px; }
+.goFeature_rightTop { display: flex; flex-direction: column; row-gap: 21px; align-items: flex-start; }
+.playMakerPlus__goFeature_area { padding:  clamp(30px, 8vw, 100px) 0px clamp(25px, 4vw, 60px); }
+.goFeature_topRight { flex: 60%; }
+.goFeature_rightTop span { background:  #004DF5; padding: 12px 20px; border-radius: 50px; display: inline-flex; line-height: 1; font-size: 12px; font-weight: 900; letter-spacing: 1.6px; }
+.goFeature_rightTop img { max-width: 575px; }
+.goFeature_rightTop p { max-width: 584px; width: 100%; }
+.goFeature__areaInner { display: flex; flex-direction: column; row-gap: clamp(40px, 6vw, 100px); }
+.goFeature__areaInner .playMakerPlus_ctaHolder { padding-bottom: 0px; }
+.goFeature_bottomInner .monitoringCard__gridItem { background: linear-gradient(225deg, #505469 -95.08%, #020202 150.57%); padding: 20px; }
+.goFeature_bottomInner .monitoringCard__gridItem:first-child { padding: 20px 0 0; overflow: hidden; }
+.goFeature_bottomInner .monitoringCard__gridItem:first-child .bentoGrid__item__title { padding: 0px 25px; }
+.goFeature_bottomInner .monitoringCard__gridItem:first-child .monitoringCard__Bottom picture { width: 100%; max-height: inherit; }
+.bottomInner__title { text-align: center; font-style: italic; }
+.goFeature_bottomInner { display: flex; flex-direction: column; row-gap: 20px; }
+.goFeature_bottomInner .monitoringCard__gridItem h5 { color: #fff; margin-bottom: 16px; }
+.site_footer-page .site_footer-page-inner { background: #000; color: #fff; padding: 50px 0; row-gap: clamp(20px, 4vw, 30px); display: flex; justify-content: center; align-items: center; row-gap: 50px; flex-direction: column; }
+.site_footer-page-inner img { max-width: 50px; }
+@media (max-width: 1080px) {
+ .twoColumn__Row { align-items: center; }
+.twoColumn__TextArea--Container { margin-top: 0; }
+ }
+@media (max-width: 991px) {
+ .monitoringCard__gridArea { grid-template-columns: repeat(auto-fill, minmax(clamp(270px, 29vw, 450px), 1fr)); }
+ }
+@media only screen and (min-width:769px) {
+ .twoColumn__Row.twoColumn__Row--Full { padding-left: 0; padding-right: 0; }
+.twoColumn__Row.twoColumn__Row--Full :is(.twoColumn__right, .twoColumn__left) { flex: 100%; }
+.twoColumn__Row.twoColumn__Row--Full .twoColumn__TextArea--Container { margin-right: auto; margin-left: auto; }
+.twoColumn__Row.twoColumn__Row--Full .twoColumn__ImageContainer { justify-content: flex-end; }
+.twoColumn__Row:nth-child(odd) .twoColumn__ForegroundImage { left: -18%; }
+.content__Container h1 br { display: none; }
+ }
+@media only screen and (max-width:768px) {
+ h5 { font-size: clamp(16px, 3.5vw, 24px); }
+.twoColumn__TextArea--Container { margin-top: 9%; text-align: center; max-width: 100%; }
+.twoColumn__ForegroundImage { max-width: clamp(180px, 33vw, 280px); bottom: -40px; right: 10px; }
+.twoColumn__BackgroundImage { aspect-ratio: 16/10; height: 100%; object-fit: cover; }
+.twoColumn__Row { flex-wrap: wrap; padding-right: 0px; padding-left: 0px; }
+.twoColumn__Row:nth-child(even) .twoColumn__ForegroundImage { right: 10px; left: inherit; }
+.dark_ringer--section .twoColumn__Row { flex-wrap: wrap-reverse; }
+.twoColumn__TextArea--Title br { display: block; }
+.twoColumn__TextArea--Desc+span { width: 100%; margin: 0 auto; }
+.bentoGrid__areaContainer { grid-template-columns: repeat(2, 1fr); grid-auto-rows: clamp(225px, 52vw, 350px); }
+.bentoGrid__item { grid-column: span 2; min-height: inherit; }
+.goFeature_innerTop { flex-wrap: wrap; text-align: center; }
+.goFeature_rightTop :is(img, span) { display: none; }
+.goFeature_rightBottomInner { margin: 0 auto; }
+.styleMatches__contentArea, .playMakerPlus__whiteArea .bigFeature-Area__innerTop { padding-left: 15px; padding-right: 15px; }
+.twoClumn__Right--imageContainer { border-radius: 10px; }
+.playMakerPlus__yourSoundArea img.site_sectionTitle { max-width: clamp(230px, 50vw, 606px); }
+.goFeature_rightTop p { margin: 0 auto; }
+.bentoGrid__item.bentoGrid__item-2 .no__h { left: inherit; right: clamp(15px, 4vw, 20px); }
+@media (max-width: 620px) {
+ .monitoringCard__gridArea { grid-template-columns: repeat(auto-fill, minmax(clamp(270px, 45vw, 450px), 1fr)); }
+.bentoGrid__item__title p { font-size: 12px; }
+ }
+ }
+@media only screen and (max-width:575px) {
+ .twoColumn__ForegroundImage { max-width: clamp(115px, 10vw, 280px); bottom: -20px; }
+.twoColumn__TextArea--Container { margin-top: 10%; }
+}
+
+
+ a.js-drawer-open-cart { background: url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/cart-icon.png?v=1647882941) center center no-repeat; width:35px; height:24px; background-size:28px;  margin-left:18px;}
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    function velocitySlider() {
+      const sliders = document.querySelectorAll(".siteVelocity__slider");
+      const baseSpeed = 0.5; // Base speed in pixels per frame when no scroll is applied.
+      // Change this to set the default movement speed.
+
+      sliders.forEach(slider => {
+        let images = Array.from(slider.children);
+        const imgWidth = images[0].offsetWidth + 20;
+        const totalWidth = imgWidth * images.length;
+
+        // Clone images until the slider’s content is wide enough for a seamless loop.
+        while (slider.offsetWidth < window.innerWidth + totalWidth) {
+          images.forEach(img => {
+            let clone = img.cloneNode(true);
+            slider.appendChild(clone);
+          });
+          images = Array.from(slider.children);
+        }
+
+        let position = 0;
+        let extraSpeed = 0; // Additional speed added on top of baseSpeed due to scrolling.
+        let speed = baseSpeed; // Actual speed = baseSpeed + extraSpeed.
+
+        function animate() {
+          // Update speed based on current extraSpeed.
+          speed = baseSpeed + extraSpeed;
+          position += speed;
+
+          // Wrap the position seamlessly.
+          if (position >= totalWidth) {
+            position -= totalWidth;
+          } else if (position <= -totalWidth) {
+            position += totalWidth;
+          }
+
+          slider.style.transform = "translateX(" + (-position) + "px)";
+
+          // Gradually decay extraSpeed toward 0 (simulate friction).
+          // Adjust the decay factor (0.95) to control how fast it returns to baseSpeed.
+          extraSpeed *= 0.95;
+
+          requestAnimationFrame(animate);
+        }
+
+        // Listen for wheel events to adjust extraSpeed.
+        window.addEventListener("wheel", function (event) {
+          // Get the scroll delta (positive for down, negative for up).
+          let delta = event.deltaY || -event.wheelDelta;
+          // Determine scroll direction: scrolling down adds positive speed; scrolling up subtracts.
+          let direction = delta > 0 ? 1 : -1;
+
+          // Adjust the acceleration factor here.
+          // The multiplier (0.01) controls how much extraSpeed is added per scroll event.
+          // Increase this value (e.g., 0.02) for a more sensitive response.
+          // The Math.min() clamp (0.5) controls the maximum acceleration added per event.
+          let acceleration = Math.min(Math.abs(delta) * 0.01, 0.5);
+          extraSpeed += direction * acceleration;
+
+          // Clamp extraSpeed to avoid runaway speeds.
+          if (extraSpeed > 5) extraSpeed = 5;
+          if (extraSpeed < -5) extraSpeed = -5;
+        });
+
+        animate();
+      });
+    }
+
+    velocitySlider();
+
+
+
+
+
+    function videoPlayOnHover() {
+      const videos = document.querySelectorAll(".videoPlays__Hover"); // Select all matching elements
+
+      if (!videos.length) return;
+
+      videos.forEach(video => {
+        video.setAttribute("playsinline", "true");
+        video.setAttribute("webkit-playsinline", "true");
+
+        if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+          video.setAttribute("autoplay", "true");
+          video.setAttribute("muted", "true");
+          video.play();
+        } else {
+          // For desktop: play on hover and pause when not hovered
+          video.addEventListener("mouseenter", () => video.play());
+          video.addEventListener("mouseleave", () => video.pause());
+        }
+      });
+    }
+
+    videoPlayOnHover();
+{% comment %} 
+    function splittingEffect() {
+      const targets = document.querySelectorAll('.has_splitting--effect');
+
+      if (!targets.length) {
+        console.warn('No elements found with class .has_splitting--effect');
+        return;
+      }
+
+      targets.forEach((target, index) => {
+        try {
+          const originalText = target.textContent.trim();
+
+
+          const words = originalText
+            .split(/\s+/)
+            .filter(word => word.length > 0);
+
+          target.innerHTML = '';
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'splitting-words-wrapper';
+
+
+          words.forEach(word => {
+            const wordWrapper = document.createElement('span');
+            wordWrapper.className = 'has-splitting-word';
+            wordWrapper.textContent = word + ' ';
+            wrapper.appendChild(wordWrapper);
+          });
+
+          target.appendChild(wrapper);
+
+
+          gsap.set(target.querySelectorAll('.has-splitting-word'), {
+            opacity: 0,
+            y: 50
+          });
+
+
+          gsap.to(target.querySelectorAll('.has-splitting-word'), {
+            opacity: 1,
+            y: 0,
+            duration: .9,
+            stagger: 0.06,
+            ease: "linear",
+            scrollTrigger: {
+              trigger: target,
+              start: 'top bottom',
+              toggleActions: 'play none none reverse',
+            }
+          });
+        } catch (error) {
+          console.error(`Error processing splitting effect for element ${index}:`, error);
+        }
+      });
+    }
+    splittingEffect(); {% endcomment %}
+
+    function scalingImageEffect() {
+      const images = document.querySelectorAll('.scaling_image-img');
+
+      if (!images.length) {
+        console.warn('No elements found with class .scaling_image-img');
+        return;
+      }
+
+      images.forEach((image) => {
+        gsap.fromTo(
+          image,
+          { scale: 1.5 },
+          {
+            scale: 1,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: image,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            }
+          }
+        );
+      });
+    }
+    scalingImageEffect();
+
+  });
+</script>
+
+<script>
+$(document).on('click', '.playMakerPlus_cta', function (e) {
+    e.preventDefault();
+    var $button = $(this);
+    $button.addClass('btn--loading');
+
+    var productId = 44502565191877;
+    var formParams = {
+        id: productId
+    };
+
+    // Always add product to cart (without checking if it already exists)
+    $.ajax({
+        url: '/cart/add.js',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formParams),
+        success: function() {
+            applyDiscount();
+        },
+        error: function(err) {
+            console.error('Error adding product:', err);
+            $button.removeClass('btn--loading');
+        }
+    });
+
+    return false;
+});
+
+// Function to apply the discount code by redirecting to checkout
+function applyDiscount() {
+    window.location.href = "/checkout?discount=UPPERDECK40"; // Replace with your actual discount code
+}
+</script>
+
+

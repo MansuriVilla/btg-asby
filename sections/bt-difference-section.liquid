@@ -1,0 +1,205 @@
+<div class="bt-difference__section bt-difference__section-{{section.id }}">
+  <div class="bt-difference__container">
+    <div class="bt-difference__content">
+      {% if section.settings.differenceHeading != blank
+        or section.settings.differenceSubText != blank
+        or section.settings.differenceImage != blank
+      %}
+        <div class="bt-difference__top" data-reveal-init>
+          <div class="difference-top__right">
+            <img
+              data-reveal
+              src="{{ section.settings.differenceImage | image_url }}"
+              alt="{{ section.settings.differenceHeading | escape }}"
+              height="100%"
+              width="100%"
+              decoding="async"
+              loading="lazy"
+            >
+              {% if section.settings.aboutUsURL != blank %}
+              <a
+                class="content-cta content-cta__solid section__cta difference-left__cta show_on-mobile"
+                href="{{section.settings.aboutUsURL}}"{% if settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}
+              >
+                {{- section.settings.aboutUsText -}}
+              </a>
+            {% endif %}
+          </div>
+          
+          <div class="difference-top__left">
+            <div class="left_heading">
+              <h2>{{ section.settings.differenceHeading }}</h2>
+            </div>
+            <p>{{ section.settings.differenceSubText }}</p>
+            {% if section.settings.aboutUsURL != blank %}
+              <a
+                class="content-cta content-cta__solid section__cta difference-left__cta show_on-desktop"
+                href="{{section.settings.aboutUsURL}}"{% if settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}
+              >
+                {{- section.settings.aboutUsText -}}
+              </a>
+            {% endif %}
+          </div>
+          <div class="bt-difference__floating-content">
+            <img
+              class="floading-content__image"
+              src="{{ section.settings.floatingImage | image_url  }}"
+              alt="{{ section.settings.differenceHeading | strip_html | escape }}"
+              height="100%"
+              width="100%"
+              decoding="async"
+            >
+              
+          </div>
+        </div>
+      {% endif %}
+      {% if section.blocks.size > 1 %}
+        <div class="bt-difference__center">
+          <div class="center_blocks">
+            {% for block in section.blocks %}
+              <div class="difference_block">
+                <h3>{{ block.settings.blockHeading }}</h3>
+                <p>{{ block.settings.blockSubText }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+      {% if section.settings.subscriptionHeading != blank
+        or section.settings.subscriptionSubText != blank
+        or section.settings.differenceInputText != blank
+      %}
+        <div class="bt-difference__bottom">
+          <div class="difference__subscription-box">
+            <h3>{{ section.settings.subscriptionHeading }}</h3>
+            <p>{{ section.settings.subscriptionSubText }}</p>
+            {% render 'new-newsletter' %}
+            <p>{{ section.settings.differenceInputText }}</p>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    imageRevealInit();
+  });
+
+  function imageRevealInit() {
+    const sections = document.querySelectorAll('[data-reveal-init]');
+
+    sections.forEach((section) => {
+      const images = section.querySelectorAll('[data-reveal]');
+
+      if (images.length === 0) return;
+
+      // Set initial hidden state
+      images.forEach((img) => {
+        gsap.set(img, {
+          clipPath: 'inset(0% 0% 100% 0%)', // fully clipped from right
+          scale: 1.3, // start slightly zoomed
+          opacity: 0,
+          transformOrigin: 'center center',
+        });
+      });
+
+      // Create ScrollTrigger for the whole section
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 70%', // start earlier for smoother feel
+        once: false, // animate only once
+        onEnter: () => {
+          images.forEach((img, i) => {
+            gsap.to(img, {
+              clipPath: 'inset(0% 0% 0% 0%)', // fully revealed
+              scale: 1,
+              opacity: 1,
+              duration: 1.6,
+              delay: i * 0.2 + Math.random() * 0.5, // staggered + slight random
+              ease: 'power3.out',
+              onStart: () => img.classList.add('reveal-active'),
+            });
+          });
+        },
+      });
+    });
+  }
+</script>
+{% schema %}
+{
+  "name": "Subscription Box",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "html",
+      "id": "differenceHeading",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "differenceSubText",
+      "label": "Sub Text"
+    },
+    {
+      "type": "text",
+      "id": "aboutUsText",
+      "label": "CTA Text"
+    },
+    {
+      "type": "url",
+      "id": "aboutUsURL",
+      "label": "CTA URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "floatingImage",
+      "label": "Select Floating Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "differenceImage",
+      "label": "Right Image"
+    },
+    {
+      "type": "text",
+      "id": "subscriptionHeading",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "subscriptionSubText",
+      "label": "Sub Text"
+    },
+    {
+      "type": "text",
+      "id": "differenceInputText",
+      "label": "Text For Below Input Field"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "blocks",
+      "name": "Blocks",
+      "settings": [
+        {
+          "type": "text",
+          "id": "blockHeading",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "blockSubText",
+          "label": "Sub Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Subscription Box"
+    }
+  ]
+}
+{% endschema %}

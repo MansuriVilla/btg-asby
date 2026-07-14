@@ -1,0 +1,17 @@
+{% render 'video-scaling-animation', video_url: section.settings.video_url | escape, disable_animation: true %}
+
+
+
+{% schema %}
+  {
+    "name": "Product single video full",
+    "settings": [
+      {
+          "type": "text",
+          "id": "video_url",
+          "label": "video URL",
+          "default": "https://cdn.shopify.com/videos/c/o/v/74124ef049424293875aee3998fb37b3.mp4"
+        }
+    ]
+  }
+{% endschema %}

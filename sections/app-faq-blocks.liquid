@@ -1,0 +1,87 @@
+<div class="faq__block" data-product-id="{{ section.settings.product.id }}">
+  <div class="faq_block__inner">
+    <div class="faq_block__header">
+      <div class="faq_block--left">
+        <h3>{{ section.settings.product.title | escape }}</h3>
+      </div>
+      <div class="faq_block--right">
+        <img src="{{ section.settings.product.featured_image | img_url: 'large' }}" alt="{{ section.settings.product.title | escape }}" />
+      </div>
+    </div>
+    <div class="faq_block__footer">
+      <span class="faq_footer--total">  {{ section.blocks.size }}  FAQs </span>
+      <span class="faq_footer--icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 8L8 12M8 12L12 16M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="faq_overlay" data-product-id="{{ section.settings.product.id }}">
+  <div class="overlay__content">
+    <span class="close-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 9L9 15M9 9L15 15M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </span>
+    <div class="overlay__heading">
+      <h4>{{ section.settings.product.title | escape }}</h4>
+    </div>
+    <div class="overlay__faq-items">
+      {% for block in section.blocks %}
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>{{ block.settings.faqQuestion }}</span>
+            <span class="toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">{{ block.settings.faqAnswer }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="back__filter"></div>
+
+{% schema %}
+{
+  "name": "App Faq's Blocks",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select Product"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Faq Items",
+      "settings": [
+        {
+          "type": "text",
+          "id": "faqQuestion",
+          "label": "Faq Question"
+        },
+        {
+          "type": "html",
+          "id": "faqAnswer",
+          "label": "Faq Answer",
+          "info": "Insert this block of code if you want to add image '<img src='' alt='' />', For 'src' upload image in 'content' you want to add copy the url and past it with the 'src' quote marks. "
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "App Faq's Blocks",
+      "blocks": [
+        {
+          "type": "content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

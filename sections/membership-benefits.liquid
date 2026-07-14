@@ -1,0 +1,301 @@
+  <div class="membership-benefits-{{ section.id }}">
+  <div class="new-page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="section-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="horizon-slider_container benefits-slider-{{ section.id }}">
+      <div class="horizon-slider_track benefits-grid">
+        {% for block in section.blocks %}
+          <div class="benefit-card horizon-slide" {{ block.shopify_attributes }}>
+            <div class="icon-wrapper">
+              {% if block.settings.custom_icon != blank %}
+                {{ block.settings.custom_icon }}
+              {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.563.563 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.563.563 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                </svg>
+              {% endif %}
+            </div>
+            <h3 class="benefit-title">{{ block.settings.title }}</h3>
+            <div class="benefit-description">
+              {{ block.settings.description }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const initSlider = () => {
+      if (window.innerWidth <= 991) {
+        if (typeof horizonSlider === 'function') {
+          horizonSlider({
+            '.benefits-slider-{{ section.id }}': {
+              loop: false,
+              margin: 20,
+              nav: false,
+              dots: true,
+              showTracker: false,
+              drag: false,
+              responsive: {
+                0: { items: 1.2 },
+                768: { items: 2.2 }
+              }
+            }
+          });
+        } else {
+            // Re-try if library not loaded yet
+            setTimeout(initSlider, 100);
+        }
+      }
+    };
+
+    // Initial check
+    initSlider();
+    
+    // Handle resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(initSlider, 250);
+    });
+  });
+</script>
+
+{%- style -%}
+  .membership-benefits-{{ section.id }} {
+    background: {{section.settings.bg_clr }};
+    color: #fff;
+    padding: clamp(40px, 8vw, 80px) 0;
+    overflow:hidden;
+  }
+
+  .icon-wrapper {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+  .membership-benefits-{{ section.id }} .section-heading {
+    text-align: center;
+    font-size: clamp(min(22px, 129%), 2.4vw, 36px);
+    font-weight: 900;
+    text-transform: uppercase;
+
+    margin-bottom: clamp(40px, 6vw, 60px);
+    line-height:1;
+  }
+
+  .membership-benefits-{{ section.id }} .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(15px, 2vw, 30px);
+  }
+
+  @media (max-width: 991px) {
+    .membership-benefits-{{ section.id }} .benefits-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .membership-benefits-{{ section.id }} .section-heading {
+      -webkit-text-wrap-style: balance;
+      text-wrap-style: balance;
+    }
+  }
+
+  /* Scaling handled by clamp() */
+
+  .membership-benefits-{{ section.id }} .benefit-card {
+    background: linear-gradient(135deg, #1a1a1c 0%, #111112 100%);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 25%), inset 0 0 5px rgba(255, 255, 255, 25%);
+    border-radius: 12px;
+    padding: clamp(20px, 2.6vw, 40px);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .membership-benefits-{{ section.id }} .benefit-title {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: clamp(10px, 1.5vw, 15px);
+    /* letter-spacing: 1px; */
+    line-height:1;
+  }
+
+  .membership-benefits-{{ section.id }} .benefit-description {
+    font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+    line-height: 1.6;
+    color: #fff;
+  }
+
+  /* Horizon Slider Customizations */
+  .membership-benefits-{{ section.id }} .horizon-slider_container {
+    width: 100%;
+    overflow: visible;
+  }
+
+  @media (min-width: 992px) {
+    .membership-benefits-{{ section.id }} .benefits-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(15px, 2vw, 30px);
+      width: 100% !important;
+      transform: none !important;
+    }
+    
+    .membership-benefits-{{ section.id }} .horizon-slider_track {
+        display: grid !important;
+        width: 100% !important;
+        transform: none !important;
+    }
+
+    .membership-benefits-{{ section.id }} .horizon-slide {
+      width: 100% !important;
+      margin-right: 0 !important;
+    }
+    
+    .membership-benefits-{{ section.id }} .horizon-slider_nav,
+    .membership-benefits-{{ section.id }} .horizon-slider_tracker {
+        display: none !important;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .membership-benefits-{{ section.id }} .benefits-grid {
+      display: flex; /* Horizon slider track uses flex */
+    }
+    
+    .membership-benefits-{{ section.id }} .benefit-card {
+      padding: 14px clamp(20px, 4vw, 40px);
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Slider Dots Styling */
+    .membership-benefits-{{ section.id }} .slider-dots {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-inline: auto;
+    margin-top: 5px;
+    }
+
+    .membership-benefits-{{ section.id }} .slider-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        background: transparent;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .membership-benefits-{{ section.id }} .slider-dot.is-active {
+        background: #fff;
+    }
+  }
+{%- endstyle -%}
+
+
+
+{% schema %}
+{
+  "name": "Membership Benefits",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "EVERYTHING ELSE YOUR MEMBERSHIP UNLOCKS"
+    },
+    {
+      "type": "color",
+      "id": "bg_clr",
+      "label": "Section Background Color",
+      "alpha": true
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "custom_icon",
+          "label": "Custom SVG Icon",
+          "info": "Paste SVG code here"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Benefit Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Description of the benefit goes here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Membership Benefits",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "GPS FOR 42,000+ COURSES",
+            "description": "Play confidently anywhere with front, center, and back distances displayed directly in the reticle."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "LIVE LEADERBOARDS",
+            "description": "Track scores and compete with your group in real time across multiple game modes."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "SCOUT AI™ VIRTUAL CADDIE",
+            "description": "Course-aware AI recommendations for where to aim, what to hit, and how to approach every shot."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "USGA HANDICAP INDEX®",
+            "description": "Upload scores and track your official handicap directly through the GAME app."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "POST-ROUND ANALYTICS",
+            "description": "Review performance trends and dispersion patterns after every round."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "EXPANDED DEVICE FEATURES",
+            "description": "Unlock deeper integrations across the Blue Tees ecosystem."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

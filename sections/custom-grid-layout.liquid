@@ -1,0 +1,399 @@
+<div id="gird__layout-block-{{ product.handle }}" class="gird__layout-block">
+  <div class="gird_block--inner">
+    <div class="gird_block--heading">
+      {% if section.settings.GridHeading != blank %}
+        <h2>{{ section.settings.GridHeading }}</h2>
+      {% elsif section.settings.headingImage != blank %}
+        <picture>
+          <source srcset="{{ section.settings.headingImage | img_url: 'master' }}" media="(min-width:861px)">
+          <source srcset="{{ section.settings.headingImageMobile | img_url: 'master' }}" media="(max-width:860px)">
+          <img decoding="async" src="{{ section.settings.headingImage | img_url: 'master' }}" alt="">
+        </picture>
+      {% endif %}
+    </div>
+    <div id="grid_blocks--{{ product.handle }}" class="gird_block--gird">
+      {% for block in section.blocks %}
+        {% assign block_size = block.settings.card_size | default: section.settings.card_size %}
+        <div
+          class="ringer-card"
+          data-dropdown-card-open
+          data-card="{{ block_size }}"
+          data-card-id="{{ block.id }}"
+          {% if block.settings.rightPadding %}
+            data-pad-right-zero
+          {% endif %}
+          {% if block.settings.leftPadding %}
+            data-pad-left-zero
+          {% endif %}
+          {% if block.settings.topPadding %}
+            data-pad-top-zero
+          {% endif %}
+          {% if block.settings.bottomPadding %}
+            data-pad-bottom-zero
+          {% endif %}
+          {% if block.settings.cardBgImage  or block.settings.cardBgImageMoible %}
+            data-card-bgimage
+          {% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <div class="ringer-card-box">
+            <div
+              class="ringer-img"
+              {% if block.settings.cardBgImage or block.settings.cardBgImageMoible %}
+                data-image-none
+              {% endif %}
+            >
+              {% if block.settings.CardMockup != blank %}
+                <picture>
+                  <source srcset="{{ block.settings.CardMockup | img_url: 'master' }}" media="(min-width:861px)">
+                  <source srcset="{{ block.settings.CardMockupMobile | img_url: 'master' }}" media="(max-width:860px)">
+                  <img decoding="async" src="{{ block.settings.CardMockup | img_url: 'master' }}" alt="">
+                </picture>
+              {% endif %}
+            </div>
+
+            <div class="ringer-content">
+              <div class="ringer-content-img">
+                {% if block.settings.Prouct_title != blank %}
+                  <img
+                    class="content_img-mockup"
+                    src="{{block.settings.Prouct_title | img_url: 'master'}}"
+                    alt=""
+                    decoding="async"
+                  >
+                {% endif %}
+
+                {% if block.settings.Product_heading != blank %}
+                  <h3>
+                    {{ block.settings.Product_heading }}
+                  </h3>
+                {% endif %}
+                <div class="card-ico ico__dropdown">
+                  <svg
+                    class="ico__dropdown--icon"
+                    width="19"
+                    height="19"
+                    viewBox="0 0 19 19"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M14.6222 6.52851C14.6759 6.4748 14.7397 6.43219 14.8098 6.40312C14.88 6.37405 14.9552 6.35909 15.0312 6.35909C15.1072 6.35909 15.1824 6.37405 15.2526 6.40312C15.3227 6.43219 15.3865 6.4748 15.4402 6.52851C15.4939 6.58222 15.5366 6.64599 15.5656 6.71617C15.5947 6.78635 15.6097 6.86157 15.6097 6.93753C15.6097 7.0135 15.5947 7.08872 15.5656 7.1589C15.5366 7.22908 15.4939 7.29284 15.4402 7.34656L9.65898 13.1278C9.60529 13.1816 9.54153 13.2242 9.47134 13.2533C9.40116 13.2824 9.32593 13.2974 9.24996 13.2974C9.17398 13.2974 9.09875 13.2824 9.02857 13.2533C8.95839 13.2242 8.89462 13.1816 8.84093 13.1278L3.05968 7.34656C2.9512 7.23808 2.89026 7.09095 2.89026 6.93753C2.89026 6.78412 2.9512 6.63699 3.05968 6.52851C3.16816 6.42003 3.31529 6.35909 3.46871 6.35909C3.62212 6.35909 3.76925 6.42003 3.87773 6.52851L9.24996 11.9015L14.6222 6.52851Z" fill="white"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div data-dropdown-card class="ringer-content-text">
+                {% if block.settings.Product_description != blank %}
+                  <div class="ringer_content--description">
+                    {{ block.settings.Product_description }}
+                  </div>
+                {% endif %}
+
+                <div class="ringer-list">
+                  <ul class="lists">
+                    {% if block.settings.list__one != blank %}
+                      <li class="list">
+                        <span class="list-check_icon">
+                          {% render 'check-mark-ico' %}
+                        </span>
+                        <span class="list__text">{{ block.settings.list__one }}</span>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.list__two != blank %}
+                      <li class="list">
+                        <span class="list-check_icon">
+                          {% render 'check-mark-ico' %}
+                        </span>
+                        <span class="list__text">{{ block.settings.list__two }}</span>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.list__three != blank %}
+                      <li class="list">
+                        <span class="list-check_icon">
+                          {% render 'check-mark-ico' %}
+                        </span>
+                        <span class="list__text">{{ block.settings.list__three }}</span>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.list__four != blank %}
+                      <li class="list">
+                        <span class="list-check_icon">
+                          {% render 'check-mark-ico' %}
+                        </span>
+                        <span class="list__text">{{ block.settings.list__four }}</span>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.list__five != blank %}
+                      <li class="list">
+                        <span class="list-check_icon">
+                          {% render 'check-mark-ico' %}
+                        </span>
+                        <span class="list__text">{{ block.settings.list__five }}</span>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.list__six != blank %}
+                      <li class="list">
+                        <span class="list-check_icon">
+                          {% render 'check-mark-ico' %}
+                        </span>
+                        <span class="list__text">{{ block.settings.list__six }}</span>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.list__seven != blank %}
+                      <li class="list">
+                        <span class="list-check_icon">
+                          {% render 'check-mark-ico' %}
+                        </span>
+                        <span class="list__text">{{ block.settings.list__seven }}</span>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.list__eight != blank %}
+                      <li class="list">
+                        <span class="list-check_icon">
+                          {% render 'check-mark-ico' %}
+                        </span>
+                        <span class="list__text">{{ block.settings.list__eight }}</span>
+                      </li>
+                    {% endif %}
+                  </ul>
+                  {% if block.settings.note_text != blank %}
+                    <span class="card__note"
+                      ><i>{{ block.settings.note_text }}</i></span
+                    >
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="gird_block--cta">
+      {% if section.settings.offerLable %}
+        {% render 'offer-bug' %}
+      {% endif %}
+      <div class="cta__center">
+        {% if section.settings.CtaHeading != blank %}
+          <h2 class="cta_heading">{{ section.settings.CtaHeading }}</h2>
+        {% endif %}
+        {% if section.settings.CtaSubHeading != blank %}
+          <span class="cta_subheading">{{ section.settings.CtaSubHeading }}</span>
+        {% endif %}
+      </div>
+      {% if section.settings.CtaText != blank %}
+        {% if product.handle == 'gps-offer' %}
+        {% endif %}
+        <div class="cta_pluse-pdp cta_pluse" style="--ripple-clr: #CB000080">
+          <a href="javascript:void(0)" class="gird_cta above__fold-cart-cta">{{ section.settings.CtaText }}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .gird__layout-block { background: {{ section.settings.blockColor }}; }
+  @media only screen and (min-width:861px){
+    {% for block in section.blocks %}
+        {% if block.settings.cardBgImage %}
+          [data-card-bgimage][data-card-id="{{ block.id }}"] {
+            background-image: url("{{ block.settings.cardBgImage | img_url: 'master' }}");
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+          }
+        {% endif %}
+      {% endfor %}
+  }
+  
+  @media only screen and (max-width:860px){
+    {% for block in section.blocks %}
+        {% if block.settings.cardBgImageMoible %}
+          [data-card-bgimage][data-card-id="{{ block.id }}"] {
+            background-image: url("{{ block.settings.cardBgImageMoible | img_url: 'master' }}");
+            background-position: center top;
+            background-size: cover;
+            background-repeat: no-repeat;
+          }
+        {% endif %}
+      {% endfor %}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Grid Block",
+  "settings": [
+    {
+      "type": "color",
+      "id": "blockColor",
+      "label": "Section Color"
+    },
+    {
+      "type": "html",
+      "id": "GridHeading",
+      "label": "Section Heading"
+    },
+    {
+      "type": "image_picker",
+      "id": "headingImage",
+      "label": "Section Heading Image"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "headingImageMobile",
+      "label": "Section Heading Mobile Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "offerLable",
+      "label": "Enable Offer Bug",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "CtaHeading",
+      "label": "Cta Section Heading"
+    },
+    {
+      "type": "html",
+      "id": "CtaSubHeading",
+      "label": "Cta Section Heading"
+    },
+    {
+      "type": "text",
+      "id": "CtaText",
+      "label": "Cta Text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Cards",
+      "name": "Card Blocks",
+      "settings": [
+        {
+          "type": "select",
+          "id": "card_size",
+          "label": "Card size (override default)",
+          "options": [
+            { "value": "small", "label": "Small (2 columns)" },
+            { "value": "medium", "label": "Medium (3 columns)" },
+            { "value": "full", "label": "Full (6 columns)" }
+          ],
+          "default": "medium"
+        },
+        {
+          "type": "checkbox",
+          "id": "topPadding",
+          "label": "Remove Padding From Top",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "rightPadding",
+          "label": "Remove Padding From Right",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "bottomPadding",
+          "label": "Remove Padding From Botttom",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "leftPadding",
+          "label": "Remove Padding From Left",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "cardBgImage",
+          "label": "Add Background Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "cardBgImageMoible",
+          "label": "Add Background Image For Mobile"
+        },
+        {
+          "type": "image_picker",
+          "id": "CardMockup",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "CardMockupMobile",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "Prouct_title",
+          "label": "Select Title"
+        },
+        {
+          "type": "html",
+          "id": "Product_heading",
+          "label": "Product Heading"
+        },
+        {
+          "type": "html",
+          "id": "Product_description",
+          "label": "Product Description"
+        },
+        {
+          "type": "text",
+          "id": "list__one",
+          "label": "Add Text For Label One"
+        },
+        {
+          "type": "text",
+          "id": "list__two",
+          "label": "Add Text For Label Two"
+        },
+        {
+          "type": "text",
+          "id": "list__three",
+          "label": "Add Text For Label Three"
+        },
+        {
+          "type": "text",
+          "id": "list__four",
+          "label": "Add Text For Label Four"
+        },
+        {
+          "type": "text",
+          "id": "list__five",
+          "label": "Add Text For Label Five"
+        },
+        {
+          "type": "text",
+          "id": "list__six",
+          "label": "Add Text For Label Six"
+        },
+        {
+          "type": "text",
+          "id": "list__seven",
+          "label": "Add Text For Label Seven"
+        },
+        {
+          "type": "text",
+          "id": "list__eight",
+          "label": "Add Text For Label Eight"
+        },
+        {
+          "type": "text",
+          "id": "note_text",
+          "label": "Add Text For Note"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Grid Block"
+    }
+  ]
+}
+{% endschema %}

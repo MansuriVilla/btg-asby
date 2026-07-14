@@ -1,0 +1,125 @@
+<section class="whole-sale__thankyou-container">
+  <div class="thankyou-container__inner page-width">
+    <div class="thankyou-container__left">
+      {% if section.settings.mockup != blank %}
+        <img  class="mockup__image" src="{{section.settings.mockup  | image_url}}" alt="{{section.settings.mockup }}">
+      {% endif %}
+    </div>
+    <div class="thankyou-container__right">
+      <div class="thankyou-right__top">
+        {% if section.settings.btg_logo != blank %}
+          <img
+            
+            src="{{section.settings.btg_logo  | image_url}}"
+            alt="Blue Tees Golf Logo"
+          >
+        {% endif %}
+        {% if section.settings.title_text != blank %}
+          <h1>{{ section.settings.title_text }}</h1>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <p>{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+      <div class="thankyou-right__bottom">
+ 
+          {% if section.settings.page_url %}
+            <a
+              href="{{ section.settings.page_url | escape }}"
+              class="thankyou__cta"
+              aria-label="{{section.settings.cta_text | escape}}"
+            >
+              {{- section.settings.cta_text | escape -}}
+            </a>
+          {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  body.template-page { min-height: 100vh; background: #171717; }
+  .whole-sale__thankyou-container{background:#fff;}
+  .thankyou-container__inner { display: flex; align-items: center; justify-content: center; text-align: center; padding: clamp(30px,3.6vw,70px) clamp(30px,3.6vw,70px) 0; gap: 40px; }
+  .thankyou-container__inner.page-width{max-width:1720px;}
+  .thankyou-container__left, .thankyou-container__right{flex:1; display: flex; align-items: center; justify-content: center; flex-direction: column;}
+  .thankyou-container__inner .mockup__image { display: flex; max-width:clamp(430px,43vw,800px); width: 100%;} 
+  .thankyou-right__top { max-width: clamp(270px,40vw,540px); display: flex; flex-direction: column; row-gap: clamp(16px,1.6vw,26px); justify-content: center; align-items: center; }
+  .thankyou-right__top h1 {  font-weight: inherit; line-height: 1; font-size: clamp(26px,3vw,42px); }
+  .thankyou-right__top p, .thankyou-right__bottom p { padding: 0; max-width: clamp(235px,40vw, 500px); font-size: clamp(14px,1.2vw,16px); line-height: 150%; }
+
+  .thankyou-container__right { gap: clamp(25px,2.6vw,45px); }
+  .thankyou-right__top img { margin-bottom: 5px; max-width: clamp(120px,10vw,170px); }
+.thankyou__cta {
+  border-radius: 50px;
+  border: 2px solid #004DF5;
+  padding: clamp(10px,1vw,16px) clamp(20px,2vw,42px);
+  color: #004DF5;
+  font-weight: 900;
+  letter-spacing: clamp(1.2px,2vw,3.2px);
+  width: 100%;
+  font-size: clamp(12px,1vw,16px);
+}
+
+.thankyou-right__bottom {
+  display: flex;
+}
+
+.thankyou__cta:hover {
+  background: #004DF5;
+  color: #fff;
+}
+  {% comment %} @media only screen and (max-width:860px){
+  } {% endcomment %}
+  @media only screen and (max-width:860px){
+    .thankyou-container__inner { flex-direction:column-reverse;}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Thank You Page",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "mockup",
+      "label": "Select Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "btg_logo",
+      "label": "Select Logo"
+    },
+    {
+      "type": "text",
+      "label": "Page Title",
+      "id": "title_text",
+      "default": "Thank you for your wholesale submission!"
+    },
+    {
+      "type": "text",
+      "label": "Description",
+      "id": "description",
+      "default": "We’re excited about the possibility of working together. Our team will review your application and reach out to you soon."
+    },
+    {
+      "type": "url",
+      "label": "CTA Link",
+      "id": "page_url"
+    },
+    {
+      "type": "text",
+      "label": "CTA Text",
+      "id": "cta_text",
+      "default": "Explore our latest offers"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Custom Thank You Page"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,114 @@
+<div class="parallex-page-content hero_parallex-{{ page.handle }}">
+  <div class="parallex-hero">
+    <div class="hero_inner  {% if section.settings.is_narrow-width %} page-width {% endif %}">
+      <div class="hero_content radius_init">
+        <div class="hero_content-background">
+          {% if section.settings.hero_background_desktop != blank %}
+            <picture>
+              <source
+                srcset="{{section.settings.hero_background_desktop | image_url }}"
+                media="(min-width:{{section.settings.desktop_image}}px)"
+              >
+              <source
+                srcset="{{section.settings.hero_background_mobile | image_url }}"
+                media="(max-width:{{section.settings.mobile_image}}px)"
+              >
+              <img
+                class="{% if section.settings.enable_parallex %} has_parallex {% endif %}"
+                src="{{section.settings.hero_background_desktop | image_url }}"
+                alt=" {{section.settings.hero_description}}"
+              >
+            </picture>
+          {% endif %}
+        </div>
+        <div class="hero_content-text">
+          {% if section.settings.hero_text != blank %}
+            <h1>
+              {{ section.settings.hero_text }}
+            </h1>
+          {% endif %}
+
+          {% if section.settings.hero_description %}
+            <p>
+              {{ section.settings.hero_description }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .radius_init{border-radius: {{section.settings.radius}}px; overflow: hidden;}
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Hero Parallex Custom",
+  "settings": [
+    {
+      "type": "image_picker",
+      "label": "Select Image For Desktop",
+      "id": "hero_background_desktop"
+    },
+    {
+      "type": "image_picker",
+      "label": "Select Image For Mobile",
+      "id": "hero_background_mobile"
+    },
+    {
+      "type": "text",
+      "label": "Desktop Image Visible Untile",
+      "id": "desktop_image",
+      "default": "861",
+      "info": "The image you will select for desktop stays visible unitle the media you have entered here by default it's '861px'"
+    },
+    {
+      "type": "text",
+      "label": "Mobile Image Visible Untile",
+      "id": "mobile_image",
+      "default": "860",
+      "info": "The image you will select for mobile stays visible unitle the media you have entered here by default it's '860px'"
+    },
+    {
+      "type": "html",
+      "label": "Hero Text",
+      "id": "hero_text",
+      "default": "<h1><span>GOLFERS ARE</span> <br /> <span>OBSESSED.</span> <br /> <span class='fs__stroke'>HERE’S WHY.</span></h1>"
+    },
+    {
+      "type": "text",
+      "label": "Hero Description",
+      "id": "hero_description",
+      "default": "See what real golfers are saying about our products."
+    },
+    {
+      "type": "checkbox",
+      "label": "Parallex Animation",
+      "id": "enable_parallex",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "label": "Set narrow Width",
+      "id": "is_narrow-width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "label": "Border Radius",
+      "id": "radius",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Hero Parallex"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,79 @@
+<div class="complete_your-carry-section">
+  <div class="complete_your-carry-inner">
+    {% assign related_collection = collections['transit'] %}
+
+    {% if related_collection %}
+      <div class="complete_your-carry-top">
+        <div class="complete_your-carry-title">
+          <h2>COMPLETE YOUR CARRY</h2>
+        </div>
+      </div>
+
+      <div class="complete_your-carry-bottom">
+        <div class="complete_your-slider owl-carousel">
+          {% for related_product in related_collection.products %}
+            {% if related_product.handle != product.handle and forloop.index <= 4 %}
+              <div class="item">
+                <div class="complete_your-slider-item-inner">
+                  <div class="complete_your-carry-slider-top">
+                    <picture>
+                      <img src="{{ related_product.featured_image | img_url: 'master' }}" alt="{{ related_product.title }}">
+                    </picture>
+                  </div>
+
+                  <div class="complete_your-carry-slider-bottom">
+                    <div class="complete_your-carry-bottom-inner">
+                      <div class="complete_your-carry-bottom-top">
+                        <div class="complete_your-carry-bottom-top-left">
+                          <h3>{{ related_product.title }}</h3>
+                          <p class="carry-description">
+                            {{ related_product.description | strip_html | truncatewords: 20 }}
+                          </p>
+                        </div>
+                        <div class="complete_your-carry-bottom-top-right">
+                          <p>{{ related_product.price | money }}</p>
+                        </div>
+                      </div>
+
+                      <div class="complete_your-carry-bottom-bottom">
+                        <a class="staggered-item tips_slider-cta" href="{{ related_product.url }}">
+                          <span>ADD TO CART</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+
+  {{ 'owl.theme.css' | asset_url | stylesheet_tag }} {{ 'owl.carousel.css' |
+asset_url | stylesheet_tag }} {{ 'owl.carousel.js' | asset_url | script_tag }}
+
+<script>
+  $(".complete_your-slider").owlCarousel({
+    loop: false,
+    margin: 40,
+    nav: false,
+    dots: false,
+    navText: [
+      '<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M10.5 1L1.5 10.5L10.5 19" stroke="black" stroke-width="2"/> </svg> ',
+      '<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 19L10.5 9.5L1.5 0.999999" stroke="black" stroke-width="2"/></svg>',
+    ],
+    responsive: {
+      0: {
+        loop: true,
+        items: 1.3,
+      },
+      992: {
+        items: 2,
+      },
+    },
+  });
+</script>

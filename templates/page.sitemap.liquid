@@ -1,0 +1,104 @@
+
+
+<div class="sitemap">
+<div class="page-width">
+    <div class="promo-grid">
+        <div class="flex-grid flex-grid--gutters ">
+            
+
+           <div class="flex-grid__item--50">
+                <div class="">
+                    <div class="section-header text-left">
+                        <h1>Products</h1>
+                    </div>
+         
+                     {% paginate collections.all.products by 1000 %}
+                          {% for product in collections.all.products %}
+                            <ul>
+                              <li>
+                                  <a href="{{ product.url }}">{{ product.title }}</a>
+                              </li>
+                            </ul>
+                          {% endfor %}
+                      {% endpaginate %}
+                </div>
+            </div>
+    
+            <div class="flex-grid__item--50">
+                <div class="">
+                    <div class="section-header text-left">
+                        <h1>Collections</h1>
+                    </div>
+         
+                     <ul>
+                          {% for c in collections %}
+                              <li>
+                                  <a href="{{ c.url }}">{{ c.title }}</a>
+                              </li>
+                          {% endfor %}
+                      </ul>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-width">
+    <div class="promo-grid">
+        <div class="flex-grid flex-grid--gutters ">
+            
+            <div class="flex-grid__item--50">
+                <div class="">
+                    <div class="section-header text-left">
+                        <h1>Page</h1>
+                    </div>
+         
+                    <ul>
+                          {% for p in pages %}
+                              <li>
+                                  <a href="{{ p.url }}">{{ p.title }}</a>
+                              </li>
+                          {% endfor %}
+                      </ul>
+                </div>
+            </div> 
+          
+            <div class="flex-grid__item--50">
+                <div class="">
+                    <div class="section-header text-left">
+                        <h1>Blog Posts</h1>
+                    </div>
+         
+                     <ul>
+                          {% assign blog_handles = "news" | split: "," %}
+                     
+                          {% for handle in blog_handles %}
+                     
+                             {% for article in blogs[handle].articles %}
+                                <li>
+                                   <a href="{{ article.url }}">{{ article.title }}</a>
+                                </li>
+                                {% endfor %}
+                     
+                          {% endfor %}
+
+                          {% assign blog_handles_press = "press-release" | split: "," %}
+                           {% for press in blog_handles_press %}
+                     
+                             {% for article in blogs[press].articles %}
+                                <li>
+                                   <a href="{{ article.url }}">{{ article.title }}</a>
+                                </li>
+                                {% endfor %}
+                     
+                          {% endfor %}
+                      </ul>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+

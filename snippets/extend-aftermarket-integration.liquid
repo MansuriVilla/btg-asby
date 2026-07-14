@@ -1,0 +1,51 @@
+<!--script>
+  if (window.Extend && window.ExtendShopify && window.Shopify.currency.active === "USD") {
+    
+    var leadToken = window.Extend.URLSearchParams('leadToken');
+    
+    if(leadToken) {
+      Extend.aftermarketModal.open({
+        leadToken: leadToken,
+        onClose: function(plan, product, quantity) {
+          if(plan && product) {
+            ExtendShopify.addPlanToCart({plan: plan, product: product, leadToken: leadToken, quantity: quantity || 1}, function() {
+              window.location = '/cart'
+            }) 
+          }
+        }
+      }) 
+    }
+    
+  }
+  
+</script -->
+
+
+<script>
+
+  window.addEventListener('DOMContentLoaded', function () {
+
+    if (window.Extend && window.ExtendShopify && window.Shopify && window.Shopify.currency && window.Shopify.currency.active === 'USD') {
+
+      const params = (new URL(document.location)).searchParams;
+
+      let leadToken = params.get('leadToken') ? params.get('leadToken') : params.get('leadToken');
+      let transactionId = params.get('transactionId') ? params.get('transactionId') : params.get('transactionId');
+      if (leadToken && transactionId) {
+        Extend.aftermarketModal.open({
+          leadToken: leadToken,
+          onClose: function (plan, product, quantity) {
+            if (plan && product) {
+              ExtendShopify.addPlanToCart({ plan: plan, product: product, leadToken: leadToken, quantity: quantity || 1 }, function () {
+                window.location = `/checkout?transactionId=${transactionId}`
+              })
+            }
+          }
+        })
+      }
+
+    }
+
+  })
+
+</script>

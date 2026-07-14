@@ -1,0 +1,47 @@
+<div class="product_cover-area">
+    <div class="product_area-inner">
+      <div class="product_area-top">
+        {%- if section.settings.title -%}
+            <h3>{{ section.settings.title | escape }}</h3>
+        {%- endif -%}
+
+        {%- if section.settings.sub_title -%}
+            <p>{{ section.settings.sub_title | escape }}</p>
+        {%- endif -%}
+      	  
+      </div>
+       {%- if section.settings.pro_image != blank -%}
+        <div class="bottom_product_img">
+            <img src="{{ section.settings.pro_image | img_url: 'master' }}">
+        </div>
+      {%- endif -%}
+      
+
+    </div>
+  </div>
+
+
+{% schema %}
+  {
+    "name": "Product cover",
+    "settings": [
+      {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.rich-text.blocks.heading.settings.title.label",
+          "default": "Rich text"
+        },
+		{
+          "type": "textarea",
+          "id": "sub_title",
+          "label": "Sub title",
+          "default": "Rich text"
+        },
+        {
+            "type": "image_picker",
+            "id": "pro_image",
+            "label": "Image"
+        }
+    ]
+  }
+{% endschema %}

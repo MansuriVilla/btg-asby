@@ -1,0 +1,1587 @@
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script> {% endcomment %}
+{% comment %} <script>
+  function tabopen(evt, tabname, current, currentbtn) {
+    var i, tabcontent, tablinks;
+    //alert('megamenu-'+ current);
+    tabcontent = document.getElementsByClassName(current);
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = 'none';
+    }
+    tablinks = document.getElementsByClassName(currentbtn);
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(' active', '');
+    }
+
+    document.getElementById(tabname).style.display = 'block';
+    evt.currentTarget.className += ' active';
+  }
+</script> {% endcomment %}
+
+{% comment %} <script>
+  function responsivemenu() {
+    var element = document.getElementById('SiteHeader');
+    element.classList.toggle('fixmenu');
+  }
+</script> {% endcomment %}
+
+<script>
+  if (window.location.pathname !== '/pages/play-w-paige') {
+    // Clear any existing intervals to avoid duplicates
+
+    if (window.countdownInterval) {
+      clearInterval(window.countdownInterval);
+    }
+
+    function calculateCountdown() {
+      const cycleDuration = 3 * 24 * 60 * 60 * 1000; 
+
+      const now = new Date().getTime();
+
+      // Calculate how many full 7-day cycles have passed since a fixed starting point
+      // We use a fixed base date far in the past to keep it consistent across all visitors
+      const baseStartDate = new Date('2026-06-22T00:00:00Z').getTime();
+
+      const timeSinceBase = now - baseStartDate;
+      const timeIntoCycle = timeSinceBase % cycleDuration;
+
+      // Time remaining in the current 7-day cycle
+      let timeDifference = cycleDuration - timeIntoCycle;
+
+      // Safety check (should never happen)
+      if (timeDifference <= 0) timeDifference = cycleDuration;
+
+      // Calculate days, hours, minutes, seconds
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      const pad = (n) => String(n).padStart(2, '0');
+      const countdownText = `${days}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+
+      // Update all timer elements on the page
+      document
+        .querySelectorAll(
+          '.ringer_funnel_timer, .counter, .clock-builder-output, [class*="timer"]'
+        )
+        .forEach((timer) => {
+          timer.innerHTML = countdownText;
+        });
+    }
+
+    // Run immediately
+    calculateCountdown();
+
+    // Update every second (1000ms is enough and smoother than 500ms)
+    window.countdownInterval = setInterval(calculateCountdown, 1000);
+  } 
+
+  {% comment %} if (window.location.pathname !== '/pages/play-w-paige') {
+    // Clear any existing intervals to avoid duplicates
+    if (window.countdownInterval) {
+      clearInterval(window.countdownInterval);
+    }
+
+    function calculateCountdown() {
+      const endDate = new Date('2026-06-26T23:59:59Z').getTime(); // Ends on June 26 at 23:59:59 UTC
+
+      const now = new Date().getTime();
+      let timeDifference = endDate - now;
+
+      // If the countdown has already ended
+      if (timeDifference <= 0) {
+        const countdownText = "00:00:00:00";
+        document
+          .querySelectorAll(
+            '.ringer_funnel_timer, .counter, .clock-builder-output, [class*="timer"]'
+          )
+          .forEach((timer) => {
+            timer.innerHTML = countdownText;
+          });
+        return;
+      }
+
+      // Calculate days, hours, minutes, seconds
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      const pad = (n) => String(n).padStart(2, '0');
+      const countdownText = `${days}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+
+      // Update all timer elements on the page
+      document
+        .querySelectorAll(
+          '.ringer_funnel_timer, .counter, .clock-builder-output, [class*="timer"]'
+        )
+        .forEach((timer) => {
+          timer.innerHTML = countdownText;
+        });
+    }
+
+    // Run immediately
+    calculateCountdown();
+
+    // Update every second
+    window.countdownInterval = setInterval(calculateCountdown, 1000);
+  } {% endcomment %}
+
+  {% comment %} if (window.location.pathname !== '/pages/play-w-paige') {
+    // Clear any existing intervals
+    if (window.countdownInterval) {
+      clearInterval(window.countdownInterval);
+    }
+
+    function calculateCountdown() {
+      const endDate = new Date('2026-06-27T06:59:59Z').getTime();
+      const now = new Date().getTime();
+      let timeDifference = endDate - now;
+
+      // Countdown ended
+      if (timeDifference <= 0) {
+        const countdownText = "00:00:00:00";
+        document.querySelectorAll('.ringer_funnel_timer, .counter, .clock-builder-output, [class*="timer"]')
+          .forEach((timer) => {
+            timer.innerHTML = countdownText;
+          });
+        return;
+      }
+
+      // Calculate time parts
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      const pad = (n) => String(n).padStart(2, '0');
+
+      // Format exactly like Image 1: "03 14:54:48"
+      const countdownText = `${pad(days)}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+
+      // Update all timer elements
+      document.querySelectorAll('.ringer_funnel_timer, .counter, .clock-builder-output, [class*="timer"]')
+        .forEach((timer) => {
+          timer.innerHTML = countdownText;
+        });
+    }
+
+    // Run immediately + every second
+    calculateCountdown();
+    window.countdownInterval = setInterval(calculateCountdown, 1000);
+} {% endcomment %}
+</script>
+
+{%- liquid
+  assign main_menu = linklists[section.settings.main_menu_link_list]
+  assign toolbar_menu = linklists[section.settings.toolbar_menu]
+
+  assign logo_alignment = 'left'
+  if section.settings.main_menu_alignment == 'center-left' or section.settings.main_menu_alignment == 'center-split' or section.settings.main_menu_alignment == 'center' or section.settings.main_menu_alignment == 'center-drawer'
+    assign logo_alignment = 'center'
+  endif
+
+  assign dropdown_alignment = 'left'
+  if section.settings.main_menu_alignment == 'left-center' or section.settings.main_menu_alignment == 'center-split' or section.settings.main_menu_alignment == 'center'
+    assign dropdown_alignment = 'center'
+  endif
+
+  assign template_name = template | replace: '.', ' ' | truncatewords: 2, '' | handle
+
+  assign sticky_header = false
+  if section.settings.header_style == 'sticky'
+    assign sticky_header = true
+  endif
+  assign overlay_header = false
+  if template_name == 'index' and section.settings.sticky_index
+    assign overlay_header = true
+  endif
+  if template_name contains 'collection' and collection.image and section.settings.sticky_collection
+    assign overlay_header = true
+  endif
+-%}
+
+{%- render 'drawer-menu',
+  section: section,
+  main_menu: main_menu,
+  toolbar_menu: toolbar_menu,
+  logo_alignment: logo_alignment
+-%}
+
+{%- render 'cart-drawer' -%}
+
+<style>
+  .site-nav__link,
+  .site-nav__dropdown-link:not(.site-nav__dropdown-link--top-level) {
+    font-size: {{ settings.type_navigation_size }}px;
+  }
+  {% if settings.type_navigation_capitalize %}
+    .site-nav__link, .mobile-nav__link--top-level {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .mobile-nav__link--top-level {
+      font-size: 1.1em;
+    }
+  {% endif %}
+
+  {% if mainmenu.length > 6 %}
+    .site-nav__link {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  {% endif %}
+
+  {% unless section.settings.mega_menu_images %}
+    .megamenu__colection-image {
+      display: none;
+    }
+  {% endunless %}
+
+  {%- if settings.color_header == settings.color_body_bg or settings.color_body_bg contains settings.color_header -%}
+    .site-header {
+      box-shadow: 0 0 1px rgba(0,0,0,0.2);
+    }
+
+    .toolbar + .header-sticky-wrapper .site-header {
+      border-top: 0;
+    }
+  {%- endif -%}
+
+  {%- if settings.color_announcement == settings.color_body_bg -%}
+    .announcement-bar {
+      border-bottom: 1px solid;
+    }
+  {%- endif -%}
+</style>
+
+<div class="custom-header" data-section-id="{{ section.id }}" data-section-type="header">
+  {%- if overlay_header or section.settings.announcement_above_header -%}
+    {% comment %} {%- render 'announcement-bar', section: section -%}  {% endcomment %}
+  {%- endif -%}
+
+  {%- unless overlay_header -%}
+    {%- if section.settings.show_locale_selector
+      or section.settings.show_currency_selector
+      or section.settings.toolbar_social
+      or section.settings.toolbar_menu != blank
+    -%}
+      {%- render 'toolbar', section: section, toolbar_menu: toolbar_menu, overlay_header: overlay_header -%}
+    {%- endif -%}
+  {%- endunless -%}
+
+  <div class="header-sticky-wrapper">
+    <div id="HeaderWrapper" class="header-wrapper{% if overlay_header %} header-wrapper--sticky is-light{% endif %}">
+      {%- if overlay_header -%}
+        {%- if section.settings.show_locale_selector
+          or section.settings.show_currency_selector
+          or section.settings.toolbar_social
+          or section.settings.toolbar_menu != blank
+        -%}
+          {%- render 'toolbar', section: section, toolbar_menu: toolbar_menu, overlay_header: overlay_header -%}
+        {%- endif -%}
+      {%- endif -%}
+      <div
+        id="SiteHeader"
+        class="site-header site_header_has_effect{% if settings.type_navigation_style == 'heading' %} site-header--heading-style{% endif %}  header_on-{% if collection.handle %}{{ collection.handle }}{% elsif product.handle %}{{ product.handle }}{% elsif template == 'index' %}home{% elsif template contains 'page' %}{{ page.handle }}{% else %}default{% endif %}"
+        data-sticky="{{ sticky_header }}"
+        data-overlay="{{ overlay_header }}"
+        style="backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); "
+      >
+        <div
+          class="blueTees_tipsArea"
+          style="    {%  if product.handle == 'speaker-bundle' or product.handle == 'gps-offer' or product.handle == 'laser-offer'  or product.handle == 'player-gps-speaker-bundle-v2' or product.handle == 'ringer-gps-handheld-bundle-v2' or product.handle == 'series-4-ultra-bundle-v2' %} display:none; {% endif %}"
+        >
+          <div class="blueTees_tipsInner">
+            {% comment %}
+              <div class="blueTees_tipsLeft">
+                <a href="/">
+                  <img src="{{ 'btg_header-bar-ico.png' | asset_url }}" alt="Blue Tees Logo">
+                </a>
+                <a href="https://www.tipsgear.com/">
+                  <img src="{{ 'tips_logo-header-bar-ico.svg' | asset_url }}" alt="TIPS Logo">
+                </a>
+              </div>
+            {% endcomment %}
+            <div class="blueTees_tipsCenter">
+              <div class="top__bar-right Hover__arrow">
+                <a
+                  class="top__bar-right--inner Arrow Arrow--right"
+
+                  href="/pages/deals"
+                >
+                  <span class="arrow__text" style="display:flex;">
+                    <p>
+                      {% comment %} {%- render 'sale-name'-%}. {% endcomment %}
+                       100 DAY RETURNS & FREE SHIPPING.
+                      {% comment %} <span class="desktop-texta"
+                        >SPRING SALE.</span
+                      > {% endcomment %}
+                      {% comment %} <span class="mobile-text">OUR NEW 2026 PRODUCT LINEUP</span> {% endcomment %}
+                      <span
+                        class="top__bar-anhor-hover anchor_hover"
+                        style="color:#FFFFFF; --hover-clr:#fff; line-height: 1.4;"
+                      >
+                      SHOP NOW</span
+                      >
+                    </p>
+                  </span>
+
+                  {% comment %}
+                    <span class="bar-right__left" >
+                      <svg class="Site_arrow__hover" style="--arrow-clr:#FFFFFF;" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path class="Arrow__path Arrow__path--one" fill="currentColor" d="M7.28033 3.21967C6.98744 2.92678 6.51256 2.92678 6.21967 3.21967C5.92678 3.51256 5.92678 3.98744 6.21967 4.28033L7.28033 3.21967ZM11 8L11.5303 8.53033C11.8232 8.23744 11.8232 7.76256 11.5303 7.46967L11 8ZM6.21967 11.7197C5.92678 12.0126 5.92678 12.4874 6.21967 12.7803C6.51256 13.0732 6.98744 13.0732 7.28033 12.7803L6.21967 11.7197ZM6.21967 4.28033L10.4697 8.53033L11.5303 7.46967L7.28033 3.21967L6.21967 4.28033ZM10.4697 7.46967L6.21967 11.7197L7.28033 12.7803L11.5303 8.53033L10.4697 7.46967Z"></path>
+                        <path class="Arrow__path Arrow__path--two" stroke="currentColor" d="M1.75 8H11" stroke-width="1.5" stroke-linecap="round"></path>
+                      </svg>
+                    </span>
+                  {% endcomment %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="header_layout-options new-page-width">
+          <div
+            class="header-layout header-layout--{{ section.settings.main_menu_alignment }}"
+            data-logo-align="{{ logo_alignment }}"
+          >
+            {%- if logo_alignment == 'left' -%}
+              <div class="header-item header-item--logo">
+                {%- render 'header-logo-block', section: section -%}
+              </div>
+            {%- endif -%}
+
+            {%- if logo_alignment == 'left' and section.settings.main_menu_alignment != 'left-drawer' -%}
+              <div class="header-item header-item--navigation{% if section.settings.main_menu_alignment == 'left-center' %} text-center{% endif %}">
+                {%- render 'header-desktop-nav', main_menu: main_menu, dropdown_alignment: dropdown_alignment -%}
+              </div>
+            {%- endif -%}
+
+            {%- if logo_alignment == 'center' -%}
+              <div class="header-item header-item--left header-item--navigation">
+                {%- if section.settings.main_menu_alignment == 'center'
+                  or section.settings.main_menu_alignment == 'center-split'
+                -%}
+                  {%- if settings.search_enable -%}
+                    <div class="site-nav small--hide">
+                      <a href="{{ routes.search_url }}" class="site-nav__link site-nav__link--icon js-search-header">
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          role="presentation"
+                          class="icon icon-search"
+                          viewBox="0 0 64 64"
+                        >
+                          <path d="M47.16 28.58A18.58 18.58 0 1 1 28.58 10a18.58 18.58 0 0 1 18.58 18.58zM54 54L41.94 42"/>
+                        </svg>
+                        <span class="icon__fallback-text">{{ 'general.search.title' | t }}</span>
+                      </a>
+                    </div>
+                  {%- endif -%}
+                {%- endif -%}
+
+                {%- if section.settings.main_menu_alignment == 'center-left' -%}
+                  {%- render 'header-desktop-nav', main_menu: main_menu, dropdown_alignment: dropdown_alignment -%}
+                {%- endif -%}
+
+                <div class="site-nav{% unless section.settings.main_menu_alignment == 'center-drawer' %} medium-up-hide-custom{% endunless %}">
+                  <button
+                    type="button"
+                    class="site-nav__link site-nav__link--icon js-drawer-open-nav"
+                    aria-controls="NavDrawer"
+                  >
+                    <!--
+                      svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-hamburger" viewBox="0 0 64 64"><path d="M7 15h51M7 32h43M7 49h51"/></svg
+                    -->
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      role="presentation"
+                      class="icon icon-hamburger"
+                      width="33"
+                      height="22"
+                      viewBox="0 0 33 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M31.3704 0H1.22222C0.547208 0 0 0.547208 0 1.22222C0 1.89724 0.547208 2.44444 1.22222 2.44444H31.3704C32.0454 2.44444 32.5926 1.89724 32.5926 1.22222C32.5926 0.547208 32.0454 0 31.3704 0Z" fill="white"/>
+                      <path d="M26.4815 9.77777H1.22222C0.547208 9.77777 0 10.325 0 11C0 11.675 0.547208 12.2222 1.22222 12.2222H26.4815C27.1565 12.2222 27.7037 11.675 27.7037 11C27.7037 10.325 27.1565 9.77777 26.4815 9.77777Z" fill="white"/>
+                      <path d="M19.963 19.5555H1.22222C0.547208 19.5555 0 20.1027 0 20.7778C0 21.4528 0.547208 22 1.22222 22H19.963C20.638 22 21.1852 21.4528 21.1852 20.7778C21.1852 20.1027 20.638 19.5555 19.963 19.5555Z" fill="white"/>
+                    </svg>
+
+                    <span class="icon__fallback-text">{{ 'general.drawers.navigation' | t }}</span>
+                  </button>
+                </div>
+              </div>
+
+              {%- if section.settings.main_menu_alignment == 'center-split' -%}
+                {%- render 'header-split-nav',
+                  main_menu: main_menu,
+                  section: section,
+                  dropdown_alignment: dropdown_alignment
+                -%}
+              {%- endif -%}
+
+              {%- if section.settings.main_menu_alignment != 'center-split' -%}
+                <div class="header-item header-item--logo">
+                  {%- render 'header-logo-block', section: section -%}
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+
+            <div class="header-item header-item--icons">
+              {%- render 'header-icons', section: section -%}
+            </div>
+          </div>
+
+          {%- if section.settings.main_menu_alignment == 'center' -%}
+            <div class="text-center">
+              {%- render 'header-desktop-nav', main_menu: main_menu, dropdown_alignment: dropdown_alignment -%}
+            </div>
+          {%- endif -%}
+        </div>
+        <div class="site-header__search-container">
+          <div class="site-header__search">
+            <div class="page-width">
+              <form
+                action="{{ routes.search_url }}"
+                method="get"
+                role="search"
+                id="HeaderSearchForm"
+                class="site-header__search-form"
+              >
+                <input type="hidden" name="type" value="{{ settings.search_type }}">
+                <input type="hidden" name="options[prefix]" value="last">
+                <button type="submit" class="text-link site-header__search-btn site-header__search-btn--submit">
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    role="presentation"
+                    class="icon icon-search"
+                    viewBox="0 0 64 64"
+                  >
+                    <path d="M47.16 28.58A18.58 18.58 0 1 1 28.58 10a18.58 18.58 0 0 1 18.58 18.58zM54 54L41.94 42"/>
+                  </svg>
+                  <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
+                </button>
+                <input
+                  type="search"
+                  name="q"
+                  value="{{ search.terms | escape | replace: '*', '' }}"
+                  placeholder="{{ 'general.search.placeholder' | t }}"
+                  class="site-header__search-input"
+                  aria-label="{{ 'general.search.placeholder' | t }}"
+                >
+              </form>
+              <button type="button" id="SearchClose" class="js-search-header-close text-link site-header__search-btn">
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  role="presentation"
+                  class="icon icon-close"
+                  viewBox="0 0 64 64"
+                >
+                  <path d="M19 17.61l27.12 27.13m0-27.12L19 44.74"/>
+                </svg>
+                <span class="icon__fallback-text">{{ 'general.accessibility.close_modal' | t | json }}</span>
+              </button>
+            </div>
+          </div>
+          {%- if settings.predictive_search_enabled -%}
+            <div
+              id="PredictiveWrapper"
+              class="predictive-results hide"
+              data-image-size="{{ settings.predictive_image_size }}"
+            >
+              <div class="page-width">
+                <div id="PredictiveResults" class="predictive-result__layout"></div>
+                <div class="text-center predictive-results__footer">
+                  <button type="button" class="btn btn--small" data-predictive-search-button>
+                    <small>
+                      {{ 'general.search.view_more' | t }}
+                    </small>
+                  </button>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+        <span class="megaMenu_backface"></span>
+
+  {%- unless overlay_header or section.settings.announcement_above_header -%}
+    {%- render 'announcement-bar', section: section -%}
+  {%- endunless -%}
+</div>
+
+{% if product.handle == 'speaker-bundle'
+  or product.handle == 'gps-offer'
+  or product.handle == 'laser-offer'
+  or product.handle == 'player-gps-speaker-bundle-v2'
+  or product.handle == 'ringer-gps-handheld-bundle-v2'
+  or product.handle == 'series-4-ultra-bundle-v2'
+%}
+  <div class="ringer-funnel__ticker">
+    <div class="hero__ticker-init" data-speed="0.4" data-direction="left">
+      <div>
+        <ul class="hero__ticker-init__list">
+          <span>
+            <svg
+              width="4"
+              height="4"
+              viewBox="0 0 4 4"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="2" cy="2" r="1.5" fill="black" />
+            </svg>
+          </span>
+          <li>Risk-Free 100-Day Money Back Guarantee</li>
+          <span>
+            <svg
+              width="4"
+              height="4"
+              viewBox="0 0 4 4"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="2" cy="2" r="1.5" fill="black" />
+            </svg>
+          </span>
+          <li>Extended 2 Year Warranty</li>
+          <span>
+            <svg
+              width="4"
+              height="4"
+              viewBox="0 0 4 4"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="2" cy="2" r="1.5" fill="black" />
+            </svg>
+          </span>
+          <li>Secure Checkout</li>
+          <span>
+            <svg
+              width="4"
+              height="4"
+              viewBox="0 0 4 4"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="2" cy="2" r="1.5" fill="black" />
+            </svg>
+          </span>
+          <li>Free Shipping</li>
+          <span>
+            <svg
+              width="4"
+              height="4"
+              viewBox="0 0 4 4"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="2" cy="2" r="1.5" fill="black" />
+            </svg>
+          </span>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "tag": "header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mobile top links"
+    },
+    {
+      "type": "text",
+      "id": "deal_text",
+      "label": "Deal Text"
+    },
+    {
+      "type": "url",
+      "id": "deal_link",
+      "label": "Deal Link"
+    },
+    {
+      "type": "text",
+      "id": "deal_link_text",
+      "label": "Deal Link Text"
+    },
+    {
+      "type": "text",
+      "id": "deal_link_small_text",
+      "label": "Deal Link Small Text"
+    },
+    {
+      "type": "text",
+      "id": "deal_right_text",
+      "label": "Deal Right Text"
+    },
+    {
+      "type": "url",
+      "id": "custom_link",
+      "label": "Customs link"
+    },
+    {
+      "type": "text",
+      "id": "custom_link_text",
+      "label": "Custom link text"
+    },
+    {
+      "type": "url",
+      "id": "limited_drop_link",
+      "label": "Limted drop link"
+    },
+    {
+      "type": "text",
+      "id": "limited_drop_link_text",
+      "label": "Limited drop text"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu_link_list",
+      "label": "t:sections.header.settings.main_menu_link_list.label",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "mega_menu_images",
+      "label": "t:sections.header.settings.mega_menu_images.label",
+      "default": true,
+      "info": "t:sections.header.settings.mega_menu_images.info"
+    },
+    {
+      "type": "select",
+      "id": "main_menu_alignment",
+      "label": "t:sections.header.settings.main_menu_alignment.label",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.header.settings.main_menu_alignment.options.left.label"
+        },
+        {
+          "value": "left-center",
+          "label": "t:sections.header.settings.main_menu_alignment.options.left-center.label"
+        },
+        {
+          "value": "left-drawer",
+          "label": "t:sections.header.settings.main_menu_alignment.options.left-drawer.label"
+        },
+        {
+          "value": "center-left",
+          "label": "t:sections.header.settings.main_menu_alignment.options.center-left.label"
+        },
+        {
+          "value": "center-split",
+          "label": "t:sections.header.settings.main_menu_alignment.options.center-split.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.header.settings.main_menu_alignment.options.center.label"
+        },
+        {
+          "value": "center-drawer",
+          "label": "t:sections.header.settings.main_menu_alignment.options.center-drawer.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "header_style",
+      "label": "t:sections.header.settings.header_style.label",
+      "default": "normal",
+      "options": [
+        {
+          "value": "normal",
+          "label": "t:sections.header.settings.header_style.options.normal.label"
+        },
+        {
+          "value": "sticky",
+          "label": "t:sections.header.settings.header_style.options.sticky.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_index",
+      "label": "t:sections.header.settings.sticky_index.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_collection",
+      "label": "t:sections.header.settings.sticky_collection.label",
+      "info": "t:sections.header.settings.sticky_collection.info",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header_announcement_bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_compact",
+      "label": "t:sections.header.settings.announcement_compact.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_above_header",
+      "label": "t:sections.header.settings.announcement_above_header.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header_toolbar"
+    },
+    {
+      "type": "link_list",
+      "id": "toolbar_menu",
+      "label": "t:sections.header.settings.toolbar_menu.label",
+      "info": "t:sections.header.settings.toolbar_menu.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "toolbar_social",
+      "label": "t:sections.header.settings.toolbar_social.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header_language_selector",
+      "info": "t:sections.header.settings.header_language_selector"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locale_selector",
+      "label": "t:sections.header.settings.show_locale_selector.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header_currency_selector",
+      "info": "t:sections.header.settings.header_currency_selector"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_selector",
+      "label": "t:sections.header.settings.show_currency_selector.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_flags",
+      "label": "t:sections.header.settings.show_currency_flags.label",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "t:sections.header.blocks.logo.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "t:sections.header.blocks.logo.settings.logo.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo-inverted",
+          "label": "t:sections.header.blocks.logo.settings.logo-inverted.label",
+          "info": "t:sections.header.blocks.logo.settings.logo-inverted.info"
+        },
+        {
+          "type": "range",
+          "id": "desktop_logo_width",
+          "label": "t:sections.header.blocks.logo.settings.desktop_logo_width.label",
+          "default": 200,
+          "min": 100,
+          "max": 400,
+          "step": 10,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "mobile_logo_width",
+          "label": "t:sections.header.blocks.logo.settings.mobile_logo_width.label",
+          "default": 140,
+          "min": 60,
+          "max": 200,
+          "step": 10,
+          "unit": "px",
+          "info": "t:sections.header.blocks.logo.settings.mobile_logo_width.info"
+        }
+      ]
+    },
+    {
+      "type": "announcement",
+      "name": "t:sections.header.blocks.announcement.name",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.header.blocks.announcement.settings.text.label",
+          "default": "Hassle-free returns"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "t:sections.header.blocks.announcement.settings.link_text.label",
+          "default": "30-day postage paid returns"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.header.blocks.announcement.settings.link.label"
+        }
+      ]
+    },
+    {
+      "type": "menudropdown",
+      "name": "Mega menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_selector",
+          "label": "Menu name"
+        },
+        {
+          "type": "url",
+          "id": "all_link",
+          "label": "all button link"
+        },
+        {
+          "type": "text",
+          "id": "all_link_text",
+          "label": "All Button text"
+        },
+        {
+          "type": "header",
+          "content": "Tab 1"
+        },
+        {
+          "type": "text",
+          "id": "tab_1_title",
+          "label": "Tab title"
+        },
+        {
+          "type": "text",
+          "id": "tab_1_link",
+          "label": "Tab Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb1_product_1_icon",
+          "label": "Product 1 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb1_product_1_title",
+          "label": "Product 1 title"
+        },
+        {
+          "type": "product",
+          "id": "tb1_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "url",
+          "id": "tb1_product_1_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb1_product_1_image",
+          "label": "Product 1 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb1_product_2_icon",
+          "label": "Product 2 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb1_product_2_title",
+          "label": "Product 2 title"
+        },
+        {
+          "type": "product",
+          "id": "tb1_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "url",
+          "id": "tb1_product_2_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb1_product_2_image",
+          "label": "Product 2 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb1_product_3_icon",
+          "label": "Product 3 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb1_product_3_title",
+          "label": "Product 3 title"
+        },
+        {
+          "type": "product",
+          "id": "tb1_product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "url",
+          "id": "tb1_product_3_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb1_product_3_image",
+          "label": "Product 3 image"
+        },
+        {
+          "type": "header",
+          "content": "Tab 2"
+        },
+        {
+          "type": "text",
+          "id": "tab_2_title",
+          "label": "Tab title"
+        },
+        {
+          "type": "text",
+          "id": "tab_2_link",
+          "label": "Tab Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb2_product_1_icon",
+          "label": "Product 1 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb2_product_1_title",
+          "label": "Product 1 title"
+        },
+        {
+          "type": "product",
+          "id": "tb2_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "url",
+          "id": "tb2_product_1_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb2_product_1_image",
+          "label": "Product 1 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb2_product_2_icon",
+          "label": "Product 2 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb2_product_2_title",
+          "label": "Product 2 title"
+        },
+        {
+          "type": "product",
+          "id": "tb2_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "url",
+          "id": "tb2_product_2_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb2_product_2_image",
+          "label": "Product 2 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb2_product_3_icon",
+          "label": "Product 3 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb2_product_3_title",
+          "label": "Product 3 title"
+        },
+        {
+          "type": "product",
+          "id": "tb2_product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "url",
+          "id": "tb2_product_3_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb2_product_3_image",
+          "label": "Product 3 image"
+        },
+        {
+          "type": "header",
+          "content": "Tab 3"
+        },
+        {
+          "type": "text",
+          "id": "tab_3_title",
+          "label": "Tab title"
+        },
+        {
+          "type": "text",
+          "id": "tab_3_link",
+          "label": "Tab Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb3_product_1_icon",
+          "label": "Product 1 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb3_product_1_title",
+          "label": "Product 1 title"
+        },
+        {
+          "type": "product",
+          "id": "tb3_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "url",
+          "id": "tb3_product_1_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb3_product_1_image",
+          "label": "Product 1 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb3_product_2_icon",
+          "label": "Product 2 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb3_product_2_title",
+          "label": "Product 2 title"
+        },
+        {
+          "type": "product",
+          "id": "tb3_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "url",
+          "id": "tb3_product_2_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb3_product_2_image",
+          "label": "Product 2 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb3_product_3_icon",
+          "label": "Product 3 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb3_product_3_title",
+          "label": "Product 3 title"
+        },
+        {
+          "type": "product",
+          "id": "tb3_product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "url",
+          "id": "tb3_product_3_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb3_product_3_image",
+          "label": "Product 3 image"
+        },
+        {
+          "type": "header",
+          "content": "Tab 4"
+        },
+        {
+          "type": "text",
+          "id": "tab_4_title",
+          "label": "Tab title"
+        },
+        {
+          "type": "text",
+          "id": "tab_4_link",
+          "label": "Tab Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb4_product_1_icon",
+          "label": "Product 1 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb4_product_1_title",
+          "label": "Product 1 title"
+        },
+        {
+          "type": "product",
+          "id": "tb4_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "url",
+          "id": "tb4_product_1_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb4_product_1_image",
+          "label": "Product 1 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb4_product_2_icon",
+          "label": "Product 2 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb4_product_2_title",
+          "label": "Product 2 title"
+        },
+        {
+          "type": "product",
+          "id": "tb4_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "url",
+          "id": "tb4_product_2_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb4_product_2_image",
+          "label": "Product 2 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb4_product_3_icon",
+          "label": "Product 3 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb4_product_3_title",
+          "label": "Product 3 title"
+        },
+        {
+          "type": "product",
+          "id": "tb4_product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "url",
+          "id": "tb4_product_3_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb4_product_3_image",
+          "label": "Product 3 image"
+        },
+        {
+          "type": "header",
+          "content": "Tab 5"
+        },
+        {
+          "type": "text",
+          "id": "tab_5_title",
+          "label": "Tab title"
+        },
+        {
+          "type": "text",
+          "id": "tab_5_link",
+          "label": "Tab Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb5_product_1_icon",
+          "label": "Product 1 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb5_product_1_title",
+          "label": "Product 1 title"
+        },
+        {
+          "type": "product",
+          "id": "tb5_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "url",
+          "id": "tb5_product_1_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb5_product_1_image",
+          "label": "Product 1 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb5_product_2_icon",
+          "label": "Product 2 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb5_product_2_title",
+          "label": "Product 2 title"
+        },
+        {
+          "type": "product",
+          "id": "tb5_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "url",
+          "id": "tb5_product_2_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb5_product_2_image",
+          "label": "Product 2 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb5_product_3_icon",
+          "label": "Product 3 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb5_product_3_title",
+          "label": "Product 3 title"
+        },
+        {
+          "type": "product",
+          "id": "tb5_product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "url",
+          "id": "tb5_product_3_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb5_product_3_image",
+          "label": "Product 3 image"
+        },
+        {
+          "type": "header",
+          "content": "Tab 6"
+        },
+        {
+          "type": "text",
+          "id": "tab_6_title",
+          "label": "Tab title"
+        },
+        {
+          "type": "text",
+          "id": "tab_6_link",
+          "label": "Tab Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb6_product_1_icon",
+          "label": "Product 1 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb6_product_1_title",
+          "label": "Product 1 title"
+        },
+        {
+          "type": "product",
+          "id": "tb6_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "url",
+          "id": "tb6_product_1_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb6_product_1_image",
+          "label": "Product 1 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb6_product_2_icon",
+          "label": "Product 2 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb6_product_2_title",
+          "label": "Product 2 title"
+        },
+        {
+          "type": "product",
+          "id": "tb6_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "url",
+          "id": "tb6_product_2_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb6_product_2_image",
+          "label": "Product 2 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb6_product_3_icon",
+          "label": "Product 3 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb6_product_3_title",
+          "label": "Product 3 title"
+        },
+        {
+          "type": "product",
+          "id": "tb6_product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "url",
+          "id": "tb6_product_3_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb6_product_3_image",
+          "label": "Product 3 image"
+        },
+        {
+          "type": "header",
+          "content": "Tab 7"
+        },
+        {
+          "type": "text",
+          "id": "tab_7_title",
+          "label": "Tab title"
+        },
+        {
+          "type": "text",
+          "id": "tab_7_link",
+          "label": "Tab Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb7_product_1_icon",
+          "label": "Product 1 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb7_product_1_title",
+          "label": "Product 1 title"
+        },
+        {
+          "type": "product",
+          "id": "tb7_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "url",
+          "id": "tb7_product_1_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb7_product_1_image",
+          "label": "Product 1 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb7_product_2_icon",
+          "label": "Product 2 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb7_product_2_title",
+          "label": "Product 2 title"
+        },
+        {
+          "type": "product",
+          "id": "tb7_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "url",
+          "id": "tb7_product_2_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb7_product_2_image",
+          "label": "Product 2 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb7_product_3_icon",
+          "label": "Product 3 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb7_product_3_title",
+          "label": "Product 3 title"
+        },
+        {
+          "type": "product",
+          "id": "tb7_product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "url",
+          "id": "tb7_product_3_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb7_product_3_image",
+          "label": "Product 3 image"
+        },
+        {
+          "type": "header",
+          "content": "Tab 8"
+        },
+        {
+          "type": "text",
+          "id": "tab_8_title",
+          "label": "Tab title"
+        },
+        {
+          "type": "text",
+          "id": "tab_8_link",
+          "label": "Tab Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb8_product_1_icon",
+          "label": "Product 1 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb8_product_1_title",
+          "label": "Product 1 title"
+        },
+        {
+          "type": "product",
+          "id": "tb8_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "url",
+          "id": "tb8_product_1_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb8_product_1_image",
+          "label": "Product 1 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb8_product_2_icon",
+          "label": "Product 2 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb8_product_2_title",
+          "label": "Product 2 title"
+        },
+        {
+          "type": "product",
+          "id": "tb8_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "url",
+          "id": "tb8_product_2_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb8_product_2_image",
+          "label": "Product 2 image"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb8_product_3_icon",
+          "label": "Product 3 icon"
+        },
+        {
+          "type": "text",
+          "id": "tb8_product_3_title",
+          "label": "Product 3 title"
+        },
+        {
+          "type": "product",
+          "id": "tb8_product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "url",
+          "id": "tb8_product_3_learnmore_link",
+          "label": "Learn More button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tb8_product_3_image",
+          "label": "Product 3 image"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "settings": {}
+  }
+}
+{% endschema %}

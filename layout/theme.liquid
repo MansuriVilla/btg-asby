@@ -1,0 +1,898 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction }}">
+
+<head>
+  {% comment %}
+  <script src="https://app.termly.io/resource-blocker/814c3560-92de-488c-801f-f93fe4c3322c?autoBlock=on"></script>
+  {% endcomment %}
+
+
+  {%- if settings.favicon != blank -%}
+  {% comment %} <!-- Modern Standard Favicons --> {% endcomment %}
+  <link rel="icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" sizes="32x32">
+  <link rel="icon" href="{{ settings.favicon | img_url: '48x48' }}" type="image/png" sizes="48x48">
+  <link rel="icon" href="{{ settings.favicon | img_url: '96x96' }}" type="image/png" sizes="96x96">
+  <link rel="icon" href="{{ settings.favicon | img_url: '192x192' }}" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '180x180' }}" sizes="180x180">
+  <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '192x192' }}" sizes="192x192">
+  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  <meta name="msapplication-TileImage" content="{{ settings.favicon | img_url: '144x144' }}">
+  <meta name="msapplication-TileColor" content="#ffffff">
+
+
+  {%- endif -%}
+
+
+  <script>
+    if (window.location.pathname === '/cart') {
+      window.location.href = '/checkout';
+    }
+  </script>
+
+  {% comment %} schema markup for organization {% endcomment %}
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Blue Tees Golf",
+        "url": "https://blueteesgolf.com",
+        "logo": "https://cdn.shopify.com/s/files/1/0057/8958/1381/files/thankyou-page-mockup-logo.svg?v=1755673744",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "support@blueteesgolf.com",
+          "contactType": "customer service",
+          "areaServed": "US",
+          "availableLanguage": "en"
+        },
+        "foundingDate": "2015-01-01",
+        "sameAs": [
+          "https://www.facebook.com/blueteesgolf",
+          "https://www.instagram.com/blueteesgolf",
+          "https://x.com/blue_tees_golf",
+          "https://www.youtube.com/@blueteesgolf5614",
+          "https://www.tiktok.com/@bluetees_golf",
+          "https://www.snapchat.com/@blueteesgolf",
+          "https://www.linkedin.com/company/blue-tees"
+        ],
+
+        "description": "Blue Tees Golf is a leading manufacturer and seller of premium golf accessories, designed to elevate your game. Our core products include top-tier Golf GPS Speakers, Golf Rangefinders (Golf Lasers), and Golf GPS Devices, all engineered for accurate distance measurements and enhanced precision. Track your performance with our exclusive 'Game' Golf GPS app, featuring GPS data & stat tracking for over 42,000 courses, AI caddie with club recommendations, and true distance adjustments. Enjoy a 60-day risk-free trial on all products, ensuring a perfect fit for your game."
+      }
+    </script>
+
+  {% comment %} schema markup for website {% endcomment %}
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "OnlineStore",
+        "name": "Blue Tees Golf",
+        "url": "https://blueteesgolf.com",
+        "sameAs": [
+          "https://www.facebook.com/blueteesgolf",
+          "https://www.instagram.com/blueteesgolf",
+          "https://x.com/blue_tees_golf",
+          "https://www.youtube.com/@blueteesgolf5614",
+          "https://www.tiktok.com/@bluetees_golf",
+          "https://www.snapchat.com/@blueteesgolf",
+          "https://www.linkedin.com/company/blue-tees"
+        ],
+        "logo": "https://cdn.shopify.com/s/files/1/0057/8958/1381/files/thankyou-page-mockup-logo.svg?v=1755673744",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "support@blueteesgolf.com",
+          "contactType": "customer service",
+          "areaServed": "US",
+          "availableLanguage": "en"
+        },
+
+        "acceptedPaymentMethod": [
+          {
+            "@type": "PaymentMethod",
+            "name": "Visa"
+          },
+          {
+            "@type": "PaymentMethod",
+            "name": "MasterCard"
+          },
+          {
+            "@type": "PaymentMethod",
+            "name": "AmericanExpress"
+          },
+          {
+            "@type": "PaymentMethod",
+            "name": "Discover"
+          },
+          {
+            "@type": "PaymentMethod",
+            "name": "UnionPay"
+          },
+          {
+            "@type": "PaymentMethod",
+            "name": "Elo"
+          },
+          {
+            "@type": "PaymentMethod",
+            "name": "Diners Club"
+          },
+          {
+            "@type": "PaymentMethod",
+            "name": "JCB"
+          }
+        ],
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Blue Tees"
+        },
+        "description": "Play Different"
+      }
+    </script>
+
+  {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}
+  {% style %}
+  header,footer{display:none !important;}
+  {%if page.template_suffix == 'towel-qr-lp' or page.template_suffix == 'divot-tool-qr-lp' or page.template_suffix ==
+  'rainmaker-qr-lp' or page.template_suffix == 'rainmaker-event-qr-lp'%}
+  main{background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278048_2.png?v=1774348073) top
+  center / cover no-repeat #000 !important;}
+  {% else %}
+  main{background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/qr-page-glow-blocks.png?v=1773640228) top
+  center / contain no-repeat #000 !important;}
+  {% endif %}
+  section[id*="__lp_hero_section_"] { padding-block: clamp(15px, 5.3vw,95px) 0; }
+  @media only screen and (max-width:860px){
+  main{background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/qr-page-glow-blocks.png?v=1773640228)
+  center top /cover no-repeat #000 !important;}
+  }
+  {% endstyle %}
+  {% endif %}
+
+  {% include 'visually_io_sdk' %}
+  {% include 'dataLayer-allPages' %}
+
+  {% if localization.country.iso_code == 'GB' %}
+  {% if page.handle contains 'app-credit' %}
+  <script>
+    window.location.href = 'https://blueteesgolf.co.uk/pages/app-credit';
+  </script>
+  {% endif %}
+  {% if page.handle contains 'manuals' %}
+  <script>
+    window.location.href = 'https://blueteesgolf.co.uk/pages/manuals';
+  </script>
+  {% endif %}
+  {% if page.handle contains 'app-download-lp' %}
+  <script>
+    window.location.href = 'https://blueteesgolf.co.uk/pages/app-download-lp';
+  </script>
+  {% endif %}
+  {% endif %}
+
+  {% if request.path == '/collections/all-accessories' %}
+  <script>
+    window.location.href = 'https://blueteesgolf.com/collections/accessories';
+  </script>
+  {% endif %}
+
+  {% if request.path == '/collections/blue-tees-golf-rangefinders' %}
+  <script>
+    window.location.href = 'https://blueteesgolf.com/collections/rangefinders';
+  </script>
+  {% endif %}
+  {% if theme.role == 'main' %}
+  {% if localization.country.iso_code == 'AT'
+  or localization.country.iso_code == 'BE'
+  or localization.country.iso_code == 'BG'
+  or localization.country.iso_code == 'HR'
+  or localization.country.iso_code == 'CY'
+  or localization.country.iso_code == 'DK'
+  or localization.country.iso_code == 'FI'
+  or localization.country.iso_code == 'FR'
+  or localization.country.iso_code == 'DE'
+  or localization.country.iso_code == 'HU'
+  or localization.country.iso_code == 'IE'
+  or localization.country.iso_code == 'IT'
+  or localization.country.iso_code == 'LV'
+  or localization.country.iso_code == 'LT'
+  or localization.country.iso_code == 'LU'
+  or localization.country.iso_code == 'MT'
+  or localization.country.iso_code == 'NL'
+  or localization.country.iso_code == 'NO'
+  or localization.country.iso_code == 'PL'
+  or localization.country.iso_code == 'PT'
+  or localization.country.iso_code == 'RO'
+  or localization.country.iso_code == 'SK'
+  or localization.country.iso_code == 'SI'
+  or localization.country.iso_code == 'ES'
+  or localization.country.iso_code == 'SE'
+  or localization.country.iso_code == 'CH'
+  %}
+  {% if page.handle contains 'app-credit' %}
+  <script>
+    window.location.href = 'https://blueteesgolf.eu/pages/app-credit';
+  </script>
+  {% endif %}
+  {% endif %}
+  {% endif %}
+
+  {% if localization.country.iso_code == 'GB' %}
+  {% if page.handle contains 'privacy-policy' %}
+  {% else %}
+  <script>
+    window.location.href = 'https://blueteesgolf.co.uk/';
+  </script>
+  {% endif %}
+  {% endif %}
+
+  {% if localization.country.iso_code == 'KR' %}
+  {% if page.handle contains 'privacy-policy' %}
+  {% else %}
+  <script>
+    window.location.href = 'https://blueteesgolfkorea.com/';
+  </script>
+  {% endif %}
+  {% endif %}
+
+  {% unless template.suffix contains 'qr-lp' %}
+  {% if theme.role == 'main' %}
+  {% if localization.country.iso_code == 'AT'
+  or localization.country.iso_code == 'BE'
+  or localization.country.iso_code == 'BG'
+  or localization.country.iso_code == 'HR'
+  or localization.country.iso_code == 'CY'
+  or localization.country.iso_code == 'DK'
+  or localization.country.iso_code == 'FI'
+  or localization.country.iso_code == 'FR'
+  or localization.country.iso_code == 'DE'
+  or localization.country.iso_code == 'HU'
+  or localization.country.iso_code == 'IE'
+  or localization.country.iso_code == 'IT'
+  or localization.country.iso_code == 'LV'
+  or localization.country.iso_code == 'LT'
+  or localization.country.iso_code == 'LU'
+  or localization.country.iso_code == 'MT'
+  or localization.country.iso_code == 'NL'
+  or localization.country.iso_code == 'NO'
+  or localization.country.iso_code == 'PL'
+  or localization.country.iso_code == 'PT'
+  or localization.country.iso_code == 'RO'
+  or localization.country.iso_code == 'SK'
+  or localization.country.iso_code == 'SI'
+  or localization.country.iso_code == 'ES'
+  or localization.country.iso_code == 'SE'
+  or localization.country.iso_code == 'CH'
+  %}
+  {% if page.handle contains 'privacy-policy' %}
+  {% else %}
+  <script>
+    window.location.href = 'https://blueteesgolf.eu/';
+  </script>
+  {% endif %}
+  {% endif %}
+  {% endif %}
+  {% endunless %}
+
+  {% unless template.suffix contains 'qr-lp' %}
+  {% if theme.role == 'main' %}
+  {% if localization.country.iso_code == 'CA' %}
+  <script>
+    window.location.href = 'http://blueteesgolf.ca/';
+  </script>
+  {% endif %}
+  {% endif %}
+  {% endunless %}
+
+  {% if theme.role == 'main' %}
+  {% if product.title == '1YR Non-Connected Devices Subscription - Game App'
+  or product.title == '1YR Premium Membership - Player Pack GO - 50% Off First Year Membership'
+  or product.title == '6MO Premium GPS Game App Subscription'
+  or product.title == '1YR Player+ Premium'
+  or product.title == '2YR Player+ Premium'
+  or product.title == '2YR Ringer Premium'
+  or product.title contains 'Membership'
+  or product.title contains '1 Year GAME AI Package'
+  or product.title contains 'Analytics Package'
+  %}
+  <script>
+    window.location.href = 'https://blueteesgolf.com/pages/membership';
+  </script>
+  {% endif %}
+  {% endif %}
+  {% if theme.role == 'main' and product.handle == 'rainmaker-presale-1-year-plan'%}
+
+  <script>
+    window.location.href = 'https://blueteesgolf.com/products/rainmaker';
+  </script>
+
+  {% endif %}
+
+  {% style %}
+  h1.visually-hidden.custom_h1_tag{display:none;}
+  {% endstyle %}
+
+  {%- if request.path contains 'pages' and page.metafields.custom.seo_title_h1_tag != blank -%}
+    <h1 class="visually-hidden custom_h1_tag">{{ page.metafields.custom.seo_title_h1_tag }}</h1>
+  {%- endif -%}
+
+  {%- if template.name == 'index' -%}
+    <h1 class="visually-hidden custom_h1_tag">
+      Smart Golf Technology — Rangefinders, GPS Speakers & More By Blue Tees Golf
+    </h1>
+  {%- endif -%}
+
+  {%- if request.path contains 'collections' and collection.metafields.custom.seo_title_h1 != blank -%}
+    <h1 class="visually-hidden custom_h1_tag">{{ collection.metafields.custom.seo_title_h1 }}</h1>
+  {%- endif -%}
+
+      <script id="script_tag_id" data-last-check-status-key="_prevCheckIsOk"
+        data-last-check-timestamp-key="_prevCheckTimestamp" data-refresh-interval-ms="120000"
+        data-script-src="https://d2fj3s7h83rb61.cloudfront.net/4414DSE1uv/bin" data-app-info="1-1--1.6.1"
+        data-app-platform="1" data-app-type="1" data-app-version="1.6.1">
+          (function () {
+            var currentScript = document.currentScript;
+            var currentScriptDataset = currentScript.dataset;
+            var lastCheckStatusKey = currentScriptDataset.lastCheckStatusKey;
+            var lastCheckTimestampKey = currentScriptDataset.lastCheckTimestampKey;
+            var refreshIntervalMs = parseInt(currentScriptDataset.refreshIntervalMs, 10);
+            var scriptSrc = currentScriptDataset.scriptSrc;
+
+            if (
+              lastCheckStatusKey &&
+              lastCheckTimestampKey &&
+              refreshIntervalMs &&
+              scriptSrc &&
+              !isNaN(refreshIntervalMs)
+            ) {
+              if (localStorage.getItem(lastCheckStatusKey) === null) {
+                localStorage.setItem(lastCheckStatusKey, String(false));
+              }
+
+              if (localStorage.getItem(lastCheckTimestampKey) === null) {
+                localStorage.setItem(lastCheckTimestampKey, String(0));
+              }
+
+              var locationHref = document.location.href;
+              var now = Date.now();
+              var lastCheckStatus = String(localStorage.getItem(lastCheckStatusKey)).toLowerCase() === 'true';
+              var lastCheckTimestamp = parseInt(localStorage.getItem(lastCheckTimestampKey), 10);
+
+              if (!isNaN(lastCheckTimestamp)) {
+                var needRefreshByInterval = now - lastCheckTimestamp > refreshIntervalMs;
+
+                if (needRefreshByInterval || lastCheckStatus) {
+                  var LOAD = 'load';
+                  var ERROR = 'error';
+                  var script = document.createElement('script');
+
+                  function scriptEventHandler(evt) {
+                    var target = evt.target;
+                    var evtType = evt.type;
+
+                    var currentCheckStatus = false;
+                    var currentCheckTimestamp = Date.now();
+
+                    if (evtType === LOAD) {
+                      currentCheckStatus = true;
+                    }
+
+                    localStorage.setItem(lastCheckStatusKey, String(currentCheckStatus));
+                    localStorage.setItem(lastCheckTimestampKey, String(currentCheckTimestamp));
+
+                    target.removeEventListener(LOAD, scriptEventHandler);
+                    target.removeEventListener(ERROR, scriptEventHandler);
+                  }
+
+                  if (!locationHref.match(/(\/checkouts\/|\/thank_you)/gi)) {
+                    script.defer = true;
+                  }
+
+                  script.addEventListener(LOAD, scriptEventHandler);
+                  script.addEventListener(ERROR, scriptEventHandler);
+
+                  script.src = scriptSrc;
+
+                  document.head.insertBefore(script, currentScript);
+                }
+              }
+            } else {
+              console.error('wrapper is not right configured');
+            }
+          })();
+        </script>
+
+      <link rel="preload"
+        href="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bluetees-logo-full-new.svg?v=1767964501" as="image"
+        type="image/svg+xml" fetchpriority="high" crossorigin="anonymous">
+
+
+      {% if request.path contains '/products/' %}
+      {% comment %} <!-- Facebook Microdata Tags --> {% endcomment %}
+      <meta property="og:type" content="product">
+      <meta property="og:title" content="{{ product.title }}">
+      <meta property="og:description" content="{{ product.description | strip_html | escape }}">
+      <meta property="og:url" content="{{ shop.url }}{{ product.url }}">
+      <meta property="og:image"
+        content="{% if product.featured_image %}{{ product.featured_image.src | img_url: 'large' }}{% endif %}">
+      <meta property="product:price:amount" content="{{ product.price | divided_by: 100.0 }}">
+      <meta property="product:price:currency" content="{{ shop.currency }}">
+      <meta property="product:availability"
+        content="{% if product.available %}in stock{% else %}out of stock{% endif %}">
+      {% endif %}
+      {% comment %} <!-- Title and description ================================================== --> {% endcomment %}
+      <title>
+        {{ page_title }}
+        {% if current_tags -%}
+        {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+        {%- endif %}
+        {% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
+        {% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+      </title>
+
+      {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+      {% endif %}
+      {%- comment -%}
+      {% include 'booster-seo' %}
+      {%- endcomment -%}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta name="theme-color" content="{{ settings.color_button }}">
+
+      {% if handle contains 'privacy-policy'
+      or handle contains 'winner-player-plus'
+      or page.handle == 'play-maker-plus'
+      or page.handle == 'app-faqs-cs-team'
+      or page.handle == 'blue-tees-golf-x-upper-deck-golf'
+      or page.handle == 'playmaker-launch-firmware-update'
+      or page.handle == 'ringer-funnel'
+      or page.handle == 'player-plus-funnel'
+      or page.handle == 'eco-system'
+      or product.metafields.custom.no_index
+      or collection.metafields.custom.no_index
+      or page.metafields.custom.no_index
+      or request.path == '/collections'
+      %}
+      <meta name="robots" content="noindex, nofollow">
+      {% endif %}
+
+      <link rel="canonical" href="{{ canonical_url }}">
+      <link rel="preconnect" href="https://cdn.shopify.com">
+      <link rel="preconnect" href="https://fonts.shopifycdn.com">
+      <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
+      <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+      <link rel="dns-prefetch" href="https://maps.googleapis.com">
+      <link rel="dns-prefetch" href="https://maps.gstatic.com">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-720010703"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'AW-720010703');
+      </script>
+
+      <script>
+        var head = document.head;
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src =
+          'https://181813.tracking.hyros.com/v1/lst/universal-script?ph=ad8c7cdb2127f2f95a2108d8459dd9087ec9382b4c93b16e48d069b8529fc4f0&tag=!tracking';
+        head.appendChild(script);
+      </script>
+
+      {% comment %}
+      script>
+      gtag('event', 'page_view', {
+      'send_to': 'AW-720010703',
+      'value': {{ checkout.subtotal_price | money_without_currency }},
+      'items': [{
+      'id': {{ product.id }},
+      'google_business_vertical': 'retail'
+      }]
+      });
+      </script {% endcomment %} <meta name="facebook-domain-verification" content="79kwt1p2v1iobw4b3iltqovd721dfh">
+
+      {% comment %}
+      <!-- BEGIN Merchantverse Code -->
+      <!--
+        <script id='merchantverseScript'
+        src="https://www.gstatic.com/merchantverse/merchantverse.js"
+        defer>
+        </script>
+        <script type="text/javascript">
+        merchantverseScript.addEventListener('load', function () {
+        merchantverse.start();
+        });
+        </script>
+      -->
+      <!-- END Merchantverse Code -->
+      {% endcomment %}
+
+      {% comment %} <!-- Hotjar Tracking Code for https://www.blueteesgolf.com/ --> {% endcomment %}
+      <script>
+        (function (h, o, t, j, a, r) {
+          h.hj =
+            h.hj ||
+            function () {
+              (h.hj.q = h.hj.q || []).push(arguments);
+            };
+          h._hjSettings = { hjid: 1838883, hjsv: 6 };
+          a = o.getElementsByTagName('head')[0];
+          r = o.createElement('script');
+          r.async = 1;
+          r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+          a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+      </script>
+
+      <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+          c[a] =
+            c[a] ||
+            function () {
+              (c[a].q = c[a].q || []).push(arguments);
+            };
+          t = l.createElement(r);
+          t.async = 1;
+          t.src = 'https://www.clarity.ms/tag/' + i;
+          y = l.getElementsByTagName(r)[0];
+          y.parentNode.insertBefore(t, y);
+        })(window, document, 'clarity', 'script', 'iyqwzntz51');
+      </script>
+
+      {% comment %} <!-- Third Party Tracking Goaffpro --> {% endcomment %}
+
+      <script>
+        (function (w, d, t, r, u) {
+          var f, n, i;
+          (w[u] = w[u] || []),
+            (f = function () {
+              var o = { ti: '56296754' };
+              (o.q = w[u]), (w[u] = new UET(o)), w[u].push('pageLoad');
+            }),
+            (n = d.createElement(t)),
+            (n.src = r),
+            (n.async = 1),
+            (n.onload = n.onreadystatechange =
+              function () {
+                var s = this.readyState;
+                (s && s !== 'loaded' && s !== 'complete') || (f(), (n.onload = n.onreadystatechange = null));
+              }),
+            (i = d.getElementsByTagName(t)[0]),
+            i.parentNode.insertBefore(n, i);
+        })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
+      </script>
+
+      {% include 'ufe-offer' %}
+
+      {% comment %} Extend - render Extend SDK snippet {% endcomment %}
+      {% render 'extend-configuration' %}
+      {% comment %} Extend - end Extend code {% endcomment %}
+      {% comment %}
+      {%- if settings.favicon != blank -%}
+      <link rel="icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+      {%- endif -%} {% endcomment %}
+
+
+
+
+      {% comment %} {%- render 'seo-title' -%} {% endcomment %}
+
+      {%- if page_description -%}
+      {% comment %}
+      <meta name="description" content="{{ page_description | escape }}">{% endcomment %}
+      {%- endif -%}
+
+      {%- render 'social-meta-tags' -%}
+
+      {%- render 'font-face' -%}
+      {{ 'new-theme.css' | asset_url | stylesheet_tag: preload: true }}
+      {%- render 'css-variables' -%}
+
+      <script>
+        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+
+        window.theme = window.theme || {};
+        theme.routes = {
+          home: "{{ routes.root_url }}",
+          cart: "{{ routes.cart_url | append: '.js' }}",
+          cartPage: "{{ routes.cart_url }}",
+          cartAdd: "{{ routes.cart_add_url | append: '.js' }}",
+          cartChange: "{{ routes.cart_change_url | append: '.js' }}",
+          search: "{{ routes.search_url }}"
+        };
+        theme.strings = {
+          soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: { { 'products.product.unavailable' | t | json } },
+        inStockLabel: { { 'products.product.in_stock_label' | t | json } },
+        stockLabel: { { 'products.product.stock_label' | t: count: '[count]' | json } },
+        willNotShipUntil: { { 'products.product.will_not_ship_until' | t: date: '[date]' | json } },
+        willBeInStockAfter: { { 'products.product.will_be_in_stock_after' | t: date: '[date]' | json } },
+        waitingForStock: { { 'products.product.waiting_for_stock' | t | json } },
+        savePrice: { { 'products.general.save_html' | t: saved_amount: '[saved_amount]' | json } },
+        cartEmpty: { { 'cart.general.empty' | t | json } },
+        cartTermsConfirmation: { { 'cart.general.terms_confirm' | t | json } },
+        searchCollections: { { 'general.search.collections' | t | json } },
+        searchPages: { { 'general.search.pages' | t | json } },
+        searchArticles: { { 'general.search.articles' | t | json } }
+      };
+        theme.settings = {
+          dynamicVariantsEnable: true,
+          cartType: {{ settings.cart_type | json }},
+        isCustomerTemplate: {% if request.page_type contains 'customers/' %} true{% else %} false{% endif %},
+        moneyFormat: { { shop.money_format | json } },
+        saveType: { { settings.product_save_type | json } },
+        productImageSize: { { settings.product_grid_image_size | json } },
+        productImageCover: { { settings.product_grid_image_fill } },
+        predictiveSearch: { { settings.predictive_search_enabled } },
+        predictiveSearchType: { { settings.search_type | json } },
+        quickView: { { settings.quick_shop_enable } },
+        themeName: 'Impulse',
+          themeVersion: "5.5.3"
+      };
+      </script>
+
+      {{ content_for_header }}
+
+      <script src="{{ 'vendor-scripts-v11.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+
+      {%- if shop.enabled_currencies.size > 1 -%}
+      <link rel="stylesheet" href="{{ 'country-flags.css' | asset_url | split: '?' | first }}">
+      {%- endif -%}
+
+      <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'gsap.js' | asset_url }}"></script>
+      <script src="{{ 'ScrollTrigger.min.js' | asset_url }}"></script>
+
+      {{ 'HorizonSlider.css' | asset_url | stylesheet_tag }}
+      <script src="{{ 'HorizonSlider.min.js.js' | asset_url }}" defer></script>
+      <script src="{{ 'custom.js' | asset_url }}" defer></script>
+      <script src="{{ 'uuid.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'register-data.js' | asset_url }}" defer="defer"></script>
+
+      {%- if request.page_type contains 'customers/' -%}
+      <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
+      {%- endif -%}
+      {% comment %}{% render 'minmaxify-head' %}{% endcomment %}
+
+      {{ shop.metafields.loox.global_html_head }}
+
+      {% comment %}
+      <link rel="preload" href="{{ 'try-with-nok.js' | asset_url }}" as="script">
+      <link rel="preload" href="{{ 'try-with-nok.css' | asset_url }}" as="style">
+      <link rel="stylesheet" href="{{ 'try-with-nok.css' | asset_url }}" type="text/css">
+      {% endcomment %}
+
+      {{ shop.metafields.loox.global_html_head }}
+
+      <script type="text/javascript" id="loop-subscription-script" src="{{ 'loop-widget.js' | asset_url }}"></script>
+      {{ 'custom.css' | asset_url | stylesheet_tag }}
+
+      {% comment %} <!-- Meta Pixel Code --> {% endcomment %}
+      <script>
+        !(function (f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = '2.0';
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '7304912509600603');
+        fbq('track', 'PageView');
+      </script>
+      <noscript><img height="1" width="1" style="display:none"
+          src="https://www.facebook.com/tr?id=7304912509600603&ev=PageView&noscript=1"></noscript>
+      {% comment %} <!-- End Meta Pixel Code --> {% endcomment %}
+
+      <meta name="google-site-verification" content="UtHNlCq8QaKM2N6B8WDzPc0MimFlnszYYTNKrALRzA8">
+
+      <style class="loop-style">
+        {
+          % render 'loop-widget.css' %
+        }
+      </style>
+</head>
+
+<body
+  class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}{% if page.handle == 'canada' %} template-canada{% endif %}"
+  data-center-text="{{ settings.type_body_align_text }}" data-button_style="{{ settings.button_style }}"
+  data-type_header_capitalize="{{ settings.type_header_capitalize }}"
+  data-type_headers_align_text="{{ settings.type_headers_align_text }}"
+  data-type_product_capitalize="{{ settings.type_product_capitalize }}" data-swatch_style="{{ settings.swatch_style }}"
+  {% if settings.disable_animations %} data-disable-animations="true" {% endif %}>
+  <div id="a11y-live-region" aria-live="polite" class="visually-hidden"
+    style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
+  </div>
+
+  {% if theme.role == 'unpublished' and request.path contains 'products' and settings.custom_debug_mode %}
+  {% assign current_variant = product.selected_or_first_available_variant %}
+
+  <p>
+    Variant: {{ current_variant.title -}}
+    <br>
+    Price: {{ current_variant.price | money -}}
+    <br>
+    Variant ID: {{ current_variant.id }}
+    <br>
+    Product Template: {{ product.template_suffix }}
+  </p>
+
+  {% assign selected_allocation = current_variant.selected_selling_plan_allocation %}
+
+  {% if selected_allocation %}
+  <p>
+    <strong>Selected Selling Plan:</strong> {{ selected_allocation.selling_plan.name -}}
+    <br>
+    Selling Plan ID: <code>{{ selected_allocation.selling_plan.id }}</code><br>
+    Price (adjusted): {{ selected_allocation.price | money -}}
+    <br>
+    Compare-at: {{ selected_allocation.compare_at_price | money }}
+  </p>
+  {% elsif current_variant.selling_plan_allocations.size > 0 %}
+  {% assign default_allocation = current_variant.selling_plan_allocations[0] %}
+  <p>
+    <strong>Default Selling Plan (no selection yet):</strong> {{ default_allocation.selling_plan.name -}}
+    <br>
+    Selling Plan ID: <code>{{ default_allocation.selling_plan_id }}</code><br>
+    Price: {{ default_allocation.price | money }}
+  </p>
+  {% else %}
+  <p>No selling plan selected or available (one-time purchase only).</p>
+  {% endif %}
+  {% endif %}
+
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">
+    {{- 'general.accessibility.skip_to_content' | t -}}
+  </a>
+
+  {%- section 'header' -%}
+  {% comment %}
+  {% if page.handle contains 'sale-offer' %}
+  {% render 'countdown-timer' %}
+  {% endif %}
+  {% endcomment %}
+  <main class="main-content" id="MainContent">
+    {%- if request.path contains 'loop_subscriptions/bundle' -%}
+    {% render 'loop_loader' %}
+    {%- endif -%}
+
+    {{ content_for_layout }}
+  </main>
+  {%- section 'new-footer' -%}
+
+  {%- section 'footer-promotions' -%}
+  {% comment %}
+  <div id="PageContainer" class="page-container">
+    <div class="transition-body">
+    </div>
+  </div>
+  {% endcomment %}
+
+  {%- section 'newsletter-popup' -%}
+
+  {%- liquid
+  render 'video-modal'
+  render 'photoswipe-template'
+  render 'tool-tip'
+  -%}
+
+  {{ shop.metafields.loox.global_html_body }}
+
+  <!-- Begin Shopify-Afterpay JavaScript Snippet (v1.0.12) -->
+  <script type="text/javascript">
+    // Editable fields (remove "//" from the start of each line to activate):
+    var afterpay_min = 0.04;  // As per your Afterpay contract.
+    var afterpay_max = 2000.00;  // As per your Afterpay contract.
+
+    var afterpay_product_selector = '.page-content--product .after-pay';  // The selector used to identify the price on the Product pages.
+    var afterpay_product_css = { 'margin': '15px 0', 'font-size': '14px' };  // The CSS styling of the Afterpay assets on the Product pages.
+    // var afterpay_logo_theme = 'black';  // The Afterpay logo colour. Can be 'colour' (default), 'black' or 'white'.
+    var afterpay_modal_open_icon = true;	 // If enabled, an "ⓘ" icon is displayed next to the Afterpay logo in place of the "More info" text.
+    // var afterpay_cbt_enabled = true;  // As per your Afterpay contract. Enable to true to display Cross Border Trade artwork (for AU/NZ).
+
+    var afterpay_variable_price_fallback_selector = '.product-price-selector';  // The selector used to identify the price on the Product pages if the Afterpay assets are disappearing after page-load or price is incorrect when a variant is selected.
+    // var afterpay_variable_price_fallback_method = "interval";  // Ensures the instalment price updates when the price changes. Can be "mutation" (default) or "interval".
+
+    var afterpay_cart_integration_enabled = true;  // Enables/disables the Cart page display. Can be true or false (default).
+    // var afterpay_cart_static_selector = '.cart-subtotal-selector';  // The selector used to identify the price on the Cart page.
+    var afterpay_cart_static_css = { 'margin': '15px 0' };  // The CSS styling of the Afterpay assets on the Cart page.
+    // var afterpay_cart_static_logo_theme = 'black';  // The Afterpay logo colour. Can be 'colour' (default), 'black' or 'white'.
+
+    // var afterpay_variable_subtotal_fallback_selector = '.cart-subtotal-selector';  // The selector used to identify the price on the Cart page if the Afterpay assets are disappearing after page-load.
+    // var afterpay_variable_subtotal_fallback_method = "interval";  // Ensures the instalment price updates when the price changes. Can be "mutation" (default) or "interval".
+
+    var afterpay_footer_logo_enabled = true;  // Enables/disables the footer payment icon. Can be true (default) or false.
+    // var afterpay_footer_logo_container = '.payment-icons';  // The selector used to identify the payment icons in the footer.
+    // var afterpay_footer_logo_format = 'logo';  // The Afterpay payment icon style. Can be 'icon' (default), 'stacked' or 'logo'.
+    // var afterpay_footer_logo_theme = 'black';  // The Afterpay payment icon colour. Can be 'colour' (default), 'black' or 'white'.
+    // var afterpay_footer_logo_background = 'transparent';  // The Afterpay payment icon border style. Can be 'border' (default) or 'transparent'.
+    // var afterpay_footer_logo_css = {'width': 'auto', 'height': 'auto', 'vertical-align': 'baseline'};  // The CSS styling of the Afterpay payment icon in the footer.
+
+    // Non-editable fields:
+    var afterpay_shop_currency = {{ shop.currency | json }};
+    var afterpay_cart_currency = {{ cart.currency.iso_code | json }};
+    var afterpay_shop_money_format = {{ shop.money_format | json }};
+    var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
+    var afterpay_theme_name = {{ theme.name | json }};
+    var afterpay_product = {{ product | json }};
+    var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
+    var afterpay_cart_total_price = {{ cart.total_price | json }};
+    var afterpay_js_snippet_version = '1.0.12';
+  </script>
+  <script type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script>
+  <!-- End Shopify-Afterpay JavaScript Snippet (v1.0.12) -->
+
+  {% comment %}
+  <script src="{{ 'try-with-nok.js' | asset_url }}" async="async"></script>
+  {% render "try-with-nok-modal" %}
+  {% endcomment %}
+
+  {% if page.handle contains 'contact-us' %}
+  <!-- Gorgias Chat Widget Start -->
+  <script id="gorgias-chat-widget-install-v2"
+    src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=15222"></script>
+  <!-- Gorgias Chat Widget End -->
+  {% endif %}
+
+  <script async type="text/javascript" src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=LuhztW"></script>
+
+  {% include 'smile-initializer' %}
+
+  <script>
+    (function () {
+      var s = document.createElement('script');
+      var h = document.querySelector('head') || document.body;
+      s.src = 'https://acsbapp.com/apps/app/dist/js/app.js';
+      s.async = true;
+      s.onload = function () {
+        acsbJS.init({
+          statementLink: '',
+          footerHtml: '',
+          hideMobile: false,
+          hideTrigger: false,
+          disableBgProcess: false,
+          language: 'en',
+          position: 'left',
+          leadColor: '#146ff8',
+          triggerColor: '#146ff8',
+          triggerRadius: '50%',
+          triggerPositionX: 'left',
+          triggerPositionY: 'bottom',
+          triggerIcon: 'people',
+          triggerSize: 'medium',
+          triggerOffsetX: 15,
+          triggerOffsetY: 100,
+          mobile: {
+            triggerSize: 'small',
+            triggerPositionX: 'left',
+            triggerPositionY: 'bottom',
+            triggerOffsetX: 15,
+            triggerOffsetY: 100,
+            triggerRadius: '50%',
+          },
+        });
+      };
+      h.appendChild(s);
+    })();
+  </script>
+
+  {{ shop.metafields.loox.global_html_body }}
+  {% render 'oneclickupsellapp-theme', oneclickupsellapp: oneclickupsellapp %}
+  {% assign oneclickupsellapp = true %}
+</body>
+
+</html>

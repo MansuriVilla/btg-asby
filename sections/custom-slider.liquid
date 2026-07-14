@@ -1,0 +1,386 @@
+{% schema %}
+{
+  "name": "Dynamic Feature Slider",
+  "settings": [
+    {
+      "type": "range",
+      "id": "auto_play_speed",
+      "label": "Auto-play Speed (seconds)",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Media Type",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video/GIF"
+            }
+          ],
+          "default": "image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "url",
+          "id": "video_url_desktop",
+          "label": "Desktop Video/GIF URL",
+          "info": "Enter the URL for MP4 video or GIF file (desktop view)"
+        },
+        {
+          "type": "url",
+          "id": "video_url_mobile",
+          "label": "Mobile Video/GIF URL",
+          "info": "Enter the URL for MP4 video or GIF file (mobile view)"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Feature Title"
+        },
+        {
+          "type": "html",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Add your feature description here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Feature Slider ",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "heading": "FCB GPS DISTANCES",
+            "description": "<p>Distances to the Front, Center, and Back, guiding you to select the ideal club for <br> your shot. Click the action button to call out the distances.</p>"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "heading": "HAZARD DISTANCES",
+            "description": "<p>Identify hazards on each hole, arming you with all the information you need to <br> play your best golf.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div id="dynamic__slider--{{ product.handle }}"  class="ringer-funnel__videoArea rigner__top--videoArea">
+  <div class="am-slider_container--main">
+    <div class="am-slider_container--inner">
+      
+      <!-- Media (Images/Videos) -->
+      <div class="am-slider_img--container">
+        <div class="am-slider_nav--container">
+          <button class="am-slider_nav--button am-slider_nav--prev">
+            <span>
+              <svg width="21" height="37" viewBox="0 0 21 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.1167 20.2717C0.616779 19.7716 0.335938 19.0934 0.335938 18.3863C0.335938 17.6792 0.616779 17.0011 1.1167 16.501L16.202 1.41566C16.448 1.16097 16.7423 0.957818 17.0676 0.818061C17.393 0.678303 17.7429 0.60474 18.097 0.601663C18.451 0.598586 18.8022 0.666058 19.1299 0.800141C19.4576 0.934223 19.7554 1.13223 20.0058 1.38261C20.2561 1.63299 20.4541 1.93073 20.5882 2.25845C20.7223 2.58618 20.7898 2.93732 20.7867 3.2914C20.7836 3.64548 20.7101 3.9954 20.5703 4.32074C20.4305 4.64609 20.2274 4.94034 19.9727 5.18633L6.7727 18.3863L19.9727 31.5863C20.4585 32.0893 20.7272 32.7629 20.7212 33.4621C20.7151 34.1613 20.4346 34.8301 19.9402 35.3245C19.4458 35.8189 18.777 36.0994 18.0778 36.1055C17.3786 36.1115 16.705 35.8428 16.202 35.357L1.1167 20.2717Z" fill="#E0E0E0"/>
+              </svg>
+            </span>
+          </button>
+          <button class="am-slider_nav--button am-slider_nav--next">
+            <span>
+              <svg width="21" height="37" viewBox="0 0 21 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M20.0005 20.2717C20.5004 19.7716 20.7812 19.0934 20.7812 18.3863C20.7812 17.6792 20.5004 17.0011 20.0005 16.501L4.91515 1.41566C4.66916 1.16097 4.37491 0.957818 4.04957 0.818061C3.72422 0.678303 3.3743 0.60474 3.02022 0.601663C2.66615 0.598586 2.315 0.666058 1.98728 0.800141C1.65955 0.934223 1.36181 1.13223 1.11143 1.38261C0.861053 1.63299 0.663044 1.93073 0.528963 2.25845C0.39488 2.58618 0.32741 2.93732 0.330486 3.2914C0.333563 3.64548 0.407127 3.9954 0.546885 4.32074C0.686642 4.64609 0.889793 4.94034 1.14449 5.18633L14.3445 18.3863L1.14449 31.5863C0.658731 32.0893 0.389948 32.7629 0.396023 33.4621C0.402098 34.1613 0.682549 34.8301 1.17697 35.3245C1.67139 35.8189 2.34023 36.0994 3.03942 36.1055C3.73861 36.1115 4.41222 35.8428 4.91515 35.357L20.0005 20.2717Z" fill="#E0E0E0"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+
+        <div class="am-slider_img--items">
+          {% for block in section.blocks %}
+            <div class="am-slider_img--item {% if forloop.first %}active{% endif %}" data-media-type="{{ block.settings.media_type }}">
+              {% if block.settings.media_type == 'video' %}
+                <!-- Video/GIF Content -->
+                {% assign desktop_video = block.settings.video_url_desktop %}
+                {% assign mobile_video = block.settings.video_url_mobile %}
+                {% assign fallback_video = desktop_video | default: mobile_video %}
+                
+                {% if desktop_video != blank %}
+                  {% assign desktop_ext = desktop_video | split: '.' | last | downcase %}
+                  {% if desktop_ext == 'gif' %}
+                    <img 
+                      class="am-slider_media am-slider_gif am-slider_desktop-media" 
+                      src="{{ desktop_video }}" 
+                      alt="{{ block.settings.heading }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <video 
+                      class="am-slider_media am-slider_video am-slider_desktop-media" 
+                      autoplay 
+                      loop 
+                      muted 
+                      playsinline
+                      preload="metadata"
+                    >
+                      <source src="{{ desktop_video }}" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  {% endif %}
+                {% endif %}
+
+                {% if mobile_video != blank %}
+                  {% assign mobile_ext = mobile_video | split: '.' | last | downcase %}
+                  {% if mobile_ext == 'gif' %}
+                    <img 
+                      class="am-slider_media am-slider_gif am-slider_mobile-media" 
+                      src="{{ mobile_video }}" 
+                      alt="{{ block.settings.heading }}"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <video 
+                      class="am-slider_media am-slider_video am-slider_mobile-media" 
+                      autoplay 
+                      loop 
+                      muted 
+                      playsinline
+                      preload="metadata"
+                    >
+                      <source src="{{ mobile_video }}" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  {% endif %}
+                {% endif %}
+
+                {% if desktop_video == blank and mobile_video == blank %}
+                  <p style="color: #999;">No video URL provided</p>
+                {% endif %}
+
+              {% else %}
+                <!-- Image Content -->
+                <picture>
+                  {% if block.settings.image_desktop %}
+                    <source media="(min-width: 861px)" srcset="{{ block.settings.image_desktop | img_url: 'master' }}">
+                  {% endif %}
+                  {% if block.settings.image_mobile %}
+                    <source media="(max-width: 860px)" srcset="{{ block.settings.image_mobile | img_url: 'master' }}">
+                  {% endif %}
+                  <img 
+                    class="am-slider_media am-slider_img" 
+                    decoding="async" 
+                    src="{{ block.settings.image_desktop | default: block.settings.image_mobile | img_url: 'master' }}" 
+                    alt="{{ block.settings.heading }}"
+                  >
+                </picture>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Headings -->
+      <div class="am-slider_text-heading--flex--flex-center">
+        {% for block in section.blocks %}
+          <div 
+            class="am-slider_text--item {% if forloop.first %}active{% endif %}" 
+            data-index="{{ forloop.index0 }}"
+          >
+            <h3 class="am-slider_heading">{{ block.settings.heading }}</h3>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Descriptions -->
+      <div class="am-slider_text-discription--flex--flex-center">
+        {% for block in section.blocks %}
+          <div 
+            class="am-slider_discription--item {% if forloop.first %}active{% endif %}" 
+            data-index="{{ forloop.index0 }}"
+          >
+            <p class="am-slider-discription">
+              {{ block.settings.description }}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .am-slider_container--main { color: #000; padding:0 clamp(15px,4vw,50px) clamp(30px,5vw,90px); text-align: center; max-width: 1300px; margin: 0 auto; width: 100%;}
+  .am-slider_container--inner { display: flex; flex-direction: column; row-gap: 15px; }
+  .am-slider_img--items { position: relative; width: 100%; aspect-ratio: 16/6.7; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #f5f5f5; border-radius: clamp(10px,3vw,20px);}
+  .am-slider_img--item { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease; }
+  .am-slider_img--item.active { opacity: 1; }
+  .am-slider_media { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .am-slider_video { display: block; }
+  
+  /* Desktop/Mobile media visibility */
+  .am-slider_desktop-media { display: block; }
+  .am-slider_mobile-media { display: none; }
+  
+  .am-slider_text-heading--flex--flex-center, .am-slider_text-discription--flex--flex-center { display: flex; justify-content: center; align-items: center; width: 100%; }
+  .am-slider_text-heading--flex--flex-center { max-width: 76%; overflow: hidden; margin: 0 auto; display: flex; justify-content: flex-start; align-items: center; gap: 30px; white-space: nowrap; position: relative; }
+  .am-slider_text--item { opacity: 0.5; width: 300px; transition: opacity 0.5s ease; cursor: pointer; flex: 0 0 auto; }
+  .am-slider_text--item.active { opacity: 1; }
+  .am-slider_heading { font-size: clamp(14px, 3vw, 24px); width: 300px; }
+  .am-slider_text-discription--flex--flex-center { position: relative; height: 100px; }
+  .am-slider_discription--item { position: absolute; top: 0; left: 0; width: 100%; max-width: 100%; padding: 15px 0 0 0; border-top: 1px solid #000; opacity: 0; transition: opacity 0.5s ease; }
+  .am-slider_discription--item p { padding:0px; margin:0; }
+  .am-slider_discription--item.active { opacity: 1; }
+  .am-slider_nav--button span { display: flex; }
+  .am-slider-discription { font-size: clamp(12px, 2.5vw, 18px); color: #000; margin: 0; width: 100%; line-height: 150%; margin: 0 auto; }
+  .am-slider_nav--container { display: flex; justify-content: space-between; position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); padding: 0 20px; box-sizing: border-box; z-index: 1; }
+  .am-slider_text--item { cursor: pointer; }
+  .am-slider_img--container { position: relative; }
+  .am-slider_nav--button { border-radius: 50%; width: 64px; height: 64px; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s; backdrop-filter: blur(5px); }
+
+  @media only screen and (min-width:861px){
+    .am-slider_nav--button { background: rgba(0, 0, 0, 0.5); color: white; border: none; }
+    .no-none { display: none; }
+  }
+
+  @media only screen and (max-width:860px){
+    /* Show mobile media, hide desktop media */
+    .am-slider_desktop-media { display: none; }
+    .am-slider_mobile-media { display: block; }
+    
+    .am-slider_nav--button{width: 40px;height: 40px; border: 1px solid #000;}
+    .am-slider_nav--button svg{height: 18px;}
+    .am-slider_container--main{position: relative; padding: 0 0 100px;}
+    .am-slider_img--container {position: inherit; padding: 0 15px; }
+    .am-slider_nav--container{top: auto; bottom: 30px; justify-content: center;gap: 20px;}
+    .am-slider-discription{max-width: clamp(280px,50vw,410px);}
+    .am-slider-discription br:not([class]){display:none;}
+    .am-slider_nav--button svg path{fill: #000;}
+    .am-slider_img--item picture { display: flex; justify-content: center; align-items: center; }
+    .am-slider_img--items{aspect-ratio: 16/10.2;}
+    .am-slider_discription--item{max-width: 85%; margin: 0 auto; left: inherit;}
+    .am-slider_heading, .am-slider_text--item{width: 100%;}
+    [id^="dynamic__slider--"] .am-slider_nav--container{bottom: 0;}
+    [id^="dynamic__slider--"] .am-slider_container--main{padding: 0 0 145px;}
+  }
+
+  @media only screen and (max-width:660px){
+    .am-slider_text-discription--flex--flex-center{height: 80px;}
+  }
+
+  @media only screen and (max-width:480px){
+    .am-slider_container--inner{row-gap: 5px;}
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const autoPlaySpeed = {{ section.settings.auto_play_speed | times: 1000 }};
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.am-slider_img--item');
+    const headings = document.querySelectorAll('.am-slider_text--item');
+    const descriptions = document.querySelectorAll('.am-slider_discription--item');
+    const headingsContainer = document.querySelector('.am-slider_text-heading--flex--flex-center');
+    let interval;
+
+    if (!images.length || !headings.length || !descriptions.length || !headingsContainer) return;
+
+    function showSlide(index) {
+      currentIndex = ((index % images.length) + images.length) % images.length;
+
+      images.forEach((img, i) => {
+        const isActive = i === currentIndex;
+        img.classList.toggle('active', isActive);
+        
+        // Handle video playback
+        if (isActive) {
+          const videos = img.querySelectorAll('video');
+          videos.forEach(video => {
+            video.play().catch(err => console.log('Video play failed:', err));
+          });
+        } else {
+          const videos = img.querySelectorAll('video');
+          videos.forEach(video => {
+            video.pause();
+            video.currentTime = 0;
+          });
+        }
+      });
+
+      headings.forEach((h, i) => h.classList.toggle('active', i === currentIndex));
+      descriptions.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+
+      centerActiveHeading();
+    }
+
+    function centerActiveHeading() {
+      const activeHeading = headings[currentIndex];
+      if (!activeHeading) return;
+      const containerWidth = headingsContainer.offsetWidth;
+      const headingWidth = activeHeading.offsetWidth;
+      const headingOffsetLeft = activeHeading.offsetLeft;
+      const scrollLeft = headingOffsetLeft - containerWidth / 2 + headingWidth / 2;
+
+      headingsContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    }
+
+    function nextSlide() { showSlide(currentIndex + 1); }
+    function prevSlide() { showSlide(currentIndex - 1); }
+
+    function startAutoSlide() {
+      stopAutoSlide();
+      interval = setInterval(nextSlide, autoPlaySpeed);
+    }
+
+    function stopAutoSlide() {
+      if (interval) clearInterval(interval);
+    }
+
+    // Click on heading
+    headingsContainer.addEventListener('click', (e) => {
+      const clicked = e.target.closest('.am-slider_text--item');
+      if (clicked) {
+        const index = parseInt(clicked.dataset.index, 10);
+        stopAutoSlide();
+        showSlide(index);   
+        startAutoSlide();
+      }
+    }, { passive: true });
+
+    // Nav buttons
+    document.querySelector('.am-slider_nav--prev')?.addEventListener('click', () => {
+      stopAutoSlide(); prevSlide(); startAutoSlide();
+    }, { passive: true });
+
+    document.querySelector('.am-slider_nav--next')?.addEventListener('click', () => {
+      stopAutoSlide(); nextSlide(); startAutoSlide();
+    }, { passive: true });
+
+    // Init
+    showSlide(0);
+    startAutoSlide();
+  });
+</script>

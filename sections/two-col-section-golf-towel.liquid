@@ -1,0 +1,190 @@
+
+{% if section.settings.show_Section %}
+<div class="twoColumn--container__main two twoColumn-for__{{ product.handle }}">
+  <div class="page-width twoColumn--container__Inner">
+    {% for block in section.blocks %}
+      <div id="twoColumn__item-{{ forloop.index }}" class="twoColumn__row twoColumn__Has-Reverse__mobile {% if block.settings.twoColumn__Direction == 'reverse' %}twoColumn__Has-Reverse{% endif %}" >
+        <div class="twoColumn__TextArea twoColumn__Left">
+          <div class="twoColumn__TextArea-Left__Inner">
+            <h3 class="twoColumn__TextArea--Title">{{ block.settings.twoColumn__Ttile }}</h3>
+            <p class="twoColumn__TextArea--Desc has_splitting--effect"> {{ block.settings.twoColumn__Description }} </p>
+          </div>
+        </div>
+        <div class="twoColumn__TextArea--ImageArea twoColumn__Right">
+          <div class="twoClumn__Right--imageContainer">
+            <picture>
+              <source srcset="{{ block.settings.twoColumn__Image-desktop | img_url:'master' }}" media="(min-width:769px)">
+              <source srcset="{{ block.settings.twoColumn__Image-mobile| img_url:'master' }}" media="(max-width:768px)">
+              <img class="scaling_image-img" src="{{ block.settings.twoColumn__Image-desktop  | img_url:'master' }} " alt="">
+            </picture>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% comment %} <script src="{{ 'gsap.js' | asset_url }}"></script>
+<script src="{{ 'ScrollTrigger.min.js' | asset_url }}"></script> {% endcomment %}
+
+<script>
+  {% comment %} function splittingEffect() {
+    const targets = document.querySelectorAll('.has_splitting--effect');
+  
+    if (!targets.length) {
+      console.warn('No elements found with class .has_splitting--effect');
+      return;
+    }
+  
+    targets.forEach((target, index) => {
+      try {
+        const originalText = target.textContent.trim();
+  
+        
+        const words = originalText
+          .split(/\s+/) 
+          .filter(word => word.length > 0);
+  
+        target.innerHTML = ''; 
+  
+        const wrapper = document.createElement('div');
+        wrapper.className = 'splitting-words-wrapper';
+  
+        
+        words.forEach(word => {
+          const wordWrapper = document.createElement('span');
+          wordWrapper.className = 'has-splitting-word';
+          wordWrapper.textContent = word + ' '; 
+          wrapper.appendChild(wordWrapper);
+        });
+  
+        target.appendChild(wrapper);
+  
+        
+        gsap.set(target.querySelectorAll('.has-splitting-word'), {
+          opacity: 0,
+          y: 50
+        });
+  
+        
+        gsap.to(target.querySelectorAll('.has-splitting-word'), {
+          opacity: 1,
+          y: 0,
+          duration: .9,
+          stagger: 0.06,
+          ease: "linear",
+          scrollTrigger: {
+            trigger: target,
+            start: 'top bottom', 
+            toggleActions: 'play none none reverse', 
+          }
+        });
+      } catch (error) {
+        console.error(`Error processing splitting effect for element ${index}:`, error);
+      }
+    });
+  }
+  
+  splittingEffect(); {% endcomment %}
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+  function scalingImageEffect() {
+  const images = document.querySelectorAll('.scaling_image-img');
+
+  if (!images.length) {
+    console.warn('No elements found with class .scaling_image-img');
+    return;
+  }
+
+  images.forEach((image) => {
+    gsap.fromTo(
+      image,
+      { scale: 1.5 }, 
+      {
+        scale: 1,
+        duration: 1, 
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: image,
+          start: 'top bottom', 
+          end: 'bottom top',   
+          scrub: true,                 
+        }
+      }
+    );
+  });
+}
+
+  scalingImageEffect();
+});
+</script>
+
+
+{% schema %}
+{
+  "name": "Two Column Section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_Section",
+      "label": "Show Section",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Two Column Blocks",
+      "settings": [
+        {
+          "type": "html",
+          "id": "twoColumn__Ttile",
+          "label": "Two Column Title",
+          "default": "Title",
+
+        },
+        {
+          "type": "html",
+          "id": "twoColumn__Description",
+          "label": "Two Column Description",
+          
+        },
+        {
+          "type": "image_picker",
+          "id": "twoColumn__Image-desktop",
+          "label": "Two Column Image Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "twoColumn__Image-mobile",
+          "label": "Two Column Image Mobile"
+        },
+        {
+          "type": "select",
+          "id": "twoColumn__Direction",
+          "label": "Layout Direction",
+          "default": "normal",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Left Text, Right Image"
+            },
+            {
+              "value": "reverse",
+              "label": "Right Text, Left Image"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two Column Section",
+      "category": "Custom"
+    }
+  ],
+}
+{% endschema %}

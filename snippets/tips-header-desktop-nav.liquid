@@ -1,0 +1,185 @@
+<div class="site_flex site_header-content nav_left">
+  <div class="menu-toggle" id="menuToggle">
+    <img
+      class="isMenu_close"
+      src="{{ 'tips-open-menu.png' | asset_url }}"
+      alt=" Menu icon "
+    />
+    <img
+      class="isMenu_open"
+      src="{{ 'tips-close-menu.png' | asset_url }}"
+      alt=" Menu icon "
+      
+    />
+  </div>
+  <div class="site_header-left">
+    <div class="header_logo">
+           {%  if page.handle == 'golf-trip-bundle-black-friday'%}
+
+             <a href="/">
+        <img
+          src="{{ 'LOGO-TIPS-1.png' | asset_url }}"
+          alt="Company Logo"
+        />
+      </a>
+    {% else  %}
+       <a href="/">
+        <img
+          src="{{ 'LOGO-TIPS.png' | asset_url }}"
+          alt="Company Logo"
+        />
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  <span class="site_header__border"></span>
+  <nav class="site_header-center menu_custom">
+    <ul class="site_header-links">
+      <li
+        class="site_header-link site_headerContains__megaMenu"
+        data-disable-menu="false"
+        data-menu="products"
+      >
+        <a href="#" class="nav_link item_has--dropdown">SHOP</a>
+        <div class="site__megaMenu_container">
+          <div class="site__megaMenu_content page-width">
+            <div class="menu_top-site-mobile">
+              <span class="site_megaMenu__item site_megaMenu__Title"> TRANSIT COLLECTION </span> 
+              <button class="back-button">Back</button>
+            </div>
+            <ul class="site__megaMenu_content__inner">
+              <li class="site__megaMenu_left">
+                <div class="site_megaMenu_left-inner">
+                  <ul class="site_megaMenu_left-ul">
+                    <div class="site_megaMenu_ul-inner">
+                      
+                      <div class="site__megaMenu_left-top">
+                        <li class="site_megaMenu__item">
+                          <a
+                            class="site_megaMenu_Link"
+                            href="/products/transit-backpack-medium-black"
+                            ><span class="site_megaMenu_linkText">
+                              Medium Backpack</span
+                            ></a
+                          >
+                        </li>
+                        <li class="site_megaMenu__item">
+                          <a
+                            class="site_megaMenu_Link"
+                            href="/products/transit-cinch-sack-black"
+                            ><span class="site_megaMenu_linkText"
+                              >Commuter Sling</span
+                            ></a
+                          >
+                        </li>
+                        <li class="site_megaMenu__item">
+                          <a
+                            class="site_megaMenu_Link"
+                            href="/products/transit-shoe-bag-black"
+                            ><span class="site_megaMenu_linkText"
+                              >Shoe Pod</span
+                            ></a
+                          >
+                        </li>
+                        <li class="site_megaMenu__item">
+                          <a
+                            class="site_megaMenu_Link"
+                            href="/products/transit-travel-kit-black"
+                            ><span class="site_megaMenu_linkText"
+                              >Travel Kit</span
+                            ></a
+                          >
+                        </li>
+                        <li class="site_megaMenu__item">
+                          <a
+                            class="site_megaMenu_Link"
+                            href="/products/transit-valuables-pouch-black"
+                            ><span class="site_megaMenu_linkText"
+                              >Valuables Pouch</span
+                            ></a
+                          >
+                        </li>
+                      </div>
+                    </div>
+                    
+                  </ul>
+                
+                </div>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li
+        class="site_header-link"
+        data-disable-menu="false"
+        data-menu="apps"
+      >
+        <a href="#" class="nav_link">ABOUT</a>
+        
+      </li>
+      <li
+        class="site_header-link"
+        data-disable-menu="false"
+        data-menu="community"
+      >
+        <a href="#" class="nav_link ">WHOLESALE</a>
+   
+      </li>
+      <li
+        class="site_header-link"
+        data-menu="support"
+      >
+        <a href="#" class="nav_link ">CONTACT</a>
+       
+      </li>
+      
+      
+    </ul>
+    <span class="megaMenu_backface"></span>
+  </nav>
+  <div class="site_header-right">
+    <a class="site__header-profileIcon" href="/account/login">
+      <img
+        src="{{ 'profile-icon-neew-header-tips.svg' | asset_url }}"
+        alt="Profile Icon"
+      />
+    </a>
+    <a
+      href="{{ routes.cart_url }}"
+      class="cart_custom site__header-cartIcon site-nav__link site-nav__link--icon js-drawer-open-cart"
+      aria-controls="CartDrawer"
+      data-icon="{{ settings.cart_icon }}"
+    >
+      <span class="cart-link">
+        {%- if settings.cart_icon == 'cart' -%}
+        <svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.58008 0C1.02779 0 0.580078 0.447715 0.580078 1C0.580078 1.55228 1.02779 2 1.58008 2H4.76039L5.59203 6.15508C5.59646 6.18353 5.60209 6.21159 5.60887 6.2392L7.27924 14.5848C7.41654 15.2751 7.79233 15.8959 8.34056 16.3373C8.88628 16.7766 9.56845 17.011 10.2687 17H19.9714C20.6717 17.011 21.3539 16.7766 21.8996 16.3373C22.4481 15.8958 22.8238 15.2754 22.9609 14.5848L22.9624 14.5773L24.5624 6.18733C24.6182 5.89458 24.5405 5.59218 24.3506 5.36256C24.1606 5.13293 23.8781 5 23.5801 5H7.40051L6.56063 0.803743C6.46709 0.336385 6.0567 0 5.58008 0H1.58008ZM7.80081 7H22.3714L20.9986 14.1984C20.9524 14.4273 20.8274 14.6328 20.6455 14.7793C20.4626 14.9265 20.2339 15.0047 19.9992 15.0002L19.9801 15H10.2601L10.2409 15.0002C10.0063 15.0047 9.77751 14.9265 9.59469 14.7793C9.41187 14.6322 9.28664 14.4254 9.24092 14.1952L7.80081 7Z" fill="#231F20"/>
+<path d="M7.58008 21C7.58008 19.8954 8.47551 19 9.58008 19C10.6846 19 11.5801 19.8954 11.5801 21C11.5801 22.1046 10.6846 23 9.58008 23C8.47551 23 7.58008 22.1046 7.58008 21Z" fill="#231F20"/>
+<path d="M18.5801 21C18.5801 19.8954 19.4755 19 20.5801 19C21.6846 19 22.5801 19.8954 22.5801 21C22.5801 22.1046 21.6846 23 20.5801 23C19.4755 23 18.5801 22.1046 18.5801 21Z" fill="#231F20"/>
+</svg>
+
+        {%- elsif settings.cart_icon == 'bag-minimal' -%}
+        <svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.58008 0C1.02779 0 0.580078 0.447715 0.580078 1C0.580078 1.55228 1.02779 2 1.58008 2H4.76039L5.59203 6.15508C5.59646 6.18353 5.60209 6.21159 5.60887 6.2392L7.27924 14.5848C7.41654 15.2751 7.79233 15.8959 8.34056 16.3373C8.88628 16.7766 9.56845 17.011 10.2687 17H19.9714C20.6717 17.011 21.3539 16.7766 21.8996 16.3373C22.4481 15.8958 22.8238 15.2754 22.9609 14.5848L22.9624 14.5773L24.5624 6.18733C24.6182 5.89458 24.5405 5.59218 24.3506 5.36256C24.1606 5.13293 23.8781 5 23.5801 5H7.40051L6.56063 0.803743C6.46709 0.336385 6.0567 0 5.58008 0H1.58008ZM7.80081 7H22.3714L20.9986 14.1984C20.9524 14.4273 20.8274 14.6328 20.6455 14.7793C20.4626 14.9265 20.2339 15.0047 19.9992 15.0002L19.9801 15H10.2601L10.2409 15.0002C10.0063 15.0047 9.77751 14.9265 9.59469 14.7793C9.41187 14.6322 9.28664 14.4254 9.24092 14.1952L7.80081 7Z" fill="#231F20"/>
+<path d="M7.58008 21C7.58008 19.8954 8.47551 19 9.58008 19C10.6846 19 11.5801 19.8954 11.5801 21C11.5801 22.1046 10.6846 23 9.58008 23C8.47551 23 7.58008 22.1046 7.58008 21Z" fill="#231F20"/>
+<path d="M18.5801 21C18.5801 19.8954 19.4755 19 20.5801 19C21.6846 19 22.5801 19.8954 22.5801 21C22.5801 22.1046 21.6846 23 20.5801 23C19.4755 23 18.5801 22.1046 18.5801 21Z" fill="#231F20"/>
+</svg>
+
+        {%- else -%}
+       <svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.58008 0C1.02779 0 0.580078 0.447715 0.580078 1C0.580078 1.55228 1.02779 2 1.58008 2H4.76039L5.59203 6.15508C5.59646 6.18353 5.60209 6.21159 5.60887 6.2392L7.27924 14.5848C7.41654 15.2751 7.79233 15.8959 8.34056 16.3373C8.88628 16.7766 9.56845 17.011 10.2687 17H19.9714C20.6717 17.011 21.3539 16.7766 21.8996 16.3373C22.4481 15.8958 22.8238 15.2754 22.9609 14.5848L22.9624 14.5773L24.5624 6.18733C24.6182 5.89458 24.5405 5.59218 24.3506 5.36256C24.1606 5.13293 23.8781 5 23.5801 5H7.40051L6.56063 0.803743C6.46709 0.336385 6.0567 0 5.58008 0H1.58008ZM7.80081 7H22.3714L20.9986 14.1984C20.9524 14.4273 20.8274 14.6328 20.6455 14.7793C20.4626 14.9265 20.2339 15.0047 19.9992 15.0002L19.9801 15H10.2601L10.2409 15.0002C10.0063 15.0047 9.77751 14.9265 9.59469 14.7793C9.41187 14.6322 9.28664 14.4254 9.24092 14.1952L7.80081 7Z" fill="#231F20"/>
+<path d="M7.58008 21C7.58008 19.8954 8.47551 19 9.58008 19C10.6846 19 11.5801 19.8954 11.5801 21C11.5801 22.1046 10.6846 23 9.58008 23C8.47551 23 7.58008 22.1046 7.58008 21Z" fill="#231F20"/>
+<path d="M18.5801 21C18.5801 19.8954 19.4755 19 20.5801 19C21.6846 19 22.5801 19.8954 22.5801 21C22.5801 22.1046 21.6846 23 20.5801 23C19.4755 23 18.5801 22.1046 18.5801 21Z" fill="#231F20"/>
+</svg>
+
+        {%- endif -%}
+        <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+        <span
+          class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"
+        ></span>
+      </span>
+    </a>
+  </div>
+</div>

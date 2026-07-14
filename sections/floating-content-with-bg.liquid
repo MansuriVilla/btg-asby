@@ -1,0 +1,87 @@
+{% liquid
+  assign title = section.settings.title
+  assign description = section.settings.description
+  assign desktop_image = section.settings.contentBackground
+  assign mobile_image = section.settings.contentBackgroundMobile
+  assign has_overlay = section.settings.has_overlay
+
+  if has_overlay
+    assign has_overlay = true
+  endif
+%}
+
+<div class="floating_content--section">
+  <div class="floating_content--inner{% if has_overlay %} floating_overlay{% endif %}">
+    {% if desktop_image != blank %}
+      <div class="floating_content--background">
+        <picture class="content_background">
+          <source
+            srcset="{{ desktop_image | image_url: width: 1920, format: 'webp' }}"
+            type="image/webp"
+            media="(min-width: 861px)"
+          >
+          <source
+            srcset="{{ mobile_image | image_url: width: 860 }}"
+            media="(max-width: 860px)"
+          >
+          {{
+            desktop_image
+            | image_url: width: 1920
+            | image_tag:
+              class: 'content_background--image',
+              loading: 'eager',
+              fetchpriority: 'high',
+              widths: '400,600,800,1200,1600,2000',
+              sizes: '(max-width: 860px) 100vw, 50vw',
+              alt: title
+          }}
+        </picture>
+      </div>
+    {% endif %}
+    {% if title != blank %}
+      <div class="floating_content">
+        <h3 class="content_title">{{ title }}</h3>
+        <p class="content_description">{{ description }}</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Content With Background",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Section Title"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Section Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "contentBackground",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "contentBackgroundMobile",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "has_overlay",
+      "label": "Enable Overlay"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Content With Background"
+    }
+  ]
+}
+{% endschema %}

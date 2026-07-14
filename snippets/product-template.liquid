@@ -1,0 +1,1195 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+
+  unless thumbnail_position
+    assign thumbnail_position = 'beside'
+  endunless
+
+  assign product_zoom_size = '1800x1800'
+  assign product_image_size = '620x'
+
+  case image_container_width
+    when 'small'
+      assign product_image_width = 'medium-up--two-fifths'
+      assign product_description_width = 'medium-up--three-fifths'
+      assign product_image_size = '480x'
+    when 'medium'
+      assign product_image_width = 'medium-up--one-half'
+      assign product_description_width = 'medium-up--one-half'
+      assign product_image_size = '620x'
+    when 'large'
+      assign product_image_width = 'medium-up--three-fifths'
+      assign product_description_width = 'medium-up--two-fifths'
+      assign product_image_size = '740x'
+  endcase
+
+  assign product_img_structure = product.featured_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
+-%}
+
+<div
+  id="ProductSection-{{ section_id }}-{{ product.id }}"
+  class="product-section new-product__layout--{{ product.handle }}"
+  data-section-id="{{ section_id }}"
+  data-product-id="{{ product.id }}"
+  data-section-type="product"
+  data-product-handle="{{ product.handle }}"
+  data-product-title="{{ product.title | escape }}"
+  data-product-url="{{ product.url | within: collection }}"
+  data-aspect-ratio="{{ 100 | divided_by: product.featured_media.aspect_ratio }}"
+  data-img-url="{{ product_img_structure }}"
+  {% unless isModal %}
+    data-history="true"
+  {% endunless %}
+  data-modal="{{ isModal }}"
+>
+  {%- render 'product-template-variables', product: product, current_variant: current_variant -%}
+
+  <div class="page-content page-content--product">
+    <div class="page-width">
+      <div class="grid{% unless image_position == 'left' %} grid--product-images-right{% endunless %}{% if mobile_layout == 'partial' %} grid--product-images--partial{% endif %}">
+        {%- if image_position == 'left' -%}
+          <div class="grid__item {{ product_image_width }} product-single__sticky">
+            {%- render 'product-images',
+              section_id: section_id,
+              product: product,
+              isModal: isModal,
+              image_position: image_position,
+              product_zoom_enable: product_zoom_enable,
+              product_zoom_size: product_zoom_size,
+              product_image_size: product_image_size,
+              thumbnail_arrows: thumbnail_arrows,
+              thumbnail_position: thumbnail_position,
+              video_looping: video_looping,
+              video_style: video_style
+            -%}
+
+            {% render 'watch-button-pdp' %}
+          </div>
+        {%- endif -%}
+
+        <div class="grid__item {{ product_description_width }}">
+          <div class="product-single__meta">
+            <div class="product-block product-block--header">
+              {%- if settings.show_breadcrumbs and isModal != true -%}
+                {%- render 'breadcrumbs' -%}
+              {%- endif -%}
+
+              {%- if settings.vendor_enable -%}
+                <div class="product-single__vendor">
+                  {%- assign vendor_handle = product.vendor | handleize -%}
+                  {%- if collections[vendor_handle] != empty -%}
+                    <a href="{{ routes.collections_url }}/{{ collections[vendor_handle].handle }}">
+                      {{ collections[vendor_handle].title }}
+                    </a>
+                  {%- else -%}
+                    {{ product.vendor | link_to_vendor }}
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              {% if product.title contains 'Series 3  Max Golf Rangefinder with slope' %}
+                <!--
+                  div id="info-icon-black-blue" class="info-icon-black-blue"><img src="{{ 'serise-3-black-blue.png' | asset_url }}" /></div>
+                  <div id="info-icon" class="info-icon"><img src="{{ 'info-product-rose.png' | asset_url }}" /></div
+                -->
+              {% endif %}
+
+              {% if product.title contains 'Black Palm HeadCovers' %}
+                <div id="info-icon" class="info-icon-black">
+                  <img src="{{ 'black-palm.png' | asset_url }}" alt="black black">
+                </div>
+              {% endif %}
+
+              {% if product.title contains 'NEW S3 MAX + PLAYER Bundle' %}
+                <div id="info-icon" class="info-icon-black">
+                  <img src="{{ 'player-bundle.png' | asset_url }}" alt="">
+                </div>
+              {% endif %}
+
+              {% if product.handle contains 'player-pack' %}
+                <!--
+                  div class="info-icon-black" ><img style="max-height: 60px;" src="{{ 'player-pack-tag.png' | asset_url }}" /></div
+                -->
+              {% endif %}
+
+              {% if product.handle contains 'series-3-max-golf-rangefinder-with-slope' %}
+                <!--
+                  div class="info-icon-black" ><img style="max-height: 60px;" src="{{ 's3-max-tag.png' | asset_url }}" /></div
+                -->
+              {% endif %}
+
+              {% if product.handle contains 'magnetic-golf-speaker' %}
+                <!--
+                  div class="info-icon-black" ><img style="max-height: 60px;" src="{{ 'player-spekar-tag.png' | asset_url }}" /></div
+                -->
+              {% endif %}
+
+              {% if product.handle contains 'rangefinder-series-2-pro'
+                or product.handle contains 'ncaa-s2-pro-rangefinders'
+              %}
+                <!--
+                  div class="info-icon-black" ><img style="max-height: 60px;" src="{{ 's2-pro-plus-tag.png' | asset_url }}" /></div
+                -->
+              {% endif %}
+
+              {% if product.title contains 'Series 2 Golf Rangefinder' %}
+                <!--
+                  div class="info-icon-black" ><img style="max-height: 60px;" src="{{ 'rangefinder-series-2-pro-tag.png' | asset_url }}" /></div
+                -->
+              {% endif %}
+
+              {%- if isModal -%}
+                <p class="h2 product-single__title">
+                  {{ product.title }}
+                </p>
+              {%- else -%}
+                {% if product.title contains 'Rangefinder with slope' %}
+                  <h1 class="h1 product-single__title">
+                    {{
+                      product.title
+                      | replace: 'Golf Rangefinder with slope',
+                        '<span id="test-series">Golf Rangefinder with slope</span>'
+                    }}
+                  </h1>
+                {% else %}
+                  {% if product.handle == 'speaker-bundle' or product.handle == 'player-gps-speaker-bundle-v2' %}
+                    {% render 'supercharged-ai-comp' %}
+                  {% else %}
+                    {% render 'offer-bug' %}
+                  {% endif %}
+                  <h1
+                    class="
+                      h1 product-single__title {% if product.title contains "Series 3 Max" %}
+                      editonlythis{% endif %}
+                    "
+                  >
+                    {{ product.title }}
+                  </h1>
+                {% endif %}
+              {%- endif -%}
+
+              {% comment %}
+                <div class="below-title-review">
+                  <div
+                    class="loox-rating"
+                    data-id="{{ product.id }}"
+                    data-rating="{{ product.metafields.loox.avg_rating }}"
+                    data-raters="{{ product.metafields.loox.num_reviews }}"
+                  ></div>
+
+                  <div class="seprater">|</div>
+                  <div class="read-all">
+                    <a href="#looxReviews">Read all reviews</a>
+                  </div>
+                </div>
+              {% endcomment %}
+
+              <a href="#looxReviews">
+                <div
+                  class="loox-rating"
+                  data-id="{{ product.id }}"
+                  data-rating="{{ product.metafields.loox.avg_rating }}"
+                  data-raters="{{ product.metafields.loox.num_reviews }}"
+                ></div>
+              </a>
+
+              {%- if sku_enable -%}
+                <p data-sku class="product-single__sku">
+                  {%- if current_variant.sku -%}
+                    {{ current_variant.sku }}
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+            </div>
+
+            <div data-product-blocks>
+              {%- capture form_id -%}AddToCartForm-{{ section_id }}-{{ product.id }}{%- endcapture -%}
+              {%- for block in blocks -%}
+                {%- case block.type -%}
+                  {%- when '@app' -%}
+                    {% render block %}
+                  {%- when 'separator' -%}
+                    <div class="product-block"><hr></div>
+                  {%- when 'text' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {{ block.settings.text }}
+                    </div>
+
+                  {%- when 'tab' -%}
+                    <div class="product-block product-block--tab" {{ block.shopify_attributes }}>
+                      {% assign tab_id = block.id | append: product.id %}
+                      {% capture tab_content %}
+                        {{ block.settings.content }}
+                        {{ block.settings.page.content }}
+                      {% endcapture %}
+                      {%- render 'tab', id: tab_id, title: block.settings.title, content: tab_content -%}
+                    </div>
+                  {%- when 'contact' -%}
+                    <div class="product-block product-block--tab" {{ block.shopify_attributes }}>
+                      {% assign tab_id = block.id | append: product.id %}
+                      {%- render 'tab-contact', id: tab_id, block: block -%}
+                    </div>
+                  {%- when 'description' -%}
+                    <div
+                      class="product-block{% if block.settings.is_tab %} product-block--tab{% endif %}"
+                      {{ block.shopify_attributes }}
+                    >
+                      {%- assign id = block.id | append: product.id -%}
+                      {%- render 'product-description', id: id, product: product, is_tab: block.settings.is_tab -%}
+                    </div>
+                  {%- when 'price' -%}
+                    <div class="product-block product-block--price" {{ block.shopify_attributes }}>
+                      {%- assign hide_sale_price = true -%}
+                      {%- if product.compare_at_price_max > product.price -%}
+                        {%- if current_variant.compare_at_price > current_variant.price -%}
+                          {%- assign hide_sale_price = false -%}
+                        {%- endif -%}
+                        <span
+                          data-a11y-price
+                          class="visually-hidden"
+                          aria-hidden="{{ hide_sale_price }}"
+                        >
+                          {{ 'products.general.regular_price' | t }}
+                        </span>
+                        <span
+                          data-product-price-wrap
+                          class="{% if hide_sale_price %} hide{% endif %}"
+                          style="
+                            {% if  product.handle == 'speaker-bundle'
+                            or product.handle == 'gps-offer'
+                            or product.handle == 'laser-offer' or product.handle == 'player-gps-speaker-bundle-v2' or product.handle == 'ringer-gps-handheld-bundle-v2'  or product.handle == 'series-4-ultra-bundle-v2' %} display:none; {%endif %}
+                          "
+                        >
+                          <span data-compare-price class="product__price product__price--compare">
+                            {%- if current_variant.compare_at_price > current_variant.price -%}
+                              {{ current_variant.compare_at_price | money }}
+                            {%- endif -%}
+                          </span>
+                        </span>
+                        <span data-compare-price-a11y class="visually-hidden">
+                          {{- 'products.general.sale_price' | t -}}
+                        </span>
+                      {%- else -%}
+                        <span data-a11y-price class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                      {%- endif -%}
+
+                      <span
+                        data-product-price
+                        class="product__price price-main{% if current_variant.compare_at_price > current_variant.price %} on-sale{% endif %}"
+                      >
+                        {%- unless product.empty? -%}
+                          {{ current_variant.price | money }}
+                        {%- else -%}
+                          {{ 1999 | money }}
+                        {%- endunless -%}
+                        {% if product.handle == 'speaker-bundle'
+                          or product.handle == 'gps-offer'
+                          or product.handle == 'laser-offer'
+                          or product.handle == 'player-gps-speaker-bundle-v2'
+                          or product.handle == 'ringer-gps-handheld-bundle-v2'
+                          or product.handle == 'series-4-ultra-bundle-v2'
+                        %}
+                          <div class="compare_wrapper">
+                            <span data-product-price-wrap class="{% if hide_sale_price %} hide{% endif %}">
+                              <span
+                                data-compare-price
+                                class="product__price product__price--compare compare__price-funnle"
+                              >
+                                {%- if current_variant.compare_at_price > current_variant.price -%}
+                                  {{ current_variant.compare_at_price | money }}
+                                {%- endif -%}
+                              </span>
+                            </span>
+                            {% if current_variant.compare_at_price > current_variant.price %}
+                              <div class="compare-text compare-text___funnel" style="display:block !important;">
+                                {%- if settings.product_save_type == 'dollar' -%}
+                                  {%- capture saved_amount -%}{{ current_variant.compare_at_price | minus: current_variant.price | money }}{%- endcapture -%}
+                                {%- else -%}
+                                  {%- capture saved_amount -%}{{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round }}%{%- endcapture -%}
+                                {%- endif -%}
+
+                                <span class="save-amount"
+                                  ><span class="save__label"> SAVE</span> {{ saved_amount -}}
+                                </span>
+                              </div>
+                              </div>
+
+                            {% else %}
+                              <div class="compare-text">
+                                FREE SHIPPING <br>
+                                Love It Or Your Money Back! | 60 Day Hassle-Free Returns
+                              </div>
+                            {% endif %}
+                        {% endif %}
+                      </span>
+
+                      {%- if settings.product_save_amount -%}
+                        {%- if settings.product_save_type == 'dollar' -%}
+                          {%- capture saved_amount -%}{{ current_variant.compare_at_price | minus: current_variant.price | money }}{%- endcapture -%}
+                        {%- else -%}
+                          {%- capture saved_amount -%}{{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round }}%{%- endcapture -%}
+                        {%- endif -%}
+                        <span data-save-price class="product__price-savings{% if hide_sale_price %} hide{% endif %}">
+                          {%- unless hide_sale_price -%}
+                            {{ 'products.general.save_html' | t: saved_amount: saved_amount }}
+                          {%- endunless -%}
+                        </span>
+                      {%- endif -%}
+
+                      <div
+                        data-unit-price-wrapper
+                        class="product__unit-price product__unit-price--spacing {% unless current_variant.unit_price_measurement %} hide{% endunless %}"
+                      >
+                        {%- capture unit_price_base_unit -%}
+                          <span data-unit-base>
+                            {%- if current_variant.unit_price_measurement -%}
+                              {%- if current_variant.unit_price_measurement.reference_value != 1 -%}
+                                {{ current_variant.unit_price_measurement.reference_value }}
+                              {%- endif -%}
+                              {{ current_variant.unit_price_measurement.reference_unit }}
+                            {%- endif -%}
+                          </span>
+                        {%- endcapture -%}
+
+                        <span data-unit-price>{{ current_variant.unit_price | money }}</span>/{{ unit_price_base_unit }}
+                      </div>
+
+                      {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+                        <div class="product__policies rte small--text-center">
+                          {%- if shop.taxes_included -%}
+                            {{ 'products.product.include_taxes' | t }}
+                          {%- endif -%}
+                          {%- if shop.shipping_policy.body != blank -%}
+                            {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+
+                      {% comment %}
+                        {% if product.title contains 'Series 3  Max Golf Rangefinder with slope' %}
+                            <div class="best-seller" >The Open Sale</div>
+                        {% endif %}
+
+                        {% if product.title contains 'The Player Magnetic Speaker' %}
+                            <div class="best-seller" >New Release</div>
+                        {% endif %}
+
+                        {% if product.title contains 'NEW S3 MAX + PLAYER Bundle' or product.title contains 'Player Pack Bundle' or product.title contains 'S3 Max + Player + Caddie Towel Bundle' or product.title contains 'Accessory Bundle' %}
+                            <div class="best-seller" >The Open Sale</div>
+                        {% endif %}
+                      {% endcomment %}
+
+                      {% if product.title contains 'NCAA S2 Pro+ Rangefinders'
+                        or product.title contains 'Series 3  Max Golf Rangefinder with slope'
+                        or product.title contains 'NEW S3 MAX + PLAYER Bundle'
+                        or product.title contains 'Player Pack Bundle'
+                        or product.title contains 'S3 Max + Player + Caddie Towel Bundle'
+                        or product.title contains 'Accessory Bundle'
+                      %}
+                        <div><div class="free-shiping-text">Free Shipping in USA & 60 Day Trial</div></div>
+                      {% endif %}
+
+                      {% if product.title contains 'The Player Magnetic Speaker'
+                        or product.title contains 'Black Palm HeadCovers'
+                        or product.title contains 'Series 2 Pro Slope Golf Rangefinder'
+                      %}
+                        <div class="black-product">
+                          <div class="free-shiping-text">Free Shipping in USA & 60 Day Trial</div>
+                        </div>
+                      {% endif %}
+                    </div>
+
+                    {% if product.metafields.custom.discount_code != blank %}
+                      <div class="discount-code">
+                        Use code: {{ product.metafields.custom.discount_code | metafield_tag }}
+                      </div>
+                      <style>
+                        .product-single__meta .discount-code
+                         {   padding-bottom:15px; font-weight: bold; display:none;
+                         }
+                         .product__price.price-main
+                         {   font-size: 28px; font-weight: 700; color: #2b50b2;
+                         }
+                      </style>
+                    {% endif %}
+
+                    {% if product.handle contains 'rangefinder-series-2-pro' %}
+                      {%- render 'rangefinder-series-2-pro' -%}
+                    {% endif %}
+
+                    {% if product.handle contains 'series-3-max-golf-rangefinder-with-slope' %}
+                      {%- render 'rangefinder-series-3-max-golf' -%}
+                    {% endif %}
+
+                    {% if product.handle contains 'magnetic-golf-speaker' %}
+                      {%- render 'magnetic-golf-speaker' -%}
+                    {% endif %}
+
+                    {% if product.handle contains 'magnetic-golf-towel' %}
+                      {%- render 'magnetic-golf-towel' -%}
+                    {% endif %}
+
+                    {% if product.handle contains 'divot-repair-tool' %}
+                      {%- render 'divot-repair-tool' -%}
+                    {% endif %}
+
+                    {% if product.handle contains 'ncaa-s2-pro-rangefinders' %}
+                      {%- render 'ncaa-s2-pro' -%}
+                    {% endif %}
+
+                    {% if product.title contains 'S3 Max + Player + Caddie Towel Bundle' %}
+                      <div class="product-right-icon">
+                        <img src="{{ 's3-max-player-caddie-towel-bundle-1.svg' | asset_url }}" alt="s3 max">
+                      </div>
+                    {% endif %}
+
+                    {% if product.title contains 'NEW S3 MAX + PLAYER Bundle' %}
+                      <div class="product-right-icon"><img src="{{ 'player-pack.svg' | asset_url }}" alt=""></div>
+                    {% endif %}
+
+                    {% if product.title contains 'Player Pack Bundle' %}
+                      <div class="product-right-icon"><img src="{{ 'complete-bundle.svg' | asset_url }}" alt=""></div>
+                    {% endif %}
+
+                    {% if product.title contains 'Accessory Bundle' %}
+                      <div class="product-right-icon">
+                        <img src="{{ 'accessory-bundle.svg' | asset_url }}" alt="accessory accessory">
+                      </div>
+                    {% endif %}
+
+                  {%- when 'quantity_selector' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      <div class="product__quantity">
+                        {% assign qty_id = section_id | append: product.id %}
+                        <label for="Quantity-{{ qty_id }}">{{ 'products.product.quantity' | t }}</label>
+                        {%- render 'quantity-input', form_id: form_id, id: qty_id, qty: 1, min: 1 -%}
+                      </div>
+                    </div>
+                  {%- when 'variant_picker' -%}
+                    <div
+                      class="product-block {% if product.title contains 'Series 2 Pro+' %}same-height{% endif %}"
+                      {{ block.shopify_attributes }}
+                    >
+                      {%- unless product.has_only_default_variant -%}
+                        {%- for option in product.options_with_values -%}
+                          {%- liquid
+                            if block.settings.color_swatches
+                              assign is_color = false
+                              assign color_option_index = 0
+                              assign swatch_trigger = 'products.general.color_swatch_trigger' | t | downcase
+                              assign color_option_index = forloop.index0
+                              assign downcased_option = option.name | downcase
+                              if downcased_option contains swatch_trigger
+                                assign is_color = true
+                              elsif swatch_trigger == 'color' and downcased_option contains 'colour'
+                                assign is_color = true
+                              endif
+                            endif
+                          -%}
+
+                          {%- if block.settings.picker_type == 'button' -%}
+                            {%- render 'variant-button',
+                              block: block,
+                              product: product,
+                              form_id: form_id,
+                              section_id: section_id,
+                              option: option,
+                              forloop: forloop,
+                              variant_labels: block.settings.variant_labels,
+                              is_color: is_color,
+                              color_option_index: color_option_index
+                            -%}
+                          {%- else -%}
+                            {%- render 'variant-dropdown',
+                              product: product,
+                              form_id: form_id,
+                              section_id: section_id,
+                              option: option,
+                              forloop: forloop,
+                              variant_labels: block.settings.variant_labels
+                            -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+                      {%- endunless -%}
+                    </div>
+                    <div class="after-pay"></div>
+
+                    
+                    {% render 'product-list-pdp' %}
+
+                  {%- when 'buy_buttons' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {%- unless product.empty? -%}
+                        <div class="product-block">
+                          {%- render 'product-form',
+                            form_id: form_id,
+                            product: product,
+                            show_dynamic_checkout: block.settings.show_dynamic_checkout,
+                            current_variant: current_variant
+                          -%}
+                        </div>
+                      {%- endunless -%}
+
+                      {%- if block.settings.surface_pickup_enable -%}
+                        <div
+                          data-store-availability-holder
+                          data-product-name="{{ product.title | escape }}"
+                          data-base-url="{{ shop.url }}{{ routes.root_url }}"
+                        ></div>
+                      {%- endif -%}
+                    </div>
+                  {%- when 'sales_point' -%}
+                    {%- unless block.settings.text == blank -%}
+                      <div class="product-block product-block--sales-point" {{ block.shopify_attributes }}>
+                        <ul class="sales-points">
+                          <li class="sales-point">
+                            <span class="icon-and-text">
+                              {% case block.settings.icon %}
+                                {% when 'checkmark' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-circle-checkmark"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M52.68 24.48A22 22 0 1 1 47 15.93M21 32l8.5 8.5L57 13"/>
+                                  </svg>
+                                {% when 'gift' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-gift"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M9 20.23h46v8.68H9zM13.34 28.91h36.89v24.3H13.34zM27.82 20.66v32.98M35.91 20.88v32.98M20.52 11.43a3.73 3.73 0 0 0-.74 2.87 4.57 4.57 0 0 0 .8 2.27C22 18.09 25.15 20 32 20.23a12 12 0 0 0-2.43-7 7.52 7.52 0 0 0-5.66-3.12 4 4 0 0 0-3.39 1.32z"/><path class="a" d="M43.37 11.43a3.73 3.73 0 0 1 .74 2.87 4.48 4.48 0 0 1-.8 2.27c-1.42 1.52-4.57 3.41-11.42 3.66a12.08 12.08 0 0 1 2.43-7A7.56 7.56 0 0 1 40 10.14a4 4 0 0 1 3.37 1.29z"/>
+                                  </svg>
+                                {% when 'globe' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-globe"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><circle class="a" cx="32" cy="32" r="22"/><path class="a" d="M13 21h38M10 32h44M13 43h38M32 10c-12 8-12 37 0 44M32 10c12 8 12 37 0 44"/>
+                                  </svg>
+                                {% when 'heart' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-heart"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M51.27 15.05a13 13 0 0 0-18.44 0l-.83.83-.83-.83a13 13 0 0 0-18.44 18.44l.83.83L32 52.77l18.44-18.45.83-.83a13 13 0 0 0 0-18.44z"/>
+                                  </svg>
+                                {% when 'leaf' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-leaf"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px}</style></defs><path class="a" d="M52 11L13 50M35 13v15h16"/><path class="a" d="M52 11c6 24-16.72 47.29-33 32C7 22 29 10 52 11z"/>
+                                  </svg>
+                                {% when 'lock' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-lock"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M19.45 23.6v-3.2c0-7 5.89-11.75 12.55-11.75 7.21 0 12.55 5.49 12.55 11.75v3.2M10 23.6h44v31.75H10zM32 37.47v7.47"/><circle class="a" cx="32" cy="35.87" r="1.6"/>
+                                  </svg>
+                                {% when 'package' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-package"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M32 54.52L10 41.95v-19.9L32 9.48l22 12.57v19.9L32 54.52z"/><path class="a" d="M32 54.52v-19.9l22-12.57M32 34.62L10 22.05M41.7 15.02L21 28.33v8.38"/>
+                                  </svg>
+                                {% when 'phone' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-phone"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M18.4 9.65l10.2 10.2-6.32 6.32c2.1 7 6.89 12.46 15.55 15.55l6.32-6.32 10.2 10.2-8.75 8.75C25.71 50.3 13.83 38.21 9.65 18.4z"/>
+                                  </svg>
+                                {% when 'ribbon' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-ribbon"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M28.57 42.31l-8.36 13.07-2.6-7.17-7.61.65 8.35-13.07a17.05 17.05 0 0 0 8.12 5.94 17.3 17.3 0 0 0 1.74.5zM54 48.86l-7.61-.65-2.61 7.17-8.36-13.07.37-.08a16.4 16.4 0 0 0 1.73-.5 17 17 0 0 0 8.12-5.93z"/><path class="a" d="M49 25.64a16.79 16.79 0 0 1-3.14 9.85 3.55 3.55 0 0 1-.23.31 17 17 0 0 1-8.12 5.93 16.4 16.4 0 0 1-1.73.5l-.37.08a16.74 16.74 0 0 1-3.42.35 16.91 16.91 0 0 1-3.43-.35l-.36-.08a17.3 17.3 0 0 1-1.74-.5 17.05 17.05 0 0 1-8.12-5.94c-.07-.09-.15-.19-.22-.3A16.86 16.86 0 0 1 15 25.64a17 17 0 0 1 34 0z"/><path class="a" d="M36.09 27.78l.96 5.63L32 30.75l-5.05 2.66.96-5.63-4.09-3.98 5.65-.82L32 17.86l2.53 5.12 5.64.82-4.08 3.98z"/>
+                                  </svg>
+                                {% when 'shield' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-shield"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M21.18 31.69L28.54 39l15.91-15.88"/><path class="a" d="M53 12.54v15.24a31.41 31.41 0 0 1-3.7 14.95A25.46 25.46 0 0 1 32 56a25.46 25.46 0 0 1-17.3-13.27A31.41 31.41 0 0 1 11 27.78V12.54C24.88 13.67 32 8 32 8s7.12 5.67 21 4.54z"/>
+                                  </svg>
+                                {% when 'tag' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-tag"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M46.69 10.34l-10.55.07-25.8 25.8 17.45 17.45 25.8-25.8.07-10.55-6.97-6.97z"/><circle class="a" cx="43.95" cy="20.05" r="3.53"/><path class="a" d="M14.4 32.15L31.85 49.6"/>
+                                  </svg>
+                                {% when 'truck' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-truck"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px}</style></defs><path class="a" d="M16.5 43.22H6.88V16.5h33.14v26.72H23.94M45.42 43.22h-5.4V30.4h17.1v12.82h-4.23M57.12 30.4l-6.41-8.56H40.02"/><circle class="a" cx="20.24" cy="43.76" r="3.74"/><path class="a" d="M45.42 43.23a3.82 3.82 0 1 1 0 .37v-.37"/>
+                                  </svg>
+                              {% endcase %}
+                              <span>{{ block.settings.text }}</span>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    {%- endunless -%}
+                  {%- when 'inventory_status' -%}
+                    {%- render 'product-inventory', product: product, current_variant: current_variant, block: block -%}
+                  {%- when 'share' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {%- render 'social-sharing',
+                        share_title: product.title,
+                        share_permalink: product.url,
+                        share_image: product
+                      -%}
+                    </div>
+                  {%- when 'trust_badge' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      <div
+                        class="aos-animate"
+                        style="max-width: {{ block.settings.trust_image.width }}px; margin: 0 auto;"
+                      >
+                        <div
+                          class="image-wrap "
+                          style="height: 0; padding-bottom: {{ 100 | divided_by: block.settings.trust_image.aspect_ratio }}%;"
+                        >
+                          {%- assign img_url = block.settings.trust_image
+                            | img_url: '1x1'
+                            | replace: '_1x1.', '_{width}x.'
+                          -%}
+                          <img
+                            class="lazyload"
+                            data-src="{{ img_url }}"
+                            data-widths="[360, 540, 700, 1024]"
+                            data-aspectratio="{{ block.settings.trust_image.aspect_ratio }}"
+                            data-sizes="auto"
+                            alt="{{ block.settings.trust_image.alt }}"
+                          >
+                          <noscript>
+                            <img
+                              class="lazyloaded"
+                              src="{{ block.settings.trust_image | img_url: '540x' }}"
+                              alt="{{ block.settings.trust_image.alt }}"
+                            >
+                          </noscript>
+                        </div>
+                      </div>
+                    </div>
+                  {%- when 'custom' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {{ block.settings.code }}
+                    </div>
+                {%- endcase -%}
+              {%- else -%}
+                <div
+                  data-blocks-holder
+                  data-url="{{ product.url | within: collection }}"
+                  data-template="{{ product.template_suffix }}"
+                >
+                  <div class="placeholder-content" style="min-height: 86px;"></div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+
+        {%- unless image_position == 'left' -%}
+          <div class="grid__item {{ product_image_width }} product-single__sticky">
+            {%- render 'product-images',
+              section_id: section_id,
+              product: product,
+              isModal: isModal,
+              image_position: image_position,
+              product_zoom_enable: product_zoom_enable,
+              product_zoom_size: product_zoom_size,
+              product_image_size: product_image_size,
+              thumbnail_arrows: thumbnail_arrows,
+              thumbnail_position: thumbnail_position,
+              video_looping: video_looping,
+              video_style: video_style
+            -%}
+          </div>
+        {%- endunless -%}
+      </div>
+    </div>
+  </div>
+</div>
+{% if product.handle == 'speaker-bundle'
+  or product.handle == 'gps-offer'
+  or product.handle == 'laser-offer'
+  or product.handle == 'player-gps-speaker-bundle-v2'
+  or product.handle == 'ringer-gps-handheld-bundle-v2'
+  or product.handle == 'series-4-ultra-bundle-v2'
+%}
+  <script>
+    // Watch for class changes on .site-header
+    const observer = new MutationObserver(() => {
+      const ticker = document.querySelector('.ringer-funnel__ticker');
+      const isHeaderActive = document.querySelector('.site-header')?.classList.contains('active');
+
+      if (ticker) {
+        if (isHeaderActive) {
+          ticker.classList.add('active');
+        } else {
+          ticker.classList.remove('active');
+        }
+      }
+    });
+
+    // Start observing the header
+    const header = document.querySelector('.site-header');
+    if (header) {
+      observer.observe(header, {
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+    }
+
+    // Also run once on load (in case active is already there)
+    if (header?.classList.contains('active')) {
+      document.querySelector('.ringer-funnel__ticker')?.classList.add('active');
+    }
+  </script>
+  <style>
+    .page-content.page-content--product { overflow: hidden; }
+    .hundred-days_shipping{ margin:0 auto !important; justify-content: center;}
+    .product-block form .add-to-cart{z-index: 2;}
+    .btn.btn--full.add-to-cart.above__fold-cart-cta{background: #CB0000; font-weight: 900; font-size: 16px; letter-spacing: 0.2em;}
+    .btn.btn--full.add-to-cart.above__fold-cart-cta:hover{color:#fff;}
+    .variant-input-wrap label.disabled::after{display:none;}
+
+    .site_header-link.active .nav_offer--link::before { opacity: 1 !important; }
+    .site_header-link.active .nav_offer--link { font-weight: 900; }
+
+    @media only screen and (max-width:991px){
+    .header__nav-offer .nav_link.nav_offer--link{width: fit-content;}
+    .ringer-funnel__ticker.active { position: relative; z-index: -2;}
+    .header__nav-offer .site_header-link{padding: clamp(15px,2vw,30px) 0;}
+
+    .site_header-center{top:60px;}
+    .site_header-center .nav_link:hover::before, .site_header-center .nav_link.site_megaMenu__Active::before { height: 4px; }
+    }
+  </style>
+{% endif %}
+
+<style>
+  .product__price.product__price--compare.compare__price-funnle{display:block !important; color: #636363; font-size: 20px; text-decoration-color: #CB0000; font-weight: normal; }
+  #course-count, .course-count-short{display: inline !important; font-size: inherit !important;}
+</style>
+
+{% if product.handle == 'transit-backpack-large-black' %}
+  <style>
+    #swatch2 {
+      display: none;
+    }
+  </style>
+{% endif %}
+
+<style>
+    .afterpay-placement{display:block !important;}
+
+  .product-right-icon
+  {   border-top: 1.7px solid #c2c2c2;
+  border-bottom: 1.7px solid #c2c2c2;
+  padding: 10px 2px; text-align: center;
+  margin-bottom: 20px;
+  }
+  .product-single__meta .product-block.same-height .variant-input-wrap label.variant__button-label
+  {   height:40px !important; width:40px !important; background-size: 20px;
+  }
+
+
+
+  /*  =====================================================
+    Video-modal
+    =====================================================  */
+
+  @keyframes modal-video
+  {
+  from {
+    opacity:0
+  }
+  to {
+    opacity:1
+  }
+  }
+  @keyframes modal-video-inner
+  {
+  from {
+    transform:translate(0, 100px)
+  }
+  to {
+  transform:translate(0, 0)
+  }
+  }
+  .modal-video
+  { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000000;
+  cursor: pointer; opacity: 1; animation-timing-function: ease-out; animation-duration: .3s; animation-name: modal-video;
+  -webkit-transition: opacity .3s ease-out;
+  -moz-transition: opacity .3s ease-out;
+  -ms-transition: opacity .3s ease-out;
+  -o-transition: opacity .3s ease-out;
+  transition: opacity .3s ease-out
+  }
+  .modal-video-close
+  { opacity: 0
+  }
+  .modal-video-close .modal-video-movie-wrap
+  { -webkit-transform: translate(0, 100px); -moz-transform: translate(0, 100px); -ms-transform: translate(0, 100px);
+  -o-transform: translate(0, 100px);  transform: translate(0, 100px)
+  }
+  .modal-video-body
+  { max-width: 940px; width: 100%; height: 100%; margin: 0 auto; display: table
+  }
+  @media (max-width:767px)
+  {
+  .modal-video-body
+  { width: 90%;
+  }
+  }
+  .modal-video-inner
+  { display: table-cell; vertical-align: middle; width: 100%; height: 100%
+  }
+  .modal-video-movie-wrap
+  { width: 100%; height: 0; position: relative; padding-bottom: 56.25%; background-color: #333; animation-timing-function: ease-out;
+  animation-duration: .3s; animation-name: modal-video-inner; -webkit-transform: translate(0, 0); -moz-transform: translate(0, 0);
+  -ms-transform: translate(0, 0); -o-transform: translate(0, 0);  transform: translate(0, 0);
+  -webkit-transition: -webkit-transform .3s ease-out;
+  -moz-transition: -moz-transform .3s ease-out;
+  -ms-transition: -ms-transform .3s ease-out;
+  -o-transition: -o-transform .3s ease-out;
+  transition: transform .3s ease-out
+  }
+  .modal-video-movie-wrap iframe
+  { position: absolute; top: 0; left: 0; width: 100%; height: 100%
+  }
+  .modal-video-close-btn
+  { position: absolute; z-index: 2; top: -35px; right: -35px; display: inline-block; width: 35px; height: 35px;
+
+  overflow: hidden; border: none; background: transparent
+  }
+  .modal-video-close-btn:before
+  { transform: rotate(45deg)
+  }
+  .modal-video-close-btn:after
+  { transform: rotate(-45deg)
+  }
+  .modal-video-close-btn:before, .modal-video-close-btn:after
+  { content: ''; position: absolute; height: 2px; width: 100%; top: 50%; left: 0; background: #fff;
+  border-radius: 5px; margin-top: -6px
+  }
+
+  @media (max-width:1024px)
+  {
+  .modal-video-close-btn
+  { right: 0px !important;
+  }
+  }
+  @media (max-width: 834px)
+  {
+  .modal-video-body
+  { max-width: 520px;
+  }
+  }
+
+  @media (max-width:480px)
+  {
+  .modal-video-close-btn
+  { right: 0px;
+  }
+  }
+</style>
+<div id="rangfinderPopUp" class="modal">
+  <div class="new-popup modal-content">
+    <div class="popup-modal-inner">
+      <div class="popup-modal-content">
+        <span class="close"
+          ><img
+            class="product-atc_product-img"
+            src="{{'bf-x-mark.svg' | asset_url}}"
+            alt="Close Icon To Close POPUP"
+        ></span>
+        <div class="popup-modal-left">
+          <picture>
+            <source
+              srcset="{{ 'rangfinders_popup-img-desktop.png' | asset_url }}"
+              media="(min-width:769px)"
+            >
+            <source
+              srcset="{{ 'rangfinders_popup-img-mobile.png' | asset_url }}"
+              media="(max-width:768px)"
+            >
+            <img src="{{ 'rangfinders_popup-img-desktop.png' | asset_url }}" alt="">
+          </picture>
+        </div>
+        <div class="popup-modal-right">
+          <div class="popup-modal-right_top">
+            <img
+              class="product-atc_product-img popup-right_icon"
+              src="{{'player-plus-membership-icon-popup.svg' | asset_url}}"
+              alt="player plus membership"
+            >
+            {% comment %} {% render 'offer-bug' %} {% endcomment %}
+            <h2>
+              PREMIUM GAME <br>
+              MEMBERSHIP
+            </h2>
+            <span class="upshell_bug">3 MONTHS</span>
+          </div>
+          <div class="popup-modal-ul">
+            <ul>
+              <li>GPS Distances for over <span class="course-count-short"></span> Courses</li>
+              <li>Advanced Analytics</li>
+              <li>Shot Tracking</li>
+              <li>Club Selection Assist</li>
+              <li>Live Leaderboards</li>
+              <li>Scoring Averages</li>
+              <li>Post-Round 3D Playbacks</li>
+              <li>Shot Dispersion & Accuracy Data</li>
+              <li>Comparative Analytics</li>
+              <li>More..</li>
+            </ul>
+          </div>
+          <div class="popup-modal-bottom ">
+            <div class="popup-modal-cta-section no_slash--out">
+              <p>$0</p>
+              <p>$14.99</p>
+            </div>
+            <a href="javascript:void(0)" class="upshell-popup-button" id="3month-membership-free">CLAIM OFFER</a>
+            <div class="popup-modal-terms">
+              <p>No Commitment. Cancel Anytime.</p>
+              <p>
+                All subscriptions are billed annually after the promotional period at $49/year and are subject to
+                <a
+                  class="anchor_hover"
+                  href="/pages/app-terms-of-service"
+                  style="--hover-clr:#A8A8A8;"
+                  >terms & conditions
+                </a>
+                . To cancel, email
+                <a
+                  class="anchor_hover"
+                  href="mailto:support@blueteesgolf.com"
+                  style="--hover-clr:#A8A8A8;"
+                >
+                  support@blueteesgolf.com
+                </a>
+                or use your Loop account.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="ringerPopUp" class="modal">
+  <div class="new-popup modal-content">
+    <div class="popup-modal-inner">
+      <div class="popup-modal-content">
+        <span class="close"
+          ><img class="product-atc_product-img" src="{{'bf-x-mark.svg' | asset_url}}" alt="Close Icon To Close POPUP"
+        ></span>
+        <div class="popup-modal-left">
+          <picture>
+            <source srcset="{{ 'ringer_popup-img-desktop.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'ringer_popup-img-mobile.png' | asset_url }}" media="(max-width:768px)">
+            <img src="{{ 'ringer_popup-img-desktop.png' | asset_url }}" alt="">
+          </picture>
+        </div>
+        <div class="popup-modal-right">
+          <div class="popup-modal-right_top">
+            <img
+              class="product-atc_product-img popup-right_icon"
+              src="{{'player-plus-membership-icon-popup.svg' | asset_url}}"
+              alt="player plus membership"
+            >
+            {% comment %} {% render 'offer-bug' %} {% endcomment %}
+            <h2>
+              ADVANCED ANALYTICS <br>
+              PACKAGE
+            </h2>
+            <span class="upshell_bug">1 YEAR</span>
+          </div>
+          <div class="popup-modal-ul">
+            <ul>
+              <li class="has_different-icon">1 YEAR Premium Access Game APP</li>
+              <li>Additional Ringer Screens</li>
+              <li>Shot Tracking</li>
+              <li>Club Selection Assist</li>
+              <li>Live Leaderboards</li>
+              <li>Scoring Averages</li>
+              <li>Post-Round 3D Playbacks</li>
+              <li>Shot Dispersion & Accuracy Data</li>
+              <li>Comparative Analytics</li>
+              <li>More..</li>
+            </ul>
+          </div>
+          <div class="popup-modal-bottom ">
+            <div class="popup-modal-cta-section no_slash--out">
+              <p>FREE</p>
+              <p>$49.99</p>
+            </div>
+            <a href="javascript:void(0)" class="upshell-popup-button" id="free-ringer-premium-product1">CLAIM OFFER</a>
+            <div class="popup-modal-terms">
+              <p>No Commitment. Cancel Anytime.</p>
+              <p>
+                All subscriptions are billed annually after the promotional period at $49/year and are subject to
+                <a class="anchor_hover" href="/pages/app-terms-of-service" style="--hover-clr:#A8A8A8;"
+                  >terms & conditions
+                </a>
+                . To cancel, email
+                <a class="anchor_hover" href="mailto:support@blueteesgolf.com" style="--hover-clr:#A8A8A8;">
+                  support@blueteesgolf.com
+                </a>
+                or use your Loop account.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="playerplus" class="modal">
+  <div class="new-popup modal-content">
+    <div class="popup-modal-inner">
+      <div class="popup-modal-content">
+        <span class="close">
+          <img class="product-atc_product-img" src="{{'bf-x-mark.svg' | asset_url}}" alt="Close Icon To Close POPUP">
+        </span>
+        <div class="popup-modal-left">
+          <picture>
+            <source srcset="{{ 'player_plus_popup-img.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'player_plus_popup-img_mobile.png' | asset_url }}" media="(max-width:768px)">
+            <img src="{{ 'player_plus_popup-img.png' | asset_url }}" alt="">
+          </picture>
+        </div>
+        <div class="popup-modal-right">
+          <div class="popup-modal-right_top">
+            <img
+              class="product-atc_product-img popup-right_icon"
+              src="{{'player-plus-membership-icon-popup.svg' | asset_url}}"
+              alt="player plus membership"
+            >
+            {% comment %} {% render 'offer-bug' %} {% endcomment %}
+            <h2>
+              ADVANCED ANALYTICS <br>
+              PACKAGE
+            </h2>
+            <span class="upshell_bug">1 YEAR</span>
+          </div>
+          <div class="popup-modal-ul">
+            <ul>
+              <li class="has_different-icon">Lifetime Access <span class="course-count-short"></span>+ Courses FCB</li>
+              <li>1 YEAR Premium Access Game APP</li>
+              <li>
+                Additional Player+ Screens
+                <span>(Dynamic Hazards, Driving Distance, & Score Display)</span>
+              </li>
+              <li>Shot Tracking</li>
+              <li>Club Selection Assist</li>
+              <li>Live Leaderboards</li>
+              <li>Scoring Averages</li>
+              <li>Post-Round 3D Playbacks</li>
+              <li>Shot Dispersion & Accuracy Data</li>
+              <li>Comparative Analytics</li>
+              <li>More..</li>
+            </ul>
+          </div>
+          <div class="popup-modal-bottom">
+            <div class="popup-modal-cta-section no_slash--out">
+              <p>FREE</p>
+              <p>$49.99</p>
+            </div>
+            <a class="upshell-popup-button" href="javascript:void(0)" id="free-premium-product1">CLAIM OFFER</a>
+            <div class="popup-modal-terms">
+              <p>No Commitment. Cancel Anytime.</p>
+              <p>
+                All subscriptions are billed annually after the promotional period at $49/year and are subject to
+                <a class="anchor_hover" href="/pages/app-terms-of-service" style="--hover-clr:#A8A8A8;"
+                  >terms & conditions
+                </a>
+                . To cancel, email
+                <a class="anchor_hover" href="mailto:support@blueteesgolf.com" style="--hover-clr:#A8A8A8;">
+                  support@blueteesgolf.com
+                </a>
+                or use your Loop account.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // FOR UPSHELL '40,000+' TEXT
+  function courseCount() {
+    {% comment %} function renderCourseCount(elementId, count) {
+      document.getElementById(elementId).textContent = `${count.toLocaleString()}+`;
+    }
+
+    renderCourseCount('course-count', 42000); {% endcomment %}
+
+    // FOR POPUP'S '40K' TEXT
+    function renderShortCourseCountByClass(className, count) {
+      let shortCount = (count / 1000).toFixed(0) + 'K';
+      let elements = document.getElementsByClassName(className);
+
+      // Iterate over all matching elements and set their text
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].textContent = shortCount;
+      }
+    }
+
+    // Call the function
+    renderShortCourseCountByClass('course-count-short', 42000);
+  }
+  courseCount();
+</script>
+
+<script type="text/javascript">
+  jQuery('.videopopup_link').modalVideo({ channel: 'vimeo' });
+
+  jQuery('.videopopup_link_tab').modalVideo({ channel: 'youtube' });
+</script>

@@ -1,0 +1,61 @@
+<div
+  class="post_game-complete-profile"
+  style="background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/login-common-bg-2.png?v=1732886579) no-repeat center center / cover #000;"
+>
+  <div class="complete-profile-main">
+    <span>
+      <svg width="50" height="43" viewBox="0 0 50 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M46.0154 12.4495L36.5372 3.08947C36.5372 3.08947 36.591 9.49365 32.9348 13.1108L32.9348 13.1049C16.7354 29.1739 9.23348 36.5494 9.23348 36.5494L9.27856 36.5923C9.27856 36.5923 5.93002 42.0451 6.29231 42.4029C6.70308 42.8086 12.1658 39.4427 12.1658 39.4427L12.1896 39.4662L35.8859 16.025C39.6245 12.3264 46.0171 12.4529 46.0171 12.4529L46.0154 12.4495ZM40.4854 36.3665L40.5389 36.3237C40.5389 36.3237 36.8624 32.7123 29.0851 25.0387L26.1426 27.9497L37.5769 39.2397L37.6032 39.2128C37.6032 39.2128 43.0689 42.5713 43.4828 42.1728C43.843 41.8147 40.4828 36.364 40.4828 36.364L40.4854 36.3665ZM16.9977 13.1137C13.4446 9.60484 13.3891 3.45273 13.3889 3.11664L13.3889 3.09732L3.91826 12.4667C3.91826 12.4667 10.309 12.342 14.0467 16.0331L21.1284 23.0257L24.0692 20.1147C21.9261 17.9994 19.5689 15.6657 16.9977 13.1137Z" fill="white"/> <path d="M10.5406 0.208886L0.976562 9.83594L2.4741 11.2894L12.0382 1.66237L10.5406 0.208886Z" fill="white"/> <path d="M39.4053 0.231648L37.9219 1.69922L47.579 11.236L49.0625 9.76845L39.4053 0.231648Z" fill="white"/>
+      </svg>
+    </span>
+    <h2>
+      <span class="line-1">LET’S GET THIS PARTY</span>
+      <span class="line-2">STARTED.</span>
+    </h2>
+    <p>Sign in to your GAME account by entering your phone number below.</p>
+    <div class="game-hero-input--area">
+      <div class="post_game-cta">
+        <a class="btn" href="https://postgame.blueteesgolf.com/login">LOG IN TO YOUR DASHBOARD</a>
+      </div>
+
+      <p>We’ve also sent you an email to help get you up to speed.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  h2{font-size:clamp(28px, 4.8vw, 55px);   color:#fff;  -webkit-text-stroke-width: 0.8px; -webkit-text-stroke-color: #fff; line-height: 1.2; text-align: center; }
+  p{font-size:clamp(14px, 1.4vw, 18px); padding:0px; opacity:0.8; line-height:100%; color:#fff; }
+
+
+  .font-responsive__title{font-size:clamp(18px, 2.866vw, 55px); line-height: normal; }
+  .font-responsive__decs {font-size:clamp(14px, .88vw, 16px); line-height: normal;}
+  label.font-responsive__decs{font-size:clamp(14px, .88vw, 18px); line-height: normal;}
+
+  .complete-profile-main { text-align: center; }
+  .post_game-complete-profile { padding: clamp(30px, 10vw, 90px) 0 clamp(50px, 15vw, 145px) 0; }
+  .complete-profile-main h2 { max-width: calc(740px - 15px); margin: 0 auto; }
+  .complete-profile-main h2 .line-1, .complete-profile-main h2 .line-2 { display: block; max-width: 100%; }
+  .complete-profile-main p {padding: clamp(18px, 2vw, 25px) 15px clamp(26px, 3vw, 35px);}
+
+
+  /* ________________________INPUT CSS START________________________ */
+
+  .input_holder { position: relative; flex: 100%; }
+  .input_holder input { border:none; outline:none; background:#F5F2F2; color:#000; border-radius:6px;   padding: clamp(10px, 2vw, 15px) clamp(15px, 3vw, 20px);     width: 100%;}
+  .input_holder label { position: absolute; left: 20px;   top: 28%; transition: 0.2s ease all; color: #A6A6A6; }
+  .input_holder:focus-within label, input:not(:placeholder-shown) + label { display:none; }
+  .post_game-cta .btn { background: #CB0000; border-radius: 50px; letter-spacing: 1.6px; font-size:clamp(14px, .88vw, 18px); font-weight:600; padding: clamp(10px, 2vw, 16px) clamp(20px, 3vw, 40px); }
+  .post_game-cta .btn:hover, .tow_content-cta .btn:hover { background: #004DF5 !important; color:#fff; }
+
+  /* ________________________INPUT CSS END________________________ */
+
+
+  .game-hero-input--area form {display: flex; max-width: 400px; flex-wrap: wrap; row-gap: 23px; justify-content: center; width: 100%; margin: 0 auto; padding: 0 15px; }
+
+
+  @media only screen and (max-width:575px){
+    .post_game-cta,
+    .post_game-cta .btn { width: 90%; margin: 0 auto; }
+  }
+</style>

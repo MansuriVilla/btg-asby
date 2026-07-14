@@ -1,0 +1,69 @@
+<div
+     data-section-id="{{ section.id }}"
+     data-section-type="video-section"
+     class="video-parent-section background-media-text background-media-text--{{ section.id }} background-media-text--{{ section.settings.height }}"
+     data-aos="background-media-text__animation">
+  <div class="background-media-text__video">
+    {%- render 'video-div', section_id: section.id, url: section.settings.video_url -%}
+  </div>
+  
+   <div class="background-media-text__video mobile-video">
+    <video id="Mp4Video-template--16024729682117__bbb9ee3b-f13a-4ea7-9419-dae6ab9f26ab" class="video-div" data-type="mp4" src="https://cdn.shopify.com/videos/c/o/v/9bcd9fbeb2ea4d92a0029c6ddb57d0cb.mp4" loop="" muted="" playsinline="" autoplay=""></video>
+  </div>
+  
+</div>
+<div class="background-media-text__spacer background-media-text--{{ section.settings.height }}"></div>
+
+  <div class="video-banner-button">
+  {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <a href="{{ section.settings.button_link }}" class="btn">
+              {{ section.settings.button_label }}
+        </a>
+{%- endif -%}
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Home half video",
+	"class": "index-section--flush half-video",
+    "settings": [
+      
+	  {
+        "type": "text",
+        "id": "video_url",
+        "label": "t:sections.background-video-text.settings.video_url.label",
+        "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "info": "t:sections.background-video-text.settings.video_url.info"
+        
+      },
+	  {
+        "type": "range",
+        "id": "height",
+        "label": "t:sections.background-video-text.settings.height.label",
+        "default": 550,
+        "min": 450,
+        "max": 750,
+        "step": 100,
+        "unit": "px"
+      },
+      {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.background-image-text.settings.button_label.label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.background-image-text.settings.button_link.label"
+    }
+    ],    
+    "presets": [
+      {
+        "name": "Home half video",
+        "category": "Video"
+      }
+    ]
+  }
+{% endschema %}

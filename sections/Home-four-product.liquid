@@ -1,0 +1,366 @@
+<div class="padding_box_bg">
+    <div class="product_two_box_bg">
+        <!--div class="product_box_col2">
+            <div class="home_playerpack_bg_box">
+            	<a href="/pages/player-pack"><img  src="{{'home-playerpack-img.png' | asset_url}}"></a>
+            </div>
+    </div -->
+    
+         <div class="product_box_col2">
+         	<div class="new_home_page_box_img"><a href="/pages/player-pack"><img src="{{'n-home-box-img1.png' | asset_url}}"></a></div>
+         </div>
+         <div class="product_box_col2">
+         	<div class="new_home_page_box_img"><a href="/pages/player-golf-speaker"><img src="{{'n-home-box-img2.png' | asset_url}}"></a></div>
+         </div>
+         <div class="product_box_col2">
+         	<div class="new_home_page_box_img"><a href="https://www.blueteesgolf.com/products/rangefinder-series-2-pro"><img src="{{'n-home-box-img3.png' | asset_url}}"></a></div>
+         </div>
+         <div class="product_box_col2">
+         	<div class="new_home_page_box_img"><a href="/collections/all-accessories"><img src="{{'n-home-box-img4.png' | asset_url}}"></a></div>
+         </div>
+    
+
+        <!--<div class="product_box_col2">
+            <div class="product_bg_box black_bg">
+              	{% if section.settings.bundleup_icon != blank %}
+                    <div class="top_logo">
+                      <img src="{{ section.settings.bundleup_icon | img_url: 'master' }}">   
+                    </div>
+                {% endif %}
+                
+              	{% if section.settings.bundleup_save_text != blank %}
+                    <p>{{ section.settings.bundleup_save_text }}</p>                                
+                {% endif %}
+              
+                
+                <div class="rated_logo_bg">
+                    <div class="logo_box">
+                      	{% if section.settings.bundleup_icon_max != blank %}
+                            <div class="bottom-logo">
+                              <img src="{{ section.settings.bundleup_icon_max | img_url: 'master' }}">   
+                            </div>
+                        {% endif %}
+
+                        {% if section.settings.bundleup_icon_text_max != blank %}
+                            <p>{{ section.settings.bundleup_icon_text_max }}</p>                                
+                        {% endif %}
+                    </div>
+                  
+                  	<div class="logo_box">
+                      	{% if section.settings.bundleup_icon_maghub != blank %}
+                            <div class="bottom-logo">
+                              <img src="{{ section.settings.bundleup_icon_maghub | img_url: 'master' }}">   
+                            </div>
+                        {% endif %}
+
+                        {% if section.settings.bundleup_icon_text_maghub != blank %}
+                            <p>{{ section.settings.bundleup_icon_text_maghub }}</p>                                
+                        {% endif %}
+                    </div>
+                  
+                  	<div class="logo_box">
+                      	{% if section.settings.bundleup_icon_player != blank %}
+                            <div class="bottom-logo">
+                              <img src="{{ section.settings.bundleup_icon_player | img_url: 'master' }}">   
+                            </div>
+                        {% endif %}
+
+                        {% if section.settings.bundleup_icon_text_player != blank %}
+                            <p>{{ section.settings.bundleup_icon_text_player }}</p>                                
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if section.settings.bundleup_image != blank %}
+                    <div class="img_bottom">
+                      <img src="{{ section.settings.bundleup_image | img_url: 'master' }}">   
+                    </div>
+                {% endif %}              
+              
+                <div class="pre_order_price">
+                  	<span class="old-price"><span class="money">{{all_products['player-pack'].compare_at_price_max | money}}</span></span> 
+                  	<span class="money">{{all_products['player-pack'].price | money}}</span>
+              	</div>
+              	
+              	{%- if section.settings.bundleup_link_text != blank -%}
+                    <div class="button">
+                      <a href="{{ section.settings.bundleup_link }}" class="shopcollection">
+                        {{ section.settings.bundleup_link_text }}
+                      </a>
+                    </div>
+                {%- endif -%}
+     			
+              	
+                
+            </div>
+        </div>
+        
+        <div class="product_box_col2">
+            <div class="product_bg_box">
+              	{% if section.settings.series_icon != blank %}
+                    <div class="top_logo">
+                      <img src="{{ section.settings.series_icon | img_url: 'master' }}">   
+                    </div>
+                {% endif %}
+              	
+              	{% if section.settings.series_image != blank %}
+                    <div class="img">
+                      <img src="{{ section.settings.series_image | img_url: 'master' }}">   
+                    </div>
+                {% endif %}
+                
+				{% if section.settings.series_text != blank %}
+                    <p class="price">{{ section.settings.series_text }}</p>                                
+                {% endif %}
+ 				
+              	{%- if section.settings.series_link_text != blank -%}
+                    <div class="button">
+                        <a href="{{ section.settings.series_link }}" class="shopcollection">
+                          {{ section.settings.series_link_text }}
+                        </a>
+                     </div>
+                {%- endif -%}
+
+            </div>
+        </div>
+        <div class="product_box_col2">
+            <div class="product_bg_box" style="background:#E3E3E3 url({{ section.settings.accessories_image | img_url: 'master' }}) no-repeat center center  / cover;">
+              	{% if section.settings.accessories_image != blank %}
+                   
+                {% endif %}
+              
+                <div class="img_bottom_text">
+                    <h2>
+                      {% if section.settings.accessories_top_text != blank %}
+                          <span>{{ section.settings.accessories_top_text }}</span>                      
+                      {% endif %}                      
+                      <br />
+                      {% if section.settings.accessories_text != blank %}
+                         {{ section.settings.accessories_text }}                      
+                      {% endif %}
+                  	</h2>
+                  
+                  	{% if section.settings.accessories_price_text != blank %}
+                         <p class="avail">{{ section.settings.accessories_price_text }}</p>
+                    {% endif %}
+					
+                  	{%- if section.settings.accessories_link_text != blank -%}
+                        <div class="button">
+                            <a href="{{ section.settings.accessories_link }}" class="shopcollection">
+                              {{ section.settings.accessories_link_text }}
+                            </a>
+                         </div>
+                    {%- endif -%}
+
+                  	
+                </div>
+            </div>
+        </div>
+        <div class="product_box_col2">
+            <div class="product_bg_box black_bg">
+              	{% if section.settings.player_icon != blank %}
+                    <div class="top_logo">
+                      <img src="{{ section.settings.player_icon | img_url: 'master' }}">   
+                    </div>
+                {% endif %}
+              	
+              	{% if section.settings.player_image != blank %}
+                    <div class="img">
+                      <img src="{{ section.settings.player_image | img_url: 'master' }}">   
+                    </div>
+                {% endif %}
+                
+				{% if section.settings.player_text != blank %}
+                    <p class="price">{{ section.settings.player_text }}</p>                                
+                {% endif %}
+ 				
+              	{%- if section.settings.player_link_text != blank -%}
+                    <div class="button">
+                        <a href="{{ section.settings.player_link }}" class="shopcollection">
+                          {{ section.settings.player_link_text }}
+                        </a>
+                     </div>
+                {%- endif -%}
+            </div>
+        </div>-->
+        
+    </div>
+</div>
+
+<style>
+      .product_box_col2 .product_bg_box .img_bottom img
+      {   max-width:400px;
+      }
+	  .new_home_page_box_img { width:100%;}
+	  .new_home_page_box_img img { width:100%; border:1px solid #000; border-radius:50px;}
+</style>
+
+
+{% schema %}
+  {
+    "name": "Home four product",
+    "settings": [
+	  {
+        "type": "header",
+        "content": "Player"
+      },
+	  {
+        "type": "image_picker",
+        "id": "player_icon",
+        "label": "Player icon"
+      },
+	  {
+        "type": "image_picker",
+        "id": "player_image",
+        "label": "Player image"
+      },
+	  {
+        "type": "text",
+        "id": "player_text",
+        "label": "Price text"
+      },
+	  {
+        "type": "url",
+        "id": "player_link",
+        "label": "button link"
+      },
+      {
+        "type": "text",
+        "id": "player_link_text",
+        "label": "Player Button text",
+        "default": "Optional button"
+      },
+	  {
+        "type": "header",
+        "content": "Series 2"
+      },
+	  {
+        "type": "image_picker",
+        "id": "series_icon",
+        "label": "Series icon"
+      },
+	  {
+        "type": "image_picker",
+        "id": "series_image",
+        "label": "Series image"
+      },
+	  {
+        "type": "text",
+        "id": "series_text",
+        "label": "Price text"
+      },
+	  {
+        "type": "url",
+        "id": "series_link",
+        "label": "button link"
+      },
+      {
+        "type": "text",
+        "id": "series_link_text",
+        "label": "Series Button text",
+        "default": "Optional button"
+      },
+	  {
+        "type": "header",
+        "content": "Accessories"
+      },
+	  {
+        "type": "image_picker",
+        "id": "accessories_image",
+        "label": "Accessories image"
+      },
+	  {
+        "type": "text",
+        "id": "accessories_top_text",
+        "label": "Top text"
+      },
+	  {
+        "type": "text",
+        "id": "accessories_text",
+        "label": "Accessories text"
+      },
+	  {
+        "type": "text",
+        "id": "accessories_price_text",
+        "label": "Price text"
+      },
+	  {
+        "type": "url",
+        "id": "accessories_link",
+        "label": "button link"
+      },
+      {
+        "type": "text",
+        "id": "accessories_link_text",
+        "label": "Accessories Button text",
+        "default": "Optional button"
+      },
+	  {
+        "type": "header",
+        "content": "Bundle UP"
+      },
+	  {
+        "type": "image_picker",
+        "id": "bundleup_icon",
+        "label": "Bundle icon"
+      },
+	  {
+        "type": "text",
+        "id": "bundleup_save_text",
+        "label": "Bundle save text"
+      },
+	  {
+        "type": "image_picker",
+        "id": "bundleup_icon_max",
+        "label": "Bundle icon max"
+      },
+	  {
+        "type": "text",
+        "id": "bundleup_icon_text_max",
+        "label": "Bundle icon text max"
+      },
+	  {
+        "type": "image_picker",
+        "id": "bundleup_icon_maghub",
+        "label": "Bundle icon maghub"
+      },
+	  {
+        "type": "text",
+        "id": "bundleup_icon_text_maghub",
+        "label": "Bundle icon text maghub"
+      },
+	  {
+        "type": "image_picker",
+        "id": "bundleup_icon_player",
+        "label": "Bundle icon player"
+      },
+	  {
+        "type": "text",
+        "id": "bundleup_icon_text_player",
+        "label": "Bundle icon text player"
+      },
+	  {
+        "type": "url",
+        "id": "bundleup_link",
+        "label": "button link"
+      },
+      {
+        "type": "text",
+        "id": "bundleup_link_text",
+        "label": "Bundleupr Button text",
+        "default": "Optional button"
+      },
+	  {
+        "type": "image_picker",
+        "id": "bundleup_image",
+        "label": "Bundle image"
+      }
+    ],    
+    "presets": [
+      {
+        "name": "Home four product",
+        "category": "Product"
+      }
+    ]
+  }
+{% endschema %}

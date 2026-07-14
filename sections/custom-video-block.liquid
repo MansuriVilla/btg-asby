@@ -1,0 +1,183 @@
+{% if section.settings.videoUrl != blank %}
+  <div
+    id="custom_video-block--{{ section.id }}"
+    class="custom_video-block paige_video-area video_section video_section-{%if request.path contains 'collections' %}collection{% elsif request.path contains 'pages'%}page{% elsif request.path contains 'products'%}product{%elsif template.name == "index"%}home{% endif %}"
+  >
+    <div class="paige_video-inner site_flex flex_column">
+      {% if section.settings.videoHeading != blank or section.settings.videoDescription != blank %}
+        <div class="video_heading">
+          <h2 class="heading">{{ section.settings.videoHeading }}</h2>
+
+          <p class="description">{{ section.settings.videoDescription }}</p>
+        </div>
+      {% endif %}
+      <div class="paige_video-top">
+        <div
+          class="video_block video-preview new-page-width"
+          data-play-in-place="true"
+          data-video-url="{{section.settings.videoUrl}}"
+        >
+          <div class="loader" id="loader-1"></div>
+          <video
+            id="preview-video-1"
+            class="preview-video{% if section.settings.hasRadius %} radius__has{% endif %}"
+            autoplay
+            loop
+            muted
+            playsinline
+          ></video>
+          <div class="video_overlay-holder">
+            <div
+              class="video_overlay-content play-button"
+              id="play-button-1"
+              style="--ripple-clr:{{section.settings.ripple_clr}};"
+            >
+              <img
+                id="video_block-icon-desktop"
+                class="touch-screen_logo"
+                src="{{'white-play-icon.png' | asset_url}}"
+                alt="white-play-icon"
+              >
+            </div>
+            {% if section.settings.playText != blank %}
+              <p class="play_icon-text play_button-text">{{ section.settings.playText }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<style>
+    .custom_video-block {
+  background: {{section.settings.blockColor}};}
+
+
+
+  .video_heading {
+    text-align: center;
+    padding-block-end: clamp(30px,4vw,60px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .video_heading .heading {
+    font-size: clamp(20px,5vw,42px);
+    line-height: 1;
+    color: #1D1D1D;
+
+  }
+
+  .video_heading .description {
+    max-width: clamp(260px,30vw,570px);
+    width: 100%;
+    padding: 0;
+  }
+
+
+  .video_section-home .play_icon-text{
+  max-width: 260px;
+    font-size: 14px;
+    line-height: 1.5;
+
+
+  }
+
+  .video_section-home {
+    padding-block: clamp(50px,6.3vw,107px) clamp(30px,4.2vw,70px);
+  }
+
+  .video_section-home #preview-video-1 {
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .video_overlay-holder{position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    row-gap: 16px;}
+
+  .video_overlay-content{position:relative !important;}
+
+  .video_heading {
+    text-align: center;
+    padding-block-end: clamp(30px,4vw,60px);
+  }
+  .play_icon-text{padding: 0px;
+    max-width: 200px;
+    font-weight: 900;
+    text-align: center;
+    width: 100%;}
+  .radius__has{border-radius: 16px;}
+
+
+
+  @media only screen and (max-width:860px){
+  .video_section-home .video_block{
+    padding-inline: 0;
+    border-radius:0px;
+  }
+   .video_section-home video{
+    border-radius:0px;
+  }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Video Block",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "blockColor",
+      "label": "Section Color"
+    },
+    {
+      "type": "color",
+      "id": "ripple_clr",
+      "label": "Ripler Color",
+      "default": "#ffffff60",
+      "alpha": true
+    },
+    {
+      "type": "url",
+      "label": "Video URL",
+      "id": "videoUrl"
+    },
+    {
+      "type": "text",
+      "id": "videoHeading",
+      "label": "Video Heading"
+    },
+    {
+      "type": "text",
+      "id": "videoDescription",
+      "label": "Video Description"
+    },
+    {
+      "type": "text",
+      "label": "Text For Play Button",
+      "id": "playText"
+    },
+    {
+      "type": "checkbox",
+      "id": "hasRadius",
+      "label": "Enable Radius"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Video Block"
+    }
+  ]
+}
+{% endschema %}

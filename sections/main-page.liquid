@@ -1,0 +1,305 @@
+{% unless section.settings.hero_normal %}
+  {% if section.settings.show_hero_v2 %}
+    <script src="{{  'lenis.min.js' | asset_url }}" defer></script>
+    <link rel="stylesheet" href="{{ 'lenis.css' | asset_url }}">
+  {% endif %}
+{% endunless %}
+<div class="page-width page-content{% if section.settings.show_hero_v2 %} hero-full_content{% endif %}">
+  {%- render 'breadcrumbs' -%}
+  {% if section.settings.show_hero_v2 == false %}
+    {% if page.title != blank %}
+      <header class="section-header">
+        <h1 class="section-header__title">{{ page.title }}</h1>
+      </header>
+    {% endif %}
+  {% else %}
+    {% assign handle_class = '' %}
+
+    {% assign template_name = template | split: '.' | first %}
+
+    {% case template_name %}
+      {% when 'page' %}
+        {% assign handle_class = 'page' %}
+      {% when 'collection' %}
+        {% assign handle_class = 'collection' %}
+      {% when 'blog' %}
+        {% assign handle_class = 'blog' %}
+      {% when 'article' %}
+        {% assign handle_class = 'blog' %}
+    {% endcase %}
+
+    <div class="custom_section--hero{%if section.settings.hero_normal %} custom_section--hero--static{% endif %} custom_section--hero--{{ page.handle }} custom_section--hero--{{ handle_class }} custom_section--hero--{{ page.id }}">
+      <div class="section_hero--content">
+        {% unless section.settings.hero_normal %}
+          <div class="section_hero--content-background">
+            <picture>
+              <source srcset="{{ section.settings.custom_image | image_url }}" media="(min-width:861px)">
+              {% if section.settings.has_mobile_image %}
+                <source srcset="{{ section.settings.custom_image_mobile | image_url }}" media="(max-width:860px)">
+              {% endif %}
+              {% comment %}
+                <img
+                  class="has_parallex hero_image"
+                  src="{{ section.settings.custom_image | image_url }}"
+                  alt="{{ section.settings.custom_title | escape | capitalize }}"
+                >
+              {% endcomment %}
+              {{
+                section.settings.custom_image
+                | image_url: width: 1920
+                | image_tag:
+                  class: 'has_parallex hero_image',
+                  loading: 'eager',
+                  fetchpriority: 'high',
+                  widths: '400,600,800,1200,1600,2000',
+                  sizes: '(max-width: 860px) 100vw, 50vw',
+                  alt: section.settings.custom_title,
+                  height: section.settings.custom_image.height,
+                  width: section.settings.custom_image.width
+              }}
+            </picture>
+          </div>
+        {% endunless %}
+        <div class="section_hero--content-text">
+          <h1 class="section_hero--title">
+            {{ section.settings.custom_title }}
+          </h1>
+          <div class="section_hero--description">
+            {{ section.settings.custom_description }}
+          </div>
+          {% if section.settings.hero_cta_url != blank %}
+            <div class="section_hero--cta">
+              <a
+                class="content-cta content-cta__solid smooth-scroll-link"
+                href="{{section.settings.hero_cta_url}}"
+              >
+                {{- section.settings.hero_cta_text -}}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% unless section.settings.show_hero_v2 %}
+    <div class="rte rte--nomargin">
+      {{ page.content }}
+    </div>
+  {% endunless %}
+</div>
+
+{% if section.settings.show_hero_v2 %}
+  <style>
+    /*-------------------------
+      Hero Styles
+      ----------------*/
+      .page-width.page-content.hero-full_content { padding: 0; width: 100%; max-width: 100%; display: flex; }
+      {% unless section.settings.hero_normal %}
+        #SiteHeader:not( .site-header.site-header--megamenu-active, #SiteHeader.site-header.fixed ) { background: transparent; }
+        #SiteHeader .site_header__border:not(.site-header.site-header--megamenu-active) { opacity: 0; }
+        #SiteHeader { position: fixed; width: 100%; }
+        #SiteHeader .site_header__border { opacity: 0; }
+        #SiteHeader.site-header.site-header--megamenu-active .site_header__border { opacity: 1; }
+      {% endunless %}
+
+      {% if section.settings.hero_normal %}
+        .custom_section--hero--static { min-height: 273px; }
+        .custom_section--hero--static .section_hero--description{max-width: 395px;}
+        .custom_section--hero--static .section_hero--title{font-size: clamp(24px,4.2vw,78px); max-width: 100%;}
+
+        @media only screen and (max-width:991px){
+          .custom_section--hero--static{min-height: 160px;}
+          .custom_section--hero--static .section_hero--title{max-width: 300px;}
+          .custom_section--hero--static .section_hero--description { max-width: 305px; }
+        }
+      {% endif %}
+
+      .section_hero--content { position: relative; display: flex; justify-content: center; align-items: center; text-align: center; height: 100%; }
+      .section_hero--content-text { {% unless section.settings.hero_normal %} position: absolute;{% endunless %} display: flex; {% unless section.settings.align_content_left %} justify-content: center; align-items: center; {% endunless %} flex-direction: column; gap: clamp(16px,1.8vw,28px); padding-inline: 20px;}
+      {% if section.settings.text_color %}
+        .section_hero--content-text { color: {{ section.settings.text_color }}; }
+      {% endif %}
+
+      .section_hero--title { font-size: clamp(22px,3.2vw,55px); line-height: 1; max-width: clamp(500px, 58vw, 980px); width: 100%; }
+      .section_hero--description { max-width: clamp(400px,37vw,590px); width: 100%; font-size: clamp(14px,2vw,18px);}
+      .section_hero--content-background { overflow: hidden; display: flex; {% unless section.settings.align_content_left %} height: clamp(330px, 39vw, 500px); {% endunless %} width: 100%; }
+      {% if section.settings.bg_clr != blank %}
+      .section_hero--content-background { background: {{ section.settings.bg_clr }}; }
+      {% endif %}
+      .section_hero--content-background picture, .custom_section--hero, .hero_image { width: 100%; }
+      .hero_image { object-fit: cover; height: 100%; min-height: 330px; }
+      {% unless section.settings.no_bg_scale %}
+        .hero_image { scale: 1.4;}
+      {% endunless %}
+      {% comment %} .hero-full_content{height:clamp(390px, 39vw, 500px);} {% endcomment %}
+      {% if section.settings.align_content_left %}
+        .section_hero--content-text { padding-left: clamp(80px, calc(80px + 100 * (100vw - 860px) / 1060), 182px); justify-content: flex-start; align-items: flex-start; text-align:left;}
+        .section_hero--content{justify-content: flex-start; }
+        .hero_image { scale: none;}
+        .section_hero--content-background{background: #000; height: clamp(300px, 39vw, 715px); min-height:550px;}
+        .section_hero--cta a { padding-inline: clamp(30px,4.7vw,90px); }
+      {% endif %}
+
+      .custom_section--hero--contact-us .section_hero--content-text{padding-bottom: clamp(30px,3.4vw,60px);}
+      .custom_section--hero--contact-us .section_hero--content{align-items: flex-end;}
+      @media only screen and (max-width:860px){
+        {% comment %} .hero_image{object-position: 75% center; scale:1;} {% endcomment %}
+        .section_hero--description{padding-inline: 25px;}
+        {% unless section.settings.hero_normal %}
+          .section_hero--content-text{padding-block: 50px 0;}
+        {% endunless %}
+        {% if section.settings.align_content_left %}
+          .section_hero--content-text{padding: 20px; justify-content: center; align-items: center; text-align: center; bottom: 0;}
+          .section_hero--content{ background: #000; justify-content: center; align-items: flex-start; overflow: hidden; }
+          .section_hero--content-background, .section_hero--content { min-height: 720px;}
+          .section_hero--content-background .hero_image { object-position: top; object-fit:contain;}
+          .section_hero--title br{display:none;}
+        {% endif %}
+
+      }
+      {% if section.settings.align_content_left %}
+    @media only screen and (max-width:480px){
+      .section_hero--content-background .hero_image { object-fit:cover;}
+    }
+    {% endif %}
+  </style>
+  {% unless section.settings.hero_normal %}
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const lenis = new Lenis();
+
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+      });
+    </script>
+  {% endunless %}
+  {% if section.settings.hero_cta_url != blank %}
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js" defer="defer"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        gsap.registerPlugin(ScrollToPlugin);
+        const smoothLinks = document.querySelectorAll('.smooth-scroll-link');
+
+        smoothLinks.forEach((link) => {
+          link.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+
+            if (href && href.startsWith('#')) {
+              const targetSection = document.querySelector(href);
+
+              if (targetSection) {
+                e.preventDefault();
+
+                gsap.to(window, {
+                  duration: 1.2,
+                  scrollTo: {
+                    y: targetSection,
+                    offsetY: 250,
+                  },
+                  ease: 'power2.inOut',
+                });
+              }
+            }
+          });
+        });
+      });
+    </script>
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_hero_v2",
+      "label": "Hero Version 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_normal",
+      "label": "Make Hero Normal",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "align_content_left",
+      "label": "Align Content to Left",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "color",
+      "id": "bg_clr",
+      "label": "Background Color",
+      "alpha": true,
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_image",
+      "label": "Hero Image",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "no_bg_scale",
+      "label": "Remove Scale From Bg Image",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "has_mobile_image",
+      "label": "Added Mobile Banner Image",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_image_mobile",
+      "label": "Hero Image Mobile",
+      "visible_if": "{{ section.settings.has_mobile_image }}"
+    },
+    {
+      "type": "html",
+      "id": "custom_title",
+      "label": "Hero Title",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "text",
+      "id": "custom_description",
+      "label": "Hero description",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_text",
+      "label": "CTA Text",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_url",
+      "label": "CTA URL",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Pick Color For Text",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_default_content",
+      "label": "Hide Default Content Block"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,360 @@
+<div class="product-comparison product_comparison--two" data-section-id="{{ section.id }}">
+  <div class="product-comparison__container new-page-width">
+    <div class="product-comparison__header">
+      <h2 class="product-comparison__title{% if section.settings.title_narrow %} product-comparison__title-narrow{% endif %}">
+        {{ section.settings.heading }}
+      </h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="product-comparison__subtitle">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="product-comparion__area">
+      <div class="product-comparison__products">
+        {%- assign products = section.blocks | where: 'type', 'product' -%}
+        {%- for block in products -%}
+          <article class="product-comparison__product-card" {{ block.shopify_attributes }}>
+            <figure class="product-comparison__product-image-wrapper">
+              {%- if block.settings.product_image != blank -%}
+                {{
+                  block.settings.product_image
+                  | image_url: width: 300
+                  | image_tag:
+                    class: 'product-comparison__product-image',
+                    alt: block.settings.product_name,
+                    loading: 'lazy'
+                }}
+              {%- else -%}
+                <div class="product-comparison__product-placeholder"></div>
+              {%- endif -%}
+            </figure>
+            <h3 class="product-comparison__product-name">{{ block.settings.product_name }}</h3>
+            {%- if block.settings.button_text != blank -%}
+              {%- if block.settings.product_ref != blank -%}
+                {%- assign product_ref = block.settings.product_ref -%}
+                {%- assign current_variant = product_ref.selected_or_first_available_variant -%}
+                <button
+                  type="button"
+                  class="content-cta content-cta__solid{% if block.settings.is_preorder %} product-comparison__product-cta--preorder{% endif %} js-add-to-cart-btn"
+                  data-id="{{ current_variant.id }}"
+                  aria-label="Add {{ block.settings.product_name }} to cart"
+                  {% unless current_variant.available %}
+                    disabled
+                  {% endunless %}
+                >
+                  {%- if current_variant.available -%}
+                    {{ block.settings.button_text | upcase }}
+                  {%- else -%}
+                    SOLD OUT
+                  {%- endif -%}
+                </button>
+              {%- else -%}
+                <a
+                  href="{{ block.settings.button_link }}"
+                  {% if settings.open_new_tab %}
+                    target="_blank" rel="noopener noreferrer"
+                  {% endif %}
+                  class="content-cta content-cta__solid{% if block.settings.is_preorder %} product-comparison__product-cta--preorder{% endif %}"
+                >
+                  {{ block.settings.button_text | upcase }}
+                </a>
+              {%- endif -%}
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+
+      <div class="product-comparison__tables">
+        {%- assign current_table_open = false -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'category' -%}
+            {%- if current_table_open -%}
+              </tbody>
+              </table>
+              </div>
+            {%- endif -%}
+
+            <div class="product-comparison__category-group">
+              <h3 class="product-comparison__category-title">{{ block.settings.title | upcase }}</h3>
+              <div class="product-comparison__table-wrapper">
+                <table class="product-comparison__table" role="table">
+                  <thead class="product-comparison__table-head visually-hidden" role="rowgroup">
+                    <tr role="row">
+                      <th scope="col" role="columnheader">Feature</th>
+                      {%- for p_block in products -%}
+                        <th scope="col" role="columnheader">{{ p_block.settings.product_name }}</th>
+                      {%- endfor -%}
+                    </tr>
+                  </thead>
+                  <tbody class="product-comparison__table-body" role="rowgroup">
+                    {%- assign current_table_open = true -%}
+          {%- elsif block.type == 'category' -%}
+            {% comment %} (we already handle 'category' blocks elsewhere but this helps preserve context) {% endcomment %}
+          {%- elsif block.type == 'feature' -%}
+            {%- if current_table_open -%}
+              <tr class="product-comparison__row" role="row" {{ block.shopify_attributes }}>
+                <th scope="row" class="product-comparison__feature-name custom_heading" role="rowheader">
+                  {{ block.settings.feature_name }}
+                </th>
+                {%- for i in (1..products.size) -%}
+                  {%- assign value_key = 'product_' | append: i | append: '_value' -%}
+                  {%- assign value = block.settings[value_key] -%}
+                  {%- assign highlight_key = 'product_' | append: i | append: '_highlight' -%}
+                  {%- assign is_highlight = block.settings[highlight_key] -%}
+                  <td class="product-comparison__cell{% if is_highlight %} product-comparison__cell--highlight{% endif %}" role="cell">
+                    {%- if value == 'check' -%}
+                      <span class="product-comparison__check" aria-label="Yes">
+                        <span class="visually-hidden">Yes</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <circle cx="12" cy="12" r="10" fill="#36d363"/>
+                          <path d="M8 12.5L10.5 15L16 9.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                    {%- elsif value == 'cross' -%}
+                      <span class="product-comparison__cross" aria-label="No">
+                        <span class="visually-hidden">No</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <circle cx="12" cy="12" r="10" fill="#D80027"/>
+                          <path d="M8 8L16 16M16 8L8 16" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                    {%- elsif value != blank -%}
+                      <span class="product-comparison__value">{{ value }}</span>
+                    {%- else -%}
+                      <span class="product-comparison__value">—</span>
+                    {%- endif -%}
+                  </td>
+                {%- endfor -%}
+              </tr>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if current_table_open -%}
+          </tbody>
+          </table>
+          </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if section.settings.disclaimer != blank -%}
+      <p class="product-comparison__disclaimer">{{ section.settings.disclaimer }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  (function () {
+    const section = document.querySelector('[data-section-id="{{ section.id }}"]');
+    if (!section) return;
+
+    // Add to Cart Functionality
+    const addToCartButtons = section.querySelectorAll('.js-add-to-cart-btn');
+    addToCartButtons.forEach((btn) => {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const button = this;
+        const variantId = button.getAttribute('data-id');
+        if (!variantId) return;
+
+        button.setAttribute('disabled', 'disabled');
+        const originalText = button.innerText;
+        button.innerText = 'ADDING...';
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: variantId, quantity: 1 }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: data } }));
+            button.innerText = 'ADDED!';
+            setTimeout(() => {
+              button.innerText = originalText;
+              button.removeAttribute('disabled');
+            }, 2000);
+          })
+          .catch((error) => {
+            button.removeAttribute('disabled');
+            button.innerText = originalText;
+            console.error('Error adding product to cart:', error);
+          });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product Comparison 2",
+  "tag": "section",
+  "class": "section-product-comparison",
+  "settings": [
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ONE LINEUP.<br>THREE WAYS TO PLAY."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "From essential GPS audio to AI-powered performance, compare the Player family and step into the future of golf speakers."
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Disclaimer Text",
+      "default": "*Features and functionality may vary by model. Screen-based features are available on Player+ and Player Pro.<br>Player GO delivers GPS distances through audible callouts only."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Column",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name",
+          "default": "PLAYER GO"
+        },
+        {
+          "type": "product",
+          "id": "product_ref",
+          "label": "Select Product (Enables Add to Cart)"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Fallback Button Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_preorder",
+          "label": "Pre-order Style",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "name": "Category Title (H3)",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "default": "AUDIO"
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Feature Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_name",
+          "label": "Feature Name",
+          "default": "SOUND QUALITY"
+        },
+        {
+          "type": "header",
+          "content": "Values (Corresponds to Product Order)"
+        },
+        {
+          "type": "text",
+          "id": "product_1_value",
+          "label": "Product 1 Value",
+          "info": "Enter 'check' for ✓, 'cross' for ✗, or any text value"
+        },
+        {
+          "type": "checkbox",
+          "id": "product_1_highlight",
+          "label": "Highlight Product 1",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "product_2_value",
+          "label": "Product 2 Value"
+        },
+        {
+          "type": "checkbox",
+          "id": "product_2_highlight",
+          "label": "Highlight Product 2",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "product_3_value",
+          "label": "Product 3 Value"
+        },
+        {
+          "type": "checkbox",
+          "id": "product_3_highlight",
+          "label": "Highlight Product 3",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "product_4_value",
+          "label": "Product 4 Value"
+        },
+        {
+          "type": "checkbox",
+          "id": "product_4_highlight",
+          "label": "Highlight Product 4",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Comparison 2 2",
+      "blocks": [
+        { "type": "product", "settings": { "product_name": "PLAYER GO" } },
+        { "type": "product", "settings": { "product_name": "PLAYER+" } },
+        { "type": "product", "settings": { "product_name": "PLAYER PRO" } },
+        { "type": "category", "settings": { "title": "AUDIO" } },
+        {
+          "type": "feature",
+          "settings": {
+            "feature_name": "SOUND QUALITY",
+            "product_1_value": "Clear Compact Audio",
+            "product_2_value": "Premium Audio with Deep Bass",
+            "product_3_value": "True 360° studio-quality audio",
+            "product_3_highlight": true
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "feature_name": "DEVICE PAIRING",
+            "product_1_value": "2 Devices",
+            "product_2_value": "2 Devices",
+            "product_3_value": "Unlimited pairing via Auracast"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

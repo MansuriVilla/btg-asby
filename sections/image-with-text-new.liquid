@@ -1,0 +1,121 @@
+{% liquid
+  assign sale_page = false
+  case page.template_suffix
+    when 'offer-page-bf-v1'
+      assign sale_page = true
+  endcase
+%}
+<div class="promo_banner promo_banner--{{ section.id }} {% if section.settings.containerTrue %}new-page-width{% endif %}">
+  <div class="promo_banner-content">
+    <div class="banner_content-background">
+      <div class="product-card__background">
+        <picture>
+          <source srcset="{{section.settings.backgroundImage | image_url}}" media="(min-width:860px)">
+          <source srcset="{{section.settings.backgroundImageMobile | image_url}}" media="(max-width:861px)">
+          <img
+            class="image-fit lazyload"
+            src="{{section.settings.backgroundImage | image_url}}"
+            data-src="{{ }}"
+            data-aspectratio="{{ collection.image.aspect_ratio }}"
+            data-widths="[720, 900, 1080, 1800, 2400]"
+            data-sizes="auto"
+            alt="{{ section.settings.product.title | escape }}"
+            loading="lazy"
+            height="100%"
+            width="100%"
+          >
+        </picture>
+      </div>
+    </div>
+    <div class="banner_content-floating">
+      {% if section.settings.contentLogo != blank %}
+        <img
+          class="content-floating__logo"
+          src="{{ section.settings.contentLogo | image_url }}"
+          alt="{{ section.settings.contentQuote | escape }}"
+          height="100%"
+          width="100%"
+        >
+      {% endif %}
+      {% if section.settings.contentQuote != blank %}
+        <h3 class="content-floating__quote custom_heading">{{ section.settings.contentQuote }}</h3>
+      {% endif %}
+      {% if section.settings.contentCaption != blank %}
+        <span class="content-floating__caption">{{ section.settings.contentCaption }}</span>
+      {% endif %}
+      {% if sale_page %}
+        <div class="content-floating__price custom_heading">
+          <p class="floating-price__actual">{{ all_products.rainmaker.price | money }}</p>
+
+          <p class="floating-price__compare">
+            <span style="color: #2A2E41;background:#CDFF07;line-height:1;border-radius: 2.96px;padding:5px 10px;display: inline-flex;letter-spacing: 1.48px;font-family: Blue Tees Subhead;font-size: clamp(10px,0.3vw,12px);text-transform: uppercase;"
+              >1 YEAR SIMULATION INCLUDED</span
+            >
+          </p>
+        </div>
+      {% endif %}
+      {% if section.settings.ctaText != blank %}
+        <a
+          class="content-cta {%if sale_page %} content-cta__solid{%else%} content-cta__outline{%endif %}"
+          href="{{section.settings.ctaUrl}}"
+        >
+          {{ section.settings.ctaText }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image With Text New",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "containerTrue",
+      "label": "Enable Container"
+    },
+    {
+      "type": "image_picker",
+      "id": "backgroundImage",
+      "label": "Select Image For Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "backgroundImageMobile",
+      "label": "Select Image For Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "contentLogo",
+      "label": "Select Image For Logo"
+    },
+    {
+      "type": "text",
+      "id": "contentQuote",
+      "label": "Add Quote"
+    },
+    {
+      "type": "text",
+      "id": "contentCaption",
+      "label": "Add Caption"
+    },
+    {
+      "type": "text",
+      "id": "ctaText",
+      "label": "Add CTA Text"
+    },
+    {
+      "type": "url",
+      "id": "ctaUrl",
+      "label": "Add CTA URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image With Text New"
+    }
+  ]
+}
+{% endschema %}

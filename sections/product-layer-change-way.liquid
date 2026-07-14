@@ -1,0 +1,116 @@
+<div class="free_shipping_speaker_main">
+	<div class="page-width">
+    	<div class="freeshipping_speaker_bg">
+        	<div class="shipping_speaker_box">
+              	{% if section.settings.free_shipping_title != blank %}
+                	<h2><span>{{ section.settings.free_shipping_title }}</span><br />{{ section.settings.free_shipping_subtitle }}</h2>
+                {% endif %}
+            	
+              	{% if section.settings.free_shipping_icon != blank %}
+                    <div class="icon"> <img src="{{ section.settings.free_shipping_icon | img_url: 'master' }}" alt="{{ section.settings.free_shipping_icon.alt | img_alt: 'master' }}"></div>
+                {% endif %}
+            </div>
+            <div class="shipping_speaker_box">
+              	{% if section.settings.day_returns_title != blank %}
+                	<h2><span>{{ section.settings.day_returns_title }}</span><br />{{ section.settings.day_returns_subtitle }}</h2>
+                {% endif %}
+            	
+              	{% if section.settings.day_returns_icon != blank %}
+                    <div class="icon"> <img src="{{ section.settings.day_returns_icon | img_url: 'master' }}" alt="{{ section.settings.day_returns_icon.alt | img_alt: 'master' }}"></div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="change_way_text_bg">
+          	{% if section.settings.heading != blank %}
+            	<h2>{{ section.settings.heading }}</h2>
+            {% endif %}
+          	{% if section.settings.sub_heading != blank %}
+            	<h3>{{ section.settings.sub_heading }}</h3>
+            {% endif %}
+			{% if section.settings.text != blank %}
+            	<p>{{ section.settings.text }}</p>
+            {% endif %}
+           	
+          	<div class="change_way_icon">
+              	{% if section.blocks.size > 0 %}
+                  {% for block in section.blocks %}
+                    {% if block.settings.icon != blank %}
+                    	<img src="{{ block.settings.icon | img_url: 'master' }}" alt="{{ block.settings.icon.alt | img_alt: 'master' }}">
+                	{% endif %}
+                  {% endfor %}
+              {% endif %}
+          	</div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+{% schema %}
+  {
+    "name": "Player Change the way",
+    "settings": [
+	  {
+        "type": "text",
+        "id": "free_shipping_title",
+        "label": "Free Shipping title"
+      },
+	  {
+        "type": "text",
+        "id": "free_shipping_subtitle",
+        "label": "Free Shipping subtitle"
+      },
+	  {
+        "type": "image_picker",
+        "id": "free_shipping_icon",
+        "label": "Free Shipping icon"
+      },
+      {
+        "type": "text",
+        "id": "day_returns_title",
+        "label": "Day Returns title"
+      },
+	  {
+        "type": "text",
+        "id": "day_returns_subtitle",
+        "label": "Day Returns subtitle"
+      },
+	  {
+        "type": "image_picker",
+        "id": "day_returns_icon",
+        "label": "Day Returns icon"
+      },
+	  {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+	  {
+        "type": "text",
+        "id": "sub_heading",
+        "label": "Sub heading"
+      },
+	  {
+        "type": "textarea",
+        "id": "text",
+        "label": "Text"
+      }
+    ], 
+	"blocks": [
+     {
+        "type": "logo",
+        "name": "Singl logo",
+        "settings": [
+          {
+             "type": "image_picker",
+             "id": "icon",
+             "label": "Icon"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,2008 @@
+{%- liquid
+  assign show_selectors = false
+  assign currency_selector = false
+  assign locale_selector = false
+
+  if section.settings.show_currency_selector and shop.enabled_currencies.size > 1
+    assign currency_selector = true
+  endif
+
+  if section.settings.show_locale_selector and shop.enabled_locales.size > 1
+    assign locale_selector = true
+  endif
+
+  if currency_selector or locale_selector
+    assign show_selectors = true
+  endif
+-%}
+{% assign enable_preorder = false %}
+
+{% case product.template_suffix %}
+    {% comment %} {% when 'captain-pro', 'rainmaker', 'product-new', 'player-pro' %} {% endcomment %}
+  {% when 'rainmaker' %}
+    {% assign enable_preorder = true %}
+{% endcase %}
+
+{% if product.handle == 'speaker-bundle'
+  or product.handle == 'gps-offer'
+  or product.handle == 'laser-offer'
+  or product.handle == 'player-gps-speaker-bundle-v2'
+  or product.handle == 'ringer-gps-handheld-bundle-v2'
+  or product.handle == 'series-4-ultra-bundle-v2'
+%}
+  <div class="ringer-funnel__footer">
+    <div class="site_footer-page">
+      <div class="site_footer-page-inner">
+        <picture>
+          <source
+            srcset="{{ 'btg-full-footer-logo-funnel.png' | asset_url }}"
+            media="(min-width:861px)"
+          >
+          <source
+            srcset="{{ 'btg-full-footer-logo-funnel.png' | asset_url }}"
+            media="(max-width:860px)"
+          >
+          <img
+            class="sectionBanner__image"
+            decoding="async"
+            src="{{ 'btg-full-footer-logo-funnel.png' | asset_url }}"
+            alt=""
+          >
+        </picture>
+        <div class="site_footer-nav">
+          <p>©2026 Blue Tees Golf. All Rights Reserved</p>
+          <span>|</span>
+          <a
+            href="/pages/privacy-policy"
+            class="anchor_hover"
+            style="--hover-clr: #A1A3A9"
+          >
+            Privacy Policy
+          </a>
+          <span>|</span>
+          <a href="#" class="anchor_hover" style="--hover-clr: #A1A3A9">Terms & Conditions</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .site_footer-page .site_footer-page-inner { background: #171717; color: #A1A3A9; padding: 50px 0; row-gap: clamp(20px, 4vw, 30px); display: flex; justify-content: center; align-items: center; row-gap: 50px; flex-direction: column; }
+    .site_footer-page-inner img { max-width: 100%; }
+    .site_footer-nav > * { display: flex; padding: 0; }
+    .site_footer-nav > a { color: #A1A3A9; }
+    .site_footer-nav { display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+        @media only screen and (max-width:860px){
+      .site_footer-nav{flex-wrap:wrap;}
+      .site_footer-nav p + span { display: none; }
+        }
+  </style>
+
+  {% if product.handle == 'speaker-bundle' %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const ctaButtons = document.querySelectorAll(
+          '.gird_cta.above__fold-cart-cta, .add-to-cart.above__fold-cart-cta'
+        );
+        if (!ctaButtons.length) return;
+
+        const colorSwatches = document.querySelectorAll('.variant-input-wrap input[data-color-name]');
+
+        // 🟩 Main color-based product
+        const colorDataMap = {
+          Black: '42266534019269',
+          Navy: '42266534052037',
+        };
+
+        // 🟦 Second color-based product
+        /*const secondProductMap = {
+            'Black': '42924529811653',
+            'Navy': '42924529844421',
+          };*/
+
+        // 🟥 Fixed product 1
+        const fixedProduct1 = { id: '44829656154309', quantity: 1 };
+
+        // 🟨 Fixed product 2 with selling plan
+        const fixedProduct2 = {
+          id: '42279859028165',
+          quantity: 1,
+          selling_plan: '2791211205',
+        };
+
+        let currentColor = null;
+
+        function updateAllCTAs(colorName) {
+          const newId = colorDataMap[colorName] || 'default';
+          ctaButtons.forEach((btn) => btn.setAttribute('data-id', newId));
+          currentColor = colorName;
+        }
+
+        // Set initial color on load
+        const checkedSwatch = document.querySelector('.variant-input-wrap input[data-color-name]:checked');
+        if (checkedSwatch) {
+          const selectedColor = checkedSwatch.getAttribute('data-color-name');
+          updateAllCTAs(selectedColor);
+        }
+
+        // Update on color change
+        colorSwatches.forEach((swatch) => {
+          swatch.addEventListener('change', function () {
+            const colorName = swatch.getAttribute('data-color-name');
+            updateAllCTAs(colorName);
+          });
+        });
+
+        // Handle add to cart + redirect
+        ctaButtons.forEach((button) => {
+          button.addEventListener('click', function (event) {
+            event.preventDefault();
+            button.classList.add('btn--loading');
+
+            const mainVariantId = button.getAttribute('data-id');
+            //const secondVariantId = secondProductMap[currentColor] || null;
+
+            const itemsToAdd = [{ id: mainVariantId, quantity: 1 }];
+
+            /*if (secondVariantId) {
+                itemsToAdd.push({ id: secondVariantId, quantity: 1 });
+              }*/
+
+            itemsToAdd.push(fixedProduct1);
+            itemsToAdd.push(fixedProduct2);
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ items: itemsToAdd }),
+            })
+              .then((response) => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+              })
+              .then(() => {
+                // ✅ Redirect to checkout after success
+                window.location.href = '/checkout';
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.');
+              });
+          });
+        });
+      });
+    </script>
+  {% elsif product.handle == 'gps-offer' %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const ctaButtons = document.querySelectorAll(
+          '.gird_cta.above__fold-cart-cta, .add-to-cart.above__fold-cart-cta'
+        );
+        if (!ctaButtons.length) return;
+
+        const colorSwatches = document.querySelectorAll('.variant-input-wrap input[data-color-name]');
+
+        // 🟩 Main color-based product
+        const colorDataMap = {
+          Black: '42373188485317',
+          Navy: '42373188452549',
+        };
+
+        // 🟦 Second color-based product
+        const secondProductMap = {
+          Black: '42935689937093',
+          Navy: '42935689969861',
+        };
+
+        // 🟥 Fixed product 1
+        const fixedProduct1 = { id: '44829656154309', quantity: 1 };
+
+        // 🟨 Fixed product 2 with selling plan
+        const fixedProduct2 = {
+          id: '42279859028165',
+          quantity: 1,
+          selling_plan: '2791211205',
+        };
+
+        let currentColor = null;
+
+        function updateAllCTAs(colorName) {
+          const newId = colorDataMap[colorName] || 'default';
+          ctaButtons.forEach((btn) => btn.setAttribute('data-id', newId));
+          currentColor = colorName;
+        }
+
+        // Set initial color on load
+        const checkedSwatch = document.querySelector('.variant-input-wrap input[data-color-name]:checked');
+        if (checkedSwatch) {
+          const selectedColor = checkedSwatch.getAttribute('data-color-name');
+          updateAllCTAs(selectedColor);
+        }
+
+        // Update on color change
+        colorSwatches.forEach((swatch) => {
+          swatch.addEventListener('change', function () {
+            const colorName = swatch.getAttribute('data-color-name');
+            updateAllCTAs(colorName);
+          });
+        });
+
+        // Handle add to cart + redirect
+        ctaButtons.forEach((button) => {
+          button.addEventListener('click', function (event) {
+            event.preventDefault();
+            button.classList.add('btn--loading');
+
+            const mainVariantId = button.getAttribute('data-id');
+            const secondVariantId = secondProductMap[currentColor] || null;
+
+            const itemsToAdd = [{ id: mainVariantId, quantity: 1 }];
+
+            if (secondVariantId) {
+              itemsToAdd.push({ id: secondVariantId, quantity: 1 });
+            }
+
+            itemsToAdd.push(fixedProduct1);
+            itemsToAdd.push(fixedProduct2);
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ items: itemsToAdd }),
+            })
+              .then((response) => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+              })
+              .then(() => {
+                // ✅ Redirect to checkout after success
+                window.location.href = '/checkout';
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.');
+              });
+          });
+        });
+      });
+    </script>
+
+  {% elsif product.handle == 'laser-offer' %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const ctaButtons = document.querySelectorAll(
+          '.gird_cta.above__fold-cart-cta, .add-to-cart.above__fold-cart-cta'
+        );
+        if (!ctaButtons.length) return;
+
+        const colorSwatches = document.querySelectorAll('.variant-input-wrap input[data-color-name]');
+
+        // 🟩 Main color-based product
+        const colorDataMap = {
+          Black: '44682629546181',
+          Navy: '44682629578949',
+        };
+
+        // 🟥 Fixed product 1
+        const fixedProduct1 = { id: '44829656154309', quantity: 1 };
+
+        // 🟨 Fixed product 2 with selling plan
+        const fixedProduct2 = {
+          id: '44528451059909',
+          quantity: 1,
+          selling_plan: '4304666821',
+        };
+
+        let currentColor = null;
+
+        function updateAllCTAs(colorName) {
+          const newId = colorDataMap[colorName] || 'default';
+          ctaButtons.forEach((btn) => btn.setAttribute('data-id', newId));
+          currentColor = colorName;
+        }
+
+        // Set initial color on load
+        const checkedSwatch = document.querySelector('.variant-input-wrap input[data-color-name]:checked');
+        if (checkedSwatch) {
+          const selectedColor = checkedSwatch.getAttribute('data-color-name');
+          updateAllCTAs(selectedColor);
+        }
+
+        // Update on color change
+        colorSwatches.forEach((swatch) => {
+          swatch.addEventListener('change', function () {
+            const colorName = swatch.getAttribute('data-color-name');
+            updateAllCTAs(colorName);
+          });
+        });
+
+        // Handle add to cart + redirect
+        ctaButtons.forEach((button) => {
+          button.addEventListener('click', function (event) {
+            event.preventDefault();
+            button.classList.add('btn--loading');
+
+            const mainVariantId = button.getAttribute('data-id');
+
+            const itemsToAdd = [{ id: mainVariantId, quantity: 1 }];
+
+            itemsToAdd.push(fixedProduct1);
+            itemsToAdd.push(fixedProduct2);
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ items: itemsToAdd }),
+            })
+              .then((response) => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+              })
+              .then(() => {
+                // ✅ Redirect to checkout after success
+                window.location.href = '/checkout';
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.');
+              });
+          });
+        });
+      });
+    </script>
+  {% elsif product.handle == 'player-gps-speaker-bundle-v2' %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const ctaButtons = document.querySelectorAll(
+          '.gird_cta.above__fold-cart-cta, .add-to-cart.above__fold-cart-cta'
+        );
+        if (!ctaButtons.length) return;
+
+        const colorSwatches = document.querySelectorAll('.variant-input-wrap input[data-color-name]');
+
+        // 🟩 Main color-based product
+        const colorDataMap = {
+          Black: '42266534019269',
+          Navy: '42266534052037',
+        };
+
+        // 🟦 Second color-based product
+        /*const secondProductMap = {
+            'Black': '42924529811653',
+            'Navy': '42924529844421',
+          };*/
+
+        // 🟥 Fixed product 1
+        const fixedProduct1 = { id: '44829656154309', quantity: 1 };
+
+        // 🟨 Fixed product 2 with selling plan
+        const fixedProduct2 = {
+          id: '42279859028165',
+          quantity: 1,
+          selling_plan: '2791211205',
+        };
+
+        // 🟥 Fixed product 3
+        const fixedProduct3 = { id: '45274115178693', quantity: 1 };
+
+        let currentColor = null;
+
+        function updateAllCTAs(colorName) {
+          const newId = colorDataMap[colorName] || 'default';
+          ctaButtons.forEach((btn) => btn.setAttribute('data-id', newId));
+          currentColor = colorName;
+        }
+
+        // Set initial color on load
+        const checkedSwatch = document.querySelector('.variant-input-wrap input[data-color-name]:checked');
+        if (checkedSwatch) {
+          const selectedColor = checkedSwatch.getAttribute('data-color-name');
+          updateAllCTAs(selectedColor);
+        }
+
+        // Update on color change
+        colorSwatches.forEach((swatch) => {
+          swatch.addEventListener('change', function () {
+            const colorName = swatch.getAttribute('data-color-name');
+            updateAllCTAs(colorName);
+          });
+        });
+
+        // Handle add to cart + redirect
+        ctaButtons.forEach((button) => {
+          button.addEventListener('click', function (event) {
+            event.preventDefault();
+            button.classList.add('btn--loading');
+
+            const mainVariantId = button.getAttribute('data-id');
+            //const secondVariantId = secondProductMap[currentColor] || null;
+
+            const itemsToAdd = [{ id: mainVariantId, quantity: 1 }];
+
+            /*if (secondVariantId) {
+                itemsToAdd.push({ id: secondVariantId, quantity: 1 });
+              }*/
+
+            itemsToAdd.push(fixedProduct1);
+            itemsToAdd.push(fixedProduct2);
+            itemsToAdd.push(fixedProduct3);
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ items: itemsToAdd }),
+            })
+              .then((response) => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+              })
+              .then(() => {
+                // ✅ Redirect to checkout after success
+                window.location.href = '/checkout';
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.');
+              });
+          });
+        });
+      });
+    </script>
+  {% elsif product.handle == 'ringer-gps-handheld-bundle-v2' %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const ctaButtons = document.querySelectorAll(
+          '.gird_cta.above__fold-cart-cta, .add-to-cart.above__fold-cart-cta'
+        );
+        if (!ctaButtons.length) return;
+
+        const colorSwatches = document.querySelectorAll('.variant-input-wrap input[data-color-name]');
+
+        // 🟩 Main color-based product
+        const colorDataMap = {
+          Black: '42373188485317',
+          Navy: '42373188452549',
+        };
+
+        // 🟦 Second color-based product
+        const secondProductMap = {
+          Black: '42935689937093',
+          Navy: '42935689969861',
+        };
+
+        // 🟥 Fixed product 1
+        const fixedProduct1 = { id: '45274115178693', quantity: 1 };
+
+        // 🟨 Fixed product 2 with selling plan
+        const fixedProduct2 = {
+          id: '42279859028165',
+          quantity: 1,
+          selling_plan: '2791211205',
+        };
+
+        const fixedProduct3 = { id: '44829656154309', quantity: 1 };
+
+        let currentColor = null;
+
+        function updateAllCTAs(colorName) {
+          const newId = colorDataMap[colorName] || 'default';
+          ctaButtons.forEach((btn) => btn.setAttribute('data-id', newId));
+          currentColor = colorName;
+        }
+
+        // Set initial color on load
+        const checkedSwatch = document.querySelector('.variant-input-wrap input[data-color-name]:checked');
+        if (checkedSwatch) {
+          const selectedColor = checkedSwatch.getAttribute('data-color-name');
+          updateAllCTAs(selectedColor);
+        }
+
+        // Update on color change
+        colorSwatches.forEach((swatch) => {
+          swatch.addEventListener('change', function () {
+            const colorName = swatch.getAttribute('data-color-name');
+            updateAllCTAs(colorName);
+          });
+        });
+
+        // Handle add to cart + redirect
+        ctaButtons.forEach((button) => {
+          button.addEventListener('click', function (event) {
+            event.preventDefault();
+            button.classList.add('btn--loading');
+
+            const mainVariantId = button.getAttribute('data-id');
+            const secondVariantId = secondProductMap[currentColor] || null;
+
+            const itemsToAdd = [{ id: mainVariantId, quantity: 1 }];
+
+            if (secondVariantId) {
+              itemsToAdd.push({ id: secondVariantId, quantity: 1 });
+            }
+
+            itemsToAdd.push(fixedProduct1);
+            itemsToAdd.push(fixedProduct2);
+            itemsToAdd.push(fixedProduct3);
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ items: itemsToAdd }),
+            })
+              .then((response) => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+              })
+              .then(() => {
+                // ✅ Redirect to checkout after success
+                window.location.href = '/checkout';
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.');
+              });
+          });
+        });
+      });
+    </script>
+
+  {% elsif product.handle == 'series-4-ultra-bundle-v2' %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const ctaButtons = document.querySelectorAll(
+          '.gird_cta.above__fold-cart-cta, .add-to-cart.above__fold-cart-cta'
+        );
+        if (!ctaButtons.length) return;
+
+        const colorSwatches = document.querySelectorAll('.variant-input-wrap input[data-color-name]');
+
+        // 🟩 Main color-based product
+        const colorDataMap = {
+          Black: '44682629546181',
+          Navy: '44682629578949',
+        };
+
+        // 🟥 Fixed product 1
+        const fixedProduct1 = { id: '44829656154309', quantity: 1 };
+
+        // 🟨 Fixed product 2 with selling plan
+        const fixedProduct2 = {
+          id: '44528451059909',
+          quantity: 1,
+          selling_plan: '4304666821',
+        };
+
+        const fixedProduct3 = { id: '44829656678597', quantity: 1 };
+        const fixedProduct4 = { id: '45274115178693', quantity: 1 };
+
+        let currentColor = null;
+
+        function updateAllCTAs(colorName) {
+          const newId = colorDataMap[colorName] || 'default';
+          ctaButtons.forEach((btn) => btn.setAttribute('data-id', newId));
+          currentColor = colorName;
+        }
+
+        // Set initial color on load
+        const checkedSwatch = document.querySelector('.variant-input-wrap input[data-color-name]:checked');
+        if (checkedSwatch) {
+          const selectedColor = checkedSwatch.getAttribute('data-color-name');
+          updateAllCTAs(selectedColor);
+        }
+
+        // Update on color change
+        colorSwatches.forEach((swatch) => {
+          swatch.addEventListener('change', function () {
+            const colorName = swatch.getAttribute('data-color-name');
+            updateAllCTAs(colorName);
+          });
+        });
+
+        // Handle add to cart + redirect
+        ctaButtons.forEach((button) => {
+          button.addEventListener('click', function (event) {
+            event.preventDefault();
+            button.classList.add('btn--loading');
+
+            const mainVariantId = button.getAttribute('data-id');
+
+            const itemsToAdd = [{ id: mainVariantId, quantity: 1 }];
+
+            itemsToAdd.push(fixedProduct1);
+            itemsToAdd.push(fixedProduct2);
+            itemsToAdd.push(fixedProduct3);
+            itemsToAdd.push(fixedProduct4);
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ items: itemsToAdd }),
+            })
+              .then((response) => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+              })
+              .then(() => {
+                // ✅ Redirect to checkout after success
+                window.location.href = '/checkout';
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.');
+              });
+          });
+        });
+      });
+    </script>
+  {% endif %}
+
+{% else %}
+  {% if template.name == 'product' %}
+    <div class="product-atc_main">
+      <div class="new-page-width">
+        <div class="product-atc_inner">
+          <div class="product-atc_left">
+            <div class="product-atc-img-container">
+              <img
+                class="product-atc_product-img"
+                src="{{ product.featured_image | img_url: 'large' }}"
+                alt="{{ product.title }}"
+                decoding="async"
+              >
+            </div>
+            <div class="product-atc-product-details">
+              {% if product.title == 'Player+ GPS Speaker'
+                or product.title == 'Series 3 Max+'
+                or product.title == 'Series 2 Pro+'
+                or product.title == 'RINGER GPS HANDHELD'
+                or product.title == 'Ringer Pack Go Bundle'
+              %}
+                <div class="product-atc_offer" style="margin-bottom:5px;">
+                  <div class="product-atc-offer_rate">
+                    {% render 'offer-bug' %}
+                  </div>
+                </div>
+              {% endif %}
+              <h4>{{ product.title | upcase }}</h4>
+              <div class="product-atc-product-rte">
+                {% if product.compare_at_price > product.price %}
+                  <div class="product-atc_discount-rate">
+                    <p>{{ product.compare_at_price | money }}</p>
+                  </div>
+                {% endif %}
+                <div class="product-atc_rate">
+                  <p class="custom_subHeading-text">{{ product.price | money }}</p>
+                </div>
+              </div>
+              {% comment %}
+                {% if product.title == "Player+ GPS Speaker" %}
+                    <p>90 Day Returns</p>
+                {% endif %}
+              {% endcomment %}
+              {% comment %} <p>60 Day Returns</p> {% endcomment %}
+
+              {% comment %}
+                ::DO NOT DELTE::
+
+                 Dynamic Membership Name Will Be Visible Here In This Below 'p' tag. Thanks
+              {% endcomment %}
+              {% if product.template_suffix == 'rainmaker' %}
+                <p class="membership__showd">AI ANALYTICS PACKAGE | 1YR FREE (Included)</p>
+              {% else %}
+                <p class="membership__show skeleton-loader"></p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="product-atc_right">
+            {% if product.handle == 'rangefinder-series-2-pro' %}
+              <div class="product-atc_cta">
+                <a
+                  href="https://www.amazon.com/Blue-Tees-Golf-Rangefinder-Magnification/dp/B0BDT2XVRC/ref=sr_1_6?crid=3V9O9QKP8V7VD&dib=eyJ2IjoiMSJ9.QOr5SVXB73OwlJZqMb6_P5AGa6HkoAxnqh80tK7j0BWoinVE_Xsw35rcTI-nqBrKbVuZJVFQ2a5zerBWqZk8zI1ZqOWXjR2vKXHFeni5Qi06b_6TF5lOIe8eFoiyF9OpLZy_vzpKnDAbJjpdz_znKZ_5ciHn3qbSwgN71W4KV7ecywrT8EFDKrKbqoUKn3uOwDPxERR2cl52avM93GiEEgy4qd59b4RJ9krEA-OkuaZfPoH7B9S2eSsICLHssgSOZJItmvKZQKdu_mDV-tU0-LbRAWZUMajWzqxlzuy_5Vw.W_6CckeduV3D_bygg714CWBOeOWvR7yOuMJIMfwmGts&dib_tag=se&keywords=Series%2B2%2BBlue%2BTees%2BGolf&qid=1765299810&sprefix=series%2B2%2Bblue%2Btees%2Bgolf%2Caps%2C236&sr=8-6&th=1"
+                  class="btn"
+                  target="_blank"
+                >
+                  SHOP NOW
+                </a>
+              </div>
+            {% else %}
+              <div class="product-atc_cta">
+                <button
+                  id="bottom-add-to-cart-stikey"
+
+                  data-prod="pre-order"
+
+                  {% unless product.selected_or_first_available_variant.available %}
+                    disabled
+                  {% endunless %}
+                  class="btn{% if enable_preorder %} button_preorder btn_pre-order{% endif %}"
+                  {% comment %} data-id="{{ product.variants.first.id }}" {% endcomment %}
+                  data-id="{{ product.selected_or_first_available_variant.id }}"
+                  {% if product.handle contains 'rangefinder-magnetic-strap'
+                    or product.handle contains 'series-2-rangefinder-hard-case' or product.template_suffix == 'new-s3-max'
+                  %}
+                    disabled="disabled"
+                  {% endif %}
+                >
+                  {% if product.handle contains 'rangefinder-magnetic-strap'
+                    or product.handle contains 'series-2-rangefinder-hard-case'
+                    or product.template_suffix == 'new-s3-max' %}
+                    SOLD OUT
+                   {% comment %} {% elsif enable_preorder %}
+                    PRE-ORDER {% endcomment %}
+                  {% elsif product.available %}
+                    ADD TO CART
+                  {% else %}
+                    SOLD OUT
+                  {% endif %}
+                </button>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if product.handle == 'series-4-ultra-rangefinder' %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const addToCartBtn = document.querySelector('#bottom-add-to-cart-stikey');
+
+          addToCartBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            const button = this;
+            button.classList.add('btn--loading');
+
+            const variantId = button.getAttribute('data-id');
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                items: [
+                  {
+                    id: variantId,
+                    quantity: 1,
+                  },
+                  {
+                    id: 42945507918021,
+                    quantity: 1,
+                  },
+                ],
+              }),
+            })
+              .then((response) => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+              })
+              .then((data) => {
+                button.classList.remove('btn--loading');
+
+                document.dispatchEvent(
+                  new CustomEvent('ajaxProduct:added', {
+                    detail: { product: data },
+                  })
+                );
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.');
+              });
+          });
+        });
+      </script>
+    {% elsif product.handle == 'player-gps-speaker' %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const addToCartBtn = document.querySelector('#bottom-add-to-cart-stikey');
+
+          addToCartBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            const button = this;
+            button.classList.add('btn--loading');
+
+            const variantId = button.getAttribute('data-id');
+            const limitProductId = 42279859028165; // The product that has the limit
+
+            // Fetch the current cart contents
+            fetch('/cart.js')
+              .then((response) => response.json())
+              .then((cart) => {
+                // Check if the limit product is already in the cart
+                const existingItem = cart.items.find((item) => item.id === limitProductId);
+                if (existingItem && existingItem.quantity >= 1) {
+                  // If the product is already in the cart, show an alert
+
+                  return fetch('/cart/add.js', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      id: variantId,
+                      quantity: 1,
+                    }),
+                  });
+                  button.classList.remove('btn--loading');
+                } else {
+                  // Proceed to add the item to the cart
+                  return fetch('/cart/add.js', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      items: [
+                        {
+                          id: variantId,
+                          quantity: 1,
+                        },
+                        {
+                          id: 42279859028165,
+                          selling_plan: 2791211205,
+                          quantity: 1,
+                        },
+                      ],
+                    }),
+                  });
+                }
+              })
+              .then((response) => {
+                if (response) {
+                  return response.json();
+                }
+              })
+              .then((data) => {
+                if (data) {
+                  button.classList.remove('btn--loading');
+                  document.dispatchEvent(
+                    new CustomEvent('ajaxProduct:added', {
+                      detail: { product: data },
+                    })
+                  );
+                }
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.');
+              });
+          });
+        });
+      </script>
+    {% elsif product.handle == 'ringer' or product.handle == 'ringerpack' %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const addToCartBtn = document.querySelector('#bottom-add-to-cart-stikey');
+
+          addToCartBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            const button = this;
+            button.classList.add('btn--loading');
+
+            const variantId = button.getAttribute('data-id');
+            const limitProductId = 42376729329861; // The product that has the limit
+
+            // Fetch the current cart contents
+            fetch('/cart.js')
+              .then((response) => response.json())
+              .then((cart) => {
+                // Check if the limit product is already in the cart
+                const existingItem = cart.items.find((item) => item.id === limitProductId);
+                if (existingItem && existingItem.quantity >= 1) {
+                  // If the product is already in the cart, show an alert
+
+                  return fetch('/cart/add.js', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      id: variantId,
+                      quantity: 1,
+                    }),
+                  });
+                  button.classList.remove('btn--loading');
+                } else {
+                  // Proceed to add the item to the cart
+                  return fetch('/cart/add.js', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      items: [
+                        {
+                          id: variantId,
+                          quantity: 1,
+                        },
+                        {
+                          id: 42376729329861,
+                          selling_plan: 2866151621,
+                          quantity: 1,
+                        },
+                      ],
+                    }),
+                  });
+                }
+              })
+              .then((response) => {
+                if (response) {
+                  return response.json();
+                }
+              })
+              .then((data) => {
+                if (data) {
+                  button.classList.remove('btn--loading');
+                  document.dispatchEvent(
+                    new CustomEvent('ajaxProduct:added', {
+                      detail: { product: data },
+                    })
+                  );
+                }
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.');
+              });
+          });
+        });
+      </script>
+    {% elsif product.handle == 'magnetic-golf-speaker' %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const addToCartBtn = document.querySelector('#bottom-add-to-cart-stikey');
+
+          addToCartBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            const button = this;
+            button.classList.add('btn--loading');
+
+            const variantId = button.getAttribute('data-id');
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                items: [
+                  {
+                    id: variantId,
+                    quantity: 1,
+                  },
+                  {
+                    id: 42945507918021,
+                    quantity: 1,
+                  },
+                ],
+              }),
+            })
+              .then((response) => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+              })
+              .then((data) => {
+                button.classList.remove('btn--loading');
+
+                document.dispatchEvent(
+                  new CustomEvent('ajaxProduct:added', {
+                    detail: { product: data },
+                  })
+                );
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.');
+              });
+          });
+        });
+      </script>
+    {% elsif product.handle == 'playmaker-watch' %}
+      <script>
+        $(document).on('click', '#bottom-add-to-cart-stikey', function (e) {
+          e.preventDefault();
+          var $btn = $(this);
+          $btn.addClass('btn--loading');
+          const variantId = $(this).attr('data-id');
+          // First, check the cart contents
+          $.getJSON('/cart.js', function (cart) {
+            var itemExists = cart.items.some((item) => item.id === 42279859028165);
+            var formParams;
+
+            if (itemExists) {
+              // If item 42279859028165 is already in the cart, increase quantity of 44599654088901
+              //var existingItem = cart.items.find(item => item.id === 44599654088901);
+              //var newQuantity = existingItem ? existingItem.quantity + 1 : 1;
+
+              formParams = {
+                id: variantId,
+                quantity: 1,
+              };
+            } else {
+              // If item 42279859028165 is not in the cart, add both items
+              formParams = {
+                items: [
+                  {
+                    id: variantId,
+                    quantity: 1,
+                  },
+                  {
+                    id: 42279859028165,
+                    quantity: 1,
+                    selling_plan: 2791211205,
+                  },
+                ],
+              };
+            }
+
+            $.ajax({
+              url: '/cart/add',
+              type: 'post',
+              data: JSON.stringify(formParams),
+              contentType: 'application/json',
+              success: function () {
+                $btn.removeClass('btn--loading');
+                document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+              },
+              error: function (err) {
+                console.log(err);
+                alert('Error adding item. Please check your cart.');
+                $btn.removeClass('btn--loading');
+              },
+            });
+          });
+
+          return false;
+        });
+      </script>
+
+    {% elsif product.handle == 'rainmaker' %}
+      <script>
+        $(document).on('click', '#bottom-add-to-cart-stikey', function (e) {
+          e.preventDefault();
+          var $btn = $(this);
+          $btn.addClass('btn--loading');
+          const variantId = $(this).attr('data-id');
+          // First, check the cart contents
+          $.getJSON('/cart.js', function (cart) {
+            var itemExists = cart.items.some((item) => item.id === 45793869299909);
+            var formParams;
+
+            if (itemExists) {
+              formParams = {
+                id: variantId,
+                quantity: 1,
+              };
+            } else {
+              // If item 42279859028165 is not in the cart, add both items
+              formParams = {
+                items: [
+                  {
+                    id: variantId,
+                    quantity: 1,
+                  },
+                  {
+                    id: 42817543569605,
+                    quantity: 1,
+                  },
+                  {
+                    id: 45793869299909,
+                    quantity: 1,
+                    selling_plan: 6775537861,
+                  },
+                ],
+              };
+            }
+
+            $.ajax({
+              url: '/cart/add',
+              type: 'post',
+              data: JSON.stringify(formParams),
+              contentType: 'application/json',
+              success: function () {
+                $btn.removeClass('btn--loading');
+                document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+              },
+              error: function (err) {
+                console.log(err);
+                alert('Error adding item. Please check your cart.');
+                $btn.removeClass('btn--loading');
+              },
+            });
+          });
+
+          return false;
+        });
+      </script>
+    {% else %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const addToCartBtn = document.querySelector('#bottom-add-to-cart-stikey');
+
+          addToCartBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            const button = this;
+            button.classList.add('btn--loading');
+
+            const variantId = button.getAttribute('data-id');
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                id: variantId,
+                quantity: 1,
+              }),
+            })
+              .then((response) => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+              })
+              .then((data) => {
+                button.classList.remove('btn--loading');
+
+                document.dispatchEvent(
+                  new CustomEvent('ajaxProduct:added', {
+                    detail: { product: data },
+                  })
+                );
+              })
+              .catch((error) => {
+                button.classList.remove('btn--loading');
+                console.error('Error adding product to cart:', error);
+                alert('There was an issue adding the product to the cart.', error);
+              });
+          });
+        });
+      </script>
+    {% endif %}
+  {% endif %}
+
+  <script>
+    document.addEventListener('scroll', function () {
+      if (document.body.classList.contains('template-product')) {
+        var scrollPosition = window.scrollY;
+        var addToCartSection = document.querySelector('.product-atc_main');
+        var footer = document.querySelector('.site-footer');
+
+        if (addToCartSection) {
+          var productName = document
+            .querySelector('.product-atc-product-details h4')
+            ?.textContent.trim()
+            .replace(/\s+/g, '-');
+
+          if (productName) {
+            addToCartSection.id = 'btg-product-cart_' + productName;
+          }
+
+          addToCartSection.classList.toggle('show', scrollPosition > 800);
+
+          if (scrollPosition + window.innerHeight >= footer.getBoundingClientRect().top + window.scrollY) {
+            addToCartSection.classList.remove('show');
+          }
+        }
+      }
+    });
+
+    function removingOfferBug() {
+      if (window.location.pathname.includes('/products/player-gps-speaker-travis-mathew')) {
+        $('.product-atc-offer_rate').css('display', 'none');
+      }
+
+      if (document.body.classList.contains('template-product')) {
+        var addToCartSection = document.querySelector('.product-atc_main');
+      }
+    }
+
+    removingOfferBug();
+  </script>
+
+  <style>
+      /* product add to cart css start */
+
+      .membership__show.skeleton-loader { width: 100%; height: 100%; padding: 7px !important; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%;  animation: shimmer 1.5s infinite; border-radius: 4px; display: inline-block; }
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+    .product-atc_main { background: #fff; position: fixed; bottom: 0; width: 100%; z-index: 8; transform: translateY(100%); transition: transform 0.3s ease-in-out; }
+    .product-atc_main.show { transform: translateY(0); }
+    .product-atc_main .product-atc_inner {display:flex; justify-content: space-between; color:#fff; padding: 10px 0; align-items: center;}
+    .product-atc_main .product-atc_inner .product-atc_left{gap:8px;}
+    .product-atc_main .product-atc-product-details h4 { font-size: 16px; color: #000; line-height: inherit;  text-transform: none; font-variation-settings: "slnt" 0,"wdth" 100,"GRAD" -200,"XOPQ" 96,"XTRA" 499,"YOPQ" 79,"YTAS" 750,"YTDE" -203,"YTFI" 738,"YTLC" 514,"YTUC" 601;}
+    .product-atc_main .product-atc_inner .product-atc_left, .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte { display: flex; align-items: center; justify-content: center;}
+    .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte { justify-content: flex-start; gap:6px;}
+    .product-atc_main .product-atc_inner .product-atc_left .product-atc-img-container{background-color: #DFDFDF; border-radius: 8px; aspect-ratio: 1 / 1; display: flex; justify-content: center; align-items: center; max-width: 80px; overflow: hidden;}
+    .product-atc_main .product-atc_inner .product-atc-product-rte p{padding: 0;}
+    .product-atc_main .product-atc_inner .product-atc-offer_rate p{padding: 5px 7px;  font-weight: 900; line-height: normal;}
+    .product-atc_main .product-atc_inner .product-atc_offer  { position: relative; display: flex; justify-content: flex-start; }
+    .product-atc_main .product-atc_inner .product-atc_offer svg { position: absolute; z-index: -1; bottom: 0; }
+    .product-atc_main .product-atc_inner .product-atc_discount-rate p { color: #A1A3A9; text-decoration: line-through; font-size: 12px; }
+
+    .button_preorder.btn_pre-order { border-color: transparent !important; background:#0059FF !important;}
+
+    body.sale-on .product-atc_main .product-atc_inner .product-atc_rate p { color: #D80027; padding-right: 0px; font-weight: 900; font-size: 18px; }
+    .product-atc_main .product-atc_inner .product-atc_rate p { color: #000; padding-right: 0px; font-weight: 900; font-size: 18px; }
+
+
+
+    .product-atc-offer_rate .Offer_Bug-Container{margin-bottom:0px; font-weight: 600 !important; font-size: 10px;}
+    .product-atc-offer_rate .Offer_Bug-Container span{display:flex;}
+
+
+    {% comment %} .product-atc_discount-rate { display: none; } {% endcomment %}
+
+      .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte + p{color: #000; font-weight: 600; padding: 0; font-size: 8px;     text-transform: uppercase;}
+
+    .product-atc_main .product-atc_right .btn {background: #004DF5; padding: 10px 30px; font-weight: 900; font-size: 16px; line-height: 17px; color: #FFFFFF; border-radius: 10px; letter-spacing: 1.6px; max-width: 198px; width: 100%; border:2px solid #004DF5; min-width: max-content;  transition: all .2s ease 0s !important;}
+    .product-atc_main .product-atc_right .btn:hover{background: #fff !important; color: #004DF5; border-color: #004DF5 !important;}
+
+    @media only screen and (max-width:660px){
+      .product-atc_main .product-atc_inner .product-atc_left .product-atc-img-container{max-width: 60px;}
+      .product-atc_main .product-atc_inner .product-atc_rate p{font-size: 20px; padding-right: 8px;}
+      .product-atc_main .product-atc_inner .product-atc-offer_rate p{font-size: 14px;}
+      .product-atc_main .product-atc_right .btn{max-width: 169px;padding: 10px 20px;font-size: 14px; border-radius: 7px;line-height: 14px;}
+    }
+
+    @media only screen and (max-width:575px){
+      .product-atc_main .product-atc_inner .product-atc-offer_rate p { font-size: 8px !important; line-height: 8px !important; }
+      .video_scale_animation-main .video_scale_animation video + .volume-btn span img{width:30px;}
+      .video_scale_animation-main .video_scale_animation video + .volume-btn{bottom: 10px; right: 10px;}
+    }
+
+
+    @media only screen and (max-width:480px){
+      .product-atc_main .product-atc_inner .product-atc_offer svg{bottom: -2px; scale: 0.8;}
+      .product-atc_main .product-atc_inner .product-atc-offer_rate p{font-size: 12px; padding: 2px 5px !important;}
+      .product-atc_main .product-atc_inner .product-atc_rate p { font-size: 14px; padding-right: 0px; }
+      .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte + p{font-size: 10px;}
+      .product-atc_main .product-atc-product-details h4 { font-size: 12px; }
+      .product-atc_main .product-atc_inner .product-atc_left .product-atc-img-container { max-width: 50px; border-radius: 5px; }
+      .product-atc_main .product-atc_right .btn{padding: 8px 10px; font-size: 10px; line-height: 10px; max-width: 100%; letter-spacing: 1px;}
+      .product-atc_right { width: 35%; }
+      .product-atc_main .product-atc_inner .product-atc_discount-rate p{font-size: 10px;}
+      .product-atc-offer_rate .Offer_Bug-Container{font-size: 8px;}
+    }
+
+    @media only screen and (max-width:400px){
+      .product-atc_main .product-atc_inner .product-atc_rate p { font-size: 12px; }
+      .product-atc-product-details h4 { font-size: 14px; }
+      .product-atc_main .product-atc_right .btn{padding: 9px; font-size: 10px; border-radius: 7px; letter-spacing: 0.7px;}
+      .product-atc_main .product-atc_inner .product-atc_left .product-atc-img-container{max-width: 40px; padding: 4px;}
+      .product-atc-offer_rate .Offer_Bug-Container{font-size: 8px;}
+    }
+
+    @media only screen and (max-width:375px){
+    .product-atc_main .product-atc_inner .product-atc_left{padding-right: 3px;}
+    .product-atc_main .product-atc_inner{padding: 5px 0;}
+    .product-atc_main .product-atc_inner .product-atc-offer_rate p { font-size: 7px !important; line-height: normal !important; }
+
+
+    }
+
+
+
+
+
+
+    /* product add to cart css end */
+  </style>
+
+  <div class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
+    <div class="new-page-width">
+      <div class="footer-col-list">
+        <div class="col-4 footer-item">
+          <div class="footer-title small--hide">
+            <h2>PRODUCTS</h2>
+          </div>
+          <button
+            type="button"
+            class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+            aria-controls="Footer-1494301487049"
+          >
+            <span>PRODUCTS</span>
+            <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+              </svg>
+            </span>
+          </button>
+          <div id="Footer-1494301487049" class="collapsible-content collapsible-content--small">
+            <div class="collapsible-content__inner">
+              <div class="footmenu-list">
+                <ul class="no-bullets">
+                  {% render 'footer-nav-item', nav_text: 'Rangefinders', nav_link: '/collections/rangefinders' %}
+                  {% render 'footer-nav-item', nav_text: 'GPS Speakers', nav_link: '/collections/gps-speakers' %}
+                  {% render 'footer-nav-item', nav_text: 'Launch Monitors', nav_link: '/collections/launch-monitors' %}
+                  {% render 'footer-nav-item',
+                    nav_text: 'GPS Handhelds & Wearables',
+                    nav_link: '/collections/gps-devices'
+                  %}
+                  {% render 'footer-nav-item', nav_text: 'Accessories', nav_link: '/collections/accessories' %}
+                  {% render 'footer-nav-item', nav_text: 'Hats', nav_link: '/products/play-different-hat-by-melin' %}
+                  {% render 'footer-nav-item', nav_text: 'Gift Cards', nav_link: '/pages/gift-card' %}
+                  {% render 'footer-nav-item', nav_text: 'All Products', nav_link: '/collections/all-products' %}
+
+                  {% comment %}
+                    <li>
+                      <a
+                        href="{{ collections['gps-ready-bundles'].url }}"
+                        {% if settings.open_new_tab %}
+                          target="_blank" rel="noopener noreferrer"
+                        {% endif %}
+                        >Bundle Packs</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="{{ collections['merch'].url }}"
+                        {% if settings.open_new_tab %}
+                          target="_blank" rel="noopener noreferrer"
+                        {% endif %}
+                        >Merch</a
+                      >
+                    </li>
+                  {% endcomment %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 footer-item">
+          <div class="footer-title small--hide">
+            <h2>APPS</h2>
+          </div>
+          <button
+            type="button"
+            class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+            aria-controls="Footer-1494301487040"
+          >
+            <span>APPS</span>
+            <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+              </svg>
+            </span>
+          </button>
+          <div id="Footer-1494301487040" class="collapsible-content collapsible-content--small">
+            <div class="collapsible-content__inner">
+              <div class="footmenu-list">
+                <ul class="no-bullets">
+                  {% render 'footer-nav-item', nav_text: 'GAME GPS Golf App', nav_link: '/pages/app-download-lp' %}
+                  {% render 'footer-nav-item',
+                    nav_text: 'POST GAME Login',
+                    nav_link: 'https://postgame.blueteesgolf.com'
+                  %}
+                  {% render 'footer-nav-item', nav_text: 'Release Notes', nav_link: '/blogs/game-app' %}
+
+                  {% comment %}
+                    <li>
+                      <a
+                        href="/pages/membership"
+                        {% if settings.open_new_tab %}
+                          target="_blank" rel="noopener noreferrer"
+                        {% endif %}
+                        >Become a Member</a
+                      >
+                    </li>
+                  {% endcomment %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 footer-item">
+          <div class="footer-title small--hide">
+            <h2>COMMUNITY</h2>
+          </div>
+          <button
+            type="button"
+            class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+            aria-controls="Footer-5e7c7403-c2cd-4875-a6bb-07b0a1ff8144"
+          >
+            <span>COMMUNITY</span>
+            <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+              </svg>
+            </span>
+          </button>
+          <div id="Footer-5e7c7403-c2cd-4875-a6bb-07b0a1ff8144" class="collapsible-content collapsible-content--small">
+            <div class="collapsible-content__inner">
+              <div class="footmenu-list">
+                <ul class="no-bullets">
+                  {% render 'footer-nav-item', nav_text: 'About Us', nav_link: '/pages/about-us' %}
+                  {% render 'footer-nav-item', nav_text: 'Custom Branding Program', nav_link: '/pages/customs' %}
+                  {% render 'footer-nav-item', nav_text: 'News', nav_link: '/blogs/news' %}
+                  {% render 'footer-nav-item', nav_text: 'Press & Media', nav_link: '/blogs/press-release' %}
+                  {% render 'footer-nav-item', nav_text: 'Ambassador Program', nav_link: '/pages/brand-ambassador' %}
+                  {% render 'footer-nav-item',
+                    nav_text: 'Military Discounts',
+                    nav_link: '/pages/govx-id-military-discount'
+                  %}
+                  {% render 'footer-nav-item',
+                    nav_text: 'Become a Retailer or Distributor',
+                    nav_link: '/pages/become-an-authorized-retailer'
+                  %}
+                  {% render 'footer-nav-item', nav_text: 'School Programs', nav_link: '/pages/school-programs' %}
+                  {% render 'footer-nav-item', nav_text: 'Careers', nav_link: '/pages/careers' %}
+
+                  {% comment %}
+                    <!--
+                      <li><a href="/pages/contact-us">Sponsorship</a></li>
+                      <li><a href="/pages/customs">2024 Product Catalog</a></li>
+                    -->
+                  {% endcomment %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 footer-item">
+          <div class="footer-title small--hide">
+            <h2>SUPPORT</h2>
+          </div>
+          <button
+            type="button"
+            class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+            aria-controls="Footer-d9da3bdc-d5bd-47ce-9589-434c668a87ab"
+          >
+            <span>SUPPORT</span>
+            <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+              </svg>
+            </span>
+          </button>
+          <div id="Footer-d9da3bdc-d5bd-47ce-9589-434c668a87ab" class="collapsible-content collapsible-content--small">
+            <div class="collapsible-content__inner">
+              <div class="footmenu-list">
+                <ul class="no-bullets">
+                  {% render 'footer-nav-item', nav_text: 'Product Manuals', nav_link: '/pages/new-product-manual' %}
+                  {% render 'footer-nav-item', nav_text: "FAQ's", nav_link: 'https://blueteesgolf.gorgias.help/en-US' %}
+                  {% render 'footer-nav-item', nav_text: 'Product Registration', nav_link: '/pages/register' %}
+                  {% render 'footer-nav-item',
+                    nav_text: 'International Customers',
+                    nav_link: '/pages/international-customers'
+                  %}
+                  {% render 'footer-nav-item', nav_text: 'Customer Support', nav_link: '/pages/contact-us' %}
+                  {% render 'footer-nav-item',
+                    nav_text: 'Shipping, Returns &amp; Exchanges',
+                    nav_link: '/pages/refund-policy'
+                  %}
+                  {% render 'footer-nav-item', nav_text: 'Privacy Policy', nav_link: '/pages/privacy-policy' %}
+                  {% render 'footer-nav-item',
+                    nav_text: 'GAME Subscription Management',
+                    nav_link: 'https://blueteesgolf.com/a/loop_subscriptions/customer'
+                  %}
+                  {% render 'footer-nav-item',
+                    nav_text: 'App Terms of Service',
+                    nav_link: '/pages/app-terms-of-service'
+                  %}
+                  {% render 'footer-nav-item', nav_text: 'Terms & Conditions', nav_link: '/pages/terms-conditions' %}
+
+                  {% comment %} <li><a href="javascript:void(0)" class="termly-display-preferences">Consent Preferences</a></li> {% endcomment %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4 footer-item mobile-view">
+          <div class="footer-title">
+            <h2>FOLLOW US</h2>
+          </div>
+
+          {% render 'site-social-icon-new' %}
+          <div class="footer_appbutton">
+            <h2 class="appbutton_title">DOWNLOAD the official blue tees golf game™ APP</h2>
+            <div class="appbutton">
+              <a
+                href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
+                aria-label="Download Blue Tees Golf Game App on the Apple App Store"
+                {% if settings.open_new_tab %}
+                  target="_blank" rel="noopener noreferrer"
+                {% endif %}
+                ><img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer_app_img.png" alt="Download on the Apple App Store"
+              ></a>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.bluetees"
+                aria-label="Download Blue Tees Golf Game App on the Google Play Store"
+                {% if settings.open_new_tab %}
+                  target="_blank" rel="noopener noreferrer"
+                {% endif %}
+                ><img
+                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer-googlepay-img.png"
+                  alt="Get it on Google Play"
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 footer-item">
+          <div class="footer-contact-info">
+            <div class="footer-title">
+              <h2>
+                GET THE LATEST <br>
+                DEALS, DROPS, & more.
+              </h2>
+              <p>
+                Join our mailing list to get additional savings and stay in the loop on all of the latest from Blue
+                Tees.
+              </p>
+            </div>
+
+            <div class="signup-email-form">
+              {% render 'footer-newsletter' %}
+            </div>
+            <div class="footer_appbutton">
+              <h2 class="appbutton_title">DOWNLOAD the official blue tees golf game™ APP</h2>
+              <div class="appbutton">
+                <a
+                  href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
+                  aria-label="Download Blue Tees Golf Game App on the Apple App Store"
+                  {% if settings.open_new_tab %}
+                    target="_blank" rel="noopener noreferrer"
+                  {% endif %}
+                  ><img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer_app_img.png" alt="Download on the Apple App Store"
+                ></a>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.bluetees"
+                  aria-label="Download Blue Tees Golf Game App on the Google Play Store"
+                  {% if settings.open_new_tab %}
+                    target="_blank" rel="noopener noreferrer"
+                  {% endif %}
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer-googlepay-img.png"
+                    alt="Get it on Google Play"
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="footercopyinfo-list footer-col-list">
+          <div class="footer-item">
+            <div class="footer-logo">
+              <picture>
+                <source
+                  srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
+                  media="(min-width:769px)"
+                >
+                <source
+                  srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
+                  media="(max-width:768px)"
+                >
+                <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431" alt="Play Different">
+              </picture>
+            </div>
+          </div>
+          <div class="footer-item">
+            <div class="copyright-text">
+              <p>©2026 Blue Tees Golf. All Rights Reserved</p>
+            </div>
+          </div>
+
+          <div class="col-2 footer-item" style="display:none;">
+            <div class="language-seclector-form">
+              {%- render 'multi-selectors',
+                locale_selector: locale_selector,
+                currency_selector: currency_selector,
+                show_currency_flags: section.settings.show_currency_flags,
+                location: 'footer'
+              -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+            .footer-logo img {
+              max-width: clamp(200px,17vw,250px);
+              width: 100%;
+              display: flex;
+            }
+
+
+            .footer_appbutton .appbutton a {
+          {% comment %} padding: 8px; {% endcomment %}
+          border: 1px solid #fff;
+          background: #000;
+        }
+
+        .footer-solical-links {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(clamp(18px, 5vw, 30px), 1fr));
+
+          row-gap: 20px;
+        }
+
+              .termly-styles-root-f9c495{    background: #00000070;
+                backdrop-filter: blur(10px);}
+
+              #shopify-section-new-footer .site-footer #CurrencyList-footer{min-height:0px;}
+
+              /* footer new design css */
+              .no-bullets{margin: 0;}
+              .footer-m-logo{display: none;}
+              .footer-title h3{color: #fff;font-size: 21px;line-height: 25px;margin-bottom: 22px;}
+              .footer-col-list{display: flex;gap: 30px; padding-bottom: 62px;border-bottom: 1px solid rgb(95, 95, 95);}
+              .footer-col-list a{color: #A1A3A9;font-size: 13px;line-height: 15px;letter-spacing: 0.3px;display: block;}
+              .footer-col-list a:hover{color: #fff;}
+              .footer-col-list .col-4.footer-item{flex: 30%;}
+              .footer-col-list .col-4.footer-item:last-child{flex: 55%;}
+              /* .footmenu-list ul{padding-right: 15px;} */
+              .footmenu-list ul li{margin-top: 15px;margin-bottom: 0px;}
+              .footer-contact-info .footer-title p{padding: 0;font-size: 14px;color: #fff;margin-bottom: 25px;line-height: 24px;}
+              .signup-form{position: relative;display: flex;height: 54px;background: #fff;padding: 2px;border-radius: 50px;}
+              .signup-form input{border: 0px;color: #6A6A6A;width: 100%;border-radius: 50px;padding-left: 20px;}
+              .signup-form input::placeholder{color: #A1A3A9;}
+              .signup-form-btn{color: #fff;width: 154px;background: #004DF5;border-radius: 50px;padding: 8px 15px;font-size: 13px;font-weight: 900;letter-spacing: 10%; border: 1px solid transparent; transition: all 0.3s ease;}
+              .signup-form-btn:hover { background: transparent; border-color: #004DF5; color: #004DF5; }
+              .footer-solical-links a{display: inline-block;}
+              .footer-solical-links a:last-child{margin: 0;}
+              .footer-solical-links a img{max-height: 15px;}
+              .footer-emailconatct a{font-weight: 500;display: block;}
+              .footercopyinfo-list{align-items: center;padding-top: 30px;padding-bottom: 0px;border: 0px;justify-content: space-between;}
+              .footer-policy-links ul{display: flex;flex-wrap: wrap;}
+              .footer-policy-links ul li{margin: 0px;padding: 0px 10px;border-right: 1px solid rgba(255,255,255,0.7);margin: 6px 0px;}
+              .footer-policy-links ul li a{font-weight: 500;color: rgba(255,255,255,0.7);}
+              .footer-policy-links ul li:last-child{border: 0px;padding-right: 0px;}
+              .copyright-text p{color: #A1A3A9;font-weight: 400;font-size: 13px;padding: 0;line-height: 16px;}
+              .multi-selectors{color: rgb(159, 159, 159);justify-content: end;}
+              .multi-selectors__item{margin: 0px;}
+              .language-seclector-form .disclosure-list__option:focus .disclosure-list__label, .language-seclector-form .disclosure-list__option:hover .disclosure-list__label{color: #000;}
+              /* footer new design css */
+
+              .footer_appbutton{margin-top: 22px;}
+              .footer_appbutton .appbutton_title{padding: 0px;text-transform: uppercase;font-weight: 900;margin-bottom: 15px;color:#fff;letter-spacing: 0; font-size: clamp(16px,1.2vw,16px); max-width: 360px;
+          line-height: 1;}
+              .footer_appbutton a{display: flex; background: #000; overflow: hidden; border-radius: 7px;}
+              .footer_appbutton .appbutton{display: flex;gap: 8px;}
+              .mobile-view .footer_appbutton{display: none;}
+
+              @media only screen and (min-width:220px) and (max-width:1300px) {
+              /* footer new design css */
+              .footer-title h3{font-size: 20px;margin-bottom: 20px;line-height: 21px;}
+              /* .footer-col-list a, .copyright-text p{font-size: 16px;line-height: 16px;} */
+              .footer-policy-links ul li a, .copyright-text p{font-size: 15px;}
+              /* footer new design css */
+              }
+
+              @media only screen and (min-width:220px) and (max-width:1199px){
+
+               /* footer new design css */
+              .footercopyinfo-list .footer-item:nth-child(2){order: 4;text-align: right;}
+              .footercopyinfo-list .footer-item:nth-child(3){order: 3;}
+              .footercopyinfo-list .footer-item:nth-child(4){order: 2;text-align: right;}
+              /* footer new design css */
+              }
+
+              @media only screen and (min-width:220px) and (max-width:991px) {
+
+              /* footer new design css */
+              .footer-col-list{padding-bottom: 0px;flex-wrap: wrap;}
+              .footer-col-list .col-4.footer-item{width: 50%;margin-bottom: 30px;}
+              .footercopyinfo-list .footer-item:nth-child(2),
+              .footercopyinfo-list .footer-item:nth-child(3){margin-bottom: 0px;}
+              .footer-policy-links ul li{padding: 0px 5px;}
+              .footmenu-list ul li{margin-top: 10px;}
+              .footer_appbutton a img{max-width: 175px;width: 100%;}
+               .footer-col-list .col-4.footer-item:last-child{flex: 65%;}
+              /* footer new design css */
+
+
+              }
+
+              @media only screen and (min-width:220px) and (max-width:860px) {
+                .new_home_section_bg .learn_more_button a {width:200px;margin: 0 10px;}
+              .new_home_section_bg .video_button a { line-height:18px;}
+              .new_home_section_bg .ringer_2box_bg {height: auto;}
+              /*.new_home_top_banner .button a {width: 424px; font-size:35px; letter-spacing: 5px;}*/
+              /*.new_home_section_bg .new_home_player_box { margin-top:10px;}*/
+
+
+              }
+
+              @media only screen and (min-width:220px) and (max-width:768px) {
+    .footer_appbutton .appbutton_title{      margin-inline: auto;}
+
+        .footer-solical-links{width: 100%; margin-inline: auto;
+          max-width: 350px; grid-template-columns: repeat(7, 1fr);}
+
+              /* footer new design css */
+              .site-footer .page-width{max-width: 580px;}
+              .footer-m-logo{display: block;margin-bottom: 30px;}
+              .footer-m-logo img{max-width: 210px;}
+              .footer-col-list{border: 0px;flex-direction: column;}
+              .footer-col-list .col-4.footer-item{width: 100%;margin-bottom: 0px;}
+              .footer-col-list .col-4.footer-item:last-child{order: -1;}
+              .site-footer .h4.collapsible-trigger{font-style: normal;padding: 0;}
+              .footer-title h3{margin-bottom: 30px;}
+              .footmenu-list ul{padding: 10px 0px 20px 20px;text-align: left;}
+              .footer-contact-info .footer-title h3{margin-bottom: 20px;font-size: 23px;line-height: 24px; max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;}
+              .signup-form, .footer-followus{margin-bottom: 45px;}
+              /* .signup-form{flex-direction: column;} */
+              /* .signup-form input{border-radius: 10px;border: 1px solid rgb(95, 95, 95);text-align: center;} */
+              /* .signup-form-btn{width: 100%;border-radius: 10px;margin-top: 20px;} */
+              .footer_appbutton .appbutton{justify-content: center;}
+              .footer-solical-links a img{max-height: 23px;}
+              .footer-emailconatct{margin-bottom: 30px;}
+              .footer-contact-info .footer-title p{color: #A1A3A9; line-height: 18px; max-width: 260px; margin-left: auto; margin-right: auto;}
+              .footmenu-list ul li:first-child{margin-top: 0px;}
+              .footer-col-list .footer-item:nth-child(1) .footer-title h3,
+              .footer-col-list .footer-item:nth-child(2) .footer-title h3,
+              .footer-col-list .footer-item:nth-child(3) .footer-title h3, .footer-col-list .footer-item:nth-child(4) .footer-title h3{padding: 20px 10px 15px;margin: 0;border-top: 1px solid rgb(95, 95, 95, 0.6);}
+              .footer-col-list .footer-item:nth-child(3) .footer-title h3, .footer-col-list .footer-item:nth-child(4) .footer-title h3{border-bottom: 1px solid rgb(95, 95, 95, 0.6);}
+              .footer-col-list .footer-item:nth-child(4){margin-bottom: 35px;}
+              .footercopyinfo-list .footer-item{width: 100%;}
+              .footercopyinfo-list .footer-item:nth-child(4){order: 2;text-align: center;margin: 0px;padding-bottom: 15px;}
+              .footercopyinfo-list .footer-item:nth-child(2){order: 4;text-align: center;padding-top: 20px;margin: 0;}
+              .footercopyinfo-list .footer-item:nth-child(3){order: 4;margin: 0px;}
+              .footer-policy-links ul{justify-content: center;}
+              .footer-title .collapsible-trigger__icon{background: transparent;width: 33px;height: 33px;text-align: center;margin: 0 auto;padding: 10px 9px;border-radius: 50%;}
+              .footer-title .collapsible-trigger__icon .icon{width: 15px;height: 15px;}
+              .footer-title .collapsible-trigger__icon .icon path{fill: #fff !important;stroke: black !important;}
+              .footer-policy-links ul li{padding: 0px 12px;}
+              .copyright-text p{font-weight: 400;}
+              .footer-policy-links ul li a{font-weight: 300;}
+              .footercopyinfo-list{padding-top: 40px;gap: 0;}
+              .signup-email-form .footer_collapsible--disabled{padding: 0;}
+              .multi-selectors{justify-content: center;}
+              /* footer new design css */
+
+              .mobile-view .footer-title{display: none;}
+              .footer-contact-info .footer_appbutton{display: none;}
+              .mobile-view .footer_appbutton{display: block;}
+              .footer-col-list{gap: 0;}
+              .footer-logo{display: flex;
+              justify-content: center;}
+              }
+
+              }
+
+
+              @media only screen and (min-width:220px) and (max-width:575px) {
+              .signup-form{height: 36px;}
+              .signup-form input{font-size: 14px !important;padding-left: 15px;}
+              .signup-form-btn{font-size: 11px;width: 130px;}
+              .footer_appbutton a img{max-width: 124px;}
+              .footer-contact-info .footer-title p{line-height: 18px;}
+              .footer-col-list .footer-item:nth-child(1) .footer-title h3, .footer-col-list .footer-item:nth-child(2) .footer-title h3, .footer-col-list .footer-item:nth-child(3) .footer-title h3{font-size: 16px;padding: 12px 0px;}
+              .footer_appbutton .appbutton_title{font-size: 14px;max-width: 224px;margin: 0 auto 15px;line-height: 18px;}
+              .copyright-text p{font-size: 12px;}
+              .footer-col-list a{font-size: 14px;}
+              }
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "New Footer",
+  "tag": "footer",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.header_language_selector",
+      "info": "t:sections.footer.settings.header_language_selector"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locale_selector",
+      "label": "t:sections.footer.settings.show_locale_selector.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.header_currency_selector",
+      "info": "t:sections.footer.settings.header_currency_selector"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_selector",
+      "label": "t:sections.footer.settings.show_currency_selector.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_flags",
+      "label": "t:sections.footer.settings.show_currency_flags.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.header_additional_footer_content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "t:sections.footer.settings.show_payment_icons.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_copyright",
+      "label": "t:sections.footer.settings.show_copyright.label"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "t:sections.footer.settings.copyright_text.label"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_bottom",
+      "label": "Bottom menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo_social",
+      "name": "t:sections.footer.blocks.logo.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "t:sections.footer.blocks.logo.settings.logo.label"
+        },
+        {
+          "type": "range",
+          "id": "desktop_logo_height",
+          "label": "t:sections.footer.blocks.logo.settings.desktop_logo_height.label",
+          "default": 50,
+          "min": 20,
+          "max": 120,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "container_width",
+          "label": "t:sections.footer.blocks.logo.settings.container_width.label",
+          "default": 25,
+          "min": 15,
+          "max": 95,
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "t:sections.footer.blocks.navigation.name",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_footer_title",
+          "label": "t:sections.footer.blocks.navigation.settings.show_footer_title.label"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "t:sections.footer.blocks.navigation.settings.menu.label",
+          "default": "footer",
+          "info": "t:sections.footer.blocks.navigation.settings.menu.info"
+        },
+        {
+          "type": "range",
+          "id": "container_width",
+          "label": "t:sections.footer.blocks.navigation.settings.container_width.label",
+          "default": 25,
+          "min": 15,
+          "max": 95,
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "t:sections.footer.blocks.newsletter_and_social.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_footer_title",
+          "label": "t:sections.footer.blocks.newsletter_and_social.settings.show_footer_title.label",
+          "default": true
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.footer.blocks.newsletter_and_social.settings.content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.footer.blocks.newsletter_and_social.settings.title.label",
+          "default": "Sign up and save"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.footer.blocks.newsletter_and_social.settings.text.label",
+          "info": "t:sections.footer.blocks.newsletter_and_social.settings.text.info",
+          "default": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>"
+        },
+        {
+          "type": "range",
+          "id": "container_width",
+          "label": "t:sections.footer.blocks.newsletter_and_social.settings.container_width.label",
+          "default": 25,
+          "min": 15,
+          "max": 95,
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "name": "t:sections.footer.blocks.custom_text.name",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_footer_title",
+          "label": "t:sections.footer.blocks.custom_text.settings.show_footer_title.label",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.footer.blocks.custom_text.settings.title.label",
+          "default": "Custom text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.footer.blocks.custom_text.settings.image.label"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.footer.blocks.custom_text.settings.text.label",
+          "default": "<p>Add your own custom text here.</p>"
+        },
+        {
+          "type": "range",
+          "id": "container_width",
+          "label": "t:sections.footer.blocks.custom_text.settings.container_width.label",
+          "default": 25,
+          "min": 15,
+          "max": 95,
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "settings": {},
+    "blocks": [
+      {
+        "type": "menu",
+        "settings": {}
+      },
+      {
+        "type": "logo_social",
+        "settings": {}
+      }
+    ]
+  }
+}
+{% endschema %}

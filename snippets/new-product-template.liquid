@@ -1,0 +1,1178 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+
+  unless thumbnail_position
+    assign thumbnail_position = 'beside'
+  endunless
+
+  assign product_zoom_size = '1800x1800'
+  assign product_image_size = '620x'
+
+  case image_container_width
+    when 'small'
+      assign product_image_width = 'medium-up--two-fifths new-product__two-fifths'
+      assign product_description_width = 'medium-up--three-fifths new-product__two-fifths'
+      assign product_image_size = '480x'
+    when 'medium'
+      assign product_image_width = 'medium-up--one-half'
+      assign product_description_width = 'medium-up--one-half'
+      assign product_image_size = '620x'
+    when 'large'
+      assign product_image_width = 'medium-up--three-fifths new-product__two-fifths'
+      assign product_description_width = 'medium-up--two-fifths new-product__two-fifths'
+      assign product_image_size = '740x'
+  endcase
+
+  assign product_img_structure = product.featured_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
+
+  assign hide_upsell = true
+  case product.handle
+  when 'rainmaker-launch-monitor-remote-navy'
+  assign hide_upsell = false
+  endcase
+  -%}
+  {% comment %} when blank
+    assign hide_upsell = false {% endcomment %}
+
+<div
+  id="ProductSection-{{ section_id }}-{{ product.id }}"
+  class="product-section new-product__layout new-product__layout--{{ product.handle | handleize }}"
+  data-section-id="{{ section_id }}"
+  data-product-id="{{ product.id }}"
+  data-section-type="product"
+  data-product-handle="{{ product.handle }}"
+  data-product-title="{{ product.title | escape }}"
+  data-product-url="{{ product.url | within: collection }}"
+  data-aspect-ratio="{{ 100 | divided_by: product.featured_media.aspect_ratio }}"
+  data-img-url="{{ product_img_structure }}"
+  {% unless isModal %}
+    data-history="true"
+  {% endunless %}
+  data-modal="{{ isModal }}"
+>
+  {%- render 'product-template-variables', product: product, current_variant: current_variant -%}
+
+  <div class="page-content page-content--product new-product-template {%if hide_upsell == false %} no_upsells{%endif %}">
+    <div class="new-page-width">
+      <div class="grid{% unless image_position == 'left' %} grid--product-images-right{% endunless %}{% if mobile_layout == 'partial' %} grid--product-images--partial{% endif %}">
+        {%- if image_position == 'left' -%}
+          <div class="grid__item {{ product_image_width }} product-single__sticky">
+            {%- render 'product-images',
+              section_id: section_id,
+              product: product,
+              isModal: isModal,
+              image_position: image_position,
+              product_zoom_enable: product_zoom_enable,
+              product_zoom_size: product_zoom_size,
+              product_image_size: product_image_size,
+              thumbnail_arrows: thumbnail_arrows,
+              thumbnail_position: thumbnail_position,
+              video_looping: video_looping,
+              video_style: video_style
+            -%}
+
+            {% render 'watch-button-pdp',
+              must_watch: section.settings.must_watch,
+              review_video: section.settings.review_video,
+              display_review_button: section.settings.display_review_button
+            %}
+          </div>
+        {%- endif -%}
+
+        <div class="grid__item {{ product_description_width }}">
+          <div class="product-single__meta">
+            <div class="product-block product-block--header">
+              {%- if settings.show_breadcrumbs and isModal != true -%}
+                {%- render 'breadcrumbs' -%}
+              {%- endif -%}
+
+              {%- if settings.vendor_enable -%}
+                <div class="product-single__vendor">
+                  {%- assign vendor_handle = product.vendor | handleize -%}
+                  {%- if collections[vendor_handle] != empty -%}
+                    <a href="{{ routes.collections_url }}/{{ collections[vendor_handle].handle }}">
+                      {{ collections[vendor_handle].title }}
+                    </a>
+                  {%- else -%}
+                    {{ product.vendor | link_to_vendor }}
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              {%- if isModal -%}
+                <p class="h2 product-single__title">
+                  {{ product.title }}
+                </p>
+              {%- else -%}
+                {% if product.title contains 'Rangefinder with slope' %}
+                  <h1 class="h1 product-single__title">
+                    {{
+                      product.title
+                      | replace: 'Golf Rangefinder with slope',
+                        '<span id="test-series">Golf Rangefinder with slope</span>'
+                    }}
+                  </h1>
+                {% else %}
+                  {% if product.template_suffix == 'rainmaker' %}
+                    {% comment %} {% render 'offer-bug' %} {% endcomment %}
+                    {% comment %}
+                      <span class="coming_soon-label">
+                        <svg width="136" height="20" viewBox="0 0 136 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="136" height="20" rx="5" fill="#CDFF07"/>
+                            <path d="M27.4053 9.61621V9.27441C27.4053 8.12533 27.734 7.2513 28.3916 6.65234C29.0492 6.05013 29.9264 5.74902 31.0234 5.74902C32.0326 5.74902 32.8268 5.97689 33.4062 6.43262C33.9889 6.88509 34.3031 7.5166 34.3486 8.32715L34.3584 8.45898H32.4932L32.4834 8.30273C32.4671 7.91536 32.3288 7.61589 32.0684 7.4043C31.8079 7.19271 31.4499 7.08691 30.9941 7.08691C30.4798 7.08691 30.068 7.25456 29.7588 7.58984C29.4528 7.92188 29.2998 8.41829 29.2998 9.0791V9.81152C29.2998 10.4821 29.4528 10.9834 29.7588 11.3154C30.0648 11.6442 30.4831 11.8086 31.0137 11.8086C31.515 11.8086 31.8828 11.6947 32.1172 11.4668C32.3548 11.2389 32.4801 10.9427 32.4932 10.5781V10.4316H34.3584V10.5781C34.3389 11.3659 34.0378 11.9909 33.4551 12.4531C32.8724 12.9121 32.0618 13.1416 31.0234 13.1416C29.9232 13.1416 29.0443 12.8421 28.3867 12.2432C27.7324 11.641 27.4053 10.7653 27.4053 9.61621ZM35.408 9.61621V9.27441C35.408 8.09277 35.7465 7.21061 36.4236 6.62793C37.104 6.04199 37.9845 5.74902 39.0652 5.74902C40.1427 5.74902 41.0249 6.04199 41.7117 6.62793C42.3986 7.21061 42.742 8.09277 42.742 9.27441V9.61621C42.742 10.7979 42.3986 11.6816 41.7117 12.2676C41.0249 12.8503 40.1427 13.1416 39.0652 13.1416C37.9878 13.1416 37.1089 12.8503 36.4285 12.2676C35.7482 11.6816 35.408 10.7979 35.408 9.61621ZM37.2977 9.71387C37.2977 10.4626 37.4572 10.9997 37.7762 11.3252C38.0984 11.6475 38.5281 11.8086 39.0652 11.8086C39.6023 11.8086 40.0353 11.6475 40.3641 11.3252C40.6928 10.9997 40.8572 10.4626 40.8572 9.71387V9.16211C40.8572 8.42318 40.6928 7.89258 40.3641 7.57031C40.0385 7.24805 39.6056 7.08691 39.0652 7.08691C38.5249 7.08691 38.0952 7.24805 37.7762 7.57031C37.4572 7.89258 37.2977 8.42318 37.2977 9.16211V9.71387ZM44.3043 13V5.89062H46.5016L48.2301 10.3389C48.2691 10.443 48.3115 10.5651 48.357 10.7051C48.4026 10.8451 48.4352 10.972 48.4547 11.0859H48.484C48.5068 10.972 48.5377 10.8451 48.5768 10.7051C48.6158 10.5618 48.6549 10.4398 48.6939 10.3389L50.4615 5.89062H52.7418V13H50.94V8.80566C50.94 8.68848 50.9433 8.56152 50.9498 8.4248C50.9563 8.28809 50.9661 8.16113 50.9791 8.04395H50.9303C50.9107 8.15788 50.8831 8.28483 50.8473 8.4248C50.8115 8.56152 50.7708 8.68685 50.7252 8.80078L49.109 13H47.5367L45.9205 8.80078C45.8782 8.68359 45.8408 8.55664 45.8082 8.41992C45.7789 8.27995 45.7545 8.15299 45.735 8.03906H45.6861C45.6959 8.15299 45.7057 8.27995 45.7154 8.41992C45.7285 8.55664 45.735 8.68359 45.735 8.80078V13H44.3043ZM54.641 13V5.89062H56.477V13H54.641ZM58.3664 13V5.89062H60.3098L62.7902 9.87012C62.8749 10.0036 62.9579 10.1517 63.0393 10.3145C63.1239 10.4772 63.1857 10.6139 63.2248 10.7246H63.2736C63.2606 10.6074 63.2492 10.474 63.2395 10.3242C63.2329 10.1745 63.2297 10.0296 63.2297 9.88965V5.89062H64.7727V13H62.7854L60.2854 9.04492C60.1909 8.89844 60.1128 8.75195 60.051 8.60547C59.9891 8.45898 59.9419 8.33366 59.9094 8.22949H59.8605C59.8736 8.34342 59.8833 8.46712 59.8898 8.60059C59.8996 8.73405 59.9045 8.8724 59.9045 9.01562V13H58.3664ZM66.3252 9.61621V9.27441C66.3252 8.12533 66.6507 7.2513 67.3018 6.65234C67.9561 6.05013 68.8236 5.74902 69.9043 5.74902C70.9557 5.74902 71.7679 5.95736 72.3408 6.37402C72.917 6.78743 73.21 7.35059 73.2197 8.06348V8.12695H71.3643L71.3594 8.07324C71.3431 7.78027 71.208 7.54102 70.9541 7.35547C70.7002 7.16992 70.3324 7.07715 69.8506 7.07715C69.359 7.07715 68.9619 7.24479 68.6592 7.58008C68.3597 7.91536 68.21 8.41667 68.21 9.08398V9.80664C68.21 10.4837 68.376 10.9899 68.708 11.3252C69.04 11.6572 69.499 11.8232 70.085 11.8232C70.3617 11.8232 70.6058 11.7972 70.8174 11.7451C71.029 11.693 71.2275 11.61 71.4131 11.4961V10.4268H69.9775V9.15234H73.2246V12.0869C72.9089 12.3766 72.484 12.6257 71.9502 12.834C71.4196 13.0391 70.7979 13.1416 70.085 13.1416C68.9066 13.1416 67.9854 12.8421 67.3213 12.2432C66.6572 11.641 66.3252 10.7653 66.3252 9.61621ZM76.9156 10.9297V10.793H78.7906V10.9102C78.7906 11.2227 78.9078 11.4587 79.1422 11.6182C79.3798 11.7744 79.7216 11.8525 80.1676 11.8525C80.5875 11.8525 80.9114 11.7842 81.1393 11.6475C81.3671 11.5075 81.4811 11.3236 81.4811 11.0957C81.4843 10.8613 81.3867 10.6758 81.1881 10.5391C80.9895 10.3991 80.4736 10.2445 79.6402 10.0752C78.7874 9.90267 78.138 9.64714 77.692 9.30859C77.246 8.9668 77.023 8.48991 77.023 7.87793C77.023 7.22038 77.2981 6.70117 77.8482 6.32031C78.4016 5.93945 79.1487 5.74902 80.0895 5.74902C81.0172 5.74902 81.761 5.9541 82.3209 6.36426C82.8808 6.77441 83.1607 7.29525 83.1607 7.92676V8.05859H81.3297V7.95117C81.3297 7.67773 81.2255 7.45964 81.0172 7.29688C80.8089 7.13411 80.4947 7.05273 80.0748 7.05273C79.6581 7.05273 79.3521 7.11296 79.1568 7.2334C78.9615 7.35059 78.8639 7.51172 78.8639 7.7168C78.8639 7.93164 78.9648 8.09766 79.1666 8.21484C79.3684 8.32878 79.8502 8.46875 80.6119 8.63477C81.4648 8.82357 82.1272 9.08561 82.5992 9.4209C83.0745 9.75618 83.3121 10.2754 83.3121 10.9785C83.3121 11.6556 83.0208 12.1862 82.4381 12.5703C81.8587 12.9512 81.0904 13.1416 80.1334 13.1416C79.1894 13.1416 78.4163 12.9544 77.8141 12.5801C77.2119 12.2057 76.9124 11.6556 76.9156 10.9297ZM84.3959 9.61621V9.27441C84.3959 8.09277 84.7344 7.21061 85.4115 6.62793C86.0919 6.04199 86.9724 5.74902 88.0531 5.74902C89.1306 5.74902 90.0128 6.04199 90.6996 6.62793C91.3865 7.21061 91.7299 8.09277 91.7299 9.27441V9.61621C91.7299 10.7979 91.3865 11.6816 90.6996 12.2676C90.0128 12.8503 89.1306 13.1416 88.0531 13.1416C86.9756 13.1416 86.0967 12.8503 85.4164 12.2676C84.7361 11.6816 84.3959 10.7979 84.3959 9.61621ZM86.2855 9.71387C86.2855 10.4626 86.4451 10.9997 86.7641 11.3252C87.0863 11.6475 87.516 11.8086 88.0531 11.8086C88.5902 11.8086 89.0232 11.6475 89.352 11.3252C89.6807 10.9997 89.8451 10.4626 89.8451 9.71387V9.16211C89.8451 8.42318 89.6807 7.89258 89.352 7.57031C89.0264 7.24805 88.5935 7.08691 88.0531 7.08691C87.5128 7.08691 87.0831 7.24805 86.7641 7.57031C86.4451 7.89258 86.2855 8.42318 86.2855 9.16211V9.71387ZM92.9846 9.61621V9.27441C92.9846 8.09277 93.3231 7.21061 94.0002 6.62793C94.6805 6.04199 95.5611 5.74902 96.6418 5.74902C97.7193 5.74902 98.6014 6.04199 99.2883 6.62793C99.9751 7.21061 100.319 8.09277 100.319 9.27441V9.61621C100.319 10.7979 99.9751 11.6816 99.2883 12.2676C98.6014 12.8503 97.7193 13.1416 96.6418 13.1416C95.5643 13.1416 94.6854 12.8503 94.0051 12.2676C93.3247 11.6816 92.9846 10.7979 92.9846 9.61621ZM94.8742 9.71387C94.8742 10.4626 95.0337 10.9997 95.3527 11.3252C95.675 11.6475 96.1047 11.8086 96.6418 11.8086C97.1789 11.8086 97.6119 11.6475 97.9406 11.3252C98.2694 10.9997 98.4338 10.4626 98.4338 9.71387V9.16211C98.4338 8.42318 98.2694 7.89258 97.9406 7.57031C97.6151 7.24805 97.1822 7.08691 96.6418 7.08691C96.1014 7.08691 95.6717 7.24805 95.3527 7.57031C95.0337 7.89258 94.8742 8.42318 94.8742 9.16211V9.71387ZM101.881 13V5.89062H103.824L106.305 9.87012C106.389 10.0036 106.472 10.1517 106.554 10.3145C106.638 10.4772 106.7 10.6139 106.739 10.7246H106.788C106.775 10.6074 106.764 10.474 106.754 10.3242C106.747 10.1745 106.744 10.0296 106.744 9.88965V5.89062H108.287V13H106.3L103.8 9.04492C103.705 8.89844 103.627 8.75195 103.565 8.60547C103.504 8.45898 103.456 8.33366 103.424 8.22949H103.375C103.388 8.34342 103.398 8.46712 103.404 8.60059C103.414 8.73405 103.419 8.8724 103.419 9.01562V13H101.881Z" fill="black"/>
+                        </svg>
+                      </span>
+                    {% endcomment %}
+                    <div style="color:#000;background:#CDFF07;line-height:1;border-radius:5px;padding:5px 10px;display: inline-flex;margin-bottom: 13px;font-family: Blue Tees Subhead;font-size: 12px;text-transform: uppercase;">
+                      #1 NEW RELEASE
+                    </div>
+                  {% elsif product.template_suffix == 'player-pro' or product.handle contains 'captain' %}
+                    <span class="coming_soon-label">
+                      <svg width="56" height="20" viewBox="0 0 56 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="56" height="20" rx="5" fill="#CDFF07"/>
+                        <path d="M15.8811 13V5.89062H17.8244L20.3049 9.87012C20.3895 10.0036 20.4725 10.1517 20.5539 10.3145C20.6385 10.4772 20.7004 10.6139 20.7395 10.7246H20.7883C20.7753 10.6074 20.7639 10.474 20.7541 10.3242C20.7476 10.1745 20.7443 10.0296 20.7443 9.88965V5.89062H22.2873V13H20.3L17.8 9.04492C17.7056 8.89844 17.6275 8.75195 17.5656 8.60547C17.5038 8.45898 17.4566 8.33366 17.424 8.22949H17.3752C17.3882 8.34342 17.398 8.46712 17.4045 8.60059C17.4143 8.73405 17.4191 8.8724 17.4191 9.01562V13H15.8811ZM24.1475 13V5.89062H29.6064V7.21875H25.9688V8.68848H29.123V9.99707H25.9688V11.6768H29.6602V13H24.1475ZM32.2039 13.0098L30.3387 5.89062H32.1941L33.3172 10.5586C33.3465 10.6725 33.3709 10.7832 33.3904 10.8906C33.4132 10.998 33.4295 11.1087 33.4393 11.2227H33.4783C33.4881 11.1087 33.4995 10.998 33.5125 10.8906C33.5255 10.7832 33.5467 10.6725 33.576 10.5586L34.6941 5.89062H36.7742L37.9314 10.5439C37.9607 10.6611 37.9803 10.7751 37.99 10.8857C38.0031 10.9932 38.0161 11.1038 38.0291 11.2178H38.0682C38.0779 11.1038 38.0893 10.9915 38.1023 10.8809C38.1186 10.7702 38.1398 10.6579 38.1658 10.5439L39.2645 5.89062H40.827L38.9422 13.0098H36.8475L35.7098 8.40527C35.6805 8.28809 35.6561 8.16927 35.6365 8.04883C35.617 7.92513 35.604 7.80632 35.5975 7.69238H35.5535C35.547 7.80632 35.534 7.9235 35.5145 8.04395C35.4982 8.16439 35.477 8.2832 35.451 8.40039L34.3035 13.0098H32.2039Z" fill="black"/>
+                      </svg>
+                    </span>
+                  {% endif %}
+                  {% if product.template_suffix == 'player-gps-speaker' %}
+                    {% render 'supercharged-ai-comp' %}
+                  {% endif %}
+
+                  {% if section.settings.show_label %}
+                    <span class="coming_soon-label">
+                      <svg width="56" height="20" viewBox="0 0 56 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="56" height="20" rx="5" fill="#CDFF07"/>
+                        <path d="M15.8811 13V5.89062H17.8244L20.3049 9.87012C20.3895 10.0036 20.4725 10.1517 20.5539 10.3145C20.6385 10.4772 20.7004 10.6139 20.7395 10.7246H20.7883C20.7753 10.6074 20.7639 10.474 20.7541 10.3242C20.7476 10.1745 20.7443 10.0296 20.7443 9.88965V5.89062H22.2873V13H20.3L17.8 9.04492C17.7056 8.89844 17.6275 8.75195 17.5656 8.60547C17.5038 8.45898 17.4566 8.33366 17.424 8.22949H17.3752C17.3882 8.34342 17.398 8.46712 17.4045 8.60059C17.4143 8.73405 17.4191 8.8724 17.4191 9.01562V13H15.8811ZM24.1475 13V5.89062H29.6064V7.21875H25.9688V8.68848H29.123V9.99707H25.9688V11.6768H29.6602V13H24.1475ZM32.2039 13.0098L30.3387 5.89062H32.1941L33.3172 10.5586C33.3465 10.6725 33.3709 10.7832 33.3904 10.8906C33.4132 10.998 33.4295 11.1087 33.4393 11.2227H33.4783C33.4881 11.1087 33.4995 10.998 33.5125 10.8906C33.5255 10.7832 33.5467 10.6725 33.576 10.5586L34.6941 5.89062H36.7742L37.9314 10.5439C37.9607 10.6611 37.9803 10.7751 37.99 10.8857C38.0031 10.9932 38.0161 11.1038 38.0291 11.2178H38.0682C38.0779 11.1038 38.0893 10.9915 38.1023 10.8809C38.1186 10.7702 38.1398 10.6579 38.1658 10.5439L39.2645 5.89062H40.827L38.9422 13.0098H36.8475L35.7098 8.40527C35.6805 8.28809 35.6561 8.16927 35.6365 8.04883C35.617 7.92513 35.604 7.80632 35.5975 7.69238H35.5535C35.547 7.80632 35.534 7.9235 35.5145 8.04395C35.4982 8.16439 35.477 8.2832 35.451 8.40039L34.3035 13.0098H32.2039Z" fill="black"/>
+                      </svg>
+                    </span>
+                  {% endif %}
+                  {% if product.template_suffix == 'new-s3-max' %}
+                    <div class="offer_bug">
+                      <svg width="130" height="25" viewBox="0 0 130 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="130" height="25" rx="2.96296" fill="#004DF5"/>
+                        <path d="M16.9168 16V7.46875H20.5496C21.6356 7.46875 22.4832 7.64844 23.0926 8.00781C23.702 8.36328 24.0067 8.93555 24.0067 9.72461C24.0067 10.1934 23.8973 10.5762 23.6785 10.873C23.4637 11.166 23.1824 11.373 22.8348 11.4941V11.5176C23.2645 11.6348 23.6102 11.8633 23.8719 12.2031C24.1336 12.543 24.2645 12.9902 24.2645 13.5449C24.2645 14.3457 23.9403 14.9551 23.2918 15.373C22.6473 15.791 21.7938 16 20.7313 16H16.9168ZM19.1375 14.5176H20.6492C21.1297 14.5176 21.4793 14.4219 21.6981 14.2305C21.9168 14.0391 22.0262 13.7578 22.0262 13.3867C22.0262 13.0234 21.9168 12.748 21.6981 12.5605C21.4793 12.3691 21.1297 12.2734 20.6492 12.2734H19.1375V14.5176ZM19.1375 10.8848H20.4735C20.9383 10.8848 21.2742 10.8047 21.4813 10.6445C21.6883 10.4844 21.7918 10.2441 21.7918 9.92383C21.7918 9.60352 21.6883 9.36328 21.4813 9.20312C21.2742 9.04297 20.9383 8.96289 20.4735 8.96289H19.1375V10.8848ZM27.1639 16V7.46875H33.662V9.11523H29.3846V10.8086H33.0877V12.4199H29.3846V14.3652H33.7264V16H27.1639ZM36.0224 13.5098V13.3281H38.3134V13.4863C38.3134 13.8574 38.4481 14.1348 38.7177 14.3184C38.9872 14.502 39.372 14.5938 39.872 14.5938C40.3563 14.5938 40.7313 14.5156 40.997 14.3594C41.2626 14.1992 41.3954 13.9844 41.3954 13.7148C41.3993 13.4375 41.286 13.2168 41.0556 13.0527C40.829 12.8887 40.2352 12.707 39.2743 12.5078C38.2704 12.3008 37.497 11.9922 36.954 11.582C36.4149 11.1719 36.1454 10.5977 36.1454 9.85938C36.1454 9.0625 36.4735 8.4375 37.1298 7.98438C37.786 7.52734 38.6767 7.29883 39.8017 7.29883C40.9032 7.29883 41.788 7.54102 42.4559 8.02539C43.1278 8.50977 43.4638 9.14062 43.4638 9.91797V10.0938H41.2196V9.94727C41.2235 9.61914 41.1063 9.36133 40.8681 9.17383C40.6298 8.98242 40.2743 8.88672 39.8017 8.88672C39.3251 8.88672 38.9716 8.95508 38.7411 9.0918C38.5145 9.22852 38.4013 9.42188 38.4013 9.67188C38.4013 9.91797 38.5184 10.1094 38.7528 10.2461C38.9911 10.3828 39.5595 10.5508 40.4579 10.75C41.454 10.9766 42.2333 11.2871 42.7958 11.6816C43.3622 12.0762 43.6454 12.6934 43.6454 13.5332C43.6454 14.3809 43.2977 15.0332 42.6024 15.4902C41.9071 15.9434 40.9931 16.1699 39.8602 16.1699C38.7352 16.1699 37.8134 15.9473 37.0946 15.502C36.3759 15.0566 36.0184 14.3926 36.0224 13.5098ZM45.6484 9.11523V7.46875H53.33V9.11523H50.6113V16H48.373V9.11523H45.6484ZM53.7568 13.1875V11.4297H57.4541V13.1875H53.7568ZM59.5801 13.5098V13.3281H61.8711V13.4863C61.8711 13.8574 62.0059 14.1348 62.2754 14.3184C62.5449 14.502 62.9297 14.5938 63.4297 14.5938C63.9141 14.5938 64.2891 14.5156 64.5547 14.3594C64.8203 14.1992 64.9531 13.9844 64.9531 13.7148C64.957 13.4375 64.8438 13.2168 64.6133 13.0527C64.3867 12.8887 63.793 12.707 62.832 12.5078C61.8281 12.3008 61.0547 11.9922 60.5117 11.582C59.9727 11.1719 59.7031 10.5977 59.7031 9.85938C59.7031 9.0625 60.0312 8.4375 60.6875 7.98438C61.3438 7.52734 62.2344 7.29883 63.3594 7.29883C64.4609 7.29883 65.3457 7.54102 66.0137 8.02539C66.6855 8.50977 67.0215 9.14062 67.0215 9.91797V10.0938H64.7773V9.94727C64.7812 9.61914 64.6641 9.36133 64.4258 9.17383C64.1875 8.98242 63.832 8.88672 63.3594 8.88672C62.8828 8.88672 62.5293 8.95508 62.2988 9.0918C62.0723 9.22852 61.959 9.42188 61.959 9.67188C61.959 9.91797 62.0762 10.1094 62.3105 10.2461C62.5488 10.3828 63.1172 10.5508 64.0156 10.75C65.0117 10.9766 65.791 11.2871 66.3535 11.6816C66.9199 12.0762 67.2031 12.6934 67.2031 13.5332C67.2031 14.3809 66.8555 15.0332 66.1602 15.4902C65.4648 15.9434 64.5508 16.1699 63.418 16.1699C62.293 16.1699 61.3711 15.9473 60.6523 15.502C59.9336 15.0566 59.5762 14.3926 59.5801 13.5098ZM69.9971 16V7.46875H76.4952V9.11523H72.2178V10.8086H75.9209V12.4199H72.2178V14.3652H76.5596V16H69.9971ZM79.3653 16V7.46875H81.6036V14.3594H85.6231V16H79.3653ZM88.1358 16V7.46875H90.3741V14.3594H94.3937V16H88.1358ZM96.9064 16V7.46875H103.404V9.11523H99.1271V10.8086H102.83V12.4199H99.1271V14.3652H103.469V16H96.9064ZM106.275 16V7.46875H109.808C110.945 7.46875 111.835 7.70312 112.48 8.17188C113.124 8.64062 113.446 9.33789 113.446 10.2637C113.446 11.1738 113.122 11.8711 112.474 12.3555C111.825 12.8359 110.935 13.0859 109.802 13.1055H108.513V16H106.275ZM108.489 11.5352H109.737C110.261 11.5352 110.636 11.4277 110.862 11.2129C111.093 10.9941 111.21 10.6855 111.214 10.2871C111.214 9.86914 111.099 9.5625 110.868 9.36719C110.642 9.16797 110.265 9.06836 109.737 9.06836H108.489V11.5352ZM111.366 16L109.198 12.0684L111.577 12.0273L113.886 16H111.366Z" fill="white"/>
+                      </svg>
+                    </div>
+                    {% comment %} <small id="new-tag">NEW</small>  {% endcomment %}
+                  {% endif %}
+                  <h1 class="h1 product-single__title {% if product.title contains "Series 3 Max" %}editonlythis{% endif %}">
+                    {{ product.title }}
+                  </h1>
+                {% endif %}
+              {%- endif -%}
+
+              {% unless product.template_suffix == 'player-pro' or product.template_suffix == 'rainmaker' %}
+                <a href="#looxReviews">
+                  <div
+                    class="loox-rating"
+                    data-id="{{ product.id }}"
+                    data-rating="{{ product.metafields.loox.avg_rating }}"
+                    data-raters="{{ product.metafields.loox.num_reviews }}"
+                  ></div>
+                </a>
+              {% endunless %}
+
+              {%- if sku_enable -%}
+                <p data-sku class="product-single__sku">
+                  {%- if current_variant.sku -%}
+                    {{ current_variant.sku }}
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+            </div>
+
+            <div data-product-blocks>
+              {%- capture form_id -%}AddToCartForm-{{ section_id }}-{{ product.id }}{%- endcapture -%}
+              {%- for block in blocks -%}
+                {%- case block.type -%}
+                  {%- when '@app' -%}
+                    {% render block %}
+                  {%- when 'separator' -%}
+                    <div class="product-block"><hr></div>
+                  {%- when 'text' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {{ block.settings.text }}
+                    </div>
+
+                    {% comment %}
+                      {%- when 'tab' -%}
+
+                      <div class="tab_area">
+                        <div class="product-block product-block--tab" {{ block.shopify_attributes }}>
+                          {% assign tab_id = block.id | append: product.id %}
+                          {% capture tab_content %}
+                          {{ block.settings.content }}
+                          {{ block.settings.page.content }}
+                        {% endcapture %}
+                          {%- render 'tab', id: tab_id, title: block.settings.title, content: tab_content -%}
+                        </div>
+                      </div>
+                    {% endcomment %}
+
+                  {%- when 'contact' -%}
+                    <div class="product-block product-block--tab" {{ block.shopify_attributes }}>
+                      {% assign tab_id = block.id | append: product.id %}
+                      {%- render 'tab-contact', id: tab_id, block: block -%}
+                    </div>
+                  {%- when 'description' -%}
+                    <div
+                      class="product-block product_block--description{% if block.settings.is_tab %} product-block--tab{% endif %}"
+                      {{ block.shopify_attributes }}
+                    >
+                      {%- assign id = block.id | append: product.id -%}
+                      {%- render 'product-description', id: id, product: product, is_tab: block.settings.is_tab -%}
+                    </div>
+                  {%- when 'price' -%}
+                    <div class="product-block product-block--price" {{ block.shopify_attributes }}>
+                      <div class="product__prices">
+                        {%- assign hide_sale_price = true -%}
+                        {%- if product.compare_at_price_max > product.price -%}
+                          {%- if current_variant.compare_at_price > current_variant.price -%}
+                            {%- assign hide_sale_price = false -%}
+                          {%- endif -%}
+                          <span
+                            data-a11y-price
+                            class="visually-hidden"
+                            aria-hidden="{{ hide_sale_price }}"
+                          >
+                            {{ 'products.general.regular_price' | t }}
+                          </span>
+                          <span
+                            data-product-price-wrap
+                            class="{% if hide_sale_price %} hide{% endif %}"
+                          >
+                            <span data-compare-price class="product__price product__price--compare">
+                              {%- if current_variant.compare_at_price > current_variant.price -%}
+                                {{ current_variant.compare_at_price | money }}
+                              {%- endif -%}
+                            </span>
+                          </span>
+                          <span data-compare-price-a11y class="visually-hidden">
+                            {{- 'products.general.sale_price' | t -}}
+                          </span>
+                        {%- else -%}
+                          <span data-a11y-price class="visually-hidden">
+                            {{- 'products.general.regular_price' | t -}}
+                          </span>
+                        {%- endif -%}
+                        <div class="product__price--actual">
+                          <span
+                            data-product-price
+                            class="product__price price-main{% if current_variant.compare_at_price > current_variant.price %} on-sale{% endif %}"
+                          >
+                            {%- unless product.empty? -%}
+                              {{ current_variant.price | money }}
+                            {%- else -%}
+                              {{ 1999 | money }}
+                            {%- endunless -%}
+                            {% if product.template_suffix == 'player-pro' %}
+                              {% render 'supercharged-ai-comp' %}
+                            {% endif %}
+                          </span>
+
+                          {% assign offer_bug = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/100_DAY_PDP_BUG.svg?v=1770276074' %}
+
+                          {% case product.template_suffix %}
+                            {% when 'rainmaker' %}
+                              {% assign offer_bug = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rainmaker-callout_2.svg?v=1779375486' %}
+                            {% when 'play-maker-plus' %}
+                              {% assign offer_bug = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/playmaker-dicount-bug.svg?v=1782411164' %}
+                          {% endcase %}
+
+                          <span
+                            class="product__offer-bug{% if product.template_suffix == 'play-maker-plus' %} dicount_bug{%endif %}"
+                            {% if product.template_suffix == 'play-maker-plus' %}
+                              data-discount-code="Wtbt50"
+                            {% endif %}
+                            ><img
+                              alt="Offer Bug for {{ product.title | downcase }}"
+                              src="{{ offer_bug }}"
+                              loading="eager"
+                              decoding="async"
+                            >
+                            {% if product.template_suffix == 'play-maker-plus' %}
+                              <div id="discount-tooltip" class="discount-tooltip">Click to copy discount code</div>
+                            {% endif %}
+                          </span>
+                        </div>
+                      </div>
+                      {%- if settings.product_save_amount -%}
+                        {%- if settings.product_save_type == 'dollar' -%}
+                          {%- capture saved_amount -%}{{ current_variant.compare_at_price | minus: current_variant.price | money }}{%- endcapture -%}
+                        {%- else -%}
+                          {%- capture saved_amount -%}{{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round }}%{%- endcapture -%}
+                        {%- endif -%}
+                        <span data-save-price class="product__price-savings{% if hide_sale_price %} hide{% endif %}">
+                          {%- unless hide_sale_price -%}
+                            {{ 'products.general.save_html' | t: saved_amount: saved_amount }}
+                          {%- endunless -%}
+                        </span>
+                      {%- endif -%}
+
+                      <div
+                        data-unit-price-wrapper
+                        class="product__unit-price product__unit-price--spacing {% unless current_variant.unit_price_measurement %} hide{% endunless %}"
+                      >
+                        {%- capture unit_price_base_unit -%}
+                          <span data-unit-base>
+                            {%- if current_variant.unit_price_measurement -%}
+                              {%- if current_variant.unit_price_measurement.reference_value != 1 -%}
+                                {{ current_variant.unit_price_measurement.reference_value }}
+                              {%- endif -%}
+                              {{ current_variant.unit_price_measurement.reference_unit }}
+                            {%- endif -%}
+                          </span>
+                        {%- endcapture -%}
+
+                        <span data-unit-price>{{ current_variant.unit_price | money }}</span>/{{ unit_price_base_unit }}
+                      </div>
+
+                      {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+                        <div class="product__policies rte small--text-center">
+                          {%- if shop.taxes_included -%}
+                            {{ 'products.product.include_taxes' | t }}
+                          {%- endif -%}
+                          {%- if shop.shipping_policy.body != blank -%}
+                            {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                    {% if hide_upsell %}
+                      {% render 'bonus-pdp-upshell' %}
+                    {% endif %}
+                    {% if product.metafields.custom.discount_code != blank %}
+                      <div class="discount-code">
+                        Use code: {{ product.metafields.custom.discount_code | metafield_tag }}
+                      </div>
+                      <style>
+                        .product-single__meta .discount-code
+                         {   padding-bottom:15px; font-weight: bold; display:none;
+                         }
+                         .product__price.price-main
+                         {   font-size: 28px; font-weight: 700; color: #2b50b2;
+                         }
+                      </style>
+                    {% endif %}
+
+                  {%- when 'quantity_selector' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      <div class="product__quantity">
+                        {% assign qty_id = section_id | append: product.id %}
+                        <label for="Quantity-{{ qty_id }}">{{ 'products.product.quantity' | t }}</label>
+                        {%- render 'quantity-input', form_id: form_id, id: qty_id, qty: 1, min: 1 -%}
+                      </div>
+                    </div>
+                  {%- when 'variant_picker' -%}
+                    {% if product.template_suffix == 'player-gps-speaker' %}
+                      <div
+                        class="product-block {% if product.title contains 'Series 2 Pro+' %}same-height{% endif %}"
+                        {{ block.shopify_attributes }}
+                      >
+                        <div class="product-variant-type">
+                          <label class="variant__label">Color<span class="current-variant"></span></label>
+                          <fieldset class="variant-input-wrap">
+                            <div class="variant-input navy-variant" data-index="option1" data-value="Navy">
+                              <a href="/products/player-gps-speaker?variant=42266534052037">
+                                <label class="navy variant__button-label" style="background: #202A45;">
+                                  <img
+                                    src="//blueteesgolf.com/cdn/shop/files/PLAYER__NAVY_1_large.png?v=1713973589"
+                                    alt="Navy"
+                                    class="first-img"
+                                  >
+                                  <span></span>
+                                </label>
+                              </a>
+                            </div>
+                            <div class="variant-input black-variant" data-index="option1" data-value="Black">
+                              <a href="/products/player-gps-speaker?variant=42266534019269">
+                                <label class="black variant__button-label" style="background: #252525;">
+                                  <img
+                                    src="//blueteesgolf.com/cdn/shop/files/PLAYER__BLACK_1_large.png?v=1713973589"
+                                    alt="Black"
+                                    class="first-img"
+                                  >
+                                  <span></span>
+                                </label>
+                              </a>
+                            </div>
+                            <div class="variant-input tm-variant" data-index="option1" data-value="TM Edition">
+                              <a href="/products/player-gps-speaker-travis-mathew">
+                                <label
+                                  class="tm variant__button-label"
+                                  style="background:  url({{'tm-dark-bg.png' | asset_url}}) no-repeat center center / cover;"
+                                >
+                                  <img
+                                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/menu-tm-product.png?v=1727264922"
+                                    alt="Player plus Travis Mathew Edition"
+                                    class="first-img"
+                                  >
+                                  <span>TM Edition</span>
+                                </label>
+                              </a>
+                            </div>
+                          </fieldset>
+                        </div>
+                      </div>
+                    {% else %}
+                      <div
+                        class="product-block {% if product.title contains 'Series 2 Pro+' %}same-height{% endif %}"
+                        {{ block.shopify_attributes }}
+                      >
+                        {%- unless product.has_only_default_variant -%}
+                          {%- for option in product.options_with_values -%}
+                            {%- liquid
+                              if block.settings.color_swatches
+                                assign is_color = false
+                                assign color_option_index = 0
+                                assign swatch_trigger = 'products.general.color_swatch_trigger' | t | downcase
+                                assign color_option_index = forloop.index0
+                                assign downcased_option = option.name | downcase
+                                if downcased_option contains swatch_trigger
+                                  assign is_color = true
+                                elsif swatch_trigger == 'color' and downcased_option contains 'colour'
+                                  assign is_color = true
+                                endif
+                              endif
+                            -%}
+
+                            {%- if block.settings.picker_type == 'button' -%}
+                              {%- render 'variant-button',
+                                block: block,
+                                product: product,
+                                form_id: form_id,
+                                section_id: section_id,
+                                option: option,
+                                forloop: forloop,
+                                variant_labels: block.settings.variant_labels,
+                                is_color: is_color,
+                                color_option_index: color_option_index
+                              -%}
+                            {%- else -%}
+                              {%- render 'variant-dropdown',
+                                product: product,
+                                form_id: form_id,
+                                section_id: section_id,
+                                option: option,
+                                forloop: forloop,
+                                variant_labels: block.settings.variant_labels
+                              -%}
+                            {%- endif -%}
+                          {%- endfor -%}
+                        {%- endunless -%}
+                      </div>
+                    {% endif %}
+                    <div class="after-pay"></div>
+                  {%- when 'buy_buttons' -%}
+                    {% if hide_upsell %}
+                      {% unless product.handle contains 'hat' %}
+                        {% render 'new-upshell-box' %}
+                      {% endunless %}
+                    {% endif %}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {%- unless product.empty? -%}
+                        <div class="product-block">
+                          {%- render 'product-form',
+                            form_id: form_id,
+                            product: product,
+                            show_dynamic_checkout: block.settings.show_dynamic_checkout,
+                            current_variant: current_variant,
+                            pre_order: block.settings.pre_order,
+                            cta_note_text: block.settings.cta_note_text
+                          -%}
+                        </div>
+                      {%- endunless -%}
+
+                      {%- if block.settings.surface_pickup_enable -%}
+                        <div
+                          data-store-availability-holder
+                          data-product-name="{{ product.title | escape }}"
+                          data-base-url="{{ shop.url }}{{ routes.root_url }}"
+                        ></div>
+                      {%- endif -%}
+                    </div>
+
+                  {%- when 'icons_row' -%}
+                    <div class="icons_row">
+                      <div class="row_items">
+                        <div class="row_items-item">
+                          <div class="items_item-top">
+                            <img
+                              class="items_item-top-image"
+                              src="{{block.settings.itemIcon | image_url}}"
+                              alt="{{block.settings.itemText }}"
+                              height="100%"
+                              width="100%"
+                              decoding="async"
+                            >
+                          </div>
+                          <div class="items_item-bottom">
+                            <span class="items_item-bottom-text">
+                              {{ block.settings.itemText }}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="row_items-item">
+                          <div class="items_item-top">
+                            <img
+                              class="items_item-top-image"
+                              src="{{block.settings.itemIconTwo | image_url}}"
+                              alt="{{block.settings.itemTextTwo }}"
+                              height="100%"
+                              width="100%"
+                              decoding="async"
+                            >
+                          </div>
+                          <div class="items_item-bottom">
+                            <span class="items_item-bottom-text">
+                              {{ block.settings.itemTextTwo }}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="row_items-item">
+                          <div class="items_item-top">
+                            <img
+                              class="items_item-top-image"
+                              src="{{block.settings.itemIconThree | image_url}}"
+                              alt="{{block.settings.itemTextThree }}"
+                              height="100%"
+                              width="100%"
+                              decoding="async"
+                            >
+                          </div>
+                          <div class="items_item-bottom">
+                            <span class="items_item-bottom-text">
+                              {{ block.settings.itemTextThree }}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="row_items-item">
+                          <div class="items_item-top">
+                            <img
+                              class="items_item-top-image"
+                              src="{{block.settings.itemIconFour | image_url}}"
+                              alt="{{block.settings.itemTextFour }}"
+                              height="100%"
+                              width="100%"
+                              decoding="async"
+                            >
+                          </div>
+                          <div class="items_item-bottom">
+                            <span class="items_item-bottom-text">
+                              {{ block.settings.itemTextFour }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {%- when 'sales_point' -%}
+                    {%- unless block.settings.text == blank -%}
+                      <div class="product-block product-block--sales-point" {{ block.shopify_attributes }}>
+                        <ul class="sales-points">
+                          <li class="sales-point">
+                            <span class="icon-and-text">
+                              {% case block.settings.icon %}
+                                {% when 'checkmark' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-circle-checkmark"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M52.68 24.48A22 22 0 1 1 47 15.93M21 32l8.5 8.5L57 13"/>
+                                  </svg>
+                                {% when 'gift' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-gift"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M9 20.23h46v8.68H9zM13.34 28.91h36.89v24.3H13.34zM27.82 20.66v32.98M35.91 20.88v32.98M20.52 11.43a3.73 3.73 0 0 0-.74 2.87 4.57 4.57 0 0 0 .8 2.27C22 18.09 25.15 20 32 20.23a12 12 0 0 0-2.43-7 7.52 7.52 0 0 0-5.66-3.12 4 4 0 0 0-3.39 1.32z"/><path class="a" d="M43.37 11.43a3.73 3.73 0 0 1 .74 2.87 4.48 4.48 0 0 1-.8 2.27c-1.42 1.52-4.57 3.41-11.42 3.66a12.08 12.08 0 0 1 2.43-7A7.56 7.56 0 0 1 40 10.14a4 4 0 0 1 3.37 1.29z"/>
+                                  </svg>
+                                {% when 'globe' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-globe"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><circle class="a" cx="32" cy="32" r="22"/><path class="a" d="M13 21h38M10 32h44M13 43h38M32 10c-12 8-12 37 0 44M32 10c12 8 12 37 0 44"/>
+                                  </svg>
+                                {% when 'heart' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-heart"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M51.27 15.05a13 13 0 0 0-18.44 0l-.83.83-.83-.83a13 13 0 0 0-18.44 18.44l.83.83L32 52.77l18.44-18.45.83-.83a13 13 0 0 0 0-18.44z"/>
+                                  </svg>
+                                {% when 'leaf' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-leaf"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px}</style></defs><path class="a" d="M52 11L13 50M35 13v15h16"/><path class="a" d="M52 11c6 24-16.72 47.29-33 32C7 22 29 10 52 11z"/>
+                                  </svg>
+                                {% when 'lock' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-lock"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M19.45 23.6v-3.2c0-7 5.89-11.75 12.55-11.75 7.21 0 12.55 5.49 12.55 11.75v3.2M10 23.6h44v31.75H10zM32 37.47v7.47"/><circle class="a" cx="32" cy="35.87" r="1.6"/>
+                                  </svg>
+                                {% when 'package' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-package"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M32 54.52L10 41.95v-19.9L32 9.48l22 12.57v19.9L32 54.52z"/><path class="a" d="M32 54.52v-19.9l22-12.57M32 34.62L10 22.05M41.7 15.02L21 28.33v8.38"/>
+                                  </svg>
+                                {% when 'phone' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-phone"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M18.4 9.65l10.2 10.2-6.32 6.32c2.1 7 6.89 12.46 15.55 15.55l6.32-6.32 10.2 10.2-8.75 8.75C25.71 50.3 13.83 38.21 9.65 18.4z"/>
+                                  </svg>
+                                {% when 'ribbon' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-ribbon"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M28.57 42.31l-8.36 13.07-2.6-7.17-7.61.65 8.35-13.07a17.05 17.05 0 0 0 8.12 5.94 17.3 17.3 0 0 0 1.74.5zM54 48.86l-7.61-.65-2.61 7.17-8.36-13.07.37-.08a16.4 16.4 0 0 0 1.73-.5 17 17 0 0 0 8.12-5.93z"/><path class="a" d="M49 25.64a16.79 16.79 0 0 1-3.14 9.85 3.55 3.55 0 0 1-.23.31 17 17 0 0 1-8.12 5.93 16.4 16.4 0 0 1-1.73.5l-.37.08a16.74 16.74 0 0 1-3.42.35 16.91 16.91 0 0 1-3.43-.35l-.36-.08a17.3 17.3 0 0 1-1.74-.5 17.05 17.05 0 0 1-8.12-5.94c-.07-.09-.15-.19-.22-.3A16.86 16.86 0 0 1 15 25.64a17 17 0 0 1 34 0z"/><path class="a" d="M36.09 27.78l.96 5.63L32 30.75l-5.05 2.66.96-5.63-4.09-3.98 5.65-.82L32 17.86l2.53 5.12 5.64.82-4.08 3.98z"/>
+                                  </svg>
+                                {% when 'shield' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-shield"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M21.18 31.69L28.54 39l15.91-15.88"/><path class="a" d="M53 12.54v15.24a31.41 31.41 0 0 1-3.7 14.95A25.46 25.46 0 0 1 32 56a25.46 25.46 0 0 1-17.3-13.27A31.41 31.41 0 0 1 11 27.78V12.54C24.88 13.67 32 8 32 8s7.12 5.67 21 4.54z"/>
+                                  </svg>
+                                {% when 'tag' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-tag"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M46.69 10.34l-10.55.07-25.8 25.8 17.45 17.45 25.8-25.8.07-10.55-6.97-6.97z"/><circle class="a" cx="43.95" cy="20.05" r="3.53"/><path class="a" d="M14.4 32.15L31.85 49.6"/>
+                                  </svg>
+                                {% when 'truck' %}
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="presentation"
+                                    class="icon icon-truck"
+                                    viewBox="0 0 64 64"
+                                  >
+                                    <defs><style>.a{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px}</style></defs><path class="a" d="M16.5 43.22H6.88V16.5h33.14v26.72H23.94M45.42 43.22h-5.4V30.4h17.1v12.82h-4.23M57.12 30.4l-6.41-8.56H40.02"/><circle class="a" cx="20.24" cy="43.76" r="3.74"/><path class="a" d="M45.42 43.23a3.82 3.82 0 1 1 0 .37v-.37"/>
+                                  </svg>
+                              {% endcase %}
+                              <span>{{ block.settings.text }}</span>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    {%- endunless -%}
+                  {%- when 'inventory_status' -%}
+                    {%- render 'product-inventory', product: product, current_variant: current_variant, block: block -%}
+                  {%- when 'share' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {%- render 'social-sharing',
+                        share_title: product.title,
+                        share_permalink: product.url,
+                        share_image: product
+                      -%}
+                    </div>
+                  {%- when 'trust_badge' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      <div
+                        class="aos-animate"
+                        style="max-width: {{ block.settings.trust_image.width }}px; margin: 0 auto;"
+                      >
+                        <div
+                          class="image-wrap "
+                          style="height: 0; padding-bottom: {{ 100 | divided_by: block.settings.trust_image.aspect_ratio }}%;"
+                        >
+                          {%- assign img_url = block.settings.trust_image
+                            | img_url: '1x1'
+                            | replace: '_1x1.', '_{width}x.'
+                          -%}
+                          <img
+                            class="lazyload"
+                            data-src="{{ img_url }}"
+                            data-widths="[360, 540, 700, 1024]"
+                            data-aspectratio="{{ block.settings.trust_image.aspect_ratio }}"
+                            data-sizes="auto"
+                            alt="{{ block.settings.trust_image.alt }}"
+                          >
+                          <noscript>
+                            <img
+                              class="lazyloaded"
+                              src="{{ block.settings.trust_image | img_url: '540x' }}"
+                              alt="{{ block.settings.trust_image.alt }}"
+                            >
+                          </noscript>
+                        </div>
+                      </div>
+                    </div>
+                  {%- when 'custom' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {{ block.settings.code }}
+                    </div>
+                {%- endcase -%}
+              {%- else -%}
+                <div
+                  data-blocks-holder
+                  data-url="{{ product.url | within: collection }}"
+                  data-template="{{ product.template_suffix }}"
+                >
+                  <div class="placeholder-content" style="min-height: 86px;"></div>
+                </div>
+              {%- endfor -%}
+              <div class="tab_area">
+                {%- for block in blocks -%}
+                  {%- case block.type -%}
+                    {%- when 'tab' -%}
+                      <div class="product-block product-block--tab" {{ block.shopify_attributes }}>
+                        {% assign tab_id = block.id | append: product.id %}
+                        {% capture tab_content %}
+                          {{ block.settings.content }}
+                          {% comment %} <p class="playdifferentlable"><img src="{{ 'play-different-lable.png' | asset_url }}" alt=""></p> {% endcomment %}
+                          {{ block.settings.page.content }}
+                        {% endcapture %}
+
+                        {%- render 'tab', id: tab_id, title: block.settings.title, content: tab_content -%}
+                      </div>
+                  {%- endcase -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {%- unless image_position == 'left' -%}
+          <div class="grid__item {{ product_image_width }} product-single__sticky">
+            {%- render 'product-images',
+              section_id: section_id,
+              product: product,
+              isModal: isModal,
+              image_position: image_position,
+              product_zoom_enable: product_zoom_enable,
+              product_zoom_size: product_zoom_size,
+              product_image_size: product_image_size,
+              thumbnail_arrows: thumbnail_arrows,
+              thumbnail_position: thumbnail_position,
+              video_looping: video_looping,
+              video_style: video_style
+            -%}
+          </div>
+        {%- endunless -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .product__price.product__price--compare.compare__price-funnle{display:block !important; color: #636363; font-size: 20px; text-decoration-color: #CB0000; font-weight: normal; }
+  #course-count, .course-count-short{display: inline !important; font-size: inherit !important;}
+</style>
+
+{% if product.handle == 'transit-backpack-large-black' %}
+  <style>
+    #swatch2 {
+      display: none;
+    }
+  </style>
+{% endif %}
+
+{% if product.template_suffix == 'new-playmaker-case' %}
+  <style>
+      .product-block.product_block--description {
+        margin-bottom: 30px !important;
+      }
+      .page-content--product{
+      padding-bottom: 115px;
+    }
+  </style>
+{% endif %}
+{% if product.template_suffix == 'golf-towel' %}
+  <style>
+        .max3-product-page [id^="shopify-section-main-"] :is(.product-variant-type, .variant-wrapper.js) .variant-input-wrap label.black-icon.variant__button-label {
+      background: url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/black-icon-image.png?v=1775552231) center center / cover no-repeat;
+    }
+        .max3-product-page [id^="shopify-section-main-"] :is(.product-variant-type, .variant-wrapper.js) .variant-input-wrap label.white-icon.variant__button-label {
+      background: url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/white-icon-image.png?v=1775552231) center center / cover no-repeat;
+    }
+  </style>
+{% endif %}
+
+<style>
+    .afterpay-placement{display:block !important;}
+
+  .product-right-icon
+  {   border-top: 1.7px solid #c2c2c2;
+  border-bottom: 1.7px solid #c2c2c2;
+  padding: 10px 2px; text-align: center;
+  margin-bottom: 20px;
+  }
+  .product-single__meta .product-block.same-height .variant-input-wrap label.variant__button-label
+  {   height:40px !important; width:40px !important; background-size: 20px;
+  }
+
+
+
+  /*  =====================================================
+    Video-modal
+    =====================================================  */
+
+  @keyframes modal-video
+  {
+  from {
+    opacity:0
+  }
+  to {
+    opacity:1
+  }
+  }
+  @keyframes modal-video-inner
+  {
+  from {
+    transform:translate(0, 100px)
+  }
+  to {
+  transform:translate(0, 0)
+  }
+  }
+  .modal-video
+  { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000000;
+  cursor: pointer; opacity: 1; animation-timing-function: ease-out; animation-duration: .3s; animation-name: modal-video;
+  -webkit-transition: opacity .3s ease-out;
+  -moz-transition: opacity .3s ease-out;
+  -ms-transition: opacity .3s ease-out;
+  -o-transition: opacity .3s ease-out;
+  transition: opacity .3s ease-out
+  }
+  .modal-video-close
+  { opacity: 0
+  }
+  .modal-video-close .modal-video-movie-wrap
+  { -webkit-transform: translate(0, 100px); -moz-transform: translate(0, 100px); -ms-transform: translate(0, 100px);
+  -o-transform: translate(0, 100px);  transform: translate(0, 100px)
+  }
+  .modal-video-body
+  { max-width: 940px; width: 100%; height: 100%; margin: 0 auto; display: table
+  }
+  @media (max-width:767px)
+  {
+  .modal-video-body
+  { width: 90%;
+  }
+  }
+  .modal-video-inner
+  { display: table-cell; vertical-align: middle; width: 100%; height: 100%
+  }
+  .modal-video-movie-wrap
+  { width: 100%; height: 0; position: relative; padding-bottom: 56.25%; background-color: #333; animation-timing-function: ease-out;
+  animation-duration: .3s; animation-name: modal-video-inner; -webkit-transform: translate(0, 0); -moz-transform: translate(0, 0);
+  -ms-transform: translate(0, 0); -o-transform: translate(0, 0);  transform: translate(0, 0);
+  -webkit-transition: -webkit-transform .3s ease-out;
+  -moz-transition: -moz-transform .3s ease-out;
+  -ms-transition: -ms-transform .3s ease-out;
+  -o-transition: -o-transform .3s ease-out;
+  transition: transform .3s ease-out
+  }
+  .modal-video-movie-wrap iframe
+  { position: absolute; top: 0; left: 0; width: 100%; height: 100%
+  }
+  .modal-video-close-btn
+  { position: absolute; z-index: 2; top: -35px; right: -35px; display: inline-block; width: 35px; height: 35px;
+
+  overflow: hidden; border: none; background: transparent
+  }
+  .modal-video-close-btn:before
+  { transform: rotate(45deg)
+  }
+  .modal-video-close-btn:after
+  { transform: rotate(-45deg)
+  }
+  .modal-video-close-btn:before, .modal-video-close-btn:after
+  { content: ''; position: absolute; height: 2px; width: 100%; top: 50%; left: 0; background: #fff;
+  border-radius: 5px; margin-top: -6px
+  }
+
+  @media (max-width:1024px)
+  {
+  .modal-video-close-btn
+  { right: 0px !important;
+  }
+  }
+  @media (max-width: 834px)
+  {
+  .modal-video-body
+  { max-width: 520px;
+  }
+  }
+
+  @media (max-width:480px)
+  {
+  .modal-video-close-btn
+  { right: 0px;
+  }
+  }
+</style>
+
+<script>
+  // FOR UPSHELL '40,000+' TEXT
+  function courseCount() {
+    {% comment %} function renderCourseCount(elementId, count) {
+      document.getElementById(elementId).textContent = `${count.toLocaleString()}+`;
+    }
+
+    renderCourseCount('course-count', 42000); {% endcomment %}
+
+    // FOR POPUP'S '40K' TEXT
+    function renderShortCourseCountByClass(className, count) {
+      let shortCount = (count / 1000).toFixed(0) + 'K';
+      let elements = document.getElementsByClassName(className);
+
+      // Iterate over all matching elements and set their text
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].textContent = shortCount;
+      }
+    }
+
+    // Call the function
+    renderShortCourseCountByClass('course-count-short', 42000);
+  }
+  courseCount();
+</script>
+
+<script src="{{ 'jquery-modal-video.js' | asset_url }}"></script>
+
+<script type="text/javascript">
+  jQuery('.videopopup_link').modalVideo({ channel: 'vimeo' });
+
+  jQuery('.videopopup_link_tab').modalVideo({ channel: 'youtube' });
+</script>
+
+{% comment %}
+  {% if product.template_suffix == 'play-maker-plus' %}
+     <style>
+                        .dicount_bug {
+                          position: relative;
+                          cursor: pointer;
+                          display: inline-block;
+                        }
+                        {% comment %} span.product__offer-bug.dicount_bug {
+      position: relative;
+  } {% endcomment %}
+
+                       .discount-tooltip {
+      position: absolute;
+      background: #fff;
+      color: #000;
+      padding: 5px 10px;
+      border-radius: 26px;
+      font-size: 12px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 1000;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 8px;
+  }
+
+                        .discount-tooltip.show {
+                          opacity: 1;
+                        }
+
+                        .discount-tooltip.success {
+                          background: #28a745;
+                          color:#fff;
+                        }
+                      </style>
+
+                      <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                          const bug = document.querySelector('.dicount_bug');
+                          const tooltip = document.getElementById('discount-tooltip');
+
+                          if (!bug || !tooltip) return;
+
+                          let timeoutId = null;
+
+                          function showTooltip(message, isSuccess = false) {
+                            tooltip.textContent = message;
+                            tooltip.classList.remove('success');
+                            if (isSuccess) tooltip.classList.add('success');
+                            tooltip.classList.add('show');
+
+                            // Auto hide after 2 seconds
+                            if (timeoutId) clearTimeout(timeoutId);
+                            timeoutId = setTimeout(() => {
+                              tooltip.classList.remove('show');
+                            }, 2000);
+                          }
+
+                          bug.addEventListener('click', async (e) => {
+                            const code = bug.getAttribute('data-discount-code') || bug.dataset.discountCode;
+
+                            if (!code) return;
+
+                            try {
+                              await navigator.clipboard.writeText(code);
+                              showTooltip('✓ Copied!', true);
+                            } catch (err) {
+                              console.error('Failed to copy:', err);
+                              showTooltip('Failed to copy', false);
+                            }
+                          });
+
+                          // Optional: Show tooltip on hover
+                          bug.addEventListener('mouseenter', () => {
+                            if (!tooltip.classList.contains('show')) {
+                              tooltip.textContent = 'Click to copy discount code';
+                              tooltip.classList.remove('success');
+                              tooltip.classList.add('show');
+                            }
+                          });
+
+                          bug.addEventListener('mouseleave', () => {
+                            if (!tooltip.classList.contains('success')) {
+                              tooltip.classList.remove('show');
+                            }
+                          });
+                        });
+                      </script>
+                      {%endif %}
+{% endcomment %}
+
+{%if hide_upsell == false%}
+  <style>
+    .no_upsells .product-single__meta .product__prices {
+  margin-bottom: 15px;
+}
+  </style>
+{% endif %}
+{% if product.template_suffix == 'play-maker-plus' %}
+  <style>
+    .dicount_bug {
+      position: relative;
+      cursor: pointer;
+          display: flex;
+    }
+
+    .discount-tooltip {
+      position: absolute;
+      background: #fff;
+      color: #000;
+      padding: 5px 10px;
+      border-radius: 26px;
+      font-size: 12px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;           /* Added */
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      z-index: 1000;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 8px;
+    }
+
+    .discount-tooltip.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .discount-tooltip.success {
+      background: #28a745;
+      color: #fff;
+    }
+  </style>
+
+  <!-- Tooltip Element -->
+  <div id="discount-tooltip" class="discount-tooltip"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const bug = document.querySelector('.dicount_bug');
+      const tooltip = document.getElementById('discount-tooltip');
+
+      if (!bug || !tooltip) return;
+
+      let timeoutId = null;
+
+      function showTooltip(message, isSuccess = false) {
+        tooltip.textContent = message;
+        tooltip.classList.remove('success');
+        if (isSuccess) tooltip.classList.add('success');
+        tooltip.classList.add('show');
+
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          tooltip.classList.remove('show');
+        }, 2000);
+      }
+
+      // Click to copy
+      bug.addEventListener('click', async (e) => {
+        const code = bug.getAttribute('data-discount-code') || bug.dataset.discountCode;
+        if (!code) return;
+
+        try {
+          await navigator.clipboard.writeText(code);
+          showTooltip('✓ Copied!', true);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+          showTooltip('Failed to copy', false);
+        }
+      });
+
+      // Hover effect
+      bug.addEventListener('mouseenter', () => {
+        if (!tooltip.classList.contains('show')) {
+          tooltip.textContent = 'Click to copy discount code';
+          tooltip.classList.remove('success');
+          tooltip.classList.add('show');
+        }
+      });
+
+      bug.addEventListener('mouseleave', () => {
+        if (!tooltip.classList.contains('success')) {
+          tooltip.classList.remove('show');
+        }
+      });
+    });
+  </script>
+{% endif %}

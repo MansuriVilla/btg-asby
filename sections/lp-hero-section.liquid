@@ -1,0 +1,635 @@
+<div
+  class="hero-{{ section.id }}{% if section.settings.no_space_top %} no_space-top{% endif %}"
+  data-section-id="{{ section.id }}"
+>
+  {% if section.settings.show_video %}
+    <div class="hero_video">
+  {% endif %}
+  {% if section.settings.badge_text != blank %}
+    <div class="badge">
+      {{ section.settings.badge_text }}
+    </div>
+  {% endif %}
+  {% if section.settings.badge_image != blank %}
+    <div class="badge_logo">
+      {{
+        section.settings.badge_image
+        | image_url: width: 250
+        | image_tag:
+          alt: section.settings.subtext,
+          fetchpriority: 'high',
+          widths: '400,600,800,1200,1600,2000',
+          height: 'auto',
+          sizes: '(max-width: 860px) 100vw, 50vw',
+          loading: 'eager'
+      }}
+    </div>
+  {% endif %}
+  <div class="hero-title">
+    <picture>
+      <source srcset="{{ section.settings.title | image_url }}" media="(min-width:861px)">
+      <source srcset="{{ section.settings.titleMobile | image_url }}" media="(max-width:860px)">
+      <img src="{{ section.settings.title | image_url }}" alt="{{ section.settings.badge_text }}" loading="lazy">
+    </picture>
+  </div>
+  {% if section.settings.subtext != blank %}
+    <p class="hero-subtext">
+      {{ section.settings.subtext }}
+    </p>
+  {% endif %}
+
+  {% if section.settings.button_text != blank %}
+    <a
+      {% if request.path contains 'products' %}
+        href="javascript:void(0);"
+        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      {% else %}
+        {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' -%}
+          href="javascript:void(0);"
+        {%- else -%}
+          href="{{section.settings.button_link}}"
+        {%- endif %}
+      {% endif %}
+
+      {% if request.path contains 'products' and product.selected_or_first_available_variant.available %}
+        id="pre-order-btn"
+      {% endif %}
+
+      class="content-cta content-cta__solid{% if page.template_suffix contains 'rainmaker-qr-lp' or page.template_suffix contains 'rainmaker-event-qr-lp' %} add_1yr_membership_qr{% elsif request.path contains 'pages' and page.template_suffix contains 'qr-lp' %} add_6mos_membership_qr{% endif %}"
+    >
+      {% if request.path contains 'pages' or request.path contains 'products' and product.available %}
+        {{ section.settings.button_text }}
+      {% else %}
+        SOLD OUT
+      {% endif %}
+    </a>
+  {% endif %}
+  {% if section.settings.show_video %}
+    </div>
+  {% endif %}
+  {% if page.template_suffix == 'rainmaker-qr-lp' %}
+    <p class="hero-subtext app_text rainmaker_text">Included with your Rainmaker • $79.99 value</p>
+  {% elsif request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}
+    <p class="hero-subtext app_text">
+      Have an existing membership? Simply log in to<br>
+      your GAME account and add your new device.
+
+      <a
+        href="https://arena.blueteesgolf.com/app/summery"
+        class="anchor_hover dynamic_link"
+        style="color:#FFFFFF; --hover-clr:#fff;"
+        >LOG IN</a
+      >
+    </p>
+  {% endif %}
+
+  <div class="product-image-container product-image-container_{{page.template_suffix}}{% if section.settings.image_has_ratio %} product_image-ratio{% endif %}{% if section.settings.show_video %} product-container_hasVideo{% endif %}">
+    {% comment %} <div class="product-glow"></div> {% endcomment %}
+    {% if section.settings.show_video %}
+      {%- assign mobile_video = section.settings.product_video_mobile -%}
+      {%- assign desktop_video = section.settings.product_video -%}
+
+      <video autoplay loop muted playsinline class="product-video product-video__{{ section.id }}">
+        <source
+          src="{{ desktop_video.sources | where: 'format', 'mp4' | first | map: 'url' }}"
+          type="video/mp4"
+          media="(min-width:861px)"
+        >
+        {% if mobile_video != blank %}
+          <source
+            src="{{ mobile_video.sources | where: 'format', 'mp4' | first | map: 'url' }}"
+            type="video/mp4"
+            media="(max-width:860px)"
+          >
+        {% endif %}
+
+        Your browser does not support the video tag.
+      </video>
+    {% else %}
+      <picture>
+        <source srcset="{{ section.settings.product_image | image_url }}" media="(min-width:861px)">
+        <source srcset="{{ section.settings.product_image_mobile | image_url }}" media="(max-width:860px)">
+        {{
+          section.settings.product_image
+          | image_url: width: 2000
+          | image_tag:
+            alt: section.settings.title,
+            loading: 'lazy',
+            widths: '400,600,800,1000,1200,1400,1600,1800,2000,2400',
+            sizes: '(min-width: 861px) 50vw, 100vw',
+            class: 'hero__image_lp'
+        }}
+      </picture>
+    {% endif %}
+  </div>
+
+  {% if section.settings.heading_bottom != blank %}
+    <div class="hero__heading-bottom">
+      <div class="hero__heading--inner-top">
+        <h2 class="heading_bottom">{{ section.settings.heading_bottom }}</h2>
+        <p class="subheading_bottom">{{ section.settings.subheading_bottom }}</p>
+      </div>
+      <div class="hero__heading--inner-bottom">
+        <button
+          {% unless product.selected_or_first_available_variant.available %}
+            disabled
+          {% endunless %}
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+          id="pre-order-btn"
+          class="content-cta content-cta__solid"
+        >
+          {% if  product.template_suffix == 'new-s3-max'%}
+            SOLD OUT
+          {% elsif request.path contains 'products' and product.available %}
+            {{ section.settings.bottom_button_text }}
+
+          {% else %}
+            SOLD OUT
+          {% endif %}
+        </button>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% if request.path contains 'products' and product.available %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      $('#pre-order-btn').on('click', function (e) {
+        e.preventDefault();
+
+        var $btn = $(this);
+
+        // Prevent double click
+        if ($btn.hasClass('btn--loading')) return;
+        $btn.addClass('btn--loading');
+
+        // ✅ correct: reads data-variant-id
+        var variantId = $btn.data('variant-id'); // or $btn.data('variantId')
+
+        if (!variantId) {
+          console.error('Missing variantId. Check data-variant-id on the button.');
+          $btn.removeClass('btn--loading');
+          return;
+        }
+
+        $.ajax({
+          url: '/cart/add.js',
+          type: 'POST',
+          dataType: 'json',
+          data: { id: variantId, quantity: 1 },
+          success: function (data) {
+            $btn.removeClass('btn--loading');
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: data }));
+            console.log('Added to cart', data);
+          },
+          error: function (err) {
+            console.error('Add to cart error:', err);
+            $btn.removeClass('btn--loading');
+          },
+        });
+      });
+    });
+  </script>
+{% endif %}
+
+{%- style -%}
+  .hero-subtext.app_text.rainmaker_text {
+    font-size: 14px;
+    color: #545454;
+  }
+
+          {% if section.settings.no_space_top %}
+              .hero-{{ section.id }}:not(.no_space-top) {
+                padding-block-start: clamp(30px,4.6vw,80px);
+              }
+
+              .hero-{{ section.id }}.no_space-top .hero_video {
+                padding-block-start: clamp(30px,4.6vw,80px);
+              }
+            {% endif %}
+
+    {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}
+            .add_6mos_membership_qr {
+      max-width: clamp(120px,22vw,320px);
+      width: 100%;
+
+    }
+
+    .hero-{{ section.id }} .hero-subtext.app_text{
+      margin-block:30px 0px;
+
+    }
+      .badge_logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 40px;
+      max-width: clamp(160px,17vw,250px);
+
+      margin-inline: auto;
+    }
+
+
+      @media screen and (min-width: 861px) {
+
+
+      .hero-title img{display: flex; margin-bottom: 30px;}
+      .product-image-container.product-image-container_rainmaker-qr-lp img{ max-width: 70%; margin-inline: auto; }
+    }
+    
+    @media screen and (max-width: 860px) {
+        .product-image-container.product-image-container_rainmaker-qr-lp { margin-block: 50px !important; }
+
+
+       .hero-{{ section.id }} .hero-subtext.app_text{
+     max-width:340px;
+
+    }
+      }
+
+
+    {% endif %}
+
+              .hero-{{ section.id }} {
+                background: {{section.settings.bg_clr | default: 'linear-gradient(-180deg,#242632,#000 24%)'}};
+                text-align: center;
+                color: #ffffff;
+                overflow: hidden;
+                position: relative;
+
+              }
+
+            {% if request.path contains 'products' and product.template_suffix == 'new-s3-max' %}
+                {% if section.settings.bg_content_clr %}
+              .hero-{{ section.id }} {
+
+        background:radial-gradient( circle clamp(400px,50vw,1240px) at center, #D9D9D9 -30%, #000 50% );
+        padding-block: clamp(50px,8.6vw,160px)  {% if section.settings.no_bottom_space == false%}clamp(40px,4.6vw,80px) {%else%} 0{%endif%};
+        padding-inline: 20px;
+
+
+      }
+
+
+
+      @media screen and (max-width: 860px) {
+        .hero-{{ section.id }} {
+        background:radial-gradient( circle clamp(400px,50vw,1240px) at 50% 35%, #D9D9D9 -30%, #000 50% );
+      }
+
+      }
+
+              {% else %}
+              .hero-{{ section.id }} {
+                background: url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277870.svg?v=1770296475) center center/cover no-repeat;
+              }
+            {% endif %}
+            {% endif %}
+            {% if page.handle == 'captain-air' %}
+                .hero-btn {
+               margin-bottom:30px;
+              }
+            {% endif %}
+
+
+          {% if section.settings.product_video != blank %}
+            .hero_video{ position:absolute; z-index:2; width: 100%;  padding-block-start: clamp(30px,4.6vw,80px); left: 0; }
+          {% endif %}
+
+
+
+
+
+              .hero-{{ section.id }} .badge {
+                display: inline-block;
+                padding: 6px 16px;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 100px;
+                font-size: 10px;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                margin-bottom: 30px;
+                color: rgba(255, 255, 255, 0.8);
+                opacity: 0;
+                animation: fadeInUp 0.8s ease forwards;
+              }
+
+              .hero-{{ section.id }} .hero-title {
+                font-size: clamp(38px, 12vw, 200px);
+                text-transform: uppercase;
+                margin: 0 0 10px 0;
+                line-height: 90%;
+                opacity: 0;
+                display: flex;
+                justify-content: center;
+                animation: fadeInUp 0.8s ease forwards 0.2s;
+
+
+
+              }
+
+              .hero-{{ section.id }} .hero-subtext {
+                font-size: clamp(14px,2vw,18px);
+
+                color: rgba(255, 255, 255, 1);
+                margin-bottom: 40px;
+                padding:0px;
+                opacity: 0;
+                animation: fadeInUp 0.8s ease forwards 0.4s;
+                   max-width: 740px;
+                margin-inline: auto;
+              }
+
+              .hero-{{ section.id }} .hero-btn {
+                display: inline-block;
+                background: #0066ff;
+                color: #ffffff;
+                padding: 12px 30px;
+                border-radius: 100px;
+                font-size: 11px;
+                font-weight: 700;
+                text-decoration: none;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+                opacity: 0;
+                animation: fadeInUp 0.8s ease forwards 0.6s;
+                box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+              }
+
+              .hero-{{ section.id }} .hero-btn:hover {
+                background: #0052cc;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 102, 255, 0.5);
+              }
+
+              .hero-{{ section.id }} .product-image-container {
+                max-width: 100%;
+                margin: 0 auto;
+                position: relative;
+                opacity: 0;
+                animation: zoomIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.8s;
+              }
+        /*
+
+              .hero-{{ section.id }} .product-glow {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 80%;
+                height: 80%;
+                background: radial-gradient(circle, rgba(0, 102, 255, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+                z-index: 1;
+                filter: blur(40px);
+              } */
+
+              .hero-{{ section.id }} .product-image-container img {
+                width: 100%;
+                height: auto;
+                position: relative;
+                z-index: 2;
+                display: block;
+              }
+
+        .heading_bottom {
+          margin-bottom: clamp(15px,2vw,30px);
+          max-width: 900px;
+          width: 100%;
+          font-size: clamp(22px,4vw,60px);
+          line-height: 1;
+        }
+        .subheading_bottom {
+          padding: 0;
+          max-width: 783px;
+          width: 100%;
+        }
+
+        .hero__heading--inner-top {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .hero__heading-bottom {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: clamp(20px,2vw,30px);
+        }
+
+
+              {% if section.settings.image_has_ratio %}
+               .hero-{{ section.id }} .product-image-container.product_image-ratio img{
+                max-width:clamp(400px, 47vw, 825px);
+                margin-inline: auto;
+                margin-bottom: clamp(20px,2vw,30px);
+               }
+              {% endif %}
+
+
+              @keyframes fadeInUp {
+                from {
+                  opacity: 0;
+                  transform: translateY(20px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+
+              @keyframes zoomIn {
+                from {
+                  opacity: 0;
+                  transform: scale(0.9);
+                }
+                to {
+                  opacity: 1;
+                  transform: scale(1);
+                }
+              }
+
+              @media screen and (max-width: 860px) {
+                .hero-{{ section.id }} .hero-title {
+                    margin-bottom: 20px;
+                }
+                .hero-{{ section.id }} .product-image-container {
+                    max-width: 100%;
+                }
+              }
+{%- endstyle -%}
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js" defer="defer"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    gsap.registerPlugin(ScrollToPlugin);
+    document.querySelectorAll('[data-anchor]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        gsap.to(window, {
+          duration: 2,
+          scrollTo: {
+            y: '#lpContactForm',
+            offsetY: 50,
+          },
+          ease: 'power2.out',
+        });
+      });
+    });
+  });
+  if (window.innerWidth >= 991) {
+    function setDynamicLinks() {
+      const ctaLinks = document.querySelectorAll('.dynamic_link');
+      if (ctaLinks.length === 0) {
+        console.warn("No elements with class 'dynamic_link' found.");
+        return;
+      }
+
+      const userAgent = navigator.userAgent.toLowerCase();
+      const appStoreUrl = 'https://apps.apple.com/us/app/blue-tees-game/id6448720121';
+      const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.bluetees';
+
+      const targetUrl =
+        userAgent.includes('mac') || userAgent.includes('iphone') || userAgent.includes('ipad')
+          ? appStoreUrl
+          : userAgent.includes('android') || userAgent.includes('windows')
+          ? playStoreUrl
+          : appStoreUrl;
+
+      ctaLinks.forEach((link) => {
+        link.href = targetUrl;
+      });
+    }
+    setDynamicLinks();
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Rainmaker Hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "no_space_top",
+      "label": "Remove Padding From Top"
+    },
+    {
+      "type": "checkbox",
+      "id": "no_bottom_space",
+      "label": "Remove Padding From Bottom"
+    },
+    {
+      "type": "color",
+      "id": "bg_clr",
+      "label": "Background Color",
+      "alpha": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "COMING LATER THIS YEAR"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "titleMobile",
+      "label": "Title For Mobile"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Sub Text"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "GET NOTIFIED"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_has_ratio",
+      "label": "Set Image Width"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image For Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image_mobile",
+      "label": "Product Image For Mobile"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_content_clr",
+      "label": "Content Background Color"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_video",
+      "label": "Check This To Add Video"
+    },
+    {
+      "type": "video",
+      "id": "product_video",
+      "label": "Upload Video here For Desktop",
+      "visible_if": "{{ section.settings.show_video }}"
+    },
+    {
+      "type": "video",
+      "id": "product_video_mobile",
+      "label": "Upload Video here For Mobile",
+      "visible_if": "{{ section.settings.show_video }}"
+    },
+    {
+      "type": "text",
+      "id": "heading_bottom",
+      "label": "Heading Bottom"
+    },
+    {
+      "type": "text",
+      "id": "subheading_bottom",
+      "label": "Sub Heading Bottom"
+    },
+    {
+      "type": "text",
+      "id": "bottom_button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "bottom_button_link",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rainmaker Hero"
+    }
+  ]
+}
+{% endschema %}

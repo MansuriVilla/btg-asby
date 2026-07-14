@@ -1,0 +1,91 @@
+<div class="padding_box_bg">
+  <div class="heading">{{ section.settings.section_heading }}</div>
+  <div class="gift-card owl-carousel">
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        <div class="sligle-slide">
+          {% if block.settings.image != blank %}
+            <div class="card-image"><img src="{{ block.settings.image | img_url: 'master' }}"></div>
+          {% endif %}
+
+          {%- if block.settings.button_text != blank -%}
+            <a href="{{ block.settings.button_ink }}" class="shop-now">
+              {{ block.settings.button_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+{{ 'owl.theme.css' | asset_url | stylesheet_tag }}
+{{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
+{{ 'jquery.js' | asset_url | script_tag }}
+{{ 'owl.carousel.js' | asset_url | script_tag }}
+<script type="text/javascript">
+  $('.gift-card').owlCarousel({
+            loop:true,
+            margin:65,
+            nav:true,
+            items:3,
+            autoplay: false,
+          	center: false,
+            responsive:{
+                0:{
+                    items:1,
+                  	center: false,
+                    margin:0
+                },
+                767:{
+                    items:2
+                },
+                992:{
+                    items:3
+                }
+            }
+        });
+</script>
+
+{% schema %}
+{
+  "name": "Gift slider",
+   "max_blocks": 16,
+  "settings": [
+     {
+          "type": "text",
+          "id": "section_heading",
+          "label": "Heading"
+        }
+  ],
+  "blocks": [
+   {
+      "type": "Singleslide",
+      "name": "Single card",
+      "settings": [
+        {
+           "type": "image_picker",
+           "id": "image",
+           "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "button_ink",
+          "label": "button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift slider",
+      "category": "slider"
+    }
+  ]
+}
+{% endschema %}

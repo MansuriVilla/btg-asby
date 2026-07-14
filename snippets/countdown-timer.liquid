@@ -1,0 +1,161 @@
+{{ 'flipclock.css' | asset_url | stylesheet_tag }}
+
+<div class="countdown-timer">
+  {% comment %} <div class="countdown-title">  EXCLUSIVE OFFERS </div> {% endcomment %}
+  <div class="clock"></div>
+  {% comment %} <div class="message">60 DAY RETURNS & FREE SHIPPING</div> {% endcomment %}
+    {% comment %} <a href="/pages/offer" class="shop-now-btn">SHOP NOW</a> {% endcomment %}
+</div>
+<style>
+   .shop-now-btn {
+  background-color: #CB0000;
+  color: white;
+  padding: 11px 0px;
+  border: none;
+  border-radius: 50px;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  max-width: 148px;
+  width: 100%;
+margin: 34px 0 20px;
+  display: inline-block;
+  font-weight: 900;
+  letter-spacing: 3.2px;
+     min-height: inherit !important;
+}
+
+ .shop-now-btn:hover {
+  background-color: #004DF5;
+   color:#fff;
+}
+  .countdown-timer {
+  text-align: center;
+        background: #0000 !important;
+}
+
+@media only screen and (max-width:560px){
+  .shop-now-btn{
+    margin: 15px 0 0px;
+    padding: 8px 0px;
+    max-width: 138px;
+    font-size:12px;
+  }
+}
+  
+</style>
+ 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+<script src="{{ 'flipclock.js' | asset_url }}"  defer="defer"></script>
+
+{% comment %} 
+<script>
+var clock;
+var defaultDuration = 1 * 1 * 1 * 60;  
+
+$(document).ready(function() {
+
+    
+    function calculateCountdown() {
+        const startDate = new Date("2025-01-12T00:00:00");  
+        const currentDate = new Date();
+        const timeDifference = currentDate - startDate;
+        const daysElapsed = Math.floor(timeDifference / (1000 * 60 * 60 * 24)); 
+
+        const nextCountdownDay = Math.floor(daysElapsed / 2) * 2 + 2; 
+        const nextCountdownDate = new Date(startDate.getTime() + nextCountdownDay * 24 * 60 * 60 * 1000); 
+
+        const remainingTime = nextCountdownDate - currentDate; 
+
+        
+        const remainingDays = Math.floor(remainingTime / (1000 * 60 * 60 * 24)); 
+        const remainingHours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const remainingMinutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+        const remainingSeconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+        
+        const remainingTotalSeconds = remainingDays * 24 * 60 * 60 + remainingHours * 60 * 60 + remainingMinutes * 60 + remainingSeconds;
+
+        
+        clock.setTime(remainingTotalSeconds);  
+        clock.setCountdown(true);  
+        clock.start();  
+    }
+
+    
+    clock = $('.clock').FlipClock({
+        clockFace: 'DailyCounter',
+        countdown: true,
+        autoStart: false 
+    });
+
+    
+    setInterval(calculateCountdown, 1000);
+});
+</script> {% endcomment %}
+
+
+
+
+ <script type="text/javascript">
+  {% comment %} var clock; 
+
+  jQuery(document).ready(function() {
+      var clock;
+
+      clock = $('.clock').FlipClock({
+          clockFace: 'DailyCounter',
+          autoStart: false,
+          callbacks: {
+              stop: function() {
+                  $('.message').html('$50 GIFT CARD WITH PURCHASE OF $299 OR MORE')
+              }
+          }
+      });
+      var countdown = 1763276340 - ((new Date().getTime())/1000); // from: 09/06/2022 11:59 pm -7
+      countdown = Math.max(1, countdown);
+      clock.setTime(countdown);
+      clock.setCountdown(true);
+      clock.start();
+
+  }); {% endcomment %}
+
+
+
+   jQuery(document).ready(function() {
+    var clock;
+
+    // -------------------------------------------------
+    // 1. Target UNIX timestamp (seconds) for 2025-11-22 12:00 PM ET
+    // -------------------------------------------------
+    // 12:00 PM ET = 16:00 UTC  (ET = UTC-4 during standard time)
+    // Date.UTC(2025,10,22,16,0,0) → month is 0-based → 10 = November
+    var targetUnix = Math.floor(Date.UTC(2025, 10, 22, 16, 0, 0) / 1000);
+    // → 1765713600
+
+    // -------------------------------------------------
+    // 2. Current UNIX timestamp (seconds)
+    // -------------------------------------------------
+    var nowUnix = Math.floor(Date.now() / 1000);
+
+    // -------------------------------------------------
+    // 3. Seconds remaining (never negative)
+    // -------------------------------------------------
+    var secondsLeft = Math.max(1, targetUnix - nowUnix);
+    // → ~ 6 days 23 h 49 min from 2025-11-15 11:11 AM IST
+
+    clock = $('.clock').FlipClock({
+        clockFace: 'DailyCounter',
+        autoStart: false,
+        callbacks: {
+            stop: function() {
+                $('.message').html('$50 GIFT CARD WITH PURCHASE OF $299 OR MORE');
+            }
+        }
+    });
+
+    clock.setTime(secondsLeft);
+    clock.setCountdown(true);
+    clock.start();
+});
+</script> 

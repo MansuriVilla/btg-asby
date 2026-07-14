@@ -1,0 +1,169 @@
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+
+<div class="text-{{ section.settings.align_text }} page-width{% if section.settings.narrow_column %} page-width--narrow{% endif %}">
+ 	<div class="heding">
+      	<h2>{{ section.settings.title | escape }}</h2>
+      	  <h3>{{ section.settings.sub_title | escape }}</h3>
+  	</div>
+  
+  
+  	{% if section.blocks.size > 0 %}
+      <div id="product-gallary" class="owl-carousel owl-theme">
+        {% for block in section.blocks %}
+        <div class="item">
+          	{%- if block.settings.top_icon != blank -%}
+              <div class="top-icon">
+                  <img src="{{ block.settings.top_icon | img_url: 'master' }}" alt="{{ block.settings.top_icon.alt | img_alt: 'master' }}">
+              </div>
+          	{%- endif -%}
+          	
+          	{%- if block.settings.title != blank -%}
+          		<h4>{{ block.settings.title | escape }}</h4>
+          	{%- endif -%}
+          
+          	{%- if block.settings.sub_title != blank -%}
+      	  		<h5>{{ block.settings.sub_title | escape }}</h5>
+          	{%- endif -%}
+          
+          	{%- if block.settings.text != blank -%}
+          		<div class="disk">{{ block.settings.text }}</div>
+          	{%- endif -%}
+          
+          	{%- if block.settings.gall_image != blank -%}
+              <div class="bottom_product_img">
+                  <img src="{{ block.settings.gall_image | img_url: 'master' }}" alt="{{ block.settings.gall_image.alt | img_alt: 'master' }}">
+              </div>
+          	{%- endif -%}
+        </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+</div>
+
+{%- if section.settings.divider -%}</div>{%- endif -%}
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+{{ 'owl.carousel.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'owl.theme.css' | asset_url | stylesheet_tag: preload: true }}
+<script src="{{ 'owl.carousel.js' | asset_url }}" ></script>
+
+
+<script type="text/javascript">
+		$("#product-gallary").owlCarousel({
+			center: false,
+			loop:true,
+			margin:40,
+			nav : false, // Show next and prev buttons
+			slideSpeed : 1000,
+			paginationSpeed : 400,
+			singleItem:false,
+			autoplay:true,
+			autoplayHoverPause:true,
+			dots:true,
+			responsive:{
+				0:{
+					items:1,
+					singleItem:true	
+				},
+				640:{
+					items:2							
+				},
+				1030:{
+					items:3							
+				}
+			}
+		});
+</script>
+
+
+
+{% schema %}
+{
+  "name": "Design to take",
+  "class": "design-to-take",
+  "settings": [
+    {
+      "type": "select",
+      "id": "align_text",
+      "label": "t:sections.rich-text.settings.align_text.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.align_text.options.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.align_text.options.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.align_text.options.right.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "narrow_column",
+      "label": "t:sections.rich-text.settings.narrow_column.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.rich-text.settings.divider.label",
+      "default": false
+    },
+	{
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.rich-text.blocks.heading.settings.title.label",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title",
+          "default": "Rich text"
+        }
+  ],
+  "blocks": [
+    {
+      "type": "Slide",
+      "name": "Single slide",
+      "settings": [
+		{
+            "type": "image_picker",
+            "id": "top_icon",
+            "label": "Top icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.rich-text.blocks.heading.settings.title.label",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title",
+          "default": "Rich text"
+        },
+		 {
+          "id": "text",
+          "type": "richtext",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label",
+          "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+        },
+		{
+            "type": "image_picker",
+            "id": "gall_image",
+            "label": "Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

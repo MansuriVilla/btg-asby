@@ -1,0 +1,160 @@
+<div
+  id="Sublinklist-divot-tool"
+  aria-labelledby="Sublabel-divot-tool"
+  class="mobile-nav__sublist collapsible-content collapsible-content--all">
+    <div class="collapsible-content__inner">
+        {%- for block in section.blocks -%}
+             {%- if block.type == 'menudropdown' -%}
+                      {% if block.settings.tab_5_title == 'DIVOT TOOL' %}                             
+                            
+                                <div class="three-product-list">
+                                      	
+                                      {% if block.settings.tb5_product_1_icon != blank %}
+                                            <div class="single-product">
+                                                {%- assign product_13 = all_products[block.settings.tb5_product_1] -%}
+
+                                                <a href=" {{ product_13.url | within: collection }}">
+                                                    {% if block.settings.tb5_product_1_icon != blank %}
+                                                        <div class="icon"> <img src="{{ block.settings.tb5_product_1_icon | img_url: 'master' }}"></div>
+                                                    {% endif %}
+
+                                                    {% if block.settings.tb5_product_1_title != blank %}
+                                                        <h3>{{ block.settings.tb5_product_1_title }}</h3>
+                                                    {% endif %}
+                                                </a>
+
+
+                                                {% if product_13 != blank %}                                            	
+                                                    <div class="product-price">
+                                                        <div class="main-price">
+                                                            {{ product_13.price | money }}
+                                                        </div>
+
+
+                                                        {% if product_13.price < product_13.compare_at_price_max %}
+                                                          <div class="old-price">
+                                                              {{  product_13.compare_at_price_max | money }}
+                                                          </div>
+                                                        {% endif %}
+                                                    </div>                                      			
+                                                {% endif %}
+
+                                                {% if product_13 != blank %}  
+                                                  <div class="product-btn">
+                                                    <div class="left-btn"><a href="{{ product_13.url | within: collection }}">Learn more</a></div>
+                                                    <div class="right-btn"><a href="{{ product_13.url | within: collection }}">Buy now</a></div>
+                                                  </div>
+                                                {% endif %}
+
+                                                 {% if block.settings.tb5_product_1_image != blank %}
+                                                        <div class="bottom-image">
+                                                            <a href="{{ product_13.url | within: collection }}">
+                                                                <img src="{{ block.settings.tb5_product_1_image | img_url: 'master' }}">
+                                                            </a>
+                                                        </div>
+                                                 {% endif %}	
+                                            </div>
+                                      	{% endif %}
+                                      
+                                      	{% if block.settings.tb5_product_2_icon != blank %}
+                                            <div class="single-product">
+                                                {%- assign product_14 = all_products[block.settings.tb5_product_2] -%}
+
+                                                <a href=" {{ product_14.url | within: collection }}">
+                                                    {% if block.settings.tb5_product_2_icon != blank %}
+                                                        <div class="icon"> <img src="{{ block.settings.tb5_product_2_icon | img_url: 'master' }}"></div>
+                                                    {% endif %}
+
+                                                    {% if block.settings.tb5_product_2_title != blank %}
+                                                        <h3>{{ block.settings.tb5_product_2_title }}</h3>
+                                                    {% endif %}
+                                                </a>
+
+
+                                                {% if product_14 != blank %}                                            	
+                                                    <div class="product-price">
+                                                        <div class="main-price">
+                                                            {{ product_14.price | money }}
+                                                        </div>
+
+
+                                                        {% if product_14.price < product_14.compare_at_price_max %}
+                                                          <div class="old-price">
+                                                              {{  product_14.compare_at_price_max | money }}
+                                                          </div>
+                                                        {% endif %}
+                                                    </div>                                      			
+                                                {% endif %}
+
+                                                {% if product_14 != blank %}  
+                                                  <div class="product-btn">
+                                                    <div class="left-btn"><a href="{{ product_14.url | within: collection }}">Learn more</a></div>
+                                                    <div class="right-btn"><a href="{{ product_14.url | within: collection }}">Buy now</a></div>
+                                                  </div>
+                                                {% endif %}
+
+                                                 {% if block.settings.tb5_product_2_image != blank %}
+                                                        <div class="bottom-image">
+                                                            <a href="{{ product_14.url | within: collection }}">
+                                                                <img src="{{ block.settings.tb5_product_2_image | img_url: 'master' }}">
+                                                            </a>
+                                                        </div>
+                                                 {% endif %}	
+                                            </div>
+                                      	{% endif %}	
+                                      
+                                      	{% if block.settings.tb5_product_3_icon != blank %}
+                                            <div class="single-product">
+                                                {%- assign product_15 = all_products[block.settings.tb5_product_3] -%}
+
+                                                <a href=" {{ product_15.url | within: collection }}">
+                                                    {% if block.settings.tb5_product_3_icon != blank %}
+                                                        <div class="icon"> <img src="{{ block.settings.tb5_product_3_icon | img_url: 'master' }}"></div>
+                                                    {% endif %}
+
+                                                    {% if block.settings.tb5_product_3_title != blank %}
+                                                        <h3>{{ block.settings.tb5_product_3_title }}</h3>
+                                                    {% endif %}
+                                                </a>
+
+
+                                                {% if product_15 != blank %}                                            	
+                                                    <div class="product-price">
+                                                        <div class="main-price">
+                                                            {{ product_15.price | money }}
+                                                        </div>
+
+
+                                                        {% if product_15.price < product_15.compare_at_price_max %}
+                                                          <div class="old-price">
+                                                              {{  product_15.compare_at_price_max | money }}
+                                                          </div>
+                                                        {% endif %}
+                                                    </div>                                      			
+                                                {% endif %}
+
+                                                {% if product_15 != blank %}  
+                                                  <div class="product-btn">
+                                                    <div class="left-btn"><a href="{{ product_15.url | within: collection }}">Learn more</a></div>
+                                                    <div class="right-btn"><a href="{{ product_15.url | within: collection }}">Buy now</a></div>
+                                                  </div>
+                                                {% endif %}
+
+                                                 {% if block.settings.tb5_product_3_image != blank %}
+                                                        <div class="bottom-image">
+                                                            <a href="{{ product_15.url | within: collection }}">
+                                                                <img src="{{ block.settings.tb5_product_3_image | img_url: 'master' }}">
+                                                            </a>
+                                                        </div>
+                                                 {% endif %}	
+                                            </div>
+                                      {% endif %}
+                                  	</div>
+                            
+                        
+                        {% endif %}
+                 
+            {%- endif -%}
+        {%- endfor -%}
+    </div>
+</div>

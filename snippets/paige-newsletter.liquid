@@ -1,0 +1,25 @@
+{%- form 'customer', id: 'newsletter-paige' -%}
+
+     
+          {%- if form.posted_successfully? -%}
+            <div class="note note--success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
+          {%- endif -%}
+           {%- if form.context == 'paige' -%}
+            {%- if form.errors -%}
+              {{ form.errors | default_errors }}
+            {%- endif -%}
+    {%- endif -%}
+
+          <label for="Email-{{ block.id }}" class="hidden-label">{{ 'general.newsletter_form.newsletter_email' | t }}</label>
+          <input type="hidden" name="contact[tags]" value="paige,newsletter">
+          <input type="hidden" name="contact[context]" value="paige">
+          <div class="signup-form">
+            <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email-{{ block.id }}" class="footer-signup-input" autocorrect="off" autocapitalize="off">
+            <button type="submit" class="signup-form-btn" name="commit" aria-label="{{ 'general.newsletter_form.submit' | t }}">
+              <!--<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-email" viewBox="0 0 64 64"><path d="M63 52H1V12h62zM1 12l25.68 24h9.72L63 12M21.82 31.68L1.56 51.16m60.78.78L41.27 31.68"/></svg>--->
+              <span>
+                JOIN
+              </span>
+            </button>
+          </div>
+        {%- endform -%}

@@ -1,0 +1,1481 @@
+<style>
+                header,footer{display:none;}
+              .hero_section {
+                background: linear-gradient(-180deg,#242632,#000 40%);
+                padding: 80px 0;
+                text-align: center;
+                color: #ffffff;
+                overflow: hidden;
+                position: relative;
+              }
+
+              .hero_section .badge {
+            display: inline-flex;
+              margin-bottom: clamp(20px,3vw,50px);
+              color: rgba(255, 255, 255, 0.8);
+              opacity: 0;
+              animation: fadeInUp 0.8s ease forwards;
+              max-width: clamp(150px,50vw,330px);
+              width: 100%;
+              }
+
+              .hero_section .hero-title {
+            font-size: clamp(28px, 4vw, 64px);
+              text-transform: uppercase;
+
+              line-height: 90%;
+              opacity: 0;
+              animation: fadeInUp 0.8s ease forwards 0.2s;
+              margin-bottom: clamp(15px,1.9vw,30px);
+              }
+
+              .hero_section .hero-subtext {
+                font-size: clamp(16px,1.4vw,20px);
+              color: rgba(255, 255, 255, 0.5);
+              margin-bottom: clamp(20px,2.4vw,40px);
+              padding: 0px;
+              opacity: 0;
+              animation: fadeInUp 0.8s ease forwards 0.4s;
+              max-width: clamp(400px,50vw,800px);
+              margin-inline: auto;
+              }
+
+              .hero_section .hero-btn {
+                display: inline-block;
+                background: #0066ff;
+                color: #ffffff;
+                padding: 12px 30px;
+                border-radius: 100px;
+                font-size: 11px;
+                font-weight: 700;
+                text-decoration: none;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+                margin-bottom: 60px;
+                opacity: 0;
+                animation: fadeInUp 0.8s ease forwards 0.6s;
+                box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+              }
+
+              .hero_section .hero-btn:hover {
+                background: #0052cc;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 102, 255, 0.5);
+              }
+
+              .hero_section .product-image-container {
+                max-width: 100%;
+                margin: 0 auto;
+                position: relative;
+                opacity: 0;
+                animation: zoomIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.8s;
+              }
+
+              /* Glow effect behind the image */
+              .hero_section .product-glow {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 80%;
+                height: 80%;
+                background: radial-gradient(circle, rgba(0, 102, 255, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+                z-index: 1;
+                filter: blur(40px);
+              }
+
+              .hero_section .product-image-container img {
+                width: 100%;
+                height: auto;
+                position: relative;
+                z-index: 2;
+                display: block;
+              }
+
+
+                   .featured-section_video-area { position: relative; {% comment %} padding-bottom: 50px; {% endcomment %} background: #000;}
+                    {% comment %} .featured-section_video-area::before { content: ''; position: absolute; bottom: 0px; background: #000; height: 50%; width: 100%; } {% endcomment %}
+                    .feature-section_video video { {% comment %} border-radius: 24px; {% endcomment %} width: 100%; }
+                    .feature-section_video .feature-section_video-inner { position: relative; display: flex; justify-content: center; align-items: center; }
+
+          .horizon-slider_container.step-one__slider {
+            overflow: visible;
+          }
+          .step-one__slider .horizon-slide {
+            background: #1B2029;
+         padding-inline: clamp(25px,3vw,40px);
+  padding-block-end: clamp(22px,3vw,34px);
+          }
+
+          .step-one__slider .horizon-slide .slide_inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column-reverse;
+            text-align: center;
+            color: #fff;
+            width: 100%;
+          }
+
+        .step-slide_desc {
+          padding: 0;
+          max-width: 310px;
+          width: 100%;
+          margin-block-end: 20px;
+          font-size: clamp(14px,2vw,16px);
+        }
+
+        .step-slide_cta {
+         padding: clamp(8px,1.1vw,10px) clamp(12px,3vw,25px);
+  background: #fff;
+  color: #000;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: clamp(10px,1.2vw,14px);
+  border: 2px solid transparent;
+        }
+
+        .step-slide_cta:hover {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+
+
+
+
+        .step-slide_mockup {
+          max-width: 300px;
+          width: 100%;
+          display: flex;
+        }
+        .slide-mockup_image {
+          aspect-ratio: 1/1;
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+        }
+
+        .step-slide_title {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          max-width: clamp(188px,30vw,370px);
+          margin-inline: auto;
+          width: 100%;
+        }
+        .slide_left {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+        }
+
+        .steps-ecosys__inner {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          color: #fff;
+          background: #000;
+          padding-block: clamp(50px,6vw,115px);
+        }
+
+        .next-btn, .prev-btn {
+          border-color: #fff !important;
+        }
+
+        .slider_navigation-area {
+        justify-content: center !important;
+      }
+
+
+
+      .grid-item {
+      background: #1A2029;
+        padding-inline: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        border-radius: 12px;
+        padding-block-end: clamp(30px,6vw,80px);
+      }
+      .item-details {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(10px,3vw,30px);
+        justify-content: center;
+  align-items: center;
+      }
+      .detail_description.store_icons {
+        display: flex;
+        gap: clamp(4px,2vw,20px);
+        align-items: center;
+        justify-content: center;
+        max-width: 438px;
+  width: 100%;
+      }
+      .step-two_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(clamp(min(100%, 320px),38vw,567px), 1fr));
+        width: 100%;
+        gap: 30px;
+      }
+      .detail_image {
+        width: 100%;
+        max-width: clamp(270px,30vw,386px);
+        display: flex;
+      }
+      .item-detail__title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .app_link {
+        display: flex;
+        max-width: clamp(68px,12vw,213px);
+        width: 100%;
+      }
+      .item-mockup__image {
+        aspect-ratio: 2/1;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+      .detail_description p {
+        max-width: 627px;
+        text-align: center;
+        margin-inline: auto;
+        line-height: 165%;
+        letter-spacing: 2%;
+        width: 100%;
+        padding: 0;
+      }
+
+
+        .step-top {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          justify-content: center;
+          align-items: center;
+          padding-block-end: clamp(30px,4.3vw,60px);
+        }
+
+        .step-arrow_icon {
+          margin-block-start: clamp(15px,2vw,30px);
+  margin-block-end: clamp(20px,3vw,46px);
+        }
+
+        .ecosys-heading h2 {
+          font-size: clamp(30px,4vw,64px);
+          line-height: 1;
+          font-weight: 900;
+        }
+        .step-top_no-outlined{
+        
+          color: #757787;
+          font-size: clamp(90px,8vw,120px);
+          line-height: 1;
+          font-weight:900;
+        }
+        .step-top_description {
+          padding: 0;
+          max-width: clamp(340px,50vw,757px);
+          width: 100%;
+          font-size: clamp(16px,2vw,18px);
+        }
+        .ecosys-step {
+        width: 100%;
+        {% comment %} max-width: 100%; {% endcomment %}
+        padding-inline: clamp(20px,6vw,80px);
+      }
+
+.step-top_heading {
+  font-size: clamp(24px,3vw,36px);
+  line-height: 1.1;
+
+}
+
+        /*-----------------------------
+          Play-w-paige Section Styles
+          ----------------*/
+        .blueTeesDevice__inner.new-page-width {  padding-top: clamp(60px, 6vw, 100px); padding-bottom: clamp(50px, 3.5vw, 60px); gap: clamp(80px, 12vw, 190px); }
+        .blueTeesDevice__inner { display: flex; align-items: center; justify-content: center; }
+        .blueTeesDevice__rightInner :is(picture,img) {  display:flex; }
+        .blueTeesDevice__rightInner img {  max-width: clamp(300px, 38vw, 670px); }
+        .blueTeesDevice__leftInner { color: #fff; width: 100%; display: flex; flex-direction: column; row-gap: 27px; }
+        .blueTeesDevice__leftInner span { display: flex; align-items: center; gap: 20px; }
+        .blueTeesDevice__leftInner span p { padding: 2px 0px; padding-left: clamp(15px, 2vw, 20px); border-left: 1px solid #fff; font-weight: 900; letter-spacing: 4px; font-size: 14px; }
+        .blueTeesDevice__leftInner h3 { letter-spacing: -0.48px; max-width: 480px; width: 100%; line-height: 112%; font-size: clamp(28px, 3vw, 36px); }
+        .blueTeesDevice__leftInner h3 br { display: none; }
+        .play_w-paige .blueTeesDevice__leftInner h3 br { display: block; }
+        .blueTeesDevice__leftInner p { padding: 0; max-width: 430px; }
+        .blueTeesDevice__rightInner { overflow: hidden; }
+        .blueTeesDevice__rightInner a { display: none; }
+        .image_reveal-init { position: relative; overflow: hidden; }
+        .has_parallex { position: relative; overflow: hidden; will-change: transform; }
+        .play_w-paige .cta_stroke-btn { background: #0457f3; border: 0px; }
+        .play_w-paige .cta_stroke-btn:hover { background: #fff; color: #0457f3; }
+
+        @media only screen and (min-width: 861px) {
+          .blueTeesDevice__inner.new-page-width{padding-left: 20px; padding-right: 20px;}
+          .glow.glow-top {
+  margin-bottom: -20px;
+}
+.glow.glow-bottom {
+  margin-top: -20px;
+}
+        }
+        
+        @media only screen and (max-width: 860px) {
+        .blueTeesDevice__leftInner p { max-width: ; text-align: center; }
+        .blueTeesDevice__leftInner p { max-width: clamp(250px,50vw,350px); text-align: center; }
+         .blueTeesDevice__leftInner{align-items: center;
+          justify-content: center;}
+
+
+
+          .hero_section .hero-subtext{padding-inline: 30px;}
+       
+        }
+
+        
+
+        .howItWork__contentArea { padding-block: clamp(40px,13vw,200px); }
+    .eco-sys__points li {
+      font-weight: 700;
+    }
+
+    .howItWork__title { display: flex; margin-bottom: clamp(40px, 5vw, 80px); justify-content: center; }
+              .howItWork__cardArea {display: grid; column-gap:20px; row-gap: clamp(50px, 4.2vw, 72px); grid-template-columns: repeat(auto-fill, minmax(clamp(min(100%, 270px), 50vw, 350px), 1fr)); }
+              .howItWork__itemInner { position: relative; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: clamp(20px, 1.2vw, 30px); height: 100%; text-align:center;}
+              .howItWork__number {
+      background: #004DF5;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: clamp(64px, 7vw, 110px);
+      line-height: 1;
+      width: clamp(64px, 7vw, 110px);
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 900;
+    }
+              .howItWork__itemInner h5 { font-size: clamp(22px,2vw,20px); line-height: 100%; }
+              .howItWork__itemInner p { padding: 0; max-width: 282px; line-height: 130%;  width: 100%; }
+              .howItWork__title h4 {
+        max-width: fit-content;
+        color: #fff;
+      width: 100%;
+      text-align: center;
+      line-height: 1;
+  font-size: clamp(24px,2vw,36px);
+    }
+
+
+        .video_scale_animation-main .video_scale_animation video{width: 100%; aspect-ratio: auto;}
+
+
+    
+    @media only screen and (max-width: 860px) {
+
+      .feature-section_video.page-width {
+  padding-inline: 0;
+}
+
+.step-top_heading{
+    max-width: 200px;
+}
+
+.item-mockup__image{aspect-ratio: 2/1.5;}
+
+
+      .howItWork__number svg {
+  max-width: 25px;
+  width: 100%;
+}
+
+.content-floating__caption-two {
+  
+  font-size: 11px;}
+.content-floating__caption{
+
+  
+  font-size: clamp(11px,1.3vw,18px);
+}
+
+.quote_mark {
+  max-width: 50px;
+  width: 100%;
+  display: flex;
+}
+
+.banner_content-floating{
+justify-content: flex-start;
+  gap: 15px;
+}
+
+
+
+
+.howItWork__title h4 {
+  max-width: 290px; width:100%;}
+      .blueTeesDevice__inner.new-page-width { flex-direction: column; gap: 28px; }
+      .blueTeesDevice__inner.new-page-width{ padding:0px;}
+      .play_w-paige .blueTeesDevice__inner.new-page-width { flex-direction: column-reverse; padding-left: 0; padding-right: 0; }
+      .blueTeesDevice__leftInner h3 br { display: block; }
+      .eco_sys .blueTeesDevice__leftInner h3 { max-width: 240px; text-align: center; }
+      
+      a.cta_stroke-btn { margin: 0 auto; }
+      .blueTeesDevice__leftInner span p { font-size: 10px; }
+      .blueTeesDevice__inner.new-page-width a.cta_stroke-btn:not(a.imporving_cta.cta_stroke-btn) { margin: 0 auto; }
+      .blueTeesDevice__leftInner span { max-width: fit-content; margin: 0 auto; gap: 15px; }
+      .blueTeesDevice__rightInner img { margin-bottom: 0; max-width: 100%; }
+    }
+
+              @keyframes fadeInUp {
+                from {
+                  opacity: 0;
+                  transform: translateY(20px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+
+              @keyframes zoomIn {
+                from {
+                  opacity: 0;
+                  transform: scale(0.9);
+                }
+                to {
+                  opacity: 1;
+                  transform: scale(1);
+                }
+              }
+
+              @media screen and (max-width: 860px) {
+                .hero_section {
+                  padding-block: 60px;
+                  padding-inline: 0;
+                }
+                .hero_section .hero-title {
+                    margin-bottom: 20px;
+                }
+                .hero_section .product-image-container {
+                    max-width: 100%;
+                    scale: 1.3;
+                }
+                .glow{
+                  max-width:100%;
+                }
+              }
+              main > section {background:#000;}
+
+              .content-floating__caption {
+                color: #fff;
+                font-weight: 900;
+                letter-spacing:clamp(2px,0.5vw,5.6px);
+                line-height: 1;
+                font-size: clamp(16px,1.3vw,18px);
+            }
+            .content-floating__caption-two {letter-spacing:normal; font-weight:300; }
+            .floating_captions {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      color: #fff;
+    }
+    .banner_content-floating::after{display: none;}
+    .new-footer{border-top:1px solid #525252; display:flex; justify-content: center;
+      align-items: center; padding-block:clamp(20px,3vw,50px); padding-inline:20px;}
+
+
+  .faq-showcase-wrapper {
+    width: 100%;
+    max-width: 1700px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 20px;
+  }
+
+
+
+.promo_banner {
+  overflow: hidden;
+}
+
+#stepsEcoSys {
+  overflow: hidden;
+}
+
+        .faq-inner-card {
+   border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-block: clamp(40px,7vw,74px);
+  gap: 54px;
+  padding-inline: clamp(20px,5vw,80px);
+  background: radial-gradient(124.85% 237.3% at 0% 100%, #00A1FF 0%, #4000FF 100%), linear-gradient(135deg, #00A1FF, #4000FF) border-box;
+
+  width: 100%;
+  border: 2px solid transparent;
+  background-clip: padding-box, border-box;
+  }
+  .faq-inner-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000000C0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+
+
+.glow {
+  display: flex;
+  width: 100%;
+  max-width: calc(100% - 30px);
+  margin-inline:auto;
+}
+
+
+          .faq-visual-col {
+              position: relative;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: radial-gradient(circle at center, rgba(30, 30, 80, 0.5) 0%, transparent 70%);
+              z-index: 2;
+          }
+
+          .faq-main-image {
+              width: 100%;
+              height: auto;
+              object-fit: contain;
+              border-radius: 12px;
+              transition: opacity 0.4s ease;
+          }
+
+          /* Fade animation class */
+          .fade-out {
+              opacity: 0;
+          }
+
+          .faq-content-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    max-width: 670px;
+    width: 100%;
+    z-index: 2;
+  }
+
+          /* --- FAQ Item --- */
+          .faq-item-new {
+              border-bottom: 1px solid #fff;
+              margin-bottom: 0;
+          }
+
+          .faq-item-new:last-child {
+              border-bottom: none;
+          }
+
+          .faq-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 24px 0;
+              cursor: pointer;
+              transition: all 0.3s ease;
+          }
+
+          .faq-heading {
+              font-size: clamp(16px,1.5vw,21px);
+              font-weight: 900;
+              text-transform: uppercase;
+              text-align:left;
+              color: #fff;
+              letter-spacing: 0.5px;
+              transition: color 0.3s ease;
+              margin-right: 16px;
+              line-height:1;
+          }
+
+          .faq-item-new:hover .faq-heading {
+              color: #fff;
+          }
+
+          /* Icon (Plus / Minus) */
+          .faq-icon {
+              position: relative;
+              width: 14px;
+              height: 14px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+          }
+
+          .faq-icon::before,
+          .faq-icon::after {
+              content: '';
+              position: absolute;
+              background-color: #fff;
+              transition: transform 0.3s ease, opacity 0.3s ease;
+          }
+
+
+          .faq-icon::before {
+              width: 100%;
+              height: 2px;
+          }
+
+
+          .faq-icon::after {
+              width: 2px;
+              height: 100%;
+          }
+
+
+          .faq-item-new.active .faq-icon::after {
+              transform: rotate(90deg);
+              opacity: 0;
+          }
+
+          /* Body Content */
+          .faq-body {
+              max-height: 0;
+              overflow: hidden;
+              transition: max-height 0.4s ease-out, opacity 0.4s ease;
+              opacity: 0;
+          }
+
+          .faq-item-new.active .faq-body {
+              max-height: 800px;
+              opacity: 1;
+              padding-bottom: 24px;
+          }
+
+          .faq-desc {
+              font-size: clamp(12px,1.5vw,18px);
+              color: #fff;
+              line-height: 1.6;
+              max-width: 90%;
+              padding: 0;
+              text-align: left;
+          }
+
+          /* Mobile Image (Hidden on Desktop) */
+          .mobile-only-img {
+              display: none;
+              width: 100%;
+              margin-bottom: 20px;
+              border-radius: 8px;
+          }
+
+          /* --- Responsive 991px --- */
+          @media screen and (max-width: 991px) {
+              .faq-showcase-wrapper {
+                  border-radius: 16px;
+              }
+
+              
+
+              .faq-body{
+                display: flex;
+  flex-direction: column-reverse;
+  gap: 20px;
+              }
+
+
+              .faq-heading{max-width: 210px; width:100%;}
+
+
+.faq-inner-card{ padding-block: 0; }
+
+
+              .faq-visual-col {
+                  display: none; /* Hide main left visual */
+              }
+
+
+              .mobile-only-img {
+                  display: block;
+                  margin-bottom:0px;
+              }
+
+          }
+
+
+      .form_section{background:url("https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-topography-new.svg?v=1768554403") center center / cover no-repeat; background-color: #000; padding-block: clamp(60px,6vw,91px);}
+      .form_section-container{max-width:1184px; width:100%; padding-inline:20px; margin-inline:auto;}
+
+
+
+      .content-floating__quote {
+  font-size: clamp(20px,2.4vw,38px);
+  max-width: clamp(310px,40vw,740px);}
+</style>
+
+<section class="hero_section">
+  <div class="badge">
+    <img
+      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277838.png?v=1768467597"
+      alt="Blue Tees Golf Connected Ecosystem"
+      loading="lazy"
+      height="100%"
+      width="100%"
+    >
+  </div>
+
+  <h1 class="hero-title">
+    One Ecosystem. <br>
+    Built to Perform Together.
+  </h1>
+
+  <p class="hero-subtext">
+    Introducing the world’s most accessible golf performance ecosystem.Our 2026 product portfolio is grounded in a fully
+    connected system of devices and apps—powered by GAME AI—that work together to amplify performance, connect insights,
+    and help golfers improve with clarity.
+  </p>
+
+  <a href="javascript:void(0);" data-anchor class="hero-btn"> EXPLORE HOW IT WORKS </a>
+
+  <div class="product-image-container">
+    <div class="product-glow"></div>
+
+
+
+       <picture>
+        <source srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278034.png?v=1768467599" media="(min-width:861px)">
+        <source srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278034.png?v=1768467599 " media="(max-width:860px)">
+        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278034.png?v=1768467599" alt="Blue Tees Golf Connected Ecosystem" loading="lazy">
+      </picture>
+  </div>
+</section>
+<section>
+  {% render 'video-scaling-animation', video_url: 'https://cdn.shopify.com/videos/c/o/v/8e92fe285795453488050be5e832e68a.mp4', disable_animation: true,  video_poster: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Screenshot_2026-01-13_at_5.57.37_PM_1.png?v=1768821181' %}
+</section>
+<section class="steps-ecosys" id="stepsEcoSys">
+  <div class="steps-ecosys__section">
+    <div class="steps-ecosys__inner">
+      <div class="ecosys-heading">
+        <h2>
+          EXPLORING THE <br>
+          ECOSYSTEM
+        </h2>
+      </div>
+      <div class="ecosys-step ecosys-step__one">
+        <div class="step-arrow_icon">
+          <svg width="12" height="98" viewBox="0 0 12 98" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.77344 98L11.5469 88L-6.57638e-05 88L5.77344 98ZM5.77344 88.8125L6.77344 88.8125L6.77344 82.6875L5.77344 82.6875L4.77344 82.6875L4.77344 88.8125L5.77344 88.8125ZM5.77344 76.5625L6.77344 76.5625L6.77344 70.4375L5.77344 70.4375L4.77344 70.4375L4.77344 76.5625L5.77344 76.5625ZM5.77344 64.3125L6.77344 64.3125L6.77344 58.1875L5.77344 58.1875L4.77344 58.1875L4.77344 64.3125L5.77344 64.3125ZM5.77344 52.0625L6.77344 52.0625L6.77344 45.9375L5.77344 45.9375L4.77344 45.9375L4.77344 52.0625L5.77344 52.0625ZM5.77343 39.8125L6.77343 39.8125L6.77343 33.6875L5.77343 33.6875L4.77343 33.6875L4.77343 39.8125L5.77343 39.8125ZM5.77343 27.5625L6.77343 27.5625L6.77343 21.4375L5.77343 21.4375L4.77343 21.4375L4.77343 27.5625L5.77343 27.5625ZM5.77343 15.3125L6.77343 15.3125L6.77343 9.1875L5.77343 9.1875L4.77343 9.1875L4.77343 15.3125L5.77343 15.3125ZM5.77343 3.0625L6.77343 3.0625L6.77343 -4.37114e-08L5.77343 0L4.77343 4.37114e-08L4.77343 3.0625L5.77343 3.0625Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="step-top">
+          <span class="step-top_no-outlined custom_heading outline"> 01 </span>
+          <h3 class="step-top_heading">CONNECTED DEVICES</h3>
+          <p class="step-top_description">
+            The tools that capture and deliver performance. This is where the game happens, whether you’re on the
+            course, at the range, or in your garage.
+          </p>
+        </div>
+        <div class="step-bottom">
+          <div class="horizon-slider_container step-one__slider">
+            <div class="horizon-slider_track">
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278033.png?v=1768472008"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      The evolution of our bestselling speaker,combining premium sound, GPS, and AI intelligence.
+                    </p>
+                    <a class="step-slide_cta" href="/products/player-pro-magnetic-gps-touchscreen-speaker" target="_blank">LEARN MORE</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278034_1ac1c50d-3203-4830-ab9d-ce36099300a8.png?v=1768472009"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105134.png?v=1768472008"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      Our new top-of-the-line connected rangefinder equipped with a vibrant OLED display, pinpoint
+                      accuracy, and AI-powered data.
+                    </p>
+                    <a class="step-slide_cta" href="/products/captain-pro-bluetooth-rangefinder" target="_blank">LEARN MORE</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278035.png?v=1768472009"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Layer_1_5fd2da11-7042-4d22-9721-9799da338315.png?v=1768472009"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      Portability meets performance with our first-ever personal launch monitor giving you
+                      everything you need to dial in your game.
+                    </p>
+                    <a class="step-slide_cta" href="/products/rainmaker-portable-launch-monitor" target="_blank">LEARN MORE</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278036.png?v=1768472009"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277875_d2786580-7624-4edd-8e81-7ced9d6dc120.png?v=1768472009"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      Built from the DNA of our fan favorite Series rangefinders, this connected essential gives you
+                      everything you need to level up how you play.
+                    </p>
+                    <a class="step-slide_cta" href="/products/captain-air-bluetooth-rangefinder" target="_blank">LEARN MORE</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278038.png?v=1768472009"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277879_cbe3f1d8-a0b6-4624-97e5-547ab14a4010.png?v=1768472008"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      Recently updated with a full-color display, faster shot tracking, & various UX enhancements,
+                      Ringer puts all of the data you need at your fingertips.
+                    </p>
+                    <a class="step-slide_cta" href="/products/ringer" target="_blank">LEARN MORE</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277871.png?v=1768472010"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277878_b01611c5-fd75-4282-8d6c-a91a41a1d549.png?v=1768472009"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      Designed with your golf swing in mind, the Playmaker+ GPS Watch delivers maximum on-course
+                      utility, whatever your shooting for.
+                    </p>
+                    <a class="step-slide_cta" href="/products/playmaker-watch" target="_blank">LEARN MORE</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278037.png?v=1768472009"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ecosys-step ecosys-step__two">
+        <div class="step-arrow_icon">
+          <svg width="2" height="94" viewBox="0 0 2 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 94L0.999996 0" stroke="white" stroke-width="2" stroke-dasharray="6 6"/>
+          </svg>
+        </div>
+        <div class="step-top">
+          <span class="step-top_no-outlined custom_heading outline"> 02 </span>
+          <h3 class="step-top_heading">software & PLAYER DATA</h3>
+          <p class="step-top_description">
+            Every session, stat, and moment lives in one unified Blue Tees player profile synced across two unique App
+            experiences – designed to be equally immersive as they are intuitive.
+          </p>
+        </div>
+        <div class="step-bottom">
+          <div class="step-two_grid">
+            <div class="grid-item">
+              <div class="item-mockup">
+                <img
+                  class="item-mockup__image"
+                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277980_1.png?v=1768476746"
+                  alt=""
+                  height="100%"
+                  width="100%"
+                >
+              </div>
+              <div class="item-details">
+                <div class="item-detail__title">
+                  <img
+                    class="detail_image"
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105168.png?v=1768476083"
+                    alt=""
+                    height="100%"
+                    width="100%"
+                  >
+                </div>
+                <div class="detail_description store_icons">
+                  <a
+                    href="https://apps.apple.com/us/app/blue-tees-game-ai-golf-gps/id6448720121"
+                    class="app_link app_link-app-store"
+                  >
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/app-store-icon-new.png?v=1768476453"
+                      alt=""
+                      height="100%"
+                      width="100%"
+                    >
+                  </a>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.bluetees"
+                    class="app_link app_link-play-store"
+                  >
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/play-store-icon-new.png?v=1768476453"
+                      alt=""
+                      height="100%"
+                      width="100%"
+                    >
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item">
+              <div class="item-mockup">
+                <img
+                  class="item-mockup__image"
+                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277980.png?v=1768476746"
+                  alt=""
+                  height="100%"
+                  width="100%"
+                >
+              </div>
+              <div class="item-details">
+                <div class="item-detail__title">
+                  <img
+                    class="detail_image"
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105169.png?v=1768476083"
+                    alt=""
+                    height="100%"
+                    width="100%"
+                  >
+                </div>
+                <div class="detail_description">
+                  <p>
+                    The LAUNCH App provides Rainmaker users deeper shot analysis and full round simulation through a
+                    custom range experience, beautiful as well as popular integration like E6 Connect & GS Pro.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ecosys-step ecosys-step__three">
+        <div class="step-arrow_icon">
+          <svg width="2" height="94" viewBox="0 0 2 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 94L0.999996 0" stroke="white" stroke-width="2" stroke-dasharray="6 6"/>
+          </svg>
+        </div>
+        <div class="step-top">
+          <span class="step-top_no-outlined custom_heading outline"> 03 </span>
+          <h3 class="step-top_heading">GAME AI intelligence</h3>
+          <p class="step-top_description">
+            The intelligence layer that connects everything—analyzing patterns, learning behavior, and delivering
+            powerful insights that continue to evolve over time.
+          </p>
+        </div>
+        <div class="step-bottom">
+          <div class="faq-showcase-wrapper">
+            <span class="glow glow-top">
+              <img class="glow-top_image" src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/glow-top.png?v=1768572324" alt="glow" hegiht="100%" width="100%">
+            </span>
+            <div class="faq-inner-card">
+
+              <div class="faq-visual-col">
+                <img id="faq-desktop-image" src="" alt="Feature Visual" class="faq-main-image">
+              </div>
+
+              <div class="faq-content-col">
+
+                <div
+                  class="faq-item-new active"
+                  data-img="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-1.png?v=1768557788"
+                >
+                  <div class="faq-header">
+                    <h3 class="faq-heading">CLUB RECOMMENDATIONS</h3>
+                    <div class="faq-icon"></div>
+                  </div>
+                  <div class="faq-body">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-1.png?v=1768557788"
+                      class="mobile-only-img"
+                      alt="Club Recommendations"
+                    >
+                    <p class="faq-desc">
+                      Real-time club suggestions delivered directly to your connected devices—powered by Game AI and
+                      informed by your past rounds, playing tendencies, and Rainmaker training data.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="faq-item-new"
+                  data-img="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-2.png?v=1768557789"
+                >
+                  <div class="faq-header">
+                    <h3 class="faq-heading">TRUE DISTANCE™ ADJUSTED YARDAGES</h3>
+                    <div class="faq-icon"></div>
+                  </div>
+                  <div class="faq-body">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-2.png?v=1768557789"
+                      class="mobile-only-img"
+                      alt="True Distance"
+                    >
+                    <p class="faq-desc">
+                      True Distance™ accounts for slope, wind, temperature, and elevation to show how your shot will actually play—not just the number on the card.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="faq-item-new"
+                  data-img="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-3.png?v=1768557789"
+                >
+                  <div class="faq-header">
+                    <h3 class="faq-heading">PERSONALIZED POST-GAME ANALYTICS</h3>
+                    <div class="faq-icon"></div>
+                  </div>
+                  <div class="faq-body">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-3.png?v=1768557789"
+                      class="mobile-only-img"
+                      alt="Analytics"
+                    >
+                    <p class="faq-desc">
+                      A personalized performance dashboard that visualizes every aspect of your game—from 3D round replays and dispersion maps to scoring trends—so you can track progress and identify where to improve.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="faq-item-new"
+                  data-img="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-4.png?v=1768557788"
+                >
+                  <div class="faq-header">
+                    <h3 class="faq-heading">SCOUT AI™ VIRTUAL CADDIE</h3>
+                    <div class="faq-icon"></div>
+                  </div>
+                  <div class="faq-body">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-4.png?v=1768557788"
+                      class="mobile-only-img"
+                      alt="Caddie"
+                    >
+                    <p class="faq-desc">
+                      Your on-course virtual caddie in the GAME app—bringing together club recommendations, true distance yardages, shot technique, and aiming guidance on a shot-by-shot basis.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="faq-item-new"
+                  data-img="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-5.png?v=1768557789"
+                >
+                  <div class="faq-header">
+                    <h3 class="faq-heading">"MY BAG" DIGITAL TWIN</h3>
+                    <div class="faq-icon"></div>
+                  </div>
+                  <div class="faq-body">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-5.png?v=1768557789"
+                      class="mobile-only-img"
+                      alt="My Bag"
+                    >
+                    <p class="faq-desc">
+                      Store and manage detailed club, ball, and swing data from Rainmaker training sessions—fueling continuous learning across all AI-powered features in the ecosystem.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+             <span class="glow glow-bottom">
+              <img class="glow-bottom_image" src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/glow-bottom.png?v=1768572310" alt="glow" hegiht="100%" width="100%">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="playmaker_plus--blueTeesDevice has_section eco_sys">
+    <div class="blueTeesDevice__inner new-page-width">
+      <div class="blueTeesDevice__left">
+        <div class="blueTeesDevice__leftInner">
+          <h3>Designed to Grow</h3>
+          <p>
+            The ecosystem you’re seeing today is just the beginning. New products, new features, and deeper intelligence
+            layers are designed to plug into the platform seamlessly—without fragmenting the experience. Over time,
+            consumers will continue to see:
+          </p>
+          <ul class="eco-sys__points">
+            <li>Expanded Game AI capabilities</li>
+            <li>Deeper Personalization</li>
+            <li>New Product Feature Additions</li>
+            <li>New Connected Devices</li>
+          </ul>
+        </div>
+      </div>
+      <div class="blueTeesDevice__right">
+        <div class="blueTeesDevice__rightInner">
+          <picture>
+            <source
+              srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Rectangle_956015.png?v=1768479253"
+              media="(min-width:861px)"
+            >
+            <source
+              srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Rectangle_956015.png?v=1768479253"
+              media="(max-width:860px)"
+            >
+            <img
+              class="title image_reveal-init"
+              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Rectangle_956015.png?v=1768479253"
+              alt="new-mockup-lps"
+            >
+          </picture>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="howItWork__contentArea">
+    <div class="howItWork__Content new-page-width">
+      <span class="border"></span>
+      <div class="howItWork__title">
+        <h4>
+          Built for Every Type of Golfer – <br>
+          and Every Type of Partner
+        </h4>
+      </div>
+      <div class="howItWork__cardArea">
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <svg width="44" height="73" viewBox="0 0 44 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.4738 27.993C18.2365 27.9923 17.0272 27.6291 15.9988 26.9492C14.9703 26.2693 14.1689 25.3033 13.6958 24.1734C13.2227 23.0434 13.0993 21.8002 13.3409 20.6009C13.5826 19.4015 14.1786 18.2999 15.0537 17.4354C15.9287 16.5708 17.0435 15.982 18.257 15.7435C19.4705 15.5049 20.7284 15.6274 21.8715 16.0953C23.0147 16.5632 23.9917 17.3555 24.6793 18.3722C25.3669 19.3888 25.7341 20.5842 25.7344 21.8071C25.7361 22.62 25.5753 23.4253 25.2613 24.1767C24.9472 24.9281 24.486 25.6107 23.9043 26.1855C23.3226 26.7602 22.6318 27.2158 21.8715 27.526C21.1112 27.8362 20.2964 27.9949 19.4738 27.993ZM41.8088 20.7971C41.3262 20.6382 40.8065 20.626 40.3169 20.762C39.8272 20.8979 39.3899 21.1759 39.0617 21.5599L38.3888 21.1172L38.4932 20.9536C38.8511 20.3877 38.9668 19.7045 38.815 19.0542C38.6631 18.404 38.2562 17.84 37.6836 17.4863C37.1111 17.1327 36.4197 17.0182 35.7618 17.1683C35.104 17.3184 34.5334 17.7206 34.1755 18.2865L34.1467 18.3327L6.52266 0.160722C5.91278 -0.241124 4.72358 0.109142 2.76263 1.22755C0.934816 2.27129 -0.11576 3.19234 0.0101718 4.07249C0.209864 5.55719 1.93326 7.07744 2.94611 6.49779C4.66986 5.26643 5.89373 3.46875 6.39847 1.42673L33.544 19.284L28.9763 26.4923L22.8758 29.6644C19.9757 30.9588 18.1138 34.2483 19.5476 36.254L26.7437 47.8613L23.8347 56.8495L14.6003 67.1623C14.053 67.7732 13.7737 68.574 13.8238 69.3885C13.8739 70.2029 14.2493 70.9644 14.8674 71.5053C15.4856 72.0462 16.2958 72.3222 17.1199 72.2727C17.9439 72.2232 18.7143 71.8521 19.2616 71.2412L28.9295 60.4501V60.4412C29.2161 60.1248 29.433 59.753 29.5664 59.3494L30.4929 56.4885V69.2036C30.4929 70.0194 30.8208 70.8018 31.4045 71.3787C31.9882 71.9556 32.7797 72.2796 33.6052 72.2796C34.4306 72.2796 35.2223 71.9556 35.806 71.3787C36.3897 70.8018 36.7176 70.0194 36.7176 69.2036V45.8431C36.7 45.3257 36.5904 44.8153 36.3938 44.3353L29.9172 31.6843L31.9537 30.6174C32.3631 30.43 32.7014 30.1186 32.9198 29.7284L37.7772 22.0631L38.5201 22.5521L35.4906 31.5243L32.1966 31.8088L34.672 36.6469L37.4371 36.4087C37.9726 36.4299 38.4993 36.2688 38.9289 35.9523C39.3586 35.6357 39.6652 35.183 39.7975 34.6697L43.4172 23.9728C43.6286 23.3408 43.5781 22.6518 43.2766 22.0566C42.9752 21.4614 42.4473 21.0085 41.8088 20.7971Z" fill="white"/>
+              </svg>
+            </span>
+            <h5>
+              MODERN <br>
+              Golfers
+            </h5>
+            <p>
+              Smarter decisions, less friction, and a connected system that improves the more you play—on the course and
+              beyond.
+            </p>
+          </div>
+        </div>
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.1057 1.666C23.1722 0.599366 24.6188 9.00758e-05 26.1272 0H39.8087C40.5556 0 41.2951 0.147111 41.9852 0.432935C42.6752 0.718759 43.3022 1.1377 43.8303 1.66583C44.3585 2.19396 44.7774 2.82095 45.0632 3.51099C45.349 4.20103 45.4962 4.94061 45.4962 5.6875V19.369C45.4961 20.8774 44.8968 22.324 43.8302 23.3905L23.3902 43.8305C22.3236 44.897 20.877 45.4962 19.3687 45.4962C17.8603 45.4962 16.4138 44.897 15.3472 43.8305L1.66566 30.149C0.599151 29.0824 0 27.6358 0 26.1275C0 24.6192 0.599151 23.1726 1.66566 22.106L22.1057 1.666ZM34.9927 14C35.9209 14 36.8112 13.6313 37.4675 12.9749C38.1239 12.3185 38.4927 11.4283 38.4927 10.5C38.4927 9.57174 38.1239 8.6815 37.4675 8.02513C36.8112 7.36875 35.9209 7 34.9927 7C34.0644 7 33.1742 7.36875 32.5178 8.02513C31.8614 8.6815 31.4927 9.57174 31.4927 10.5C31.4927 11.4283 31.8614 12.3185 32.5178 12.9749C33.1742 13.6313 34.0644 14 34.9927 14Z" fill="white"/>
+              </svg>
+            </span>
+            <h5>
+              Retailers & <br>
+              DISTRIBUTORS
+            </h5>
+            <p>
+              A cohesive ecosystem that simplifies selling, increases attachment, and drives long-term customer value.
+            </p>
+          </div>
+        </div>
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.8125 21.3124V21.3923C5.80964 21.8916 5.62937 22.3736 5.30391 22.7522V22.7582C4.65 23.5308 3.875 24.9137 3.875 27.1249C3.875 29.129 4.5168 30.5434 5.28938 31.4734C5.62834 31.8859 5.81328 32.4035 5.8125 32.9374C5.8125 33.9651 6.22076 34.9507 6.94746 35.6774C7.67416 36.4041 8.65979 36.8124 9.6875 36.8124H10.6562C10.9132 36.8124 11.1596 36.7103 11.3413 36.5286C11.5229 36.347 11.625 36.1006 11.625 35.8436V18.4061C11.625 18.1492 11.5229 17.9028 11.3413 17.7211C11.1596 17.5394 10.9132 17.4374 10.6562 17.4374H9.6875C8.65979 17.4374 7.67416 17.8456 6.94746 18.5723C6.22076 19.299 5.8125 20.2847 5.8125 21.3124ZM54.7562 22.5899L54.6436 22.5693C54.5328 22.5482 54.4329 22.4891 54.3611 22.4022C54.2893 22.3154 54.25 22.2062 54.25 22.0934V7.5077C54.25 5.97707 53.234 4.60145 51.7203 4.07832C50.2769 3.58063 48.7729 3.98629 47.8841 5.11125C45.9933 7.36927 43.9148 9.46319 41.6708 11.3706C38.8093 13.7925 36.0714 15.518 33.5575 16.4941C33.3742 16.564 33.2164 16.6879 33.105 16.8494C32.9937 17.0109 32.934 17.2024 32.9339 17.3986V36.2069C32.9342 36.5857 33.0455 36.956 33.254 37.2722C33.4626 37.5883 33.7592 37.8364 34.1073 37.9858C36.4492 38.9897 38.9801 40.6293 41.6151 42.8634C43.8758 44.7883 45.9693 46.9013 47.8732 49.1797C48.1782 49.5623 48.5675 49.8693 49.0107 50.0766C49.4539 50.2839 49.9391 50.386 50.4283 50.3749C50.8583 50.3731 51.2852 50.302 51.6925 50.1642C53.2461 49.6483 54.25 48.3223 54.25 46.7905V32.1539C54.2501 32.0396 54.2906 31.929 54.3644 31.8417C54.4382 31.7543 54.5405 31.6959 54.6532 31.6768L54.7562 31.6598C55.9211 31.3438 58.125 29.9912 58.125 27.1249C58.125 24.2586 55.9211 22.906 54.7562 22.5899ZM29.0625 38.7499V18.4061C29.0625 18.1492 28.9604 17.9028 28.7788 17.7211C28.5971 17.5394 28.3507 17.4374 28.0938 17.4374H16.4688C16.2118 17.4374 15.9654 17.5394 15.7837 17.7211C15.6021 17.9028 15.5 18.1492 15.5 18.4061V55.2186C15.5 55.9894 15.8062 56.7286 16.3512 57.2737C16.8962 57.8187 17.6355 58.1249 18.4062 58.1249H24.7576C25.3614 58.1299 25.9582 57.9967 26.5025 57.7354C27.0468 57.474 27.524 57.0916 27.8976 56.6173C28.2806 56.1263 28.5382 55.5494 28.6482 54.9364C28.7581 54.3235 28.717 53.693 28.5285 53.0995C28.3323 52.4722 28.0889 51.7675 27.8298 51.0179C26.8719 48.2448 25.6089 46.5289 25.2723 42.6237C26.285 42.6015 27.2488 42.1837 27.9572 41.4596C28.6657 40.7355 29.0624 39.7629 29.0625 38.7499Z" fill="white"/>
+              </svg>
+            </span>
+            <h5>
+              PRESS & <br>
+              Media
+            </h5>
+            <p>
+              A clear platform story—designed to show where golf technology is going, not just announce another device.
+            </p>
+          </div>
+        </div>
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <svg width="59" height="50" viewBox="0 0 59 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M44.131 0L43.3108 3.93009C42.4795 4.06083 41.6693 4.30122 40.9013 4.64495L38.0779 1.79265L34.8627 4.39456L37.0619 7.75492C36.5719 8.42706 36.1718 9.16611 35.868 9.96127L31.8507 9.94314L31.4189 14.0583L35.3491 14.8784C35.4811 15.7187 35.7247 16.522 36.0639 17.2808L33.2116 20.1113L35.8135 23.3265L39.1739 21.1237C39.8531 21.6187 40.5951 22.0214 41.3803 22.3213L41.3621 26.3348L45.4773 26.7666L46.2937 22.8365C47.1348 22.7045 47.944 22.4648 48.7033 22.1252L51.5302 24.9775L54.7454 22.372L52.5427 19.0152C53.0378 18.336 53.4405 17.5941 53.7402 16.8089L57.7537 16.8234L58.1856 12.7083L54.2555 11.8954C54.1233 11.0539 53.884 10.2418 53.5441 9.48211L56.3964 6.6588L53.7909 3.44361L50.4342 5.64274C49.7617 5.15248 49.0198 4.7492 48.2242 4.44523L48.2423 0.431688L44.131 0ZM44.8131 9.55848C44.9425 9.55892 45.0736 9.56284 45.2051 9.57661C47.3073 9.79748 48.8298 11.6802 48.609 13.7825C48.3881 15.8847 46.5053 17.4109 44.403 17.19C42.3008 16.9691 40.7747 15.0863 40.9955 12.9842C41.2025 11.0133 42.8732 9.55174 44.8131 9.55848ZM15.2849 9.89596L14.7333 15.3611C13.6081 15.6611 12.5424 16.1041 11.558 16.6747L7.30495 13.1983L3.30227 17.201L6.77876 21.4577C6.20816 22.4424 5.76488 23.5073 5.46513 24.6329L0 25.1808V30.8418L5.46508 31.3934C5.76077 32.5041 6.20251 33.5706 6.77871 34.565L3.30222 38.8217L7.3049 42.8244L11.5616 39.348C12.5561 39.9242 13.6226 40.366 14.7333 40.6617L15.2848 46.1267H20.9459L21.4938 40.6617C22.6193 40.3619 23.6844 39.9186 24.669 39.348L28.9257 42.8244L32.9284 38.8217L29.4519 34.5687C30.0225 33.5843 30.4656 32.5185 30.7656 31.3934L36.2307 30.8418V25.1808L30.7656 24.6328C30.4657 23.5067 30.0231 22.4391 29.452 21.4539L32.9284 17.2008L28.9257 13.1982L24.6727 16.6746C23.6876 16.1036 22.6199 15.6609 21.4937 15.3609L20.9458 9.89581H15.2849V9.89596ZM18.1154 22.7748C21.0076 22.7748 23.3519 25.1191 23.3519 28.0113C23.3519 30.9036 21.0076 33.2478 18.1154 33.2478C15.2231 33.2478 12.8789 30.9035 12.8789 28.0113C12.8789 25.1191 15.2232 22.7748 18.1154 22.7748ZM42.1496 29.7677L41.5726 32.6418C40.9816 32.7384 40.415 32.9159 39.8814 33.1643L37.8929 31.0777L35.6356 32.9829L37.1815 35.4396C36.8372 35.9314 36.5532 36.4728 36.3396 37.0545L33.5201 37.0399L33.2152 40.0519L35.9769 40.6507C36.0678 41.2564 36.2361 41.8479 36.4776 42.4108L34.4745 44.4792L36.3035 46.8307L38.6659 45.2195C39.1405 45.5797 39.6618 45.8739 40.2154 46.0941L40.2045 49.0335L43.0967 49.3492L43.6701 46.4715C44.2611 46.3749 44.8274 46.201 45.3611 45.9526L47.3498 48.0392L49.6105 46.134L48.061 43.6772C48.4054 43.1856 48.6893 42.6438 48.9029 42.0623L51.7263 42.0732L52.0274 39.0649L49.2659 38.4661C49.1731 37.8505 49.004 37.2582 48.7651 36.7025L50.7682 34.6376L48.9393 32.2825L46.5805 33.8937C46.108 33.535 45.5866 33.2415 45.0274 33.0191L45.0419 30.0834L42.1496 29.7677ZM42.6286 36.757C42.7194 36.7574 42.812 36.7614 42.9044 36.7716C44.382 36.9331 45.451 38.3108 45.2958 39.8489C45.1406 41.3868 43.8194 42.5035 42.3418 42.3419C40.8642 42.1804 39.7915 40.8026 39.9468 39.2646C40.0923 37.8226 41.2651 36.752 42.6286 36.757Z" fill="white"/>
+              </svg>
+            </span>
+            <h5>
+              INTEGRATION <br>
+              PARTNERS
+            </h5>
+            <p>A scalable, data-driven foundation built for collaboration, expansion, and long-term growth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="promo_banner">
+  <div class="promo_banner-content">
+    <div class="banner_content-background">
+      <div class="product-card__background">
+        <picture style="display: flex;">
+          <source
+            srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277989.png?v=1768482130"
+            media="(min-width:860px)"
+          >
+          <source
+            srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278015.png?v=1768561319"
+            media="(max-width:861px)"
+          >
+          <img
+            class="image-fit lazyload"
+            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277989.png?v=1768482130"
+            alt=""
+            loading="lazy"
+            height="100%"
+            width="100%"
+          >
+        </picture>
+      </div>
+    </div>
+    <div class="banner_content-floating">
+      <div class="floating_heading">
+        <span class="quote_mark">
+          <svg width="100" height="60" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_6724_1830)">
+            <mask id="path-1-outside-1_6724_1830" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="60" fill="black">
+            <rect fill="white" width="100" height="60"/>
+            <path d="M2.57031 57.5898V45.1875C2.57031 37.1146 4.55599 29.4648 8.52734 22.2383C12.4987 15.0117 18.4557 8.63151 26.3984 3.09766L46.7109 16.4766C43.9766 20.1224 41.9258 24.2891 40.5586 28.9766C39.2565 33.599 38.6055 38.9701 38.6055 45.0898V57.5898H2.57031ZM52.9609 57.5898V45.1875C52.9609 37.1146 54.9466 29.4648 58.918 22.2383C62.9544 15.0117 68.9115 8.63151 76.7891 3.09766L97.1016 16.4766C94.4323 20.1224 92.4141 24.2891 91.0469 28.9766C89.6797 33.599 88.9961 38.9701 88.9961 45.0898V57.5898H52.9609Z"/>
+            </mask>
+            <path d="M2.57031 57.5898H0.570312V59.5898H2.57031V57.5898ZM26.3984 3.09766L27.4986 1.4274L26.3669 0.682053L25.2551 1.45667L26.3984 3.09766ZM46.7109 16.4766L48.3109 17.6766L49.5865 15.9757L47.8111 14.8063L46.7109 16.4766ZM40.5586 28.9766L38.6386 28.4166L38.636 28.4254L38.6335 28.4343L40.5586 28.9766ZM38.6055 57.5898V59.5898H40.6055V57.5898H38.6055ZM52.9609 57.5898H50.9609V59.5898H52.9609V57.5898ZM58.918 22.2383L57.1718 21.263L57.1652 21.2751L58.918 22.2383ZM76.7891 3.09766L77.8892 1.4274L76.7528 0.678947L75.6394 1.4611L76.7891 3.09766ZM97.1016 16.4766L98.7153 17.658L99.9568 15.9623L98.2017 14.8063L97.1016 16.4766ZM91.0469 28.9766L92.9648 29.5438L92.9669 29.5366L91.0469 28.9766ZM88.9961 57.5898V59.5898H90.9961V57.5898H88.9961ZM2.57031 57.5898H4.57031V45.1875H2.57031H0.570312V57.5898H2.57031ZM2.57031 45.1875H4.57031C4.57031 37.4588 6.46732 30.1395 10.2801 23.2015L8.52734 22.2383L6.77458 21.2751C2.64466 28.7902 0.570312 36.7704 0.570312 45.1875H2.57031ZM8.52734 22.2383L10.2801 23.2015C14.0795 16.2879 19.8079 10.127 27.5417 4.73864L26.3984 3.09766L25.2551 1.45667C17.1036 7.13603 10.9179 13.7355 6.77458 21.2751L8.52734 22.2383ZM26.3984 3.09766L25.2983 4.76791L45.6108 18.1468L46.7109 16.4766L47.8111 14.8063L27.4986 1.4274L26.3984 3.09766ZM46.7109 16.4766L45.1109 15.2766C42.2223 19.1281 40.0683 23.5148 38.6386 28.4166L40.5586 28.9766L42.4786 29.5366C43.7833 25.0633 45.7309 21.1167 48.3109 17.6766L46.7109 16.4766ZM40.5586 28.9766L38.6335 28.4343C37.2703 33.2737 36.6055 38.8343 36.6055 45.0898H38.6055H40.6055C40.6055 39.1058 41.2427 33.9242 42.4837 29.5188L40.5586 28.9766ZM38.6055 45.0898H36.6055V57.5898H38.6055H40.6055V45.0898H38.6055ZM38.6055 57.5898V55.5898H2.57031V57.5898V59.5898H38.6055V57.5898ZM52.9609 57.5898H54.9609V45.1875H52.9609H50.9609V57.5898H52.9609ZM52.9609 45.1875H54.9609C54.9609 37.4588 56.8579 30.1395 60.6707 23.2015L58.918 22.2383L57.1652 21.2751C53.0353 28.7902 50.9609 36.7704 50.9609 45.1875H52.9609ZM58.918 22.2383L60.6641 23.2136C64.5318 16.289 70.2671 10.1233 77.9387 4.73421L76.7891 3.09766L75.6394 1.4611C67.5558 7.13967 61.377 13.7344 57.1719 21.263L58.918 22.2383ZM76.7891 3.09766L75.6889 4.76791L96.0014 18.1468L97.1016 16.4766L98.2017 14.8063L77.8892 1.4274L76.7891 3.09766ZM97.1016 16.4766L95.4878 15.2951C92.6704 19.1433 90.554 23.5237 89.1269 28.4166L91.0469 28.9766L92.9669 29.5366C94.2742 25.0544 96.1942 21.1015 98.7153 17.658L97.1016 16.4766ZM91.0469 28.9766L89.129 28.4093C87.695 33.2577 86.9961 38.8271 86.9961 45.0898H88.9961H90.9961C90.9961 39.113 91.6644 33.9403 92.9647 29.5438L91.0469 28.9766ZM88.9961 45.0898H86.9961V57.5898H88.9961H90.9961V45.0898H88.9961ZM88.9961 57.5898V55.5898H52.9609V57.5898V59.5898H88.9961V57.5898Z" fill="white" mask="url(#path-1-outside-1_6724_1830)"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_6724_1830">
+            <rect width="100" height="60" fill="white" transform="matrix(1 0 0 -1 0 60)"/>
+            </clipPath>
+            </defs>
+          </svg>
+        </span>
+        <h3 class="content-floating__quote custom_heading">
+          THE BLUE TEES ECOSYSTEM PROVIDES THE SAME DATA THAT THE BEST PLAYERS IN THE WORLD USE.
+        </h3>
+      </div>
+      <div class="floating_captions">
+        <span class="content-floating__caption">SEAN FOLEY</span>
+        <span class="content-floating__caption-two">PGA Tour Coach</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form_section" id="prodForm">
+  <div class="form_section-container">
+    <div class="klaviyo-form-UUMLry"></div>
+  </div>
+</section>
+
+<section class="new-footer">
+  <svg width="404" height="162" viewBox="0 0 404 162" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M81.8107 153.439H82.9357C82.9357 154.099 82.6935 154.601 82.2091 154.945C81.7247 155.289 81.0783 155.46 80.2697 155.46C79.4845 155.46 78.8478 155.22 78.3595 154.74C77.8751 154.255 77.6329 153.587 77.6329 152.736V152.501C77.6329 151.638 77.881 150.96 78.3771 150.468C78.8771 149.976 79.5412 149.73 80.3693 149.73C81.2013 149.73 81.838 149.91 82.2794 150.269C82.7208 150.625 82.9415 151.119 82.9415 151.751H81.8165C81.8165 151.416 81.6915 151.16 81.4415 150.984C81.1915 150.804 80.8322 150.714 80.3634 150.714C79.8829 150.714 79.506 150.853 79.2326 151.13C78.9591 151.404 78.8224 151.775 78.8224 152.244V152.988C78.8224 153.457 78.965 153.83 79.2501 154.107C79.5392 154.38 79.9298 154.517 80.422 154.517C80.879 154.517 81.2247 154.425 81.4591 154.242C81.6935 154.054 81.8107 153.787 81.8107 153.439ZM76.2208 152.601C76.2208 153.757 76.6154 154.72 77.4044 155.49C78.1974 156.259 79.1818 156.644 80.3576 156.644C81.5333 156.644 82.5158 156.259 83.3048 155.49C84.0939 154.72 84.4884 153.757 84.4884 152.601C84.4884 151.441 84.0939 150.48 83.3048 149.718C82.5158 148.953 81.5333 148.57 80.3576 148.57C79.1818 148.57 78.1974 148.953 77.4044 149.718C76.6154 150.48 76.2208 151.441 76.2208 152.601ZM75.2833 152.601C75.2833 151.179 75.7658 150 76.7306 149.062C77.6994 148.125 78.9064 147.656 80.3517 147.656C81.797 147.656 83.004 148.125 83.9728 149.062C84.9415 150 85.4259 151.179 85.4259 152.601C85.4259 154.019 84.9415 155.199 83.9728 156.14C83.004 157.082 81.797 157.552 80.3517 157.552C78.9064 157.552 77.6994 157.082 76.7306 156.14C75.7658 155.199 75.2833 154.019 75.2833 152.601ZM86.539 156.621V155.748L89.9901 152.466C90.3964 152.08 90.7226 151.718 90.9687 151.382C91.2187 151.046 91.3437 150.691 91.3437 150.316C91.3437 149.933 91.1913 149.601 90.8866 149.32C90.5819 149.035 90.1601 148.892 89.621 148.892C89.0624 148.892 88.6034 149.048 88.244 149.361C87.8886 149.669 87.7108 150.083 87.7108 150.603V150.662H86.5331V150.603C86.5331 149.833 86.8222 149.193 87.4003 148.681C87.9823 148.169 88.7226 147.914 89.621 147.914C90.4882 147.914 91.1874 148.148 91.7187 148.617C92.2499 149.082 92.5155 149.628 92.5155 150.257C92.5155 150.812 92.3456 151.314 92.0058 151.763C91.6698 152.212 91.2499 152.671 90.746 153.14L88.0858 155.63H92.7616V156.621H86.539ZM94.1325 153.656V151.054C94.1325 150.109 94.4001 149.349 94.9352 148.775C95.4743 148.201 96.2204 147.914 97.1735 147.914C98.1188 147.914 98.8629 148.201 99.4059 148.775C99.9489 149.349 100.22 150.109 100.22 151.054V153.656C100.22 154.609 99.9489 155.371 99.4059 155.941C98.8629 156.511 98.1188 156.796 97.1735 156.796C96.2204 156.796 95.4743 156.511 94.9352 155.941C94.4001 155.371 94.1325 154.609 94.1325 153.656ZM95.3336 153.714C95.3336 154.339 95.4821 154.847 95.779 155.238C96.0797 155.625 96.5446 155.818 97.1735 155.818C97.8024 155.818 98.2672 155.625 98.568 155.238C98.8727 154.847 99.0251 154.339 99.0251 153.714V150.996C99.0251 150.378 98.8727 149.875 98.568 149.484C98.2672 149.089 97.8024 148.892 97.1735 148.892C96.5446 148.892 96.0797 149.089 95.779 149.484C95.4821 149.875 95.3336 150.378 95.3336 150.996V153.714ZM101.714 156.621V155.748L105.165 152.466C105.572 152.08 105.898 151.718 106.144 151.382C106.394 151.046 106.519 150.691 106.519 150.316C106.519 149.933 106.367 149.601 106.062 149.32C105.757 149.035 105.335 148.892 104.796 148.892C104.238 148.892 103.779 149.048 103.419 149.361C103.064 149.669 102.886 150.083 102.886 150.603V150.662H101.708V150.603C101.708 149.833 101.997 149.193 102.576 148.681C103.158 148.169 103.898 147.914 104.796 147.914C105.663 147.914 106.363 148.148 106.894 148.617C107.425 149.082 107.691 149.628 107.691 150.257C107.691 150.812 107.521 151.314 107.181 151.763C106.845 152.212 106.425 152.671 105.921 153.14L103.261 155.63H107.937V156.621H101.714ZM109.138 153.023V152.847C109.138 151.363 109.585 150.169 110.48 149.267C111.374 148.365 112.646 147.914 114.294 147.914H114.423V148.892H114.294C113.06 148.892 112.085 149.205 111.37 149.83C110.655 150.451 110.298 151.437 110.298 152.789V153.082C110.298 154.082 110.503 154.791 110.913 155.208C111.323 155.623 111.839 155.83 112.46 155.83C113.085 155.83 113.57 155.662 113.913 155.326C114.257 154.986 114.429 154.511 114.429 153.902C114.429 153.289 114.257 152.816 113.913 152.484C113.57 152.148 113.085 151.98 112.46 151.98C111.882 151.98 111.37 152.148 110.925 152.484C110.484 152.816 110.263 153.289 110.263 153.902H109.829C109.829 153.039 110.091 152.341 110.614 151.81C111.142 151.279 111.843 151.013 112.718 151.013C113.589 151.013 114.288 151.279 114.816 151.81C115.343 152.341 115.607 153.039 115.607 153.902C115.607 154.761 115.31 155.458 114.716 155.994C114.122 156.529 113.37 156.796 112.46 156.796C111.554 156.796 110.773 156.5 110.116 155.906C109.464 155.312 109.138 154.351 109.138 153.023ZM120.481 156.621V148.089H123.598C124.551 148.089 125.3 148.267 125.842 148.623C126.385 148.978 126.657 149.554 126.657 150.351C126.657 150.82 126.528 151.201 126.27 151.494C126.012 151.787 125.692 151.996 125.309 152.121V152.144C125.778 152.269 126.161 152.5 126.458 152.835C126.755 153.171 126.903 153.613 126.903 154.16C126.903 154.957 126.618 155.566 126.048 155.988C125.481 156.41 124.727 156.621 123.786 156.621H120.481ZM121.641 155.66H123.786C124.458 155.66 124.95 155.529 125.262 155.267C125.575 155.001 125.731 154.628 125.731 154.148C125.731 153.687 125.575 153.324 125.262 153.058C124.95 152.789 124.458 152.654 123.786 152.654H121.641V155.66ZM121.641 151.705H123.598C124.266 151.705 124.747 151.587 125.04 151.353C125.337 151.115 125.485 150.785 125.485 150.363C125.485 149.925 125.337 149.597 125.04 149.378C124.747 149.16 124.266 149.05 123.598 149.05H121.641V151.705ZM128.702 156.621V147.621H129.844V156.621H128.702ZM131.883 154.189V150.386H133.031V154.201C133.031 154.767 133.166 155.171 133.436 155.414C133.709 155.656 134.096 155.777 134.596 155.777C135.018 155.777 135.387 155.673 135.703 155.466C136.02 155.255 136.274 154.984 136.465 154.652V150.386H137.613V156.621H136.571L136.518 155.707H136.494C136.213 156.046 135.881 156.304 135.498 156.48C135.119 156.652 134.694 156.738 134.221 156.738C133.506 156.738 132.938 156.542 132.516 156.152C132.094 155.761 131.883 155.107 131.883 154.189ZM139.295 153.597V153.41C139.295 152.468 139.586 151.701 140.168 151.107C140.754 150.509 141.527 150.21 142.488 150.21C143.449 150.21 144.189 150.49 144.709 151.048C145.229 151.603 145.488 152.355 145.488 153.304V153.773H139.975V152.865H144.346V152.871C144.346 152.347 144.197 151.929 143.9 151.617C143.604 151.3 143.133 151.142 142.488 151.142C141.816 151.142 141.307 151.357 140.959 151.787C140.611 152.216 140.437 152.757 140.437 153.41V153.597C140.437 154.246 140.619 154.787 140.982 155.22C141.35 155.65 141.916 155.865 142.682 155.865C143.146 155.865 143.545 155.779 143.877 155.607C144.213 155.431 144.482 155.224 144.686 154.986L145.418 155.595C145.203 155.888 144.859 156.162 144.387 156.416C143.918 156.669 143.35 156.796 142.682 156.796C141.588 156.796 140.75 156.5 140.168 155.906C139.586 155.308 139.295 154.539 139.295 153.597ZM149.291 149.056V148.089H156.568V149.056H153.521V156.621H152.343V149.056H149.291ZM156.761 153.597V153.41C156.761 152.468 157.052 151.701 157.634 151.107C158.22 150.509 158.993 150.21 159.954 150.21C160.915 150.21 161.656 150.49 162.175 151.048C162.695 151.603 162.954 152.355 162.954 153.304V153.773H157.441V152.865H161.812V152.871C161.812 152.347 161.663 151.929 161.366 151.617C161.07 151.3 160.599 151.142 159.954 151.142C159.282 151.142 158.773 151.357 158.425 151.787C158.077 152.216 157.904 152.757 157.904 153.41V153.597C157.904 154.246 158.085 154.787 158.448 155.22C158.816 155.65 159.382 155.865 160.148 155.865C160.613 155.865 161.011 155.779 161.343 155.607C161.679 155.431 161.948 155.224 162.152 154.986L162.884 155.595C162.669 155.888 162.325 156.162 161.853 156.416C161.384 156.669 160.816 156.796 160.148 156.796C159.054 156.796 158.216 156.5 157.634 155.906C157.052 155.308 156.761 154.539 156.761 153.597ZM164.243 153.597V153.41C164.243 152.468 164.534 151.701 165.116 151.107C165.702 150.509 166.476 150.21 167.437 150.21C168.397 150.21 169.138 150.49 169.657 151.048C170.177 151.603 170.437 152.355 170.437 153.304V153.773H164.923V152.865H169.294V152.871C169.294 152.347 169.146 151.929 168.849 151.617C168.552 151.3 168.081 151.142 167.437 151.142C166.765 151.142 166.255 151.357 165.907 151.787C165.56 152.216 165.386 152.757 165.386 153.41V153.597C165.386 154.246 165.567 154.787 165.931 155.22C166.298 155.65 166.864 155.865 167.63 155.865C168.095 155.865 168.493 155.779 168.825 155.607C169.161 155.431 169.431 155.224 169.634 154.986L170.366 155.595C170.151 155.888 169.808 156.162 169.335 156.416C168.866 156.669 168.298 156.796 167.63 156.796C166.536 156.796 165.698 156.5 165.116 155.906C164.534 155.308 164.243 154.539 164.243 153.597ZM171.667 154.775H172.809V154.81C172.809 155.162 172.966 155.427 173.278 155.607C173.591 155.783 174.009 155.871 174.532 155.871C175.059 155.871 175.475 155.789 175.78 155.625C176.089 155.457 176.243 155.234 176.243 154.957C176.243 154.683 176.124 154.472 175.886 154.324C175.651 154.171 175.128 154.021 174.315 153.873C173.511 153.724 172.897 153.505 172.475 153.216C172.053 152.923 171.843 152.521 171.843 152.009C171.843 151.49 172.083 151.06 172.563 150.72C173.044 150.38 173.688 150.208 174.497 150.205C175.321 150.205 175.979 150.376 176.471 150.72C176.964 151.064 177.21 151.527 177.21 152.109V152.162H176.073V152.103C176.073 151.798 175.946 151.56 175.692 151.388C175.438 151.216 175.038 151.13 174.491 151.13C173.964 151.134 173.579 151.21 173.337 151.359C173.098 151.507 172.979 151.703 172.979 151.945C172.979 152.179 173.104 152.369 173.354 152.513C173.608 152.654 174.136 152.798 174.936 152.947C175.753 153.095 176.366 153.318 176.776 153.615C177.186 153.912 177.391 154.337 177.391 154.892C177.391 155.447 177.149 155.904 176.665 156.263C176.184 156.619 175.473 156.796 174.532 156.796C173.591 156.796 172.878 156.615 172.393 156.251C171.909 155.888 171.667 155.408 171.667 154.81V154.775ZM181.979 152.566V152.144C181.979 150.792 182.35 149.75 183.092 149.015C183.834 148.281 184.774 147.914 185.91 147.914C187 147.914 187.852 148.162 188.465 148.658C189.082 149.15 189.426 149.777 189.496 150.539L189.502 150.603H188.319L188.313 150.544C188.282 150.103 188.061 149.722 187.651 149.402C187.244 149.078 186.664 148.916 185.91 148.916C185.102 148.916 184.444 149.197 183.936 149.759C183.428 150.322 183.174 151.117 183.174 152.144V152.566C183.174 153.593 183.428 154.388 183.936 154.951C184.444 155.513 185.16 155.794 186.086 155.794C186.571 155.794 186.991 155.751 187.346 155.666C187.705 155.576 188.043 155.431 188.36 155.232V153.298H185.957V152.332H189.508V155.66C189.211 155.937 188.77 156.197 188.184 156.439C187.602 156.677 186.903 156.796 186.086 156.796C184.836 156.796 183.838 156.429 183.092 155.695C182.35 154.96 181.979 153.917 181.979 152.566ZM190.926 153.597V153.41C190.926 152.468 191.227 151.701 191.828 151.107C192.434 150.509 193.242 150.21 194.254 150.21C195.266 150.21 196.072 150.509 196.674 151.107C197.279 151.701 197.582 152.468 197.582 153.41V153.597C197.582 154.539 197.279 155.308 196.674 155.906C196.072 156.5 195.266 156.796 194.254 156.796C193.242 156.796 192.434 156.5 191.828 155.906C191.227 155.308 190.926 154.539 190.926 153.597ZM192.092 153.41V153.597C192.092 154.242 192.273 154.781 192.637 155.214C193 155.644 193.539 155.859 194.254 155.859C194.969 155.859 195.506 155.644 195.865 155.214C196.229 154.781 196.41 154.242 196.41 153.597V153.41C196.41 152.761 196.229 152.222 195.865 151.792C195.506 151.363 194.969 151.148 194.254 151.148C193.539 151.148 193 151.363 192.637 151.792C192.273 152.222 192.092 152.761 192.092 153.41ZM199.31 156.621V147.621H200.453V156.621H199.31ZM202.99 156.621V149.707C202.99 148.992 203.197 148.447 203.611 148.072C204.029 147.693 204.597 147.503 205.316 147.503C205.453 147.503 205.593 147.511 205.738 147.527C205.882 147.542 206.021 147.566 206.154 147.597L206.089 148.511C205.992 148.496 205.888 148.482 205.779 148.47C205.67 148.458 205.558 148.453 205.445 148.453C205.027 148.453 204.703 148.558 204.472 148.769C204.246 148.976 204.132 149.289 204.132 149.707V150.755L204.138 150.884V156.621H202.99ZM201.795 151.265V150.386H203.4H203.716H205.703V151.265H201.795ZM206.786 155.988C206.786 155.777 206.855 155.597 206.992 155.449C207.128 155.3 207.326 155.226 207.583 155.226C207.837 155.226 208.033 155.3 208.169 155.449C208.306 155.597 208.374 155.777 208.374 155.988C208.374 156.199 208.306 156.378 208.169 156.527C208.033 156.675 207.835 156.75 207.577 156.75C207.324 156.75 207.128 156.675 206.992 156.527C206.855 156.378 206.786 156.199 206.786 155.988ZM212.727 156.621L216.261 148.031H217.432L220.954 156.621H219.7L217.169 150.246C217.102 150.082 217.042 149.927 216.987 149.783C216.936 149.634 216.891 149.484 216.852 149.332H216.782C216.743 149.484 216.698 149.634 216.647 149.783C216.597 149.927 216.538 150.082 216.472 150.246L213.917 156.621H212.727ZM214.216 154.429L214.602 153.457H219.056L219.442 154.429H214.216ZM222.143 156.621V147.621H223.286V156.621H222.143ZM225.43 156.621V147.621H226.573V156.621H225.43ZM231.98 156.621V148.089H235.057C236.068 148.089 236.85 148.316 237.4 148.769C237.951 149.222 238.226 149.839 238.226 150.621C238.226 151.402 237.951 152.025 237.4 152.49C236.85 152.951 236.068 153.181 235.057 153.181H233.164V156.621H231.98ZM233.164 152.226H235.057C235.799 152.226 236.314 152.074 236.603 151.769C236.892 151.464 237.037 151.082 237.037 150.621C237.037 150.16 236.892 149.783 236.603 149.49C236.314 149.197 235.799 149.05 235.057 149.05H233.164V152.226ZM237.348 156.621L235.092 152.695L236.299 152.542L238.695 156.621H237.348ZM240.154 156.621V150.386H241.297V156.621H240.154ZM240.007 148.593C240.007 148.394 240.068 148.228 240.189 148.095C240.314 147.962 240.492 147.896 240.722 147.896C240.957 147.896 241.134 147.962 241.256 148.095C241.381 148.228 241.443 148.394 241.443 148.593C241.443 148.792 241.381 148.958 241.256 149.091C241.134 149.224 240.959 149.291 240.728 149.291C240.498 149.291 240.32 149.224 240.195 149.091C240.07 148.958 240.007 148.792 240.007 148.593ZM243.3 158.285L243.956 157.429C244.167 157.632 244.462 157.81 244.841 157.962C245.22 158.115 245.648 158.191 246.124 158.191C246.757 158.191 247.257 158.041 247.624 157.74C247.992 157.439 248.175 157.015 248.175 156.468V155.835C247.956 156.105 247.663 156.324 247.296 156.492C246.933 156.656 246.492 156.738 245.972 156.738C245.081 156.738 244.369 156.441 243.833 155.847C243.298 155.253 243.031 154.503 243.031 153.597V153.41C243.031 152.5 243.298 151.75 243.833 151.16C244.369 150.566 245.081 150.269 245.972 150.269C246.492 150.269 246.945 150.365 247.331 150.556C247.722 150.748 248.011 150.978 248.199 151.248H248.222L248.281 150.386H249.324V156.468C249.324 157.339 249.029 158.007 248.439 158.472C247.853 158.941 247.091 159.175 246.154 159.175C245.572 159.175 245.035 159.091 244.542 158.923C244.054 158.755 243.64 158.542 243.3 158.285ZM244.197 153.597C244.197 154.234 244.363 154.761 244.695 155.179C245.027 155.593 245.544 155.8 246.247 155.8C246.724 155.8 247.128 155.687 247.46 155.46C247.792 155.234 248.031 154.976 248.175 154.687V152.32C248.031 152.031 247.792 151.773 247.46 151.546C247.128 151.32 246.724 151.207 246.247 151.207C245.544 151.207 245.027 151.416 244.695 151.833C244.363 152.248 244.197 152.773 244.197 153.41V153.597ZM251.368 156.621V147.621H252.517V151.277C252.794 150.953 253.122 150.705 253.501 150.533C253.88 150.357 254.306 150.269 254.779 150.269C255.482 150.269 256.044 150.464 256.466 150.855C256.888 151.246 257.099 151.9 257.099 152.818V156.621H255.95V152.806C255.95 152.24 255.814 151.835 255.54 151.593C255.271 151.347 254.886 151.224 254.386 151.224C253.96 151.224 253.589 151.33 253.273 151.541C252.956 151.751 252.704 152.023 252.517 152.355V156.621H251.368ZM258.183 151.265V150.386H262.19V151.265H258.183ZM259.472 155.062V150.908V150.732V148.921H260.614V155.062C260.614 155.335 260.677 155.531 260.802 155.648C260.931 155.765 261.13 155.824 261.399 155.824C261.524 155.824 261.645 155.812 261.763 155.789C261.88 155.765 262.001 155.734 262.126 155.695V156.621C262.013 156.667 261.864 156.708 261.681 156.744C261.501 156.779 261.304 156.796 261.089 156.796C260.597 156.796 260.204 156.658 259.911 156.38C259.618 156.099 259.472 155.66 259.472 155.062ZM263.227 154.775H264.37V154.81C264.37 155.162 264.526 155.427 264.839 155.607C265.151 155.783 265.569 155.871 266.092 155.871C266.62 155.871 267.036 155.789 267.341 155.625C267.649 155.457 267.803 155.234 267.803 154.957C267.803 154.683 267.684 154.472 267.446 154.324C267.212 154.171 266.688 154.021 265.876 153.873C265.071 153.724 264.458 153.505 264.036 153.216C263.614 152.923 263.403 152.521 263.403 152.009C263.403 151.49 263.643 151.06 264.124 150.72C264.604 150.38 265.249 150.208 266.057 150.205C266.882 150.205 267.54 150.376 268.032 150.72C268.524 151.064 268.77 151.527 268.77 152.109V152.162H267.633V152.103C267.633 151.798 267.507 151.56 267.253 151.388C266.999 151.216 266.598 151.13 266.051 151.13C265.524 151.134 265.139 151.21 264.897 151.359C264.659 151.507 264.54 151.703 264.54 151.945C264.54 152.179 264.665 152.369 264.915 152.513C265.169 152.654 265.696 152.798 266.497 152.947C267.313 153.095 267.926 153.318 268.337 153.615C268.747 153.912 268.952 154.337 268.952 154.892C268.952 155.447 268.71 155.904 268.225 156.263C267.745 156.619 267.034 156.796 266.092 156.796C265.151 156.796 264.438 156.615 263.954 156.251C263.469 155.888 263.227 155.408 263.227 154.81V154.775ZM273.879 156.621V148.089H276.955C277.967 148.089 278.748 148.316 279.299 148.769C279.85 149.222 280.125 149.839 280.125 150.621C280.125 151.402 279.85 152.025 279.299 152.49C278.748 152.951 277.967 153.181 276.955 153.181H275.063V156.621H273.879ZM275.063 152.226H276.955C277.697 152.226 278.213 152.074 278.502 151.769C278.791 151.464 278.936 151.082 278.936 150.621C278.936 150.16 278.791 149.783 278.502 149.49C278.213 149.197 277.697 149.05 276.955 149.05H275.063V152.226ZM279.246 156.621L276.99 152.695L278.197 152.542L280.594 156.621H279.246ZM281.643 153.597V153.41C281.643 152.468 281.934 151.701 282.516 151.107C283.102 150.509 283.875 150.21 284.836 150.21C285.797 150.21 286.537 150.49 287.057 151.048C287.576 151.603 287.836 152.355 287.836 153.304V153.773H282.322V152.865H286.693V152.871C286.693 152.347 286.545 151.929 286.248 151.617C285.951 151.3 285.48 151.142 284.836 151.142C284.164 151.142 283.654 151.357 283.307 151.787C282.959 152.216 282.785 152.757 282.785 153.41V153.597C282.785 154.246 282.967 154.787 283.33 155.22C283.697 155.65 284.264 155.865 285.029 155.865C285.494 155.865 285.893 155.779 286.225 155.607C286.561 155.431 286.83 155.224 287.033 154.986L287.766 155.595C287.551 155.888 287.207 156.162 286.734 156.416C286.266 156.669 285.697 156.796 285.029 156.796C283.936 156.796 283.098 156.5 282.516 155.906C281.934 155.308 281.643 154.539 281.643 153.597ZM289.066 154.775H290.209V154.81C290.209 155.162 290.365 155.427 290.677 155.607C290.99 155.783 291.408 155.871 291.931 155.871C292.459 155.871 292.875 155.789 293.179 155.625C293.488 155.457 293.642 155.234 293.642 154.957C293.642 154.683 293.523 154.472 293.285 154.324C293.051 154.171 292.527 154.021 291.715 153.873C290.91 153.724 290.297 153.505 289.875 153.216C289.453 152.923 289.242 152.521 289.242 152.009C289.242 151.49 289.482 151.06 289.963 150.72C290.443 150.38 291.088 150.208 291.896 150.205C292.72 150.205 293.379 150.376 293.871 150.72C294.363 151.064 294.609 151.527 294.609 152.109V152.162H293.472V152.103C293.472 151.798 293.345 151.56 293.092 151.388C292.838 151.216 292.437 151.13 291.89 151.13C291.363 151.134 290.978 151.21 290.736 151.359C290.498 151.507 290.379 151.703 290.379 151.945C290.379 152.179 290.504 152.369 290.754 152.513C291.008 152.654 291.535 152.798 292.336 152.947C293.152 153.095 293.765 153.318 294.176 153.615C294.586 153.912 294.791 154.337 294.791 154.892C294.791 155.447 294.549 155.904 294.064 156.263C293.584 156.619 292.873 156.796 291.931 156.796C290.99 156.796 290.277 156.615 289.793 156.251C289.308 155.888 289.066 155.408 289.066 154.81V154.775ZM296.044 153.597V153.41C296.044 152.468 296.335 151.701 296.917 151.107C297.503 150.509 298.277 150.21 299.238 150.21C300.199 150.21 300.939 150.49 301.458 151.048C301.978 151.603 302.238 152.355 302.238 153.304V153.773H296.724V152.865H301.095V152.871C301.095 152.347 300.947 151.929 300.65 151.617C300.353 151.3 299.882 151.142 299.238 151.142C298.566 151.142 298.056 151.357 297.708 151.787C297.361 152.216 297.187 152.757 297.187 153.41V153.597C297.187 154.246 297.369 154.787 297.732 155.22C298.099 155.65 298.666 155.865 299.431 155.865C299.896 155.865 300.294 155.779 300.626 155.607C300.962 155.431 301.232 155.224 301.435 154.986L302.167 155.595C301.953 155.888 301.609 156.162 301.136 156.416C300.667 156.669 300.099 156.796 299.431 156.796C298.337 156.796 297.5 156.5 296.917 155.906C296.335 155.308 296.044 154.539 296.044 153.597ZM303.89 156.621V150.386H304.933L304.986 151.253H305.009C305.204 150.98 305.454 150.738 305.759 150.527C306.068 150.316 306.435 150.21 306.861 150.21C306.954 150.21 307.054 150.22 307.159 150.24C307.269 150.259 307.345 150.277 307.388 150.292V151.353C307.298 151.337 307.204 151.326 307.107 151.318C307.013 151.31 306.909 151.306 306.796 151.306C306.366 151.306 306.001 151.406 305.7 151.605C305.404 151.804 305.183 152.052 305.038 152.349V156.621H303.89ZM307.95 150.386H309.116L310.804 154.488C310.87 154.648 310.927 154.802 310.974 154.951C311.021 155.095 311.063 155.236 311.103 155.373H311.138C311.173 155.236 311.214 155.095 311.261 154.951C311.308 154.802 311.362 154.648 311.425 154.488L313.112 150.386H314.243L311.565 156.621H310.628L307.95 150.386ZM314.952 153.597V153.41C314.952 152.468 315.243 151.701 315.825 151.107C316.411 150.509 317.184 150.21 318.145 150.21C319.106 150.21 319.846 150.49 320.366 151.048C320.886 151.603 321.145 152.355 321.145 153.304V153.773H315.632V152.865H320.003V152.871C320.003 152.347 319.854 151.929 319.557 151.617C319.261 151.3 318.79 151.142 318.145 151.142C317.473 151.142 316.964 151.357 316.616 151.787C316.268 152.216 316.095 152.757 316.095 153.41V153.597C316.095 154.246 316.276 154.787 316.639 155.22C317.007 155.65 317.573 155.865 318.339 155.865C318.803 155.865 319.202 155.779 319.534 155.607C319.87 155.431 320.139 155.224 320.343 154.986L321.075 155.595C320.86 155.888 320.516 156.162 320.044 156.416C319.575 156.669 319.007 156.796 318.339 156.796C317.245 156.796 316.407 156.5 315.825 155.906C315.243 155.308 314.952 154.539 314.952 153.597ZM322.434 153.597V153.41C322.434 152.5 322.702 151.75 323.237 151.16C323.772 150.566 324.485 150.269 325.376 150.269C325.895 150.269 326.336 150.353 326.7 150.521C327.067 150.685 327.36 150.902 327.579 151.171V147.621H328.727V156.621H327.684L327.626 155.759H327.602C327.415 156.029 327.126 156.259 326.735 156.451C326.348 156.642 325.895 156.738 325.376 156.738C324.485 156.738 323.772 156.441 323.237 155.847C322.702 155.253 322.434 154.503 322.434 153.597ZM323.6 153.597C323.6 154.234 323.766 154.761 324.098 155.179C324.43 155.593 324.948 155.8 325.651 155.8C326.128 155.8 326.532 155.687 326.864 155.46C327.196 155.234 327.434 154.976 327.579 154.687V152.32C327.434 152.031 327.196 151.773 326.864 151.546C326.532 151.32 326.128 151.207 325.651 151.207C324.948 151.207 324.43 151.416 324.098 151.833C323.766 152.248 323.6 152.773 323.6 153.41V153.597Z" fill="#9F9F9F"/>
+    <path d="M202.004 64C193.212 64 184.698 60.3077 178.669 53.8776C172.553 47.3595 169.501 38.8446 170.066 29.9152C171.096 13.9152 183.919 1.09262 199.919 0.0627944C200.61 0.0125589 201.313 0 202.016 0C210.807 0 219.322 3.69231 225.351 10.1224C231.467 16.6405 234.519 25.1554 233.953 34.0973C232.936 50.0848 220.101 62.9199 204.114 63.9372C203.423 63.9874 202.72 64 202.029 64H202.004ZM202.004 3.80534C194.255 3.80534 186.757 7.05808 181.445 12.7221C176.057 18.4741 173.357 25.9717 173.872 33.8462C174.776 47.9372 186.079 59.2402 200.17 60.1444C200.785 60.1821 201.401 60.2072 202.016 60.2072C209.765 60.2072 217.263 56.9545 222.575 51.2904C227.963 45.5385 230.663 38.0408 230.161 30.1664C229.256 16.0754 217.953 4.77237 203.862 3.86813C203.247 3.83046 202.632 3.80534 202.016 3.80534H202.004Z" fill="white"/>
+    <path d="M194.812 27.3457C192.501 25.0349 188.507 24.7837 187.729 24.7586C187.528 24.7586 187.339 24.6707 187.189 24.5326C187.025 24.3693 186.938 24.1683 186.938 23.9548C186.938 23.7413 187.025 23.5404 187.176 23.3771L193.481 17.0726L193.531 17.0475C193.656 16.9721 193.807 16.9219 193.958 16.9219C194.171 16.9219 194.372 17.0098 194.523 17.1605C194.674 17.3112 194.762 17.4996 194.762 17.7131C194.774 18.4792 194.963 22.4101 197.336 24.7712L199.396 26.8308L196.859 29.3803L194.799 27.3206L194.812 27.3457Z" fill="white"/>
+    <path d="M216.711 47.0678C216.548 47.0678 215.769 46.9045 212.303 44.8449H212.278L204.617 37.1588L207.167 34.6094L214.815 42.2703V42.2954C217.415 46.5277 217.113 46.8292 216.975 46.9673C216.912 47.0301 216.824 47.0678 216.724 47.0678H216.711Z" fill="white"/>
+    <path d="M187.308 47.074C187.195 47.074 187.107 47.0364 187.032 46.9736C186.869 46.8103 186.618 46.5591 189.167 42.3142V42.2891L206.674 24.8197C208.985 22.5089 209.224 18.5152 209.249 17.7365C209.249 17.5356 209.337 17.3472 209.475 17.1965C209.638 17.0332 209.839 16.9453 210.065 16.9453C210.291 16.9453 210.48 17.0332 210.63 17.1839L216.935 23.4885L216.96 23.5387C217.161 23.8527 217.111 24.2671 216.847 24.5309C216.696 24.6816 216.508 24.7695 216.294 24.7695C215.528 24.782 211.597 24.9704 209.236 27.3441L191.754 44.8134H191.729C189.431 46.2326 187.786 47.074 187.321 47.074H187.308Z" fill="white"/>
+    <path d="M393.863 119.889C393.863 118.716 393.472 117.725 392.689 116.918C391.919 116.112 390.806 115.708 389.352 115.708C387.897 115.708 386.778 116.112 385.995 116.918L385.854 117.072C385.166 117.85 384.822 118.789 384.822 119.889L384.826 120.105C384.872 121.174 385.262 122.092 385.995 122.86C386.729 123.616 387.758 124.019 389.083 124.066L389.352 124.071C390.715 124.071 391.779 123.721 392.541 123.023L392.689 122.878C393.423 122.122 393.813 121.199 393.858 120.109L393.863 119.889ZM395.245 119.889C395.245 121.412 394.729 122.76 393.682 123.84C392.577 124.98 391.058 125.453 389.352 125.453C387.638 125.453 386.117 124.97 385.004 123.822L384.996 123.815C383.961 122.732 383.44 121.396 383.44 119.889C383.44 118.374 383.959 117.034 385.004 115.957C386.117 114.808 387.638 114.326 389.352 114.326C391.06 114.326 392.577 114.806 393.681 115.957H393.682C394.726 117.034 395.245 118.374 395.245 119.889Z" fill="white"/>
+    <path d="M386.895 95.6206L385.318 104.436H375.509L371.86 125.085H361.113L364.762 104.436H354.935L356.483 95.6206H386.895ZM357.644 97.0024L356.58 103.054H366.41L362.761 123.704H370.701L374.351 103.054H384.162L385.244 97.0024H357.644Z" fill="white"/>
+    <path d="M336.17 95.6206L344.007 109.545L346.472 95.6206H355.88L350.679 125.085H341.073L333.153 111.313L330.747 125.085H321.336L326.537 95.6206H336.17ZM327.696 97.0024L322.983 123.704H329.585L332.281 108.281C332.33 108.036 332.367 107.749 332.392 107.418C332.428 107.076 332.459 106.765 332.483 106.484H332.648C332.697 106.753 332.788 107.15 332.923 107.675C333.057 108.189 333.253 108.684 333.51 109.161L341.872 123.704H349.52L354.232 97.0024H347.631L344.953 112.131C344.892 112.486 344.843 112.829 344.807 113.159C344.782 113.477 344.745 113.813 344.696 114.167H344.55L344.503 113.95C344.446 113.716 344.357 113.434 344.238 113.104C344.092 112.664 343.927 112.26 343.743 111.893L335.362 97.0024H327.696Z" fill="white"/>
+    <path d="M324.763 95.6206L323.205 104.326H307.348L307.04 106.092H321.221L319.777 114.229H305.605L305.205 116.527H321.325L319.836 125.085H293.352L298.552 95.6206H324.763ZM299.712 97.0024L294.998 123.704H318.674L319.683 117.909H303.562L304.443 112.847H318.619L319.572 107.474H305.396L306.186 102.944H322.048L323.112 97.0024H299.712Z" fill="white"/>
+    <path d="M284.252 95.6206V97.0024H268.572L263.859 123.704H271.727L273.285 114.809H279.578L283.243 123.704H291.881L287.143 113.603C287.747 113.34 288.317 113.036 288.851 112.687L289.259 112.407C291.264 110.951 292.555 108.91 293.132 106.283L293.238 105.75C293.739 102.864 293.195 100.688 291.605 99.2212C290.127 97.8345 287.88 97.0979 284.865 97.0112L284.252 97.0024V95.6206C287.74 95.6206 290.601 96.3906 292.542 98.2056C294.592 100.098 295.15 102.821 294.6 105.987L294.599 105.992C294.03 109.187 292.532 111.739 290.07 113.525L290.065 113.528C289.712 113.783 289.344 114.016 288.964 114.233L294.056 125.085H282.318L278.652 116.191H274.446L272.887 125.085H262.212L267.413 95.6206H284.252ZM281.978 102.522C283.322 102.522 284.258 102.81 284.784 103.384C285.31 103.959 285.456 104.857 285.224 106.08C285.028 107.204 284.564 108.085 283.83 108.721L283.689 108.834C282.967 109.383 281.98 109.656 280.73 109.656V108.274C281.855 108.274 282.525 108.012 282.928 107.672C283.378 107.281 283.712 106.71 283.862 105.843L283.866 105.822C284.066 104.77 283.855 104.416 283.765 104.317C283.638 104.179 283.201 103.904 281.978 103.904H276.553L275.777 108.274H280.73V109.656H274.129L275.395 102.522H281.978Z" fill="white"/>
+    <path d="M265.639 95.6206L264.08 104.326H248.223L247.915 106.092H262.097L260.652 114.229H246.48L246.081 116.527H262.201L260.712 125.085H234.227L239.428 95.6206H265.639ZM240.587 97.0024L235.874 123.704H259.55L260.559 117.909H244.438L245.318 112.847H259.494L260.448 107.474H246.272L247.061 102.944H262.924L263.987 97.0024H240.587Z" fill="white"/>
+    <path d="M238.809 95.6206L237.251 104.326H222.544L222.082 106.917H235.414L233.97 115.054H220.656L218.877 125.085H208.223L213.424 95.6206H238.809ZM214.583 97.0024L209.87 123.704H217.719L219.497 113.672H232.812L233.766 108.299H220.433L221.387 102.944H236.094L237.158 97.0024H214.583Z" fill="white"/>
+    <path d="M212.805 95.6206L211.246 104.326H196.539L196.078 106.917H209.409L207.965 115.054H194.651L192.873 125.085H182.218L187.419 95.6206H212.805ZM188.578 97.0024L183.865 123.704H191.714L193.493 113.672H206.807L207.761 108.299H194.429L195.382 102.944H210.09L211.153 97.0024H188.578Z" fill="white"/>
+    <path d="M184.577 95.6206L179.376 125.085H168.574L173.775 95.6206H184.577ZM174.935 97.0024L170.221 123.704H178.217L182.93 97.0024H174.935Z" fill="white"/>
+    <path d="M156.87 95.6206V97.0024H143.281L138.568 123.704H152.157C155.905 123.704 159.245 122.742 162.177 120.819L162.757 120.421C165.826 118.233 167.745 114.98 168.516 110.665L168.644 109.894C169.414 105.554 168.65 102.32 166.352 100.193C164.208 98.1988 161.297 97.1398 157.617 97.0151L156.87 97.0024V95.6206C161.148 95.6206 164.683 96.7529 167.293 99.1812C170.065 101.748 170.82 105.54 170.005 110.136L169.879 110.892L169.877 110.9L169.876 110.908C169.053 115.517 166.97 119.114 163.56 121.546C160.242 123.912 156.424 125.085 152.157 125.085H136.921L142.122 95.6206H156.87ZM155.293 102.614C157.212 102.614 158.699 103.17 159.75 104.283C160.814 105.383 161.113 107.242 160.648 109.858L160.483 110.775L160.391 111.266C159.895 113.676 158.947 115.426 157.549 116.515L157.268 116.723C155.848 117.733 154.274 118.239 152.543 118.239V116.857C154.075 116.857 155.447 116.388 156.7 115.424L156.908 115.252C157.931 114.353 158.718 112.855 159.122 110.538L159.123 110.53L159.288 109.613C159.73 107.121 159.342 105.85 158.756 105.244L158.751 105.238L158.604 105.091C157.88 104.406 156.832 103.996 155.293 103.996H151.153L148.889 116.857H152.543V118.239H147.242L149.993 102.614H155.293Z" fill="white"/>
+    <path d="M387.377 98.9733C387.377 97.6019 387.847 96.4609 388.788 95.5504C389.729 94.6361 390.896 94.1789 392.29 94.1789C393.681 94.1789 394.848 94.6361 395.793 95.5504C396.737 96.4609 397.209 97.6019 397.209 98.9733C397.209 100.345 396.737 101.49 395.793 102.408C394.848 103.322 393.681 103.779 392.29 103.779C390.896 103.779 389.729 103.322 388.788 102.408C387.847 101.49 387.377 100.345 387.377 98.9733ZM388.42 98.9733C388.42 100.084 388.79 101.01 389.53 101.75C390.275 102.487 391.196 102.855 392.296 102.855C393.392 102.855 394.31 102.487 395.05 101.75C395.794 101.01 396.167 100.084 396.167 98.9733C396.167 97.8664 395.794 96.9464 395.05 96.2134C394.31 95.4767 393.392 95.1083 392.296 95.1083C391.196 95.1083 390.275 95.4767 389.53 96.2134C388.79 96.9464 388.42 97.8664 388.42 98.9733ZM392.319 99.5911H391.508V101.631H390.25V96.2588H392.324C393.046 96.2588 393.605 96.3948 394.002 96.6668C394.398 96.9388 394.597 97.3525 394.597 97.9079C394.597 98.3084 394.489 98.639 394.274 98.8997C394.058 99.1604 393.747 99.3342 393.339 99.4211C393.426 99.4815 393.494 99.5438 393.543 99.6081C393.596 99.6685 393.65 99.746 393.707 99.8404L394.716 101.501V101.631H393.367L392.319 99.5911ZM392.307 97.2505H391.508V98.6447H392.381C392.672 98.6447 392.895 98.5936 393.05 98.4916C393.208 98.3859 393.288 98.2158 393.288 97.9816C393.291 97.7209 393.223 97.5358 393.084 97.4262C392.944 97.3129 392.685 97.2543 392.307 97.2505Z" fill="white"/>
+    <path d="M6.31836 125.422L11.3813 96.7388H30.786C34.5422 96.7388 37.2017 97.6713 38.7646 99.5362C40.3274 101.401 40.8068 104.067 40.2027 107.535C39.6248 110.831 38.2392 113.451 36.0459 115.395C33.8527 117.339 30.786 118.297 26.846 118.271H16.7201L15.4395 125.422H6.31836ZM17.7839 112.243H25.6245C27.3319 112.243 28.6058 111.855 29.4464 111.081C30.2869 110.293 30.832 109.17 31.0815 107.712C31.3442 106.201 31.1866 105.079 30.6087 104.343C30.044 103.608 28.9079 103.24 27.2006 103.24H19.3599L17.7839 112.243Z" fill="white"/>
+    <path d="M40.105 125.422L45.1679 96.7388H54.2891L50.487 118.271H66.0107L64.7499 125.422H40.105Z" fill="white"/>
+    <path d="M64.4749 125.422L83.6826 96.6206H93.0205L102.004 125.422H91.7597L87.0119 107.732C86.8937 107.311 86.7952 106.963 86.7164 106.687C86.6507 106.412 86.5916 106.149 86.5391 105.899H86.48C86.3355 106.149 86.1845 106.412 86.0269 106.687C85.8824 106.95 85.6723 107.305 85.3965 107.751L74.4038 125.422H64.4749ZM72.9854 120.202L76.5511 114.292H93.9858L95.3845 120.202H72.9854Z" fill="white"/>
+    <path d="M103.884 125.422L105.677 115.296L95.5508 96.7388H105.145L111.094 107.81C111.199 108.02 111.278 108.198 111.331 108.342C111.396 108.487 111.482 108.684 111.587 108.933H111.725C111.922 108.697 112.073 108.506 112.178 108.362C112.283 108.204 112.421 108.02 112.591 107.81L122.225 96.7388H131.523L114.896 115.277L113.123 125.422H103.884Z" fill="white"/>
+  </svg>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js" defer="defer"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    gsap.registerPlugin(ScrollToPlugin);
+    document.querySelectorAll('[data-anchor]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        gsap.to(window, {
+          duration: 2,
+          scrollTo: {
+            y: '#stepsEcoSys',
+            offsetY: 0,
+          },
+          ease: 'power2.out',
+        });
+      });
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    horizonSlider({
+      '.step-one__slider': {
+        loop: true,
+       margin: 32,
+        
+        nav: true,
+        autoplay: false,
+        showTracker: false,
+        drag: false,
+        responsive: {
+          0: { items: 1.2, drag: true,  },
+          992: { items: 2.5, },
+          1280: { items: 3.1,  },
+        },
+      },
+    });
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('.faq-item-new');
+    const desktopImage = document.getElementById('faq-desktop-image');
+
+    // Initialize: Set desktop image to the active item's image
+    const activeItem = document.querySelector('.faq-item-new.active');
+    if (activeItem && desktopImage) {
+      desktopImage.src = activeItem.getAttribute('data-img');
+    }
+
+    faqItems.forEach((item) => {
+      const header = item.querySelector('.faq-header');
+
+      header.addEventListener('click', () => {
+        // Check if already active
+        const isActive = item.classList.contains('active');
+
+        // Close all
+        faqItems.forEach((otherItem) => {
+          otherItem.classList.remove('active');
+        });
+
+        // If it wasn't active, make it active
+        if (!isActive) {
+          item.classList.add('active');
+
+          // Update Desktop Image with fade effect
+          const newImgSrc = item.getAttribute('data-img');
+          if (desktopImage) {
+            desktopImage.classList.add('fade-out');
+            setTimeout(() => {
+              desktopImage.src = newImgSrc;
+              desktopImage.classList.remove('fade-out');
+            }, 400); // sync with css transition time
+          }
+        } else {
+          // Keep active to maintain visual consistency as discussed
+          item.classList.add('active');
+        }
+      });
+    });
+  });
+</script>

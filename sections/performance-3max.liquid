@@ -1,0 +1,252 @@
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+
+<div class="text-{{ section.settings.align_text }} page-width{% if section.settings.narrow_column %} page-width--narrow{% endif %}">
+  {%- for block in section.blocks -%}
+    <div class="theme-block" {{ block.shopify_attributes }}>
+      {%- case block.type -%}
+        {%- when 'heading' -%}
+          <h2>{{ block.settings.title | escape }}</h2>
+      	  <h3>{{ block.settings.sub_title | escape }}</h3>
+      
+        {%- when 'page' -%}
+          <div class="rte">
+            {%- if block.settings.page_text != blank -%}
+              {{ pages[block.settings.page_text].content }}
+            {%- else -%}
+              {{ 'home_page.onboarding.no_content' | t }}
+            {%- endif -%}
+          </div>
+      	{%- when 'single_image' -%}
+          <div class="rte">
+           	   {%- if block.settings.single-image != blank -%}
+            		<div class="single-img"><img src="{{ block.settings.single-image | img_url: 'master' }}" alt="{{ block.settings.single-image.alt | img_alt: 'master' }}"></div>
+                {%- endif -%}
+          </div>
+      	{%- when 'hedingwithtext' -%}
+          <div class="rte">
+           	<ul>
+              <li>
+                <h3>{{ block.settings.title_1 | escape }}</h3>
+                <p>{{ block.settings.sub_title_1 | escape }}</p>
+              </li>
+              <li>
+                <h3>{{ block.settings.title_2 | escape }}</h3>
+                <p>{{ block.settings.sub_title_2 | escape }}</p>
+              </li>
+              <li>
+                <h3>{{ block.settings.title_3 | escape }}</h3>
+                <p>{{ block.settings.sub_title_3 | escape }}</p>
+              </li>
+              <li>
+                <h3>{{ block.settings.title_4 | escape }}</h3>
+                <p>{{ block.settings.sub_title_4 | escape }}</p>
+              </li>
+            </ul>
+          </div>
+        {%- when 'text' -%}
+          <div class="rte">
+            {%- if block.settings.text != blank -%}
+              {%- if block.settings.enlarge_text %}<div class="enlarge-text">{% endif -%}
+              {{ block.settings.text }}
+              {%- if block.settings.enlarge_text %}</div>{% endif -%}
+            {%- else -%}
+              {{ 'home_page.onboarding.no_content' | t }}
+            {%- endif -%}
+          </div>
+        {%- when 'button' -%}
+          <div class="rte">
+            <a href="{{ block.settings.link }}" class="btn">
+              {{ block.settings.link_text }}
+            </a>
+          </div>
+      {%- endcase -%}
+    </div>
+  {%- endfor -%}
+</div>
+
+{%- if section.settings.divider -%}</div>{%- endif -%}
+
+{% schema %}
+{
+  "name": "Performance 3max",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "align_text",
+      "label": "t:sections.rich-text.settings.align_text.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.align_text.options.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.align_text.options.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.align_text.options.right.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "narrow_column",
+      "label": "t:sections.rich-text.settings.narrow_column.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.rich-text.settings.divider.label",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.rich-text.blocks.heading.settings.title.label",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title",
+          "default": "Rich text"
+        }
+      ]
+    },
+	{
+      "type": "single_image",
+      "name": "image",
+      "settings": [
+        {
+		  "type": "image_picker",
+		  "id": "single-image",
+		  "label": "Image"
+		}
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enlarge_text",
+          "label": "t:sections.rich-text.blocks.text.settings.enlarge_text.label",
+          "default": true
+        },
+        {
+          "id": "text",
+          "type": "richtext",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label",
+          "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "settings": [
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.rich-text.blocks.button.settings.link.label"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "t:sections.rich-text.blocks.button.settings.link_text.label",
+          "default": "Button"
+        }
+      ]
+    },
+	 {
+      "type": "hedingwithtext",
+      "name": "Heding width text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "title 1",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title_1",
+          "label": "Sub title 1",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "title_2",
+          "label": "title 2",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title_2",
+          "label": "Sub title 2",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "title_3",
+          "label": "title 3",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title_3",
+          "label": "Sub title 3",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "title_4",
+          "label": "title 4",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title_4",
+          "label": "Sub title 4",
+          "default": "Rich text"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "t:sections.rich-text.blocks.page.name",
+      "settings": [
+        {
+          "id": "page_text",
+          "type": "page",
+          "label": "t:sections.rich-text.blocks.page.settings.page_text.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Performance 3max",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

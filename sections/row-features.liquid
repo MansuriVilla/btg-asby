@@ -1,0 +1,115 @@
+<section class="features-section features-section__{{ section.id }}">
+  <div class="features-section__items">
+    {% for block in section.blocks %}
+      <div class="features-section__item features-item__{{ block.id }}">
+        <div class="features-item__icon">
+          {% if block.settings.featureIcon != blank %}
+            <img
+              src="{{ block.settings.featureIcon | image_url }}"
+              alt="{{block.settings.featureText}}"
+              height="100%"
+              width="100%"
+            >
+          {% endif %}
+        </div>
+        <div class="features-item__text">
+          {% if block.settings.featureText != blank %}
+            <p class="item-text">{{ block.settings.featureText }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .features-section__items{
+  padding-block:{{section.settings.rowPadding}}px;
+  background:{{ section.settings.rowBackground }};
+
+  }
+
+        .features-section__item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(8px,1.1vw,16px);
+    }
+    .features-section__items {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(30px,7vw,100px);
+
+    }
+        .item-text {
+      padding: 0;
+      width: min-content;
+      line-height: 1.2;
+      font-weight: 900;
+      font-size: clamp(12px,1.2vw,14px);
+      color: #9B9DA3;
+    }
+
+
+    .features-item__icon {
+  max-width: clamp(38px,6vw,54px);
+  width: 100%;
+  display: flex;
+}
+
+    @media only screen and (max-width:860px){
+.features-section__item{
+  flex-direction: column;
+  text-align: center;
+}
+
+
+
+    }
+</style>
+
+{% schema %}
+{
+  "name": "Feature Items",
+  "settings": [
+    {
+      "type": "range",
+      "id": "rowPadding",
+      "label": "Section Padding",
+      "max": 55,
+      "min": 30,
+      "default": 55
+    },
+    {
+      "type": "color",
+      "id": "rowBackground",
+      "label": "Background Color",
+      "alpha": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Feature",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "featureIcon",
+          "label": "Select Image For Item"
+        },
+        {
+          "type": "text",
+          "id": "featureText",
+          "label": "Feature Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature Item"
+    }
+  ]
+}
+{% endschema %}

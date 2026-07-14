@@ -1,0 +1,120 @@
+{% liquid
+  assign left_image = section.settings.left_image
+  assign right_bottom_body = section.settings.right_bottom_body
+  assign right_top_image = section.settings.right_top_image
+  assign floating_image = section.settings.floating_image
+  assign floating_image_enable = section.settings.floating_image_enable
+  assign bg_color = section.settings.bg_color
+  assign body_color = section.settings.body_color
+  assign right_bottom_body_disclaimer = section.settings.right_bottom_body_disclaimer
+
+  assign section_loading = 'lazy'
+  assign section_fetchpriority = 'auto'
+  if section.index == 1 or section.index == nil or section.settings.eager_load
+    assign section_loading = 'eager'
+    assign section_fetchpriority = 'high'
+  endif
+%}
+
+<div
+  class="ai-two_layout--section ai-two_layout--{{ template.suffix }}"
+  {% if bg_color != blank  %}
+    style="background:{{ bg_color }}; color:{{ body_color }}"
+  {% endif %}
+>
+  <div class="new-page-width">
+      {% if floating_image != blank and floating_image_enable %}
+        {{
+          floating_image
+          | image_url: width: 1900
+          | image_tag: alt: right_bottom_body, loading: section_loading, fetchpriority: section_fetchpriority, class: 'floating_image-ai'
+        }}
+      {% endif %}
+    <div class="ai-two_layout--inner ai-two_layout--inner--{{ template.suffix }}">
+      {% if left_image != blank %}
+        <div class="ai-two_layout--left ai-two_layout--left--{{ template.suffix }}">
+          {{ left_image | image_url: width: 650 | image_tag: alt: right_bottom_body, class: 'mockup_image_left', loading: section_loading, fetchpriority: section_fetchpriority }}
+        </div>
+      {% endif %}
+      {% if right_top_image != blank and right_bottom_body != blank %}
+        <div class="ai-two_layout--right ai_two_layout--right--{{ template.suffix }}">
+          {% if right_top_image != blank %}
+            <div class="layout_right-top layout_right-top--{{ template.suffix }}">
+              {{ right_top_image | image_url: width: 500 | image_tag: alt: right_bottom_body, loading: section_loading, fetchpriority: section_fetchpriority }}
+            </div>
+          {% endif %}
+          {% if right_bottom_body != blank %}
+            <div class="layout_right-bottom layout_right-bottom--{{ template.suffix }}">
+              <p class="layout_rihgt-bottom--body">{{ right_bottom_body }}</p>
+              <p class="layout_rihgt-bottom--body disclaimer ">{{ right_bottom_body_disclaimer }}</p>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "AI Two Layout Section",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Select Background Color",
+      "alpha": true
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Select Body Color",
+      "info": "This will be applied to all texts element for this section.",
+      "alpha": true
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Left Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_top_image",
+      "label": "Right Title Image"
+    },
+    {
+      "type": "text",
+      "id": "right_bottom_body",
+      "label": "Body Text"
+    },
+    {
+      "type": "text",
+      "id": "right_bottom_body_disclaimer",
+      "label": "Body Text Disclaimer"
+    },
+    {
+      "type": "checkbox",
+      "id": "floating_image_enable",
+      "label": "Enable Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "floating_image",
+      "label": "Select Background Image",
+      "visible_if": "{{ section.settings.floating_image_enable }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "eager_load",
+      "label": "Eager Load First Image (Above the fold)",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "AI Two Layout Section"
+    }
+  ]
+}
+{% endschema %}

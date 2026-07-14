@@ -1,0 +1,206 @@
+<div class="game-section" style="background-color: {{ section.settings.bg_color }};">
+  <div class="game-section__container new-page-width">
+    <div class="game-section__left">
+      <div class="game-logo">
+        {% if section.settings.logo_icon != blank %}
+          <img
+            src="{{ section.settings.logo_icon | image_url }}"
+            alt="{{ section.settings.heading | strip_html | capitalize }}"
+            class="game-logo__icon"
+            loading="lazy"
+            width="100%"
+            height="100%"
+          >
+        {% endif %}
+
+        {% if section.settings.logo_text != blank %}
+          <span class="game-logo__text">
+            {{ section.settings.logo_text }}
+          </span>
+        {% endif %}
+      </div>
+
+      <h2 class="game-heading">
+        {{ section.settings.heading | newline_to_br }}
+      </h2>
+
+      <div class="game-description">
+        {{ section.settings.description }}
+      </div>
+
+      <div class="game-app-buttons">
+        {% if section.settings.app_store_image != blank %}
+          <a
+            href="{{ section.settings.app_store_link }}"
+            {% if settings.open_new_tab %}
+              target="_blank" rel="noopener noreferrer"
+            {% endif %}
+          >
+            <img
+              src="{{ section.settings.app_store_image | image_url: width: 300 }}"
+              alt="Download on the App Store"
+              loading="lazy"
+              width="140"
+              height="42"
+            >
+          </a>
+        {% endif %}
+
+        {% if section.settings.play_store_image != blank %}
+          <a
+            href="{{ section.settings.play_store_link }}"
+            {% if settings.open_new_tab %}
+              target="_blank" rel="noopener noreferrer"
+            {% endif %}
+          >
+            <img
+              src="{{ section.settings.play_store_image | image_url: width: 300 }}"
+              alt="Get it on Google Play"
+              loading="lazy"
+              width="140"
+              height="42"
+            >
+          </a>
+        {% endif %}
+      </div>
+
+      {% if section.settings.cta_text != blank %}
+        <a
+          href="{{ section.settings.cta_link }}"
+          class="content-cta content-cta__outline"
+          {% if settings.open_new_tab %}
+            target="_blank" rel="noopener noreferrer"
+          {% endif %}
+        >
+          {{ section.settings.cta_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="game-section__right">
+      <div class="game-glow">
+        <img
+          src="{{ section.settings.glow_image | image_url }}"
+          alt="{{ section.settings.heading | strip_html }}"
+          loading="lazy"
+          height="100%"
+          width="100%"
+        >
+      </div>
+
+      {% if section.settings.product_image != blank %}
+        <img
+          src="{{ section.settings.product_image | image_url: width: 1200 }}"
+          alt="Game Platform Devices"
+          class="game-product-image"
+          loading="lazy"
+          width="800"
+          height="600"
+        >
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Left Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_icon",
+      "label": "Logo Icon (The 'X')"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text",
+      "default": "GAME"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "THE ULTIMATE, ALL-IN-ONE<br>AI GPS PLATFORM"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>GAME is the intelligent engine behind the entire Blue Tees ecosystem—an AI-powered GPS platform that turns your rounds, swings, and club data into smarter decisions on and off the course.</p>"
+    },
+    {
+      "type": "header",
+      "content": "App Buttons"
+    },
+    {
+      "type": "image_picker",
+      "id": "app_store_image",
+      "label": "App Store Button Image"
+    },
+    {
+      "type": "url",
+      "id": "app_store_link",
+      "label": "App Store Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "play_store_image",
+      "label": "Play Store Button Image"
+    },
+    {
+      "type": "url",
+      "id": "play_store_link",
+      "label": "Play Store Link"
+    },
+    {
+      "type": "header",
+      "content": "CTA Button"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text",
+      "default": "LEARN MORE"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Right Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "glow_image",
+      "label": "Upload Glow image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Main Product Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Game Product Section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,591 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "new-main-product",
+      "blocks": {
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "loox-rating": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "disabled": true,
+          "settings": {
+            "contentSize": 16,
+            "pattern": "",
+            "hideText": false,
+            "alignment": "",
+            "layout": "",
+            "textColor": "",
+            "starColor": "",
+            "showAllReviews": false,
+            "looxOpenFloatingWidget": false,
+            "emptyRatingWidget": false
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_chart": "",
+            "variant_labels": true,
+            "picker_type": "button",
+            "color_swatches": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "surface_pickup_enable": false
+          }
+        },
+        "tab_mftwWP": {
+          "type": "tab",
+          "settings": {
+            "title": "DESCRIPTION",
+            "content": "<p><strong>Next-Generation GPS Speaker</strong></p><p>In a world where precision is paramount and accuracy is everything, only the best can rise to the top. Welcome to the future of golf. Meet Player+, a revolutionary GPS Touch Screen Golf Speaker powered by the Blue Tees Game App. A powerful speaker unlike anything you’ve seen before, get access to over 42,000 courses at your fingertips with an out-of-this-world sound experience.</p>",
+            "page": ""
+          }
+        },
+        "tab_HXxHhb": {
+          "type": "tab",
+          "settings": {
+            "title": "FEATURES",
+            "content": "<img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/icons-pp-pdp-features.png?v=1752134377\" alt=\"Product Features Icons\">",
+            "page": ""
+          }
+        },
+        "tab_KCtD4w": {
+          "type": "tab",
+          "settings": {
+            "title": "WHAT’S IN THE BOX?",
+            "content": "<img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/icons-pp-pdp-inbox.png?v=1752134377\" alt=\"Product What's In The Box Icons\">",
+            "page": ""
+          }
+        },
+        "tab_jkz8Bh": {
+          "type": "tab",
+          "settings": {
+            "title": "USER MANUAL",
+            "content": "<div class=\"user-manual-tab\">\n  <div class=\"bottom-buttons\">\n    <ul>\n      <li><p><strong>Starting A Round With Your Player+</strong></p></li>\n      <li class=\"review\"><a href=\"javascript:void(0);\" class=\"videopopup_link_tab\" data-video-id=\"5gWgxNAvbHs\">PLAY VIDEO</a></li>\n    </ul>\n    <ul>\n      <li><p><strong>Setting Up Your Blue Tees Golf Player+ Speaker</strong></p></li>\n      <li class=\"review\"><a href=\"javascript:void(0);\" class=\"videopopup_link_tab\" data-video-id=\"JZEMB2aVt5o\">PLAY VIDEO</a></li>\n    </ul>\n    <ul>\n      <li><p><strong>How to Activate Online Membership for Blue Tees Golf App</strong></p></li>\n      <li class=\"review\"><a href=\"javascript:void(0);\" class=\"videopopup_link_tab\" data-video-id=\"wgcogpxrUTs\">PLAY VIDEO</a></li>\n    </ul>\n    <ul>\n      <li><p><strong>Complete User Manual PDF</strong></p></li>\n      <li class=\"review download\"><a href=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PLAYER__MANUAL-1.5.pdf\" target=\"_blank\">DOWNLOAD PDF</a></li>\n    </ul>\n  </div>\n</div>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "price",
+        "loox-rating",
+        "variant_picker",
+        "buy_buttons",
+        "tab_mftwWP",
+        "tab_HXxHhb",
+        "tab_KCtD4w",
+        "tab_jkz8Bh"
+      ],
+      "settings": {
+        "sku_enable": true,
+        "image_position": "left",
+        "image_size": "large",
+        "product_zoom_enable": true,
+        "thumbnail_position": "below",
+        "thumbnail_arrows": true,
+        "mobile_layout": "full",
+        "enable_video_looping": true,
+        "product_video_style": "muted"
+      }
+    },
+    "sub": {
+      "type": "product-full-width",
+      "disabled": true,
+      "settings": {
+        "max_width": true
+      }
+    },
+    "custom_video_block_eXan79": {
+      "type": "custom-video-block",
+      "name": "Custom Video Block",
+      "settings": {
+        "blockColor": "#000000",
+        "ripple_clr": "#ffffff61",
+        "videoUrl": "https://cdn.shopify.com/videos/c/o/v/93c7dd6f9f5348f989f267d6f15472d4.mp4",
+        "playText": ""
+      }
+    },
+    "custom_grid_layout_HV49Mh": {
+      "type": "custom-grid-layout",
+      "blocks": {
+        "cards_wNJGq6": {
+          "type": "Cards",
+          "settings": {
+            "card_size": "medium",
+            "topPadding": false,
+            "rightPadding": false,
+            "bottomPadding": false,
+            "leftPadding": false,
+            "CardMockup": "shopify://shop_images/Frame_1000013684_f884df51-083d-4d14-88be-728b9a352ae9.png",
+            "CardMockupMobile": "shopify://shop_images/Frame_1000013684_1.png",
+            "Prouct_title": "shopify://shop_images/Frame_1000013685.png",
+            "Product_heading": "",
+            "Product_description": "<p>The Player+ redefines golf tech. With a touchscreen <br> display, GPS access to 42,000+ courses, and studio-<br> quality sound, it’s your caddie and speaker in one. The <br> built-in magnet lets you mount it anywhere — your cart, <br> bag, or post — and the waterproof, shock-resistant <br> design means it’s built for any condition.</p>",
+            "list__one": "Touchscreen display",
+            "list__two": "Front, Center, and Back (FCB) GPS  <br> distances for 42K+ courses",
+            "list__three": "Driving Distances",
+            "list__four": "Hazard Distances",
+            "list__five": "Score Keeping",
+            "list__six": "Premium dynamic audio with radical <br>  deep bass",
+            "list__seven": "Ultra-strong magnetic strip for easier  <br> mounting",
+            "list__eight": "",
+            "note_text": ""
+          }
+        },
+        "cards_iw9H9U": {
+          "type": "Cards",
+          "settings": {
+            "card_size": "medium",
+            "topPadding": false,
+            "rightPadding": false,
+            "bottomPadding": false,
+            "leftPadding": false,
+            "CardMockup": "shopify://shop_images/Frame_1000013684_987d6c9c-fb21-4c3a-b877-77b923a6a81c.png",
+            "CardMockupMobile": "shopify://shop_images/Frame_1000013684_1_6e497e60-0977-4e3e-b7a3-03e6ffe1962a.png",
+            "Prouct_title": "shopify://shop_images/Frame_1000013685_64051369-8c39-410f-9555-0c2936a2297c.png",
+            "Product_heading": "",
+            "Product_description": "<p>Level up your golf IQ with the GAME App’s Advanced <br> Analytics. Every round you play is tracked and visualized <br> with AI-driven performance insights, helping you make data- <br> backed decisions on the course.</p>",
+            "list__one": "GPS Data & Stat Tracking for over 42,000  courses",
+            "list__two": "AI Caddie with Club Recommendation",
+            "list__three": "Adjusted Distances (True Distance)",
+            "list__four": "Shot Tracking and 3D Course Mapping",
+            "list__five": "Personalized POST GAME Advanced Analytics   Dashboard",
+            "list__six": "Live leaderboards and advanced scoring",
+            "list__seven": "Access to other Exclusive Deals, Drops, &   More",
+            "list__eight": "",
+            "note_text": ""
+          }
+        },
+        "cards_kCVFKf": {
+          "type": "Cards",
+          "settings": {
+            "card_size": "medium",
+            "topPadding": false,
+            "rightPadding": false,
+            "bottomPadding": false,
+            "leftPadding": false,
+            "CardMockup": "shopify://shop_images/Frame_1000013684_2.png",
+            "CardMockupMobile": "shopify://shop_images/Frame_1000013684_1_18e86cbf-8325-428e-80b4-78fe4213d0a8.png",
+            "Prouct_title": "shopify://shop_images/Frame_1000013696.png",
+            "Product_heading": "",
+            "Product_description": "<p>Small but mighty. The Valuables Pouch keeps your smallest gear—jewelry, earbuds, watches, or rangefinders—protected and ready to clip onto your setup. Built from the same ultra-tough nylon as our bags, it’s rugged outside, soft inside.</p>",
+            "list__one": "Durable Ballistic Nylon exterior",
+            "list__two": "Velour-lined interior for scratch-free protection",
+            "list__three": "Aluminum snap hook for secure attachment",
+            "list__four": "Secure inside zipper compartment",
+            "list__five": "Compact and lightweight form",
+            "list__six": "",
+            "list__seven": "",
+            "list__eight": "",
+            "note_text": ""
+          }
+        },
+        "cards_ftEmbQ": {
+          "type": "Cards",
+          "disabled": true,
+          "settings": {
+            "card_size": "small",
+            "topPadding": false,
+            "rightPadding": false,
+            "bottomPadding": false,
+            "leftPadding": false,
+            "CardMockup": "shopify://shop_images/Frame_1000013684_56c11db0-2ae5-4bbe-be64-39423cd2db82.png",
+            "CardMockupMobile": "shopify://shop_images/Frame_1000013684_1_02b5655b-4fb0-4628-93dc-e4afa2e8b582.png",
+            "Prouct_title": "shopify://shop_images/Frame_1000013685_30b00c99-599e-4b57-ac57-4cef3375bd36.png",
+            "Product_heading": "",
+            "Product_description": "<p>Protect your Player+ with this premium soft drawstring case — built with durable, stylish materials that blend performance and elegance both on and off the course.</p>",
+            "list__one": "UMT Leatherette Body Material",
+            "list__two": "Foam padding",
+            "list__three": "Travel Ready Carabiner Clip",
+            "list__four": "Nylon RipStop top cuff",
+            "list__five": "Microfiber Suede w/ topo print lining",
+            "list__six": "Drawstring closure with metal cord lock",
+            "list__seven": "",
+            "list__eight": "",
+            "note_text": ""
+          }
+        },
+        "cards_6eNMX9": {
+          "type": "Cards",
+          "settings": {
+            "card_size": "medium",
+            "topPadding": false,
+            "rightPadding": false,
+            "bottomPadding": false,
+            "leftPadding": false,
+            "CardMockup": "shopify://shop_images/Frame_1000013684_2_37344760-09e3-4957-9a2a-8944a1bd5343.png",
+            "CardMockupMobile": "shopify://shop_images/Frame_1000013684_431b651d-2c88-4c12-a40f-6b9b32e3f4aa.png",
+            "Prouct_title": "shopify://shop_images/Frame_1000013685_16fa57eb-ab93-4aa9-9a55-65c550c8ab88.png",
+            "Product_heading": "",
+            "Product_description": "<p>Unlock expert strategies to turn every round into your best one yet. Learn how to leverage GPS data, analyze course layouts, and apply professional course management techniques.</p>",
+            "list__one": "Pro insights for better shot planning",
+            "list__two": "Step-by-step drills for smarter GPS use",
+            "list__three": "Techniques to cut strokes and improve  consistency",
+            "list__four": "",
+            "list__five": "",
+            "list__six": "",
+            "list__seven": "",
+            "list__eight": "",
+            "note_text": "Delivered instantly via email after checkout."
+          }
+        }
+      },
+      "block_order": [
+        "cards_wNJGq6",
+        "cards_iw9H9U",
+        "cards_kCVFKf",
+        "cards_ftEmbQ",
+        "cards_6eNMX9"
+      ],
+      "name": "Custom Grid Block",
+      "settings": {
+        "blockColor": "#000000",
+        "GridHeading": "<span>CYBER WEEK EXCLUSIVE</span>\n<span style=\"color:#F527CD;\">3 FREE GIFTS ($89 VALUE)</span>",
+        "offerLable": true,
+        "CtaHeading": "EVERYTHING FOR $179",
+        "CtaSubHeading": "Total Value: $290 |\nSave $110 |\nFast, Free Shipping |\n100-Day Risk-Free Return",
+        "CtaText": "BUY NOW"
+      }
+    },
+    "custom_slider_heading_pamUpP": {
+      "type": "custom-slider-heading",
+      "name": "Custom Slider Heading",
+      "settings": {
+        "customHeadingImage": "shopify://shop_images/Group_1410104971.png",
+        "gridImageBp": "861",
+        "customHeadingImageMobile": "shopify://shop_images/Group_1410104973_e0ad68cc-f1b6-48f5-9b57-57eef5c7ab9d.png",
+        "gridImageMobileBp": "860",
+        "customHeadingMockup": "shopify://shop_images/Group_1410104972.png",
+        "CustomImageBp": "861",
+        "customHeadingMockupMobile": "shopify://shop_images/Group_1410104972.png",
+        "CustomImageBpMobile": "860"
+      }
+    },
+    "custom_slider_cxYkra": {
+      "type": "custom-slider",
+      "blocks": {
+        "slide_RGFAGY": {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "image_desktop": "shopify://shop_images/Frame_1000002297.png",
+            "image_mobile": "shopify://shop_images/Frame_1000011114.png",
+            "video_url_desktop": "",
+            "video_url_mobile": "",
+            "heading": "FCB GPS DISTANCES",
+            "description": "<p>Distances to the Front, Center, and Back, guiding you to select the ideal club for <br> your shot. Click the action button to call out the distances.</p>"
+          }
+        },
+        "slide_Q4tc4G": {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "image_desktop": "shopify://shop_images/Frame_1000002297-1.png",
+            "image_mobile": "shopify://shop_images/Frame_1000011114-1.png",
+            "video_url_desktop": "",
+            "video_url_mobile": "",
+            "heading": "HAZARD DISTANCES",
+            "description": "<p>Identify hazards on each hole, arming you with all the information you need to <br> play your best golf.</p>"
+          }
+        },
+        "slide_wTgneN": {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "image_desktop": "shopify://shop_images/Frame_1000002297-2.png",
+            "image_mobile": "shopify://shop_images/Frame_1000011114-2.png",
+            "video_url_desktop": "",
+            "video_url_mobile": "",
+            "heading": "DRIVING DISTANCE",
+            "description": "<p>Measure each drive with precision. Let your Player+ record your longest drives, <br> proving to your buddies that you can bomb it.</p>"
+          }
+        },
+        "slide_Qyig8f": {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "image_desktop": "shopify://shop_images/Frame_1000002297-3.png",
+            "image_mobile": "shopify://shop_images/Frame_1000011114-3.png",
+            "video_url_desktop": "",
+            "video_url_mobile": "",
+            "heading": "SCORE DISPLAY",
+            "description": "<p>Experience a personalized scoreboard, keeping you updated on you and your <br> friends standings throughout the round.</p>"
+          }
+        },
+        "slide_8YzjJb": {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "image_desktop": "shopify://shop_images/Frame_1000002297-4.png",
+            "image_mobile": "shopify://shop_images/Frame_1000011114-4.png",
+            "video_url_desktop": "",
+            "video_url_mobile": "",
+            "heading": "MUSIC CONTROL",
+            "description": "<p>With intuitive music controls, seamlessly connect to your Player+ GPS Speaker <br> to adjust tunes and volume. </p>"
+          }
+        },
+        "slide_dekTBH": {
+          "type": "slide",
+          "settings": {
+            "media_type": "image",
+            "image_desktop": "shopify://shop_images/Frame_1000002297-5.png",
+            "image_mobile": "shopify://shop_images/Frame_1000011114-5.png",
+            "video_url_desktop": "",
+            "video_url_mobile": "",
+            "heading": "TIME AND DATE",
+            "description": "<p>Stay on schedule. Player+ displays time and date on-screen, so you can track <br> your round without reaching for your phone.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "slide_RGFAGY",
+        "slide_Q4tc4G",
+        "slide_wTgneN",
+        "slide_Qyig8f",
+        "slide_8YzjJb",
+        "slide_dekTBH"
+      ],
+      "name": "Dynamic Feature Slider",
+      "settings": {
+        "auto_play_speed": 5
+      }
+    },
+    "custom_grid_layout_UD6NrQ": {
+      "type": "custom-grid-layout",
+      "blocks": {
+        "cards_MjwEtB": {
+          "type": "Cards",
+          "settings": {
+            "card_size": "medium",
+            "topPadding": true,
+            "rightPadding": false,
+            "bottomPadding": false,
+            "leftPadding": false,
+            "CardMockup": "shopify://shop_images/Frame_1171276748.png",
+            "CardMockupMobile": "shopify://shop_images/Frame_1000013684_1_3bfa8e80-017c-4d7f-8a2a-ca7e1737de9e.png",
+            "Product_heading": "STUDIO QUALITY  SOUND",
+            "Product_description": "<p>Experience crisp, studio-quality sound with dual <br> bass drivers delivering deep, rich audio designed for <br> clear, powerful playback in any environment.  </p>",
+            "list__one": "",
+            "list__two": "",
+            "list__three": "",
+            "list__four": "",
+            "list__five": "",
+            "list__six": "",
+            "list__seven": "",
+            "list__eight": "",
+            "note_text": ""
+          }
+        },
+        "cards_tjX36n": {
+          "type": "Cards",
+          "settings": {
+            "card_size": "medium",
+            "topPadding": true,
+            "rightPadding": false,
+            "bottomPadding": false,
+            "leftPadding": false,
+            "CardMockup": "shopify://shop_images/Frame_1171276747_1.png",
+            "CardMockupMobile": "shopify://shop_images/Group_1000011593_1.png",
+            "Product_heading": "YOUR MUSIC,<br> YOUR WAY",
+            "Product_description": "<p>Seamlessly connect your phone and your Player+ <br> through bluetooth. An intuitive, easy to use interface <br> allows you to control and listen to your favorite <br> tunes on and off the course.</p>",
+            "list__one": "",
+            "list__two": "",
+            "list__three": "",
+            "list__four": "",
+            "list__five": "",
+            "list__six": "",
+            "list__seven": "",
+            "list__eight": "",
+            "note_text": ""
+          }
+        },
+        "cards_QaHAKJ": {
+          "type": "Cards",
+          "settings": {
+            "card_size": "full",
+            "topPadding": false,
+            "rightPadding": false,
+            "bottomPadding": false,
+            "leftPadding": false,
+            "CardMockup": "shopify://shop_images/Group_1000011591_9af0efcb-e3ba-43cc-99d4-8430d15480a2.png",
+            "CardMockupMobile": "shopify://shop_images/Group_1000011591_9af0efcb-e3ba-43cc-99d4-8430d15480a2.png",
+            "Product_heading": "AUDIBLE YARDAGE <br> CALLOUTS",
+            "Product_description": "<p>Seamlessly connect your phone and your Player+ <br> through bluetooth. An intuitive, easy to use interface <br> allows you to control and listen to your favorite <br> tunes on and off the course.</p>",
+            "list__one": "",
+            "list__two": "",
+            "list__three": "",
+            "list__four": "",
+            "list__five": "",
+            "list__six": "",
+            "list__seven": "",
+            "list__eight": "",
+            "note_text": ""
+          }
+        },
+        "cards_B3MrpQ": {
+          "type": "Cards",
+          "settings": {
+            "card_size": "full",
+            "topPadding": false,
+            "rightPadding": false,
+            "bottomPadding": false,
+            "leftPadding": false,
+            "CardMockup": "shopify://shop_images/Group_1000012821_3d6a9b18-5ed9-42e8-a0a7-6e4e3f964ba9.png",
+            "CardMockupMobile": "shopify://shop_images/Group_1000012821_3d6a9b18-5ed9-42e8-a0a7-6e4e3f964ba9.png",
+            "Product_heading": "SEAMLESS CONNECTIVITY <br>  WITH GAME APP AND OTHER <br> BLUE TEES DEVICES",
+            "Product_description": "<p>The Player+ pairs effortlessly with the GAME app,<br> unlocking advanced analytics, 3D round replays, and live <br> leaderboards—all synced in real time to track your <br> performance, reveal key trends in your game, and help you <br> play smarter every round.</p>",
+            "list__one": "",
+            "list__two": "",
+            "list__three": "",
+            "list__four": "",
+            "list__five": "",
+            "list__six": "",
+            "list__seven": "",
+            "list__eight": "",
+            "note_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "cards_MjwEtB",
+        "cards_tjX36n",
+        "cards_QaHAKJ",
+        "cards_B3MrpQ"
+      ],
+      "name": "Custom Grid Block",
+      "settings": {
+        "blockColor": "#000000",
+        "GridHeading": "",
+        "headingImage": "shopify://shop_images/Frame_1000013707.png",
+        "headingImageMobile": "shopify://shop_images/Frame_1000011149_777bf5fe-0776-4e5c-9443-32f08b6956b7.png",
+        "offerLable": true,
+        "CtaHeading": "EVERYTHING FOR $179",
+        "CtaSubHeading": "Total Value: $290 |\nSave $110 |\nFast, Free Shipping |\n100-Day Risk-Free Return",
+        "CtaText": "BUY NOW"
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": false,
+        "product_recommendations_heading": "You may also like",
+        "related_count": 5
+      }
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "disabled": true,
+      "settings": {
+        "recent_count": 5
+      }
+    },
+    "collection-return": {
+      "type": "collection-return",
+      "settings": {}
+    },
+    "custom_faq_block_Tcqbdm": {
+      "type": "custom-faq-block",
+      "blocks": {
+        "content_htyYXn": {
+          "type": "content",
+          "settings": {
+            "faq_que": "What makes the Player+ different than other GPS devices?",
+            "faq_ans": "Most golf GPS devices only do one thing — give you yardages. Player+ goes further by combining tour-level GPS data, a premium studio quality Bluetooth speaker, a built-in power bank, and other functions into one sleek device. Instead of carrying multiple gadgets, you get accurate distances, immersive sound, and a way to charge your phone — all in one. It’s designed to simplify your round while making it more fun."
+          }
+        },
+        "content_Dk6AAz": {
+          "type": "content",
+          "settings": {
+            "faq_que": "Do I need a subscription?",
+            "faq_ans": "No. Yardages, hazards, and 42,000+ courses are included. Membership is optional for advanced analytics."
+          }
+        },
+        "content_cRthfx": {
+          "type": "content",
+          "settings": {
+            "faq_que": "How accurate is it compared to a Rangefinder?",
+            "faq_ans": "Lasers are exact to the pin. The Player+ gives front, center, back, and hazard distances for smarter              course management. They’re perfect together."
+          }
+        },
+        "content_kLrWTn": {
+          "type": "content",
+          "settings": {
+            "faq_que": "Does it work worldwide?",
+            "faq_ans": "42,000+ courses worldwide, powered by the GAME app. If your course isn’t covered, we’ll add it."
+          }
+        },
+        "content_4VMF3G": {
+          "type": "content",
+          "settings": {
+            "faq_que": "How long does the battery last?",
+            "faq_ans": "10+ hours - more than enough for a full day of golf."
+          }
+        },
+        "content_hDwn3F": {
+          "type": "content",
+          "settings": {
+            "faq_que": "Is it waterproof/durable?",
+            "faq_ans": "Yes. IPX7 waterproof and rugged enough for cart, bag, and everyday use."
+          }
+        },
+        "content_TWLB84": {
+          "type": "content",
+          "settings": {
+            "faq_que": "Why not just use a phone app?",
+            "faq_ans": "Phone apps drain battery, distract you with notifications, and rely on less accurate GPS. Player+ is              purpose-built for golf: it delivers precise yardages, lasts a full round, and automatically tracks your              stats with the GAME app—plus it doubles as a premium speaker, so you get music and performance in one              device."
+          }
+        },
+        "content_UVdafa": {
+          "type": "content",
+          "settings": {
+            "faq_que": "What’s the return policy?",
+            "faq_ans": "100-day money-back guarantee + 1-year warranty. Try it risk-free."
+          }
+        }
+      },
+      "block_order": [
+        "content_htyYXn",
+        "content_Dk6AAz",
+        "content_cRthfx",
+        "content_kLrWTn",
+        "content_4VMF3G",
+        "content_hDwn3F",
+        "content_TWLB84",
+        "content_UVdafa"
+      ],
+      "name": "Custom Faq Block",
+      "settings": {
+        "faq_heading": "FREQUENTLY ASKED <br> QUESTIONS"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "sub",
+    "custom_video_block_eXan79",
+    "custom_grid_layout_HV49Mh",
+    "custom_slider_heading_pamUpP",
+    "custom_slider_cxYkra",
+    "custom_grid_layout_UD6NrQ",
+    "product-recommendations",
+    "recently-viewed",
+    "collection-return",
+    "custom_faq_block_Tcqbdm"
+  ]
+}

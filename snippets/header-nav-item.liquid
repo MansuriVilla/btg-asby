@@ -1,0 +1,24 @@
+<div class="site_megaMenu__item site_megaMenu__item--{{ item_title | handleize }}">
+  <a
+    class="site_megaMenu_Link{% if hover_effect %} hover_enable--item{% endif %}"
+    href="{{item_url}}"
+    {% if open_in_new_tab %}
+      target="_blank" rel="noopener noreferrer"
+    {% endif %}
+    {% if hover_effect or item_image_var != blank %}
+      data-img="{{item_image_var}}"
+    {% endif %}
+  >
+    {% if item_image_var_mobile != blank %}
+      <img
+        src="{{ item_image_var_mobile }}"
+        height="100%"
+        width="100%"
+        alt="{{item_title}}"
+        class="project-list__mobile-img project-list__mobile-img--{{ item_title | handleize }}"
+        decoding="async"
+      >
+    {% endif %}
+    <span class="site_megaMenu_linkText site_megaMenu_linkText--{{ item_title | handleize }}">{{ item_title | strip }}</span>
+  </a>
+</div>

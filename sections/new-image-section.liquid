@@ -1,0 +1,68 @@
+{% liquid
+  assign section_loading = 'lazy'
+  assign section_fetchpriority = 'auto'
+  if section.index == 1 or section.index == nil or section.settings.eager_load
+    assign section_loading = 'eager'
+    assign section_fetchpriority = 'high'
+  endif
+%}
+
+<div class="section-image section-image__{{ section.id }}">
+  <picture>
+    <source srcset="{{ section.settings.sectionImage | image_url }}" media="(min-width:861px)">
+    <source srcset="{{ section.settings.sectionImageMobile  | image_url}}" media="(max-width:860px)">
+
+    {{
+      section.settings.sectionImage
+      | image_url: width: 1800
+      | image_tag:
+        loading: section_loading,
+        fetchpriority: section_fetchpriority,
+        widths: '400,600,800,1200,1600,1800,2400',
+        sizes: '(max-width: 859px) 100vw, 100vw',
+        height: section.settings.hero_main_image.height,
+        width: section.settings.hero_main_image.width
+    }}
+  </picture>
+</div>
+<style>
+  .section-image :is(picture, img) {
+    display: flex;
+  }
+  main{
+    background: #161924;
+  }
+  .section-image picture img {
+  width: 100%;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Section Image",
+"tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "sectionImage",
+      "label": "Select Image For Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "sectionImageMobile",
+      "label": "Select Image For Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "eager_load",
+      "label": "Eager Load First Image (Above the fold)",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section Image"
+    }
+  ]
+}
+{% endschema %}

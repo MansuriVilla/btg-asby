@@ -1,0 +1,1540 @@
+<style>
+  
+  .promo_banner-content {
+  margin: 0;
+}
+  .hero_section {
+                background: linear-gradient(-180deg,#242632,#000 40%);
+                padding: 80px 0;
+                text-align: center;
+                color: #ffffff;
+                overflow: hidden;
+                position: relative;
+              }
+
+              .hero_section .badge {
+            display: inline-flex;
+              margin-bottom: clamp(20px,3vw,50px);
+              color: rgba(255, 255, 255, 0.8);
+              opacity: 0;
+              animation: fadeInUp 0.8s ease forwards;
+              max-width: clamp(150px,50vw,330px);
+              width: 100%;
+              }
+
+              .hero_section .hero-title {
+            font-size: clamp(28px, 4vw, 64px);
+              text-transform: uppercase;
+
+              line-height: 90%;
+              opacity: 0;
+              animation: fadeInUp 0.8s ease forwards 0.2s;
+              margin-bottom: clamp(15px,1.9vw,30px);
+              }
+
+              .hero_section .hero-subtext {
+                font-size: clamp(16px,1.4vw,20px);
+              color: rgba(255, 255, 255, 0.5);
+              margin-bottom: clamp(20px,2.4vw,40px);
+              padding: 0px;
+              opacity: 0;
+              animation: fadeInUp 0.8s ease forwards 0.4s;
+              max-width: clamp(400px,50vw,800px);
+              margin-inline: auto;
+              }
+
+              .hero_section .hero-btn {
+                display: inline-block;
+                background: #0066ff;
+                color: #ffffff;
+                padding: 12px 30px;
+                border-radius: 100px;
+                font-size: 11px;
+                font-weight: 700;
+                text-decoration: none;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+                margin-bottom: 60px;
+                opacity: 0;
+                animation: fadeInUp 0.8s ease forwards 0.6s;
+                box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+              }
+
+              .hero_section .hero-btn:hover {
+                background: #0052cc;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 102, 255, 0.5);
+              }
+
+              .hero_section .product-image-container {
+                max-width: 100%;
+                margin: 0 auto;
+                position: relative;
+                opacity: 0;
+                animation: zoomIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.8s;
+              }
+
+              /* Glow effect behind the image */
+              .hero_section .product-glow {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 80%;
+                height: 80%;
+                background: radial-gradient(circle, rgba(0, 102, 255, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+                z-index: 1;
+                filter: blur(40px);
+              }
+
+              .hero_section .product-image-container img {
+                width: 100%;
+                height: auto;
+                position: relative;
+                z-index: 2;
+                display: block;
+              }
+
+
+                   .featured-section_video-area { position: relative; {% comment %} padding-bottom: 50px; {% endcomment %} background: #000;}
+                    {% comment %} .featured-section_video-area::before { content: ''; position: absolute; bottom: 0px; background: #000; height: 50%; width: 100%; } {% endcomment %}
+                    .feature-section_video video { {% comment %} border-radius: 24px; {% endcomment %} width: 100%; }
+                    .feature-section_video .feature-section_video-inner { position: relative; display: flex; justify-content: center; align-items: center; }
+
+          .horizon-slider_container.step-one__slider {
+            overflow: visible;
+          }
+          .step-one__slider .horizon-slide {
+            background: #1B2029;
+         padding-inline: clamp(25px,3vw,40px);
+  padding-block-end: clamp(22px,3vw,34px);
+          }
+
+          .step-one__slider .horizon-slide .slide_inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column-reverse;
+            text-align: center;
+            color: #fff;
+            width: 100%;
+          }
+
+        .step-slide_desc {
+          padding: 0;
+          max-width: 310px;
+          width: 100%;
+          margin-block-end: 20px;
+          font-size: clamp(14px,2vw,16px);
+        }
+
+        .step-slide_cta[data-prod="pre-order"].btn_pre-order {
+          line-height:1;
+        }
+        .step-slide_cta {
+         padding: clamp(8px,1.1vw,10px) clamp(12px,3vw,25px);
+  background: #fff;
+  color: #000;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: clamp(10px,1.2vw,14px);
+  border: 2px solid transparent;
+        }
+
+        .step-slide_cta:hover {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+
+
+
+
+        .step-slide_mockup {
+          max-width: 300px;
+          width: 100%;
+          display: flex;
+        }
+        .slide-mockup_image {
+          aspect-ratio: 1/1;
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+        }
+
+        .step-slide_title {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          max-width: clamp(188px,30vw,370px);
+          margin-inline: auto;
+          width: 100%;
+        }
+        .slide_left {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+        }
+
+        .steps-ecosys__inner {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          color: #fff;
+          background: #000;
+          padding-block: clamp(50px,6vw,115px) 15px;
+        }
+
+        .next-btn, .prev-btn {
+          border-color: #fff !important;
+        }
+
+        .slider_navigation-area {
+        justify-content: center !important;
+      }
+
+      .video_scale_animation-main .video_scale_animation video{width: 100%; aspect-ratio: auto;}
+
+
+
+      .grid-item {
+      background: #1A2029;
+        padding-inline: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        border-radius: 12px;
+        padding-block-end: clamp(30px,6vw,80px);
+      }
+      .item-details {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(10px,3vw,30px);
+        justify-content: center;
+  align-items: center;
+      }
+      .detail_description.store_icons {
+        display: flex;
+        gap: clamp(4px,2vw,20px);
+        align-items: center;
+        justify-content: center;
+        max-width: 438px;
+  width: 100%;
+      }
+      .step-two_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(clamp(min(100%, 320px),38vw,567px), 1fr));
+        width: 100%;
+        gap: 30px;
+      }
+      .detail_image {
+        width: 100%;
+        max-width: clamp(270px,30vw,386px);
+        display: flex;
+      }
+      .item-detail__title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .app_link {
+        display: flex;
+        max-width: clamp(68px,12vw,213px);
+        width: 100%;
+      }
+      .item-mockup__image {
+        aspect-ratio: 2/1;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+      .detail_description p {
+        max-width: 627px;
+        text-align: center;
+        margin-inline: auto;
+        line-height: 165%;
+        letter-spacing: 2%;
+        width: 100%;
+        padding: 0;
+      }
+
+
+        .step-top {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          justify-content: center;
+          align-items: center;
+          padding-block-end: clamp(30px,4.3vw,60px);
+        }
+
+        .step-arrow_icon {
+          margin-block-start: clamp(15px,2vw,30px);
+  margin-block-end: clamp(20px,3vw,46px);
+        }
+
+        .ecosys-heading h2 {
+          font-size: clamp(30px,4vw,64px);
+          line-height: 1;
+          font-weight: 900;
+        }
+        .step-top_no-outlined {
+          
+          color: #757787;
+          font-size: clamp(90px,8vw,120px);
+          line-height: 1;
+          font-weight:900;
+        }
+        .step-top_description {
+          padding: 0;
+          max-width: clamp(340px,50vw,727px);
+          width: 100%;
+          font-size: clamp(16px,2vw,18px);
+        }
+        .ecosys-step {
+        width: 100%;
+        {% comment %} max-width: 100%; {% endcomment %}
+        padding-inline: clamp(20px,6vw,80px);
+      }
+
+.step-top_heading {
+  font-size: clamp(24px,3vw,36px);
+  line-height: 1.1;
+
+}
+
+        /*-----------------------------
+          Play-w-paige Section Styles
+          ----------------*/
+        .blueTeesDevice__inner.new-page-width {  padding-top: clamp(60px, 6vw, 100px); padding-bottom: clamp(50px, 3.5vw, 60px); gap: clamp(80px, 12vw, 190px); }
+        .blueTeesDevice__inner { display: flex; align-items: center; justify-content: center; }
+        .blueTeesDevice__rightInner :is(picture,img) {  display:flex; }
+        .blueTeesDevice__rightInner img {  max-width: clamp(300px, 38vw, 670px); }
+        .blueTeesDevice__leftInner { color: #fff; width: 100%; display: flex; flex-direction: column; row-gap: 27px; }
+        .blueTeesDevice__leftInner span { display: flex; align-items: center; gap: 20px; }
+        .blueTeesDevice__leftInner span p { padding: 2px 0px; padding-left: clamp(15px, 2vw, 20px); border-left: 1px solid #fff; font-weight: 900; letter-spacing: 4px; font-size: 14px; }
+        .blueTeesDevice__leftInner h3 { letter-spacing: -0.48px; max-width: 480px; width: 100%; line-height: 112%; font-size: clamp(28px, 3vw, 36px); }
+        .blueTeesDevice__leftInner h3 br { display: none; }
+        .play_w-paige .blueTeesDevice__leftInner h3 br { display: block; }
+        .blueTeesDevice__leftInner p { padding: 0; max-width: 430px; }
+        .blueTeesDevice__rightInner { overflow: hidden; }
+        .blueTeesDevice__rightInner a { display: none; }
+        .image_reveal-init { position: relative; overflow: hidden; }
+        .has_parallex { position: relative; overflow: hidden; will-change: transform; }
+        .play_w-paige .cta_stroke-btn { background: #0457f3; border: 0px; }
+        .play_w-paige .cta_stroke-btn:hover { background: #fff; color: #0457f3; }
+
+        @media only screen and (min-width: 861px) {
+          .blueTeesDevice__inner.new-page-width{padding-left: 20px; padding-right: 20px;}
+          .glow.glow-top {
+  margin-bottom: -20px;
+}
+.glow.glow-bottom {
+  margin-top: -20px;
+}
+        }
+        
+        @media only screen and (max-width: 860px) {
+        .blueTeesDevice__leftInner p { max-width: ; text-align: center; }
+        .blueTeesDevice__leftInner p { max-width: clamp(250px,50vw,350px); text-align: center; }
+         .blueTeesDevice__leftInner{align-items: center;
+          justify-content: center;}
+
+
+
+          .hero_section .hero-subtext{padding-inline: 30px;}
+       
+        }
+
+        
+
+        .howItWork__contentArea { padding-block-end: clamp(60px,11vw,177px);}
+    .eco-sys__points li {
+      font-weight: 700;
+    }
+
+    .howItWork__title { display: flex; margin-bottom: clamp(40px, 5vw, 80px); justify-content: center; }
+              .howItWork__cardArea {display: grid; column-gap:20px; row-gap: clamp(50px, 4.2vw, 72px); grid-template-columns: repeat(auto-fill, minmax(clamp(min(100%, 270px), 50vw, 350px), 1fr)); }
+              .howItWork__itemInner { position: relative; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: clamp(20px, 1.2vw, 30px); height: 100%; text-align:center;}
+              .howItWork__number {
+      background: #004DF5;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: clamp(64px, 7vw, 110px);
+      line-height: 1;
+      width: clamp(64px, 7vw, 110px);
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 900;
+    }
+              .howItWork__itemInner h5 { font-size: clamp(22px,2vw,20px); line-height: 100%; }
+              .howItWork__itemInner p { padding: 0; max-width: 282px; line-height: 130%;  width: 100%; }
+              .howItWork__title h4 {
+        max-width: fit-content;
+        color: #fff;
+      width: 100%;
+      text-align: center;
+      line-height: 1;
+  font-size: clamp(24px,2vw,36px);
+    }
+    
+    @media only screen and (max-width: 860px) {
+
+      .feature-section_video.page-width {
+  padding-inline: 0;
+}
+
+.step-top_heading{
+    max-width: 200px;
+}
+
+.item-mockup__image{aspect-ratio: 2/1.5;}
+
+
+      .howItWork__number svg {
+  max-width: 25px;
+  width: 100%;
+}
+
+.content-floating__caption-two {
+  
+  font-size: 11px;}
+.content-floating__caption{
+
+  
+  font-size: clamp(11px,1.3vw,18px);
+}
+
+.quote_mark {
+  max-width: 50px;
+  width: 100%;
+  display: flex;
+}
+
+.banner_content-floating{
+justify-content: flex-start;
+  gap: 15px;
+}
+
+
+
+
+.howItWork__title h4 {
+  max-width: 290px; width:100%;}
+      .blueTeesDevice__inner.new-page-width { flex-direction: column; gap: 28px; }
+      .blueTeesDevice__inner.new-page-width{ padding:0px;}
+      .play_w-paige .blueTeesDevice__inner.new-page-width { flex-direction: column-reverse; padding-left: 0; padding-right: 0; }
+      .blueTeesDevice__leftInner h3 br { display: block; }
+      .eco_sys .blueTeesDevice__leftInner h3 { max-width: 240px; text-align: center; }
+      
+      a.cta_stroke-btn { margin: 0 auto; }
+      .blueTeesDevice__leftInner span p { font-size: 10px; }
+      .blueTeesDevice__inner.new-page-width a.cta_stroke-btn:not(a.imporving_cta.cta_stroke-btn) { margin: 0 auto; }
+      .blueTeesDevice__leftInner span { max-width: fit-content; margin: 0 auto; gap: 15px; }
+      .blueTeesDevice__rightInner img { margin-bottom: 0; max-width: 100%; }
+    }
+
+              @keyframes fadeInUp {
+                from {
+                  opacity: 0;
+                  transform: translateY(20px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+
+              @keyframes zoomIn {
+                from {
+                  opacity: 0;
+                  transform: scale(0.9);
+                }
+                to {
+                  opacity: 1;
+                  transform: scale(1);
+                }
+              }
+
+              @media screen and (max-width: 860px) {
+
+
+                .shop_all-banner-content{
+                        justify-content: center;
+                }
+
+                .content-ctas{
+                    flex-direction: column;
+                }
+
+
+                .hero_section {
+                  padding-block: 60px;
+                  padding-inline: 0;
+                }
+                .hero_section .hero-title {
+                    margin-bottom: 20px;
+                }
+                .hero_section .product-image-container {
+                    max-width: 100%;
+                    scale: 1.3;
+                }
+                .glow{
+                  max-width:100%;
+                }
+              }
+              main > section {background:#000;}
+
+              .content-floating__caption {
+                color: #fff;
+                font-weight: 900;
+                letter-spacing:clamp(2px,0.5vw,5.6px);
+                line-height: 1;
+                font-size: clamp(16px,1.3vw,18px);
+            }
+            .content-floating__caption-two {letter-spacing:normal; font-weight:300; }
+            .floating_captions {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      color: #fff;
+    }
+    .banner_content-floating::after{display: none;}
+    .new-footer{border-top:1px solid #525252; display:flex; justify-content: center;
+      align-items: center; padding-block:clamp(20px,3vw,50px); padding-inline:20px;}
+
+
+  .faq-showcase-wrapper {
+    width: 100%;
+    max-width: 1700px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 20px;
+  }
+
+
+
+.promo_banner {
+  overflow: hidden;
+}
+
+#stepsEcoSys {
+  overflow: hidden;
+}
+
+        .faq-inner-card {
+   border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-block: clamp(40px,7vw,74px);
+  gap: 54px;
+  padding-inline: clamp(20px,5vw,80px);
+  background: radial-gradient(124.85% 237.3% at 0% 100%, #00A1FF 0%, #4000FF 100%), linear-gradient(135deg, #00A1FF, #4000FF) border-box;
+
+  width: 100%;
+  border: 2px solid transparent;
+  background-clip: padding-box, border-box;
+  }
+  .faq-inner-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000000C0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+
+
+.glow {
+  display: flex;
+  width: 100%;
+  max-width: calc(100% - 30px);
+  margin-inline:auto;
+}
+
+
+          .faq-visual-col {
+              position: relative;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: radial-gradient(circle at center, rgba(30, 30, 80, 0.5) 0%, transparent 70%);
+              z-index: 2;
+          }
+
+          .faq-main-image {
+              width: 100%;
+              height: auto;
+              object-fit: contain;
+              border-radius: 12px;
+              transition: opacity 0.4s ease;
+          }
+
+          /* Fade animation class */
+          .fade-out {
+              opacity: 0;
+          }
+
+          .faq-content-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    max-width: 670px;
+    width: 100%;
+    z-index: 2;
+  }
+
+          /* --- FAQ Item --- */
+          .faq-item-new {
+              border-bottom: 1px solid #fff;
+              margin-bottom: 0;
+          }
+
+          .faq-item-new:last-child {
+              border-bottom: none;
+          }
+
+          .faq-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 24px 0;
+              cursor: pointer;
+              transition: all 0.3s ease;
+          }
+
+          .faq-heading {
+              font-size: clamp(16px,1.5vw,21px);
+              font-weight: 900;
+              text-transform: uppercase;
+              text-align:left;
+              color: #fff;
+              letter-spacing: 0.5px;
+              transition: color 0.3s ease;
+              margin-right: 16px;
+              line-height:1;
+          }
+
+          .faq-item-new:hover .faq-heading {
+              color: #fff;
+          }
+
+          /* Icon (Plus / Minus) */
+          .faq-icon {
+              position: relative;
+              width: 14px;
+              height: 14px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+          }
+
+          .faq-icon::before,
+          .faq-icon::after {
+              content: '';
+              position: absolute;
+              background-color: #fff;
+              transition: transform 0.3s ease, opacity 0.3s ease;
+          }
+
+
+          .faq-icon::before {
+              width: 100%;
+              height: 2px;
+          }
+
+
+          .faq-icon::after {
+              width: 2px;
+              height: 100%;
+          }
+
+
+          .faq-item-new.active .faq-icon::after {
+              transform: rotate(90deg);
+              opacity: 0;
+          }
+
+          /* Body Content */
+          .faq-body {
+              max-height: 0;
+              overflow: hidden;
+              transition: max-height 0.4s ease-out, opacity 0.4s ease;
+              opacity: 0;
+          }
+
+          .faq-item-new.active .faq-body {
+              max-height: 800px;
+              opacity: 1;
+              padding-bottom: 24px;
+          }
+
+          .faq-desc {
+              font-size: clamp(12px,1.5vw,18px);
+              color: #fff;
+              line-height: 1.6;
+              max-width: 90%;
+              padding: 0;
+              text-align: left;
+          }
+
+          /* Mobile Image (Hidden on Desktop) */
+          .mobile-only-img {
+              display: none;
+              width: 100%;
+              margin-bottom: 20px;
+              border-radius: 8px;
+          }
+
+
+          .ecosys-heading p {
+  width: 100%;
+  max-width: 826px;
+  display: flex;
+  padding: 0;
+  margin-block: clamp(15px,2vw,30px) clamp(10px,4vw,40px);
+  padding-inline: clamp(15px,1.6vw,30px);
+}
+
+
+          /* --- Responsive 991px --- */
+          @media screen and (max-width: 991px) {
+              .faq-showcase-wrapper {
+                  border-radius: 16px;
+              }
+
+              
+
+              .faq-body{
+                display: flex;
+  flex-direction: column-reverse;
+  gap: 20px;
+              }
+
+
+              .faq-heading{max-width: 210px; width:100%;}
+
+
+.faq-inner-card{ padding-block: 0; }
+
+
+              .faq-visual-col {
+                  display: none; /* Hide main left visual */
+              }
+
+
+              .mobile-only-img {
+                  display: block;
+                  margin-bottom:0px;
+              }
+
+          }
+
+
+      .form_section{background:url("https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-topography-new.svg?v=1768554403") center center / cover no-repeat; background-color: #000; padding-block: clamp(60px,6vw,91px);}
+      .form_section-container{max-width:1184px; width:100%; padding-inline:20px; margin-inline:auto;}
+
+
+
+      .content-floating__quote {
+  font-size: clamp(20px,2.4vw,38px);
+  max-width: clamp(310px,40vw,740px);}
+
+.text_note-text {
+  color: #9F9F9F;
+  padding: 0;
+
+  font-variation-settings: "slnt" -10,"wdth" 130;
+  font-size: 12px;
+}
+
+.text_note-text:not(.item-details .text_note-text) { max-width: clamp(287px, 27vw,490px);
+  width: 100%;
+  margin-inline: auto;   margin-block: 30px 50px;}
+
+
+  .video_scale_animation-main{background: transparent; height: auto; width: 100%;
+  margin-top: -210px;}
+  .video_scale_animation-main .video_scale_animation{ max-width: 1600px; margin-inline: auto;}
+
+  .shop_all-banner-content{text-align: center; align-items: center; gap: clamp(20px,2vw,28px); padding-inline:20px;}
+  .shop_all-banner-content .content-floating__quote{font-size: clamp(20px,1.9vw,28px);
+    max-width: clamp(310px,50vw,750px);}
+    .shop_all-banner-content .content-cta__solid {
+        background: #FFF;
+        border: 2px solid #FFF;
+        color: #000;
+        font-weight: 600;
+    }
+    .shop_all-banner-content .content-cta__solid:hover {background: transparent;
+  color: #fff;}
+
+
+  @media only screen and (max-width:1280px){
+  
+    .video_scale_animation-main{
+    
+      margin-top: -150px;
+    }
+
+  }
+  @media only screen and (max-width:860px){
+  
+      .video_scale_animation-main {
+    margin-top: -80px;
+  }
+  
+}
+@media only screen and (max-width:575px){
+
+    .video_scale_animation-main {
+  margin-top: -50px;
+}
+}
+</style>
+
+<section class="hero_section">
+
+  <h1 class="hero-title">
+   OUR NEXT EVOLUTION. <br>
+    CONNECTED BY DESIGN.
+  </h1>
+
+  <p class="hero-subtext">
+Introducing the next chapter of Blue Tees — a fully connected ecosystem of devices, software, and intelligence designed to help golfers play smarter, score better, and stay connected to their game.
+  </p>
+<div class="content-ctas">
+  <a href="javascript:void(0);" data-anchor class="content-cta content-cta__solid"> EXPLORE HOW IT WORKS </a>
+  <a href="#prodForm" data-anchor-form class="content-cta content-cta__outline"> GET LAUNCH UPDATES </a>
+</div>
+
+  {% comment %} <div class="text_note">
+    <p class="text_note-text">New connected products begin pre-orders March 1. Our current lineup remains available, supported, and trusted today.</p>
+  </div> {% endcomment %}
+
+  <div class="product-image-container">
+    <div class="product-glow"></div>
+
+
+
+       <picture style="margin-top: clamp(70px,5.4vw,100px);display: flex;"> 
+        <source srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/new-mockup-eco-sys.png?v=1768820387" media="(min-width:861px)">
+        <source srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/new-mockup-eco-sys.png?v=1768820387 " media="(max-width:860px)">
+        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/new-mockup-eco-sys.png?v=1768820387" alt="Blue Tees Golf Connected Ecosystem" loading="lazy">
+      </picture>
+  </div>
+</section>
+<section>
+  {% render 'video-scaling-animation', video_url: 'https://cdn.shopify.com/videos/c/o/v/8e92fe285795453488050be5e832e68a.mp4', disable_animation: true,  video_poster: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Screenshot_2026-01-13_at_5.57.37_PM_1.png?v=1768821181'  %}
+</section>
+<section class="steps-ecosys" id="stepsEcoSys">
+  <div class="steps-ecosys__section">
+    <div class="steps-ecosys__inner">
+      <div class="ecosys-heading">
+        <h2>
+          EXPLORING THE <br>
+          ECOSYSTEM
+        </h2>
+        <p>Blue Tees is evolving from individual products into a fully connected experience — where devices, apps, and data work together to deliver smarter insights on and off the course. This is performance that builds over time, designed to grow with every round you play.</p>
+      </div>
+      <div class="ecosys-step ecosys-step__one">
+        <div class="step-arrow_icon">
+          <svg width="12" height="98" viewBox="0 0 12 98" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.77344 98L11.5469 88L-6.57638e-05 88L5.77344 98ZM5.77344 88.8125L6.77344 88.8125L6.77344 82.6875L5.77344 82.6875L4.77344 82.6875L4.77344 88.8125L5.77344 88.8125ZM5.77344 76.5625L6.77344 76.5625L6.77344 70.4375L5.77344 70.4375L4.77344 70.4375L4.77344 76.5625L5.77344 76.5625ZM5.77344 64.3125L6.77344 64.3125L6.77344 58.1875L5.77344 58.1875L4.77344 58.1875L4.77344 64.3125L5.77344 64.3125ZM5.77344 52.0625L6.77344 52.0625L6.77344 45.9375L5.77344 45.9375L4.77344 45.9375L4.77344 52.0625L5.77344 52.0625ZM5.77343 39.8125L6.77343 39.8125L6.77343 33.6875L5.77343 33.6875L4.77343 33.6875L4.77343 39.8125L5.77343 39.8125ZM5.77343 27.5625L6.77343 27.5625L6.77343 21.4375L5.77343 21.4375L4.77343 21.4375L4.77343 27.5625L5.77343 27.5625ZM5.77343 15.3125L6.77343 15.3125L6.77343 9.1875L5.77343 9.1875L4.77343 9.1875L4.77343 15.3125L5.77343 15.3125ZM5.77343 3.0625L6.77343 3.0625L6.77343 -4.37114e-08L5.77343 0L4.77343 4.37114e-08L4.77343 3.0625L5.77343 3.0625Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="step-top">
+          <span class="step-top_no-outlined custom_heading outline"> 01 </span>
+          <h3 class="step-top_heading">CONNECTED DEVICES</h3>
+          <p class="step-top_description">
+         Our next-generation connected devices expand the Blue Tees ecosystem, delivering seamless integration with our apps and intelligence platform.
+          </p>
+        </div>
+        <div class="step-bottom">
+              <div class="horizon-slider_container step-one__slider">
+            <div class="horizon-slider_track">
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278033.png?v=1768472008"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      The evolution of our bestselling speaker,combining premium sound, GPS, and AI intelligence.
+                    </p>
+                    <a class="step-slide_cta btn_pre-order" data-prod="pre-order" href="/products/player-pro-magnetic-gps-touchscreen-speaker" target="_blank">SHOP NOW</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278034_1ac1c50d-3203-4830-ab9d-ce36099300a8.png?v=1768472009"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105134.png?v=1768472008"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      Our new top-of-the-line connected rangefinder equipped with a vibrant OLED display, pinpoint
+                      accuracy, and AI-powered data.
+                    </p>
+                    <a class="step-slide_cta btn_pre-order" data-prod="pre-order" href="/products/captain-pro-bluetooth-rangefinder" target="_blank">SHOP NOW</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278035.png?v=1768472009"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Layer_1_5fd2da11-7042-4d22-9721-9799da338315.png?v=1768472009"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      Portability meets performance with our first-ever personal launch monitor giving you
+                      everything you need to dial in your game.
+                    </p>
+                    <a class="step-slide_cta btn_pre-order" data-prod="pre-order" href="/products/rainmaker-portable-launch-monitor" target="_blank">PRE-ORDER</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278036.png?v=1768472009"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277875_d2786580-7624-4edd-8e81-7ced9d6dc120.png?v=1768472009"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      Built from the DNA of our fan favorite Series rangefinders, this connected essential gives you
+                      everything you need to level up how you play.
+                    </p>
+                    <a class="step-slide_cta btn_pre-order" data-prod="pre-order" href="/products/captain-air-bluetooth-rangefinder" target="_blank">SHOP NOW</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278038.png?v=1768472009"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277879_cbe3f1d8-a0b6-4624-97e5-547ab14a4010.png?v=1768472008"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      Recently updated with a full-color display, faster shot tracking, & various UX enhancements,
+                      Ringer puts all of the data you need at your fingertips.
+                    </p>
+                    <a class="step-slide_cta btn_pre-order" data-prod="pre-order" href="/products/ringer">SHOP NOW</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277871.png?v=1768472010"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="horizon-slide">
+                <div class="slide_inner">
+                  <div class="slide_left">
+                    <span class="step-slide_title">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277878_b01611c5-fd75-4282-8d6c-a91a41a1d549.png?v=1768472009"
+                        alt=""
+                        decoding="async"
+                        height="100%"
+                        width="100%"
+                      >
+                    </span>
+                    <p class="step-slide_desc">
+                      Designed with your golf swing in mind, the Playmaker+ GPS Watch delivers maximum on-course
+                      utility, whatever your shooting for.
+                    </p>
+                    <a class="step-slide_cta btn_pre-order" data-prod="pre-order" href="/products/playmaker-watch">SHOP NOW</a>
+                  </div>
+                  <div class="step-slide_mockup">
+                    <img
+                      class="slide-mockup_image"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278037.png?v=1768472009"
+                      alt=" "
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ecosys-step ecosys-step__two">
+        <div class="step-arrow_icon">
+          <svg width="2" height="94" viewBox="0 0 2 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 94L0.999996 0" stroke="white" stroke-width="2" stroke-dasharray="6 6"/>
+          </svg>
+        </div>
+        <div class="step-top">
+          <span class="step-top_no-outlined custom_heading outline"> 02 </span>
+          <h3 class="step-top_heading">software & PLAYER DATA</h3>
+          <p class="step-top_description">
+           Our app experiences connect Blue Tees products across generations, transforming raw data into meaningful insights.
+          </p>
+        </div>
+        <div class="step-bottom new-page-width">
+          <div class="step-two_grid">
+            <div class="grid-item">
+              <div class="item-mockup">
+                <img
+                  class="item-mockup__image"
+                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277980_1.png?v=1768476746"
+                  alt=""
+                  height="100%"
+                  width="100%"
+                >
+              </div>
+              <div class="item-details">
+                <div class="item-detail__title">
+                  <img
+                    class="detail_image"
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105168.png?v=1768476083"
+                    alt=""
+                    height="100%"
+                    width="100%"
+                  >
+                </div>
+                 <div class="detail_description">
+                  <p>
+                    Your home for on-course performance. Track rounds, view smart distances, explore green heatmaps, and see how your game evolves over time.
+                  </p>
+                </div>
+                <div class="detail_description store_icons">
+                  <a
+                    href="https://apps.apple.com/us/app/blue-tees-game-ai-golf-gps/id6448720121"
+                    class="app_link app_link-app-store"
+                  >
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/app-store-icon-new.png?v=1768476453"
+                      alt=""
+                      height="100%"
+                      width="100%"
+                    >
+                  </a>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.bluetees"
+                    class="app_link app_link-play-store"
+                  >
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/play-store-icon-new.png?v=1768476453"
+                      alt=""
+                      height="100%"
+                      width="100%"
+                    >
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item">
+              <div class="item-mockup">
+                <img
+                  class="item-mockup__image"
+                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277980.png?v=1768476746"
+                  alt=""
+                  height="100%"
+                  width="100%"
+                >
+              </div>
+              <div class="item-details">
+                <div class="item-detail__title">
+                  <img
+                    class="detail_image"
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105169.png?v=1768476083"
+                    alt=""
+                    height="100%"
+                    width="100%"
+                  >
+                </div>
+                <div class="detail_description">
+                  <p>
+                    The LAUNCH App provides Rainmaker users deeper shot analysis and full round simulation through a
+                    custom range experience, beautiful as well as popular integration like E6 Connect & GS Pro.
+                  </p>
+                </div>
+                  <div class="text_note">
+    <p class="text_note-text">Available later this year with the release of the Rainmaker</p>
+  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ecosys-step ecosys-step__three">
+        <div class="step-arrow_icon">
+          <svg width="2" height="94" viewBox="0 0 2 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 94L0.999996 0" stroke="white" stroke-width="2" stroke-dasharray="6 6"/>
+          </svg>
+        </div>
+        <div class="step-top">
+          <span class="step-top_no-outlined custom_heading outline"> 03 </span>
+          <h3 class="step-top_heading">GAME AI intelligence</h3>
+          <p class="step-top_description">
+         GAME AI is the intelligence layer behind the Blue Tees ecosystem — already powering how our products learn, adapt, and deliver insights, with deeper capabilities rolling out over time.
+          </p>
+        </div>
+        <div class="step-bottom">
+          <div class="faq-showcase-wrapper">
+            <span class="glow glow-top">
+              <img class="glow-top_image" src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/glow-top.png?v=1768572324" alt="glow" hegiht="100%" width="100%">
+            </span>
+            <div class="faq-inner-card">
+
+              <div class="faq-visual-col">
+                <img id="faq-desktop-image" src="" alt="Feature Visual" class="faq-main-image">
+              </div>
+
+              <div class="faq-content-col">
+
+                <div
+                  class="faq-item-new active"
+                  data-img="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-1.png?v=1768557788"
+                >
+                  <div class="faq-header">
+                    <h3 class="faq-heading">CLUB RECOMMENDATIONS</h3>
+                    <div class="faq-icon"></div>
+                  </div>
+                  <div class="faq-body">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-1.png?v=1768557788"
+                      class="mobile-only-img"
+                      alt="Club Recommendations"
+                    >
+                    <p class="faq-desc">
+                      Real-time club suggestions delivered directly to your connected devices—powered by Game AI and
+                      informed by your past rounds, playing tendencies, and Rainmaker training data.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="faq-item-new"
+                  data-img="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-2.png?v=1768557789"
+                >
+                  <div class="faq-header">
+                    <h3 class="faq-heading">TRUE DISTANCE™ ADJUSTED YARDAGES</h3>
+                    <div class="faq-icon"></div>
+                  </div>
+                  <div class="faq-body">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-2.png?v=1768557789"
+                      class="mobile-only-img"
+                      alt="True Distance"
+                    >
+                    <p class="faq-desc">
+                      True Distance™ accounts for slope, wind, temperature, and elevation to show how your shot will actually play—not just the number on the card.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="faq-item-new"
+                  data-img="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-3.png?v=1768557789"
+                >
+                  <div class="faq-header">
+                    <h3 class="faq-heading">PERSONALIZED POST-GAME ANALYTICS</h3>
+                    <div class="faq-icon"></div>
+                  </div>
+                  <div class="faq-body">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-3.png?v=1768557789"
+                      class="mobile-only-img"
+                      alt="Analytics"
+                    >
+                    <p class="faq-desc">
+                      A personalized performance dashboard that visualizes every aspect of your game—from 3D round replays and dispersion maps to scoring trends—so you can track progress and identify where to improve.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="faq-item-new"
+                  data-img="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-4.png?v=1768557788"
+                >
+                  <div class="faq-header">
+                    <h3 class="faq-heading">SCOUT AI™ VIRTUAL CADDIE</h3>
+                    <div class="faq-icon"></div>
+                  </div>
+                  <div class="faq-body">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-4.png?v=1768557788"
+                      class="mobile-only-img"
+                      alt="Caddie"
+                    >
+                    <p class="faq-desc">
+                      Your on-course virtual caddie in the GAME app—bringing together club recommendations, true distance yardages, shot technique, and aiming guidance on a shot-by-shot basis.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="faq-item-new"
+                  data-img="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-5.png?v=1768557789"
+                >
+                  <div class="faq-header">
+                    <h3 class="faq-heading">"MY BAG" DIGITAL TWIN</h3>
+                    <div class="faq-icon"></div>
+                  </div>
+                  <div class="faq-body">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/eco-faq-image-5.png?v=1768557789"
+                      class="mobile-only-img"
+                      alt="My Bag"
+                    >
+                    <p class="faq-desc">
+                      Store and manage detailed club, ball, and swing data from Rainmaker training sessions—fueling continuous learning across all AI-powered features in the ecosystem.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+             <span class="glow glow-bottom">
+              <img class="glow-bottom_image" src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/glow-bottom.png?v=1768572310" alt="glow" hegiht="100%" width="100%">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="howItWork__contentArea">
+    <div class="howItWork__Content new-page-width">
+      <span class="border"></span>
+      <div class="howItWork__title">
+        <h4>
+          Built for Every Type of Golfer – <br>
+          and Every Type of Partner
+        </h4>
+      </div>
+      <div class="howItWork__cardArea">
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <svg width="44" height="73" viewBox="0 0 44 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.4738 27.993C18.2365 27.9923 17.0272 27.6291 15.9988 26.9492C14.9703 26.2693 14.1689 25.3033 13.6958 24.1734C13.2227 23.0434 13.0993 21.8002 13.3409 20.6009C13.5826 19.4015 14.1786 18.2999 15.0537 17.4354C15.9287 16.5708 17.0435 15.982 18.257 15.7435C19.4705 15.5049 20.7284 15.6274 21.8715 16.0953C23.0147 16.5632 23.9917 17.3555 24.6793 18.3722C25.3669 19.3888 25.7341 20.5842 25.7344 21.8071C25.7361 22.62 25.5753 23.4253 25.2613 24.1767C24.9472 24.9281 24.486 25.6107 23.9043 26.1855C23.3226 26.7602 22.6318 27.2158 21.8715 27.526C21.1112 27.8362 20.2964 27.9949 19.4738 27.993ZM41.8088 20.7971C41.3262 20.6382 40.8065 20.626 40.3169 20.762C39.8272 20.8979 39.3899 21.1759 39.0617 21.5599L38.3888 21.1172L38.4932 20.9536C38.8511 20.3877 38.9668 19.7045 38.815 19.0542C38.6631 18.404 38.2562 17.84 37.6836 17.4863C37.1111 17.1327 36.4197 17.0182 35.7618 17.1683C35.104 17.3184 34.5334 17.7206 34.1755 18.2865L34.1467 18.3327L6.52266 0.160722C5.91278 -0.241124 4.72358 0.109142 2.76263 1.22755C0.934816 2.27129 -0.11576 3.19234 0.0101718 4.07249C0.209864 5.55719 1.93326 7.07744 2.94611 6.49779C4.66986 5.26643 5.89373 3.46875 6.39847 1.42673L33.544 19.284L28.9763 26.4923L22.8758 29.6644C19.9757 30.9588 18.1138 34.2483 19.5476 36.254L26.7437 47.8613L23.8347 56.8495L14.6003 67.1623C14.053 67.7732 13.7737 68.574 13.8238 69.3885C13.8739 70.2029 14.2493 70.9644 14.8674 71.5053C15.4856 72.0462 16.2958 72.3222 17.1199 72.2727C17.9439 72.2232 18.7143 71.8521 19.2616 71.2412L28.9295 60.4501V60.4412C29.2161 60.1248 29.433 59.753 29.5664 59.3494L30.4929 56.4885V69.2036C30.4929 70.0194 30.8208 70.8018 31.4045 71.3787C31.9882 71.9556 32.7797 72.2796 33.6052 72.2796C34.4306 72.2796 35.2223 71.9556 35.806 71.3787C36.3897 70.8018 36.7176 70.0194 36.7176 69.2036V45.8431C36.7 45.3257 36.5904 44.8153 36.3938 44.3353L29.9172 31.6843L31.9537 30.6174C32.3631 30.43 32.7014 30.1186 32.9198 29.7284L37.7772 22.0631L38.5201 22.5521L35.4906 31.5243L32.1966 31.8088L34.672 36.6469L37.4371 36.4087C37.9726 36.4299 38.4993 36.2688 38.9289 35.9523C39.3586 35.6357 39.6652 35.183 39.7975 34.6697L43.4172 23.9728C43.6286 23.3408 43.5781 22.6518 43.2766 22.0566C42.9752 21.4614 42.4473 21.0085 41.8088 20.7971Z" fill="white"/>
+              </svg>
+            </span>
+            <h5>
+              MODERN <br>
+              Golfers
+            </h5>
+            <p>
+              Smarter decisions, less friction, and a connected system that improves the more you play—on the course and
+              beyond.
+            </p>
+          </div>
+        </div>
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.1057 1.666C23.1722 0.599366 24.6188 9.00758e-05 26.1272 0H39.8087C40.5556 0 41.2951 0.147111 41.9852 0.432935C42.6752 0.718759 43.3022 1.1377 43.8303 1.66583C44.3585 2.19396 44.7774 2.82095 45.0632 3.51099C45.349 4.20103 45.4962 4.94061 45.4962 5.6875V19.369C45.4961 20.8774 44.8968 22.324 43.8302 23.3905L23.3902 43.8305C22.3236 44.897 20.877 45.4962 19.3687 45.4962C17.8603 45.4962 16.4138 44.897 15.3472 43.8305L1.66566 30.149C0.599151 29.0824 0 27.6358 0 26.1275C0 24.6192 0.599151 23.1726 1.66566 22.106L22.1057 1.666ZM34.9927 14C35.9209 14 36.8112 13.6313 37.4675 12.9749C38.1239 12.3185 38.4927 11.4283 38.4927 10.5C38.4927 9.57174 38.1239 8.6815 37.4675 8.02513C36.8112 7.36875 35.9209 7 34.9927 7C34.0644 7 33.1742 7.36875 32.5178 8.02513C31.8614 8.6815 31.4927 9.57174 31.4927 10.5C31.4927 11.4283 31.8614 12.3185 32.5178 12.9749C33.1742 13.6313 34.0644 14 34.9927 14Z" fill="white"/>
+              </svg>
+            </span>
+            <h5>
+              Retailers & <br>
+              DISTRIBUTORS
+            </h5>
+            <p>
+              A cohesive ecosystem that simplifies selling, increases attachment, and drives long-term customer value.
+            </p>
+          </div>
+        </div>
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.8125 21.3124V21.3923C5.80964 21.8916 5.62937 22.3736 5.30391 22.7522V22.7582C4.65 23.5308 3.875 24.9137 3.875 27.1249C3.875 29.129 4.5168 30.5434 5.28938 31.4734C5.62834 31.8859 5.81328 32.4035 5.8125 32.9374C5.8125 33.9651 6.22076 34.9507 6.94746 35.6774C7.67416 36.4041 8.65979 36.8124 9.6875 36.8124H10.6562C10.9132 36.8124 11.1596 36.7103 11.3413 36.5286C11.5229 36.347 11.625 36.1006 11.625 35.8436V18.4061C11.625 18.1492 11.5229 17.9028 11.3413 17.7211C11.1596 17.5394 10.9132 17.4374 10.6562 17.4374H9.6875C8.65979 17.4374 7.67416 17.8456 6.94746 18.5723C6.22076 19.299 5.8125 20.2847 5.8125 21.3124ZM54.7562 22.5899L54.6436 22.5693C54.5328 22.5482 54.4329 22.4891 54.3611 22.4022C54.2893 22.3154 54.25 22.2062 54.25 22.0934V7.5077C54.25 5.97707 53.234 4.60145 51.7203 4.07832C50.2769 3.58063 48.7729 3.98629 47.8841 5.11125C45.9933 7.36927 43.9148 9.46319 41.6708 11.3706C38.8093 13.7925 36.0714 15.518 33.5575 16.4941C33.3742 16.564 33.2164 16.6879 33.105 16.8494C32.9937 17.0109 32.934 17.2024 32.9339 17.3986V36.2069C32.9342 36.5857 33.0455 36.956 33.254 37.2722C33.4626 37.5883 33.7592 37.8364 34.1073 37.9858C36.4492 38.9897 38.9801 40.6293 41.6151 42.8634C43.8758 44.7883 45.9693 46.9013 47.8732 49.1797C48.1782 49.5623 48.5675 49.8693 49.0107 50.0766C49.4539 50.2839 49.9391 50.386 50.4283 50.3749C50.8583 50.3731 51.2852 50.302 51.6925 50.1642C53.2461 49.6483 54.25 48.3223 54.25 46.7905V32.1539C54.2501 32.0396 54.2906 31.929 54.3644 31.8417C54.4382 31.7543 54.5405 31.6959 54.6532 31.6768L54.7562 31.6598C55.9211 31.3438 58.125 29.9912 58.125 27.1249C58.125 24.2586 55.9211 22.906 54.7562 22.5899ZM29.0625 38.7499V18.4061C29.0625 18.1492 28.9604 17.9028 28.7788 17.7211C28.5971 17.5394 28.3507 17.4374 28.0938 17.4374H16.4688C16.2118 17.4374 15.9654 17.5394 15.7837 17.7211C15.6021 17.9028 15.5 18.1492 15.5 18.4061V55.2186C15.5 55.9894 15.8062 56.7286 16.3512 57.2737C16.8962 57.8187 17.6355 58.1249 18.4062 58.1249H24.7576C25.3614 58.1299 25.9582 57.9967 26.5025 57.7354C27.0468 57.474 27.524 57.0916 27.8976 56.6173C28.2806 56.1263 28.5382 55.5494 28.6482 54.9364C28.7581 54.3235 28.717 53.693 28.5285 53.0995C28.3323 52.4722 28.0889 51.7675 27.8298 51.0179C26.8719 48.2448 25.6089 46.5289 25.2723 42.6237C26.285 42.6015 27.2488 42.1837 27.9572 41.4596C28.6657 40.7355 29.0624 39.7629 29.0625 38.7499Z" fill="white"/>
+              </svg>
+            </span>
+            <h5>
+              PRESS & <br>
+              Media
+            </h5>
+            <p>
+              A clear platform story—designed to show where golf technology is going, not just announce another device.
+            </p>
+          </div>
+        </div>
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <svg width="59" height="50" viewBox="0 0 59 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M44.131 0L43.3108 3.93009C42.4795 4.06083 41.6693 4.30122 40.9013 4.64495L38.0779 1.79265L34.8627 4.39456L37.0619 7.75492C36.5719 8.42706 36.1718 9.16611 35.868 9.96127L31.8507 9.94314L31.4189 14.0583L35.3491 14.8784C35.4811 15.7187 35.7247 16.522 36.0639 17.2808L33.2116 20.1113L35.8135 23.3265L39.1739 21.1237C39.8531 21.6187 40.5951 22.0214 41.3803 22.3213L41.3621 26.3348L45.4773 26.7666L46.2937 22.8365C47.1348 22.7045 47.944 22.4648 48.7033 22.1252L51.5302 24.9775L54.7454 22.372L52.5427 19.0152C53.0378 18.336 53.4405 17.5941 53.7402 16.8089L57.7537 16.8234L58.1856 12.7083L54.2555 11.8954C54.1233 11.0539 53.884 10.2418 53.5441 9.48211L56.3964 6.6588L53.7909 3.44361L50.4342 5.64274C49.7617 5.15248 49.0198 4.7492 48.2242 4.44523L48.2423 0.431688L44.131 0ZM44.8131 9.55848C44.9425 9.55892 45.0736 9.56284 45.2051 9.57661C47.3073 9.79748 48.8298 11.6802 48.609 13.7825C48.3881 15.8847 46.5053 17.4109 44.403 17.19C42.3008 16.9691 40.7747 15.0863 40.9955 12.9842C41.2025 11.0133 42.8732 9.55174 44.8131 9.55848ZM15.2849 9.89596L14.7333 15.3611C13.6081 15.6611 12.5424 16.1041 11.558 16.6747L7.30495 13.1983L3.30227 17.201L6.77876 21.4577C6.20816 22.4424 5.76488 23.5073 5.46513 24.6329L0 25.1808V30.8418L5.46508 31.3934C5.76077 32.5041 6.20251 33.5706 6.77871 34.565L3.30222 38.8217L7.3049 42.8244L11.5616 39.348C12.5561 39.9242 13.6226 40.366 14.7333 40.6617L15.2848 46.1267H20.9459L21.4938 40.6617C22.6193 40.3619 23.6844 39.9186 24.669 39.348L28.9257 42.8244L32.9284 38.8217L29.4519 34.5687C30.0225 33.5843 30.4656 32.5185 30.7656 31.3934L36.2307 30.8418V25.1808L30.7656 24.6328C30.4657 23.5067 30.0231 22.4391 29.452 21.4539L32.9284 17.2008L28.9257 13.1982L24.6727 16.6746C23.6876 16.1036 22.6199 15.6609 21.4937 15.3609L20.9458 9.89581H15.2849V9.89596ZM18.1154 22.7748C21.0076 22.7748 23.3519 25.1191 23.3519 28.0113C23.3519 30.9036 21.0076 33.2478 18.1154 33.2478C15.2231 33.2478 12.8789 30.9035 12.8789 28.0113C12.8789 25.1191 15.2232 22.7748 18.1154 22.7748ZM42.1496 29.7677L41.5726 32.6418C40.9816 32.7384 40.415 32.9159 39.8814 33.1643L37.8929 31.0777L35.6356 32.9829L37.1815 35.4396C36.8372 35.9314 36.5532 36.4728 36.3396 37.0545L33.5201 37.0399L33.2152 40.0519L35.9769 40.6507C36.0678 41.2564 36.2361 41.8479 36.4776 42.4108L34.4745 44.4792L36.3035 46.8307L38.6659 45.2195C39.1405 45.5797 39.6618 45.8739 40.2154 46.0941L40.2045 49.0335L43.0967 49.3492L43.6701 46.4715C44.2611 46.3749 44.8274 46.201 45.3611 45.9526L47.3498 48.0392L49.6105 46.134L48.061 43.6772C48.4054 43.1856 48.6893 42.6438 48.9029 42.0623L51.7263 42.0732L52.0274 39.0649L49.2659 38.4661C49.1731 37.8505 49.004 37.2582 48.7651 36.7025L50.7682 34.6376L48.9393 32.2825L46.5805 33.8937C46.108 33.535 45.5866 33.2415 45.0274 33.0191L45.0419 30.0834L42.1496 29.7677ZM42.6286 36.757C42.7194 36.7574 42.812 36.7614 42.9044 36.7716C44.382 36.9331 45.451 38.3108 45.2958 39.8489C45.1406 41.3868 43.8194 42.5035 42.3418 42.3419C40.8642 42.1804 39.7915 40.8026 39.9468 39.2646C40.0923 37.8226 41.2651 36.752 42.6286 36.757Z" fill="white"/>
+              </svg>
+            </span>
+            <h5>
+              INTEGRATION <br>
+              PARTNERS
+            </h5>
+            <p>A scalable, data-driven foundation built for collaboration, expansion, and long-term growth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="promo_banner">
+  <div class="promo_banner-content">
+    <div class="banner_content-background">
+      <div class="product-card__background">
+        <picture style="display: flex;">
+          <source
+            srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277989.png?v=1768482130"
+            media="(min-width:860px)"
+          >
+          <source
+            srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278015.png?v=1768561319"
+            media="(max-width:861px)"
+          >
+          <img
+            class="image-fit lazyload"
+            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171277989.png?v=1768482130"
+            alt=""
+            loading="lazy"
+            height="100%"
+            width="100%"
+          >
+        </picture>
+      </div>
+    </div>
+    <div class="banner_content-floating">
+      <div class="floating_heading">
+        <span class="quote_mark">
+          <svg width="100" height="60" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_6724_1830)">
+            <mask id="path-1-outside-1_6724_1830" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="60" fill="black">
+            <rect fill="white" width="100" height="60"/>
+            <path d="M2.57031 57.5898V45.1875C2.57031 37.1146 4.55599 29.4648 8.52734 22.2383C12.4987 15.0117 18.4557 8.63151 26.3984 3.09766L46.7109 16.4766C43.9766 20.1224 41.9258 24.2891 40.5586 28.9766C39.2565 33.599 38.6055 38.9701 38.6055 45.0898V57.5898H2.57031ZM52.9609 57.5898V45.1875C52.9609 37.1146 54.9466 29.4648 58.918 22.2383C62.9544 15.0117 68.9115 8.63151 76.7891 3.09766L97.1016 16.4766C94.4323 20.1224 92.4141 24.2891 91.0469 28.9766C89.6797 33.599 88.9961 38.9701 88.9961 45.0898V57.5898H52.9609Z"/>
+            </mask>
+            <path d="M2.57031 57.5898H0.570312V59.5898H2.57031V57.5898ZM26.3984 3.09766L27.4986 1.4274L26.3669 0.682053L25.2551 1.45667L26.3984 3.09766ZM46.7109 16.4766L48.3109 17.6766L49.5865 15.9757L47.8111 14.8063L46.7109 16.4766ZM40.5586 28.9766L38.6386 28.4166L38.636 28.4254L38.6335 28.4343L40.5586 28.9766ZM38.6055 57.5898V59.5898H40.6055V57.5898H38.6055ZM52.9609 57.5898H50.9609V59.5898H52.9609V57.5898ZM58.918 22.2383L57.1718 21.263L57.1652 21.2751L58.918 22.2383ZM76.7891 3.09766L77.8892 1.4274L76.7528 0.678947L75.6394 1.4611L76.7891 3.09766ZM97.1016 16.4766L98.7153 17.658L99.9568 15.9623L98.2017 14.8063L97.1016 16.4766ZM91.0469 28.9766L92.9648 29.5438L92.9669 29.5366L91.0469 28.9766ZM88.9961 57.5898V59.5898H90.9961V57.5898H88.9961ZM2.57031 57.5898H4.57031V45.1875H2.57031H0.570312V57.5898H2.57031ZM2.57031 45.1875H4.57031C4.57031 37.4588 6.46732 30.1395 10.2801 23.2015L8.52734 22.2383L6.77458 21.2751C2.64466 28.7902 0.570312 36.7704 0.570312 45.1875H2.57031ZM8.52734 22.2383L10.2801 23.2015C14.0795 16.2879 19.8079 10.127 27.5417 4.73864L26.3984 3.09766L25.2551 1.45667C17.1036 7.13603 10.9179 13.7355 6.77458 21.2751L8.52734 22.2383ZM26.3984 3.09766L25.2983 4.76791L45.6108 18.1468L46.7109 16.4766L47.8111 14.8063L27.4986 1.4274L26.3984 3.09766ZM46.7109 16.4766L45.1109 15.2766C42.2223 19.1281 40.0683 23.5148 38.6386 28.4166L40.5586 28.9766L42.4786 29.5366C43.7833 25.0633 45.7309 21.1167 48.3109 17.6766L46.7109 16.4766ZM40.5586 28.9766L38.6335 28.4343C37.2703 33.2737 36.6055 38.8343 36.6055 45.0898H38.6055H40.6055C40.6055 39.1058 41.2427 33.9242 42.4837 29.5188L40.5586 28.9766ZM38.6055 45.0898H36.6055V57.5898H38.6055H40.6055V45.0898H38.6055ZM38.6055 57.5898V55.5898H2.57031V57.5898V59.5898H38.6055V57.5898ZM52.9609 57.5898H54.9609V45.1875H52.9609H50.9609V57.5898H52.9609ZM52.9609 45.1875H54.9609C54.9609 37.4588 56.8579 30.1395 60.6707 23.2015L58.918 22.2383L57.1652 21.2751C53.0353 28.7902 50.9609 36.7704 50.9609 45.1875H52.9609ZM58.918 22.2383L60.6641 23.2136C64.5318 16.289 70.2671 10.1233 77.9387 4.73421L76.7891 3.09766L75.6394 1.4611C67.5558 7.13967 61.377 13.7344 57.1719 21.263L58.918 22.2383ZM76.7891 3.09766L75.6889 4.76791L96.0014 18.1468L97.1016 16.4766L98.2017 14.8063L77.8892 1.4274L76.7891 3.09766ZM97.1016 16.4766L95.4878 15.2951C92.6704 19.1433 90.554 23.5237 89.1269 28.4166L91.0469 28.9766L92.9669 29.5366C94.2742 25.0544 96.1942 21.1015 98.7153 17.658L97.1016 16.4766ZM91.0469 28.9766L89.129 28.4093C87.695 33.2577 86.9961 38.8271 86.9961 45.0898H88.9961H90.9961C90.9961 39.113 91.6644 33.9403 92.9647 29.5438L91.0469 28.9766ZM88.9961 45.0898H86.9961V57.5898H88.9961H90.9961V45.0898H88.9961ZM88.9961 57.5898V55.5898H52.9609V57.5898V59.5898H88.9961V57.5898Z" fill="white" mask="url(#path-1-outside-1_6724_1830)"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_6724_1830">
+            <rect width="100" height="60" fill="white" transform="matrix(1 0 0 -1 0 60)"/>
+            </clipPath>
+            </defs>
+          </svg>
+        </span>
+        <h3 class="content-floating__quote custom_heading">
+          THE BLUE TEES ECOSYSTEM PROVIDES THE SAME DATA THAT THE BEST PLAYERS IN THE WORLD USE.
+        </h3>
+      </div>
+      <div class="floating_captions">
+        <span class="content-floating__caption">SEAN FOLEY</span>
+        <span class="content-floating__caption-two">PGA Tour Coach</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form_section" id="prodForm">
+  <div class="form_section-container">
+    <div class="klaviyo-form-UUMLry"></div>
+  </div>
+</section>
+
+
+<section class="promo_banner">
+  <div class="promo_banner-content">
+    <div class="banner_content-background">
+      <div class="product-card__background">
+        <picture style="display: flex;">
+          <source
+            srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/shop-all-section-bg.png?v=1768821782"
+            media="(min-width:860px)"
+          >
+          <source
+            srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/shop-all-section-bg-mobile.png?v=1768821885"
+            media="(max-width:861px)"
+          >
+          <img
+            class="image-fit lazyload"
+            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/shop-all-section-bg.png?v=1768821782"
+            alt=""
+            loading="lazy"
+            height="100%"
+            width="100%"
+          >
+        </picture>
+      </div>
+    </div>
+    <div class="banner_content-floating shop_all-banner-content">
+      <div class="floating_heading">
+        <h3 class="content-floating__quote custom_heading">
+          Looking for products available today? Explore our current lineup.
+        </h3>
+      </div>
+      <div class="content-ctas">
+  <a href="{{ collections['all-products'].url }}" class="content-cta content-cta__solid"> SHOP ALL PRODUCTS </a>
+  
+</div>
+    </div>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
+<script>
+ document.addEventListener('DOMContentLoaded', () => {
+  gsap.registerPlugin(ScrollToPlugin);
+
+  // Helper function – makes both anchors behave the same
+  function scrollToSection(targetId, offset = 0) {   // ← tune offset here
+    gsap.to(window, {
+      duration: 2,
+      scrollTo: {
+        y: targetId,
+        offsetY: offset,     // negative = leave space for fixed header
+        autoKill: false      // ← crucial for reliability on first click
+      },
+      ease: 'power2.out'
+    });
+  }
+
+  document.querySelectorAll('[data-anchor]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToSection('#stepsEcoSys', 0);   // adjust -80 to your header height in px
+    });
+  });
+});
+
+  document.addEventListener('DOMContentLoaded', () => {
+    horizonSlider({
+      '.step-one__slider': {
+        loop: true,
+       margin: 32,
+        
+        nav: true,
+        autoplay: false,
+        showTracker: false,
+        drag: false,
+        responsive: {
+          0: { items: 1.2, drag: true,  },
+          992: { items: 2.5, },
+          1280: { items: 3.1,  },
+        },
+      },
+    });
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('.faq-item-new');
+    const desktopImage = document.getElementById('faq-desktop-image');
+
+    // Initialize: Set desktop image to the active item's image
+    const activeItem = document.querySelector('.faq-item-new.active');
+    if (activeItem && desktopImage) {
+      desktopImage.src = activeItem.getAttribute('data-img');
+    }
+
+    faqItems.forEach((item) => {
+      const header = item.querySelector('.faq-header');
+
+      header.addEventListener('click', () => {
+        // Check if already active
+        const isActive = item.classList.contains('active');
+
+        // Close all
+        faqItems.forEach((otherItem) => {
+          otherItem.classList.remove('active');
+        });
+
+        // If it wasn't active, make it active
+        if (!isActive) {
+          item.classList.add('active');
+
+          // Update Desktop Image with fade effect
+          const newImgSrc = item.getAttribute('data-img');
+          if (desktopImage) {
+            desktopImage.classList.add('fade-out');
+            setTimeout(() => {
+              desktopImage.src = newImgSrc;
+              desktopImage.classList.remove('fade-out');
+            }, 400); // sync with css transition time
+          }
+        } else {
+          // Keep active to maintain visual consistency as discussed
+          item.classList.add('active');
+        }
+      });
+    });
+  });
+</script>

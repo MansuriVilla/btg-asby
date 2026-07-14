@@ -1,0 +1,63 @@
+<div class="banner_bg" style="background:url({{ section.settings.section_bg | img_url: 'master' }}) no-repeat center center / cover;">	
+     <div class="speaker_banner_text">
+       	{% if section.settings.speaker_logo != blank %}
+       		<div class="top_img"> <img src="{{ section.settings.speaker_logo | img_url: 'master' }}"></div>
+       	{% endif %}
+		{% if section.settings.speaker_image != blank %}
+       		<div class="speaker_img"> <img src="{{ section.settings.speaker_image | img_url: 'master' }}"></div>
+       	{% endif %}
+
+        <div class="price"><!--span>{{all_products['magnetic-golf-speaker'].compare_at_price_max | money}}</span -->{{all_products['magnetic-golf-speaker'].price | money}}</div>
+       
+       	{%- if section.settings.link_text != blank -%}
+         <div class="button">
+           <a href="{{ section.settings.link }}" class="addcart">
+             {{ section.settings.link_text }}
+           </a>
+         </div>
+        {%- endif -%}
+
+     </div>
+      	    
+</div>
+
+
+{% schema %}
+  {
+    "name": "Player Hero",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "section_bg",
+        "label": "Background Image"
+      },
+	  {
+        "type": "image_picker",
+        "id": "speaker_logo",
+        "label": "speaker logo"
+      },
+	  {
+        "type": "image_picker",
+        "id": "speaker_image",
+        "label": "speaker Image"
+      },
+	  {
+          "type": "url",
+          "id": "link",
+          "label": "button link"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Button text",
+          "default": "Optional button"
+        }
+    ],    
+    "presets": [
+      {
+        "name": "Player Hero",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

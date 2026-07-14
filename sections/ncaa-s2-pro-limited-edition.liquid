@@ -1,0 +1,49 @@
+<div class="game_day_decision_bg">
+	<div class="page-width">
+        {%- if section.settings.title != blank -%}
+            <h3>{{ section.settings.title | escape }}</h3>
+        {%- endif -%}
+        {%- if section.settings.sub_title != blank -%}
+            <h2>{{ section.settings.sub_title | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.top_icon != blank -%}
+            <div class="pro2_img"><img   src="{{ section.settings.top_icon | img_url: 'master' }}" alt="{{ section.settings.top_icon.alt | img_alt: 'master' }}"></div>
+        {%- endif -%}
+         {%- if section.settings.bottom_image != blank -%}
+            <div class="game_view_img"><img   src="{{ section.settings.bottom_image | img_url: 'master' }}" alt="{{ section.settings.bottom_image.alt | img_alt: 'master' }}"></div>
+        {%- endif -%}
+     </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": "Limited edition",
+  "class": "limited-edition",
+  "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "LIMITED EDITION"
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub title",
+        "default": "GAME DAY DECISION."
+      },
+      {
+          "type": "image_picker",
+          "id": "top_icon",
+          "label": "Top icon"
+      },
+      {
+          "type": "image_picker",
+          "id": "bottom_image",
+          "label": "Bottom image"
+      }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,141 @@
+<div class="built-section" style="background-color: {{ section.settings.bg_color }};">
+  <div class="built-section__container">
+    
+    {% if section.settings.heading != blank %}
+      <h2 class="built-heading">
+        {{ section.settings.heading | newline_to_br }}
+      </h2>
+    {% endif %}
+    <div class="horizon-slider_container built-slider">
+      <div class="horizon-slider_track">
+        
+        {% for block in section.blocks %}
+          <div class="horizon-slide">
+             <div class="built-card">
+               {% if block.settings.image != blank %}
+                 <img 
+                   src="{{ block.settings.image | image_url: width: 600 }}" 
+                   alt="{{ block.settings.title }}" 
+                   loading="lazy"
+                   width="400"
+                   height="500"
+                 >
+               {% else %}
+                 <div style="background-color: #ddd; width: 100%; height: 100%; position: absolute; inset:0;"></div>
+               {% endif %}
+               
+               <div class="built-content">
+                 {% if block.settings.title != blank %}
+                   <h3>{{ block.settings.title }}</h3>
+                 {% endif %}
+                 {% if block.settings.description != blank %}
+                   <p>{{ block.settings.description }}</p>
+                 {% endif %}
+               </div>
+             </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof horizonSlider === 'function') {
+      horizonSlider({
+        '.built-slider': {
+          loop: true,
+          margin: 20,
+          nav: true,
+          showTracker: false, // Start with false as per image (only arrows), check later
+          drag: true,
+          autoplay: {
+            delay: 4000,
+            pauseOnHover: true
+          },
+          responsive: {
+            0: {
+              items: 1.2 /* peek effect */
+            },
+            640: {
+              items: 2.5
+            },
+            1024: {
+              items: 2.9
+            },
+            1280: {
+              items: 3.4
+            }
+          }
+        }
+      });
+ 
+    } else {
+      console.warn('Horizon Slider library not loaded.');
+    }
+  });
+</script>
+{% schema %}
+{
+  "name": "Built For Play Slider",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "BUILT FOR THE WAY<br>YOU PLAY"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "ON THE COURSE"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Precision where it matters most"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Built For Play Slider",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

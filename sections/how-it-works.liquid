@@ -1,0 +1,313 @@
+
+<div class="how-it-works-{{ section.id }}">
+  <div class="new-page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="section-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="steps-grid">
+      {% for block in section.blocks %}
+        <div class="step-card step-card--{{ forloop.index }}" {{ block.shopify_attributes }}>
+          <div class="step-number custom_heading outline">
+            {% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}
+          </div>
+          <h3 class="step-title">{{ block.settings.title }}</h3>
+          <p class="step-description">
+            {{ block.settings.description }}
+          </p>
+          
+          <div class="step-cta">
+            {% if block.settings.cta_type == 'button' %}
+              {% if block.settings.button_label != blank %}
+                <a href="{{ block.settings.button_link }}" class="content-cta content-cta__solid{% if request.path contains 'pages' and  page.template_suffix contains 'rainmaker-qr-lp' or page.template_suffix contains 'rainmaker-event-qr-lp' %} rainmakerPreOrderUpsell_lp{%elsif page.template_suffix contains 'qr-lp'%} add_6mos_membership_qr{% endif %}">{{ block.settings.button_label }}</a>
+              {% endif %}
+            {% elsif block.settings.cta_type == 'stores' %}
+              <div class="store-badges">
+                {% if block.settings.app_store_img != blank %}
+                  <a href="{{ block.settings.app_store_link }}" class="store-badge">
+                    {{ block.settings.app_store_img | image_url: width: 300 | image_tag: loading: 'lazy', alt: 'App Store' }}
+                  </a>
+                {% endif %}
+                {% if block.settings.google_play_img != blank %}
+                  <a href="{{ block.settings.google_play_link }}" class="store-badge">
+                    {{ block.settings.google_play_img | image_url: width: 300 | image_tag: loading: 'lazy', alt: 'Google Play' }}
+                  </a>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="step-image-wrapper">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 800 |image_tag: loading: 'lazy', alt: block.settings.title }}
+            {% else %}
+               {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{%- style -%}
+  .how-it-works-{{ section.id }} {
+    /* background-color: #000; */
+    color: #fff;
+    padding: clamp(60px, 8vw, 100px) 0;
+    overflow: hidden;
+  }
+
+  .how-it-works-{{ section.id }} .section-heading {
+    text-align: center;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: clamp(40px, 6vw, 80px);
+    line-height: 1;
+  }
+
+  .how-it-works-{{ section.id }} .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 4vw, 40px);
+  }
+
+ 
+
+  .how-it-works-{{ section.id }} .step-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .how-it-works-{{ section.id }} .step-number {
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: clamp(10px, 2vw, 20px);
+    color: #084AC6;
+  }
+
+  .how-it-works-{{ section.id }} .step-title {
+    font-size: clamp(20px, 2vw, 1.4rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: clamp(10px, 1.5vw, 15px);
+    line-height: 1;
+  }
+  
+
+  .how-it-works-{{ section.id }} .step-description {
+    font-size: clamp(16px, 1.5vw, 18px);
+    line-height: 130%;
+    color: #fff;
+    margin-bottom: clamp(20px, 3vw, 30px);
+    min-height: 60px;
+    max-width: clamp(300px,24vw,420px);
+    width: 100%;
+    padding:0px;
+  }
+
+  .how-it-works-{{ section.id }} .step-cta {
+    margin-bottom: clamp(30px, 4vw, 40px);
+    width: 100%;
+    
+  }
+
+  /* Standardizing to the requested class name for CTA */
+  .how-it-works-{{ section.id }} .content-cta {
+    color: #fff;
+    max-width: clamp(120px,22vw,320px);
+  width: 100%;
+    text-decoration: none;
+  }
+
+
+
+  .how-it-works-{{ section.id }} .store-badges {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .how-it-works-{{ section.id }} .store-badge {
+    height: 48px;
+    display: block;
+  }
+
+  .how-it-works-{{ section.id }} .store-badge img {
+    height: 100%;
+    width: auto;
+    display: block;
+    border-radius: 6px;
+  }
+
+  .how-it-works-{{ section.id }} .step-image-wrapper {
+    width: 100%;
+    margin-top: auto;
+    border-radius: 12px;
+    overflow: hidden;
+    /* background: #111;
+    border: 1px solid #222; */
+  }
+
+  .how-it-works-{{ section.id }} .step-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+   @media (max-width: 991px) {
+    .how-it-works-{{ section.id }} .steps-grid {
+      grid-template-columns: 1fr;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .how-it-works-{{ section.id }} .step-card {align-items: center;
+  text-align: center;}
+  /* .how-it-works-{{ section.id }} .step-title br {
+    display:none;
+  } */
+
+    .how-it-works-{{ section.id }} {
+    
+    padding: 0;
+    
+  }
+    .how-it-works-{{ section.id }} .store-badges {
+    
+    justify-content: center;
+  }
+  }
+
+{%- endstyle -%}
+
+
+{% schema %}
+{
+  "name": "How It Works",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "GET STARTED IN 3 SIMPLE STEPS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "html",
+          "id": "title",
+          "label": "Title",
+          "default": "Step Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Step description goes here."
+        },
+        {
+          "type": "select",
+          "id": "cta_type",
+          "label": "CTA Type",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "button", "label": "Primary Button" },
+            { "value": "stores", "label": "App Store Badges" }
+          ],
+          "default": "button"
+        },
+        {
+          "type": "header",
+          "content": "Button Settings"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "START FREE TRIAL"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "header",
+          "content": "Store Badges Settings"
+        },
+        {
+          "type": "image_picker",
+          "id": "app_store_img",
+          "label": "App Store Badge"
+        },
+        {
+          "type": "url",
+          "id": "app_store_link",
+          "label": "App Store Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "google_play_img",
+          "label": "Google Play Badge"
+        },
+        {
+          "type": "url",
+          "id": "google_play_link",
+          "label": "Google Play Link"
+        },
+        {
+          "type": "header",
+          "content": "Visuals"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Step Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How It Works",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "ACTIVATE YOUR MEMBERSHIP",
+            "description": "Start your complimentary trial to unlock GAME Intelligence and advanced course features.",
+            "cta_type": "button",
+            "button_label": "START FREE TRIAL"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "DOWNLOAD THE GAME APP",
+            "description": "Install the GAME app on iOS or Android and log in to your Blue Tees account.",
+            "cta_type": "stores"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "CONNECT YOUR DEVICE",
+            "description": "Pair your Captain Pro in the app. From there, you can set up your bag, customize your Captain's action button functionality, or simply hit the course and start a round.",
+            "cta_type": "none"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

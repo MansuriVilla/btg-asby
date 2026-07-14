@@ -1,0 +1,315 @@
+<!-- GA4 Custom Event - Account Created Step 1 -->
+<script>
+gtag('event', 'play_with_page_account', {
+'event_category': 'engagement',
+'event_label': 'Account Created Step 1',
+'value': 1
+});
+</script>
+
+<!-- Meta Custom Event - PlayWithPageStepOne -->
+<script>
+fbq('trackCustom', 'PlayWithPageStep1', {
+content_name: 'Account Created Step 1',
+status: 'started'
+});
+</script>
+
+
+<div class="paige_page-container">
+  <div class="paige_page-inner">
+    <div class="paige_hero-area">
+        <div class="paige_hero-inner" style="background:url({{ 'paige-hero-bg.png'| asset_url }}) center center / cover no-repeat">
+         <div class="btg-main-logo">
+          <a href="/">
+            <img style="height:auto;" src="{{ 'btg-new-logo-header.png' | asset_url }}" alt=" Blue Tees Golf Logo" />
+          </a>
+        </div>
+        <div class="paige_hero-content site_flex">
+          <div class="hero_content-left">
+            
+            <div class="hero_content site_flex flex_column flex-gap">
+                 <picture>
+            <source srcset="{{ 'complete-pro-title-paige.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'complete-pro-title-paige-mobile.png' | asset_url }}" media="(max-width:768px)">
+            <img src="{{ 'complete-pro-title-paige.png'| asset_url }}" alt="complete-pro-title-paige">
+          </picture>
+              <p>Fill out the rest of the info below to complete your free GAME account setup so you can enter in to your chance to win a round with Paige Spiranac (and a whole lot more!)</p>
+              <form id="completeProfile" class="form-validate-trim paige_complete-form site_flex flex_column flex-gap">
+                <div class="input_hero">
+                  <input id="firstName" name="firstName" placeholder="First Name" required />
+                  
+                </div>
+                <div class="input_hero">
+                  <input id="lastName" name="lastName" placeholder="Last Name" required />
+                </div>
+                <div class="input_hero">
+                  <input type="tel" id="phoneNumber" name="phoneNumber"  placeholder="Phone Number" required />
+                </div>
+                <p class="num_existing" style="max-width: 80%; margin-right: auto; line-height: 150%; font-size: 14px; opacity: 0.8; padding: 0px; display: none;text-align: center;margin-top: 10px;"> This phone number is already in use. <br> Please use a different number or<span> <a style="color:#0457F3; text-decoration: underline;" href="https://postgame.blueteesgolf.com/login">login here</a></span></p>
+                <button type="submit" class="btn">COMPLETE PROFILE</button>
+                  
+              </form>
+            </div>
+          </div>
+          <div class="hero_content-right">
+            <picture>
+            <source srcset="{{ 'complete-profile-paige-img.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'paige-insta-profile.png' | asset_url }}" media="(max-width:768px)">
+            <img src="{{ 'complete-profile-paige-img.png'| asset_url }}" alt="complete-profile-paige-img">
+          </picture>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+ <style>
+  .site_flex{ display:flex;}
+  .flex_column{ flex-direction:column;}
+  .flex-gap{gap:16px;}  
+  .input_hero { display: flex; position: relative; width: 100%; justify-content: space-between;max-width: clamp(280px, 28vw, 400px); }
+    .input_hero input {border-radius: 50px; overflow: hidden;  background: #FFFFFF; font-size: clamp(14px,1.2vw, 16px); color: #808080; padding: clamp(10px, 1.2vw, 16px) 5px clamp(10px, 1.2vw, 16px) clamp(15px, 1.2vw, 20px); outline: 0; border: 0; width: 100%; }
+    .input_hero input:focus { outline: 0; border: 0; }
+    #completeProfile  button { border-radius: 50px; background: #0457F3; color: #fff; padding: clamp(15px, 1.2vw, 20px) clamp(20px, 4vw, 40px); font-size: clamp(12px,1vw, 14px); font-weight: 900; line-height: 1; letter-spacing: 2.4px; transition: 0.2s ease all; vertical-align: middle; display: inline;    width: fit-content;}
+  #completeProfile button:hover { background: #fff; color: #0457F3; }
+      .intl-tel-input{width: 100%;}
+      .intl-tel-input.separate-dial-code .selected-dial-code{padding-left: 10px !important;}
+
+  #SiteHeader {
+    display: none;
+  }
+
+
+.num_existing{display:none;}
+/*----------------------------
+  Page Common Styles
+  -----------------
+*/
+  
+  .paige_page-inner{background:#000;}
+  .paige_page-inner p{padding-top:0px;}
+  .paige_page-inner :is(img, picture,video){display:flex; width:100%; height:100%;}
+.note_bottom{color: #AEAEAE; font-size: 16px; line-height: 36px; font-style: italic;}
+
+      
+
+   /*---------------------------- 
+    HERO SECTION 
+    -----------------
+  */
+  
+  
+  
+  
+    .btg-main-logo { position: absolute; filter: invert(1); max-width: clamp(90px,6.2vw,108px); inset: clamp(20px, 3.3vw, 50px) 0 0 clamp(20px, 3.3vw, 50px); height: fit-content; z-index: 2;  }
+    
+    .paige_hero-inner { position: relative;min-height: clamp(500px, 50vw, 100vh);   display: flex; justify-content: center; align-items: center; padding: 70px 0;}
+    .paige_hero-inner p{color: #fff;}
+    .paige_hero-content { width: 100%; align-items: center; justify-content: space-around; height: 100%; padding: 0 15px; }
+    
+    .hero_content-left .app-logo { max-width: clamp(120px, 9.5vw, 170px); margin-bottom: clamp(22px, 2.5vw, 42px); }
+    
+    .hero_content img { max-width: clamp(230px,30vw, 500px); }
+    
+    .hero_content p { max-width: clamp(300px, 38vw, 500px); line-height: clamp(20px, 1.6vw, 24px); font-size: clamp(14px,1.2vw, 16px); }
+    
+      .hero_content-right img { max-width: clamp(300px,30vw,560px); }
+  
+    
+    
+    @media only screen and (max-width:768px){
+      
+      .paige_hero-inner{background: url({{ 'paige-hero-bg-mobile.png' | asset_url}}) center center / cover no-repeat !important;   padding: clamp(36px,4vw, 50px) 0; flex-direction:column;}
+  
+      .hero_content-left { text-align: center; display: flex; justify-content: center; align-items: center; width: 100%; flex-direction: column; }
+  
+      .paige_hero-content.site_flex { flex-wrap: wrap; row-gap: 40px; justify-content: center; align-items: center; position: inherit; }
+      
+      .btg-main-logo{margin-bottom: clamp(30px, 6.7vw, 50px); position: inherit; margin-left: auto; inset: inherit; margin-right: auto; max-width: clamp(90px,17vw,108px);}
+  
+      .hero_content { justify-content: center; align-items: center;  width: 70%; }
+  
+      .hero_content img{max-width: clamp(300px,69vw, 500px); margin-left: auto; margin-right: auto;}
+  
+      .hero_content-left .app-logo{max-width:clamp(120px, 22.5vw, 170px);}
+  
+      .hero_content-right img { max-width: 70%; margin: auto; }
+  
+      .input_hero{max-width: 100%;}
+
+      .paige_complete-form{justify-content: center; align-items: center;  width: 100%;}
+
+      .input_hero + button {width: 100%;}
+
+      
+      
+    }
+
+
+    @media only screen and (max-width:575px){
+
+      .hero_content { width: 100%; }
+      
+    }
+
+    body .intl-tel-input.separate-dial-code .selected-dial-code {
+        padding-left: 23px !important;
+      }
+</style>
+
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.9/css/intlTelInput.css"
+  rel="stylesheet"
+  media="screen"
+>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.9/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+
+
+
+<script>
+  var telInput = $("#phoneNumber");
+  //var errorMsg = $("#error-msg");
+  // initialise plugin
+  telInput.intlTelInput({
+
+    allowExtensions: true,
+    formatOnDisplay: true,
+    autoFormat: true,
+    autoHideDialCode: true,
+    autoPlaceholder: true,
+    defaultCountry: "auto",
+    ipinfoToken: "yolo",
+
+    nationalMode: false,
+    numberType: "MOBILE",
+    preferredCountries: ['ca'],
+    preventInvalidNumbers: true,
+    separateDialCode: true,
+    initialCountry: "us",
+    geoIpLookup: function(callback) {
+    $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+      var countryCode = (resp && resp.country) ? resp.country : "";
+      callback(countryCode);
+    });
+  },
+     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.9/js/utils.js"
+  });
+
+  var reset = function() {
+    telInput.removeClass("error");
+    //errorMsg.addClass("hide");
+    //validMsg.addClass("hide");
+  };
+
+  // on blur: validate
+  telInput.blur(function() {
+    reset();
+    if ($.trim(telInput.val())) {
+      if (telInput.intlTelInput("isValidNumber")) {
+        //validMsg.removeClass("hide");
+      } else {
+        //telInput.addClass("error");
+        //errorMsg.removeClass("hide");
+      }
+    }
+  });
+
+  // on keyup / change flag: reset
+  telInput.on("keyup change", reset);
+</script>
+
+
+<script>
+        function _gt() {
+            const _sl = "^8lu";
+            const _k = "20245h0P1fY58Cr";
+            const _n = "%xpdboMX0FH*HIK7IGi2@KigrEP6j3$n";
+            // Step 1: Generate HMAC using key and key_secret
+            const _P1 = CryptoJS.HmacSHA256(_k + "3T", "3Eb" + _n).toString(
+                CryptoJS.enc.Base64url
+            );
+            const sl = "etee5^";
+            const _x = "Q7XgbSTQdfZwM@ZhxPKIiHu*";
+            // Step 2: Create the pre-encryption string (_P2)
+            const _P2 = new Date().toUTCString() + _sl + sl + _P1;
+            const _xz = "bEWB57BLr1ne&2ErfmKYdwoyT";
+            // Step 3: Encrypt _P2 using _x
+            const _S = CryptoJS.AES.encrypt(_P2, _x + _xz).toString();
+            return _S;
+        }
+  
+        
+  $(document).ready(function() {
+    $("#completeProfile").submit(function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // Check required fields
+        let firstname = $("#firstName").val().trim();
+        let lastname = $("#lastName").val().trim();
+        let phonenumber = $("#phoneNumber").val().trim();
+         let countryCode = "+" + telInput.intlTelInput("getSelectedCountryData").dialCode;
+        // Simple required field validation
+        if (!firstname || !lastname || !phonenumber) {
+            alert("All fields are required.");
+            return;
+        }
+
+        $('.btn').addClass('btn--loading');
+        let authToken = _gt(); // Generate token
+        
+        // Retrieve stored encrypted data
+        var savedData = localStorage.getItem("encryptedData");
+
+        // Create the payload object
+        let requestData = {
+            phone: phonenumber,
+            first_name: firstname,
+            last_name: lastname,
+            country_code: countryCode,
+            data: savedData // Include previously saved data
+        };
+
+        //console.log("Sending Data:", requestData); // Debugging
+
+        $.ajax({
+            url: "https://btapi.blueteesgolf.com/shopify/user/complete/registration",
+            type: "POST",
+            contentType: "application/json",
+            headers: {
+                "Authorization": authToken // Send generated token
+            },
+            data: JSON.stringify(requestData), // Send properly formatted JSON
+            success: function(response) {
+                window.location.href = "https://blueteesgolf.com/pages/paige-downloal-game-app";
+            },
+             error: function(xhr, status, error) {
+                    $(".num_existing").show();
+                    $('.btn').removeClass('btn--loading');
+                  }
+        });
+    });
+});
+</script>
+<script>
+  function limitingNum(){
+    const phoneInput = document.getElementById('phoneNumber');
+  
+    phoneInput.addEventListener('input', function() {
+      let digitsOnly = this.value.replace(/\D/g, '');
+      if (digitsOnly.length > 10) {
+        digitsOnly = digitsOnly.slice(0, 10);
+      }
+      this.value = digitsOnly;
+    });
+  }
+  limitingNum();
+</script>

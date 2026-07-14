@@ -1,0 +1,39 @@
+{% comment %} <div class="video_scale_animation-main" {% if disable_animation %}data-is-disable="true"{% endif %}>
+  <div class="bg-video video_scale_animation">
+    <div class="has_video_scale">
+      <video id="myVideo" loop muted playsinline>
+        <source src="{{ video_url }}" media="(min-width: 769px)" type="video/mp4">
+        <source src="{{ mobile_video_url | default: video_url }}" media="(max-width: 768px)" type="video/mp4">
+        <source src="{{ video_url_webm }}" type="video/webm">
+        Your browser does not support the video tag.
+      </video>
+      <button id="volumeToggle" class="volume-btn">  
+        <span class="mute-icon"> <img class="touch-screen_logo" src="{{'mute-icon.png' | asset_url}}" alt="mute icon" /> </span>
+        <span class="unmute-icon" style="display: none;"> <img class="touch-screen_logo" src="{{'unmute-icon.png' | asset_url}}" alt="unmute icon" /> </span>
+      </button>
+    </div>
+  </div>
+</div>
+ {% endcomment %}
+
+
+
+ <div class="video_scale_animation-main" {% if disable_animation %}data-is-disable="true"{% endif %}>
+  <div class="bg-video video_scale_animation">
+    <div class="has_video_scale">
+      <video id="myVideo" loop muted playsinline poster="{{ video_poster }}">
+        <source src="{{ video_url }}" media="(min-width: 769px)" type="video/mp4">
+        <source src="{{ mobile_video_url | default: video_url }}" media="(max-width: 768px)" type="video/mp4">
+        <source src="{{ video_url_webm }}" type="video/webm">
+        Your browser does not support the video tag.
+      </video>
+      <div class="loader" style="display: none;">
+        {% comment %} <div class="spinner"></div> {% endcomment %}
+      </div>
+      <button id="volumeToggle" class="volume-btn">  
+        <span class="mute-icon"> <img class="touch-screen_logo" src="{{'mute-icon.png' | asset_url}}" alt="mute icon" /> </span>
+        <span class="unmute-icon" style="display: none;"> <img class="touch-screen_logo" src="{{'unmute-icon.png' | asset_url}}" alt="unmute icon" /> </span>
+      </button>
+    </div>
+  </div>
+</div>

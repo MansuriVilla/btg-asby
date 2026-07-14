@@ -1,0 +1,881 @@
+{% comment %} {% assign section_layout = section.settings.sectionLayout %}
+
+<div
+  class="two-layout__section two-layout__section--{{section.id}}{%if section.settings.section_pad %} two-layout__section--has-pad{%endif%}"
+  data-section-id="{{ section.id }}"
+>
+  {% if section.settings.layoutHeading != blank %}
+    <h2 class="two-layout__heading">{{ section.settings.layoutHeading }}</h2>
+  {% endif %}
+  {% if section_layout %}
+    <div class="two-layout_section-block-container new-page-width">
+  {% endif %}
+  {% for block in section.blocks %}
+    {% liquid
+      
+      assign icon = block.settings.icon
+      assign title = block.settings.sectionTitle
+      assign description = block.settings.sectionDescription
+      assign disclaimer = block.settings.disclaimer
+      assign desktop_image = block.settings.sectionImage
+      assign deff_mobile_image = block.settings.hasMobileImage
+      assign mobile_image = block.settings.sectionImageMobile
+      assign section_direction = block.settings.sectionDirection
+      assign image_full = block.settings.image_full
+      assign video_src = block.settings.video_src
+      assign has_image = block.settings.hasImage
+      assign has_store_icon = block.settings.has_store_icon
+      assign app_store_link = block.settings.app_store_link
+      assign app_store_image = block.settings.app_store_image
+      assign play_store_link_new = block.settings.play_store_link_new
+      assign play_store_image_new = block.settings.play_store_image_new
+    %}
+
+    {% if section_layout %}
+      <div class="section-block">
+    {% else %}
+      <div
+        class="two-layout_section-container new-page-width-xl{% if section_direction %} section-row__revers{% endif %}"
+      >
+    {% endif %}
+
+    <div class="section-left">
+      <div class="section-left__inner">
+        {% if icon != blank %}
+          {{
+            icon
+            | image_url: width: 50
+            | image_tag:
+              class: 'icon_image',
+              alt: title,
+              loading: 'eager',
+              fetchpriority: 'high',
+              widths: '400,600,800,1200,1600,1800,2400',
+              sizes: '(max-width: 859px) 100vw, 100vw',
+              height: icon.height,
+              width: icon.width
+          }}
+        {% endif %}
+        {% if title != blank %}
+          <h3 class="section-left__title">
+            {{ title }}
+          </h3>
+        {% endif %}
+        {% if description != blank %}
+          <p class="section-left__description">
+            {{ description }}
+          </p>
+        {% endif %}
+        {% if disclaimer != blank %}
+          <div class="section-left__disclaimer">
+            {{ disclaimer }}
+          </div>
+        {% endif %}
+        
+        {% if has_store_icon %}
+          <div class="store_icons">
+            {% if app_store_link != blank %}
+              <a class="store_icon app_store" href="{{ app_store_link }}">
+                {{
+                  app_store_image
+                  | image_url: width: 500
+                  | image_tag:
+                    class: 'store_icon',
+                    alt: title,
+                    loading: 'eager',
+                    fetchpriority: 'high',
+                    widths: '400,600,800,1200,1600,1800,2400',
+                    sizes: '(max-width: 859px) 100vw, 100vw',
+                    height: app_store_image.height,
+                    width: app_store_image.width
+                }}
+              </a>
+            {% endif %}
+            {% if play_store_link_new != blank %}
+              <a class="store_icon play_store" href="{{ play_store_link_new }}">
+                {{-
+                  play_store_image_new
+                  | image_url: width: 500
+                  | image_tag:
+                    class: 'store_icon',
+                    alt: title,
+                    loading: 'eager',
+                    fetchpriority: 'high',
+                    widths: '400,600,800,1200,1600,1800,2400',
+                    sizes: '(max-width: 859px) 100vw, 100vw',
+                    height: play_store_image_new.height,
+                    width: play_store_image_new.width
+                -}}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="section-right">
+      <div class="section-right__inner">
+        {% if has_image and desktop_image != blank %}
+          {% capture extra_class %}
+            {% if image_full %} image_full{% endif %}
+          {% endcapture %}
+
+          {% assign image_class = 'image-fit lazyload' | append: extra_class | strip %}
+
+          <picture>
+            <source media="(min-width: 860px)" srcset="{{ desktop_image | image_url: width: 1800 }}">
+
+            {% if deff_mobile_image %}
+              <source media="(max-width: 861px)" srcset="{{ mobile_image | image_url: width: 800 }}">
+            {% endif %}
+
+            {{
+              desktop_image
+              | image_url: width: 1800
+              | image_tag:
+                class: image_class,
+                alt: title,
+                loading: 'eager',
+                fetchpriority: 'high',
+                widths: '400,600,800,1200,1600,1800,2400',
+                sizes: '(max-width: 859px) 100vw, 100vw',
+                height: desktop_image.height,
+                width: desktop_image.width
+            }}
+          </picture>
+        {% else %}
+          {% assign video_url = video_src.sources[1].url | default: video_src.sources[0].url %}
+          
+          <video
+            id="ddd"
+            class="preview-videod"
+            autoplay
+            loop
+            muted
+            playsinline
+            src="{{ video_url }}"
+          ></video>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section_layout %}
+      </div>
+    {% else %}
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {% if section_layout %}
+    </div>
+  {% endif %}
+</div>
+
+<style>
+    {% if section.settings.sectionColor != blank %}
+      .two-layout__section--{{section.id}} { background: {{section.settings.sectionColor}}; }
+    {% endif %}
+
+    .two-layout__section--{{ section.id }} .section-left__title { color: {{section.settings.heading_clr | default: '#fff' }} }
+
+    {% if section.settings.layoutHeading != blank %}
+      .two-layout__heading { color: #fff; margin-inline: auto; max-width: 990px; width: 100%; font-size: clamp(22px,3vw,48px); text-align: center; line-height: 105%; letter-spacing: -0.32px; margin-block: 0 clamp(20px,3.5vw,55px); padding-inline: 16px; }
+      .two-layout__section:has(.two-layout__heading) { padding-block: clamp(30px,3.6vw,60px) 0; }
+    {% endif %}
+    
+    {% if section.settings.section_pad %}
+      .two-layout__section--{{section.id}}.two-layout__section--has-pad{padding-block:clamp(25px,5vw,50px);}
+    {% endif %}
+    .section-left__disclaimer *{ padding:0px; font-size:14px; color:#A1A3A9; line-height:1;}
+</style>
+
+<script>
+  function getOS() {
+        const ua = navigator.userAgent.toLowerCase();
+        const platform = navigator.platform.toLowerCase();
+
+        if (/iphone|ipad|ipod|macintosh/.test(ua) || /macintel/.test(platform)) {
+            return 'apple';     // macOS or iOS → keep your original order (mov first)
+        }
+        if (/android/.test(ua) || /win/.test(platform)) {
+            return 'non-apple'; // Windows or Android → flip to webm first
+        }
+        return 'unknown';       // fallback
+    }
+
+    // === Set sources in correct order ===
+    function setupVideoSources() {
+        const video = document.getElementById('myVideo');
+        const isApple = getOS() === 'apple';
+
+        // Clear any existing sources
+        video.innerHTML = '<p>Your browser does not support the video tag.</p>';
+
+        if (isApple) {
+            // macOS / iOS order (as you have now)
+            video.innerHTML += `
+                <source src="test-1.mov" type="video/quicktime">
+                <source src="test.webm" type="video/webm">
+            `;
+        } else {
+            // Windows / Android order (webm first)
+            video.innerHTML += `
+                <source src="test.webm" type="video/webm">
+                <source src="test-1.mov" type="video/quicktime">
+            `;
+        }
+
+        // Reload the video so it picks the new sources
+        video.load();
+    }
+</script>
+
+
+{% schema %}
+{
+  "name": "Two Layout Section New",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "id": "layoutHeading",
+      "label": "Section Heading"
+    },
+    {
+      "type": "color",
+      "id": "sectionColor",
+      "label": "Section Background Color",
+      "alpha": true,
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "heading_clr",
+      "label": "Heading Color",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Extras"
+    },
+    {
+      "type": "checkbox",
+      "id": "sectionLayout",
+      "label": "Change Section Layout To Blocks"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_pad",
+      "label": "Added Padding From Top and Bottom"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "two_layout_block",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Block Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "html",
+          "id": "sectionTitle",
+          "label": "Block Heading"
+        },
+        {
+          "type": "text",
+          "id": "sectionDescription",
+          "label": "Block Description"
+        },
+        {
+          "type": "richtext",
+          "id": "disclaimer",
+          "label": "Block Disclaimer"
+        },
+        {
+          "type": "header",
+          "content": "App Links"
+        },
+        {
+          "type": "checkbox",
+          "id": "has_store_icon",
+          "label": "Enable App links"
+        },
+        {
+          "type": "image_picker",
+          "id": "app_store_image",
+          "label": "App Store Icon",
+          "visible_if": "{{block.settings.has_store_icon }}"
+        },
+        {
+          "type": "url",
+          "id": "app_store_link",
+          "label": "App Store Link",
+          "visible_if": "{{block.settings.has_store_icon }}"
+        },
+        {
+          "type": "image_picker",
+          "id": "play_store_image_new",
+          "label": "Play Store Image",
+          "visible_if": "{{block.settings.has_store_icon }}"
+        },
+        {
+          "type": "url",
+          "id": "play_store_link_new",
+          "label": "Play Store Link",
+          "visible_if": "{{block.settings.has_store_icon }}"
+        },
+        {
+          "type": "header",
+          "content": "Block Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "hasImage",
+          "label": "Add Image",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "sectionImage",
+          "label": "Select Image For Desktop",
+          "visible_if": "{{block.settings.hasImage }}"
+        },
+        {
+          "type": "checkbox",
+          "id": "hasMobileImage",
+          "label": "Check This To Add Different Mobile Image",
+          "visible_if": "{{ block.settings.hasImage }}"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "sectionImageMobile",
+          "label": "Select Image For Mobile",
+          "visible_if": "{{ block.settings.hasMobileImage }}"
+        },
+        {
+          "type": "header",
+          "content": "Block Media"
+        },
+        {
+          "type": "checkbox",
+          "id": "hasMedia",
+          "label": "Add Video"
+        },
+        {
+          "type": "video",
+          "id": "video_src",
+          "label": "Select Video",
+          "visible_if": "{{ block.settings.hasMedia }}"
+        },
+        {
+          "type": "header",
+          "content": "Extras"
+        },
+        {
+          "type": "checkbox",
+          "id": "image_full",
+          "label": "Image Full Width"
+        },
+
+        {
+          "type": "checkbox",
+          "id": "sectionDirection",
+          "label": "Change Section Direction To Revers"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two Layout Section New"
+    }
+  ]
+}
+{% endschema %} {% endcomment %}
+{% liquid
+   assign section_layout = section.settings.sectionLayout
+   assign layout_heading = section.settings.layoutHeading
+   assign section_padding = section.settings.section_pad
+   assign section_container = section.settings.section_container
+   assign section_custom = section.settings.section_custom
+ %}
+
+<div
+  class="two-layout__section two-layout__section--{{section.id}}{%if section_padding %} two-layout__section--has-pad{%endif%}{%if section_container %} new-page-width{%endif%}{%if section_custom %} section_custom{%endif%}"
+  data-section-id="{{ section.id }}"
+>
+  {% if layout_heading != blank %}
+    <h2 class="two-layout__heading">{{ layout_heading }}</h2>
+  {% endif %}
+  {% if section_layout %}
+    <div class="two-layout_section-block-container new-page-width">
+  {% endif %}
+  {% for block in section.blocks %}
+    {% liquid
+      
+      assign layout = block.settings.layout
+      assign icon = block.settings.icon
+      assign title = block.settings.sectionTitle
+      assign description = block.settings.sectionDescription
+      assign cta_enable = block.settings.cta_enable
+      assign cta_text = block.settings.cta_text
+      assign cta_link = block.settings.cta_link
+      assign disclaimer = block.settings.disclaimer
+      assign desktop_image = block.settings.sectionImage
+      assign deff_mobile_image = block.settings.hasMobileImage
+      assign mobile_image = block.settings.sectionImageMobile
+      assign section_direction = block.settings.sectionDirection
+      assign image_full = block.settings.image_full
+      assign video_src = block.settings.video_src
+      assign has_image = block.settings.hasImage
+      assign has_store_icon = block.settings.has_store_icon
+      assign app_store_link = block.settings.app_store_link
+      assign app_store_image = block.settings.app_store_image
+      assign play_store_link_new = block.settings.play_store_link_new
+      assign play_store_image_new = block.settings.play_store_image_new
+
+      assign block_loading = 'lazy'
+      assign block_fetchpriority = 'auto'
+      if section.index == 1 or section.index == nil or section.settings.eager_load
+        if forloop.first
+          assign block_loading = 'eager'
+          assign block_fetchpriority = 'high'
+        endif
+      endif
+    %}
+
+    {% if section_layout %}
+      <div class="section-block">
+    {% else %}
+      <div
+        class="two-layout_section-container new-page-width-xl{% if section_direction %} section-row__revers{% endif %}"
+      >
+    {% endif %}
+
+    <div class="section-left">
+      <div class="section-left__inner layout--{{ layout }}">
+        {% if icon != blank %}
+          {{
+            icon
+            | image_url: width: 50
+            | image_tag:
+              class: 'icon_image',
+              alt: title,
+              loading: block_loading,
+              fetchpriority: block_fetchpriority,
+              widths: '400,600,800,1200,1600,1800,2400',
+              sizes: '(max-width: 859px) 100vw, 100vw',
+              height: icon.height,
+              width: icon.width
+          }}
+        {% endif %}
+        {% if title != blank %}
+          <h3 class="section-left__title">
+            {{ title }}
+          </h3>
+        {% endif %}
+        {% if description != blank %}
+          <p class="section-left__description">
+            {{ description }}
+          </p>
+        {% endif %}
+        {% if cta_text != blank and cta_enable %}
+          <a href="{{ cta_link | default: 'javascript:void(0);' }}" class="section-left__cta content-cta content-cta__solid{% if page.template_suffix contains 'rainmaker-event-qr-lp' and  cta_link == blank %} add_1yr_membership_qr{%endif%}">
+            {{ cta_text }}
+          </a>
+        {% endif %}
+        {% if disclaimer != blank %}
+          <div class="section-left__disclaimer">
+            {{ disclaimer }}
+          </div>
+        {% endif %}
+        
+        {% if has_store_icon %}
+          <div class="store_icons">
+            {% if app_store_link != blank %}
+              <a class="store_icon app_store" href="{{ app_store_link }}">
+                {{
+                  app_store_image
+                  | image_url: width: 500
+                  | image_tag:
+                    class: 'store_icon',
+                    alt: title,
+                    loading: block_loading,
+                    fetchpriority: block_fetchpriority,
+                    widths: '400,600,800,1200,1600,1800,2400',
+                    sizes: '(max-width: 859px) 100vw, 100vw',
+                    height: app_store_image.height,
+                    width: app_store_image.width
+                }}
+              </a>
+            {% endif %}
+            {% if play_store_link_new != blank %}
+              <a class="store_icon play_store" href="{{ play_store_link_new }}">
+                {{-
+                  play_store_image_new
+                  | image_url: width: 500
+                  | image_tag:
+                    class: 'store_icon',
+                    alt: title,
+                    loading: block_loading,
+                    fetchpriority: block_fetchpriority,
+                    widths: '400,600,800,1200,1600,1800,2400',
+                    sizes: '(max-width: 859px) 100vw, 100vw',
+                    height: play_store_image_new.height,
+                    width: play_store_image_new.width
+                -}}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="section-right">
+      <div class="section-right__inner">
+        {% if has_image and desktop_image != blank %}
+          {% capture extra_class %}
+            {% if image_full %} image_full{% endif %}
+          {% endcapture %}
+
+          {% assign image_class = 'image-fit lazyload' | append: extra_class | strip %}
+
+          <picture>
+            <source media="(min-width: 860px)" srcset="{{ desktop_image | image_url: width: 1800 }}">
+
+            {% if deff_mobile_image %}
+              <source media="(max-width: 861px)" srcset="{{ mobile_image | image_url: width: 800 }}">
+            {% endif %}
+
+            {{
+              desktop_image
+              | image_url: width: 1800
+              | image_tag:
+                class: image_class,
+                alt: title,
+                loading: block_loading,
+                fetchpriority: block_fetchpriority,
+                widths: '400,600,800,1200,1600,1800,2400',
+                sizes: '(max-width: 859px) 100vw, 100vw',
+                height: desktop_image.height,
+                width: desktop_image.width
+            }}
+          </picture>
+        {% else %}
+          {% assign video_url = video_src.sources[1].url | default: video_src.sources[0].url %}
+          
+          <video
+            id="ddd"
+            class="preview-videod"
+            autoplay
+            loop
+            muted
+            playsinline
+            src="{{ video_url }}"
+          ></video>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section_layout %}
+      </div>
+    {% else %}
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {% if section_layout %}
+    </div>
+  {% endif %}
+</div>
+
+<style>
+    {% if section.settings.sectionColor != blank %}
+      .two-layout__section--{{section.id}} { background: {{section.settings.sectionColor}}; }
+    {% endif %}
+
+    .two-layout__section--{{ section.id }} .section-left__title { color: {{section.settings.heading_clr | default: '#fff' }} }
+
+    {% if section.settings.layoutHeading != blank %}
+      .two-layout__heading { color: #fff; margin-inline: auto; max-width: 990px; width: 100%; font-size: clamp(22px,3vw,48px); text-align: center; line-height: 105%; letter-spacing: -0.32px; margin-block: 0 clamp(20px,3.5vw,55px); padding-inline: 16px; }
+      .two-layout__section:has(.two-layout__heading) { padding-block: clamp(30px,3.6vw,60px) 0; }
+    {% endif %}
+    
+    {% if section.settings.section_pad %}
+      .two-layout__section--{{section.id}}.two-layout__section--has-pad{padding-block:clamp(25px,5vw,50px);}
+    {% endif %}
+    .section-left__disclaimer *{ padding:0px; font-size:14px; color:#A1A3A9; line-height:1.5;}
+</style>
+
+<script>
+  function getOS() {
+        const ua = navigator.userAgent.toLowerCase();
+        const platform = navigator.platform.toLowerCase();
+
+        if (/iphone|ipad|ipod|macintosh/.test(ua) || /macintel/.test(platform)) {
+            return 'apple';     // macOS or iOS → keep your original order (mov first)
+        }
+        if (/android/.test(ua) || /win/.test(platform)) {
+            return 'non-apple'; // Windows or Android → flip to webm first
+        }
+        return 'unknown';       // fallback
+    }
+
+    // === Set sources in correct order ===
+    function setupVideoSources() {
+        const video = document.getElementById('myVideo');
+        const isApple = getOS() === 'apple';
+
+        // Clear any existing sources
+        video.innerHTML = '<p>Your browser does not support the video tag.</p>';
+
+        if (isApple) {
+            // macOS / iOS order (as you have now)
+            video.innerHTML += `
+                <source src="test-1.mov" type="video/quicktime">
+                <source src="test.webm" type="video/webm">
+            `;
+        } else {
+            // Windows / Android order (webm first)
+            video.innerHTML += `
+                <source src="test.webm" type="video/webm">
+                <source src="test-1.mov" type="video/quicktime">
+            `;
+        }
+
+        // Reload the video so it picks the new sources
+        video.load();
+    }
+</script>
+
+
+{% schema %}
+{
+  "name": "Two Layout Section New",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "id": "layoutHeading",
+      "label": "Section Heading"
+    },
+    {
+      "type": "color",
+      "id": "sectionColor",
+      "label": "Section Background Color",
+      "alpha": true,
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "heading_clr",
+      "label": "Heading Color",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Extras"
+    },
+    {
+      "type": "checkbox",
+      "id": "sectionLayout",
+      "label": "Change Section Layout To Blocks"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_container",
+      "label": "Enable Container"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_custom",
+      "label": "Custom Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_pad",
+      "label": "Add Padding From Top and Bottom"
+    },
+    {
+      "type": "checkbox",
+      "id": "eager_load",
+      "label": "Eager Load First Image (Above the fold)",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "two_layout_block",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Block Content"
+        },
+        {
+          "type": "select",
+          "id": "layout",
+          "options": [
+             { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center",
+          "label": "Layout Options",
+          "info":"Only for the content block."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "html",
+          "id": "sectionTitle",
+          "label": "Block Heading"
+        },
+        {
+          "type": "text",
+          "id": "sectionDescription",
+          "label": "Block Description"
+        },
+        {
+          "type": "checkbox",
+          "id": "cta_enable",
+          "label": "Enable CTA"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Text",
+          "visible_if": "{{ block.settings.cta_enable }}"
+        },
+        {
+          "type": "text",
+          "id": "cta_link",
+          "label": "CTA URL",
+          "visible_if": "{{ block.settings.cta_enable }}"
+        },
+        {
+          "type": "richtext",
+          "id": "disclaimer",
+          "label": "Block Disclaimer"
+        },
+        {
+          "type": "header",
+          "content": "App Links"
+        },
+        {
+          "type": "checkbox",
+          "id": "has_store_icon",
+          "label": "Enable App links"
+        },
+        {
+          "type": "image_picker",
+          "id": "app_store_image",
+          "label": "App Store Icon",
+          "visible_if": "{{block.settings.has_store_icon }}"
+        },
+        {
+          "type": "url",
+          "id": "app_store_link",
+          "label": "App Store Link",
+          "visible_if": "{{block.settings.has_store_icon }}"
+        },
+        {
+          "type": "image_picker",
+          "id": "play_store_image_new",
+          "label": "Play Store Image",
+          "visible_if": "{{block.settings.has_store_icon }}"
+        },
+        {
+          "type": "url",
+          "id": "play_store_link_new",
+          "label": "Play Store Link",
+          "visible_if": "{{block.settings.has_store_icon }}"
+        },
+        {
+          "type": "header",
+          "content": "Block Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "hasImage",
+          "label": "Add Image",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "sectionImage",
+          "label": "Select Image For Desktop",
+          "visible_if": "{{block.settings.hasImage }}"
+        },
+        {
+          "type": "checkbox",
+          "id": "hasMobileImage",
+          "label": "Check This To Add Different Mobile Image",
+          "visible_if": "{{ block.settings.hasImage }}"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "sectionImageMobile",
+          "label": "Select Image For Mobile",
+          "visible_if": "{{ block.settings.hasMobileImage }}"
+        },
+        {
+          "type": "header",
+          "content": "Block Media"
+        },
+        {
+          "type": "checkbox",
+          "id": "hasMedia",
+          "label": "Add Video"
+        },
+        {
+          "type": "video",
+          "id": "video_src",
+          "label": "Select Video",
+          "visible_if": "{{ block.settings.hasMedia }}"
+        },
+        {
+          "type": "header",
+          "content": "Extras"
+        },
+        {
+          "type": "checkbox",
+          "id": "image_full",
+          "label": "Image Full Width"
+        },
+
+        {
+          "type": "checkbox",
+          "id": "sectionDirection",
+          "label": "Change Section Direction To Revers"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two Layout Section New"
+    }
+  ]
+}
+{% endschema %}

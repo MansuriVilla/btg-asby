@@ -1,0 +1,429 @@
+{% liquid
+  assign id = section.id
+  assign layout = section.settings.layout_option
+  assign title = section.settings.title
+  assign outline_title = section.settings.outline_title
+  assign background = section.settings.backGroundColor
+  assign has_ratio = section.settings.has_ratio
+  assign class = template.suffix
+%}
+
+<div
+  class="faq-section-{{ id }} section-{{ id }}-padding {% if layout == 'media' %}faq-media-layout{% endif %}"
+  {% if background != blank %}
+    style="background:{{ background }};"
+  {% endif %}
+>
+  <div class="new-page-width">
+    <div class="faq-container">
+      {%- if title != blank or outline_title != blank -%}
+        <div class="faq-header-wrapper faq-header-wrapper__{{ class }}">
+          {%- if title != blank -%}
+            <h2 class="faq-text faq-title-main faq-title-main__{{ class }} ">{{ title }}</h2>
+          {%- endif -%}
+          {%- if outline_title != blank -%}
+            <h3 class="faq-text faq-title-outline">{{ outline_title }}</h3>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="faq-list">
+        {%- if section.blocks.size > 0 -%}
+          <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {% for block in section.blocks %}
+
+                      {
+                        "@type": "Question",
+                        "name": {{ block.settings.question | json }},
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": {{ block.settings.answer | json }}
+                        }
+                      }{% unless forloop.last %},{% endunless %}
+
+                {% endfor %}
+              ]
+            }
+          </script>
+          {%- for block in section.blocks -%}
+            {% liquid
+              assign item_question = block.settings.question
+              assign item_answer = block.settings.answer
+              assign item_i = forloop.index
+              assign item_media = block.settings.media
+            %}
+            {% if layout == 'media' %}
+              <div class="faq-item_new">
+            {% endif %}
+            <div class="faq-item-custom faq-item-custom__{{ item_i }}" {{ block.shopify_attributes }}>
+              <div class="faq-item-header">
+                <div class="faq-question-box{% if layout == 'media' %} custom_heading{% endif %}">
+                  {{ item_question | escape }}
+                </div>
+                {% if layout == 'media' %}
+                  <div class="faq-item_icon">
+                    <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_6557_16223)">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M19.438 1.99742L20.5 3.04242L12.71 10.7084C12.5197 10.8929 12.2651 10.9961 12 10.9961C11.7349 10.9961 11.4803 10.8929 11.29 10.7084L3.5 3.04242L4.563 1.99742L12 9.31542L19.438 1.99742Z" fill="white"/>
+                      </g>
+                      <defs>
+                      <clipPath id="clip0_6557_16223">
+                      <rect width="12" height="24" fill="white" transform="translate(5.24538e-07 12) rotate(-90)"/>
+                      </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                {% else %}
+                  <div class="faq-icon-custom"></div>
+                {% endif %}
+              </div>
+              <div class="faq-item-body">
+                <div class="faq-item-content">
+                  {{ item_answer }}
+                </div>
+                {% if layout == 'media' %}
+                  <div class="faq_item-media">
+                    {{
+                      item_media
+                      | image_url: width: 600
+                      | image_tag:
+                        alt: item_question,
+                        loading: 'eager',
+                        fetchpriority: 'high',
+                        widths: '400,600,800,1200,1600,1800,2400',
+                        sizes: '(max-width: 859px) 100vw, 100vw'
+                    }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+
+            {% if layout == 'media' %}
+              </div>
+            {% endif %}
+          {%- endfor -%}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{%- style -%}
+  .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px; padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px; color: #ffffff; }
+  .faq-header-wrapper { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .faq-text{ font-size:clamp(20px,3vw, 44px); line-height:1; color:{{section.settings.content_clr}}; }
+  .faq-list { display: flex; flex-direction: column; }
+  .faq-item-custom { border-bottom: 1px solid {{section.settings.content_clr}}; overflow: hidden; background-color: transparent; }
+  .faq-item-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: transparent; }
+  .faq-question-box { background-color:rgba(255, 255, 240, 0); color: {{section.settings.content_clr}}; padding-block: 18px; font-size: clamp(1rem, 2vw, 1.125rem); font-weight: 600; }
+  .faq-icon-custom { display:flex; align-items: center; justify-content: center; width: 24px; height: 24px; position: relative; flex-shrink: 0; transition: 0.3s all ease; }
+  .faq-icon-custom::before, .faq-icon-custom::after { content: ''; position: absolute; background-color: {{section.settings.content_clr}}; transition: 0.3s all ease; }
+  .faq-icon-custom::before { width: 12px; height: 1.5px; }
+  .faq-icon-custom::after { width: 1.5px; height: 12px; }
+  
+  {% unless layout == 'media' %}
+    .faq-item-header.active .faq-icon-custom::after{ transform: rotate(90deg); opacity: 0; }
+    .faq-header-wrapper { margin-bottom: clamp(3rem, 5vw, 4rem); }
+  {% endunless %}
+    
+  .faq-item-body { height: 0; overflow: hidden;  }
+  .faq-item-content { padding-block:18px 25px; font-size: clamp(0.9rem, 1.25vw, 1rem); line-height: 1; color: {{section.settings.content_clr}}; }
+  .faq-item-content p { padding:0px;line-height: 150%; }
+  .faq-item-content p:last-child { margin-bottom: 0; }
+  .faq-item-content ul, .faq-item-content ol { margin-block: clamp(12px,2vw,20px); }
+  .faq-item-content li { margin-bottom: 0.5rem; }
+
+  {% if layout == 'media' %}
+
+  .faq-list { position: relative; width: 100%;}
+  .faq-item_new:has(.faq-item-header.active) .faq_item-media { opacity: 1; pointer-events: all; }
+  .faq-container { width: 100%; background: #ffffff10; padding: clamp(20px,2.8vw,50px); border-radius: clamp(20px,2vw,30px); overflow: hidden; box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 25%), inset 0 0 5px rgba(255, 255, 255, 25%);  display: flex; flex-direction: column; justify-content: flex-start; align-items: center; gap: clamp(30px, 5vw, 110px);}
+  {% if has_ratio %}
+  .faq-container {min-height: 730px;}
+  .faq-title-main { max-width: 490px;width: 100%; }
+  {% endif %}
+  .faq-item-header.active .faq-item_icon { transform: scaleY(-1); }
+  .faq-item-header .faq-item_icon { transform: scaleY(1); transition: 0.3s all ease; }
+  .faq-icon-custom::before { transform: rotate(45deg) translate(20%, -320%); }
+  .faq-icon-custom::after { width: 1.5px; height: 12px; transform: rotate(45deg) translate(-250%, 0%); }
+  .faq_item-media { opacity: 0; transition: 0.3s all ease; pointer-events: none; aspect-ratio: 16/11.3; }
+  .faq_item-media img { object-fit: cover; height: auto; display: flex; width: 100%; }
+  .faq-question-box{text-transform: uppercase; max-width: 260px; width: 100%;}
+  .faq-title-main__rainmaker-lp-two { max-width: 250px; } 
+  @media screen and (min-width:992px){
+    .faq-title-main__rainmaker-lp-two { max-width: 490px; } 
+    .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+    .faq_item-media { position: absolute; transform: translate(-0%, -45%); top: 50%; left: 50%; margin-left: clamp(20px,3vw,50px); }
+    .faq-item-custom { max-width: clamp(300px,41vw,750px); }
+    .faq-question-box{max-width: 100%; width:100%;}
+  }
+
+  {% endif %}
+{%- endstyle -%}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof gsap === 'undefined') {
+      console.warn('GSAP is missing. Accordions will not animate.');
+      return;
+    }
+
+    const section = document.querySelector('.faq-section-{{ section.id }}');
+    const faqItems = document.querySelectorAll('.faq-section-{{ section.id }} .faq-item-custom');
+
+    if (faqItems.length === 0) return;
+
+    const isMediaLayout = section.classList.contains('faq-media-layout');
+
+    // ====================== MEDIA LAYOUT (Auto Slider) ======================
+    if (isMediaLayout) {
+      let currentIndex = 0;
+      let autoTimer = null;
+      const intervalTime = 3000;
+
+      function closeAll() {
+        faqItems.forEach((item) => {
+          const body = item.querySelector('.faq-item-body');
+          const header = item.querySelector('.faq-item-header');
+          if (body) gsap.to(body, { height: 0, duration: 0.4, ease: 'power2.inOut' });
+          if (header) header.classList.remove('active');
+        });
+      }
+
+      function openItem(index) {
+        closeAll();
+        const item = faqItems[index];
+        const body = item.querySelector('.faq-item-body');
+        const header = item.querySelector('.faq-item-header');
+        const content = body;
+
+        if (!body || !header) return;
+
+        body.style.height = 'auto';
+        const height = content.scrollHeight;
+
+        gsap.set(body, { height: 0 });
+        gsap.to(body, {
+          height: height,
+          duration: 0.45,
+          ease: 'power2.inOut',
+          onComplete: () => (body.style.height = 'auto'),
+        });
+
+        header.classList.add('active');
+        currentIndex = index;
+      }
+
+      function startAutoPlay() {
+        if (autoTimer) clearTimeout(autoTimer);
+
+        autoTimer = setTimeout(() => {
+          const nextIndex = (currentIndex + 1) % faqItems.length;
+          openItem(nextIndex);
+          startAutoPlay();
+        }, intervalTime);
+      }
+
+      // Initialize
+      openItem(0);
+      startAutoPlay();
+
+      // Click handler - Prevent action if already active
+      faqItems.forEach((item, index) => {
+        item.querySelector('.faq-item-header').addEventListener('click', () => {
+          // Do nothing if clicking the currently active item
+          if (index === currentIndex) return;
+
+          if (autoTimer) clearTimeout(autoTimer);
+          openItem(index);
+          startAutoPlay();
+        });
+      });
+
+      // Pause on hover
+      section.addEventListener('mouseenter', () => {
+        if (autoTimer) clearTimeout(autoTimer);
+      });
+      section.addEventListener('mouseleave', () => startAutoPlay());
+
+      // Tab switching fix
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          if (autoTimer) clearTimeout(autoTimer);
+        } else {
+          startAutoPlay();
+        }
+      });
+    }
+    // ====================== NORMAL LAYOUT ======================
+    else {
+      faqItems.forEach((item) => {
+        const header = item.querySelector('.faq-item-header');
+        const body = item.querySelector('.faq-item-body');
+        const content = body;
+        let isOpen = false;
+
+        header.addEventListener('click', () => {
+          if (isOpen) {
+            gsap.to(body, { height: 0, duration: 0.4, ease: 'power2.inOut' });
+            header.classList.remove('active');
+            isOpen = false;
+          } else {
+            body.style.height = 'auto';
+            const height = content.scrollHeight;
+
+            gsap.set(body, { height: 0 });
+            gsap.to(body, {
+              height: height,
+              duration: 0.45,
+              ease: 'power2.inOut',
+              onComplete: () => (body.style.height = 'auto'),
+            });
+
+            header.classList.add('active');
+            isOpen = true;
+          }
+        });
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Frequently Asked",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "outline_title",
+      "label": "Outline Heading Text"
+    },
+    {
+      "type": "header",
+      "content": "Color Settings"
+    },
+    {
+      "type": "color",
+      "id": "backGroundColor",
+      "label": "Select BG Color"
+    },
+    {
+      "type": "color",
+      "id": "content_clr",
+      "label": "Select Content Color",
+      "default": "#000"
+    },
+    {
+      "type": "header",
+      "content": "Spacing Settings"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Layout Option"
+    },
+    {
+      "type": "select",
+      "id": "layout_option",
+      "label": "Change Layout",
+      "info": "With media you can add image for each Item.",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "media",
+          "label": "Media"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "checkbox",
+      "id": "has_ratio",
+      "label": "Add Height",
+      "info": "This will add minimum height to the section."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "default": "Frequently Asked Question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "default": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+          "label": "Answer"
+        },
+        {
+          "type": "image_picker",
+          "id": "media",
+          "label": "Add Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,88 @@
+<div class="padding_box_bg">
+    <div class="follow_us_bg" style="background:url({{ section.settings.section_bg | img_url: 'master' }}) no-repeat center center / cover;">
+        <div class="follow_us_text_box">
+          	{% if section.settings.heading != blank %}
+                <h2>{{ section.settings.heading }}</h2>                                
+            {% endif %}
+            <div class="follow_icon">
+              	{% if section.settings.fb_link != blank %}
+                	<a href="{{ section.settings.fb_link }}" target="_blank"><img src="{{'fb-icon.svg' | asset_url}}" alt="fab icon"></a>
+                {% endif %}
+              	{% if section.settings.instagram_link != blank %}
+                	<a href="{{ section.settings.instagram_link }}" target="_blank"><img src="{{'in-icon.svg' | asset_url}}" alt="insta icon"></a>
+                {% endif %}
+              	{% if section.settings.youtube_link != blank %}
+                	<a href="{{ section.settings.youtube_link }}" target="_blank"><img src="{{'you-icon.svg' | asset_url}}" alt="yout icon"></a>
+                {% endif %}
+              	{% if section.settings.tiktok_link != blank %}
+                	<a href="{{ section.settings.tiktok_link }}" target="_blank"><img src="{{'j-icon.svg' | asset_url}}" alt="tik icon"></a>
+                {% endif %}
+              	{% if section.settings.snapchat_link != blank %}
+                	<a href="{{ section.settings.snapchat_link }}" target="_blank"><img src="{{'chat-icon.svg' | asset_url}}" alt="snap icon"></a>
+                {% endif %}
+                
+            </div>
+          	
+          	{% if section.settings.bottom_text != blank %}
+                <h3>{{ section.settings.bottom_text }}</h3>                                
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+
+{% schema %}
+  {
+    "name": "Home follow us",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "section_bg",
+        "label": "Background Image"
+      },
+	  {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+	  {
+        "type": "url",
+        "id": "fb_link",
+        "label": "FB link"
+      },
+	  {
+        "type": "url",
+        "id": "instagram_link",
+        "label": "instagram link"
+      },
+	  {
+        "type": "url",
+        "id": "youtube_link",
+        "label": "youtube link"
+      },
+	  {
+        "type": "url",
+        "id": "tiktok_link",
+        "label": "tiktok link"
+      },
+	  {
+        "type": "url",
+        "id": "snapchat_link",
+        "label": "snapchat link"
+      },
+	  {
+        "type": "text",
+        "id": "bottom_text",
+        "label": "Bottom Text"
+      }
+    ],    
+    "presets": [
+      {
+        "name": "Home follow us",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

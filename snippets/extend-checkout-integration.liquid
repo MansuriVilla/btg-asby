@@ -1,0 +1,133 @@
+<script>
+    // Wrapping the entire function in an iife gives access to the built in jQuery contained in the Checkout
+    // https://shopify.dev/themes/architecture/layouts/checkout-liquid#checkout-jquery
+    (function ($) {
+
+        // If you add content to the Document Object Model (DOM) with only page:load, then there’s a risk that it could be overwritten by a page:change event.
+        // To avoid this issue, you should watch for both events when adding content.
+        $(document).on('page:load', async function() {
+            $('.order-summary-toggle').first().click();
+        });
+        
+        $(document).on('page:load page:change', async function () {
+
+            // Create the Extend shipping protection offer element
+            const $extendShippingOfferElement = $('<div id="extend-shipping-offer"></div>')
+
+            // Insert the offer into the order summary sidebar after it renders underneath the line item totals
+            $('.order-summary__section--total-lines').first().after($extendShippingOfferElement)
+
+            //check if Extend and ExtendShopify SDK are loaded
+            if (window.Extend && window.Extend.shippingProtection && window.ExtendShopify) {
+                const extendUtils = window.Extend.integration.utils;
+                const extendLogger = extendUtils.logger;
+
+                //return cart if successful fetch else set to null
+                let cart = await fetch('/cart.js')
+                    .then((result) => {
+                        return result.json()
+                    })
+                    .catch((error) => {
+                        console.error("EXTEND: Failed to fetch - ", error)
+                    });
+
+                const mappedCartItems = ExtendShopify.spCartMapper(cart.items)
+
+                //check if shippingProtection is loaded and mappedCartItems is not null
+                if (mappedCartItems) {
+
+                    const isShippingProtectionInCart = ExtendShopify.shippingProtectionInCart(cart.items)
+
+                    Extend.shippingProtection.render({
+                        selector: '#extend-shipping-offer',
+                        items: mappedCartItems,
+                        isShippingProtectionInCart: isShippingProtectionInCart,
+                        onEnable: function (quote) {
+                            extendLogger({ "onEnable": quote });
+
+                            try {
+                                ExtendShopify.addSpPlanToCart({
+                                    quote,
+                                    callback: function (err, resp) {
+                                        extendLogger({ "onEnable err": err, "onEnable response": resp })
+
+                                        // an error occurred
+                                        if (err) {
+                                            throw new Error(JSON.stringify(err));
+                                        } else {
+                                            window.location.reload();
+                                        }
+                                    }
+                                })
+                            } catch (error) {
+                                console.error("EXTEND: " + error);
+                            }
+
+                        },
+                        onDisable: function (quote) {
+                            extendLogger({ "onDisable": quote });
+
+                            try {
+                                ExtendShopify.updateSpPlanInCart({
+                                    action: 'remove',
+                                    cart: cart,
+                                    callback: function (err, resp) {
+                                        extendLogger({ "onDisable err": err, "onDisable response": resp })
+
+                                        // an error occurred
+                                        if (err) {
+                                            throw new Error(JSON.stringify(err));
+                                        } else {
+                                            if (resp.isUpdated) window.location.reload();
+                                        }
+                                    }
+                                })
+                            } catch (error) {
+                                console.error("EXTEND: " + error);
+                            }
+                        },
+                        onUpdate: function (quote) {
+                            extendLogger({ "onUpdate": quote });
+
+                            try {
+                                ExtendShopify.updateSpPlanInCart({
+                                    action: 'update',
+                                    cart: cart,
+                                    quote: quote,
+                                    callback: function (err, resp) {
+                                        extendLogger({ "onUpdate err": err, "onUpdate response": resp })
+
+                                        // an error occurred
+                                        if (err) {
+                                            throw new Error(JSON.stringify(err));
+                                        } else {
+                                            if (resp.isUpdated) window.location.reload();
+                                        }
+                                    }
+                                })
+                            } catch (error) {
+                                console.error("EXTEND: " + error);
+                            }
+                        }
+                    })
+                } else {
+                    console.error("EXTEND: Missing Extend.shippingProtection or mappedCartItems");
+                }
+            } else {
+                console.error("EXTEND: Missing Extend SDK");
+            }
+        })
+    })(Checkout.$);
+</script>
+<style>
+    #extend-shipping-offer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    @media(max-width: 749px) {
+        #extend-shipping-offer {
+            justify-content: center;
+        }
+    }
+</style>

@@ -1,0 +1,1100 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<div class="series3_page_bg max3-product-page labor-day-page" style=" overflow-x:hidden;">
+	<div class="sale_offer_page_bg">
+      
+    {%- section 'new-sale-bannar' -%}    
+    
+    {% render 'countdown-timer-new-sale' %}
+      
+    <div class="amazing_offers_box_bg">
+    	<!--<p>3 AMAZING OFFERS - DON’T MISS OUT!</p>-->
+     </div>
+     <div class="free_shopping_newsale">
+     	<img src="{{'new-free-shopping-button2.svg' | asset_url}}" alt="new new">
+        <img src="{{'player-plus-free-shopping2.png' | asset_url}}" alt="new new">
+        <img src="{{'player-plus-free-shopping3.svg' | asset_url}}" alt="new new">
+     </div> 
+     
+     <div class="black_sale_page_bg">
+     	<img src="{{'pgs-logo-desktop.png' | asset_url}}">
+     </div>
+      <div class="blackfriday-deal-title">
+        <div class="page-width">
+          <h2>three featured deals</h2>
+        </div>
+      </div>
+    <div id="featured-deals-section" class="row">
+    
+        <div class="col_md_3" style="padding:0;">
+        	<div class="sale_offer_box" style="width:100%;">
+            		 <div class="ncaa-pro-img">
+                     <img class="black active desktopimg" src="{{'offer-player-plus-pro.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                     <!-- <img class="black active desktopimg" src="{{'player_plus_sp.jpg' | asset_url}}" alt="sale_offer_box sale_offer"> -->
+                      <img class="mobileimg" src="{{'player-plus-new-m.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                      <!---<img class="alabama" src="{{'sale_offer_box-img3.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                           <img class="ohio" src="{{'sale_offer_box-img3.png' | asset_url}}" alt="sale_offer_box sale_offer">--->
+                      </div>
+                     <!--<div class="ncaa-pro-img">
+                     	<img class="black active" src="{{'sale_offer_box-img3.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                        <img class="alabama" src="{{'sale_offer_box-img3.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                        <img class="ohio" src="{{'sale_offer_box-img3.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                        <img class="southern" src="{{'sale_offer_box-img3.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                        <img class="florida" src="{{'sale_offer_box-img3.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                    </div>-->
+                    <div class="color_icon pro-2-ncaa">
+                 	<img class="black active"  src="{{'newcolor-img1.png' | asset_url}}" alt="newcolor newcolor">
+                    <img class="alabama" src="{{'newcolor-img2.png' | asset_url}}" alt="newcolor newcolor">
+                    <!--<img class="ohio" src="{{'newcolor-img3.png' | asset_url}}" alt="newcolor newcolor">-->
+                     
+                  </div>
+                     <!--<div class="color_icon pro-2-ncaa">
+                     	<img  class="ug"  src="{{'newcolor-logo1.png' | asset_url}}" alt="newcolor newcolor">
+                        <img class="alabama" src="{{'newcolor-logo2.png' | asset_url}}" alt="newcolor newcolor">
+                        <img class="ohio" src="{{'newcolor-logo3.png' | asset_url}}" alt="newcolor newcolor">
+                        <img class="southern active" src="{{'newcolor-logo4.png' | asset_url}}" alt="newcolor newcolor">
+                        <img class="florida" src="{{'newcolor-logo5.png' | asset_url}}" alt="newcolor newcolor">
+                    </div>-->
+              <div class="price-info">
+                <div class="price_box product-single__meta">
+                     <!---<p>STARTING AT</p>--->
+                     <div class="price_text"><span class="old">{{all_products['player-gps-speaker'].compare_at_price_max | money}}</span> {{ all_products['player-gps-speaker'].price | money }}</div>
+                     <div class="compare-text"><span class="sale-tag">SALE</span>
+                        Value {{ all_products['player-gps-speaker'].compare_at_price_max | minus: all_products['player-gps-speaker'].price | money }} | FREE SHIPPING
+                      </div>
+                </div>
+               <div class="shopnow"> <a class="btn" href="/products/player-gps-speaker">SHOP NOW</a><br /><a class="watch_review poptrigger" data-rel="playerplusgps">REVIEWS</a></div>
+              </div>
+            </div>
+        </div>
+          <div class="col_md_3" style="padding:0;">
+        	<div class="sale_offer_box" style="width:100%;">
+                  	<img class="black active desktopimg" src="{{'offer-ppgo-pro.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                  	<!-- <img class="black active desktopimg" src="{{'3max_plus_sp.jpg' | asset_url}}" alt="sale_offer_box sale_offer"> -->
+                    <img class="mobileimg" src="{{'ppgo-offer-img-mobile.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                     <div class="color_icon">
+                 	<img class="active" src="{{'black.png' | asset_url}}" alt="newcolor newcolor">
+                 	<img class="active" src="{{'navy.png' | asset_url}}" alt="newcolor newcolor">
+                 	<img class="active" src="{{'white.png' | asset_url}}" alt="newcolor newcolor">
+                    
+                  </div>
+              <div class="price-info">
+                  <div class="price_box product-single__meta">
+                     <div class="price_text"> <span class="old">{{all_products['player-pack'].compare_at_price_max | money}}</span>  {{ all_products['player-pack'].price | money }}</div> 
+                     <div class="compare-text"> <span class="sale-tag">SALE</span>
+                        Save {{ all_products['player-pack'].compare_at_price_max | minus: all_products['player-pack'].price | money }} | FREE SHIPPING
+                      </div>
+                </div>
+                <div class="shopnow"> <a class="btn"  href="/products/player-pack">Shop Now</a><br /><a class="watch_review poptrigger" data-rel="playerpackgo">REVIEWS</a></div>
+              </div>
+             </div>
+        </div>
+    	<div class="col_md_3" style="padding:0;">
+        	<div class="sale_offer_box" style="width:100%;">
+                 <div class="max-3-pro-img">
+                     <img class="black active desktopimg" src="{{'offer-ringer-pro.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                     <!-- <img class="black active desktopimg" src="{{'ringer_sp.jpg' | asset_url}}" alt="sale_offer_box sale_offer"> -->
+                     <img class="mobileimg" src="{{'offer-ringer-pro.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                      <!--<img class="blue" src="{{'sale_offer_box-img1.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                    <img class="white" src="{{'sale_offer_box-img1.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                    <img class="pink" src="{{'sale_offer_box-img1.png' | asset_url}}" alt="sale_offer_box sale_offer">-->
+                 </div>
+ 
+              
+                 <div class="color_icon max-3-pro">
+                 	<img class="black active"  src="{{'newcolor-img1.png' | asset_url}}" alt="newcolor newcolor">
+                    <img class="blue" src="{{'newcolor-img2.png' | asset_url}}" alt="newcolor newcolor">
+                    <!--<img class="white" src="{{'newcolor-img3.png' | asset_url}}" alt="newcolor newcolor">
+                    <img class="pink" src="{{'newcolor-img4.png' | asset_url}}" alt="newcolor newcolor">-->
+                  </div>
+              <div class="price-info">
+                <div class="price_box product-single__meta">
+                     <div class="price_text"><span class="old">{{ all_products['ringer'].compare_at_price_max | money}}</span> {{ all_products['ringer'].price | money }}</div>
+                     <div class="compare-text"><span class="sale-tag">SALE</span>
+                        Value {{ all_products['ringer'].compare_at_price_max | minus: all_products['ringer'].price | money }} | FREE SHIPPING
+                      </div>
+                </div>
+                <div class="shopnow"> <a class="btn" href="/products/ringer">Shop Now</a><br />
+                <a class="watch_review poptrigger" data-rel="ringer-video">REVIEWS</a>
+                </div>
+              </div>
+            </div>
+        </div>
+        {% comment %}<div class="col_md_3" style="padding:0;">
+        	<div class="sale_offer_box" style="width:100%;">
+                 <div class="max-3-pro-img">
+                     <img class="black active desktopimg" src="{{'blackfriday-sale-offer-box-img1.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                     <img class="mobileimg" src="{{'m-blackfriday-sale-offer-box-img1.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                      <!--<img class="blue" src="{{'sale_offer_box-img1.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                    <img class="white" src="{{'sale_offer_box-img1.png' | asset_url}}" alt="sale_offer_box sale_offer">
+                    <img class="pink" src="{{'sale_offer_box-img1.png' | asset_url}}" alt="sale_offer_box sale_offer">-->
+                 </div>
+ 
+              
+                 <div class="color_icon max-3-pro">
+                 	<img class="black active"  src="{{'newcolor-img1.png' | asset_url}}" alt="newcolor newcolor">
+                    <img class="blue" src="{{'newcolor-img2.png' | asset_url}}" alt="newcolor newcolor">
+                    <img class="white" src="{{'newcolor-img3.png' | asset_url}}" alt="newcolor newcolor">
+                    <!--<img class="pink" src="{{'newcolor-img4.png' | asset_url}}" alt="newcolor newcolor">-->
+                  </div>
+              <div class="price-info">
+                <div class="price_box product-single__meta">
+                     <div class="price_text"><span class="old">{{ all_products['series-3-max-golf-rangefinder-with-slope'].compare_at_price_max | money}}</span> {{ all_products['series-3-max-golf-rangefinder-with-slope'].price | money }}</div>
+                     <div class="compare-text"><span class="sale-tag">SALE</span>
+                        Save $70.00  |  FREE SHIPPING
+                      </div>
+                </div>
+                <div class="shopnow"> <a class="btn" href="/products/series-3-max-golf-rangefinder-with-slope">Shop Now</a><br />
+                <a class="watch_review poptrigger" data-rel="3max-video" href="#">REVIEWS</a>
+                </div>
+              </div>
+            </div>
+        </div>{% endcomment %}
+      
+    </div>
+    <div class="geore_gankas_box_bg">
+        <!--<iframe src="https://player.vimeo.com/video/705200148?h=ef2f8f7c26&amp;title=0&amp;byline=0&amp;portrait=0&amp;app_id=122963" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" title="George Gankas - Video 2022" data-ready="true" width="100%" height="450" frameborder="0"></iframe>-->    
+        <h2 class="h2">300K+ Golfers Choose Us<br><span>Over Any other Brand</span></h2>
+     </div>
+
+    <div class="geore_gankas_box_bg new_box">
+    	<p>Over 2,000+ 5 Star Reviews</p>
+      <div class="custom-review-section">
+        <div class="review-slider owl-carousel">
+          <div class="item">
+            <div class="review-block">
+              <img class="review-img" src="{{'review-img1.jpg' | asset_url}}" alt="">
+              <div class="review-content">
+                <div class="review-inner-conetnt">
+                  <div class="review-title">
+                    <h3>M</h3>
+                    <h4>Mark<small>10/23/2023</small></h4>
+                  </div>
+                  <div class="review-star">
+                    <img src="{{'review-star.svg' | asset_url}}" alt="">
+                  </div>
+                </div>
+                <p>This thing is amazing!! Yardage is correct and the sound is better than any other portable speaker that I own. Battery life is good for at least 2 full rounds.</p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="review-block">
+              <img class="review-img" src="{{'review-img2.jpg' | asset_url}}" alt="">
+              <div class="review-content">
+                <div class="review-inner-conetnt">
+                  <div class="review-title">
+                    <h3>J</h3>
+                    <h4>John<small>10/8/2022</small></h4>
+                  </div>
+                  <div class="review-star">
+                    <img src="{{'review-star.svg' | asset_url}}" alt="">
+                  </div>
+                </div>
+                <p>Amazing product extremely high-quality highly recommend.</p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="review-block">
+              <img class="review-img" src="{{'review-img3.jpg' | asset_url}}" alt="">
+              <div class="review-content">
+                <div class="review-inner-conetnt">
+                  <div class="review-title">
+                    <h3>R</h3>
+                    <h4>Ralph<small>2/28/2023</small></h4>
+                  </div>
+                  <div class="review-star">
+                    <img src="{{'review-star.svg' | asset_url}}" alt="">
+                  </div>
+                </div>
+                <p>This is the best deal out there! I am so impressed with the range finder. It has been a lifesaver and very accurate. I also get to enjoy a little bit of music with the speaker. I've been asked to give up my divot tool and ball marker, but I said no way, it's classy.</p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="review-block">
+              <img class="review-img" src="{{'review-img4.jpg' | asset_url}}" alt="">
+              <div class="review-content">
+                <div class="review-inner-conetnt">
+                  <div class="review-title">
+                    <h3>K</h3>
+                    <h4>Kyle<small>8/27/2022</small></h4>
+                  </div>
+                  <div class="review-star">
+                    <img src="{{'review-star.svg' | asset_url}}" alt="">
+                  </div>
+                </div>
+                <p>Got the S3 and the speaker. Incredible product. Much better than my old bushnell at half the cost.</p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="review-block">
+              <img class="review-img" src="{{'review-img5.jpg' | asset_url}}" alt="">
+              <div class="review-content">
+                <div class="review-inner-conetnt">
+                  <div class="review-title">
+                    <h3>B</h3>
+                    <h4>Brent<small>10/14/2023</small></h4>
+                  </div>
+                  <div class="review-star">
+                    <img src="{{'review-star.svg' | asset_url}}" alt="">
+                  </div>
+                </div>
+                <p>Worked amazing. Didn’t have to pull out a rangefinder at all, speaker quality is amazing and love being able to keep score</p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="review-block">
+              <img class="review-img" src="{{'review-img6.jpg' | asset_url}}" alt="">
+              <div class="review-content">
+                <div class="review-inner-conetnt">
+                  <div class="review-title">
+                    <h3>J</h3>
+                    <h4>Jermey<small>10/11/2022</small></h4>
+                  </div>
+                  <div class="review-star">
+                    <img src="{{'review-star.svg' | asset_url}}" alt="">
+                  </div>
+                </div>
+                <p>The fact this is under $400 is insane! This is a no brainer deal. Got mine fast.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!---div id="looxCarousel" data-show-more="true" data-product-ids="6862485061829"></div--->
+      <a href="#" class="btn watch_review poptrigger" data-rel="review-popup"><span>SHOW ALL REVIEWS</span></a>
+    </div>
+    
+    <div class="player-logosection">
+      <p>AS SEEN IN</p>
+      <div class="as_seen_logo_bg hmlogoslider owl-carousel">
+        <div class="item">
+        <img src="{{'as-seen-logo1.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo2.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo3.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo4.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo5.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo6.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo7.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo8.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo9.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo10.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo11.png' | asset_url}}" alt="">
+        </div>
+        <div class="item">
+        <img src="{{'as-seen-logo12.png' | asset_url}}" alt="">
+        </div>
+      </div>
+    </div>
+    
+    <div class=" as-seen-in series-3-max-golf-rangefinder-with-slope max3-product-page playergps-section">
+    <p style="font-weight: 900;letter-spacing: .5em;line-height: 21px;padding-top: 0;max-width: 100%;color: #fff;font-size: 18px;">GPS MAGNETIC GOLF SPEAKER</p>
+    <img src="//blueteesgolf.com/cdn/shop/t/83/assets/new-home-player-title.png" alt=""><br>
+    <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/final_player_plus_gif.gif?v=1713247306" alt="">
+    {%- section 'change-the-way-gps-speaker' -%}
+  </div>
+
+  <div class="playervid-section" style="padding-bottom: 30px;">
+      <div class="playvid-info">  
+      <div class="playervideo">
+        <iframe src="https://player.vimeo.com/video/879590749?h=b298ea73c7" allow="fullscreen; picture-in-picture" allowfullscreen="" title="George Gankas - Video 2022" data-ready="true" width="100%" height="600" frameborder="0"></iframe>
+      </div>
+      </div>
+    </div>
+      
+
+     <div class="max3-product-page playerplus-max3-section2">
+      <div class="offer-ppgo-bg as-seen-in series-3-max-golf-rangefinder-with-slope" style="padding-bottom: 0px;">
+        {%- section 'change-the-way-player-pack' -%}
+     </div>
+    </div>
+    {% comment %}
+    
+      <div class="newsale_whatin_thebox_bg">
+        <div class="box_img" style="padding-bottom:50px;">
+          <div class="prod-img">
+        	<img   src="{{'player-pack-included1.png' | asset_url}}" alt="">
+          </div>
+          <div class="prod-img">
+            <img   src="{{'player-pack-included2.png' | asset_url}}" alt="">
+          </div>
+          <div class="prod-img">
+            <img   src="{{'player-pack-included3.png' | asset_url}}" alt="">
+          </div>
+          <div class="prod-img">
+            <img   src="{{'player-pack-included4.png' | asset_url}}" alt="">
+          </div>
+        </div>
+  </div>
+      {% endcomment %}
+    <div class="playervid-section">
+      <div class="playvid-info">  
+      <div class="playervideo" style="margin-top: 23px;">
+        <iframe src="https://player.vimeo.com/video/943755724?h=49182ea1ba" allow=" fullscreen; picture-in-picture" allowfullscreen="" title="George Gankas - Video 2022" data-ready="true" width="100%" height="600" frameborder="0"></iframe>
+      </div>
+      </div>
+    </div>
+
+
+
+   <div class="as-seen-in series-3-max-golf-rangefinder-with-slope">
+      {%- section 'as-seen-in-ringer' -%}
+    </div>
+    <div class="playervid-section">
+      <div class="playvid-info">  
+      <div class="playervideo">
+        <iframe src="https://player.vimeo.com/video/879591348?h=49182ea1ba" allow=" fullscreen; picture-in-picture" allowfullscreen="" title="George Gankas - Video 2022" data-ready="true" width="100%" height="600" frameborder="0"></iframe>
+      </div>
+      </div>
+    </div>
+
+      
+{% comment %}<div class="max3-section">
+    <div class="as-seen-in series-3-max-golf-rangefinder-with-slope playe">
+      {%- section 'as-seen-in' -%}
+      {%- section 'change-the-way-3max' -%}
+    </div>
+    <div class="playervid-section">
+      <div class="playvid-info">  
+      <div class="playervideo">
+        <iframe src="https://player.vimeo.com/video/705200148?h=ef2f8f7c26&amp;title=0&amp;byline=0&amp;portrait=0&amp;app_id=122963" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" title="George Gankas - Video 2022" data-ready="true" width="100%" height="600" frameborder="0"></iframe>
+      </div>
+      </div>
+    </div>{% endcomment %}
+      
+    <!---div class="rangefinder-section as-seen-in">
+      <div class="page-width">
+      <img class="rangefinder-title" src="{{'rangefinder-title.png' | asset_url}}" alt="">
+      <div class="rangefinder-product-list">
+         <div class="rangefinder-product">
+          <img src="{{'rangefinder-2pro.png' | asset_url}}" alt="">
+           <div class="price-add-to-cart">
+               <div class="price_box">
+                     <div class="price_text"><span class="old">{{all_products['rangefinder-series-2-pro'].compare_at_price_max | money}}</span> {{ all_products['rangefinder-series-2-pro'].price | money }}</div> 
+                  </div>
+                <div class="add-to-cart-btn">
+                    <a href="https://www.blueteesgolf.com/products/rangefinder-series-2-pro" class="btn">
+                      SHOP S2 PRO+
+                    </a>
+                </div>
+            </div>
+          <img src="{{'rangefinder-2pro-icons.svg' | asset_url}}" alt="">
+          <p>The Series 2 Pro+ is the most advanced rangefinder in the Series 2 family. Featuring our next generation slope switch technology, enhanced flag-lock, and HD display, the S2 Pro+ is equipped to help you through a casual round or a club championship.</p>
+          <a class="btn" href="/products/rangefinder-series-2-pro">SHOP S2 PRO+</a>
+        </div>
+        <div class="rangefinder-product">
+          <img src="{{'rangefinder-3max.png' | asset_url}}" alt="">
+          <div class="price-add-to-cart">
+               <div class="price_box">
+                     <div class="price_text"><span class="old">{{all_products['series-3-max-golf-rangefinder-with-slope'].compare_at_price_max | money}}</span> {{ all_products['series-3-max-golf-rangefinder-with-slope'].price | money }}</div> 
+                  </div>
+                <div class="add-to-cart-btn">
+                    <a href="https://www.blueteesgolf.com/products/series-3-max-golf-rangefinder-with-slope" class="btn">
+                      SHOP S3 MAX
+                    </a>
+                </div>
+            </div>
+          <img src="{{'rangefinder-3max-icons.svg' | asset_url}}" alt="">
+          <p>The Series 3 Max is our most advanced rangefinder yet, with next generation technology and cutting-edge modern design. Series 3 has been designed for those who want to defy the limits of the course.</p>
+          <a class="btn" href="/products/series-3-max-golf-rangefinder-with-slope">SHOP S3 MAX</a>
+        </div>
+      </div>
+      </div>
+    </div>        
+    <div class="playervid-section">
+      <div class="playvid-info">  
+      <div class="playervideo">
+        <iframe src="https://player.vimeo.com/video/705200148?h=ef2f8f7c26&amp;title=0&amp;byline=0&amp;portrait=0&amp;app_id=122963" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" title="George Gankas - Video 2022" data-ready="true" width="100%" height="600" frameborder="0"></iframe>
+      </div>
+      </div>
+    </div>
+    <div class="changetheway-section as-seen-in series-3-max-golf-rangefinder-with-slope">
+      <div class="theme-block"><div class="rte"><div class="single-img"><img src="/cdn/shop/files/player-changethe-img.png" alt=""></div></div></div>
+    </div--->     
+  
+  </div>
+</div>
+<div class="player_ringer_bg">
+  <div class="game_box_bg columnreverse">
+    <div class="game_text">
+      <div class="title"><img src="{{'blackfriday-game-title.png' | asset_url}}" alt="game game"></div>
+      <div class="game_img"><img src="{{'ringer-gamephone-mobile-img.png' | asset_url}}" alt="game game"></div>
+      <p>
+        Join our seamless ecosystem, connecting your GPS and connected devices with our Blue Tees Golf App. Unlock new
+        features and insights, transforming your golf game. All members will receive exclusive offers, partnership
+        offers, and more.
+      </p>
+      <div class="appbutton">
+        <a href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
+          ><img src="{{'appbtn2.png' | asset_url}}" alt="83 appbtn"></a>
+        <a href="https://play.google.com/store/apps/details?id=com.bluetees"
+          ><img src="{{'appbtn1.png' | asset_url}}" alt="83 appbtn"></a>
+      </div>
+    </div>
+    <div class="game_img"><img src="{{'ringer-gamephone-img.png' | asset_url}}" alt="game game"></div>
+  </div>
+</div>
+<style>
+   .sale_offer_box .color_icon{display:none;}
+    .speaker-slider .owl-dots { display:none;}
+   .speaker-slider  .owl-nav button.owl-next { display:inline;}
+   .speaker-slider  .owl-nav button.owl-prev  { display:inline;}
+   .speaker-slider .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev { display:inline;}
+   .speaker-slider  .owl-nav .owl-prev { /*background:url(speaker-aro-left.svg) left top no-repeat !important;*/ width:40px; height:40px; position:absolute; top:45%; left:10px; /*background-size:20px !important;*/}
+   .speaker-slider  .owl-nav .owl-next { /*background:url(speaker-aro-right.svg) left top no-repeat !important;*/ width:40px; height:40px; position:absolute; top:45%; right:10px; /*background-size:20px !important;*/} 
+   .speaker-slider  .owl-nav .owl-prev span { font-size:40px; color:#fff; opacity:0.7;}
+   .speaker-slider  .owl-nav .owl-next span { font-size:40px; color:#fff; opacity:0.7;}
+   .free_shopping_newsale img{opacity: 1;}
+   .black_sale_page_bg{padding: 0px 15px 0px 15px;background: #000;}
+  .sale_offer_box{line-height: 0;}
+  .sale_offer_box .price_box{margin-top: 20px;}
+  .sale_offer_box .color_icon{padding: 12px 10px;background: #1c1c1c;}
+  .product-single__meta{padding-left: 0px;}
+  .sale_offer_box .price_box .price_text{font-size: 52px;line-height: 45px;}
+  .price_box .price_text span.old + span{font-size:30px;}
+  .sale_offer_box .price_box .price_text span.old{ font-size: 18px;line-height: 24px;text-decoration: none;position: relative;}
+  /* .sale_offer_box .price_box .price_text span.old, .price-add-to-cart .price_box .price_text span.old{opacity: 1;} */
+  .sale_offer_box .shopnow a{background: rgb(155, 0, 0, 1);border-radius: 4px;font-weight: 900;font-size: 14px;line-height: 16px;padding: 10px 33px;letter-spacing: 0.2em;}
+  .sale_offer_box .shopnow a.btn:hover{background: #fff !important;color: #000;}
+  .sale_offer_box .shopnow a.watch_review{font-weight: 700;line-height: 15px;letter-spacing: 0.25em;padding: 10px 8px 10px 32px; cursor:pointer; background: url(https://www.blueteesgolf.com/cdn/shop/t/83/assets/commercial-icon.png) 20px center no-repeat #313131;
+width: 120px;display: inline-block;margin-top: 20px;font-size: 9px;}
+  .max3-product-page .product-single__meta .compare-text{margin: 10px 0px;}
+    .sale_offer_box .shopnow a.watch_review:hover{background: url(https://www.blueteesgolf.com/cdn/shop/t/83/assets/commercial-icon-h.png) 20px center no-repeat #fff;color: #000;}
+    .geore_gankas_box_bg{padding: 40px 0px 30px;}
+    .geore_gankas_box_bg p{padding-top: 0px;padding-bottom: 10px;}
+    .geore_gankas_box_bg.new_box{padding: 30px 20px;}
+    .geore_gankas_box_bg p{font-style: inherit;font-weight: 700;font-size: 28px;line-height: 33px;letter-spacing: 0.2em;text-transform: uppercase;}
+    .price-info{padding: 0px 15px;}
+    .series3_page_bg .col_md_3:last-child .sale_offer_box .price_box p{font-style: normal;margin-bottom: 15px;color: #fff;}
+    #looxCarousel iframe .review-item__name{font-weight: 400;font-size: 20px;padding: 5px 0;line-height: 23px;}
+    .player-logosection{background: #fff;padding: 30px 15px 30px 15px;}
+    .player-logosection p{font-size: 20px;font-weight: 700;line-height: 24px;letter-spacing: 0.2em;padding: 0px 0px 20px;}
+    .playvid-info{max-width: 1060px;margin: 0 auto;padding: 0px 20px;}
+    .playervideo{position: relative;padding-top: 56.52%;}
+    .playervideo iframe{position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
+    #shopify-section-change-the-way-3max .rte a.btn,
+    #shopify-section-change-the-way .rte a.btn,
+    #shopify-section-change-the-way-player-pack .rte a.btn{background: #9B0000 !important;border: 1px solid #CB0000;}
+    #shopify-section-change-the-way-3max .rte a.btn:hover,
+    #shopify-section-change-the-way .rte a.btn:hover,
+    #shopify-section-change-the-way-player-pack .rte a.btn:hover{background: #fff !important;border-color:#fff;color: #000;}
+    .playerplus-max3-section3 .series-3-max-golf-rangefinder-with-slope .theme-block:first-child .single-img img{margin-bottom: 20px;}
+   .newsale_whatin_thebox_bg .prod-img{width: 25%;padding: 0px 15px;}
+   .newsale_whatin_thebox_bg .box_img .prod-img img{box-shadow: 0px 0px 20px #FFFFFF;border-radius: 27px;border: 2px solid #fff;}
+   .newsale_whatin_thebox_bg .box_img img{width: 100%;padding: 0px;margin-top: 40px;}
+   .hmlogoslider.owl-carousel .owl-dots,
+   .hmlogoslider.owl-carousel .owl-nav{margin-top: 15px;line-height: 0;}
+    /* .price-add-to-cart .price_box .price_text {display: flex;  justify-content: center; align-items: center; font-style: italic; font-weight: 900; font-size: 52px; line-height: 45px; letter-spacing: -0.03em; padding: 0; color: #fff;} */
+/* .price-add-to-cart .price_box .price_text span.old {
+text-decoration-color: #a92826 !important;
+font-style: italic;
+font-weight: 900;
+font-size: 40px;
+line-height: 47px;
+letter-spacing: -0.03em;
+opacity: 0.5;
+text-decoration: line-through;
+  text-decoration-color: currentcolor;
+margin-right: 10px;
+  color:#fff;
+} */
+  /* .price-add-to-cart .price_box .price_text span.old{font-size: 28px;line-height: 24px;opacity: 1;text-decoration: none;position: relative;} */
+.add-to-cart-btn .btn
+  {
+  background: #004DF5 !important;
+  border: 1px solid #004DF5;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.2em;
+  padding: 10px 65px;
+  border-radius: 5px;
+  margin-top: 25px;
+  background: #9B0000 !important;
+  border: 1px solid #CB0000;
+
+}
+  .add-to-cart-btn .btn, #shopify-section-change-the-way-3max .rte a.btn, #shopify-section-change-the-way .rte a.btn, 
+  #shopify-section-change-the-way-player-pack .rte a.btn, #shopify-section-change-the-way-gps-speaker .theme-block .rte .btn{width: 270px;}
+  #shopify-section-change-the-way-player-pack .price-add-to-cart{margin-top: 0px;}
+  #shopify-section-change-the-way-player-pack .theme-block:last-child .single-img img{padding-top: 60px;}
+  .ncaa-pro-img .desktopimg, .max-3-pro-img .desktopimg{display: block;}
+  .sale_offer_box .mobileimg{display:none;}
+  .sale_offer_box .shopnow a{width: 170px;display: inline-block;}
+  .sale_offer_box .price_box .price_text span.old:after,
+  .price-add-to-cart .price_box .price_text span.old:after{position: absolute;content: "";width: 100%;height: 2px;background: #a92826;left: 0;top: 50%;}
+  .max3-product-page .series-3-max-golf-rangefinder-with-slope .rangefinder-section .single-img img{max-width: 100%;}
+  .rangefinder-section{background-color: #000;}
+  .rangefinder-product-list{display: flex;max-width: 1060px;margin: 40px auto 0px;}
+  .rangefinder-product{padding: 0px 15px;}
+  .rangefinder-product p{font-size: 18px;color: #FFFFFF;text-align: center;line-height: 24px;letter-spacing: 0.4px;max-width: 440px; margin: 0 auto;padding: 35px 0px;min-height: 190px;}
+  .rangefinder-product .btn{background: #CB0000;width: 270px;border-radius: 5px;font-weight: 900;font-size: 16px;line-height: 17px;color: #FFFFFF;padding: 10px 45px;letter-spacing: 3px;}
+  .rangefinder-product .btn:hover{background: #fff !important;color: #000;}
+  .rangefinder-product img:first-child{max-width: 475px;width: 100%;}
+  .changetheway-section .single-img img{padding: 0px 15px;}
+  .price-add-to-cart{margin-bottom: 0px !important;margin-top: 30px;}
+  .rangefinder-product .price-add-to-cart{padding: 35px 0px;margin: 0px;}
+  .as-seen-in.series-3-max-golf-rangefinder-with-slope.max3-product-page h2{display: none;}
+  .max3-product-page  #shopify-section-change-the-way-gps-speaker .product-single__meta .compare-text{margin-bottom: 0px;margin-top: 20px;line-height: 18px;}
+  #shopify-section-change-the-way-gps-speaker .theme-block .rte .btn{margin-top: 20px;}
+  #shopify-section-change-the-way-gps-speaker .theme-block:last-child .rte .btn{margin-top: 0px;}
+  #shopify-section-as-seen-in-ringer{background: url(/cdn/shop/t/77/assets/touch-screen-bg.png) center top repeat-x;width: 100%;}
+  #shopify-section-as-seen-in-ringer .theme-block:nth-child(2),
+  #shopify-section-as-seen-in-ringer .theme-block:nth-child(2) .single-img img{padding-top: 0px;}
+  #shopify-section-as-seen-in-ringer .theme-block:first-child .rte p{font-weight: 900;letter-spacing: 0.5em !important;line-height: 21px !important;padding-top: 0px;max-width: 100% !important;padding-bottom: 15px;}
+  #shopify-section-as-seen-in-ringer .theme-block .rte .btn{background: #CB0000;border-radius: 5px;font-weight: 900;font-size: 16px;line-height: 17px;color: #FFFFFF;padding: 10px 45px;letter-spacing: 3px;width: 270px;border: 1px solid #CB0000;margin: 0;}
+   #shopify-section-as-seen-in-ringer .theme-block .rte .btn:hover{background: #fff; color: #000;border-color: #fff;}
+  #shopify-section-as-seen-in-gps-speaker .theme-block .rte p{padding-bottom: 15px;}
+  #shopify-section-as-seen-in-ringer .theme-block:nth-child(6) .enlarge-text p{padding: 40px 0px !important;max-width: 565px !important;}
+  #shopify-section-as-seen-in-ringer .compare-text{margin: 20px 0px;line-height: 18px;}
+  #shopify-section-as-seen-in-ringer .compare-text i,
+  #shopify-section-change-the-way-gps-speaker .compare-text i{font-weight: 600;}
+  .black_sale_page_bg img{max-height: 100%;width: 100%;max-width: 260px;}
+  .blackfriday-deal-title{padding: 30px 0px 50px;}
+  .blackfriday-deal-title h2{font-size: 53px;line-height: 40px;letter-spacing: 0.32em;color: #fff;}
+  .max3-section .as-seen-in .price-add-to-cart{margin-top: 0px;margin-bottom: 40px !important;}
+  .custom-review-section{padding-bottom: 30px;}
+  .review-slider.owl-carousel .owl-stage{display: flex;flex-wrap: wrap;}
+  .review-slider .item{height: 100%;}
+  .review-block{background: #fff;padding: 3px;border-radius: 15px;height: 100%;}
+  .review-block .review-img{border-top-left-radius: 12px;border-top-right-radius: 12px;}
+  .review-content{padding: 10px 10px 30px;}
+  .review-inner-conetnt{display: flex;flex-wrap: wrap;justify-content: space-between;align-items: center;text-align: left;margin-bottom: 10px;}
+  .review-title{display: flex;flex-wrap: wrap;align-items: center;}
+  .review-title h3{color: #000;font-style: normal;font-size: 20px;width: 45px;height: 45px;border-radius: 50%;border: 2px solid #000;margin-right: 10px;}
+  .review-title h4{font-size: 14px;text-transform: capitalize;line-height: normal;}
+  .review-title h4 small{font-weight: normal;font-size: 10px;}
+  .geore_gankas_box_bg .review-content p{color: #000;font-size: 12px;font-style: italic;font-weight: 500;text-transform: capitalize;padding: 0;text-align: left;line-height: inherit;letter-spacing: inherit;}
+  .review-slider{padding: 0px 40px;margin-top: 30px;}
+  .review-slider .owl-nav .owl-prev, .review-slider .owl-nav .owl-next{width: 40px;height: 40px;position: absolute;top: 45%;left: -15px;}
+  .review-slider .owl-nav .owl-next{left: auto;right: -15px;}
+  .geore_gankas_box_bg .btn{background: transparent;border: 1px solid #fff;border: 1px solid #fff;border-radius: 6px;font-size: 12px;letter-spacing: 0.2em;font-weight: 700;}
+  .geore_gankas_box_bg .btn:hover{color: #fff;background: #000 !important;}
+  #looxReviews{height: 600px !important;overflow-y: scroll;background: rgb(255, 255, 255);}
+  .max3-product-page #shopify-section-as-seen-in-gps-speaker .theme-block:nth-child(2){padding-top: 0px;}
+  #shopify-section-change-the-way-player-pack .theme-block:nth-child(3){padding-top: 20px;}
+ #featured-deals-section .col_md_3:nth-child(1){ order:1; }
+ #featured-deals-section .col_md_3:nth-child(3){ order:3; } 
+ #shopify-section-change-the-way-player-pack .go-title {letter-spacing: 19px !important; max-width: 100% !important; font-weight: 900;}
+  .offer-ppgo-bg.as-seen-in { padding-top: 75px; padding-bottom: 0px; background: #000 url(//blueteesgolf.com/cdn/shop/t/100/assets/player-plus-product-bg.png?v=61336931845007165311714569323) no-repeat top center; background-size: auto; background-size: 73%;}
+  .price-add-to-cart .price_box .price_text .old{margin-right: 10px;}
+   @media (max-width:1560px) {
+     .geore_gankas_box_bg.new_box{max-width: 1250px;}
+   }
+    @media (max-width:1199px) {
+
+     .rangefinder-product img:first-child{max-width: 400px;}
+    .blackfriday-deal-title h2{font-size: 40px;line-height: 32px;}
+    #shopify-section-change-the-way-player-pack .theme-block:last-child .single-img img{padding-top: 50px;}
+    .black_sale_page_bg img{max-width: 200px;}
+    }
+      @media (max-width:1100px) {
+        
+        .speaker-slider .owl-nav .owl-prev, .speaker-slider .owl-nav .owl-next{width: 32px;height: 32px;}
+        .review-slider .owl-nav .owl-prev, .review-slider .owl-nav .owl-next{width: 32px;height: 32px;}
+        .review-slider{padding: 0px 30px;}
+        .review-star img{max-width: 60px;}
+        /*.review-title h3{font-size: 12px;width: 35px;height: 35px;line-height: 35px;}
+        .review-title h4{font-size: 12px;}
+        .review-title h4 small{font-size: 9px;}
+        .geore_gankas_box_bg .review-content p{font-size: 10px;}*/
+        
+       }
+    @media (max-width:1060px){
+      .rangefinder-product p{min-height: 215px;}
+      .rangefinder-product img + img{height: 180px;}
+    }
+    @media (max-width:991px){
+      .sale_offer_box .shopnow{margin-bottom: 30px;}
+      .geore_gankas_box_bg{padding: 40px 0px 0px;}
+      .geore_gankas_box_bg p{font-size: 24px;line-height: 30px;}
+      .geore_gankas_box_bg h2.h2{padding: 0px;}
+      .newsale_whatin_thebox_bg .prod-img{width:50%;}
+      .sale_offer_box .shopnow a{width: 260px;font-size: 18px;padding: 15px 35px;}
+      .sale_offer_box .shopnow a.watch_review,
+      .sale_offer_box .shopnow a.watch_review:hover{background-position: 25%;width: 145px;}
+      .ncaa-pro-img .desktopimg, .max-3-pro-img .desktopimg{display: none;}
+      .sale_offer_box .active.desktopimg{display:none;}
+      .sale_offer_box .mobileimg{display:block;}
+      .sale_offer_box .price_box{margin: 20px 0px 0px;}
+      .series3_page_bg .row .col_md_3:last-child .price_box{margin-top: 20px;}
+      .rangefinder-product img:first-child{max-width: 340px;}
+      .rangefinder-product img + img{height: 150px;}
+      .rangefinder-product p{min-height: 238px;}
+      .blackfriday-deal-title{padding: 30px 0px 40px;}
+      .blackfriday-deal-title h2{font-size: 36px;line-height: 28px;}
+         #featured-deals-section .col_md_3:nth-child(1){ order:0; }
+       #featured-deals-section .col_md_3:nth-child(2){
+        order: 3;
+
+      }
+       /* #featured-deals-section .col_md_3:nth-child(3){
+        order:2;
+      } */
+           
+      } 
+    @media (max-width:860px)
+    {      
+      .speaker-slider  .owl-nav .owl-prev
+      {  left:20px;        
+      }
+      .speaker-slider  .owl-nav .owl-next
+      {  right:20px;        
+      }
+      .rangefinder-product img:first-child{max-width: 295px;}
+      .rangefinder-product img + img{height: 130px;}
+      .rangefinder-product p{min-height: 286px;}
+      .series3_page_bg .col_md_3:last-child .sale_offer_box .shopnow{margin-bottom: 0px;}
+      .black_sale_page_bg img{max-width: 170px;}
+
+      
+    }
+    @media (max-width:768px){
+    
+    .series-3-max-golf-rangefinder-with-slope .single-img img{margin-bottom: 0px;}
+    .geore_gankas_box_bg p{font-size: 20px;line-height: 24px;}
+    .playerplus-max3-section1 #shopify-section-change-the-way p, 
+    .playerplus-max3-section3 #shopify-section-change-the-way p{font-size: 16px !important;}
+    .add-to-cart-btn .btn,#shopify-section-change-the-way-3max .rte a.btn, #shopify-section-change-the-way .rte a.btn, #shopify-section-change-the-way-player-pack .rte a.btn,
+    #shopify-section-change-the-way-gps-speaker .theme-block .rte .btn,
+    #shopify-section-as-seen-in-ringer .theme-block .rte .btn{font-size: 14px;line-height: 16px;padding: 10px 40px;}
+    .rangefinder-section .rangefinder-title{max-width: 700px;padding: 0px 15px;width: 100%;}
+    .rangefinder-product-list{flex-direction: column;}
+    .rangefinder-product-list .rangefinder-product:first-child{order: 2;margin-top: 40px;}
+    .rangefinder-product p{font-size: 16px;padding: 30px 0px;min-height: auto;}
+    .rangefinder-product img:first-child{max-width: 500px;}
+    .rangefinder-product{padding: 0px;}
+    .max3-product-page .changetheway-section.series-3-max-golf-rangefinder-with-slope .single-img img{max-width: 600px;width: 100%;}
+    .rangefinder-product img + img{height: auto;}
+    .rangefinder-product .price-add-to-cart{padding: 30px 0px;}
+    .newsale_whatin_thebox_bg{display: none;}
+    #shopify-section-change-the-way-player-pack .theme-block:nth-child(6){padding-bottom: 30px;}
+    /* #shopify-section-change-the-way-player-pack .theme-block:last-child{display: none;} */
+    .max3-product-page  #shopify-section-change-the-way-gps-speaker .product-single__meta .compare-text{margin-top: 0px;}
+    #shopify-section-as-seen-in-ringer .theme-block:first-child .rte p,
+    #shopify-section-as-seen-in-gps-speaker .theme-block .rte p{padding-bottom: 10px;}
+    #shopify-section-as-seen-in-ringer,
+    .playergps-section{background: #000 url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/touch_screen_bg.png?v=1683654401) no-repeat center top / 400px;}
+    #shopify-section-as-seen-in-gps-speaker{background: transparent;}
+    #shopify-section-as-seen-in-ringer .theme-block:nth-child(6) .enlarge-text p{padding: 30px 0px !important;}
+    #shopify-section-as-seen-in-ringer .product-single__meta{margin-top: 0px;}
+    #shopify-section-as-seen-in-ringer .compare-text{margin: 15px 0px;}
+    .blackfriday-deal-title h2{font-size: 35px;letter-spacing: 0.2em;}
+    .review-content{padding: 10px 10px 20px;}
+    .review-star img{max-width: 100%;}
+    .playvid-info{padding: 0px;}
+    .max3-product-page .series-3-max-golf-rangefinder-with-slope .single-img img{max-width: 575px;width: 100%;}
+    .max3-product-page .as-seen-in .theme-block .single-img.desktop{display: none;}
+    .max3-product-page .as-seen-in .theme-block .single-img.mobile{display: block;}
+    #shopify-section-change-the-way-gps-speaker .theme-block .rte p{max-width: 440px !important;}
+    #shopify-section-change-the-way-player-pack .theme-block .single-img img{max-width: 380px;}
+    .max3-section #shopify-section-as-seen-in .theme-block:nth-child(2) .single-img img{max-width: 100%;}
+  .hmlogoslider.owl-carousel .owl-dots,
+   .hmlogoslider.owl-carousel .owl-nav{margin-top: 10px;}
+  .player-logosection p{padding: 0px 0px 15px;font-size: 18px;line-height: 20px;}
+      .product-single__meta{text-align: center;}
+    }
+  @media (max-width:580px){
+  .max3-section .as-seen-in .theme-block .single-img.mobile img{max-width: 360px;margin: 0 auto;width: 100%;}
+  .max3-section .as-seen-in .price-add-to-cart{margin-bottom: 30px !important;}
+  .player-logosection p{font-size: 16px;line-height: 18px;}
+  }
+  @media (max-width:575px){
+    .geore_gankas_box_bg p{font-size: 18px;line-height: 22px;}
+    .playerplus-max3-section3 #shopify-section-change-the-way .single-img,
+    .playerplus-max3-section3 #shopify-section-change-the-way .rte p{padding-left: 0px;padding-right: 0px;}
+    .newsale_whatin_thebox_bg .box_img .prod-img img{border-radius: 20px;}
+    .geore_gankas_box_bg{padding: 30px 0px 0px;} 
+    .blackfriday-deal-title{padding: 15px 0px 30px;}
+    .blackfriday-deal-title h2{font-size: 30px;line-height: 28px;}
+    .review-block{max-width: 280px;margin: 0 auto;}
+    .black_sale_page_bg img{max-width: 130px;}
+  }
+  
+  @media (max-width:480px){
+    .sale_offer_box .shopnow a{font-size: 16px;padding: 13px 35px;}
+    .add-to-cart-btn .btn, #shopify-section-change-the-way-3max .rte a.btn, #shopify-section-change-the-way .rte a.btn, 
+    #shopify-section-change-the-way-player-pack .rte a.btn, #shopify-section-change-the-way-gps-speaker .theme-block .rte .btn,
+    #shopify-section-as-seen-in-ringer .theme-block .rte .btn{width: 220px;}
+    #shopify-section-as-seen-in-ringer .theme-block:first-child .rte p,
+    #shopify-section-as-seen-in-gps-speaker .theme-block .rte p{font-size: 14px !important;}
+    .blackfriday-deal-title h2{font-size: 26px;}
+    .review-star img{max-width: 80px;}
+    
+   }
+</style>
+
+{{ 'owl.theme.css' | asset_url | stylesheet_tag }}
+{{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
+
+{{ 'owl.carousel.js' | asset_url | script_tag }}
+<script type="text/javascript">
+      $('.mobile-top-bar').addClass('sale-on');
+      $('body').addClass('sale-on');
+</script>
+<script>
+  $('.speaker-slider').owlCarousel({
+            loop:true,
+            margin:0,
+            nav:true,
+            navText: ["<img src='{{'left-ic.png' | asset_url}}'>","<img src='{{'right-ic.png' | asset_url}}'>"],
+            items:1,
+            autoplay: false,
+            autoplayTimeout:7000
+        });
+
+  $('.hmlogoslider').owlCarousel({
+        loop:true,
+        autoplay:true,
+        margin:30,
+        nav:false,
+        dots:true,
+        mouseDrag:true,
+        responsive:{
+            0:{
+                items:1,
+                nav:true,
+                dots:false
+            },
+            576:{
+                items:2
+            },
+            639:{
+                items:3
+            },
+            992:{
+                items:4
+            },
+            1200:{
+                items:5
+            }
+        }
+    });
+  $('.review-slider').owlCarousel({
+        loop:true,
+        autoplay:true,
+        margin:20,
+        nav:true,
+        navText: ["<img src='{{'left-ic.png' | asset_url}}'>","<img src='{{'right-ic.png' | asset_url}}'>"],
+        dots:false,
+        mouseDrag:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            576:{
+                items:2
+            },
+            768:{
+                items:3
+            },
+            992:{
+                items:4
+            }
+        }
+    });
+</script>
+
+<style>
+  .max-3-pro-img img.blue,
+  .max-3-pro-img img.white,
+  .max-3-pro-img img.pink,
+  .ncaa-pro-img img
+  {  display:none; margin: 0 auto; width:100%;  
+  }
+  .max-3-pro-img img.active,
+  .ncaa-pro-img img.active
+  {   display:block;    
+  }
+  .max-3-pro-img img { width:100%;}
+ .sale_offer_box  img { width:100%;}
+</style>
+
+<script>
+  $(".color_icon.max-3-pro img.black").click(function() {
+    $(".max-3-pro-img img").removeClass("active");
+    $('.color_icon.max-3-pro img').removeClass('active');    
+
+    $('.max-3-pro-img img.black').addClass('active');
+    $(this).addClass('active');
+  });
+
+  $(".color_icon.max-3-pro img.blue").click(function() {
+    $(".max-3-pro-img img").removeClass("active");
+    $('.color_icon.max-3-pro img').removeClass('active');    
+
+    $('.max-3-pro-img img.blue').addClass('active');
+    $(this).addClass('active');
+  });
+
+
+  $(".color_icon.max-3-pro img.white").click(function() {
+    $(".max-3-pro-img img").removeClass("active");
+    $('.color_icon.max-3-pro img').removeClass('active');    
+
+    $('.max-3-pro-img img.white').addClass('active');
+    $(this).addClass('active');
+  });
+
+  $(".color_icon.max-3-pro img.pink").click(function() {
+    $(".max-3-pro-img img").removeClass("active");
+    $('.color_icon.max-3-pro img').removeClass('active');    
+
+    $('.max-3-pro-img img.pink').addClass('active');
+    $(this).addClass('active');
+  });
+
+</script>
+
+<script>
+  $(".color_icon.pro-2-ncaa img.ug").click(function() {
+    $(".ncaa-pro-img img").removeClass("active");
+    $('.color_icon.pro-2-ncaa img').removeClass('active');    
+
+    $('.ncaa-pro-img img.ug').addClass('active');
+    $(this).addClass('active');
+  });
+
+  $(".color_icon.pro-2-ncaa img.alabama").click(function() {
+    $(".ncaa-pro-img img").removeClass("active");
+    $('.color_icon.pro-2-ncaa img').removeClass('active');    
+
+    $('.ncaa-pro-img img.alabama').addClass('active');
+    $(this).addClass('active');
+  });
+
+  $(".color_icon.pro-2-ncaa img.ohio").click(function() {
+    $(".ncaa-pro-img img").removeClass("active");
+    $('.color_icon.pro-2-ncaa img').removeClass('active');    
+
+    $('.ncaa-pro-img img.ohio').addClass('active');
+    $(this).addClass('active');
+  });
+
+  $(".color_icon.pro-2-ncaa img.southern").click(function() {
+    $(".ncaa-pro-img img").removeClass("active");
+    $('.color_icon.pro-2-ncaa img').removeClass('active');    
+
+    $('.ncaa-pro-img img.southern').addClass('active');
+    $(this).addClass('active');
+  });
+
+  $(".color_icon.pro-2-ncaa img.florida").click(function() {
+    $(".ncaa-pro-img img").removeClass("active");
+    $('.color_icon.pro-2-ncaa img').removeClass('active');    
+
+    $('.ncaa-pro-img img.florida').addClass('active');
+    $(this).addClass('active');
+  });
+</script>
+
+
+<script type="text/javascript">
+	$('.poptrigger').click( function(){
+		popID = $(this).attr('data-rel');
+		$('#' + popID).fadeIn();
+        $('#' + popID).find('#video1').play();
+        $('#' + popID).find('#video2').play();
+        $('#' + popID).find('#video3').play();
+		var popMargTop = ($('#' + popID).height()) / 2;
+		var popMargLeft = ($('#' + popID).width()) / 2;		
+		return false;
+	});
+	
+	$(document).on("click",".closePop, #fade", function(){      	
+    	$('.pop-upbox').fadeOut( function(){
+    	});
+        var video1 = $('#video1').get(0);
+        var video2 = $('#video2').get(0);
+        var video3 = $('#video3').get(0);
+        video1.pause();
+        video2.pause();
+        video3.pause();
+    	return false;
+	});
+	
+	$(document).on('click', function(event) {
+    	if ($(event.target).has('.popup-box').length) {    			
+    		$('.pop-upbox').fadeOut( function(){    			
+    		});
+
+        var video1 = $('#video1').get(0);
+        var video2 = $('#video2').get(0);
+        var video3 = $('#video3').get(0);
+        video1.pause();
+        video2.pause();
+        video3.pause();
+        
+    	}
+	});	
+</script>
+
+
+<style>
+.pop-upbox  
+{ background: rgba(0, 0, 0, .65); bottom: 0; display:none; left: 0; position: fixed; right: 0; top: 0; z-index: 999999999; overflow:hidden;
+}
+.pop-upbox .popup-box 
+{  left: 0;  margin:0 auto;  max-width:100%;  position: absolute;  right: 0; top:40px;  width: 100%;  z-index: 99999;  border-radius: 50px;
+   top: 50%; max-width:650px; padding:0px 20px;
+ -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.pop-upbox .popup-box .pop-close { position:absolute; width:24px; float:right; text-align:center; right:20px; top:-30px; }
+.pop-upbox .popup-box .pop-close a { text-decoration:none; font-size:0; color:#000; }
+
+#review-popup .popup-box{max-width: 1200px;}
+  
+.sale_offer_box .price_box p, .price-add-to-cart .price_box .price_text p{ padding:0;  font-weight: 400; font-size: 10.789px; line-height: 13px; text-align: center; letter-spacing: 0.43em;}
+.newsale_play_differrent_bg .newsale_2pro_box_img .bottom_text { position:inherit;}
+.newsale_play_differrent_bg .newsale_2pro_box_img { padding:60px 0 0 0;}
+
+
+  .player_ringer_bg .game_box_bg  {display: flex; flex-wrap: wrap; align-items: center; justify-content: center; background:url({{'gps-game-bg.png' | asset_url}}) no-repeat center center / cover;}
+              .player_ringer_bg .game_box_bg .game_text { width:40%; margin-left:10%;}
+              .player_ringer_bg .game_box_bg .game_text .game_img { display:none;}
+              .player_ringer_bg .game_box_bg .game_img { width:50%;}
+              .player_ringer_bg .game_box_bg .game_img img { width:100%;}
+              .game_box_bg .game_text .title { max-width:515px; margin:0 auto;}
+              .game_box_bg .game_text p { max-width:548px; margin:0 auto; color:#fff;padding: 20px 20px 0px; text-align: center;}
+              .game_box_bg .game_text .appbutton { width:100%; text-align:center; padding:35px 0 0 0; max-width:300px; margin:0 auto;}
+              .game_box_bg .game_text .appbutton a {display:inline-block; max-width:145px;}
+
+
+
+     @media only screen and (min-width:220px) and (max-width:860px) {
+              .columnreverse { -ms-flex-direction: column-reverse !important; flex-direction: column-reverse !important;}
+   .offer-ppgo-bg.as-seen-in {
+  
+  background: #000 url(//blueteesgolf.com/cdn/shop/t/100/assets/player-plus-product-bg.png?v=61336931845007165311714569323) no-repeat center center;
+    background-size: auto;
+  background-size: 100%;
+}
+              .player_ringer_bg .game_box_bg { padding: 30px 0px; }
+              .player_ringer_bg .game_box_bg .game_text { width:100%; margin-left:0;}
+              .player_ringer_bg .game_box_bg .game_img { width:100%; display:none;}
+              .player_ringer_bg .game_box_bg .game_text .game_img { display:inline-block;text-align: center;margin-top: 30px;padding: 0px 20px;}
+              .player_ringer_bg .game_box_bg .game_img img{width: auto;}
+  #shopify-section-change-the-way-player-pack .go-title{letter-spacing: 15px !important;}
+  .price-add-to-cart .price_box .price_text .old{font-size: 24px; line-height: 24px;}
+  }
+   @media only screen and (min-width:220px) and (max-width:768px) {
+ 
+    	.game_box_bg .game_text .appbutton { padding:25px 0 0 0 }
+               .game_box_bg .game_text .title {padding: 0px 15px; }
+     .game_box_bg .game_text p{max-width: 440px;}
+  #shopify-section-change-the-way-player-pack .go-title{letter-spacing: 5px !important;}
+   }
+   @media only screen and (min-width:220px) and (max-width:480px) {
+
+  #shopify-section-change-the-way-player-pack .go-title{letter-spacing: 4px !important; font-size: 14px !important;}
+   }
+   @media only screen and (min-width:220px) and (max-width:380px) {
+
+  #shopify-section-change-the-way-player-pack .go-title{letter-spacing: 2px !important;}
+   }
+  
+
+</style>
+
+<div class="pop-upbox" role="dialog" aria-modal="true" aria-label="Review Popup Video Popup" id="review-popup">
+    <div class="popup-box">
+        <div class="pop-close">
+            <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"><img  src="{{'close-vector.png' | asset_url}}" alt="Close"></a>
+        </div>  
+        <div class="video-popup" style="color: #fff;">
+          <div id="looxReviews" data-product-id="{{product.id}}"></div>
+        </div>
+    </div>
+</div>
+
+<!---div class="pop-upbox" id="3max-video">
+    <div class="popup-box">
+        <div class="pop-close">
+            <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"><img  src="{{'close-vector.png' | asset_url}}" alt="Close"></a>
+        </div>
+        
+        <div class="video-popup">
+          <video id="video1" width="100%" height="100%" controls>
+            <source src="https://cdn.shopify.com/videos/c/o/v/fc58cf14ab2841a0b221615f3f2cc9d0.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+          </video>
+        </div>
+    </div>
+</div--->
+
+<div class="pop-upbox" role="dialog" aria-modal="true" aria-label="Ringer Video Popup" id="ringer-video">
+    <div class="popup-box">
+        <div class="pop-close">
+            <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"><img  src="{{'close-vector.png' | asset_url}}" alt="Close"></a>
+        </div>
+        
+        <div class="video-popup">
+          <video id="video1" width="100%" height="100%" controls>
+            <source src="https://cdn.shopify.com/videos/c/o/v/66083d38ff4c46a2a1ac6ddbc9e3523e.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+          </video>
+        </div>
+    </div>
+</div>
+
+<div class="pop-upbox" role="dialog" aria-modal="true" aria-label="Playerplusgps Video Popup" id="playerplusgps">
+    <div class="popup-box">
+        <div class="pop-close">
+            <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"><img  src="{{'close-vector.png' | asset_url}}" alt="Close"></a>
+        </div>
+        
+        <div class="video-popup">
+          <video id="video2" width="100%" height="100%" controls>
+            <source src="https://cdn.shopify.com/videos/c/o/v/bd0158fe504c48d88f5bd7d2a21693c8.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+          </video>
+        </div>
+    </div>
+
+    </div>
+</div>
+
+<div class="pop-upbox" role="dialog" aria-modal="true" aria-label="Playerpackgo Video Popup" id="playerpackgo">
+    <div class="popup-box">
+        <div class="pop-close">
+            <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"><img  src="{{'close-vector.png' | asset_url}}" alt="Close"></a>
+        </div>
+        
+        <div class="video-popup">
+          <video id="video3" width="100%" height="100%" controls>
+            <source src="https://cdn.shopify.com/videos/c/o/v/ee90ef0bd608432e9b19a6ff7cbbf6ba.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+          </video>
+        </div>
+    </div>
+
+    </div>
+
+</div>

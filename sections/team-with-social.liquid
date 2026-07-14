@@ -1,0 +1,345 @@
+{%- style -%}
+      .section-{{ section.id }}-padding {
+        padding-top: clamp({{ section.settings.padding_top | times: 0.5 | round: 0 }}px, 5vw, {{ section.settings.padding_top }}px);
+        padding-bottom: clamp({{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px, 5vw, {{ section.settings.padding_bottom }}px);
+        background-color: #ffffff;
+      }
+
+      .team-gallery-header {
+        display: flex;
+        text-align: center;
+        flex-wrap: wrap;
+        gap: clamp(2rem, 5vw, 4rem);
+        align-items: flex-start;
+        padding-bottom: clamp(3rem, 6vw, 4rem);
+      }
+
+      .team-gallery-heading {
+        width: 100%;
+        font-size: clamp(26px, 3vw, 55px);
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.1;
+        margin: 0;
+        color: #111111;
+      }
+
+      .team-gallery-description {
+        max-width: clamp(400px, 41vw, 750px);
+        width: 100%;
+        font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+        line-height: 1.6;
+        color: #333333;
+      }
+
+      .team-gallery-description p {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+      }
+
+      .team-gallery-description p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Base styles for both grid and slider */
+      .team-gallery-grid {
+        display: flex;
+        gap: clamp(16px, 2vw, 24px);
+      }
+
+      .team-gallery-item {
+        width: 100%;
+        aspect-ratio: 1/1;
+        position: relative;
+        overflow: hidden;
+        background-color: #f4f4f4;
+        flex-shrink: 0;
+        /* flex-shrink: 0.1; */
+      }
+
+      .team-gallery-item img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* ==================== DESKTOP GRID ==================== */
+      @media screen and (min-width: 992px) {
+        .team-gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          overflow: visible;
+        }
+
+        .team-gallery-item {
+          min-width: unset;
+        }
+
+        .team-gallery-header {
+          text-align: left;
+        }
+
+        .team-gallery-heading {
+          max-width: clamp(300px, 37vw, 690px);
+        }
+      }
+
+      /* ==================== MOBILE SLIDER ==================== */
+      @media screen and (max-width: 991px) {
+        .team-gallery-grid {
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          /* padding-bottom: 20px; */
+          width: 100%;
+        }
+
+        .team-gallery-grid::-webkit-scrollbar {
+          display: none;
+        }
+
+
+
+
+    /*-----------------------------
+      Slider Styles
+      ----------------*/
+
+      .scrolling-text .rail {
+    display: flex;
+    width: 100%;
+  }
+
+        .scrolling-text {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .scrolling-text .team-gallery-item{
+
+    max-width:300px;
+
+  }
+
+
+      }
+{%- endstyle -%}
+
+<div class="team-gallery-section section-{{ section.id }}-padding">
+  <div class="new-page-width">
+    <div class="team-gallery-header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="team-gallery-heading">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="team-gallery-description">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {% if section.settings.mobileSlider %}
+    <div class="scrolling-text">
+      <div class="rail">
+  {% endif %}
+  <div class="team-gallery-grid" id="team-slider-{{ section.id }}">
+    {%- for block in section.blocks -%}
+      <div
+        class="team-gallery-item"
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.image != blank -%}
+          {{
+            block.settings.image
+            | image_url: width: 800
+            | image_tag: loading: 'lazy', alt: block.settings.image.alt
+            | escape
+          }}
+        {%- else -%}
+          <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #999;">
+            Image
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+  {% if section.settings.mobileSlider %}
+    </div>
+    </div>
+  {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/Observer.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    gsap.registerPlugin(Observer);
+
+    if (window.innerWidth > 992) return; // mobile only
+
+    function initHorizontalSlider() {
+      const grid = document.querySelector('.team-gallery-grid');
+      if (!grid) return;
+
+      const originalItems = gsap.utils.toArray('.team-gallery-grid .team-gallery-item:not(.clone)');
+
+      if (originalItems.length < 2) return;
+
+      // Clone for seamless loop
+      originalItems.forEach((item) => {
+        const clone = item.cloneNode(true);
+        clone.classList.add('clone');
+        grid.appendChild(clone);
+      });
+
+      const allItems = gsap.utils.toArray('.team-gallery-grid .team-gallery-item');
+
+      setTimeout(() => {
+        const tl = horizontalLoop(allItems, {
+          repeat: -1,
+          paddingRight: 30,
+          speed: 0.75,
+        });
+
+        // Scroll boost (optional)
+        Observer.create({
+          onChangeY(self) {
+            let factor = self.deltaY < 0 ? -1 : 1;
+            gsap
+              .timeline({ defaults: { ease: 'none' } })
+              .to(tl, { timeScale: factor * 2.5, duration: 0.2, overwrite: true })
+              .to(tl, { timeScale: factor * 0.7, duration: 0.8 }, '+=0.25');
+          },
+        });
+
+        console.log('✅ Infinite slider started successfully');
+      }, 800);
+    }
+
+    // ==================== FIXED HORIZONTAL LOOP (Works with clones) ====================
+    function horizontalLoop(items, config) {
+      items = gsap.utils.toArray(items);
+      config = config || {};
+
+      let tl = gsap.timeline({
+        repeat: config.repeat || -1,
+        defaults: { ease: 'none' },
+      });
+
+      let length = items.length;
+      let originalLength = length / 2;
+      let padding = parseFloat(config.paddingRight) || 30;
+      let speed = config.speed || 0.75;
+      let pixelsPerSecond = speed * 100;
+
+      let widths = [];
+      let totalWidth = 0;
+
+      // Measure original set width accurately
+      for (let i = 0; i < originalLength; i++) {
+        widths[i] = items[i].getBoundingClientRect().width;
+        totalWidth += widths[i] + padding;
+      }
+
+      // Animate every item (original + clone)
+      items.forEach((item, i) => {
+        let startX = item.offsetLeft;
+        let duration = totalWidth / pixelsPerSecond;
+
+        tl.to(
+          item,
+          {
+            x: -totalWidth,
+            duration: duration,
+            ease: 'none',
+          },
+          0
+        );
+      });
+
+      // This line is very important to prevent stopping
+      tl.progress(0.001);
+
+      return tl;
+    }
+
+    initHorizontalSlider();
+  });
+</script>
+{% schema %}
+{
+  "name": "Team Gallery",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "A REMOTE-FIRST TEAM WITH A SOCAL SOUL.",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "default": "<p>We're a distributed team with roots in Southern California—San Diego, to be exact—and we operate with that same balance of ambition and ease.</p><p>At Blue Tees, autonomy comes without isolation, collaboration without bureaucracy, creativity without ego, and big goals without burnout.</p><p>We move quickly, trust each other deeply, and build things we're genuinely proud of. Whether you're brainstorming a new feature, launching a product, or testing gear on the course, you'll feel the impact of your work every day.</p><p>And yes... we golf. A lot. We even have a full, in-house golf simulator.</p>",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "mobileSlider",
+      "label": "Enable Slider",
+      "info": "This will turn Images into Slider for mobile after 991px."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Team Gallery",
+      "blocks": [{ "type": "image" }, { "type": "image" }, { "type": "image" }]
+    }
+  ]
+}
+{% endschema %}

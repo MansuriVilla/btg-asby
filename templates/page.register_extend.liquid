@@ -1,0 +1,434 @@
+<div class="spinner" id="spinner_1"></div>
+<div class="as-seen-in series-3-max-golf-rangefinder-with-slope">
+  {%- section 'as-seen-in-gps-speaker' -%}
+  <div class="background-media-text__text">
+    <h2 class="h3">REGISTER YOUR NEW player+ TO ACTIVATE YOUR WARRANTY.</h2>
+    <div class="button">
+      <button class="btn extendformtrigger" id="btn-button" type="button" data-rel="extendformpopup">Register</button>
+    </div>
+  </div>
+</div>
+ <div class="extend-main">
+      <div class="extend-inner">
+        <div class="extend-left">
+          <div class="text">
+            <h2 class="extend-title">
+              ADD +1 year manufacturer warranty by downloading the app
+            </h2>
+            <p class="extend-sub-title">
+              extend accident protection to your <br />
+              purchase at Just <span class="extend-sub-title-price">$25/Y</span>
+            </p>
+          </div>
+          <div class="extend-app-img">
+            <div class="extend-app-img-logo">
+              <a href="https://apps.apple.com/us/app/blue-tees-game/id6448720121" target="_blank" >
+                <img src="{{ 'appstore.png '| asset_url}}" alt="" />
+              </a>
+            </div>
+            <div class="extend-app-img-logo">
+              <a href="https://play.google.com/store/apps/details?id=com.bluetees" target="_blank" >
+                <img src="{{ 'playstore.png' | asset_url }}" alt="" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="extend-right">
+          <div class="right-img">
+            <img src="{{ 'right_img_extend.png'| asset_url }}" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+{% comment %} <!--
+  <div class="extend-banner aos-init" style="background:#000 url(https://blueteesgolf.com/cdn/shop/files/download_1_2400x.jpg) no-repeat center top -200px / cover">
+    <img src="https://blueteesgolf.com/cdn/shop/files/download_1_2400x.jpg" alt="">
+    <div class="background-media-text__inner">
+      <div class="background-media-text__aligner background-media-text--right">
+        <div class="animation-cropper">
+          <div class="animation-contents">
+            <div class="background-media-text__text background-media-text__text--framed">
+              <h1 class="h3">REGISTER YOUR NEW RANGEFINDER TO ACTIVATE YOUR 2 YEAR WARRANTY.</h1>
+                <div class="button">
+                  <button class="btn extendformtrigger" id="btn-button" type="button" data-rel="extendformpopup">Register</button>
+                </div>
+            </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </div>
+--> {% endcomment %}
+
+<div class="extend-warranty-form pop-upbox" id="extendformpopup">
+  <div class="popup-box">
+    <div class="gameapp-popup">
+      <div class="spinner" id="spinner"></div>
+      <div class="pop-close">
+        <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video">
+          <svg
+            role="img"
+            width="35"
+            height="35"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="needsclick  kl-private-reset-css-Xuajs1"
+          >
+              <title id="title-Close dialog 1058">Close dialog 1058</title><circle style="cursor: pointer;" cx="10" cy="10" r="9.5"
+            fill="rgba(180,187,195,0)" stroke="rgba(255,255,255,0)"></circle><path style="cursor: pointer;" d="M6 6L14 14M6 14L14 6L6 14Z" stroke="#373F47" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div>
+      <div class="form-input-list">
+        <h2>Activate Your Warranty</h2>
+        <p>
+          Complete the form below to activate your 2-year technology warranty. Please ensure all information provided is
+          accurate. Proof of purchase may be required upon claim submission.
+        </p>
+        <div id="success-message" style="padding: 10px 10px;display:none"></div>
+        <div id="error-message" style="padding: 10px 10px;display:none; color: red"></div>
+        <form id="register_extend_warranty">
+          <input type="hidden" id="order_data">
+          <div class="item">
+            <input
+              class="required_input"
+              id="first_name_85575908"
+              type="text"
+              autocomplete="given-name"
+              placeholder="First Name"
+              aria-label="First Name"
+              aria-invalid="false"
+            >
+
+            <div class="erroclick"></div>
+          </div>
+          <div class="item">
+            <input
+              class="required_input"
+              id="last_name_85575909"
+              type="text"
+              autocomplete="family-name"
+              tabindex="0"
+              placeholder="Last Name"
+              aria-label="Last Name"
+              aria-invalid="false"
+            >
+
+            <div class="erroclick"></div>
+          </div>
+          <div class="item">
+            <select name="purchased_location" id="purchased_location_5575913" class="required_input">
+              <option value="" selected disabled>Purchase Location</option>
+              <!-- option value="Houston">Houston</option -->
+              <option value="Company Website">Company Website</option>
+              <option value="Amazon">Amazon</option>
+              <option value="PGA Tour Super store">PGA Tour Super store</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="erroclick"></div>
+          </div>
+          <div class="item">
+            <input
+              class="required_input"
+              id="email_85575911"
+              class="needsclick go4123329787 kl-private-reset-css-Xuajs1"
+              type="email"
+              autocomplete="email"
+              name="email"
+              tabindex="0"
+              placeholder="Email"
+              aria-label="Email"
+              aria-invalid="false"
+            >
+
+            <div class="erroclick"></div>
+          </div>
+          <div class="item">
+            <input class="required_input" type="tel" id="phone_number_85575913" placeholder="Phone Number">
+            <div class="erroclick"></div>
+          </div>
+          <div class="item">
+            <select name="product" id="product_5575913" class="required_input">
+              <option value="" disabled selected>Your Product</option>
+              <option
+                class=""
+                data-name="Series 3 Max"
+                data-price="199"
+                data-category="Rangefinders"
+                value="39366438715589"
+              >
+                Series 3 Max
+              </option>
+
+              <option data-name="Ringer" data-price="1" data-category="Rangefinders" value="42373188485317">
+                Ringer
+              </option>
+              <option data-name="Player+" data-price="1" data-category="Speakers" value="42266534019269">
+                Player+
+              </option>
+            </select>
+            <div class="erroclick"></div>
+          </div>
+          <div class="item">
+            <input
+              class="required_input"
+              type="text"
+              id="date_purchased_85575914"
+              placeholder="Date Purchased"
+              onClick="datePurchased()"
+            >
+
+            <div class="erroclick"></div>
+          </div>
+          <div class="item">
+            <input class="required_input" type="text" id="serial_number" placeholder="Serial Number">
+
+            <div class="erroclick"></div>
+          </div>
+          <p>
+            <small
+              >By submitting this form and signing up for texts, you consent to receive marketing text messages (e.g.
+              promos, cart reminders) from Blue Tees Enterprises LLC at the number provided, including messages sent by
+              autodialer. Consent is not a condition of purchase. Msg & data rates may apply. Msg frequency varies.
+              Unsubscribe at any time by replying STOP or clicking the unsubscribe link (where available). Privacy
+              Policy & Terms.
+            </small>
+          </p>
+          <button type="button" id="submit_btn" onClick="submitWarrantyData()">Activate Warranty</button>
+        </form>
+        <div class="close-not-thanks">
+          <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video">No, thanks</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} <!-- <script src="{{ 'register-data.js' | asset_url }}" defer="defer"></script> --> {% endcomment %}
+
+<style>
+    #shopify-section-as-seen-in-gps-speaker .page-width--narrow .theme-block:first-child,
+    #shopify-section-as-seen-in-gps-speaker .page-width--narrow .theme-block:nth-child(2){display: none;}
+    #shopify-section-as-seen-in-gps-speaker{background: none !important;}
+    #shopify-section-as-seen-in-gps-speaker .single-img img{max-width: 650px;width: 100%;}
+    .series-3-max-golf-rangefinder-with-slope{background: url({{ 'extendwarrnty-bg.jpg' | asset_url}}) no-repeat center center /cover;}
+    .background-media-text__text .h3{line-height: 50px !important; font-style: normal; color:#fff;}
+    .header-sticky-wrapper{z-index: 2;}
+    .pop-upbox{z-index: 3;}
+    .pop-upbox{ background: rgba(0, 0, 0, .65); bottom: 0; display:none; left: 0; position: fixed; right: 0; top: 0; z-index: 999999999; overflow:hidden;}
+    .pop-upbox .popup-box{  left: 0;  margin:0 auto;  max-width:100%;  position: absolute;  right: 0; top:40px;  width: 100%;  z-index: 99999;  border-radius: 50px;
+    top: 50%; max-width:555px; padding:0px 20px;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background: transparent;}
+    .pop-upbox .popup-box .pop-close{ position:absolute; width:24px; float:right; text-align:center; right:50px; top:10px; line-height: 0; width: 45px; height: 45px;}
+    .pop-upbox .popup-box .pop-close a{font-size: 30px;color: #000000;font-weight: 700;}
+
+    .background-media-text__text .btn{padding: 10px 50px; margin-top: 20px; border-radius: 7px;}
+    .background-media-text__text .btn:hover{background: #fff!important;}
+    .extend-banner{position: relative;height: 750px;}
+    .extend-banner img{visibility: hidden;}
+    .background-media-text__inner{z-index: 2; width: 100%; height: auto; bottom: 60px; position: absolute;}
+    .background-media-text__aligner{margin: 0;}
+    .background-media-text--right .animation-cropper{float: none; display: block;}
+    .background-media-text__text{width: 880px;padding: 20px 15px 0px;max-width: 100%;}
+    .form-input-list{width: 450px;border-radius: 6px;background-color: rgb(255, 255, 255);padding: 40px 16px 20px;margin: 0 auto;}
+    .form-input-list h2{text-align: center;font-size: 36px;color: #373f47;font-weight: bold;text-transform: capitalize;}
+    .form-input-list p{font-size: 12px;text-align: center;padding-bottom: 15px;}
+    .form-input-list p small{padding: 0px 6px;text-align: justify; font-size: 10px;}
+    .form-input-list #register_extend_warranty{display: flex;flex-wrap: wrap;margin-left: -5px;margin-right: -5px;}
+    .form-input-list .item{width: 50%;padding: 10px 6px; position: relative;}
+    .form-input-list .item  input, .form-input-list .item textarea, .form-input-list .item select{width: 100%;max-width: 100%;border-radius: 4px;height: 50px;font-size: 16px;font-weight: 700;border: 1px solid rgb(96, 106, 114);}
+    .form-input-list .item input, .form-input-list .item textarea, .form-input-list .item select{opacity: 0.7;}
+    .form-input-list .item  input:focus, .form-input-list .item textarea:focus{box-shadow: rgba(0, 100, 205) 0px 0px 5px;}
+    .form-input-list .item  input:placeholder{color:#b4b4b4;}
+    .form-input-list select { color:#7d7c7c;}
+    .form-input-list button{background: rgb(8, 8, 8);border-radius: 6px;margin: 0px 6px; height: 54px;width: 420px;color: #fff;font-weight: 700;}
+    .form-input-list a{text-align: center;display: block;padding: 15px 0px 0px;font-size: 10px;color: rgb(117, 117, 117);}
+    .erroclick{ width: 100%;  display:none;
+      font-size: 14px;  font-family: 'Roboto', sans-serif; color: rgb(208, 51, 31); max-width: 100%;
+    }
+
+    .spinner { display: none; height: 50px; width: 50px; border: 6px solid #000; border-top-color: #888; border-radius: 100%; animation: rotation 0.6s infinite linear 0.25s; opacity: 0; position: absolute; left: 45%; top: 50%; }
+
+
+    /* main css for extend the section start */
+
+  
+   
+    .extend-title {
+      font-size: 35px;
+      max-width: 685px;
+      margin: 0px auto;
+      font-weight: 900;
+      
+    }
+    .extend-sub-title {
+      font-size: 20px;
+      margin: 30px 0px;
+      padding:0px;
+    }
+    .extend-sub-title-price{
+      font-weight: 900;
+    }
+    .extend-main {
+      background-color: #000;
+      color: #fff;
+      width: 100%;
+    }
+    .extend-inner {
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0px 15px 60px;
+    }
+    .extend-left {
+      text-align: center;
+      width: 60%;
+      padding: 0px 15px;
+    }
+    .extend-app-img {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+    }
+    .extend-right {
+      width: 40%;
+      text-align: left;
+      padding: 0px 15px;
+    }
+    
+    /* main css for extend the section end */
+
+  
+    @keyframes rotation { from {  opacity: 1; transform: rotate(0deg); } to { opacity: 1; transform: rotate(359deg); } }
+  /* .erroclick{display: none;}
+  .erroclick::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 9px;
+    left: 7px;
+    top: -17px;
+    border-color: transparent transparent #D0331F transparent;
+  } */
+      @media only screen and (max-width: 1280px) {
+      .right-img > img {
+        max-width: 300px;
+        width: 100%;
+      }
+      .extend-title {
+        font-size: 24px;
+        max-width: 502px;
+        line-height:30px;
+      }
+      .extend-sub-title {
+        font-size: 16px;
+        margin: 20px 0px;
+      }
+      .extend-app-img-logo > a img {
+        max-width: 150px;
+        width: 100%;
+      }
+    }
+ 
+
+  @media only screen and (min-width:220px) and (max-width:620px){
+       .form-input-list{max-width: 450px; width: 100%;}
+     }
+
+   @media screen and (max-width: 959px){
+     .extend-banner{height: 600px;background-position: center top -100px !important;}
+     .background-media-text__inner{bottom: 0px;}
+     .form-input-list h2{font-size: 28px;}
+     .pop-upbox .popup-box .pop-close{top: 0px;right: 20px;width: 40px;height: 40px;}
+     .form-input-list{padding: 30px 16px 20px;}
+      #shopify-section-as-seen-in-gps-speaker .single-img img{max-width: 500px;}
+   }
+   @media screen and (max-width: 768px){
+  
+      .extend-inner {
+      flex-direction: column-reverse;
+      padding: 0px 15px 40px;
+      }
+      .extend-left {
+      width: 100%;
+      }
+      .extend-right {
+      width: 100%;
+      text-align: center;
+      }
+      .extend-title {
+      margin-top: 30px;
+        max-width: 628px;
+      font-size: 30px;
+        line-height:35px;
+        
+      }
+      .extend-sub-title {
+      font-size: 18px;
+      }
+      .extend-app-img-logo > a img {max-width: 160px;}
+      .right-img > img {
+      max-width: 375px;
+      }  
+     .extend-banner{
+      height: auto;
+      background-image: none !important;
+     }
+     .extend-banner img{visibility: visible;}
+     .background-media-text__inner{position: relative;}
+     .background-media-text__text .h3{font-size: 30px !important;line-height: 35px !important;}
+   }
+    @media screen and (max-width: 480px){
+    .form-input-list .item input, .form-input-list .item textarea, .form-input-list .item select{font-size: 14px !important;}
+      .extend-title {
+      font-size: 22px;
+        line-height:28px;
+      }
+      .extend-sub-title {
+      font-size: 14px;
+      }
+      .extend-app-img-logo > a img {
+      max-width: 130px;
+      }
+      .right-img > img {
+      max-width: 250px;
+      }
+    }
+    @media screen and (max-width: 420px){
+    .form-input-list .item input, .form-input-list .item textarea, .form-input-list .item select{height: 40px;}
+    .form-input-list button{height: 40px;}
+    .pop-upbox .popup-box .pop-closeP{right: 20px;}
+
+   }
+</style>
+<script type="text/javascript">
+  $('.extendformtrigger').click( function(){
+  	popID = $(this).attr('data-rel');
+  	$('#' + popID).fadeIn();
+  	var popMargTop = ($('#' + popID).height()) / 2;
+  	var popMargLeft = ($('#' + popID).width()) / 2;
+  	return false;
+  });
+
+  $(document).on("click",".closePop, #fade", function(){
+     	$('.pop-upbox').fadeOut( function(){
+     	});
+     	return false;
+  });
+
+  $(document).on('click', function(event) {
+     	if ($(event.target).has('.popup-box').length) {
+     		$('.pop-upbox').fadeOut( function(){
+     		});
+     	}
+  });
+  
+</script>

@@ -1,0 +1,112 @@
+<div class="membership-cta-{{ section.id }}">
+  <div class="new-page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="section-heading">{{ section.settings.heading | newline_to_br }}</h2>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <div class="section-subheading">
+        {{ section.settings.subheading }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.button_label != blank %}
+      {% comment %} <a {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}href="javascript:void(0);"{% else %}href="{{ section.settings.button_link }}"{% endif %} class="content-cta content-cta__solid {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %} add_6mos_membership_qr{% endif %}"> {% endcomment %}
+      <a {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}href="javascript:void(0);"{% else %}href="{{ section.settings.button_link }}"{% endif %} class="content-cta content-cta__solid {% if page.template_suffix contains 'rainmaker-qr-lp' or page.template_suffix contains 'rainmaker-event-qr-lp' %} add_1yr_membership_qr{% elsif request.path contains 'pages' and page.template_suffix contains 'qr-lp' %} add_6mos_membership_qr{% endif %}">
+        {{ section.settings.button_label }}
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+
+
+{%- style -%}
+  .membership-cta-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    color: #fff;
+    padding: clamp(40px, 8vw, 100px) 0;
+    text-align: center;
+  }
+
+  .membership-cta-{{ section.id }} .section-heading {
+    font-size: clamp(24px,2.8vw,48px);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: clamp(15px, 2vw, 20px);
+    line-height: 1.1;
+  }
+
+  .membership-cta-{{ section.id }} .section-subheading {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #fff;
+    margin-bottom: clamp(30px, 4vw, 40px);
+    /* max-width: 600px; */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .membership-cta-{{ section.id }} .content-cta {
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    max-width:clamp(120px,22vw,320px);
+    width:100%;
+    display: flex;
+  margin-inline: auto;
+  }
+  
+  
+  
+  @media only screen and (max-width:991px){
+    .membership-cta-{{ section.id }} .section-heading {max-width: 300px; margin-inline: auto;}
+    .membership-cta-{{ section.id }} .section-subheading {max-width: 330px;}
+
+  }
+{%- endstyle -%}
+
+
+{% schema %}
+{
+  "name": "Membership CTA",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000",
+      "alpha": true
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "DON'T JUST MEASURE DISTANCE.\nUNDERSTAND YOUR GAME."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Activate your complimentary membership trial to unlock the full intelligence of your Captain Pro."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "ACTIVATE FREE MEMBERSHIP"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Membership CTA"
+    }
+  ]
+}
+{% endschema %}

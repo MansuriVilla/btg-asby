@@ -1,0 +1,60 @@
+{% if product.handle == 'speaker-bundle'
+  or product.handle == 'gps-offer'
+  or product.handle == 'laser-offer'
+  or product.handle == 'player-gps-speaker-bundle-v2'
+  or product.handle == 'ringer-gps-handheld-bundle-v2'
+  or product.handle == 'series-4-ultra-bundle-v2'
+  or template.name == 'page'
+  and template.suffix == 'offer-page-bf-v1'
+  or template.name == 'page'
+  and template.suffix == 'offer-page-bf-v2'
+%}
+  <div
+    class="Offer_Bug-Container has_Grandient-Background"
+    style="--offer-bug-bg:linear-gradient(90deg, #004df5 0%, #F527CD 100%), linear-gradient(90deg, #03D6F3 0%, #F527CD 100%); --offer-bug-clr:#FFF; margin-bottom:clamp(10px,2vw,15px);"
+  >
+    <span class="Offer_Bug-Icon Image_has-clr">
+      <img class="BlueTees_Icon-Fav" src="{{ 'tees-black-friday.svg' | asset_url }}" alt="Blue Tees Icon">
+    </span>
+    <span class="Offer_Bug-Title"> CYBER WEEK EXCLUSIVE </span>
+  </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      if ($('.subscriptionbox').length > 0) {
+        $('.Offer_Bug-Title').each(function () {
+          if ($(this).closest('.subscriptionbox').length > 0) {
+            $(this).text('WINTER SALE PERK'); // UPSHELL BOX OFFER TEXT
+
+            $(this).closest('.Offer_Bug-Container').addClass('in-subscriptionbox');
+          }
+        });
+      }
+
+      if ($('.modal').length > 0) {
+        $('.Offer_Bug-Title').each(function () {
+          if ($(this).closest('.modal').length > 0) {
+            $(this).text('WINTER SALE PERK'); // POPUP OFFER BUG TEXT
+
+            $(this).closest('.Offer_Bug-Container').addClass('in-modal');
+          }
+        });
+      }
+
+      if ($('body').hasClass('template-product')) {
+        $('.Offer_Bug-Container').addClass('in_pdp');
+      }
+
+      if ($('body').hasClass('template-index')) {
+        $('.Offer_Bug-Container').addClass('in-home');
+      }
+      if ($('body').hasClass('template-page')) {
+        $('.Offer_Bug-Container').addClass('in-product');
+      }
+      if ($('body').hasClass('template-collection')) {
+        $('.Offer_Bug-Container').addClass('in-collection');
+      }
+    });
+  </script>
+{% endif %}

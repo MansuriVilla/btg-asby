@@ -1,0 +1,235 @@
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+
+
+
+
+
+  
+<div class="text-{{ section.settings.align_text }} page-width{% if section.settings.narrow_column %} page-width--narrow{% endif %} adding_new-div">
+  {%- for block in section.blocks -%}
+    <div class="theme-block" {{ block.shopify_attributes }}>
+      
+      {%- case block.type -%}
+        {%- when 'heading' -%}
+          <h2>{{ block.settings.title | escape }}</h2>
+          <h3>{{ block.settings.sub_title | escape }}</h3>
+
+        {%- when 'page' -%}
+          <div class="rte">
+            {%- if block.settings.page_text != blank -%}
+              {{ pages[block.settings.page_text].content }}
+            {%- else -%}
+              {{ 'home_page.onboarding.no_content' | t }}
+            {%- endif -%}
+          </div>
+        {%- when 'single_image' -%}
+          <div class="rte">
+            {%- if block.settings['single-image'] != blank -%}
+              <div class="single-img"><img src="{{ block.settings.single-image | img_url: 'master' }}" alt="{{ block.settings.single-image.alt | img_alt: 'master' }}"></div>
+            {%- endif -%}
+          </div>
+        {%- when 'four_icon' -%}
+          <div class="rte">
+            <ul class="four-icon">
+              {%- if block.settings.icon_1 != blank -%}
+                <li class="single-icon"><img src="{{ block.settings.icon_1 | img_url: 'master' }}" alt="{{ block.settings.icon_1.alt | img_alt: 'master' }}"></li>
+              {%- endif -%}
+              {%- if block.settings.icon_2 != blank -%}
+                <li class="single-icon"><img src="{{ block.settings.icon_2 | img_url: 'master' }}" alt="{{ block.settings.icon_2.alt | img_alt: 'master' }}"></li>
+              {%- endif -%}
+              {%- if block.settings.icon_3 != blank -%}
+                <li class="single-icon"><img src="{{ block.settings.icon_3 | img_url: 'master' }}" alt="{{ block.settings.icon_3.alt | img_alt: 'master' }}"></li>
+              {%- endif -%}
+              {%- if block.settings.icon_4 != blank -%}
+                <li class="single-icon"><img src="{{ block.settings.icon_4 | img_url: 'master' }}" alt="{{ block.settings.icon_4.alt | img_alt: 'master' }}"></li>
+              {%- endif -%}
+            </ul>
+          </div>
+        {%- when 'text' -%}
+          <div class="rte">
+            {%- if block.settings.text != blank -%}
+              {%- if block.settings.enlarge_text %}<div class="enlarge-text">{% endif -%}
+              {{ block.settings.text }}
+              {%- if block.settings.enlarge_text %}</div>{% endif -%}
+            {%- else -%}
+              {{ 'home_page.onboarding.no_content' | t }}
+            {%- endif -%}
+          </div>
+        {%- when 'button' -%}
+          {%- if page.handle contains 'offer' -%}
+               <div class="price-add-to-cart">
+                 
+                   <div class="price_box">
+                   {% render 'offer-bug' %}
+                         <div class="price_text"><span class="old">{{all_products['player-gps-speaker'].compare_at_price_max | money}}</span> {{ all_products['player-gps-speaker'].price | money }}</div> 
+                      </div>
+                 </div>
+              {%- endif -%}
+          <div class="rte">
+            <a href="{{ block.settings.link }}" class="btn">
+              {{ block.settings.link_text }}
+            </a>
+          </div>
+      {%- endcase -%}
+    </div>
+  {%- endfor -%}
+</div>
+
+{%- if section.settings.divider -%}</div>{%- endif -%}
+
+{% schema %}
+{
+  "name": "As seen in",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "align_text",
+      "label": "t:sections.rich-text.settings.align_text.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.align_text.options.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.align_text.options.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.align_text.options.right.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "narrow_column",
+      "label": "t:sections.rich-text.settings.narrow_column.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.rich-text.settings.divider.label",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.rich-text.blocks.heading.settings.title.label",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title",
+          "default": "Rich text"
+        }
+      ]
+    },
+	{
+      "type": "single_image",
+      "name": "image",
+      "settings": [
+        {
+		  "type": "image_picker",
+		  "id": "single-image",
+		  "label": "Image"
+		}
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enlarge_text",
+          "label": "t:sections.rich-text.blocks.text.settings.enlarge_text.label",
+          "default": true
+        },
+        {
+          "id": "text",
+          "type": "richtext",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label",
+          "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "settings": [
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.rich-text.blocks.button.settings.link.label"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "t:sections.rich-text.blocks.button.settings.link_text.label",
+          "default": "Button"
+        }
+      ]
+    },
+	 {
+      "type": "four_icon",
+      "name": "Four icon",
+      "settings": [
+        {
+		  "type": "image_picker",
+		  "id": "icon_1",
+		  "label": "Icon"
+		},
+		{
+		  "type": "image_picker",
+		  "id": "icon_2",
+		  "label": "Icon"
+		},
+		{
+		  "type": "image_picker",
+		  "id": "icon_3",
+		  "label": "Icon"
+		},
+		{
+		  "type": "image_picker",
+		  "id": "icon_4",
+		  "label": "Icon"
+		}
+      ]
+    },
+    {
+      "type": "page",
+      "name": "t:sections.rich-text.blocks.page.name",
+      "settings": [
+        {
+          "id": "page_text",
+          "type": "page",
+          "label": "t:sections.rich-text.blocks.page.settings.page_text.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "As seen in",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

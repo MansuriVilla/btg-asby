@@ -1,0 +1,220 @@
+<div class="product-buttons__section">
+  <div class="product-buttons__container">
+    <div class="product__buttons">
+      {% for block in section.blocks %}
+        <div class="button">
+          <a
+            href="{{ block.settings.anchorId }}"
+            class="review-button"
+            data-anchor="{{ block.settings.anchorId }}"
+          >
+            {{ block.settings.buttonText }}
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+    .product-buttons__section {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .product-buttons__container {
+      overflow-x: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(50px);
+      padding-block: 15px;
+    }
+
+    .product-buttons__container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product__buttons {
+      display: flex;
+      gap: 11px;
+      white-space: nowrap;
+      min-width: fit-content;
+      padding: 0 15px;
+      justify-content: center;
+    }
+
+    .button {
+      position: relative;
+      display: inline-block;
+    }
+
+    .review-button {
+      display: inline-block;
+      padding: 7px 30px;
+      text-decoration: none;
+      color: #000;
+      background-color: transparent;
+      border: 1px solid #000;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 300;
+      cursor: pointer;
+    }
+
+    .review-button.active {
+  background-color: #000;
+    color: white;
+    border-color: #000;
+    }
+
+    .review-button:not(.active):hover {
+      background: #e5e5e5;
+    }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.review-button');
+    const container = document.querySelector('.product-buttons__container');
+
+    let fallbackTimer = null;
+
+    // 1. Click → smooth scroll
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = btn.getAttribute('href') || btn.dataset.anchor;
+        const target = document.querySelector(targetId);
+
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // 2. IntersectionObserver
+    const observerOptions = {
+      root: null,
+      rootMargin: '-80px 0px -35% 0px', // tuned: activates earlier when scrolling up
+      threshold: 0.15,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      let anyIntersectingNow = false;
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          anyIntersectingNow = true;
+
+          // Cancel any pending fallback
+          if (fallbackTimer) {
+            clearTimeout(fallbackTimer);
+            fallbackTimer = null;
+          }
+
+          // Clear previous active states
+          buttons.forEach((b) => b.classList.remove('active'));
+
+          const id = '#' + entry.target.id;
+          const matchingBtn = document.querySelector(
+            `.review-button[href="${id}"], .review-button[data-anchor="${id}"]`
+          );
+
+          if (matchingBtn) {
+            matchingBtn.classList.add('active');
+            centerActiveButton(matchingBtn);
+          }
+        }
+      });
+
+      // If nothing is intersecting right now → prepare fallback after delay
+      if (!anyIntersectingNow) {
+        if (fallbackTimer) clearTimeout(fallbackTimer);
+
+        fallbackTimer = setTimeout(() => {
+          // Force first button when no section has been visible for a while
+          buttons.forEach((b) => b.classList.remove('active'));
+
+          const firstButton = buttons[0];
+          if (firstButton) {
+            firstButton.classList.add('active');
+            centerActiveButton(firstButton);
+          }
+
+          fallbackTimer = null;
+        }, 450); // 450 ms — feels natural, prevents flicker during quick scrolls
+      }
+    }, observerOptions);
+
+    // Observe all sections
+    buttons.forEach((btn) => {
+      const id = btn.getAttribute('href') || btn.dataset.anchor;
+      if (id && id.startsWith('#')) {
+        const section = document.querySelector(id);
+        if (section) {
+          observer.observe(section);
+        }
+      }
+    });
+
+    // 3. Center active button in scrollable container
+    function centerActiveButton(activeBtn) {
+      if (!activeBtn || !container) return;
+
+      const btnRect = activeBtn.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      const btnLeftInContainer = btnRect.left - containerRect.left + container.scrollLeft;
+      const desiredScroll = btnLeftInContainer - container.offsetWidth / 2 + btnRect.width / 2;
+
+      container.scrollTo({
+        left: Math.max(0, Math.min(desiredScroll, container.scrollWidth - container.offsetWidth)),
+        behavior: 'smooth',
+      });
+    }
+
+    // 4. Initial state: activate first button if nothing else is active yet
+    setTimeout(() => {
+      if (!document.querySelector('.review-button.active') && buttons.length > 0) {
+        const first = buttons[0];
+        first.classList.add('active');
+        centerActiveButton(first);
+      }
+    }, 400);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Scroll To Section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "Scroll_To_Button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "buttonText",
+          "label": "Button Text",
+          "default": "Speaker"
+        },
+        {
+          "type": "text",
+          "id": "anchorId",
+          "label": "Anchor ID (with #)",
+          "info": "Example: #speaker-features"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scroll To Section"
+    }
+  ]
+}
+{% endschema %}

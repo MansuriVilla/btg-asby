@@ -1,0 +1,59 @@
+<div class="padding_box_bg">
+    <div class="free_shipping_bg">
+      {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+              <div class="free_shipping_box">
+                  {% if block.settings.icon != blank %}
+                  	<div class="icon"> <img src="{{ block.settings.icon | img_url: 'master' }}"></div>
+                  {% endif %}
+
+                  {% if block.settings.bottom_text != blank %}
+                  	<p><span>{{ block.settings.bottom_text }}</span><br />{{ block.settings.sub_heading }}</p>
+                  {% endif %}
+              </div>
+          {% endfor %}
+      {% endif %}
+    </div>
+</div>
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Home Icon with text",
+	"max_blocks": 3,
+    "settings": [
+    ], 
+    "blocks": [
+     {
+        "type": "logo",
+        "name": "Singl logo",
+        "settings": [
+          {
+             "type": "image_picker",
+             "id": "icon",
+             "label": "Icon"
+          },
+          {
+            "type": "text",
+            "id": "bottom_text",
+            "label": "Heading"
+          },
+		  {
+            "type": "text",
+            "id": "sub_heading",
+            "label": "Text"
+          } 
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Home Icon with text",
+        "category": "Text"
+      }
+    ]
+  }
+{% endschema %}

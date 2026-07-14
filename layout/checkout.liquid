@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+{% include 'visually_io_sdk' %}
+<script 
+        id="script_tag_id"
+        data-last-check-status-key="_prevCheckIsOk"
+        data-last-check-timestamp-key="_prevCheckTimestamp"
+        data-refresh-interval-ms="120000"
+        data-script-src="https://d2fj3s7h83rb61.cloudfront.net/4414DSE1uv/bin"
+        data-app-info="1-1--1.6.1"
+        data-app-platform="1"
+        data-app-type="1"
+        data-app-version="1.6.1">
+    (function () {
+        var currentScript = document.currentScript;
+        var currentScriptDataset = currentScript.dataset;
+        var lastCheckStatusKey = currentScriptDataset.lastCheckStatusKey;
+        var lastCheckTimestampKey = currentScriptDataset.lastCheckTimestampKey;
+        var refreshIntervalMs = parseInt(currentScriptDataset.refreshIntervalMs, 10);
+        var scriptSrc = currentScriptDataset.scriptSrc;
+
+        if (lastCheckStatusKey && lastCheckTimestampKey && refreshIntervalMs && scriptSrc && !isNaN(refreshIntervalMs)) {
+            if (localStorage.getItem(lastCheckStatusKey) === null) {
+                localStorage.setItem(lastCheckStatusKey, String(false));
+            }
+            
+            if (localStorage.getItem(lastCheckTimestampKey) === null){
+                localStorage.setItem(lastCheckTimestampKey, String(0));
+            }
+
+            var locationHref = document.location.href;
+            var now = Date.now();
+            var lastCheckStatus = String(localStorage.getItem(lastCheckStatusKey)).toLowerCase() === 'true';
+            var lastCheckTimestamp = parseInt(localStorage.getItem(lastCheckTimestampKey), 10);
+
+            if (!isNaN(lastCheckTimestamp)) {
+                var needRefreshByInterval = now - lastCheckTimestamp > refreshIntervalMs;
+
+                if (needRefreshByInterval || lastCheckStatus) {
+                    var LOAD = 'load';
+                    var ERROR = 'error';
+                    var script = document.createElement('script');
+
+                    function scriptEventHandler(evt) {
+                        var target = evt.target;
+                        var evtType = evt.type;
+
+                        var currentCheckStatus = false;
+                        var currentCheckTimestamp = Date.now();
+
+                        if (evtType === LOAD) {
+                            currentCheckStatus = true;
+                        }
+
+                        localStorage.setItem(lastCheckStatusKey, String(currentCheckStatus));
+                        localStorage.setItem(lastCheckTimestampKey, String(currentCheckTimestamp));
+
+                        target.removeEventListener(LOAD, scriptEventHandler);
+                        target.removeEventListener(ERROR, scriptEventHandler);
+                    }
+
+                    if (!locationHref.match(/(\/checkouts\/|\/thank_you)/gi)) {
+                        script.defer = true;
+                    }
+
+                    script.addEventListener(LOAD, scriptEventHandler);
+                    script.addEventListener(ERROR, scriptEventHandler);
+
+                    script.src = scriptSrc;
+
+                    document.head.insertBefore(script, currentScript);
+                }
+            }
+        } else {
+            console.error('wrapper is not right configured');
+        }
+    })();
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "iyqwzntz51");
+</script>
+
+
+
+  
+  
+  
+  <style>
+      #checkout-validation {
+        margin-bottom: 1.5rem;
+      }
+      #continue_button.checkout-error {
+        cursor: not-allowed;
+      }
+      #checkout-validation .validation-box {
+        margin-bottom: 0;
+      }
+      #checkout-validation.hidden {
+        display: none;
+      }
+      .notice-board__wrapper {
+        border: 1px #e6e6e6 solid;
+        border-top: 0;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        padding: 10px 25px;
+      }
+
+      .checkout-validation-email .launch-intro{
+        text-align: left;
+        padding: 10px 0;
+      }
+      .dynamic-checkout .launch-intro{
+        text-align: start;
+        padding: 10px 0;
+      }
+      .offers, .ctm_success_message{
+        font-size: 14px;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 30px;
+      }
+      .ctm_success_message span {
+        display: block;
+        font-size: 12px;
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    {{ skip_to_content_link }}
+
+    <header class="banner" data-header role="banner">
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </header>
+
+    {{ order_summary_toggle }}
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    {{ tracking_code }}
+
+{{ "manager.js" | asset_url | script_tag }}
+{{ "hubbox.js" | asset_url | script_tag }}
+{{ "hubbox.css" | asset_url | stylesheet_tag }}    
+    <script src="{{ "checkout-validation.js" | asset_url }}" async></script>
+    <script src="{{ 'register-data.js' | asset_url }}" defer="defer"></script>
+     {% assign success = settings.reached_text %}
+    <script> 
+     function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      if(getCookie('offer_valid') != '' && getCookie('offer_valid') != undefined){
+       var is_valid = getCookie('offer_valid');
+       if(is_valid == "true" || is_valid == true){
+        document.querySelector('.product-table').insertAdjacentHTML('beforebegin',' <div class="discount-amout"><div class="ctm_offer_wall"><div class="ctm_offer_main_wrapper"> <div class="ctm_success_message">{{ success }}</div></div></div></div>') 
+       } 
+      }
+    </script>
+  </body>
+</html>

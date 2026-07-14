@@ -1,0 +1,98 @@
+<div id="container" data-animated>
+  <div class="ticker-heading">
+    <p class="ticker-heading__text">{{section.settings.tickerHeading}}</p>
+  </div>
+  <ul id="list">
+    {% for block in section.blocks %}
+      <li class="logo_item logo_item--{{ block.id }}">
+        <img
+          class="logo_image"
+          src="{{block.settings.logo | image_url}}"
+          alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+          height="100%"
+          width="100%"
+          loading="lazy"
+          decoding="async"
+        >
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<style>
+.ticker-heading__text {
+  padding: 0;
+  font-size: clamp(16px,2vw,18px);
+  line-height: 1;
+  letter-spacing: clamp(2px,0.6vw, 4px);
+  font-weight: 600;
+  color: #9B9DA3;
+}
+
+
+  .ticker-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: clamp(25px,2.4vw,35px);
+}
+
+    [data-animated] li img { max-width: clamp(128px,26vw,198px); width: 100%; aspect-ratio: 8/3; object-fit: contain; object-position: center center; }
+    [data-animated] ul { display: flex; gap: clamp(40px,6vw,60px); list-style: none; align-items: center; margin: 0; padding-block: clamp(15px,3vw,25px); }
+  .logo_item {
+      opacity: 50%;
+      margin: 0;
+  }
+    #container[data-animated] { overflow: hidden; }
+    [data-animated] #list { width: max-content; animation: scroll 80s linear infinite; }
+    @keyframes scroll {
+     to { translate: calc(-50% - 5px); }
+     }
+</style>
+<script>
+    const list = document.querySelector('#list');
+    const listContent = Array.from(list.children);
+   {% comment %} if (!list || list.length === 0) {
+    return;
+} {% endcomment %}
+  listContent.forEach((item) => {
+    const duplicatedItem = item.cloneNode(true);
+    duplicatedItem.setAttribute('aria-hidden', true);
+    list.appendChild(duplicatedItem);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Logo Slider New",
+  "tag": "section",
+  "settings": [
+    
+    {
+    
+      "type": "text",
+      "id": "tickerHeading",
+      "label": "Section Heading"
+    }
+
+  ],
+  "blocks": [
+    {
+      "type": "Logo_Slider",
+      "name": "Logo Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Select Logo"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo Slider New"
+    }
+  ]
+}
+{% endschema %}

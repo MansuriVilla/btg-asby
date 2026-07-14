@@ -1,0 +1,188 @@
+<div class="account-activation account-activation-{{ section.id }}">
+  <div class="new-page-width">
+    <div class="activation-box faq-inner-card">
+      <div class="activation-box__inner">
+        {% if section.settings.heading != blank %}
+          <h2 class="section-heading">{{ section.settings.heading | newline_to_br }}</h2>
+        {% endif %}
+
+        {% if section.settings.subheading != blank %}
+          <div class="section-subheading">
+            {{ section.settings.subheading }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.button_label != blank %}
+          {% comment %} <a href="{{ section.settings.button_link }}" class="content-cta content-cta__solid">
+            {{ section.settings.button_label }}
+          </a> {% endcomment %}
+          <a href="https://arena.blueteesgolf.com/app/summery" class="content-cta content-cta__solid dynamic_link">
+            {{ section.settings.button_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+    .account-activation-{{ section.id }} {
+      
+      color: #fff;
+      padding: clamp(40px, 8vw, 100px) 0;
+    }
+      .faq-inner-card {
+     border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-block: clamp(40px,7vw,74px);
+    gap: 54px;
+    padding-inline: clamp(20px,5vw,80px);
+    background: radial-gradient(124.85% 237.3% at 0% 100%, #00A1FF 0%, #4000FF 100%), linear-gradient(135deg, #00A1FF, #4000FF) border-box;
+
+    width: 100%;
+    border: 2px solid transparent;
+    box-shadow: 0 0px 15px #4000FF; 
+    background-clip: padding-box, border-box;
+    }
+    .faq-inner-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #000000C0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+  }
+
+.activation-box__inner {
+  z-index: 2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+    .account-activation-{{ section.id }} .section-heading {
+      font-size:clamp(20px, 2.8vw, 42px);
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: clamp(15px, 2vw, 20px);
+      line-height: 1.2;
+    }
+
+    .account-activation-{{ section.id }} .section-subheading {
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      line-height: 1.6;
+      color: #dfdfdf;
+      margin-bottom: clamp(30px, 4vw, 40px);
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .account-activation-{{ section.id }} .content-cta {
+      display: inline-block;
+      
+      text-decoration: none;
+      width:100%;
+      max-width:clamp(120px,22vw,320px);
+      text-transform: uppercase;
+      
+      
+    }
+
+    /* White CTA style as per image */
+    .account-activation-{{ section.id }} .content-cta__solid {
+      background-color: #fff;
+      color: #000;
+      border-color:#fff;
+    }
+    
+    .account-activation-{{ section.id }} .content-cta:hover {
+        background-color: #fff0;
+        color: #fff;
+    }
+
+    @media only screen and (max-width:991px){
+      .account-activation-{{ section.id }} .section-heading {
+        max-width: 300px;
+        width: 100%;
+      }
+    }
+{%- endstyle -%}
+<script>
+  if (window.innerWidth >= 991) {
+  function setDynamicLinks() {
+      const ctaLinks = document.querySelectorAll(".dynamic_link");
+      if (ctaLinks.length === 0) {
+        console.error("No elements with class 'dynamic_link' found.");
+        return;
+      }
+
+      const userAgent = navigator.userAgent.toLowerCase();
+      const appStoreUrl =
+        "https://apps.apple.com/us/app/blue-tees-game/id6448720121";
+      const playStoreUrl =
+        "https://play.google.com/store/apps/details?id=com.bluetees";
+
+      const targetUrl =
+        userAgent.includes("mac") ||
+        userAgent.includes("iphone") ||
+        userAgent.includes("ipad")
+          ? appStoreUrl
+          : userAgent.includes("android") || userAgent.includes("windows")
+          ? playStoreUrl
+          : appStoreUrl;
+
+      ctaLinks.forEach((link) => {
+ 
+          link.href = targetUrl;
+      });
+    }
+    setDynamicLinks();
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Account Activation",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ALREADY HAVE A GAME ACCOUNT?"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Sign in with your existing email and your complimentary 6 month intelligence package will automatically be added on top of your current subscription. No duplicate accounts. No interruption."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "SIGN IN & ACTIVATE"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Account Activation"
+    }
+  ]
+}
+{% endschema %}

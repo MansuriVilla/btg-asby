@@ -1,0 +1,430 @@
+<div class="thank__body">
+  <div class="new_game-lp-hero">
+    <div class="new_game-hero-inner">
+      <div class="new_game-hero-left">
+        <div class="new_game-hero-left-content">
+          <img class="ico_hero" src="{{ 'logo-ico-new-lp.png' |asset_url }}" alt="logo-ico-new-lp">
+          <picture>
+            <source srcset="{{ 'thank-text-hero-desktop.png' | asset_url }}" media="(min-width:769px)">
+            <source srcset="{{ 'thank-text-hero-mobile.png' | asset_url }}" media="(max-width:768px)">
+            <img class="title" src="{{ 'thank-text-hero-desktop.png' |asset_url }}" alt="thank-text-hero-desktop">
+          </picture>
+          <div class="new_game-hero-right-content mobile_visible">
+            <img src="{{ 'thank-game-app-mockup.png' | asset_url }}" alt="">
+          </div>
+          <p>
+            We’ve sent your gift card codes and next steps to your <br>
+            email. Download the Blue Tees Game app and start <br>
+            playing your first round today.
+          </p>
+
+          <div class="site_store-icons">
+            <a href="https://apps.apple.com/us/app/blue-tees-game/id6448720121" target="_blank"
+              ><img
+                class="store_ico"
+                src="//blueteesgolf.com/cdn/shop/t/108/assets/app_store-ico-header.svg?v=16189549359565769611749643375"
+                alt="Blue Tees Golf Game App For IOS users"
+            ></a>
+            <a href="https://play.google.com/store/apps/details?id=com.bluetees" target="_blank"
+              ><img
+                class="store_ico"
+                src="//blueteesgolf.com/cdn/shop/t/108/assets/play_store-ico-header.svg?v=87895140440343293871749644250"
+                alt="Blue Tees Golf Game App For Android users"
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="new_game-hero-right">
+        <div class="new_game-hero-right-content">
+          <img src="{{ 'thank-game-app-mockup.png' | asset_url }}" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="howItWork__contentArea">
+    <div class="howItWork__Content page-width">
+      <div class="howItWork__cardArea">
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <img src="{{ 'mail-ico-game.svg' | asset_url }}" alt="mail-ico-game">
+            </span>
+            <h5>Check Your Email</h5>
+            <p>
+              Find your exclusive gift card codes and <br>
+              redemption instructions. If you don’t see <br>
+              it, check spam or promotions.
+            </p>
+          </div>
+        </div>
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <img src="{{ 'download-ico-game.svg' | asset_url }}" alt="download-ico-game">
+            </span>
+            <h5>Download the GAME App</h5>
+            <p>
+              Get the app on iOS or Android and <br>
+              JOIN with your phone number to <br>
+              sync your account.
+            </p>
+          </div>
+        </div>
+        <div class="howItWork__cardItem">
+          <div class="howItWork__itemInner">
+            <span class="howItWork__number">
+              <img src="{{ 'cart-ico-game.svg' | asset_url }}" alt="cart-ico-game">
+            </span>
+            <h5>Shop Our Products</h5>
+            <p>
+              Use your gift cards toward TIPS and <br>
+              Blue Tees Golf tech. Start browsing <br>
+              our latest products today.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ready_to-play page-width">
+    <div class="ready_play-inner">
+      <div class="ready_play-left">
+        <div class="ready_play-left-inner">
+          <div class="ready_play-left-top">
+
+              <h2>
+                DON’T MISS THIS <br>
+                ONE TIME OFFER
+            </h2>
+    
+                <div class="ready_play-right right_top">
+                  <picture>
+                    <source
+                      srcset="{{ 'dont-miss-mockup.png' | asset_url }}"
+                      media="(min-media:1441px)"
+                    >
+    
+                    <img
+                      class="image_reveal-init"
+                      src="              {{ 'dont-miss-mockup.png' | asset_url }}"
+                      alt="
+                        Human Hand Holding S4 ULTRA. Build By Blue Tees
+                        Golf.
+                      "
+                    >
+                  </picture>
+                </div>
+                <span class="value__current">$299</span>
+                <span class="value__original">($600 VALUE)</span>
+          </div>
+          <h4>
+       Player+, TIPS Everyday Backpack, TIPS Shoe Pod, TIPS Valuables Pouch and 1 year free Advanced Analytics package. Limited availability. Check your email to apply your $25 Blue Tees gift card.
+          </h4>
+          <div class="ready_play-ctas">
+            <a class="cta " href="#">ADD TO CART</a>
+          </div>
+        </div>
+      </div>
+      <div class="ready_play-right">
+        <picture>
+          <source
+            srcset="{{ 'dont-miss-mockup.png' | asset_url }}"
+            media="(min-media:1441px)"
+          >
+
+          <img
+            class="image_reveal-init"
+            src="              {{ 'dont-miss-mockup.png' | asset_url }}"
+            alt="
+              Human Hand Holding S4 ULTRA. Build By Blue Tees
+              Golf.
+            "
+          >
+        </picture>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    .thank__body {
+      background: #000;
+    }
+
+    .ready_play-left-top {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+    /*-----------------------------
+      Hero Section Styles
+      ----------------*/
+    .new_game-hero-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: clamp(10px, 4vw, 50px) 20px;
+      gap: 30px;
+    }
+
+    .new_game-hero-left-content {
+      display: flex;
+      flex-direction: column;
+      row-gap: clamp(20px, 2vw, 25px);
+      justify-content: flex-start;
+    }
+
+    .new_game-hero-left-content p {
+      color: #fff;
+      max-width: clamp(280px, 40vw, 410px);
+      padding: 0px;
+    }
+
+    .new_game-hero-left-content img.ico_hero {
+      max-width: clamp(150px, 13vw, 210px);
+
+    }
+
+    .new_game-hero-left-content img.title {
+      max-width: clamp(180px, 29vw, 454px);
+    }
+
+    .site_store-icons a {
+      border: 1px solid #fff;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      max-width: 130px;
+    }
+
+    .new_game-hero-right-content img {
+      max-width: clamp(320px, 50vw, 700px);
+    }
+
+    .review_hero {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+
+    .review_hero p {
+      font-weight: 600;
+      letter-spacing: 1.6px;
+      font-size: 10px;
+    }
+
+    .web_exclusive-inner {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 10px;
+    }
+
+    .web_inner-top {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .free_30-day {
+      color: #9f9f9f;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .free_30-day:hover {
+      color: #fff;
+    }
+
+    .highlight {
+      color: #4fdb66;
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 1.3;
+      text-align: left;
+    }
+
+    .web_exclusive-inner .pricing_cta {
+      line-height: 1;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 1.6px;
+    }
+
+
+    .value__current {
+  font-size: clamp(32px,3vw,42px);
+  color: #CB0000;
+  
+  line-height: normal;
+}
+
+
+.value__original {
+  font-size: clamp(18px,2vw,24px);
+  
+  font-weight: 900;
+  line-height: 130%;
+}
+
+    @media only screen and (min-width: 769px) {
+      .mobile_visible, .ready_play-right.right_top{display:none;}
+  }
+
+    @media only screen and (max-width: 768px) {
+      .new_game-hero-inner {
+        flex-wrap: wrap;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .new_game-hero-left-content p br{display:none;}
+
+
+.new_game-hero-left-content img.ico_hero{
+  margin-bottom: 20px;
+}
+
+.new_game-hero-right-content img{margin-bottom:20px;}
+
+ .get-paid__right{
+
+
+
+margin-top: -90px;
+
+
+
+
+}
+        .howItWork__itemInner{padding: 15px 60px;}
+      .slider_area {
+        padding-bottom: 30px;
+      }
+
+      .new_game-hero-right {
+        display: none;
+      }
+
+      .new_game-hero-left-content {
+        justify-content: center;
+        align-items: center;
+        gap:0px;
+      }
+
+      .new_game-hero-left-content p {
+        margin-bottom: 20px;
+      }
+
+      .new_game-hero-left-content picture {
+        justify-content: center;
+      }
+
+      .ready_play-left{
+        align-items: center;
+      }
+
+      .new_game-hero-left-content img.title {
+        max-width: calc(100% - 30%);
+      }
+    }
+
+
+
+          .howItWork__contentArea { padding: 40px 0px; }
+
+
+          .howItWork__title { display: flex; margin-bottom: clamp(40px, 5vw, 80px); justify-content: center; }
+          .howItWork__cardArea {display: grid; column-gap:20px; row-gap: clamp(50px, 4.2vw, 72px); grid-template-columns: repeat(auto-fill, minmax(clamp(270px, 50vw, 350px), 1fr)); }
+          .howItWork__itemInner { position: relative; text-align: center; background: #252525; border-radius: 10px; color: #fff; padding: 15px clamp(20px,3vw,40px); display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: 12px; height: 100%;}
+          .howItWork__number {  background: #111; border-radius: 50px; display: flex; justify-content: center; align-items: center; height: clamp(50px, 5vw, 60px); line-height: 1; width: clamp(50px, 5vw, 60px); font-size: clamp(18px, 2vw, 24px); font-weight: 900;}
+          .howItWork__itemInner h5 {  font-size: 24px; line-height: 100%; }
+          .howItWork__itemInner p { padding: 0; line-height: 130%;  }
+
+
+          .howItWork__cardArea.programPerks__cardArea { row-gap: 0; }
+          .programPerks__itemInner { background: transparent; padding: 30px; }
+          .programPerks__itemInner p { font-weight: 900; text-transform: uppercase; }
+
+.howItWork__Content.page-width, .ready_to-play.page-width, .new_game-hero-inner {
+  max-width: 1320px;
+  width:100%;
+}
+
+          /*-----------------------------
+    READY TO PLAY Styles
+    ----------------*/
+    .ready_play-left, .ready_play-right { flex: 1; }
+    .ready_play-left { display: flex; justify-content: center; align-items: flex-end; flex-direction: column; }
+    .ready_play-inner { display: flex;  flex-direction: row-reverse;
+    border-radius: 20px;
+    overflow: hidden; background: #EBEBEB;
+    padding: clamp(16px,2vw,24px) clamp(16px,5vw,95px) clamp(16px,2vw,24px) clamp(16px,4vw,70px);}
+    .ready_play-left-inner { display: flex; flex-direction: column; gap: 17px; padding: 0;  text-align: center;
+    justify-content: center;
+    align-items: center;}
+    .cta { font-size: 16px; font-weight: 900; letter-spacing: 2px; display: inline-flex; }
+    .ready_play-ctas { display: flex; gap: 10px; margin-top: 10px; }
+    .ready_play-left-inner h2 {   display: flex; line-height: 1;
+    flex-direction: column;
+    font-size: clamp(32px,3vw,42px); gap: 10px;}
+    .cta:not(.cta_stroke) { background: #1066eb; color: #fff; }
+    .cta { font-size: 16px; font-weight: 900; letter-spacing: 1.6px; display: inline-flex; padding: clamp(12px, 4vw, 17px) clamp(10px, 4vw, 63px); border-radius: 50px; border: 2px solid transparent; }
+    .cta_stroke { color: #1066eb; border-color: #1066eb; }
+    .ready_play-left h4 { font-weight: 400; }
+    .cta_stroke:hover { border-color: transparent; color: #fff; background: #1066eb; }
+    .cta:hover:not(.cta_stroke) { background: #fff; color: #1066eb; border-color: #1066eb; }
+
+
+    .ready_play-right img{max-width: 600px; width: 100%;}
+    .ready_play-right{display: flex;
+    justify-content: center;
+    align-items: center;}
+
+
+  .ready_play-left-inner h4 {
+    font-size: clamp(16px,2vw,18px);
+    line-height: 150%;
+    max-width: 420px;
+    width: 100%;
+    text-transform: none;
+  }
+
+  .ready_to-play.page-width {
+    padding-bottom: clamp(30px,10vw,127px);
+
+  }
+
+    @media only screen and (max-width: 768px) {
+      .ready_play-inner { flex-direction: column; }
+      .ready_play-left-inner { padding: 0px; flex-direction: column; }
+      .ready_play-left h4 { max-width: 284px; }
+      .ready_play-left h4 br, .ready_play-right:not(.ready_play-right.right_top) { display: none; }
+      .howItWork__Content.page-width {
+  padding: 0 40px;
+}
+.ready_to-play.page-width{padding:0px;}
+.howItWork__cardArea{row-gap: 16px;}
+
+.ready_play-left-inner h2{margin-bottom: 10px;}
+.ready_play-ctas{width: 100%;}
+.cta{width: 100%;
+  display: flex;
+  justify-content: center;}
+
+  .ready_play-left{align-items: center;}
+    }
+
+    @media only screen and (max-width:420px){
+    .howItWork__itemInner p br {
+  display: none;
+} 
+    }
+
+</style>

@@ -1,0 +1,27 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    function Label() {
+      const label = document.querySelector('.supercharged_ai');
+      label.classList.add('supercharged--ai__active');
+    }
+    Label();
+  });
+</script>
+<div class="supercharged_ai">
+  <div class="supercharged_ai--label" style="display: flex;">
+    {% comment %}
+      <div class="supercharged_ai--text">
+        SUPERCHARGED WITH
+      </div>
+      <div class="supercharged_ai--icon">
+        <img class="supercharged_ai--icon__image" src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/supercharged-ai-icon.svg?v=1763449828" decoding="async" alt="Supercharged With AI">
+        </div>
+    {% endcomment %}
+    <img
+      class="supercharged_ai--icon__image"
+      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105033.svg?v=1770288867"
+      decoding="async"
+      alt="Supercharged With AI"
+    >
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="unbelievable_sound_padding">
+
+    
+    <div class="change_way_text_bg">
+      		{% if section.settings.heading != blank %}
+            	<h3>{{ section.settings.heading }}</h3>
+            {% endif %}
+          	{% if section.settings.sub_heading != blank %}
+            	<h2>{{ section.settings.sub_heading }}</h2>
+            {% endif %}
+			{% if section.settings.text != blank %}
+            	<p>{{ section.settings.text }}</p>
+            {% endif %}
+        
+             {%- if section.settings.link_text != blank -%}
+               <div class="button">
+                 <a href="{{ section.settings.link }}" class="addcart">
+                   {{ section.settings.link_text }}
+                 </a>
+               </div>
+              {%- endif -%}
+            
+      
+      		<div class="logo_img_bottom">
+              	{% if section.blocks.size > 0 %}
+                  {% for block in section.blocks %}
+                    {% if block.settings.logo_img != blank %}
+                    	<img src="{{ block.settings.logo_img | img_url: 'master' }}">
+                	{% endif %}
+                  {% endfor %}
+              {% endif %}
+          	</div>
+
+    </div>        
+    
+</div>  
+
+
+
+
+{% schema %}
+  {
+    "name": "Player heading and logos",
+    "settings": [
+	  	{
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+	  {
+        "type": "text",
+        "id": "sub_heading",
+        "label": "Sub heading"
+      },
+	  {
+        "type": "textarea",
+        "id": "text",
+        "label": "Text"
+      },
+	  {
+          "type": "url",
+          "id": "link",
+          "label": "button link"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Button text",
+          "default": "Optional button"
+        }
+    ], 
+	"blocks": [
+     {
+        "type": "logo",
+        "name": "Singl logo",
+        "settings": [
+          {
+             "type": "image_picker",
+             "id": "logo_img",
+             "label": "logo"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Player heading and logos",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

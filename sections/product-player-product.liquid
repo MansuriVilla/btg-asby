@@ -1,0 +1,47 @@
+<div class="unbelievable_sound_padding">
+    <div class="speaker_product_box_bg">
+        	{% if section.blocks.size > 0 %}
+          		{% for block in section.blocks %}
+        			<div class="speaker_product_box_col4">
+                      	<div class="speaker_box_product">
+                          {% if block.settings.pro_img != blank %}
+                              <img src="{{ block.settings.pro_img | img_url: 'master' }}">
+                          {% endif %}
+                          {% if block.settings.text != blank %}
+                              <p>{{ block.settings.text }}</p>
+                          {% endif %}
+                      </div>
+                    </div>
+          		{% endfor %}
+        	{% endif %}
+    </div> 
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Player Product",
+    "settings": [
+	  
+    ], 
+	"blocks": [
+     {
+        "type": "logo",
+        "name": "Singl logo",
+        "settings": [
+          {
+             "type": "image_picker",
+             "id": "pro_img",
+             "label": "Image"
+          },
+		  {
+            "type": "textarea",
+            "id": "text",
+            "label": "Text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

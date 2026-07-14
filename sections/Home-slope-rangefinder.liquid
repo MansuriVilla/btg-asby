@@ -1,0 +1,145 @@
+
+<div class="padding_box_bg">
+    <div class="pro_with_slope  responsive_top home-blackfriday">
+        {% if section.settings.left_product_img != blank %}
+            <div class="pro_right padding three-max">&nbsp;
+              <!--<img class="product-img color1" src="{{ section.settings.left_product_img | img_url: 'master' }}"> -->
+             <!-- <img class="product-img color1" src="{{'BTG_S3-MAX_WHITE-NAVY-BLACK_3D-MODELS_v2-view-1.png' | asset_url}}">  -->
+            </div>
+        {% endif %}
+        
+        <div class="pro_left right">
+            {% if section.settings.max_three_logo != blank %}
+                <div class="pro_logo">
+                  <img src="{{ section.settings.max_three_logo | img_url: 'master' }}">   
+                </div>
+            {% endif %}
+            <div class="price">
+              <span class="money">Starting at $199</span>
+
+              {% comment %}
+              {{all_products['series-3-max-golf-rangefinder-with-slope'].variants[0].price | money}}  
+              
+              <span>{{all_products['series-3-max-golf-rangefinder-with-slope'].compare_at_price_max | money}}</span> 
+
+
+              {%- if settings.product_save_type == 'dollar' -%}
+                  {%- capture saved_amount -%}{{ all_products['series-3-max-golf-rangefinder-with-slope'].variants[0].compare_at_price | minus: all_products['series-3-max-golf-rangefinder-with-slope'].variants[0].price | money }}{%- endcapture -%}
+                {%- else -%}
+                  {%- capture saved_amount -%}{{ all_products['series-3-max-golf-rangefinder-with-slope'].variants[0].compare_at_price | minus: all_products['series-3-max-golf-rangefinder-with-slope'].variants[0].price | times: 100.0 | divided_by: all_products['series-3-max-golf-rangefinder-with-slope'].variants[0].compare_at_price | round }}%{%- endcapture -%}
+                {%- endif -%}
+
+                <i>SAVE {{ saved_amount }}</i>                                
+              {% endcomment %}
+ 
+          	</div>
+            {% if section.settings.heading != blank %}
+                <p class="sub_title">{{ section.settings.heading }}</p>                                
+            {% endif %}
+          
+          
+            
+            <div class="best_selling_col4">        
+                {% if section.blocks.size > 0 %}
+
+                      {% for block in section.blocks %}
+                          <div class="best_selling_icon">
+                            {% if block.settings.icon != blank %}
+                                <div class="top-icon"> <img src="{{ block.settings.icon | img_url: 'master' }}"></div>
+                            {% endif %}
+
+                            {% if block.settings.bottom_text != blank %}
+                                <p>{{ block.settings.bottom_text }}</p>
+                            {% endif %}
+                          </div>
+                      {% endfor %}
+
+                {% endif %}
+            </div>
+            
+            
+            
+          	{%- if section.settings.link_text != blank -%}
+          		<div class="button">
+                    <a href="{{ section.settings.link }}" class="shopcollection">
+                      {{ section.settings.link_text }}
+                    </a>
+                    <div><a href="https://noktryouts.com/products/blue-tees/series-3-max?utm_source=brand-bluetees&utm_medium=website&utm_campaign=homepage" class="try_down" tabindex="0">Try Before You Buy | $0</a></div>
+                 </div>
+            {%- endif -%}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Home slope rangefinder",
+	"max_blocks": 8,
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "left_product_img",
+        "label": "Product Image"
+      },
+      {
+        "type": "header",
+        "content": "Right side contain"
+      },
+      {
+        "type": "image_picker",
+        "id": "max_three_logo",
+        "label": "Max 3 logo"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+	  {
+          "type": "url",
+          "id": "link",
+          "label": "button link"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Button text",
+          "default": "Optional button"
+        }
+    ],
+    "blocks": [
+     {
+        "type": "logo",
+        "name": "Singl logo",
+        "settings": [
+          {
+             "type": "image_picker",
+             "id": "icon",
+             "label": "Icon"
+          },
+          {
+            "type": "text",
+            "id": "bottom_text",
+            "label": "Text"
+          }       
+        ]
+      }
+    ], 
+    "presets": [
+      {
+        "name": "Home slope rangefinder",
+        "category": "Product"
+      }
+    ]
+  }
+{% endschema %}
+
+
+ 

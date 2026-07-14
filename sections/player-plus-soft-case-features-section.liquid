@@ -1,0 +1,72 @@
+<div class="player-speaker-list-section">
+    <div class="page-width">
+      <div class="player-speaker-list">
+        {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+               <div class="item item-{{forloop.index0}}">
+                  <div class="player-speaker-info">
+                    {%- if block.settings.features_list_image != blank -%}
+                      <img src="{{ block.settings.features_list_image | img_url: 'master' }}" alt="{{ block.settings.features_list_image.alt }}">
+                    {%- endif -%}
+                    {%- if block.settings.title != blank -%}
+                      <h3>{{ block.settings.title }}</h3>
+                    {%- endif -%}
+                    {%- if block.settings.description != blank -%}
+                      <p>{{ block.settings.description }}</p>
+                    {%- endif -%}
+                  </div>
+              </div>
+            {% endfor %}
+        {% endif %}
+      </div>
+      {%- if section.settings.link != blank -%}
+            <div class="player-plus-case-btn">
+              <a href="{{ section.settings.link }}" class="btn"> 
+                {{ section.settings.link_text }}
+              </a>
+            </div>
+        {%- endif -%}
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Player Soft Case List",
+    "settings": [
+        {
+            "type": "url",
+            "id": "link",
+            "label": "t:sections.rich-text.blocks.button.settings.link.label"
+          },
+          {
+            "type": "text",
+            "id": "link_text",
+            "label": "t:sections.rich-text.blocks.button.settings.link_text.label",
+            "default": "Button"
+          }
+      ],
+    "blocks": [
+     {
+        "type": "image",
+        "name": "Singl List",
+        "settings": [
+          {
+             "type": "image_picker",
+             "id": "features_list_image",
+             "label": "Feature List Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description"
+          }
+        ]
+      }
+    ]
+}
+{% endschema %}

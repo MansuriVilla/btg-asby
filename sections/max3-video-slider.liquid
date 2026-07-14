@@ -1,0 +1,174 @@
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+
+<div class="text-{{ section.settings.align_text }} ">  
+  
+
+      <div id="video-slider" class="owl-carousel owl-theme">
+
+        <div class="item">
+          	<div class="series_max_video_bg change-responsive" style="background:#000 url({{'video-bg.png' | asset_url}}) no-repeat bottom center;">
+            	<div class="video_img"><img class="desktop" src="{{'silder-video-1.png' | asset_url}}" alt="silder silder"> <img class="mobile" src="{{'Sean-Foley.png' | asset_url}}" alt="Sean Sean"> 
+                  <div class="icon_text"><a href="javascript:void(0);" class="videopopup_link" data-video-id="829940557"><img src="{{'video1.png' | asset_url}}" alt="83 video"> PLAY VIDEO</a></div></div>
+                <div class="video_text">
+                	<div class="top_logo"><img src="{{'video-logo-yop.png' | asset_url}}" alt="video"></div>
+                    <h6>“BLUE TEES GOLF HAS SOME OF THE BEST GOLF TECHNOLOGY ON THE MARKET AND THAT’S WHY I CHOSE TO PARTNER WITH THEM.”</h6>
+                    <h2>SEAN FOLEY</h2>
+                    <p>2010-14 TIGER WOODS COACH / FULL SWING COMMENTATOR</p>
+                    <div class="video_logo_bottom">
+                    	<img src="{{'video-logo1.png' | asset_url}}" alt="video">
+                        <img src="{{'video-logo2.png' | asset_url}}" alt="video">
+                        <img src="{{'video-logo3.png' | asset_url}}" alt="video">
+                    </div>
+                    <div class="icon_text"><a href="javascript:void(0);" class="videopopup_link" data-video-id="829940557"><img src="{{'video1.png' | asset_url}}"> PLAY VIDEO</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item">
+          	<div class="series_max_video_bg" style="background:#000 url({{'video-bg.png' | asset_url}}) no-repeat bottom center;">
+            	<div class="video_img"><img class="desktop" src="{{'silder-video-2.png' | asset_url}}" alt="silder silder"><img class="mobile" src="{{'GEORGE-GANKAS.png' | asset_url}}" alt="GEORGE GEORGE">
+                  <div class="icon_text"><a href="javascript:void(0);" class="videopopup_link" data-video-id="829940388"><img src="{{'video1.png' | asset_url}}" alt="83 video"> PLAY VIDEO</a></div></div>
+                <div class="video_text">
+                	<div class="top_logo"><img src="{{'video-logo-yop.png' | asset_url}}" alt="video"></div>
+                    <h6>“THERE’S NO OTHER BRAND<br />
+THAT I TRUST MORE THAN<br />
+BLUE TEES RANGEFINDERS”</h6>
+                    <h2>GEORGE GANKAS</h2>
+                    <p>WORLD-RENOWNED PROFESSIONAL GOLF INSTRUCTOR</p>
+                    <div class="video_logo_bottom">
+                    	<img src="{{'video-logo2.png' | asset_url}}" alt="video">
+                        <img src="{{'video-logo1.png' | asset_url}}" alt="video">
+                        <img src="{{'video-logo4.png' | asset_url}}" alt="video">
+                    </div>
+                    <div class="icon_text"><a href="javascript:void(0);" class="videopopup_link" data-video-id="829940388"><img src="{{'video1.png' | asset_url}}" alt="83 video"> PLAY VIDEO</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item">
+          	<div class="series_max_video_bg" style="background:#000 url({{'video-bg.png' | asset_url}}) no-repeat bottom center;">
+            	<div class="video_img"><img class="desktop" src="{{'silder-video-3.png' | asset_url}}" alt="silder silder"><img class="mobile" src="{{'BRICE-BUTLER.png' | asset_url}}" alt="BRICE BRICE"> 
+                  <div class="icon_text"><a href="javascript:void(0);" class="videopopup_link" data-video-id="829940418"><img src="{{'video1.png' | asset_url}}" alt="83 video"> PLAY VIDEO</a></div></div>
+                <div class="video_text">
+                	<div class="top_logo"><img src="{{'video-logo-yop.png' | asset_url}}"  alt="video"></div>
+                    <h6>“YOU NEED TO GO WITH A BRAND YOU CAN TRUST AND BLUE TEES GOLF HAS HELPED SHAVE FOUR TO FIVE STROKES OFF MY GAME”</h6>
+                    <h2>BRICE BUTLER</h2>
+                    <p>FORMER NFL PRO & CURRENT GOLF ENTHUSIAST</p>
+                    <div class="video_logo_bottom">
+                    	 
+                        <img src="{{'video-logo5.png' | asset_url}}" alt="video">
+                    </div>
+                    <div class="icon_text"><a href="javascript:void(0);" class="videopopup_link" data-video-id="829940418"><img src="{{'video1.png' | asset_url}}" alt="83 video"> PLAY VIDEO</a></div>
+                </div>
+            </div>
+        </div>
+       
+      </div>
+   
+</div>
+
+{%- if section.settings.divider -%}</div>{%- endif -%}
+
+
+
+
+{{ 'owl.carousel.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'owl.theme.css' | asset_url | stylesheet_tag: preload: true }}
+<script src="{{ 'owl.carousel.js' | asset_url }}" ></script>
+
+
+<script type="text/javascript">
+		$("#video-slider").owlCarousel({
+			center: false,
+			loop:true,
+			margin:0,
+			nav : true, // Show next and prev buttons
+			slideSpeed : 1000,
+			paginationSpeed : 400,
+			singleItem:true,
+            items:1,
+			autoplay:true,
+			autoplayHoverPause:true,
+			dots:false
+		});
+
+  
+</script>
+
+
+{% schema %}
+{
+  "name": "video slider",
+  "class": "video-slider-main",
+  "settings": [
+    {
+      "type": "select",
+      "id": "align_text",
+      "label": "t:sections.rich-text.settings.align_text.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.align_text.options.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.align_text.options.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.align_text.options.right.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "narrow_column",
+      "label": "t:sections.rich-text.settings.narrow_column.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.rich-text.settings.divider.label",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Slide",
+      "name": "Single slide",
+      "settings": [
+		{
+            "type": "image_picker",
+            "id": "top_icon",
+            "label": "Top icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.rich-text.blocks.heading.settings.title.label",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title",
+          "default": "Rich text"
+        },
+		 {
+          "id": "text",
+          "type": "richtext",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label",
+          "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+        },
+		{
+            "type": "image_picker",
+            "id": "gall_image",
+            "label": "Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

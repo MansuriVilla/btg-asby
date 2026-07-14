@@ -1,0 +1,1574 @@
+{% comment %} {%- form 'product', product, id: form_id, class: 'product-single__form' -%}
+  {% comment %}
+    DO NOT modify this source code
+    LOOP BUNDLE CODE STARTS
+  {% endcomment %}
+  {% assign template_exists = false %}
+  {% capture template_content %}
+    {% render 'loop-subscriptions', type: 'product-widget', product: product %}
+{% endcapture %}
+
+  {% if template_content contains 'Rendering loop-subscriptions' %}
+    {% assign template_exists = true %}
+  {% endif %}
+
+  {% if template_exists %}
+    {% render 'loop-subscriptions', type: 'product-widget', product: product %}
+  {% endif %}
+  {% comment %}
+    LOOP BUNDLE CODE ENDS
+  {% endcomment %}
+  {% assign custom_text = cta_note_text %}
+
+  {%- liquid
+    assign enable_dynamic_buttons = false
+    assign enable_pre_order = false
+
+    if pre_order
+      assign enable_pre_order = true
+    endif
+
+    if show_dynamic_checkout and template != 'product.preorder'
+      assign enable_dynamic_buttons = true
+    endif
+  -%}
+
+  {% assign enable_preorder = false %}
+
+  {% case product.template_suffix %}
+    {% when 'captain-pro', 'product-new', 'player-pro' %}
+      {% assign enable_preorder = true %}
+  {% endcase %}
+
+  {%- if enable_dynamic_buttons -%}
+    <div class="payment-buttons">
+  {%- endif -%}
+
+  {%- liquid
+    assign default_text = 'products.product.add_to_cart' | t
+    assign button_text = 'products.product.add_to_cart' | t
+    if template == 'product.preorder'
+      assign default_text = 'products.product.preorder' | t
+      assign button_text = 'products.product.preorder' | t
+    endif
+    if template == 'product.add_to_cart'
+      assign default_text = 'products.product.add_to_cart' | t
+      assign button_text = 'products.product.add_to_cart' | t
+    endif
+    if template == 'product.ringer'
+    endif
+    unless current_variant.available
+      assign button_text = 'products.product.sold_out' | t
+    endunless
+  -%}
+
+  {% comment %} {%- if product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' -%}<div class="ships-test">SHIPPING 4/26</div> {%- endif -%}    {% endcomment %}
+
+  {% comment %}
+    {%- unless product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer' or product.handle contains 'player-gps-speaker' or product.handle contains 'series-3-max-golf-rangefinder-with-slope'  or product.handle contains 'chargemax' or product.handle contains 'series-4-ultra-rangefinder' or product.handle contains 'magnetic-golf-towel' or product.handle contains 'magnetic-hub' or product.handle contains 'rangefinder-magnetic-strap' or product.handle contains 'divot-repair-tool' or product.handle contains 'player-hard-shell-carrying-case' or product.handle contains 'player-soft-drawstring-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'series-3-max-rangefinder-hard-case' or product.handle contains 'series-2-pro-rangefinder-hard-case' or product.handle contains 'series-2-rangefinder-hard-case' or product.handle contains 'blue-tees-og-script-rope-hat' or product.handle contains 'play-different-hat-by-melin' -%}
+      <div class="ships-test">SHIPPING NOW! ONLY 150 LEFT!</div>
+    {%- endunless -%}
+
+     {%- if product.handle contains 'series-3-max-plus' -%}<div class="ships-test">SHIPPING NOW</div> {%- endif -%}
+     {%- if product.handle contains 'player-go-speaker' or product.handle contains 'chargemax' -%}<div class="ships-test">LIMITED INVENTORY</div> {%- endif -%}
+          {%- if product.handle contains 'series-4-ultra-rangefinder' -%}<div class="ships-test"> SHIPPING 9/13 </div> {%- endif -%}
+  {% endcomment %}
+
+  {% comment %}
+    {%- if product.handle contains 'player-gps-speaker' or product.handle contains 'player-gps-speaker-travis-mathew' -%}
+      <div class="ships-test">60 DAY HASSLE-FREE RETURNS</div>
+    {%- endif -%}
+  {% endcomment %}
+
+  {% if product.handle == 'speaker-bundle'
+    or product.handle == 'gps-offer'
+    or product.handle == 'laser-offer'
+    or product.handle == 'player-gps-speaker-bundle-v2'
+    or product.handle == 'ringer-gps-handheld-bundle-v2'
+    or product.handle == 'series-4-ultra-bundle-v2'
+  %}
+    <div class="cta_pluse-pdp cta_pluse" style="--ripple-clr: #CB000080">
+      <a href="javascript:void(0)" class="btn btn--full add-to-cart above__fold-cart-cta">
+        <span>BUY NOW</span>
+      </a>
+    </div>
+
+  {% elsif product.handle == 'rangefinder-series-2-pro' %}
+    <div class="cta_pluse-pdp">
+      <a
+        href="https://www.amazon.com/Blue-Tees-Golf-Rangefinder-Magnification/dp/B0BDT2XVRC/ref=sr_1_6?crid=3V9O9QKP8V7VD&dib=eyJ2IjoiMSJ9.QOr5SVXB73OwlJZqMb6_P5AGa6HkoAxnqh80tK7j0BWoinVE_Xsw35rcTI-nqBrKbVuZJVFQ2a5zerBWqZk8zI1ZqOWXjR2vKXHFeni5Qi06b_6TF5lOIe8eFoiyF9OpLZy_vzpKnDAbJjpdz_znKZ_5ciHn3qbSwgN71W4KV7ecywrT8EFDKrKbqoUKn3uOwDPxERR2cl52avM93GiEEgy4qd59b4RJ9krEA-OkuaZfPoH7B9S2eSsICLHssgSOZJItmvKZQKdu_mDV-tU0-LbRAWZUMajWzqxlzuy_5Vw.W_6CckeduV3D_bygg714CWBOeOWvR7yOuMJIMfwmGts&dib_tag=se&keywords=Series%2B2%2BBlue%2BTees%2BGolf&qid=1765299810&sprefix=series%2B2%2Bblue%2Btees%2Bgolf%2Caps%2C236&sr=8-6&th=1"
+        target="_blank"
+        class="btn btn--full add-to-cart"
+      >
+        <span>SHOP NOW</span>
+      </a>
+    </div>
+    <style>
+      .cta_pluse-pdp { width: 100%; }
+    </style>
+
+  {% elsif product.template_suffix == 'new-s3-max' %}
+    {% comment %}
+      data-id-two="44528451059909"
+      data-id="45724250669253" data-id-two-checked=".premium-membership-free" cart_cta
+    {% endcomment %}
+    <a
+      class="btn btn--full add-to-cart "
+      href="/products/captain-air"
+    >
+      <span data-add-to-cart-text data-default-text="{{ default_text }}"> GET CAPTAIN AIR INSTEAD </span>
+    </a>
+    {% comment %}
+      <a
+        class="btn btn--full add-to-cart notify_button-pdp learn-more-link"
+        data-target="playerplus"
+      >
+        NOTIFY ME WHEN S3 MAX+ IS BACK
+      </a>
+    {% endcomment %}
+
+    <span class="label-text" style="line-height: 1.3;padding-block: clamp(13px,1.3vw,20px);"
+      >Series 3 Max+ is sold out. Captain Air is our newest, faster <br class="desktop-text">
+      model with even more on-course utility. Available now.</span
+    >
+    <style>
+                [class*="new-product__layout--"] .product-block .btn.btn--full.add-to-cart{letter-spacing: normal;  font-family: 'Blue Tees Subhead' !important ;}
+                .notify_button-pdp{
+            background: transparent !important;
+            border: 2px solid #fff !important;
+      margin-top: clamp(15px,2vw,20px) !important;
+          }
+                .notify_button-pdp:hover{
+            background: #fff !important;
+            color:#000;
+          }
+          .new-popup.modal-content .popup-modal-inner .close{
+          z-index: 1;}
+
+          #playerplus .klaviyo-form-UUMLry.klaviyo-form.form-version-cid-1 {
+            width: 100%;
+          }
+          .label-text{text-align:center;}
+    </style>
+    {% comment %}
+      <div id="playerplus" class="modal">
+      	<div class="new-popup modal-content">
+      		<div class="popup-modal-inner">
+      			<div class="popup-modal-content">
+      				<span class="close">
+      					<img class="product-atc_product-img" decoding="async" src="{{'bf-x-mark.svg' | asset_url}}"
+      						alt="Close Icon To Close POPUP" />
+      				</span>
+      				<div class="klaviyo-form-UUMLry"></div>
+      			</div>
+      		</div>
+      	</div>
+      </div>
+    {% endcomment %}
+
+  {% else %}
+    <button
+      {% if product.empty? %}
+        type="button"
+      {% else %}
+        type="submit"
+      {% endif %}
+
+      name="add"
+      data-add-to-cart
+      {% if enable_pre_order %}
+        data-prod="pre-order"
+      {% endif %}
+      class="btn btn--full add-to-cart{% if enable_dynamic_buttons and product.selling_plan_groups == empty %} btn--secondary{% endif %}{% if enable_pre_order %} btn_pre-order{% endif %}"
+      {% unless current_variant.available %}
+        disabled="disabled"
+      {% endunless %}
+    >
+      {%- if product.handle contains 'player-gps-speaker' -%}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">{{ button_text }}</span>
+
+      {% elsif product.handle contains 'series-4-ultra-rangefinder' %}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">ADD TO CART</span>
+
+      {% elsif enable_pre_order %}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">
+          {% comment %}
+            {% if product.template_suffix == 'rainmaker' %}
+              PRE-ORDER NOW
+            {% else %}
+              ADD TO CART
+            {% endif %}
+          {% endcomment %}
+          ADD TO CART
+        </span>
+
+      {%- else -%}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">{{ button_text }}</span>
+      {%- endif -%}
+    </button>
+    {% if custom_text != blank %}
+      <span class="label-text">{{ custom_text }}</span>
+    {% else %}
+      {% if enable_preorder %}
+        <span class="label-text">FREE SHIPPING</span>
+      {% elsif product.template_suffix == 'rainmaker' %}
+        {% comment %}
+          <span data-prod-id="{{ product.id }}" class="label-text" style="text-transform: uppercase;"
+            >{% comment %} Delivery Before Father’s Day {% endcomment %}SHIPPING LATE JUNE</span
+          >
+        {% endcomment %}
+        <div class="perks_pdp-label label-text" data-prod-id="{{ product.id }}">
+          <div class="perk_icon icon-checkmark">
+            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_7314_9083)">
+              <path d="M19.0677 9.60281V10.4001C19.0666 12.269 18.4615 14.0875 17.3425 15.5844C16.2235 17.0813 14.6506 18.1763 12.8584 18.7062C11.0661 19.2361 9.15067 19.1725 7.39758 18.5248C5.6445 17.8771 4.14774 16.6801 3.13054 15.1123C2.11334 13.5444 1.63019 11.6898 1.75316 9.82495C1.87613 7.9601 2.59862 6.18496 3.81288 4.76427C5.02715 3.34359 6.66812 2.35347 8.49107 1.9416C10.314 1.52973 12.2213 1.71817 13.9284 2.47881" stroke="#CDFF07" stroke-width="1.73333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M19.0674 3.4668L10.4008 12.1421L7.80078 9.54213" stroke="#CDFF07" stroke-width="1.73333" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_7314_9083">
+              <rect width="20.8" height="20.8" fill="white"/>
+              </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <span class="perk_text"> BACK IN STOCK </span>
+        </div>
+      {% endif %}
+      {% if product.handle == 'playmaker-watch' or product.handle == 'watch-hard-shell-carrying-case' %}
+        <style>
+          .btn.btn--full.add-to-cart{
+            margin-top:clamp(7px,0.7vw,12px) !important;
+          }
+        </style>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  <div class="hundred-days_shipping" style="--stroke-clr:#CDFF07;">
+    {% comment %} <img src="{{ '100day-back-svg.svg' | asset_url }}" alt="100 DAY RISK-FREE MONEY BACK GUARANTEE"> {% endcomment %}
+    {% render 'money-back-guarantee' %}
+  </div>
+
+  {%- if enable_dynamic_buttons -%}
+    {{ form | payment_button }}
+  {%- endif -%}
+
+  {%- if enable_dynamic_buttons -%}
+    </div>
+  {%- endif -%}
+
+  {% comment %}
+    {% if localization.country.iso_code == 'US' %}
+         {% render "try-with-nok" %}
+       {% endif %}
+  {% endcomment %}
+  <div class="shopify-payment-terms product__policies">{{ form | payment_terms }}</div>
+
+  {% if ctm_prod != blank %}
+    <input
+      type="hidden"
+      class="ctm_id"
+      data-available="{{ ctm_prod.selected_or_first_available_variant.available }}"
+      value="{{ ctm_prod.selected_or_first_available_variant.id }}"
+    >
+  {% endif %}
+  <select name="id" data-product-select class="product-single__variants no-js ctm_select_id">
+    {%- for variant in product.variants -%}
+      <option
+        {% if variant == product.selected_or_first_available_variant %}
+          selected="selected"
+        {% endif %}
+        value="{{ variant.id }}"
+        data-available="{{ variant.available }}"
+      >
+        {{ variant.title }} - {{ variant.price | money_with_currency }}
+      </option>
+    {%- endfor -%}
+  </select>
+
+  <textarea data-variant-json class="hide" aria-hidden="true" aria-label="Product JSON">
+    {{ product.variants | json }}
+  </textarea>
+  {%- if product.options.size > 1 -%}
+    <textarea data-current-variant-json class="hide" aria-hidden="true" aria-label="Variant JSON">
+      {{ current_variant | json }}
+    </textarea>
+  {%- endif -%}
+  
+{%- endform -%} {% endcomment %}
+
+
+{% comment %} {%- form 'product', product, id: form_id, class: 'product-single__form' -%}
+  {% comment %}
+    DO NOT modify this source code
+    LOOP BUNDLE CODE STARTS
+  {% endcomment %}
+  {% assign template_exists = false %}
+  {% capture template_content %}
+    {% render 'loop-subscriptions', type: 'product-widget', product: product %}
+{% endcapture %}
+
+  {% if template_content contains 'Rendering loop-subscriptions' %}
+    {% assign template_exists = true %}
+  {% endif %}
+
+  {% if template_exists %}
+    {% render 'loop-subscriptions', type: 'product-widget', product: product %}
+  {% endif %}
+  {% comment %}
+    LOOP BUNDLE CODE ENDS
+  {% endcomment %}
+  {% assign custom_text = cta_note_text %}
+
+  {%- liquid
+    assign enable_dynamic_buttons = false
+    assign enable_pre_order = false
+
+    if pre_order
+      assign enable_pre_order = true
+    endif
+
+    if show_dynamic_checkout and template != 'product.preorder'
+      assign enable_dynamic_buttons = true
+    endif
+  -%}
+
+  {% assign enable_preorder = false %}
+
+  {% case product.template_suffix %}
+    {% when 'captain-pro', 'product-new', 'player-pro' %}
+      {% assign enable_preorder = true %}
+  {% endcase %}
+
+  {%- if enable_dynamic_buttons -%}
+    <div class="payment-buttons">
+  {%- endif -%}
+
+  {%- liquid
+    assign default_text = 'products.product.add_to_cart' | t
+    assign button_text = 'products.product.add_to_cart' | t
+    if template == 'product.preorder'
+      assign default_text = 'products.product.preorder' | t
+      assign button_text = 'products.product.preorder' | t
+    endif
+    if template == 'product.add_to_cart'
+      assign default_text = 'products.product.add_to_cart' | t
+      assign button_text = 'products.product.add_to_cart' | t
+    endif
+    if template == 'product.ringer'
+    endif
+    unless current_variant.available
+      assign button_text = 'products.product.sold_out' | t
+    endunless
+  -%}
+
+  {% comment %} {%- if product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' -%}<div class="ships-test">SHIPPING 4/26</div> {%- endif -%}    {% endcomment %}
+
+  {% comment %}
+    {%- unless product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer' or product.handle contains 'player-gps-speaker' or product.handle contains 'series-3-max-golf-rangefinder-with-slope'  or product.handle contains 'chargemax' or product.handle contains 'series-4-ultra-rangefinder' or product.handle contains 'magnetic-golf-towel' or product.handle contains 'magnetic-hub' or product.handle contains 'rangefinder-magnetic-strap' or product.handle contains 'divot-repair-tool' or product.handle contains 'player-hard-shell-carrying-case' or product.handle contains 'player-soft-drawstring-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'series-3-max-rangefinder-hard-case' or product.handle contains 'series-2-pro-rangefinder-hard-case' or product.handle contains 'series-2-rangefinder-hard-case' or product.handle contains 'blue-tees-og-script-rope-hat' or product.handle contains 'play-different-hat-by-melin' -%}
+      <div class="ships-test">SHIPPING NOW! ONLY 150 LEFT!</div>
+    {%- endunless -%}
+
+     {%- if product.handle contains 'series-3-max-plus' -%}<div class="ships-test">SHIPPING NOW</div> {%- endif -%}
+     {%- if product.handle contains 'player-go-speaker' or product.handle contains 'chargemax' -%}<div class="ships-test">LIMITED INVENTORY</div> {%- endif -%}
+          {%- if product.handle contains 'series-4-ultra-rangefinder' -%}<div class="ships-test"> SHIPPING 9/13 </div> {%- endif -%}
+  {% endcomment %}
+
+  {% comment %}
+    {%- if product.handle contains 'player-gps-speaker' or product.handle contains 'player-gps-speaker-travis-mathew' -%}
+      <div class="ships-test">60 DAY HASSLE-FREE RETURNS</div>
+    {%- endif -%}
+  {% endcomment %}
+
+  {% if product.handle == 'speaker-bundle'
+    or product.handle == 'gps-offer'
+    or product.handle == 'laser-offer'
+    or product.handle == 'player-gps-speaker-bundle-v2'
+    or product.handle == 'ringer-gps-handheld-bundle-v2'
+    or product.handle == 'series-4-ultra-bundle-v2'
+  %}
+    <div class="cta_pluse-pdp cta_pluse" style="--ripple-clr: #CB000080">
+      <a href="javascript:void(0)" class="btn btn--full add-to-cart above__fold-cart-cta">
+        <span>BUY NOW</span>
+      </a>
+    </div>
+
+  {% elsif product.handle == 'rangefinder-series-2-pro' %}
+    <div class="cta_pluse-pdp">
+      <a
+        href="https://www.amazon.com/Blue-Tees-Golf-Rangefinder-Magnification/dp/B0BDT2XVRC/ref=sr_1_6?crid=3V9O9QKP8V7VD&dib=eyJ2IjoiMSJ9.QOr5SVXB73OwlJZqMb6_P5AGa6HkoAxnqh80tK7j0BWoinVE_Xsw35rcTI-nqBrKbVuZJVFQ2a5zerBWqZk8zI1ZqOWXjR2vKXHFeni5Qi06b_6TF5lOIe8eFoiyF9OpLZy_vzpKnDAbJjpdz_znKZ_5ciHn3qbSwgN71W4KV7ecywrT8EFDKrKbqoUKn3uOwDPxERR2cl52avM93GiEEgy4qd59b4RJ9krEA-OkuaZfPoH7B9S2eSsICLHssgSOZJItmvKZQKdu_mDV-tU0-LbRAWZUMajWzqxlzuy_5Vw.W_6CckeduV3D_bygg714CWBOeOWvR7yOuMJIMfwmGts&dib_tag=se&keywords=Series%2B2%2BBlue%2BTees%2BGolf&qid=1765299810&sprefix=series%2B2%2Bblue%2Btees%2Bgolf%2Caps%2C236&sr=8-6&th=1"
+        target="_blank"
+        class="btn btn--full add-to-cart"
+      >
+        <span>SHOP NOW</span>
+      </a>
+    </div>
+    <style>
+      .cta_pluse-pdp { width: 100%; }
+    </style>
+
+  {% elsif product.template_suffix == 'new-s3-max' %}
+    {% comment %}
+      data-id-two="44528451059909"
+      data-id="45724250669253" data-id-two-checked=".premium-membership-free" cart_cta
+    {% endcomment %}
+    <a
+      class="btn btn--full add-to-cart "
+      href="/products/captain-air"
+    >
+      <span data-add-to-cart-text data-default-text="{{ default_text }}"> GET CAPTAIN AIR INSTEAD </span>
+    </a>
+    {% comment %}
+      <a
+        class="btn btn--full add-to-cart notify_button-pdp learn-more-link"
+        data-target="playerplus"
+      >
+        NOTIFY ME WHEN S3 MAX+ IS BACK
+      </a>
+    {% endcomment %}
+
+    <span class="label-text" style="line-height: 1.3;padding-block: clamp(13px,1.3vw,20px);"
+      >Series 3 Max+ is sold out. Captain Air is our newest, faster <br class="desktop-text">
+      model with even more on-course utility. Available now.</span
+    >
+    <style>
+                [class*="new-product__layout--"] .product-block .btn.btn--full.add-to-cart{letter-spacing: normal;  font-family: 'Blue Tees Subhead' !important ;}
+                .notify_button-pdp{
+            background: transparent !important;
+            border: 2px solid #fff !important;
+      margin-top: clamp(15px,2vw,20px) !important;
+          }
+                .notify_button-pdp:hover{
+            background: #fff !important;
+            color:#000;
+          }
+          .new-popup.modal-content .popup-modal-inner .close{
+          z-index: 1;}
+
+          #playerplus .klaviyo-form-UUMLry.klaviyo-form.form-version-cid-1 {
+            width: 100%;
+          }
+          .label-text{text-align:center;}
+    </style>
+    {% comment %}
+      <div id="playerplus" class="modal">
+      	<div class="new-popup modal-content">
+      		<div class="popup-modal-inner">
+      			<div class="popup-modal-content">
+      				<span class="close">
+      					<img class="product-atc_product-img" decoding="async" src="{{'bf-x-mark.svg' | asset_url}}"
+      						alt="Close Icon To Close POPUP" />
+      				</span>
+      				<div class="klaviyo-form-UUMLry"></div>
+      			</div>
+      		</div>
+      	</div>
+      </div>
+    {% endcomment %}
+
+  {% else %}
+    <button
+      {% if product.empty? %}
+        type="button"
+      {% else %}
+        type="submit"
+      {% endif %}
+
+      name="add"
+      data-add-to-cart
+      {% if enable_pre_order %}
+        data-prod="pre-order"
+      {% endif %}
+      class="btn btn--full add-to-cart{% if enable_dynamic_buttons and product.selling_plan_groups == empty %} btn--secondary{% endif %}{% if enable_pre_order %} btn_pre-order{% endif %}"
+      {% unless current_variant.available %}
+        disabled="disabled"
+      {% endunless %}
+    >
+      {%- if product.handle contains 'player-gps-speaker' -%}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">{{ button_text }}</span>
+
+      {% elsif product.handle contains 'series-4-ultra-rangefinder' %}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">ADD TO CART</span>
+
+      {% elsif enable_pre_order %}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">
+          {% comment %}
+            {% if product.template_suffix == 'rainmaker' %}
+              PRE-ORDER NOW
+            {% else %}
+              ADD TO CART
+            {% endif %}
+          {% endcomment %}
+          ADD TO CART
+        </span>
+
+      {%- else -%}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">{{ button_text }}</span>
+      {%- endif -%}
+    </button>
+    {% if custom_text != blank %}
+      <span class="label-text">{{ custom_text }}</span>
+    {% else %}
+      {% if enable_preorder %}
+        <span class="label-text">FREE SHIPPING</span>
+      {% elsif product.template_suffix == 'rainmaker' %}
+        {% comment %}
+          <span data-prod-id="{{ product.id }}" class="label-text" style="text-transform: uppercase;"
+            >{% comment %} Delivery Before Father’s Day {% endcomment %}SHIPPING LATE JUNE</span
+          >
+        {% endcomment %}
+        <div class="perks_pdp-label label-text" data-prod-id="{{ product.id }}">
+          <div class="perk_icon icon-checkmark">
+            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_7314_9083)">
+              <path d="M19.0677 9.60281V10.4001C19.0666 12.269 18.4615 14.0875 17.3425 15.5844C16.2235 17.0813 14.6506 18.1763 12.8584 18.7062C11.0661 19.2361 9.15067 19.1725 7.39758 18.5248C5.6445 17.8771 4.14774 16.6801 3.13054 15.1123C2.11334 13.5444 1.63019 11.6898 1.75316 9.82495C1.87613 7.9601 2.59862 6.18496 3.81288 4.76427C5.02715 3.34359 6.66812 2.35347 8.49107 1.9416C10.314 1.52973 12.2213 1.71817 13.9284 2.47881" stroke="#CDFF07" stroke-width="1.73333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M19.0674 3.4668L10.4008 12.1421L7.80078 9.54213" stroke="#CDFF07" stroke-width="1.73333" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_7314_9083">
+              <rect width="20.8" height="20.8" fill="white"/>
+              </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <span class="perk_text"> BACK IN STOCK </span>
+        </div>
+      {% endif %}
+      {% if product.handle == 'playmaker-watch' or product.handle == 'watch-hard-shell-carrying-case' %}
+        <style>
+          .btn.btn--full.add-to-cart{
+            margin-top:clamp(7px,0.7vw,12px) !important;
+          }
+        </style>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  <div class="hundred-days_shipping" style="--stroke-clr:#CDFF07;">
+    {% comment %} <img src="{{ '100day-back-svg.svg' | asset_url }}" alt="100 DAY RISK-FREE MONEY BACK GUARANTEE"> {% endcomment %}
+    {% render 'money-back-guarantee' %}
+  </div>
+
+  {%- if enable_dynamic_buttons -%}
+    {{ form | payment_button }}
+  {%- endif -%}
+
+  {%- if enable_dynamic_buttons -%}
+    </div>
+  {%- endif -%}
+
+  {% comment %}
+    {% if localization.country.iso_code == 'US' %}
+         {% render "try-with-nok" %}
+       {% endif %}
+  {% endcomment %}
+  <div class="shopify-payment-terms product__policies">{{ form | payment_terms }}</div>
+
+  {% if ctm_prod != blank %}
+    <input
+      type="hidden"
+      class="ctm_id"
+      data-available="{{ ctm_prod.selected_or_first_available_variant.available }}"
+      value="{{ ctm_prod.selected_or_first_available_variant.id }}"
+    >
+  {% endif %}
+  <select name="id" data-product-select class="product-single__variants no-js ctm_select_id">
+    {%- for variant in product.variants -%}
+      <option
+        {% if variant == product.selected_or_first_available_variant %}
+          selected="selected"
+        {% endif %}
+        value="{{ variant.id }}"
+        data-available="{{ variant.available }}"
+      >
+        {{ variant.title }} - {{ variant.price | money_with_currency }}
+      </option>
+    {%- endfor -%}
+  </select>
+
+  <textarea data-variant-json class="hide" aria-hidden="true" aria-label="Product JSON">
+    {{ product.variants | json }}
+  </textarea>
+  {%- if product.options.size > 1 -%}
+    <textarea data-current-variant-json class="hide" aria-hidden="true" aria-label="Variant JSON">
+      {{ current_variant | json }}
+    </textarea>
+  {%- endif -%}
+  
+{%- endform -%} {% endcomment %}
+
+
+{% comment %} {%- form 'product', product, id: form_id, class: 'product-single__form' -%}
+  {% comment %}
+    DO NOT modify this source code
+    LOOP BUNDLE CODE STARTS
+  {% endcomment %}
+  {% assign template_exists = false %}
+  {% capture template_content %}
+    {% render 'loop-subscriptions', type: 'product-widget', product: product %}
+{% endcapture %}
+
+  {% if template_content contains 'Rendering loop-subscriptions' %}
+    {% assign template_exists = true %}
+  {% endif %}
+
+  {% if template_exists %}
+    {% render 'loop-subscriptions', type: 'product-widget', product: product %}
+  {% endif %}
+  {% comment %}
+    LOOP BUNDLE CODE ENDS
+  {% endcomment %}
+  {% assign custom_text = cta_note_text %}
+
+  {%- liquid
+    assign enable_dynamic_buttons = false
+    assign enable_pre_order = false
+
+    if pre_order
+      assign enable_pre_order = true
+    endif
+
+    if show_dynamic_checkout and template != 'product.preorder'
+      assign enable_dynamic_buttons = true
+    endif
+  -%}
+
+  {% assign enable_preorder = false %}
+
+  {% case product.template_suffix %}
+    {% when 'captain-pro', 'product-new', 'player-pro' %}
+      {% assign enable_preorder = true %}
+  {% endcase %}
+
+  {%- if enable_dynamic_buttons -%}
+    <div class="payment-buttons">
+  {%- endif -%}
+
+  {%- liquid
+    assign default_text = 'products.product.add_to_cart' | t
+    assign button_text = 'products.product.add_to_cart' | t
+    if template == 'product.preorder'
+      assign default_text = 'products.product.preorder' | t
+      assign button_text = 'products.product.preorder' | t
+    endif
+    if template == 'product.add_to_cart'
+      assign default_text = 'products.product.add_to_cart' | t
+      assign button_text = 'products.product.add_to_cart' | t
+    endif
+    if template == 'product.ringer'
+    endif
+    unless current_variant.available
+      assign button_text = 'products.product.sold_out' | t
+    endunless
+  -%}
+
+  {% comment %} {%- if product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' -%}<div class="ships-test">SHIPPING 4/26</div> {%- endif -%}    {% endcomment %}
+
+  {% comment %}
+    {%- unless product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer' or product.handle contains 'player-gps-speaker' or product.handle contains 'series-3-max-golf-rangefinder-with-slope'  or product.handle contains 'chargemax' or product.handle contains 'series-4-ultra-rangefinder' or product.handle contains 'magnetic-golf-towel' or product.handle contains 'magnetic-hub' or product.handle contains 'rangefinder-magnetic-strap' or product.handle contains 'divot-repair-tool' or product.handle contains 'player-hard-shell-carrying-case' or product.handle contains 'player-soft-drawstring-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'series-3-max-rangefinder-hard-case' or product.handle contains 'series-2-pro-rangefinder-hard-case' or product.handle contains 'series-2-rangefinder-hard-case' or product.handle contains 'blue-tees-og-script-rope-hat' or product.handle contains 'play-different-hat-by-melin' -%}
+      <div class="ships-test">SHIPPING NOW! ONLY 150 LEFT!</div>
+    {%- endunless -%}
+
+     {%- if product.handle contains 'series-3-max-plus' -%}<div class="ships-test">SHIPPING NOW</div> {%- endif -%}
+     {%- if product.handle contains 'player-go-speaker' or product.handle contains 'chargemax' -%}<div class="ships-test">LIMITED INVENTORY</div> {%- endif -%}
+          {%- if product.handle contains 'series-4-ultra-rangefinder' -%}<div class="ships-test"> SHIPPING 9/13 </div> {%- endif -%}
+  {% endcomment %}
+
+  {% comment %}
+    {%- if product.handle contains 'player-gps-speaker' or product.handle contains 'player-gps-speaker-travis-mathew' -%}
+      <div class="ships-test">60 DAY HASSLE-FREE RETURNS</div>
+    {%- endif -%}
+  {% endcomment %}
+
+  {% if product.handle == 'speaker-bundle'
+    or product.handle == 'gps-offer'
+    or product.handle == 'laser-offer'
+    or product.handle == 'player-gps-speaker-bundle-v2'
+    or product.handle == 'ringer-gps-handheld-bundle-v2'
+    or product.handle == 'series-4-ultra-bundle-v2'
+  %}
+    <div class="cta_pluse-pdp cta_pluse" style="--ripple-clr: #CB000080">
+      <a href="javascript:void(0)" class="btn btn--full add-to-cart above__fold-cart-cta">
+        <span>BUY NOW</span>
+      </a>
+    </div>
+
+  {% elsif product.handle == 'rangefinder-series-2-pro' %}
+    <div class="cta_pluse-pdp">
+      <a
+        href="https://www.amazon.com/Blue-Tees-Golf-Rangefinder-Magnification/dp/B0BDT2XVRC/ref=sr_1_6?crid=3V9O9QKP8V7VD&dib=eyJ2IjoiMSJ9.QOr5SVXB73OwlJZqMb6_P5AGa6HkoAxnqh80tK7j0BWoinVE_Xsw35rcTI-nqBrKbVuZJVFQ2a5zerBWqZk8zI1ZqOWXjR2vKXHFeni5Qi06b_6TF5lOIe8eFoiyF9OpLZy_vzpKnDAbJjpdz_znKZ_5ciHn3qbSwgN71W4KV7ecywrT8EFDKrKbqoUKn3uOwDPxERR2cl52avM93GiEEgy4qd59b4RJ9krEA-OkuaZfPoH7B9S2eSsICLHssgSOZJItmvKZQKdu_mDV-tU0-LbRAWZUMajWzqxlzuy_5Vw.W_6CckeduV3D_bygg714CWBOeOWvR7yOuMJIMfwmGts&dib_tag=se&keywords=Series%2B2%2BBlue%2BTees%2BGolf&qid=1765299810&sprefix=series%2B2%2Bblue%2Btees%2Bgolf%2Caps%2C236&sr=8-6&th=1"
+        target="_blank"
+        class="btn btn--full add-to-cart"
+      >
+        <span>SHOP NOW</span>
+      </a>
+    </div>
+    <style>
+      .cta_pluse-pdp { width: 100%; }
+    </style>
+
+  {% elsif product.template_suffix == 'new-s3-max' %}
+    {% comment %}
+      data-id-two="44528451059909"
+      data-id="45724250669253" data-id-two-checked=".premium-membership-free" cart_cta
+    {% endcomment %}
+    <a
+      class="btn btn--full add-to-cart "
+      href="/products/captain-air"
+    >
+      <span data-add-to-cart-text data-default-text="{{ default_text }}"> GET CAPTAIN AIR INSTEAD </span>
+    </a>
+    {% comment %}
+      <a
+        class="btn btn--full add-to-cart notify_button-pdp learn-more-link"
+        data-target="playerplus"
+      >
+        NOTIFY ME WHEN S3 MAX+ IS BACK
+      </a>
+    {% endcomment %}
+
+    <span class="label-text" style="line-height: 1.3;padding-block: clamp(13px,1.3vw,20px);"
+      >Series 3 Max+ is sold out. Captain Air is our newest, faster <br class="desktop-text">
+      model with even more on-course utility. Available now.</span
+    >
+    <style>
+                [class*="new-product__layout--"] .product-block .btn.btn--full.add-to-cart{letter-spacing: normal;  font-family: 'Blue Tees Subhead' !important ;}
+                .notify_button-pdp{
+            background: transparent !important;
+            border: 2px solid #fff !important;
+      margin-top: clamp(15px,2vw,20px) !important;
+          }
+                .notify_button-pdp:hover{
+            background: #fff !important;
+            color:#000;
+          }
+          .new-popup.modal-content .popup-modal-inner .close{
+          z-index: 1;}
+
+          #playerplus .klaviyo-form-UUMLry.klaviyo-form.form-version-cid-1 {
+            width: 100%;
+          }
+          .label-text{text-align:center;}
+    </style>
+    {% comment %}
+      <div id="playerplus" class="modal">
+      	<div class="new-popup modal-content">
+      		<div class="popup-modal-inner">
+      			<div class="popup-modal-content">
+      				<span class="close">
+      					<img class="product-atc_product-img" decoding="async" src="{{'bf-x-mark.svg' | asset_url}}"
+      						alt="Close Icon To Close POPUP" />
+      				</span>
+      				<div class="klaviyo-form-UUMLry"></div>
+      			</div>
+      		</div>
+      	</div>
+      </div>
+    {% endcomment %}
+
+  {% else %}
+    <button
+      {% if product.empty? %}
+        type="button"
+      {% else %}
+        type="submit"
+      {% endif %}
+
+      name="add"
+      data-add-to-cart
+      {% if enable_pre_order %}
+        data-prod="pre-order"
+      {% endif %}
+      class="btn btn--full add-to-cart{% if enable_dynamic_buttons and product.selling_plan_groups == empty %} btn--secondary{% endif %}{% if enable_pre_order %} btn_pre-order{% endif %}"
+      {% unless current_variant.available %}
+        disabled="disabled"
+      {% endunless %}
+    >
+      {%- if product.handle contains 'player-gps-speaker' -%}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">{{ button_text }}</span>
+
+      {% elsif product.handle contains 'series-4-ultra-rangefinder' %}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">ADD TO CART</span>
+
+      {% elsif enable_pre_order %}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">
+          {% comment %}
+            {% if product.template_suffix == 'rainmaker' %}
+              PRE-ORDER NOW
+            {% else %}
+              ADD TO CART
+            {% endif %}
+          {% endcomment %}
+          ADD TO CART
+        </span>
+
+      {%- else -%}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">{{ button_text }}</span>
+      {%- endif -%}
+    </button>
+    {% if custom_text != blank %}
+      <span class="label-text">{{ custom_text }}</span>
+    {% else %}
+      {% if enable_preorder %}
+        <span class="label-text">FREE SHIPPING</span>
+      {% elsif product.template_suffix == 'rainmaker' %}
+        {% comment %}
+          <span data-prod-id="{{ product.id }}" class="label-text" style="text-transform: uppercase;"
+            >{% comment %} Delivery Before Father’s Day {% endcomment %}SHIPPING LATE JUNE</span
+          >
+        {% endcomment %}
+        <div class="perks_pdp-label label-text" data-prod-id="{{ product.id }}">
+          <div class="perk_icon icon-checkmark">
+            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_7314_9083)">
+              <path d="M19.0677 9.60281V10.4001C19.0666 12.269 18.4615 14.0875 17.3425 15.5844C16.2235 17.0813 14.6506 18.1763 12.8584 18.7062C11.0661 19.2361 9.15067 19.1725 7.39758 18.5248C5.6445 17.8771 4.14774 16.6801 3.13054 15.1123C2.11334 13.5444 1.63019 11.6898 1.75316 9.82495C1.87613 7.9601 2.59862 6.18496 3.81288 4.76427C5.02715 3.34359 6.66812 2.35347 8.49107 1.9416C10.314 1.52973 12.2213 1.71817 13.9284 2.47881" stroke="#CDFF07" stroke-width="1.73333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M19.0674 3.4668L10.4008 12.1421L7.80078 9.54213" stroke="#CDFF07" stroke-width="1.73333" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_7314_9083">
+              <rect width="20.8" height="20.8" fill="white"/>
+              </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <span class="perk_text"> BACK IN STOCK </span>
+        </div>
+      {% endif %}
+      {% if product.handle == 'playmaker-watch' or product.handle == 'watch-hard-shell-carrying-case' %}
+        <style>
+          .btn.btn--full.add-to-cart{
+            margin-top:clamp(7px,0.7vw,12px) !important;
+          }
+        </style>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  <div class="hundred-days_shipping" style="--stroke-clr:#CDFF07;">
+    {% comment %} <img src="{{ '100day-back-svg.svg' | asset_url }}" alt="100 DAY RISK-FREE MONEY BACK GUARANTEE"> {% endcomment %}
+    {% render 'money-back-guarantee' %}
+  </div>
+
+  {%- if enable_dynamic_buttons -%}
+    {{ form | payment_button }}
+  {%- endif -%}
+
+  {%- if enable_dynamic_buttons -%}
+    </div>
+  {%- endif -%}
+
+  {% comment %}
+    {% if localization.country.iso_code == 'US' %}
+         {% render "try-with-nok" %}
+       {% endif %}
+  {% endcomment %}
+  <div class="shopify-payment-terms product__policies">{{ form | payment_terms }}</div>
+
+  {% if ctm_prod != blank %}
+    <input
+      type="hidden"
+      class="ctm_id"
+      data-available="{{ ctm_prod.selected_or_first_available_variant.available }}"
+      value="{{ ctm_prod.selected_or_first_available_variant.id }}"
+    >
+  {% endif %}
+  <select name="id" data-product-select class="product-single__variants no-js ctm_select_id">
+    {%- for variant in product.variants -%}
+      <option
+        {% if variant == product.selected_or_first_available_variant %}
+          selected="selected"
+        {% endif %}
+        value="{{ variant.id }}"
+        data-available="{{ variant.available }}"
+      >
+        {{ variant.title }} - {{ variant.price | money_with_currency }}
+      </option>
+    {%- endfor -%}
+  </select>
+
+  <textarea data-variant-json class="hide" aria-hidden="true" aria-label="Product JSON">
+    {{ product.variants | json }}
+  </textarea>
+  {%- if product.options.size > 1 -%}
+    <textarea data-current-variant-json class="hide" aria-hidden="true" aria-label="Variant JSON">
+      {{ current_variant | json }}
+    </textarea>
+  {%- endif -%}
+  
+{%- endform -%} {% endcomment %}
+
+
+{%- form 'product', product, id: form_id, class: 'product-single__form' -%}
+  {% comment %}
+    DO NOT modify this source code
+    LOOP BUNDLE CODE STARTS
+  {% endcomment %}
+  {% assign template_exists = false %}
+  {% capture template_content %}
+    {% render 'loop-subscriptions', type: 'product-widget', product: product %}
+{% endcapture %}
+
+  {% if template_content contains 'Rendering loop-subscriptions' %}
+    {% assign template_exists = true %}
+  {% endif %}
+
+  {% if template_exists %}
+    {% render 'loop-subscriptions', type: 'product-widget', product: product %}
+  {% endif %}
+  {% comment %}
+    LOOP BUNDLE CODE ENDS
+  {% endcomment %}
+  {% assign custom_text = cta_note_text %}
+
+  {%- liquid
+    assign enable_dynamic_buttons = false
+    assign enable_pre_order = false
+
+    if pre_order
+      assign enable_pre_order = true
+    endif
+
+    if show_dynamic_checkout and template != 'product.preorder'
+      assign enable_dynamic_buttons = true
+    endif
+  -%}
+
+  {% assign enable_preorder = false %}
+
+  {% case product.template_suffix %}
+    {% when 'captain-pro', 'product-new', 'player-pro' %}
+      {% assign enable_preorder = true %}
+  {% endcase %}
+
+  {%- if enable_dynamic_buttons -%}
+    <div class="payment-buttons">
+  {%- endif -%}
+
+  {%- liquid
+    assign default_text = 'products.product.add_to_cart' | t
+    assign button_text = 'products.product.add_to_cart' | t
+    if template == 'product.preorder'
+      assign default_text = 'products.product.preorder' | t
+      assign button_text = 'products.product.preorder' | t
+    endif
+    if template == 'product.add_to_cart'
+      assign default_text = 'products.product.add_to_cart' | t
+      assign button_text = 'products.product.add_to_cart' | t
+    endif
+    if template == 'product.ringer'
+    endif
+    unless current_variant.available
+      assign button_text = 'products.product.sold_out' | t
+    endunless
+  -%}
+
+  {% comment %} {%- if product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' -%}<div class="ships-test">SHIPPING 4/26</div> {%- endif -%}    {% endcomment %}
+
+  {% comment %}
+    {%- unless product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer' or product.handle contains 'player-gps-speaker' or product.handle contains 'series-3-max-golf-rangefinder-with-slope'  or product.handle contains 'chargemax' or product.handle contains 'series-4-ultra-rangefinder' or product.handle contains 'magnetic-golf-towel' or product.handle contains 'magnetic-hub' or product.handle contains 'rangefinder-magnetic-strap' or product.handle contains 'divot-repair-tool' or product.handle contains 'player-hard-shell-carrying-case' or product.handle contains 'player-soft-drawstring-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'series-3-max-rangefinder-hard-case' or product.handle contains 'series-2-pro-rangefinder-hard-case' or product.handle contains 'series-2-rangefinder-hard-case' or product.handle contains 'blue-tees-og-script-rope-hat' or product.handle contains 'play-different-hat-by-melin' -%}
+      <div class="ships-test">SHIPPING NOW! ONLY 150 LEFT!</div>
+    {%- endunless -%}
+
+     {%- if product.handle contains 'series-3-max-plus' -%}<div class="ships-test">SHIPPING NOW</div> {%- endif -%}
+     {%- if product.handle contains 'player-go-speaker' or product.handle contains 'chargemax' -%}<div class="ships-test">LIMITED INVENTORY</div> {%- endif -%}
+          {%- if product.handle contains 'series-4-ultra-rangefinder' -%}<div class="ships-test"> SHIPPING 9/13 </div> {%- endif -%}
+  {% endcomment %}
+
+  {% comment %}
+    {%- if product.handle contains 'player-gps-speaker' or product.handle contains 'player-gps-speaker-travis-mathew' -%}
+      <div class="ships-test">60 DAY HASSLE-FREE RETURNS</div>
+    {%- endif -%}
+  {% endcomment %}
+
+  {% if product.handle == 'speaker-bundle'
+    or product.handle == 'gps-offer'
+    or product.handle == 'laser-offer'
+    or product.handle == 'player-gps-speaker-bundle-v2'
+    or product.handle == 'ringer-gps-handheld-bundle-v2'
+    or product.handle == 'series-4-ultra-bundle-v2'
+  %}
+    <div class="cta_pluse-pdp cta_pluse" style="--ripple-clr: #CB000080">
+      <a href="javascript:void(0)" class="btn btn--full add-to-cart above__fold-cart-cta">
+        <span>BUY NOW</span>
+      </a>
+    </div>
+
+  {% elsif product.handle == 'rangefinder-series-2-pro' %}
+    <div class="cta_pluse-pdp">
+      <a
+        href="https://www.amazon.com/Blue-Tees-Golf-Rangefinder-Magnification/dp/B0BDT2XVRC/ref=sr_1_6?crid=3V9O9QKP8V7VD&dib=eyJ2IjoiMSJ9.QOr5SVXB73OwlJZqMb6_P5AGa6HkoAxnqh80tK7j0BWoinVE_Xsw35rcTI-nqBrKbVuZJVFQ2a5zerBWqZk8zI1ZqOWXjR2vKXHFeni5Qi06b_6TF5lOIe8eFoiyF9OpLZy_vzpKnDAbJjpdz_znKZ_5ciHn3qbSwgN71W4KV7ecywrT8EFDKrKbqoUKn3uOwDPxERR2cl52avM93GiEEgy4qd59b4RJ9krEA-OkuaZfPoH7B9S2eSsICLHssgSOZJItmvKZQKdu_mDV-tU0-LbRAWZUMajWzqxlzuy_5Vw.W_6CckeduV3D_bygg714CWBOeOWvR7yOuMJIMfwmGts&dib_tag=se&keywords=Series%2B2%2BBlue%2BTees%2BGolf&qid=1765299810&sprefix=series%2B2%2Bblue%2Btees%2Bgolf%2Caps%2C236&sr=8-6&th=1"
+        target="_blank"
+        class="btn btn--full add-to-cart"
+      >
+        <span>SHOP NOW</span>
+      </a>
+    </div>
+    <style>
+      .cta_pluse-pdp { width: 100%; }
+    </style>
+
+  {% elsif product.template_suffix == 'new-s3-max' %}
+    {% comment %}
+      data-id-two="44528451059909"
+      data-id="45724250669253" data-id-two-checked=".premium-membership-free" cart_cta
+    {% endcomment %}
+    <a
+      class="btn btn--full add-to-cart "
+      href="/products/captain-air"
+    >
+      <span data-add-to-cart-text data-default-text="{{ default_text }}"> GET CAPTAIN AIR INSTEAD </span>
+    </a>
+    {% comment %}
+      <a
+        class="btn btn--full add-to-cart notify_button-pdp learn-more-link"
+        data-target="playerplus"
+      >
+        NOTIFY ME WHEN S3 MAX+ IS BACK
+      </a>
+    {% endcomment %}
+
+    <span class="label-text" style="line-height: 1.3;padding-block: clamp(13px,1.3vw,20px);"
+      >Series 3 Max+ is sold out. Captain Air is our newest, faster <br class="desktop-text">
+      model with even more on-course utility. Available now.</span
+    >
+    <style>
+                [class*="new-product__layout--"] .product-block .btn.btn--full.add-to-cart{letter-spacing: normal;  font-family: 'Blue Tees Subhead' !important ;}
+                .notify_button-pdp{
+            background: transparent !important;
+            border: 2px solid #fff !important;
+      margin-top: clamp(15px,2vw,20px) !important;
+          }
+                .notify_button-pdp:hover{
+            background: #fff !important;
+            color:#000;
+          }
+          .new-popup.modal-content .popup-modal-inner .close{
+          z-index: 1;}
+
+          #playerplus .klaviyo-form-UUMLry.klaviyo-form.form-version-cid-1 {
+            width: 100%;
+          }
+          .label-text{text-align:center;}
+    </style>
+    {% comment %}
+      <div id="playerplus" class="modal">
+      	<div class="new-popup modal-content">
+      		<div class="popup-modal-inner">
+      			<div class="popup-modal-content">
+      				<span class="close">
+      					<img class="product-atc_product-img" decoding="async" src="{{'bf-x-mark.svg' | asset_url}}"
+      						alt="Close Icon To Close POPUP" />
+      				</span>
+      				<div class="klaviyo-form-UUMLry"></div>
+      			</div>
+      		</div>
+      	</div>
+      </div>
+    {% endcomment %}
+
+  {% else %}
+    <button
+      {% if product.empty? %}
+        type="button"
+      {% else %}
+        type="submit"
+      {% endif %}
+
+      name="add"
+      data-add-to-cart-reminder
+      data-add-to-cart
+      {% if enable_pre_order %}
+        data-prod="pre-order"
+      {% endif %}
+      class="btn btn--full add-to-cart{% if enable_dynamic_buttons and product.selling_plan_groups == empty %} btn--secondary{% endif %}{% if enable_pre_order %} btn_pre-order{% endif %}"
+      {% unless current_variant.available %}
+        disabled="disabled"
+      {% endunless %}
+    >
+      {%- if product.handle contains 'player-gps-speaker' -%}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">{{ button_text }}</span>
+
+      {% elsif product.handle contains 'series-4-ultra-rangefinder' %}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">ADD TO CART</span>
+
+      {% elsif enable_pre_order %}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">
+          {% comment %}
+            {% if product.template_suffix == 'rainmaker' %}
+              PRE-ORDER NOW
+            {% else %}
+              ADD TO CART
+            {% endif %}
+          {% endcomment %}
+          ADD TO CART
+        </span>
+
+      {%- else -%}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">{{ button_text }}</span>
+      {%- endif -%}
+    </button>
+    {% if custom_text != blank %}
+      <span class="label-text">{{ custom_text }}</span>
+    {% else %}
+      {% if enable_preorder %}
+        <span class="label-text">FREE SHIPPING</span>
+      {% elsif product.template_suffix == 'rainmaker' %}
+        {% comment %}
+          <span data-prod-id="{{ product.id }}" class="label-text" style="text-transform: uppercase;"
+            >{% comment %} Delivery Before Father’s Day {% endcomment %}SHIPPING LATE JUNE</span
+          >
+        {% endcomment %}
+        <div class="perks_pdp-label label-text" data-prod-id="{{ product.id }}">
+          <div class="perk_icon icon-checkmark">
+            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_7314_9083)">
+              <path d="M19.0677 9.60281V10.4001C19.0666 12.269 18.4615 14.0875 17.3425 15.5844C16.2235 17.0813 14.6506 18.1763 12.8584 18.7062C11.0661 19.2361 9.15067 19.1725 7.39758 18.5248C5.6445 17.8771 4.14774 16.6801 3.13054 15.1123C2.11334 13.5444 1.63019 11.6898 1.75316 9.82495C1.87613 7.9601 2.59862 6.18496 3.81288 4.76427C5.02715 3.34359 6.66812 2.35347 8.49107 1.9416C10.314 1.52973 12.2213 1.71817 13.9284 2.47881" stroke="#CDFF07" stroke-width="1.73333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M19.0674 3.4668L10.4008 12.1421L7.80078 9.54213" stroke="#CDFF07" stroke-width="1.73333" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_7314_9083">
+              <rect width="20.8" height="20.8" fill="white"/>
+              </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <span class="perk_text"> BACK IN STOCK </span>
+        </div>
+      {% endif %}
+      {% if product.handle == 'playmaker-watch' or product.handle == 'watch-hard-shell-carrying-case' %}
+        <style>
+          .btn.btn--full.add-to-cart{
+            margin-top:clamp(7px,0.7vw,12px) !important;
+          }
+        </style>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  <div class="hundred-days_shipping" style="--stroke-clr:#CDFF07;">
+    {% comment %} <img src="{{ '100day-back-svg.svg' | asset_url }}" alt="100 DAY RISK-FREE MONEY BACK GUARANTEE"> {% endcomment %}
+    {% render 'money-back-guarantee' %}
+  </div>
+
+  {%- if enable_dynamic_buttons -%}
+    {{ form | payment_button }}
+  {%- endif -%}
+
+  {%- if enable_dynamic_buttons -%}
+    </div>
+  {%- endif -%}
+
+  {% comment %}
+    {% if localization.country.iso_code == 'US' %}
+         {% render "try-with-nok" %}
+       {% endif %}
+  {% endcomment %}
+  <div class="shopify-payment-terms product__policies">{{ form | payment_terms }}</div>
+
+  {% if ctm_prod != blank %}
+    <input
+      type="hidden"
+      class="ctm_id"
+      data-available="{{ ctm_prod.selected_or_first_available_variant.available }}"
+      value="{{ ctm_prod.selected_or_first_available_variant.id }}"
+    >
+  {% endif %}
+  <select name="id" data-product-select class="product-single__variants no-js ctm_select_id">
+    {%- for variant in product.variants -%}
+      <option
+        {% if variant == product.selected_or_first_available_variant %}
+          selected="selected"
+        {% endif %}
+        value="{{ variant.id }}"
+        data-available="{{ variant.available }}"
+      >
+        {{ variant.title }} - {{ variant.price | money_with_currency }}
+      </option>
+    {%- endfor -%}
+  </select>
+
+  <textarea data-variant-json class="hide" aria-hidden="true" aria-label="Product JSON">
+    {{ product.variants | json }}
+  </textarea>
+  {%- if product.options.size > 1 -%}
+    <textarea data-current-variant-json class="hide" aria-hidden="true" aria-label="Variant JSON">
+      {{ current_variant | json }}
+    </textarea>
+  {%- endif -%}
+  
+{%- endform -%}
+
+{% comment %} <script type="text/javascript">
+  $(document).ready(function() {
+
+    $(document).on('click', '[data-add-to-cart-reminder]', function(e) {
+      const atcButton = $(this);
+      const form = atcButton.closest('form');
+
+      if (form.data('skip-popup')) {
+        return;
+      }
+
+      const checkbox1mo       = $('#1month-membership-free');
+      const checkbox6mo       = $('#6month-free-premium-product');
+      const checkboxRainmaker = $('#rainmakerPreOrderUpsell');
+
+      if (checkbox1mo.length && !checkbox1mo.is(':checked')) {
+        e.preventDefault(); e.stopPropagation();
+        openReminderPopup('#one_month_popup', form, atcButton);
+        return false;
+      }
+      if (checkbox6mo.length && !checkbox6mo.is(':checked')) {
+        e.preventDefault(); e.stopPropagation();
+        openReminderPopup('#six_month_popup', form, atcButton);
+        return false;
+      }
+      if (checkboxRainmaker.length && !checkboxRainmaker.is(':checked')) {
+        e.preventDefault(); e.stopPropagation();
+        openReminderPopup('#one_year_popup', form, atcButton);
+        return false;
+      }
+    });
+
+    function openReminderPopup(popupId, form, atcButton) {
+      const popup = $(popupId);
+      popup.data('active-form', form);
+      popup.data('active-button', atcButton);
+      popup.css('display', 'flex').hide().fadeIn(300);
+    }
+
+    function claimOfferAndSubmit(popupId) {
+      const popup     = $(popupId);
+      const form      = popup.data('active-form');
+      const atcButton = popup.data('active-button');
+
+      const btn = popup.find('.upshell-popup-button');
+      btn.addClass('btn--loading');
+
+      const mainVariantId = form.find('input[name="id"]').val()
+                         || form.find('select[name="id"]').val();
+
+      let membershipId   = null;
+      let membershipPlan = null;
+
+      if (popupId === '#one_month_popup') {
+        membershipId   = 46056795209925;
+        membershipPlan = 7328694469;
+      } else if (popupId === '#six_month_popup') {
+        membershipId   = 46056776990917;
+        membershipPlan = 7328661701;
+      } else if (popupId === '#one_year_popup') {
+        membershipId   = 45793869299909;
+        membershipPlan = 6775537861;
+      }
+
+      $.getJSON('/cart.js?_=' + Date.now(), function(cart) {
+
+        let membershipExists = false;
+        if (membershipId) {
+          membershipExists = cart.items.some(function(item) {
+            return parseInt(item.variant_id) === parseInt(membershipId);
+          });
+        }
+
+        const items = [];
+        items.push({ id: mainVariantId, quantity: 1 });
+
+        if (membershipExists) {
+          alert('Membership is already in the cart');
+        } else if (membershipId) {
+          items.push({
+            id:           membershipId,
+            quantity:     1,
+            selling_plan: membershipPlan
+          });
+        }
+
+        fetch('/cart/add.js', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ items: items })
+        })
+        .then(function(response) {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.json();
+        })
+        .then(function(data) {
+          btn.removeClass('btn--loading');
+          popup.fadeOut(200, function() {
+            popup.css('display', 'none');
+            popup.removeData('active-form');
+            popup.removeData('active-button');
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+          });
+        })
+        .catch(function(error) {
+          btn.removeClass('btn--loading');
+          console.error('Error adding products:', error);
+          alert('There was an issue adding to the cart.');
+        });
+      });
+    }
+
+    function closeReminderPopupAndSubmit(popupId, claim) {
+      if (claim) {
+        claimOfferAndSubmit(popupId);
+        return;
+      }
+
+      const popup     = $(popupId);
+      const form      = popup.data('active-form');
+      const atcButton = popup.data('active-button');
+
+      popup.removeData('active-form');
+      popup.removeData('active-button');
+
+      popup.fadeOut(200, function() {
+        popup.css('display', 'none');
+        if (form && atcButton) {
+          form.data('skip-popup', true);
+          atcButton.trigger('click');
+          setTimeout(function() {
+            form.data('skip-popup', false);
+          }, 500);
+        }
+      });
+    }
+
+    // THE FIX: ignore clicks that came from the claim button
+    $(document).on('click', '.upsell_popup--new .close, .upsell_popup--new .closePop, .upsell_popup--new', function(e) {
+      if ($(e.target).closest('.upshell-popup-button').length) return;
+      if ($(this).hasClass('upsell_popup--new') && e.target !== this) return;
+      e.preventDefault();
+      const popupId = '#' + $(this).closest('.upsell_popup--new').attr('id');
+      closeReminderPopupAndSubmit(popupId, false);
+    });
+
+    $(document).on('click', '.upsell_popup--new .upshell-popup-button', function(e) {
+      e.preventDefault();
+      const popupId = '#' + $(this).closest('.upsell_popup--new').attr('id');
+      closeReminderPopupAndSubmit(popupId, true);
+    });
+
+  });
+</script> {% endcomment %}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $(document).on('click', '[data-add-to-cart-reminder]', function(e) {
+      const atcButton = $(this);
+      const form = atcButton.closest('form');
+
+      if (form.data('skip-popup')) {
+        return;
+      }
+
+      const checkbox1mo       = $('#1month-membership-free');
+      const checkbox6mo       = $('#6month-free-premium-product');
+      const checkboxRainmaker = $('#rainmakerPreOrderUpsell');
+
+      if (checkbox1mo.length && !checkbox1mo.is(':checked')) {
+        e.preventDefault(); e.stopPropagation();
+        openReminderPopup('#one_month_popup', form, atcButton);
+        return false;
+      }
+      if (checkbox6mo.length && !checkbox6mo.is(':checked')) {
+        e.preventDefault(); e.stopPropagation();
+        openReminderPopup('#six_month_popup', form, atcButton);
+        return false;
+      }
+      if (checkboxRainmaker.length && !checkboxRainmaker.is(':checked')) {
+        e.preventDefault(); e.stopPropagation();
+        openReminderPopup('#one_year_popup', form, atcButton);
+        return false;
+      }
+    });
+
+    function openReminderPopup(popupId, form, atcButton) {
+      const popup = $(popupId);
+      popup.data('active-form', form);
+      popup.data('active-button', atcButton);
+      popup.css('display', 'flex').hide().fadeIn(300);
+    }
+
+    function addToCartWithMembership(mainVariantId, membershipId, membershipPlan, onSuccess, onError) {
+
+      console.log('=== addToCartWithMembership ===');
+      console.log('mainVariantId:', mainVariantId);
+      console.log('membershipId:', membershipId);
+      console.log('membershipPlan:', membershipPlan);
+
+      $.getJSON('/cart.js?_=' + Date.now(), function(cart) {
+
+        let membershipExists = false;
+        if (membershipId) {
+          membershipExists = cart.items.some(function(item) {
+            return parseInt(item.variant_id) === parseInt(membershipId);
+          });
+        }
+
+        {% comment %} if (membershipExists) {
+          alert('Membership is already in the cart');
+          if (onError) onError();
+          return;
+        } {% endcomment %}
+        if (membershipExists) {
+  alert('Membership is already in the cart');
+  // close the popup
+  var $popup = $('.upsell_popup--new:visible');
+  $popup.fadeOut(200, function() {
+    $popup.css('display', 'none');
+    $popup.removeData('active-form');
+    $popup.removeData('active-button');
+  });
+  if (onError) onError();
+  return;
+}
+        const items = [];
+
+        if (mainVariantId) {
+          items.push({ id: parseInt(mainVariantId), quantity: 1 });
+        }
+
+        if (membershipId) {
+          items.push({
+            id:           parseInt(membershipId),
+            quantity:     1,
+            selling_plan: parseInt(membershipPlan)
+          });
+        }
+
+        console.log('Items being sent to cart:', JSON.stringify(items));
+
+        fetch('/cart/add.js', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ items: items })
+        })
+        .then(function(response) {
+          if (!response.ok) {
+            return response.json().then(function(err) {
+              console.error('Cart error response:', err);
+              throw new Error(err.description || 'Cart error');
+            });
+          }
+          return response.json();
+        })
+        .then(function(data) {
+          console.log('Successfully added to cart:', data);
+          if (onSuccess) onSuccess();
+          document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+        })
+        .catch(function(error) {
+          console.error('Error adding products:', error);
+          alert('There was an issue adding to the cart: ' + error.message);
+          if (onError) onError();
+        });
+      });
+    }
+
+    function claimOfferAndSubmit(popupId, claimButton) {
+      const popup = $(popupId);
+
+      if (!popup.length) {
+        console.error('Popup not found:', popupId);
+        return;
+      }
+
+      const form = popup.data('active-form');
+      const btn  = popup.find('.upshell-popup-button');
+
+      btn.addClass('btn--loading');
+
+      // PRIORITY 1: grab from the clicked button's data-product-id
+      let mainVariantId = claimButton ? $(claimButton).data('product-id') : null;
+
+      // PRIORITY 2: fall back to the popup's data-main-product-id attribute
+      if (!mainVariantId) {
+        mainVariantId = popup.attr('data-main-product-id');
+      }
+
+      // PRIORITY 3: fall back to the stored form
+      if (!mainVariantId && form) {
+        mainVariantId = form.find('input[name="id"]').val() || form.find('select[name="id"]').val();
+      }
+
+      console.log('Popup:', popupId);
+      console.log('Main variant ID:', mainVariantId);
+
+      let membershipId   = null;
+      let membershipPlan = null;
+
+      if (popupId === '#one_month_popup') {
+        membershipId   = 46056795209925;
+        membershipPlan = 7328694469;
+      } else if (popupId === '#six_month_popup') {
+        membershipId   = 46056776990917;
+        membershipPlan = 7328661701;
+      } else if (popupId === '#one_year_popup') {
+        membershipId   = 45793869299909;
+        membershipPlan = 6775537861;
+      }
+
+      addToCartWithMembership(
+        mainVariantId,
+        membershipId,
+        membershipPlan,
+        function() {
+          btn.removeClass('btn--loading');
+          popup.fadeOut(200, function() {
+            popup.css('display', 'none');
+            popup.removeData('active-form');
+            popup.removeData('active-button');
+          });
+        },
+        function() {
+          btn.removeClass('btn--loading');
+        }
+      );
+    }
+
+    function closeReminderPopupAndSubmit(popupId, claim, claimButton) {
+      if (claim) {
+        claimOfferAndSubmit(popupId, claimButton);
+        return;
+      }
+
+      const popup     = $(popupId);
+      const form      = popup.data('active-form');
+      const atcButton = popup.data('active-button');
+
+      popup.removeData('active-form');
+      popup.removeData('active-button');
+
+      popup.fadeOut(200, function() {
+        popup.css('display', 'none');
+        if (form && atcButton) {
+          form.data('skip-popup', true);
+          atcButton.trigger('click');
+          setTimeout(function() {
+            form.data('skip-popup', false);
+          }, 500);
+        }
+      });
+    }
+
+    // Close / background click — ignore clicks from the claim button
+    $(document).on('click', '.upsell_popup--new .close, .upsell_popup--new .closePop, .upsell_popup--new', function(e) {
+      if ($(e.target).closest('.upshell-popup-button').length) return;
+      if ($(this).hasClass('upsell_popup--new') && e.target !== this) return;
+      e.preventDefault();
+      const popupId = '#' + $(this).closest('.upsell_popup--new').attr('id');
+      closeReminderPopupAndSubmit(popupId, false, null);
+    });
+
+    // Claim offer button inside popup — pass the button element through
+    $(document).on('click', '.upsell_popup--new .upshell-popup-button', function(e) {
+      e.preventDefault();
+      const popupId = '#' + $(this).closest('.upsell_popup--new').attr('id');
+      closeReminderPopupAndSubmit(popupId, true, this);
+    });
+
+  });
+</script>

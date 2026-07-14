@@ -1,0 +1,516 @@
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+
+<div class="text-{{ section.settings.align_text }} page-width{% if section.settings.narrow_column %} page-width--narrow{% endif %}">
+ 	<div class="heding">
+      	<!--h2>{{ section.settings.title | escape }}</h2>
+      	  <h3>{{ section.settings.sub_title | escape }}</h3 -->
+      {%- if section.settings.heading-image != blank -%}
+            		<div class="single-img"><img src="{{ section.settings.heading-image | img_url: 'master' }}" alt="{{ section.settings.heading-image.alt | img_alt: 'master' }}"></div>
+                {%- endif -%}
+  	</div>
+
+
+    <div class="before-after-view">
+        <div class="single-box-before">
+            {%- if section.settings.left_box_top_icon != blank -%}
+              <div class="top-icon">
+                  <img src="{{ section.settings.left_box_top_icon | img_url: 'master' }}" alt="{{ section.settings.left_box_top_icon.alt | img_alt: 'master' }}">
+              </div>
+          	{%- endif -%}
+
+            {%- if section.settings.left_box_text != blank -%}
+              <div class="text">{{ section.settings.left_box_text | escape }}</div>
+          	{%- endif -%}
+            
+            
+          
+            <div class="bottom-before-after">
+              <div class="image-main">
+                {%- if section.settings.left_before != blank -%}
+                  <div class="before">
+                      <img class="content-image" src="{{ section.settings.left_before | img_url: 'master' }}" alt="{{ section.settings.left_before.alt | img_alt: 'master' }}" draggable="false" />
+                  </div>
+            	{%- endif -%}
+
+                {%- if section.settings.left_after != blank -%}
+                  <div class="after">
+                      <img class="content-image" src="{{ section.settings.left_after | img_url: 'master' }}" alt="{{ section.settings.left_after.alt | img_alt: 'master' }}" draggable="false" />
+                  </div>
+            	{%- endif -%}
+
+                <div class="scroller">
+                  <svg class="scroller__thumb" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><polygon points="0 50 37 68 37 32 0 50" style="fill:#fff"/><polygon points="100 50 64 32 64 68 100 50" style="fill:#fff"/></svg>
+                </div>
+              </div>
+            </div>
+        </div> 
+
+        <div class="single-box-before">
+            {%- if section.settings.right_box_top_icon != blank -%}
+              <div class="top-icon">
+                  <img src="{{ section.settings.right_box_top_icon | img_url: 'master' }}" alt="{{ section.settings.right_box_top_icon.alt | img_alt: 'master' }}">
+              </div>
+          	{%- endif -%}
+
+            {%- if section.settings.right_box_text != blank -%}
+              <div class="text">{{ section.settings.right_box_text | escape }}</div>
+          	{%- endif -%}
+
+
+
+
+          
+            <div class="bottom-before-after">
+              <div class="image-main-new">
+
+                {%- if section.settings.right_before != blank -%}
+                  <div class="before-new">
+                      <img class="content-image" src="{{ section.settings.right_before | img_url: 'master' }}" alt="{{ section.settings.right_before.alt | img_alt: 'master' }}" draggable="false" />
+                  </div>
+            	{%- endif -%}
+
+                {%- if section.settings.right_after != blank -%}
+                  <div class="after-new">
+                      <img class="content-image" src="{{ section.settings.right_after | img_url: 'master' }}" alt="{{ section.settings.right_after.alt | img_alt: 'master' }}" draggable="false" />
+                  </div>
+            	{%- endif -%}
+             
+                <div class="scroller-new">
+                  <svg class="scroller__thumb_new" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><polygon points="0 50 37 68 37 32 0 50" style="fill:#fff"/><polygon points="100 50 64 32 64 68 100 50" style="fill:#fff"/></svg>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  
+  
+  	{% if section.blocks.size > 0 %}
+      <div id="product-gallary" class="owl-carousel owl-theme">
+        {% for block in section.blocks %}
+        <div class="item">
+          	{%- if block.settings.top_icon != blank -%}
+              <div class="top-icon">
+                  <img src="{{ block.settings.top_icon | img_url: 'master' }}" alt="{{ block.settings.top_icon.alt | img_alt: 'master' }}">
+              </div>
+          	{%- endif -%}
+          	
+          	{%- if block.settings.title != blank -%}
+          		<h4>{{ block.settings.title | escape }}</h4>
+          	{%- endif -%}
+          
+          	{%- if block.settings.sub_title != blank -%}
+      	  		<h5>{{ block.settings.sub_title | escape }}</h5>
+          	{%- endif -%}
+          
+          	{%- if block.settings.text != blank -%}
+          		<div class="disk">{{ block.settings.text }}</div>
+          	{%- endif -%}
+          
+          	{%- if block.settings.gall_image != blank -%}
+              <div class="bottom_product_img">
+                  <img src="{{ block.settings.gall_image | img_url: 'master' }}" alt="{{ block.settings.gall_image.alt | img_alt: 'master' }}">
+              </div>
+          	{%- endif -%}
+        </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+                    <div class="theme-block"><div class="rte">
+            <a href="products/series-3-max-golf-rangefinder-with-slope" class="btn"> 
+              Sold Out
+            </a>
+          </div></div>
+</div>
+
+{%- if section.settings.divider -%}</div>{%- endif -%}
+
+
+
+
+{{ 'owl.carousel.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'owl.theme.css' | asset_url | stylesheet_tag: preload: true }}
+<script src="{{ 'owl.carousel.js' | asset_url }}" ></script>
+
+
+<script type="text/javascript">
+		$("#product-gallary").owlCarousel({
+			center: false,
+			loop:true,
+			margin:0,
+          
+			nav : true, // Show next and prev buttons
+			slideSpeed : 1000,
+			paginationSpeed : 400,
+			singleItem:false,
+			autoplay:true,
+			autoplayHoverPause:true,
+			dots:true,
+			responsive:{
+				0:{
+					items:1,
+					singleItem:true	
+				},
+				641:{
+					items:2                    
+				},
+				992:{
+					items:3							
+				}
+			}
+		});
+
+
+$(document).ready(function(){ 
+        // I hope this over-commenting helps. Let's do this!
+        // Let's use the 'active' variable to let us know when we're using it
+        let active = false;
+        
+        // First we'll have to set up our event listeners
+        // We want to watch for clicks on our scroller
+        document.querySelector('.scroller').addEventListener('mousedown',function(){
+          active = true;
+          // Add our scrolling class so the scroller has full opacity while active
+          document.querySelector('.scroller').classList.add('scrolling');
+        });
+        // We also want to watch the body for changes to the state,
+        // like moving around and releasing the click
+        // so let's set up our event listeners
+        document.body.addEventListener('mouseup',function(){
+          active = false;
+          document.querySelector('.scroller').classList.remove('scrolling');
+        });
+        document.body.addEventListener('mouseleave',function(){
+          active = false;
+          document.querySelector('.scroller').classList.remove('scrolling');
+        });
+        
+        // Let's figure out where their mouse is at
+        document.body.addEventListener('mousemove',function(e){
+          if (!active) return;
+          // Their mouse is here...
+          let x = e.pageX;
+          // but we want it relative to our wrapper
+          x -= document.querySelector('.image-main').getBoundingClientRect().left;
+          // Okay let's change our state
+          scrollIt(x);
+        });
+        
+        // Let's use this function
+        function scrollIt(x){
+            let transform = Math.max(0,(Math.min(x,document.querySelector('.image-main').offsetWidth)));
+            document.querySelector('.after').style.width = transform+"px";
+            document.querySelector('.scroller').style.left = transform-25+"px";
+        }
+        
+        // Let's set our opening state based off the width, 
+        // we want to show a bit of both images so the user can see what's going on
+        scrollIt(219);
+        
+        // And finally let's repeat the process for touch events
+        // first our middle scroller...
+        document.querySelector('.scroller').addEventListener('touchstart',function(){
+          active = true;
+          document.querySelector('.scroller').classList.add('scrolling');
+        });
+        document.body.addEventListener('touchend',function(){
+          active = false;
+          document.querySelector('.scroller').classList.remove('scrolling');
+        });
+        document.body.addEventListener('touchcancel',function(){
+          active = false;
+          document.querySelector('.scroller').classList.remove('scrolling');
+        });
+        
+        
+        
+        
+        
+          
+        let active_new = false;
+        document.querySelector('.scroller-new').addEventListener('mousedown',function(){
+          active_new = true;
+          document.querySelector('.scroller-new').classList.add('scrolling');
+        });
+        
+        document.body.addEventListener('mouseup',function(){
+          active_new = false;
+          document.querySelector('.scroller-new').classList.remove('scrolling');
+        });
+        document.body.addEventListener('mouseleave',function(){
+          active_new = false;
+          document.querySelector('.scroller-new').classList.remove('scrolling');
+        });
+        
+        
+        document.body.addEventListener('mousemove',function(e){
+          if (!active_new) return;
+          let x = e.pageX;
+          x -= document.querySelector('.image-main-new').getBoundingClientRect().left;
+          scrollIt_new(x);
+        });
+        
+        
+        function scrollIt_new(x){
+            let transform = Math.max(0,(Math.min(x,document.querySelector('.image-main-new').offsetWidth)));
+            document.querySelector('.after-new').style.width = transform+"px";
+            document.querySelector('.scroller-new').style.left = transform-25+"px";
+        }
+        
+        scrollIt_new(219);
+        
+        document.querySelector('.scroller-new').addEventListener('touchstart',function(){
+          active_new = true;
+          document.querySelector('.scroller-new').classList.add('scrolling');
+        });
+        document.body.addEventListener('touchend',function(){
+          active_new = false;
+          document.querySelector('.scroller-new').classList.remove('scrolling');
+        });
+        document.body.addEventListener('touchcancel',function(){
+          active_new = false;
+          document.querySelector('.scroller-new').classList.remove('scrolling');
+        });
+
+});  
+</script>
+
+<style>
+  .bottom-before-after
+  {  position: relative; width:100%; display:inline-block;  height: 294px;
+  }
+  .image-main,.image-main-new{
+  width: 100%;
+  height: 294px;
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform:translate3d(-50%,-50%,0);
+  overflow:hidden;
+
+}
+
+/* Our image information */
+.before,
+.after,
+  .before-new,
+.after-new{
+  width:100%;
+  height:100%;
+  background-repeat:no-repeat;
+  background-color: white;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top:0;
+  left:0;
+  pointer-events:none;
+  overflow: hidden;
+}
+
+.content-image{
+  height:100%; max-width: inherit;
+}
+
+.after, .after-new{
+  width:125px;
+}
+
+.scroller, .scroller-new{
+  width: 50px;
+  height:50px;
+  position: absolute;
+  left:100px;
+  top:50%;
+  transform:translateY(-50%);
+  border-radius:50%;
+  background-color: transparent;
+  opacity:0.9;
+  pointer-events:auto;
+  cursor: pointer;
+}
+
+.scroller:hover, .scroller-new:hover{
+  opacity:1;
+}
+
+.scrolling{
+  pointer-events:none;
+  opacity:1;
+  // z-index: 1;
+}
+
+.scroller__thumb, .scroller__thumb_new{
+  width:100%;
+  height:100%;
+  padding:5px;
+}
+
+.scroller:before,
+.scroller:after,
+  .scroller-new:before,
+.scroller-new:after{
+  content:" ";
+  display: block;
+  width: 7px;
+  height: 9999px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3.5px;
+  z-index: 30;
+  transition:0.1s;
+}
+.scroller:before,.scroller-new:before{
+  top:100%;
+}
+.scroller:after, .scroller-new:after{
+  bottom:100%;
+}
+
+/* If you want to cahnge the colors, make sure you change the fill in the svgs to match */
+.scroller, .scroller-new{
+  border: 5px solid #fff;
+}
+.scroller:before,
+.scroller:after,
+  .scroller-new:before,
+.scroller-new:after{
+  background: #fff;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Next Level features",
+  "class": "next-level-features",
+  "settings": [
+    {
+      "type": "select",
+      "id": "align_text",
+      "label": "t:sections.rich-text.settings.align_text.label",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.align_text.options.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.align_text.options.center.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.align_text.options.right.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "narrow_column",
+      "label": "t:sections.rich-text.settings.narrow_column.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.rich-text.settings.divider.label",
+      "default": false
+    },
+    {
+		  "type": "image_picker",
+		  "id": "heading-image",
+		  "label": "Image"
+		},
+	{
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.rich-text.blocks.heading.settings.title.label",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title",
+          "default": "Rich text"
+        },
+    {
+            "type": "image_picker",
+            "id": "left_box_top_icon",
+            "label": "Left Top icon"
+        },
+    {
+          "type": "text",
+          "id": "left_box_text",
+          "label": "Left Sub title",
+          "default": "Rich text"
+        },
+    {
+            "type": "image_picker",
+            "id": "left_before",
+            "label": "Left before image"
+        },
+    {
+            "type": "image_picker",
+            "id": "left_after",
+            "label": "Left after image"
+        },
+    {
+            "type": "image_picker",
+            "id": "right_box_top_icon",
+            "label": "Right Top icon"
+        },
+    {
+          "type": "text",
+          "id": "right_box_text",
+          "label": "Right Sub title",
+          "default": "Rich text"
+        },
+    {
+            "type": "image_picker",
+            "id": "right_before",
+            "label": "Right before image"
+        },
+    {
+            "type": "image_picker",
+            "id": "right_after",
+            "label": "Right after image"
+        }
+  ],
+  "blocks": [
+    {
+      "type": "Slide",
+      "name": "Single slide",
+      "settings": [
+		{
+            "type": "image_picker",
+            "id": "top_icon",
+            "label": "Top icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.rich-text.blocks.heading.settings.title.label",
+          "default": "Rich text"
+        },
+		{
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title",
+          "default": "Rich text"
+        },
+		 {
+          "id": "text",
+          "type": "richtext",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label",
+          "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+        },
+		{
+            "type": "image_picker",
+            "id": "gall_image",
+            "label": "Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

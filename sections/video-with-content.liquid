@@ -1,0 +1,172 @@
+{% liquid
+  assign color = section.settings.content_color
+  assign heading = section.settings.heading
+  assign content_one = section.settings.content_one
+  assign content_two = section.settings.content_two
+  assign video_src = section.settings.video_src
+  assign video_src_text = section.settings.video_src_text
+  assign background_color = section.settings.background_color
+  assign less_space = section.settings.less_space
+  assign no_radius = section.settings.no_radius
+  assign class = template.suffix
+%}
+<div
+  class="video-with__content video-with__content--{{ class }}"
+  {% if background_color != blank %}
+    style="background-color: {{ background_color }};"
+  {% endif %}
+>
+  <div class="video-with__content--inner">
+    <div class="new-page-width">
+      <div class="video-with__content--top{% if less_space %} space_less{% endif %} video-with__content--top-{{ class }}">
+        {% if heading != blank %}
+          <h2
+            {% if color != blank %}
+              style="color: {{ color }};"
+            {% endif %}
+          >
+            {{ heading }}
+          </h2>
+        {% endif %}
+        {% if content_one != blank %}
+          <div
+            class="video-with__content--text text-content__one"
+            {% if color != blank %}
+              style="color: {{ color }};"
+            {% endif %}
+          >
+            {{ content_one }}
+          </div>
+        {% endif %}
+        {% if content_two != blank %}
+          <div
+            class="video-with__content--text text-content__two"
+            {% if color != blank %}
+              style="color: {{ color }};"
+            {% endif %}
+          >
+            {{ content_two }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% if video_src != blank %}
+      <div class="video-with__content--bottom">
+        <div class="new-page-width">
+          <div
+            class="collection-inline-video grid__item-new grid-product{% if no_radius %} no_radius{% endif %}"
+          >
+            {% assign video_url = video_src.sources[1].url | default: video_src.sources[0].url %}
+            <div
+              class="video_block video-preview new-page-width dialog-video__loading"
+              data-play-in-place="true"
+              data-video-url="{{ video_url }}"
+            >
+              <div class="loader" id="loader-1"></div>
+              <video
+                id="preview-video-1"
+                class="preview-video"
+                autoplay
+                loop
+                muted
+                playsinline
+              ></video>
+              <div class="video_overlay-holder">
+                <div
+                  class="play-button play-button cta_pluse"
+                  id="play-button-1"
+                  style="--ripple-clr: #ffffff61"
+                >
+                  <img
+                    id="video_block-icon-desktop"
+                    class="touch-screen_logo"
+                    src="{{ 'white-play-icon.png' | asset_url }}"
+                    alt="Play video"
+                  >
+                </div>
+                {% if video_src_text != blank %}
+                  <p class="play_icon-text play_button-text">
+                    {{ video_src_text }}
+                  </p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Video With Content",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Add Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "content_one",
+      "label": "Add Content For 1"
+    },
+    {
+      "type": "richtext",
+      "id": "content_two",
+      "label": "Add Content For 2"
+    },
+    {
+      "type": "header",
+      "content": "Color Settings"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "Color",
+      "alpha": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "alpha": true
+    },
+    {
+      "type": "header",
+      "content": "Media Settings"
+    },
+    {
+      "type": "video",
+      "id": "video_src",
+      "label": "Select Video"
+    },
+    {
+      "type": "text",
+      "id": "video_src_text",
+      "label": "Video Button Text"
+    },
+    {
+      "type": "header",
+      "content": "Extras"
+    },
+    {
+      "type": "checkbox",
+      "id": "less_space",
+      "label": "Remove Some Space"
+    },
+    {
+      "type": "checkbox",
+      "id": "no_radius",
+      "label": "Remove Radius From Video"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video With Content"
+    }
+  ]
+}
+{% endschema %}

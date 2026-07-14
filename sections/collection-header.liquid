@@ -1,0 +1,317 @@
+{%- assign disable_sticky_header = false -%}
+<script src="{{  'lenis.min.js' | asset_url }}" defer></script>
+<link rel="stylesheet" href="{{ 'lenis.css' | asset_url }}">
+{%- if section.settings.enable -%}
+  {%- if section.settings.collection_image_enable and collection.image -%}
+    <div
+      id="CollectionHeaderSection"
+      data-section-id="{{ section.id }}"
+      data-section-type="collection-header"
+      {% if section.settings.parallax %}
+        data-parallax="true"
+      {% endif %}
+    >
+      {%- assign img_url = collection.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+      <div class="collection-hero">
+        {%- if section.settings.parallax -%}
+          <div class="parallax-container">
+            <div class="parallax-image">
+        {%- endif -%}
+
+        {% if collection.description != blank %}
+          {% assign handle_class = '' %}
+
+          {% assign template_name = template | split: '.' | first %}
+
+          {% case template_name %}
+            {% when 'page' %}
+              {% assign handle_class = 'page' %}
+            {% when 'collection' %}
+              {% assign handle_class = 'collection' %}
+            {% when 'blog' %}
+              {% assign handle_class = 'blog' %}
+            {% when 'article' %}
+              {% assign handle_class = 'blog' %}
+          {% endcase %}
+
+          <div class="custom_section--hero custom_section--hero--{{ handle_class.handle }} custom_section--hero--{{ handle_class }} custom_section--hero--{{ handle_class.id }}">
+            <div class="section_hero--content">
+              <div class="section_hero--content-background">
+                <picture>
+                  <source srcset="{{ section.settings.custom_image | image_url }}" media="(min-width:861px)">
+                  <source srcset="{{ section.settings.custom_image_mobile | image_url }}" media="(max-width:860px)">
+                  <img
+                    class="has_parallex hero_image"
+                    src="{{ section.settings.custom_image | image_url }}"
+                    alt="{{ section.settings.custom_title | escape | capitalize }}"
+                  >
+                </picture>
+              </div>
+              <div class="section_hero--content-text">
+                {% if section.settings.content_layout == true %}<div class="new-page-width">{% endif %}
+                <h1 class="section_hero--title">
+                  {{ collection.title }}
+                </h1>
+                <div class="section_hero--description">
+                  {{ collection.description }}
+                </div>
+                {% if section.settings.content_layout == true %}</div>{% endif %}
+              </div>
+            </div>
+          </div>
+          <style>
+                                            /*-------------------------
+                                              Hero Styles
+                                              ----------------*/
+                                       #SiteHeader:not( .site-header.site-header--megamenu-active, #SiteHeader.site-header.fixed ) { background: transparent; }
+                                                    #SiteHeader .site_header__border:not(.site-header.site-header--megamenu-active) { opacity: 0; }
+                                                    #SiteHeader { position: fixed; width: 100%; }
+                                                    #SiteHeader .site_header__border { opacity: 0; }
+                                                    #SiteHeader.site-header.site-header--megamenu-active .site_header__border { opacity: 1; }
+                        .collection-hero {
+                          height: clamp(580px,48vw,820px);
+                          overflow: hidden;
+                        }
+                        .custom_section--hero {
+                          height: 100%;
+                        }
+
+
+                        .section_hero--content { position: relative; display: flex; justify-content: center; align-items: center; text-align: center; height: 100%; background: #000; }
+
+                              .section_hero--content-text { position: absolute; display: flex; justify-content: center; align-items: center; flex-direction: column; gap: clamp(16px,1.8vw,28px); padding-inline: 20px;}
+                              .section_hero--content-text { color: {{ section.settings.text_color }}; }
+                              .section_hero--title { font-size: clamp(22px,3.2vw,55px); line-height: 1; max-width: clamp(500px, 43vw, 660px); width: 100%; }
+                              .section_hero--description { max-width: clamp(400px,37vw,530px); width: 100%; font-size: clamp(14px,2vw,18px);}
+                              .section_hero--content-background { overflow: hidden; display: flex; height: 100%; width: 100%; }
+                              .section_hero--content-background picture{display:flex; width: 100%;}
+                              .hero_image { object-fit: cover;  height: 100%; min-height: 330px;  width: 100%; }
+
+                        {% if section.settings.content_layout == true %}
+                          .section_hero--content { justify-content: flex-start; text-align: left; }
+                          .section_hero--content-text{gap: 0; padding-inline: 0px; width: 100%;}
+                        {% endif %}
+
+                        {% if section.settings.content_layout == true %}
+                        @media only screen and (max-width:860px){
+              .hero_image { height: 95%;  }
+
+                            .section_hero--description {
+              max-width: clamp(250px,37vw,590px);
+
+              margin-inline: auto;
+            }
+            .section_hero--title{max-width:clamp(230px, 43vw, 660px); margin-inline: auto;}
+                                .section_hero--content-text{text-align: center; padding-top: 100px; }
+                          .section_hero--content { justify-content: center; text-align: center; align-items: flex-start;}
+                          .section_hero--description br {
+              display: none;
+            }
+
+            }
+            {% endif %}
+          </style>
+        {% else %}
+          <img
+            class="collection-hero__image image-fit lazyload"
+            src=""
+            data-src="{{ img_url }}"
+            data-aspectratio="{{ collection.image.aspect_ratio }}"
+            data-widths="[720, 900, 1080, 1800, 2400]"
+            data-sizes="auto"
+            alt="{{ collection.image.alt | escape | capitalize }}"
+          >
+          <noscript>
+            <img
+              class="collection-hero__image image-fit"
+              src="{{ collection.image | img_url: '1400x' }}"
+              alt="{{ collection.image.alt | escape | capitalize }}"
+            >
+          </noscript>
+        {% endif %}
+        {%- if section.settings.parallax -%}
+          </div>
+          </div>
+        {%- endif -%}
+
+        {% comment %}
+          <div class="collection-hero__content">
+            <div class="page-width">
+              <header class="section-header section-header--hero">
+                <div class="section-header__shadow">
+                  {%- render 'breadcrumbs' -%}
+                  <div class="section-header__title">
+                    {{ collection.title }}
+                  </div>
+                </div>
+              </header>
+            </div>
+          </div>
+        {% endcomment %}
+      </div>
+    </div>
+  {%- else -%}
+    {%- assign disable_sticky_header = true -%}
+    <div class="page-width page-content page-content--top">
+      <header class="section-header section-header--flush">
+        {%- render 'breadcrumbs' -%}
+        <h1 class="section-header__title">
+          {{ collection.title }}
+        </h1>
+      </header>
+    </div>
+  {%- endif -%}
+{% else %}
+  {%- assign disable_sticky_header = true -%}
+{%- endif -%}
+
+{%- if disable_sticky_header -%}
+  {% comment %}
+    Div to trigger theme.CollectionHeader JS
+  {% endcomment %}
+  <div
+    id="CollectionHeaderSection"
+    data-section-id="{{ section.id }}"
+    data-section-type="collection-header"
+  ></div>
+{%- endif -%}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const lenis = new Lenis();
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    parallexHero();
+  });
+
+  function parallexHero() {
+    const videoRefs = document.querySelectorAll('.has_parallex');
+
+    if (!videoRefs.length) {
+      console.warn('No elements found: .has_parallex');
+      return;
+    }
+
+    const throttle = (func, limit) => {
+      let inThrottle;
+      return (...args) => {
+        if (!inThrottle) {
+          func.apply(this, args);
+          inThrottle = true;
+          setTimeout(() => (inThrottle = false), limit);
+        }
+      };
+    };
+
+    const handleScroll = throttle(() => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      videoRefs.forEach((videoRef, index) => {
+        const rect = videoRef.getBoundingClientRect();
+        const elementTop = rect.top + scrollPosition;
+        const elementBottom = elementTop + rect.height;
+
+        const startScroll = elementTop - windowHeight * 0.5;
+        const endScroll = elementBottom - windowHeight * 0.1;
+
+        let progress = (scrollPosition - startScroll) / (endScroll - startScroll);
+        progress = Math.max(0, Math.min(1, progress));
+
+        const translateY = progress * 100 * (index + 1);
+        videoRef.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${translateY}, 0, 1)`;
+      });
+    }, 1);
+
+    const handleResize = throttle(() => {
+      handleScroll();
+    }, 100);
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
+  }
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.collection-header.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable",
+      "label": "t:sections.collection-header.settings.enable.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_image_enable",
+      "label": "t:sections.collection-header.settings.collection_image_enable.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero_v2",
+      "label": "Hero Version 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_image",
+      "label": "Hero Image",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_image_mobile",
+      "label": "Hero Image Mobile",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+
+    {
+      "type": "text",
+      "id": "custom_title",
+      "label": "Hero Title",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "text",
+      "id": "custom_description",
+      "label": "Hero description",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "content_layout",
+      "label": "Content Layout To Left",
+      "default": true,
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Pick Color For Text",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "parallax",
+      "label": "t:sections.collection-header.settings.parallax.label",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

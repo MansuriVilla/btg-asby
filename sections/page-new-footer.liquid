@@ -1,0 +1,83 @@
+{%- style -%}
+footer{
+  display:none;
+}
+  .footer-simple-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    color: #fff;
+    padding: clamp(40px, 6vw, 60px) 20px;
+    text-align: center;
+    border-top: 1px solid #fff;
+  }
+
+  .footer-simple-{{ section.id }} .footer-logo {
+    display: inline-block;
+    margin-bottom: clamp(15px, 1.6vw, 26px);
+  }
+
+  .footer-simple-{{ section.id }} .footer-logo img {
+    height: clamp(30px, 5vw, 40px);
+    width: auto;
+    display: block;
+  }
+
+  .footer-simple-{{ section.id }} .footer-text {
+    font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+    line-height: 1.6;
+    color: #888;
+    max-width: 800px;
+    margin: 0 auto;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-simple-{{ section.id }} .footer-text p {
+    margin: 0;
+  }
+{%- endstyle -%}
+
+<div class="footer-simple-{{ section.id }}">
+  <div class="new-page-width">
+    {% if section.settings.logo != blank %}
+      <div class="footer-logo">
+        {{ section.settings.logo | image_url: width: 400 | image_tag: loading: 'lazy', alt: shop.name }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.copyright_text != blank %}
+      <div class="footer-text">
+        {{ section.settings.copyright_text }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Simple Footer",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#0b0c10"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer Logo"
+    },
+    {
+      "type": "richtext",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "<p>T&C's Apply. @2026 Blue Tees Golf. All Rights Reserved.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Simple Footer"
+    }
+  ]
+}
+{% endschema %}

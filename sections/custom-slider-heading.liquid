@@ -1,0 +1,92 @@
+<div id="heading-area__{{ product.handle }}" class="custom_heading-area">
+  {% if section.settings.customHeadingImage != blank %}
+    <div class="container__medium">
+      <div class="videoArea__Title">
+        <picture class="videoArea__Image">
+          <source
+            srcset="{{ section.settings.customHeadingImage | img_url: 'master' }}"
+            media="(min-width:{{ section.settings.gridImageBp}}px)"
+          >
+          <source
+            srcset="{{ section.settings.customHeadingImageMobile | img_url: 'master' }}"
+            media="(max-width:{{ section.settings.gridImageMobileBp}}px)"
+          >
+          <img decoding="async" src="{{ section.settings.customHeadingImage | img_url: 'master' }}" alt="">
+        </picture>
+      </div>
+    </div>
+  {% endif %}
+  {% if section.settings.customHeadingMockup != blank %}
+    <div class="container__medium">
+      <picture class="video_ringer--screen">
+        <source
+          srcset="{{ section.settings.customHeadingMockup | img_url: 'master' }}"
+          media="(min-width:{{ section.settings.CustomImageBp}}px)"
+        >
+        <source
+          srcset="{{ section.settings.customHeadingMockupMobile | img_url: 'master' }}"
+          media="(max-width:{{ section.settings.CustomImageBpMobile}}px)"
+        >
+        <img decoding="async" src="{{ section.settings.customHeadingMockup | img_url: 'master' }}" alt="">
+      </picture>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Custom Slider Heading",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "customHeadingImage",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "text",
+      "id": "gridImageBp",
+      "label": "Add Breakpoint For Desktop Image",
+      "default": "861"
+    },
+    {
+      "type": "image_picker",
+      "id": "customHeadingImageMobile",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "text",
+      "id": "gridImageMobileBp",
+      "label": "Add Breakpoint For Mobile Image",
+      "default": "860"
+    },
+    {
+      "type": "image_picker",
+      "id": "customHeadingMockup",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "text",
+      "id": "CustomImageBp",
+      "label": "Add Breakpoint For Desktop Image",
+      "default": "861"
+    },
+    {
+      "type": "image_picker",
+      "id": "customHeadingMockupMobile",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "text",
+      "id": "CustomImageBpMobile",
+      "label": "Add Breakpoint For Mobile Image",
+      "default": "860"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Custom Slider Heading"
+    }
+  ]
+}
+{% endschema %}

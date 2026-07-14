@@ -1,0 +1,117 @@
+<script src="{{  'lenis.min.js' | asset_url }}" defer></script>
+<link rel="stylesheet" href="{{ 'lenis.css' | asset_url }}" />
+
+<div class="about_us-page-content">
+  <div class="about_us-hero">
+    <div class="hero_inner">
+      <div class="hero_content">
+        <div class="hero_content-background">
+          <picture>
+            <source
+              srcset="{{ 'all-review-banner-desktop.png' | asset_url }}"
+              media="(min-width:861px)"
+            />
+            <source
+              srcset="{{ 'all-review-banner-mobile.png' | asset_url }}"
+              media="(max-width:860px)"
+            />
+            <img
+              class="has_parallex"
+              src="{{ 'all-review-banner-desktop.png'| asset_url }}"
+              alt=" About Us Banners"
+            />
+          </picture>
+        </div>
+        <div class="hero_content-text">
+          <h1>
+            <span>GOLFERS ARE</span> <br />
+            <span>OBSESSED.</span> <br />
+            <span class="fs__stroke">HERE’S WHY.</span> 
+          </h1>
+          <p>
+            See what real golfers are saying about our products.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+
+
+
+  #SiteHeader:not( .site-header.site-header--megamenu-active, #SiteHeader.site-header.fixed ) { background: transparent; }
+  #SiteHeader .site_header__border:not(.site-header.site-header--megamenu-active) { opacity: 0; }
+  #SiteHeader { position: fixed; width: 100%; }
+  #SiteHeader .site_header__border { opacity: 0; }
+  #SiteHeader.site-header.site-header--megamenu-active .site_header__border { opacity: 1; }
+  .ready_play-left-inner h2 br, .rule_block-right h5 br, .campioned_pros-head h2 br, .golfers_heading h2 br, .rule_play-left p.font-large br, .milestones_heading h2 br:first-child { display: none; }
+    
+
+
+.about_us-page-content :is(picture, img, video, svg) { display: flex; }
+.about_us-page-content :is(picture, img) { height: auto; width: 100%; }
+:is(h1, .font-large) { --font-large: clamp(42px, 5vw, 72px); font-size: var(--font-large); line-height: var(--font-large); text-transform: uppercase; }
+:is(h2, .font-heading) { --font-heading: clamp(24px, 4.8vw, 52px); font-size: var(--font-heading); line-height: var(--font-heading); text-transform: none; }
+:is(h3, .font-heading) { --font-heading: clamp(32px, 4.4vw, 42px); font-size: var(--font-heading); line-height: var(--font-heading); text-transform: none; }
+:is(h4, .font-title) { --font-title: 24px; font-size: var(--font-title); line-height: calc(var(--font-title) + clamp(4px, 0.5vw, 10px)); text-transform: none; }
+:is(h5, .font-subtitle) { --font-subtitle: clamp(16px, 2vw, 20px); font-size: var(--font-subtitle); line-height: calc(var(--font-subtitle) + clamp(4px, 0.5vw, 8px)); text-transform: none; }
+:is(h6, .font-paragraph) { --font-paragraph: clamp(12px,0.8vw,16px); font-size: var(--font-paragraph); line-height: var(--font-paragraph); text-transform: none; }
+:is(p){--font-paragraph: 18px; font-size: var(--font-paragraph); line-height: var(--font-paragraph); text-transform: none;}
+.about_us-page-content { display: flex; flex-direction: column; row-gap: clamp(38px, 8vw, 125px); }
+
+/*-------------------------
+  Hero Styles
+  ----------------*/
+
+  .hero_content-background { overflow: hidden; width: 100%; height: 100vh; max-height: clamp(600px, 50vw, 800px); }
+  .hero_content { position: relative; display: flex; justify-content: flex-start; align-items: center; }
+  .hero_content-text { position: absolute; z-index: 4; padding-left: clamp(60px, 18vw, 320px); display: flex; flex-direction: column; gap: 0px;}
+  .hero_content-text > * { color: #fff; }
+  .hero_content-text h1 {  font-weight: 900; }
+  .hero_content-text h3 { font-weight: normal; text-transform: none; }
+  .hero_inner .has_parallex:not(.our_mission img.has_parallex) { height: 100vh; object-fit: cover; max-height: clamp(600px, 94vw, 800px); scale: 1.2; }
+  .hero_content-text p{max-width: clamp(250px, 25vw, 570px); line-height: calc(var(--font-paragraph) * 1.5);}
+  .fs__stroke{text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; color: #000;}
+
+  @media only screen and (max-width: 860px) {
+    .hero_content { align-items: flex-start; justify-content: center; }
+    .hero_inner .has_parallex:not(.our_mission img.has_parallex) { object-fit: contain; max-height: none; height: 97vh; object-position: center; scale: 1; }
+    .hero_content-text { padding-left: 0; margin-top: 0; text-align: center; max-width: 330px; padding-top: 140px; }
+    .hero_content-background { height: clamp(90vh, 70vw, 100vh); background: #000; max-height: none; }
+    .hero_content-text h1 br:nth-child(2) { display: none; }
+    .hero_content-text p { max-width: 240px; line-height: 1.4; margin: 0 auto; }
+  }
+</style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const lenis = new Lenis();
+
+  lenis.on("scroll", ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+  
+});
+
+
+</script>
+
+
+{% schema %}
+
+{
+  "presets": [
+    {
+      "name": "Hero Custom"
+    }
+  ]
+}
+
+
+{% endschema %}

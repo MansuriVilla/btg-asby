@@ -1,0 +1,126 @@
+{% assign item_size = '' %}
+{% if section.blocks.size == 2 %}
+  {% assign item_size = 'list_item--two' %}
+{% elsif section.blocks.size == 1 %}
+  {% assign item_size = 'list_item--one' %}
+{% endif %}
+
+<div class="product-manuals-main" id="product-manuals-{{ section.id }}">
+  <div class="product-manuals-row new-page-width">
+    {% if section.settings.section_Title != blank %}
+      <div class="section_title mobile_accordion-title" id="mobile-accordion-header">
+        <h2 class="section_title-heading">{{ section.settings.section_Title }}</h2>
+        <span class="accordion-icon">
+          <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.773438 3.29297L5.19057 7.71356L9.61116 3.29297" stroke="black" stroke-width="0.69234"/>
+          </svg>
+        </span>
+      </div>
+    {% endif %}
+    <div class="manuals-lists" id="manuals-list">
+      <div class="product-manuals-list {{ item_size }}">
+        {% for block in section.blocks %}
+          {% if block.settings.product %}
+            <div class="manual-list__item manual-{{ item_size }}" {{ block.shopify_attributes }}>
+              <div class="product-manuals-info">
+                {% if block.settings.manual_cardImage != blank and block.settings.has_custom_image == true %}
+                  {{
+                    block.settings.manual_cardImage
+                    | image_url: width: 400
+                    | image_tag:
+                      loading: 'eager',
+                      fetchpriority: 'high',
+                      widths: '400,600,800,1200,1600,2000',
+                      sizes: '(max-width: 860px) 100vw, 50vw',
+                      alt: block.settings.product.title
+                  }}
+                {% else %}
+                  {{
+                    block.settings.product.featured_image
+                    | image_url: width: 400
+                    | image_tag:
+                      loading: 'eager',
+                      fetchpriority: 'high',
+                      widths: '400,600,800,1200,1600,2000',
+                      sizes: '(max-width: 860px) 100vw, 50vw',
+                      alt: block.settings.product.title
+                  }}
+                {% endif %}
+              </div>
+
+              {% if block.settings.manual_text != blank %}
+                <h3 class="manual-item__title manual_product-text">
+                  {{ block.settings.manual_text }}
+                </h3>
+              {% else %}
+                <h3 class="manual-item__title manual_product-handle">
+                  {{ block.settings.product.title | capitalize }}
+                </h3>
+              {% endif %}
+
+              {% if block.settings.manual_pdfUrl %}
+                <a
+                  href="{{ block.settings.manual_pdfUrl }}"
+                  class="manual-list__cta content-cta content-cta__solid"
+                  target="_blank"
+                  rel="noopener"
+                  >DOWNLOAD MANUAL</a
+                >
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Manual Cards",
+  "tag": "section",
+  "settings": [
+    { "type": "text", 
+      "id": "section_Title", 
+      "label": "Manual Section Title" 
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Manual_Card",
+      "name": "Manual Card",
+      "settings": [
+        { 
+          "type": "product", 
+          "id": "product",
+          "label": "select product" 
+        },
+        { 
+          "type": "checkbox", 
+          "id": "has_custom_image", 
+          "label": "Add different image for product." 
+        },
+        {
+          "type": "image_picker",
+          "id": "manual_cardImage",
+          "label": "Custom Product Image",
+          "info": "Leave it empty to get the actual product image.",
+          "visible_if": "{{ block.settings.has_custom_image }}"
+        },
+        {
+          "type": "text",
+          "id": "manual_text",
+          "label": "Product Name",
+          "info": "Leave it empty to get the actual product name."
+        },
+        { 
+          "type": "url", 
+          "id": "manual_pdfUrl", 
+          "label": "Product Manual URL" 
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product Manual Card" }]
+}
+{% endschema %}

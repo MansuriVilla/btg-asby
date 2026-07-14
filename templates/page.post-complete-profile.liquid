@@ -1,0 +1,161 @@
+<div class="post_game-complete-profile" style="background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/login-common-bg-2.png?v=1732886579) no-repeat center center / cover #000;"> 
+  <div class="complete-profile-main" >
+    <h2>
+      <span class="line-1">AWESOME. NOW LET’S</span>
+      <span class="line-2">COMPLETE your profile!</span>
+    </h2>
+    <p>Give us just a bit more info so we can personalize your experience.</p>
+    <div class="game-hero-input--area">
+      <form id="completeProfile" class="form-validate-trim">
+        <div class="input-post-game input_holder">
+          <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
+        </div>
+        <div class="input-post-game input_holder">
+          <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+        </div>
+        <div class="input-post-game input_holder">
+  <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required/>
+</div>
+        <p class="num_existing" style="max-width: 100%; margin: 0 auto; line-height: 150%; font-size: 14px; opacity:0.8; padding: 0;"> This phone number is already in use. <br> Please use a different number or<span> <a style="color:#0457F3; text-decoration: underline;" href="https://postgame-staging.blueteesgolf.com/login">login here</a></span></p>
+        <div class="post_game-cta">
+          <button type="submit" class="btn">Submit</button>
+        </div>
+      </form>
+     
+      
+    </div>
+  </div>
+</div>
+
+
+
+<style>
+  h2{font-size:clamp(28px, 4.8vw, 55px);   color:#fff;  -webkit-text-stroke-width: 0.8px; -webkit-text-stroke-color: #fff; line-height: 1.2; text-align: center; }
+  p{font-size:clamp(14px, 1.4vw, 18px); padding:0px; opacity:0.8; line-height:100%; color:#fff; }
+
+  
+  .font-responsive__title{font-size:clamp(18px, 2.866vw, 55px); line-height: normal; }
+  .font-responsive__decs {font-size:clamp(14px, .88vw, 16px); line-height: normal;}
+  label.font-responsive__decs{font-size:clamp(14px, .88vw, 18px); line-height: normal;}
+
+  .complete-profile-main { text-align: center; }
+  .post_game-complete-profile { padding: clamp(30px, 10vw, 90px) 0 clamp(50px, 15vw, 145px) 0; }
+  .complete-profile-main h2 { max-width: calc(740px - 15px); margin: 0 auto; }
+  .complete-profile-main h2 .line-1, .complete-profile-main h2 .line-2 { display: block; max-width: 100%; }
+  .complete-profile-main p {padding: clamp(18px, 2vw, 25px) 15px clamp(26px, 3vw, 35px);}
+
+.num_existing{display:none;}
+
+  
+  /* ________________________INPUT CSS START________________________ */
+  
+  .input_holder { position: relative; flex: 100%; }
+  .input_holder input { border:none; outline:none; background:#F5F2F2; color:#000; border-radius:50px;   padding: clamp(10px, 2vw, 15px) clamp(15px, 3vw, 20px);     width: 100%;}
+  .input_holder label { position: absolute; left: 20px;   top: 28%; transition: 0.2s ease all; color: #A6A6A6; }
+  .input_holder:focus-within label, input:not(:placeholder-shown) + label { display:none; }
+  .post_game-cta .btn { background: #CB0000; border-radius: 50px; letter-spacing: 1.6px; font-size:clamp(14px, .88vw, 18px); font-weight:600; padding: clamp(10px, 2vw, 16px) clamp(20px, 3vw, 40px); }
+  .post_game-cta .btn:hover, .tow_content-cta .btn:hover { background: #004DF5 !important; color:#fff; }
+  
+  /* ________________________INPUT CSS END________________________ */
+
+  
+  .game-hero-input--area form {display: flex; max-width: 400px; flex-wrap: wrap; row-gap: 23px; justify-content: center; width: 100%; margin: 0 auto; padding: 0 15px; }
+.error {
+    border-color: red;
+    outline: none;
+  }
+
+  @media only screen and (max-width:768px){
+    .post_game-cta,
+    .post_game-cta .btn { width: 100%; }
+  }
+ 
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+<script>
+        function _gt() {
+            const _sl = "^8lu";
+            const _k = "20245h0P1fY58Cr";
+            const _n = "%xpdboMX0FH*HIK7IGi2@KigrEP6j3$n";
+            // Step 1: Generate HMAC using key and key_secret
+            const _P1 = CryptoJS.HmacSHA256(_k + "3T", "3Eb" + _n).toString(
+                CryptoJS.enc.Base64url
+            );
+            const sl = "etee5^";
+            const _x = "Q7XgbSTQdfZwM@ZhxPKIiHu*";
+            // Step 2: Create the pre-encryption string (_P2)
+            const _P2 = new Date().toUTCString() + _sl + sl + _P1;
+            const _xz = "bEWB57BLr1ne&2ErfmKYdwoyT";
+            // Step 3: Encrypt _P2 using _x
+            const _S = CryptoJS.AES.encrypt(_P2, _x + _xz).toString();
+            return _S;
+        }
+  
+        
+  $(document).ready(function() {
+    $("#completeProfile").submit(function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // Check required fields
+        let firstname = $("#firstName").val().trim();
+        let lastname = $("#lastName").val().trim();
+        let phonenumber = $("#phoneNumber").val().trim();
+
+        // Simple required field validation
+        if (!firstname || !lastname || !phonenumber) {
+            alert("All fields are required.");
+            return;
+        }
+
+        $('.btn').addClass('btn--loading');
+        let authToken = _gt(); // Generate token
+        
+        // Retrieve stored encrypted data
+        var savedData = localStorage.getItem("encryptedData");
+
+        // Create the payload object
+        let requestData = {
+            phone: phonenumber,
+            first_name: firstname,
+            last_name: lastname,
+            country_code: '+1',
+            data: savedData // Include previously saved data
+        };
+
+        //console.log("Sending Data:", requestData); // Debugging
+
+        $.ajax({
+            url: "https://btapi.blueteesgolf.com/shopify/user/complete/registration",
+            type: "POST",
+            contentType: "application/json",
+            headers: {
+                "Authorization": authToken // Send generated token
+            },
+            data: JSON.stringify(requestData), // Send properly formatted JSON
+            success: function(response) {
+                window.location.href = "https://blueteesgolf.com/pages/success-page";
+            },
+             error: function(xhr, status, error) {
+                    $(".num_existing").show();
+                    $('.btn').removeClass('btn--loading');
+                  }
+        });
+    });
+});
+</script>
+<script>
+  function limitingNum(){
+    const phoneInput = document.getElementById('phoneNumber');
+  
+    phoneInput.addEventListener('input', function() {
+      let digitsOnly = this.value.replace(/\D/g, '');
+      if (digitsOnly.length > 10) {
+        digitsOnly = digitsOnly.slice(0, 10);
+      }
+      this.value = digitsOnly;
+    });
+  }
+  limitingNum();
+</script>

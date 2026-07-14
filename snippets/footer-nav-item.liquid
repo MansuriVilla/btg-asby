@@ -1,0 +1,10 @@
+<li class="footer_link-nav footer_link-nav--{{ nav_text | handleize }}">
+  <a
+    class="footer_link footer_link--{{ nav_text | handleize }}"
+    href="{{ nav_link }}"
+    {% if settings.open_new_tab %}
+      target="_blank" rel="noopener noreferrer"
+    {% endif %}
+    >{{ nav_text }}</a
+  >
+</li>

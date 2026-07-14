@@ -1,0 +1,33 @@
+{{ 'flipclock.css' | asset_url | stylesheet_tag }}
+
+<div class="countdown-timer">
+  <div class="countdown-title">Winners Selected In</div>
+  <div class="clock"></div>
+  <div class="message"></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="{{ 'flipclock.js' | asset_url }}"></script>
+<script type="text/javascript">
+  var clock;
+
+  jQuery(document).ready(function() {
+      var clock;
+
+      clock = $('.clock').FlipClock({
+          clockFace: 'DailyCounter',
+          autoStart: false,
+          callbacks: {
+              stop: function() {
+                  $('.message').html('The Special Offer stopped!')
+              }
+          }
+      });
+      var countdown = 1705388340 - ((new Date().getTime())/1000); // from: 09/06/2022 11:59 pm -7
+      countdown = Math.max(1, countdown);
+      clock.setTime(countdown);
+      clock.setCountdown(true);
+      clock.start();
+
+  });
+</script>

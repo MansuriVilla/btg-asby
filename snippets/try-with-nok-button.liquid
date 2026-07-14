@@ -1,0 +1,37 @@
+{% if product.metafields.nok.url %}
+{% case product.metafields.nok.style %}
+	{% when "white" %}
+		{% assign nok_style_class = "try-with-nok__button--white" %}
+	{% when "purple" %}
+		{% assign nok_style_class = "try-with-nok__button--purple" %}
+	{% else %}
+		{% assign nok_style_class = "try-with-nok__button--default" %}
+{% endcase %}
+{% case product.metafields.nok.dark_mode %}
+	{% when true %}
+		{% assign nok_dark_mode_class = "try-with-nok__button--dark" %}
+{% endcase %}
+{% if product.metafields.nok.with_logo == true %}
+	{% assign arrow-with-logo-class = "try-with-nok__arrow-out--with-logo" %}
+{% endif %}
+<a aria-label="Try for $0 down" class="btn product-form__cart-submit try-with-nok__button {{nok_style_class}} {{nok_dark_mode_class}}" href="{{ product.metafields.nok.url}}" target="_blank">
+  <span class="try-with-nok__button-content">
+    Try Before You Buy | $0
+    {% comment %}
+    {% if product.metafields.nok.with_logo == true %}
+       with
+    	<svg class="try-with-nok__logo" width="336" height="140" viewBox="0 0 336 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M298.475 76.4895L335.439 133.691C335.789 134.125 336.001 134.683 336 135.29C336 136.685 334.876 137.818 333.484 137.818H333.469H301.974C301.112 137.818 300.318 137.379 299.852 136.653L276.247 99.5483L269.553 106.652V135.29C269.553 136.685 268.425 137.818 267.037 137.818H239.524C238.135 137.818 237.01 136.685 237.01 135.29V2.52366C237.01 1.12827 238.136 0 239.524 0H267.037C268.425 0 269.553 1.12897 269.553 2.52366V66.7547L297.403 36.1066C297.878 35.5815 298.554 35.2828 299.256 35.2828H332.204C333.213 35.2828 334.126 35.8866 334.519 36.8216C334.913 37.7558 334.712 38.8342 334.011 39.5646L298.475 76.4895ZM115.765 86.731C115.765 56.8597 140.012 33.4635 170.96 33.4635C186.038 33.4635 199.958 38.9312 210.133 48.8614C220.227 58.7079 225.788 72.0242 225.788 86.369V86.7317C225.788 116.604 201.542 140 170.594 140C155.515 140 141.597 134.529 131.42 124.599C121.325 114.756 115.765 101.432 115.765 87.0945V86.731ZM170.595 62.3387C159.691 62.3387 147.948 69.8605 147.948 86.369V86.7317C147.948 100.634 157.842 111.117 170.96 111.117C181.863 111.117 193.606 103.603 193.606 87.0945V86.731C193.606 72.8256 183.712 62.3387 170.595 62.3387ZM60.4149 93.7418C55.5144 93.7418 51.5277 97.7473 51.5277 102.671C51.5277 107.594 55.5144 111.599 60.4149 111.599C65.3147 111.599 69.3007 107.594 69.3007 102.671C69.3014 97.7473 65.3147 93.7418 60.4149 93.7418ZM82.7147 36.2965C87.5305 38.676 91.5494 41.8759 94.6622 45.802C97.7464 49.6916 100.032 54.2138 101.467 59.24C102.867 64.1791 103.579 69.3199 103.579 74.5191V135.29C103.579 136.686 102.451 137.818 101.063 137.818H76.8711C75.4822 137.818 74.3551 136.685 74.3551 135.29V81.4075C74.3551 65.0564 62.5475 58.007 52.6507 58.007C46.2522 58.007 29.2265 60.3261 29.2265 81.8131V135.29C29.2265 136.686 28.1029 137.818 26.7105 137.818H2.516C1.12297 137.818 0 136.685 0 135.29V38.0574C0 36.662 1.12367 35.5337 2.516 35.5337H25.5022C26.891 35.5337 28.0154 36.6627 28.0154 38.0574V45.1553C30.0318 42.9114 32.566 40.8271 35.7292 38.7632C41.9129 34.7359 51.9923 32.6945 60.4688 32.6945C68.8704 32.6945 77.9521 33.9415 82.7147 36.2965Z" fill="black"/>
+        </svg>  
+    {% endif %}
+  {% endcomment %}
+	</span>
+  <span class="try-with-nok__arrow-out {{arrow-with-logo-class}}">
+    <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="15" height="16" />
+      <path d="M9.89307 13.3284V5.32837H1.89307" stroke="black" stroke-width="2"/>
+      <line x1="9.70711" y1="5.70711" x2="0.707107" y2="14.7071" stroke="black" stroke-width="2"/>
+    </svg>
+  </span>
+</a>
+{% endif %}

@@ -1,0 +1,409 @@
+{% comment %}
+  Snippet Arguments
+  - collection: Liquid 'collection' or 'search' object
+  - items: Paginated 'collection.products' or 'search.results' list. Cannot be pulled from the the 'collection' object passed in above
+  - enable_sidebar: boolean
+  - filter_style: 'sidebar' or 'drawer'
+  - enable_sort: boolean
+  - enable_collection_count
+  - per_row
+  - mobile_flush_grid
+  - quick_shop_enable
+{% endcomment %}
+
+{% liquid
+  if collection.products
+    assign count = collection.products_count
+    assign count_label = 'collections.general.items_with_count'
+  endif
+
+  if collection.results
+    assign count = collection.results_count
+    assign count_label = 'general.search.result_count'
+  endif
+
+  assign filters = collection.filters
+  assign sort_by = collection.sort_by
+  assign default_sort_by = collection.default_sort_by
+  assign sort_options = collection.sort_options
+  assign current_filter_size = 0
+  assign heading_title = section.settings.collectionHeading
+  assign collection_title = collection.title
+  assign hide_title = section.settings.hide_title
+
+  for filter in filters
+    assign current_filter_size = current_filter_size | plus: filter.active_values.size
+  endfor
+%}
+
+<div
+  class="collection-grid__wrapper"
+  id="{% if heading_title != blank %}{{ heading_title | handleize }}{% else %}{{ collection_title | handleize }}{% endif %}"
+>
+  {% if hide_title == false %}
+    <div class="collection-heading">
+      {% if heading_title != blank %}
+        <h2>{{ heading_title }}</h2>
+      {% else %}
+        <h2>{{ collection_title }}</h2>
+      {% endif %}
+    </div>
+  {% endif %}
+  {% comment %}
+    <div class="collection-filter">
+
+      <div class="collection-filter__item collection-filter__item--drawer">
+        <button
+          type="button"
+          class="js-drawer-open-collection-filters btn btn--tertiary{% unless current_filter_size == 0 %} btn--tertiary-active{% endunless %}"
+          aria-controls="FilterDrawer"
+        >
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-filter" viewBox="0 0 64 64">
+            <path d="M48 42h10M48 42a5 5 0 1 1-5-5 5 5 0 0 1 5 5zM7 42h31M16 22H6M16 22a5 5 0 1 1 5 5 5 5 0 0 1-5-5zM57 22H26"/>
+          </svg>
+          {{ 'collections.filters.title_tags' | t }}
+          {%- if current_filter_size > 0 -%}
+            ({{ current_filter_size }})
+          {%- endif -%}
+        </button>
+      </div>
+
+      {% comment %}
+         UNCOMMENT THIS TO SHOW THE TOTAL PRODUCT OF COLLECTION
+         <div class="collection-filter__item collection-filter__item--count small--hide">
+          {%- if enable_collection_count -%}
+            {{ count_label | t: count: count }}
+          {%- endif -%}
+        </div>
+      {% endcomment %}
+
+      <div class="collection-filter__item collection-filter__item--sort">
+        <div class="collection-filter__sort-container">
+          {%- assign sort_by = sort_by | default: default_sort_by -%}
+          <label for="SortBy" class="hidden-label">{{ 'collections.sorting.title' | t }}</label>
+          <select name="SortBy" id="SortBy" data-default-sortby="{{ default_sort_by }}">
+            <option
+              value="title-ascending"
+              {% if sort_by == default_sort_by %}selected="selected"{% endif %}
+            >
+              {{ 'collections.sorting.title' | t }}
+            </option>
+            {%- for option in sort_options -%}
+              <option
+                value="{{ option.value }}"
+                {% if option.value == sort_by %}selected="selected"{% endif %}
+              >
+                {{ option.name }}
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      </div>
+    </div>
+  {% endcomment %}
+
+  <div
+    class="grid grid--uniform grid--uniform__new {% if mobile_flush_grid %} small--grid--flush{% endif %}"
+    {% unless enable_collection_count %}
+      data-scroll-to
+    {% endunless %}
+  >
+    {%- assign total_products = items.size -%}
+
+    {%- for item in items -%}
+      {%- if item.object_type == 'product' -%}
+        {%- assign product_index = forloop.index -%}
+
+        {%- if video_blocks != blank -%}
+          {%- for v in video_blocks -%}
+            {%- assign pos = v.settings.selectIndex | default: '' | strip -%}
+            {%- if pos != '' and pos != '0' -%}
+              {%- assign pos_num = pos | plus: 0 -%}
+              {%- if pos_num == product_index and v.settings.video != blank -%}
+                {%- comment %} === FIX: Extract real MP4 URL from Shopify video object === {%- endcomment %}
+                {%- assign video_src = '' -%}
+                {%- if v.settings.video.sources -%}
+                  {%- for source in v.settings.video.sources -%}
+                    {%- if source.format == 'mp4' or source.mime_type contains 'mp4' -%}
+                      {%- assign video_src = source.url -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  {%- if video_src == blank and v.settings.video.sources.size > 0 -%}
+                    {%- assign video_src = v.settings.video.sources.last.url -%}
+                  {%- endif -%}
+                {%- elsif v.settings.video.url -%}
+                  {%- assign video_src = v.settings.video.url -%}
+                {%- endif -%}
+
+                {%- assign width = v.settings.card_size | default: '' -%}
+
+                <div
+                  class="collection-inline-video grid__item grid__item-new grid-product small--one-half aos-init aos-animate"
+                  data-card="{{ width }}"
+                >
+                  <div
+                    class="video_block video-preview new-page-width dialog-video__loading"
+                    data-play-in-place="true"
+                    data-video-url="{{ video_src }}"
+                  >
+                    <div class="loader" id="loader-{{ pos_num }}"></div>
+                    <video
+                      id="preview-video-{{ pos_num }}"
+                      class="preview-video"
+                      autoplay
+                      loop
+                      muted
+                      playsinline
+                    ></video>
+                    <div class="video_overlay-holder">
+                      <div
+                        class="play-button play-button cta_pluse"
+                        id="play-button-{{ pos_num }}"
+                        style="--ripple-clr: #ffffff61;"
+                      >
+                        <img
+                          id="video_block-icon-desktop"
+                          class="touch-screen_logo"
+                          src="{{ 'white-play-icon.png' | asset_url }}"
+                          alt="Play video"
+                        >
+                      </div>
+                      {% if V.settings.playText != blank %}
+                        <p class="play_icon-text play_button-text">{{ V.settings.playText }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+
+        {%- render 'new-product-grid-item', product: item, per_row: per_row, quick_shop_enable: quick_shop_enable -%}
+
+      {%- else -%}
+        {%- render 'search-grid-item', item: item, per_row: per_row -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment %} === EXTRA VIDEOS AFTER PRODUCTS (if position > total_products) === {%- endcomment %}
+    {%- if video_blocks != blank -%}
+      {%- for v in video_blocks -%}
+        {%- assign pos = v.settings.selectIndex | default: '' | strip -%}
+        {%- if pos != '' and pos != '0' -%}
+          {%- assign pos_num = pos | plus: 0 -%}
+
+          {%- if pos_num > total_products and v.settings.video != blank -%}
+            {%- comment %} Same URL extraction logic {%- endcomment %}
+            {%- assign video_src = '' -%}
+            {%- if v.settings.video.sources -%}
+              {%- for source in v.settings.video.sources -%}
+                {%- if source.format == 'mp4' or source.mime_type contains 'mp4' -%}
+                  {%- assign video_src = source.url -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if video_src == blank and v.settings.video.sources.size > 0 -%}
+                {%- assign video_src = v.settings.video.sources.last.url -%}
+              {%- endif -%}
+            {%- elsif v.settings.video.url -%}
+              {%- assign video_src = v.settings.video.url -%}
+            {%- endif -%}
+
+            {%- assign width = v.settings.card_size | default: '' -%}
+
+            <div
+              class="collection-inline-video grid__item grid__item-new grid-product small--one-half aos-init aos-animate"
+              data-card="{{ width }}"
+            >
+              <div
+                class="video_block video-preview new-page-width dialog-video__loading"
+                data-play-in-place="true"
+                data-video-url="{{ video_src }}"
+              >
+                <div class="loader" id="loader-{{ pos_num }}"></div>
+                <video
+                  id="preview-video-{{ pos_num }}"
+                  class="preview-video"
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                ></video>
+                <div class="video_overlay-holder">
+                  <div
+                    class="play-button play-button cta_pluse"
+                    id="play-button-{{ pos_num }}"
+                    style="--ripple-clr: #ffffff61;"
+                  >
+                    <img
+                      id="video_block-icon-desktop"
+                      class="touch-screen_logo"
+                      src="{{ 'white-play-icon.png' | asset_url }}"
+                      alt="Play video"
+                    >
+                  </div>
+                  {% if v.settings.playText != blank %}
+                    <p class="play_icon-text play_button-text">{{ v.settings.playText }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{%- if enable_sidebar and filter_style != 'drawer' and collection.filters.size > 0 -%}
+  {% style %}
+    @media screen and (min-width: 769px) {
+      .collection-filter__item--drawer { display: none; }
+      .collection-filter__item--count { text-align: left; }
+      html[dir='rtl'] .collection-filter__item--count { text-align: right; }
+    }
+  {% endstyle %}
+{%- endif -%}
+
+{%- if enable_sidebar == false or collection.filters.size == 0 -%}
+  {% style %}
+    .collection-filter__item--drawer { display: none; }
+    .collection-filter__item--count { text-align: left; }
+    html[dir='rtl'] .collection-filter__item--count { text-align: right; }
+  {% endstyle %}
+{%- endif -%}
+
+{%- unless enable_sort -%}
+  {% style %}
+    .collection-filter__sort-container { display: none; }
+  {% endstyle %}
+{%- endunless -%}
+
+{% comment %} <!-- Your existing quick-add AJAX script remains unchanged --> {% endcomment %}
+{% comment %} <!--
+  script>
+    (function ($) {
+      function getVariantId($card) {
+        var $checked = $card.find('[data-quick-add-swatches] input[type="radio"]:checked');
+        if ($checked.length) return $checked.val();
+        var hiddenVal = $card.find('[data-quick-add-form] input[name="id"]').val();
+        return hiddenVal || null;
+      }
+
+      $(document).on('change', '[data-quick-add-swatches] input[type="radio"]', function () {
+        var $card = $(this).closest('.product-grid-item, .grid-product, .product-card');
+        var vid = $(this).val();
+        $card.find('[data-quick-add-form] input[name="id"]').val(vid);
+        $card.find('.quick-add-btn').prop('disabled', $(this).is(':disabled'));
+      });
+
+      $(document).on('click', '.quick-add-btn', function (e) {
+        e.preventDefault();
+        var $btn = $(this);
+        var $card = $btn.closest('.product-grid-item, .grid-product, .product-card');
+        var variantId = getVariantId($card);
+        if (!variantId) {
+          console.error('Quick add: missing variant id');
+          return;
+        }
+        $btn.addClass('btn--loading').prop('disabled', true);
+        $.ajax({
+          type: 'POST',
+          url: '/cart/add.js',
+          dataType: 'json',
+          contentType: 'application/json',
+          data: JSON.stringify({ id: Number(variantId), quantity: 1 }),
+          success: function () {
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+          },
+          error: function (xhr) {
+            console.error(xhr.responseJSON?.description || 'Add to cart failed');
+          },
+          complete: function () {
+            $btn.removeClass('btn--loading is-loading').prop('disabled', false);
+          }
+        });
+      });
+    })(jQuery);
+  </script
+--> {% endcomment %}
+
+<script>
+  (function ($) {
+    function getVariantId($card) {
+      var $checked = $card.find('[data-quick-add-swatches] input[type="radio"]:checked');
+      if ($checked.length) return $checked.val();
+
+      var $select = $card.find('select[data-quick-add-select]');
+      if ($select.length) return $select.val();
+
+      var hiddenVal = $card.find('[data-quick-add-form] input[name="id"]').val();
+      return hiddenVal || null;
+    }
+
+    // --- IMPORTANT: remove only our handlers, then re-add ---
+    $(document).off('change.quickadd', '[data-quick-add-swatches] input[type="radio"]');
+    $(document).off('change.quickadd', 'select[data-quick-add-select]');
+    $(document).off('click.quickadd', '.quick-add-btn');
+
+    $(document).on('change.quickadd', '[data-quick-add-swatches] input[type="radio"]', function () {
+      var $card = $(this).closest('.product-grid-item, .grid-product, .product-card');
+      var vid = $(this).val();
+      $card.find('[data-quick-add-form] input[name="id"]').val(vid);
+      $card.find('.quick-add-btn').prop('disabled', $(this).is(':disabled'));
+    });
+
+    $(document).on('change.quickadd', 'select[data-quick-add-select]', function () {
+      var $select = $(this);
+      var $card = $select.closest('.product-grid-item, .grid-product, .product-card');
+      var vid = $select.val();
+
+      $card.find('[data-quick-add-form] input[name="id"]').val(vid);
+
+      var isDisabled = $select.find('option:selected').prop('disabled');
+      $card.find('.quick-add-btn').prop('disabled', !!isDisabled);
+    });
+
+    $(document).on('click.quickadd', '.quick-add-btn', function (e) {
+      // Stop other click handlers from also firing
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+
+      var $btn = $(this);
+
+      // In-flight guard: prevents double submit from fast clicks or duplicate events
+      if ($btn.data('quickaddBusy')) return;
+
+      var $card = $btn.closest('.product-grid-item, .grid-product, .product-card');
+      var variantId = getVariantId($card);
+      if (!variantId) {
+        console.error('Quick add: missing variant id');
+        return;
+      }
+
+      $btn.data('quickaddBusy', true);
+      $btn.addClass('btn--loading').prop('disabled', true);
+
+      $.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({ id: Number(variantId), quantity: 1 }),
+        success: function () {
+          document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+        },
+        error: function (xhr) {
+          console.error(xhr.responseJSON?.description || 'Add to cart failed');
+        },
+        complete: function () {
+          $btn.data('quickaddBusy', false);
+          $btn.removeClass('btn--loading is-loading').prop('disabled', false);
+        },
+      });
+    });
+  })(jQuery);
+</script>

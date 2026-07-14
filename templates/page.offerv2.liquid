@@ -1,0 +1,1851 @@
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  defer="defer"
+></script>
+<script
+  src="{{ 'jquery.countdown.min.js' | asset_url }}"
+  defer="defer"
+></script>
+
+
+{% render 'offerv2-slider' %}
+{% comment %}
+{% render 'countdown-timer-new-sale' %}
+{% endcomment %}
+<div class="new-offer_main">
+  <div class="new-offer_inner">
+    <div class="new-offer_exclusive-section">
+      <div class="page-width">
+        <div class="exclusive-section_title">
+          <h2>SHOP EXCLUSIVE DEALS</h2>
+        </div>
+        <div class="exclusive-section_slider">
+          <div class="exclusive-section_slider-inner">
+            <div class="exclusive-section_slider-item">
+              <div
+                class="exclusive-section_item-top owl-carousel exclusive-item-slider"
+              >
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'player-plus-slider-img-1.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'player-plus-slider-img-2.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'player-plus-slider-img-3.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'player-plus-slider-img-4.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'player-plus-slider-img-5.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="exclusive-section_item-bottom">
+                <div class="exclusive-section_offer-tag">
+                  <div class="exclusive-section_offer-tag-holder">
+                    <svg
+                      width="156"
+                      height="21"
+                      viewBox="0 0 156 21"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M0 0H155.779L136.872 21H0V0Z" fill="#FF0000" />
+                    </svg>
+                    <p>Instant $50 Bonus</p>
+                  </div>
+                  <div class="clock-builder-output"></div>
+                </div>
+                <div class="exclusive-section_item-title">
+                  <h3 class="exclusive-section_product-title">
+                    PLAYER+ GPS SPEAKER
+                  </h3>
+                  <p>
+                    Powerful 360° sound meets advanced GPS functionality giving
+                    golfers everything they need to take their game to the next
+                    level.
+                  </p>
+                </div>
+                <div class="exclusive-section_slider-item-rate">
+                  <span class="slash-out_price"
+                    >{{all_products['player-gps-speaker'].compare_at_price_max |
+                    money}}</span
+                  >
+                  <p>{{ all_products['player-gps-speaker'].price | money }}</p>
+                </div>
+                <div class="exclusive-section_slider-item-cta">
+                  <a class="btn" href="/products/player-gps-speaker"
+                    >SHOP NOW</a
+                  >
+                  <a
+                    class="btn_outline poptrigger"
+                    data-rel="player-plus_review-video"
+                    ><span
+                      ><img
+                        class="play-icon-new"
+                        src="{{'play-new-icon-btg.svg' | asset_url}}"
+                        alt="Play New Icon"
+                    /></span>
+                    SEE IT IN ACTION
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="exclusive-section_slider-item">
+              <div
+                class="exclusive-section_item-top owl-carousel exclusive-item-slider"
+              >
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'rsp-slider-img-1.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'rsp-slider-img-2.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'rsp-slider-img-3.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'rsp-slider-img-4.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'rsp-slider-img-5.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="exclusive-section_item-bottom">
+                <div class="exclusive-section_offer-tag">
+                  <div class="exclusive-section_offer-tag-holder">
+                    <svg
+                      width="156"
+                      height="21"
+                      viewBox="0 0 156 21"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M0 0H155.779L136.872 21H0V0Z" fill="#FF0000" />
+                    </svg>
+                    <p>SALE OFFER! $20 OFF</p>
+                  </div>
+                  <div class="clock-builder-output"></div>
+                </div>
+                <div class="exclusive-section_item-title">
+                  <h3 class="exclusive-section_product-title">
+                    RINGER GPS HANDHELD
+                  </h3>
+                  <p>
+                    GPS equipped with over 42k preloaded courses, touch screen
+                    glass display, built-in magnet, and companion app.
+                  </p>
+                </div>
+                <div class="exclusive-section_slider-item-rate">
+                  <span class="slash-out_price" style="display:flex !important;"
+                    >{{all_products['ringer'].compare_at_price_max |
+                    money}}</span
+                  >
+                  <p>{{ all_products['ringer'].price | money }}</p>
+                </div>
+                <div class="exclusive-section_slider-item-cta">
+                  <a class="btn" href="/products/ringer">SHOP NOW</a>
+                  <a
+                    class="btn_outline poptrigger"
+                    data-rel="player-plus_review-video"
+                    ><span
+                      ><img
+                        class="play-icon-new"
+                        src="{{'play-new-icon-btg.svg' | asset_url}}"
+                        alt="Play New Icon"
+                    /></span>
+                    SEE IT IN ACTION
+                  </a>
+                </div>
+              </div>
+            </div>
+        
+
+
+            <div class="exclusive-section_slider-item">
+              <div
+                class="exclusive-section_item-top owl-carousel exclusive-item-slider"
+              >
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'srpgo-slider-img-1.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'srpgo-slider-img-2.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'srpgo-slider-img-3.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'srpgo-slider-img-4.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="exclusive-section_item-img">
+                    <img
+                      class="touch-screen_logo"
+                      src="{{'srpgo-slider-img-5.png' | asset_url}}"
+                      alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="exclusive-section_item-bottom">
+                <div class="exclusive-section_offer-tag">
+                  <div class="exclusive-section_offer-tag-holder">
+                    <svg
+                      width="156"
+                      height="21"
+                      viewBox="0 0 156 21"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M0 0H155.779L136.872 21H0V0Z" fill="#FF0000" />
+                    </svg>
+                    <p>BUNDLE & SAVE $120</p>
+                  </div>
+                  <div class="clock-builder-output"></div>
+                </div>
+                <div class="exclusive-section_item-title">
+                  <h3 class="exclusive-section_product-title">
+                    RINGER PACK GO
+                  </h3>
+                  <p>
+                    Bundle of the Ringer GPS handheld with over 42k preloaded
+                    courses, and the compact GPS enabled Player GO Magnetic
+                    Speaker.
+                  </p>
+                </div>
+                <div class="exclusive-section_slider-item-rate">
+                  <span class="slash-out_price" style="display:flex !important;"
+                    >{{all_products['ringerpack'].compare_at_price_max |
+                    money}}</span
+                  >
+                  <p>{{ all_products['ringerpack'].price | money }}</p>
+                </div>
+                <div class="exclusive-section_slider-item-cta">
+                  <a class="btn" href="/products/ringerpack">SHOP NOW</a>
+                  <a
+                    class="btn_outline poptrigger"
+                    data-rel="ringerpack_review-video"
+                    ><span
+                      ><img
+                        class="play-icon-new"
+                        src="{{'play-new-icon-btg.svg' | asset_url}}"
+                        alt="Play New Icon"
+                    /></span>
+                    SEE IT IN ACTION
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="new-offer_video-section">
+      <img
+        class="product-atc_product-img"
+        src="{{'player-plus-section-image.png' | asset_url}}"
+        alt="Blue Tees Product Image"
+      />
+    </div>
+    <div class="new-offer_review-section">
+      <div class="new-offer_review-inner">
+        <div class="geore_gankas_box_bg-new top">
+          <h2 class="h2">
+            300K+ Golfers Choose Us<br /><span>Over Any other Brand</span>
+          </h2>
+          <p>
+            That’s because with Blue Tees, you’re not just getting premium golf
+            tech at an unreasonably affordable price, you’re getting access to
+            the same data the pros use, giving you everything you need to take
+            your golf game to the next level.
+          </p>
+        </div>
+        <div class="geore_gankas_box_bg-new new_box">
+          <p style="padding: 0">READ A FEW OF OUR 2,000+ 5 STAR REVIEWS</p>
+          <div class="custom-review-section">
+            <div class="review-slider owl-carousel">
+              <div class="item">
+                <div class="review-block">
+                  <img
+                    class="review-img"
+                    src="{{'review-new-img-1.png' | asset_url}}"
+                    alt="Review Image OF Product Blue Tees Golf"
+                  />
+                  <div class="review-content">
+                    <div class="review-inner-conetnt">
+                      <div class="review-title">
+                        <h3>B</h3>
+                        <h4>Brentk<small>10/14/2023</small></h4>
+                      </div>
+                      <div class="review-star">
+                        <img src="{{'review-star.svg' | asset_url}}" alt="" />
+                      </div>
+                    </div>
+                    <p>
+                      Worked amazing. Didn’t have to pull out a rangefinder at
+                      all, speaker quality is amazing and love being able to
+                      keep score
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="review-block">
+                  <img
+                    class="review-img"
+                    src="{{'review-new-img-2.png' | asset_url}}"
+                    alt="Review Image OF Product Blue Tees Golf"
+                  />
+                  <div class="review-content">
+                    <div class="review-inner-conetnt">
+                      <div class="review-title">
+                        <h3>R</h3>
+                        <h4>Ryan<small>4/30/2024</small></h4>
+                      </div>
+                      <div class="review-star">
+                        <img src="{{'review-star.svg' | asset_url}}" alt="" />
+                      </div>
+                    </div>
+                    <p>
+                      Just got mine and took it for a spin the last few rounds
+                      and it works great! Yardages seem very accurate. Love it!
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="review-block">
+                  <img
+                    class="review-img"
+                    src="{{'review-new-img-3.png' | asset_url}}"
+                    alt="Review Image OF Product Blue Tees Golf"
+                  />
+                  <div class="review-content">
+                    <div class="review-inner-conetnt">
+                      <div class="review-title">
+                        <h3>M</h3>
+                        <h4>Michael<small>3/6/2024</small></h4>
+                      </div>
+                      <div class="review-star">
+                        <img src="{{'review-star.svg' | asset_url}}" alt="" />
+                      </div>
+                    </div>
+                    <p>
+                      Just used it for the first time this past weekend! Great
+                      features and provides confidence all around the course.
+                      Really happy with the purchase and pairs nicely with the
+                      range finder
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="review-block">
+                  <img
+                    class="review-img"
+                    src="{{'review-new-img-4.png' | asset_url}}"
+                    alt="Review Image OF Product Blue Tees Golf"
+                  />
+                  <div class="review-content">
+                    <div class="review-inner-conetnt">
+                      <div class="review-title">
+                        <h3>M</h3>
+                        <h4>Mark<small>10/23/2023</small></h4>
+                      </div>
+                      <div class="review-star">
+                        <img src="{{'review-star.svg' | asset_url}}" alt="" />
+                      </div>
+                    </div>
+                    <p>
+                      This thing is amazing!! Yardage is correct and the sound
+                      is better than any other portable speaker that I own.
+                      Battery life is good for at least 2 full rounds.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="review-block">
+                  <img
+                    class="review-img"
+                    src="{{'review-new-img-5.png' | asset_url}}"
+                    alt="Review Image OF Product Blue Tees Golf"
+                  />
+                  <div class="review-content">
+                    <div class="review-inner-conetnt">
+                      <div class="review-title">
+                        <h3>S</h3>
+                        <h4>Scott<small>1/17/2024</small></h4>
+                      </div>
+                      <div class="review-star">
+                        <img src="{{'review-star.svg' | asset_url}}" alt="" />
+                      </div>
+                    </div>
+                    <p>
+                      Best range finder I have found. Cust service is the best
+                      ever. You guys are the best.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="review-block">
+                  <img
+                    class="review-img"
+                    src="{{'review-new-img-6.png' | asset_url}}"
+                    alt="Review Image OF Product Blue Tees Golf"
+                  />
+                  <div class="review-content">
+                    <div class="review-inner-conetnt">
+                      <div class="review-title">
+                        <h3>S</h3>
+                        <h4>Sean<small>4/27/2024</small></h4>
+                      </div>
+                      <div class="review-star">
+                        <img src="{{'review-star.svg' | asset_url}}" alt="" />
+                      </div>
+                    </div>
+                    <p>
+                      Have only used it once so far so still getting used to it.
+                      But all and all pretty simple and accurate. Will be my new
+                      go to GPS
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="review-block">
+                  <img
+                    class="review-img"
+                    src="{{'review-new-img-7.png' | asset_url}}"
+                    alt="Review Image OF Product Blue Tees Golf"
+                  />
+                  <div class="review-content">
+                    <div class="review-inner-conetnt">
+                      <div class="review-title">
+                        <h3>L</h3>
+                        <h4>Lucy<small>5/2/2024</small></h4>
+                      </div>
+                      <div class="review-star">
+                        <img src="{{'review-star.svg' | asset_url}}" alt="" />
+                      </div>
+                    </div>
+                    <p>
+                      I love this little device! Accurate and convenient when
+                      you don’t want to take your range finder out for every
+                      shot. Definitely recomend!
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="review-block">
+                  <img
+                    class="review-img"
+                    src="{{'review-new-img-8.png' | asset_url}}"
+                    alt="Review Image OF Product Blue Tees Golf"
+                  />
+                  <div class="review-content">
+                    <div class="review-inner-conetnt">
+                      <div class="review-title">
+                        <h3>D</h3>
+                        <h4>Daniel<small>9/17/2024</small></h4>
+                      </div>
+                      <div class="review-star">
+                        <img src="{{'review-star.svg' | asset_url}}" alt="" />
+                      </div>
+                    </div>
+                    <p>Great sound, easy to use, and great data.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="new_offer-featured-section">
+      <div class="featured-section_title">
+        <h2>FEATURED BY SOME OF THE BIGGEST NAMES IN THE GAME</h2>
+      </div>
+      <div class="featured-section_slider">
+        <div id="container" data-animated>
+          <ul id="list">
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-1.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-2.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-3.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-4.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-5.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-7.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-8.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-9.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-10.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-11.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+            <li>
+              <img
+                class="a"
+                src="{{'featured-slider-img-12.png' | asset_url}}"
+                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="featured-section_video-area">
+        <div class="feature-section_video-title geore_gankas_box_bg-new">
+          <h2 class="h2">HEAR WHAT THE <span> PROS </span> HAVE TO SAY.</h2>
+          <p>Spoiler Alert: They love us too.</p>
+        </div>
+        <div class="feature-section_video page-width">
+          <div class="feature-section_video-inner video_block video-preview"  data-play-in-place="true" data-video-url="https://cdn.shopify.com/videos/c/o/v/af76750ce5f14590a2026b9835b55fdf.mp4">
+             <div class="loader" id="loader-1"></div>
+        <video
+          id="preview-video-1"
+          class="preview-video"
+          autoplay
+          loop
+          muted
+          playsinline
+        ></video>
+        <div class="video_overlay-content play-button" style="--ripple-clr:#00000060;" id="play-button-1">
+          <img
+            id="video_block-icon-desktop"
+            class="touch-screen_logo"
+            src="{{'feature-pause-icon.svg' | asset_url}}"
+            alt="feature-pause-icon"
+          >
+        </div>
+           
+          </div>
+        </div>
+      </div>
+
+
+      <div class="new-offer_see-more-section">
+        <div class="page-width">
+          <div
+            class="exclusive-section_title geore_gankas_box_bg-new"
+            style="text-align: center"
+          >
+            <img
+              class="touch-screen_logo"
+              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-new-tees-white.svg?v=1771234649s"
+              alt="Blue Tees Golf Logo"
+            />
+            <h2 class="h2">
+              see more GREAT <br />
+              <span>BLUE TEES golf </span> PRODUCTS
+            </h2>
+          </div>
+          <div class="exclusive-section_slider">
+            <div class="exclusive-section_slider-inner">
+              <div class="exclusive-section_slider-item">
+                <div
+                  class="exclusive-section_item-top owl-carousel exclusive-item-slider"
+                >
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'4ultra-slider-img-1.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'4ultra-slider-img-2.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'4ultra-slider-img-3.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'4ultra-slider-img-4.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'4ultra-slider-img-5.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="exclusive-section_item-bottom">
+                  <div class="exclusive-section_item-title">
+                    <h3 class="exclusive-section_product-title">
+                      SERIES 4 ULTRA RANGEFINDER
+                    </h3>
+                    <p>
+                      OLED optics, 1,200 yard range, and next-gen Auto-Depth
+                      Filter make for unparalleled flag lock capability with
+                      precision accuracy.
+                    </p>
+                  </div>
+                  <div class="exclusive-section_slider-item-rate">
+                    <img
+                      class="a"
+                      src="{{'4ultra-icon-pack-offer-v2.svg' | asset_url}}"
+                      alt="Play New Icon"
+                    />
+                  </div>
+                  <div class="exclusive-section_slider-item-cta">
+                    <a class="btn" href="/products/series-4-ultra-rangefinder"
+                      >SHOP NOW</a
+                    >
+                    <a
+                      class="btn_outline poptrigger"
+                      data-rel="4ultra_review-video"
+                      ><span
+                        ><img
+                          class="play-icon-new"
+                          src="{{'play-new-icon-btg.svg' | asset_url}}"
+                          alt="Play New Icon"
+                      /></span>
+                      SEE IT IN ACTION
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="exclusive-section_slider-item">
+                <div
+                  class="exclusive-section_item-top owl-carousel exclusive-item-slider"
+                >
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'see-more-3max-plus-slider-img-1.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'see-more-3max-plus-slider-img-2.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'see-more-3max-plus-slider-img-3.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'see-more-3max-plus-slider-img-4.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'see-more-3max-plus-slider-img-5.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="exclusive-section_item-bottom">
+                  <div class="exclusive-section_item-title">
+                    <h3 class="exclusive-section_product-title">
+                      SERIES 3 MAX+ RANGEFINDER
+                    </h3>
+                    <p>
+                      The S3 Max+ offers improved software + electronics, an
+                      enhanced ergonomic design, and is powered by our new
+                      rechargeable battery technology.
+                    </p>
+                  </div>
+                  <div class="exclusive-section_slider-item-rate">
+                    <img
+                      class="a"
+                      src="{{'icons-new-3max-plus-see-more.svg' | asset_url}}"
+                      alt="Play New Icon"
+                    />
+                  </div>
+                  <div class="exclusive-section_slider-item-cta">
+                    <a
+                      class="btn"
+                      href="/products/series-3-max-golf-rangefinder-with-slope"
+                      >SHOP NOW</a
+                    >
+                    <a
+                      class="btn_outline poptrigger"
+                      data-rel="3max-plus_review-video"
+                      ><span
+                        ><img
+                          class="play-icon-new"
+                          src="{{'play-new-icon-btg.svg' | asset_url}}"
+                          alt="Play New Icon"
+                      /></span>
+                      SEE IT IN ACTION
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="exclusive-section_slider-item">
+                <div
+                  class="exclusive-section_item-top owl-carousel exclusive-item-slider"
+                >
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'see-more-pgos-slider-img-1.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'see-more-pgos-slider-img-2.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'see-more-pgos-slider-img-3.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'see-more-pgos-slider-img-4.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="exclusive-section_item-img">
+                      <img
+                        class="touch-screen_logo"
+                        src="{{'see-more-pgos-slider-img-5.png' | asset_url}}"
+                        alt="Most Probably You Are Seeing A Image Of A Speaker Build By BlueTess Golf"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="exclusive-section_item-bottom">
+                  <div class="exclusive-section_item-title">
+                    <h3 class="exclusive-section_product-title">
+                      PLAYER GO SPEAKER
+                    </h3>
+                    <p>
+                      Our smallest and most compact speaker yet. The Player GO
+                      delivers a rich audio experience, audible GPS readings,
+                      and a built-in magnet.
+                    </p>
+                  </div>
+                  <div class="exclusive-section_slider-item-rate">
+                    <img
+                      class="a"
+                      src="{{'icons-new-pgos-see-more.svg' | asset_url}}"
+                      alt="Play New Icon"
+                    />
+                  </div>
+                  <div class="exclusive-section_slider-item-cta">
+                    <a class="btn" href="/products/magnetic-golf-speaker"
+                      >SHOP NOW</a
+                    >
+
+                    <a
+                      class="btn_outline poptrigger"
+                      data-rel="player-go_review-video"
+                      ><span
+                        ><img
+                          class="play-icon-new"
+                          src="{{'play-new-icon-btg.svg' | asset_url}}"
+                          alt="Play New Icon"
+                      /></span>
+                      SEE IT IN ACTION
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="new_design-bg-fff new_design-bg-000 game-section">
+    <div class="page-width">
+      <div class="new_design-feature-section">
+        <div class="new_design-row">
+          <div
+            class="new_design-item row_custom has_items-center has_center revers-md has_center-text-md"
+          >
+            <div class="new_design-item-right width-lg-50">
+              <img
+                class="speaker-feature-imgs"
+                src="{{'new-game-app-mockup.png' | asset_url}}"
+                alt="Blue Tees Game App"
+              />
+            </div>
+            <div class="new_design-item-left width-lg-50">
+              <div class="new-design-text-icon">
+                <div class="icon-two">
+                  <img
+                    class="speaker-feature-im"
+                    src="{{'blue-diamond-icon.svg' | asset_url}}"
+                    alt="Blue Tees Game App"
+                  />
+                </div>
+                <h3 class="width-lg-50">
+                  Unlock Exclusive features & <br />
+                  Benefits with a <span>PREMIUM MEMBERSHIP</span>
+                </h3>
+              </div>
+              <p>
+                Take your game to the next level with a Blue Tees Premium
+                Membership, providing you with unlimited access to a full
+                arsenal of additional product features through the official Game
+                App like shot tracking, club suggestions, and post-game
+                analytics. You’ll also exclusive offers and early access to Blue
+                Tees products – perfect for golfers looking to get a leg up
+                wherever they’re teeing off from.
+              </p>
+              <div class="new_design-game-app-icons">
+                <div class="exclusive-section_slider-item-cta">
+                  <a class="btn extra_bright" href="/pages/membership"
+                    >BECOME A MEMBER</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+                        <style>
+@media only screen and (min-width:769px) {
+ #SiteHeader:not(.site-header.site-header--megamenu-active, #SiteHeader.site-header.fixed) { background: transparent; }
+#SiteHeader .site_header__border:not(.site-header.site-header--megamenu-active) { opacity: 0; }
+#SiteHeader { position: fixed; width: 100%; }
+#SiteHeader .site_header__border { opacity: 0; }
+#SiteHeader.site-header.site-header--megamenu-active .site_header__border { opacity: 1; }
+ }
+.Offer_Bug-Container { background: #CB0000; border-radius: 2px; color: #fff; }
+/* new global css  start*/
+:root { --width-lg-50: 50%; --width-md-100: 100%; }
+.width-lg-50 { width: var(--width-lg-50); }
+.row_custom { display: flex; }
+.has_items-center { align-items: center; }
+.has_center { justify-content: center; }
+.lg { display: inline-block; }
+.md { display: none; }
+.has_center-text { text-align: center; }
+.color_fff { color: #fff; }
+@media only screen and (max-width: 768px) {
+ .width-md-100,
+  .width-lg-50 { width: var(--width-md-100); }
+.row_custom { flex-wrap: wrap; }
+.revers-md { flex-direction: column-reverse; }
+.has_center-text-md { text-align: center; }
+.lg { display: none; }
+.md { display: block; }
+ }
+/* new global css end  */
+.top-tag { margin-bottom: 10px; }
+.top-tag small { display: inline-block; font-size: 9px; font-weight: 600; border-radius: 2px; background: #00d400; color: #000; padding: 1px 3px !important; }
+.banner-value_text { font-size: clamp(10px, 1.2vw, 14px); color: #fff; opacity: 0.5; font-style: italic; font-weight: 900; width: 100%; line-height: 100%; padding-top: 0; }
+.site_include-text { font-size: 10px; color: #fff; line-height: 140%; text-align: center; margin-top: 10px; flex: 100%; padding-top: 0; letter-spacing: 4.944px; }
+.light_site--text-banner { color: #000; letter-spacing: 2.48px; display: flex; justify-content: center; align-items: center; column-gap: 14px; font-size: 12px; }
+.light_site--text-banner span { display: flex; }
+.new-slide-text img { max-width: clamp(80px, 10vw, 190px); }
+.free-shiping-note { opacity: 0.5; letter-spacing: 2.48px; margin-top: 14px; font-size: 10px; }
+.exclusive-section_offer-tag { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+.exclusive-section_offer-tag-holder { position: relative; display: flex; justify-content: flex-start; align-items: center; }
+.exclusive-section_offer-tag p { padding-top: 2px; position: absolute; color: #fff; font-size: 12px; line-height: 12px; left: 6px; font-weight: 900; text-transform: uppercase; }
+.clock-builder-output { color: #000; font-weight: 500; opacity: 0.5; font-size: 12px; line-height: 1; }
+.clock-builder-output.no { display: none; }
+.pop-upbox { background: rgba(0, 0, 0, 0.65); bottom: 0; display: none; left: 0; position: fixed; right: 0; top: 0; z-index: 999999999; overflow: hidden; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.pop-upbox .popup-box { left: 0; margin: 0 auto; max-width: 100%; position: absolute; right: 0; top: 40px; width: 100%; z-index: 99999; border-radius: 50px; top: 50%; max-width: 650px; padding: 0px 20px; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); }
+.pop-upbox .popup-box .pop-close { position: absolute; width: 24px; float: right; text-align: center; right: 20px; top: -30px; }
+.pop-upbox .popup-box .pop-close a { text-decoration: none; font-size: 0; color: #000; }
+.popup-box { max-width: 1200px; }
+.game-section .new_design-feature-section { padding: 30px 0px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item { justify-content: space-around; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-right { max-width: fit-content; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-right .speaker-feature-imgs { max-width: 400px; width: 100%; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-style: italic; line-height: 92.7%; letter-spacing: 0.16px; max-width: 457px; width: 100%; font-size: 36px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left { max-width: 560px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { padding-top: 27px; font-size: 16px; line-height: 28px; letter-spacing: 0.4px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-game-app-icons { display: flex; gap: 5px; margin-top: 15px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-game-app-icons .game-app { display: flex; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-game-app-icons .app-logo { max-width: 150px; width: 100%; }
+.game-section .btn.extra_bright { background-color: #ff0000; padding: 20px 86px; border-radius: 7px; font-weight: 900; letter-spacing: 1.6px; font-size: 18px; margin-top: 26px; }
+#shopify-section-as-seen-in-gps-speaker .theme-block:nth-child(3) .single-img img { max-width: 100%; }
+.new-design-text-icon { display: flex; gap: 22px; justify-content: center; align-items: center; }
+.new-design-text-icon .icon-two { flex: 30%; }
+.game-section .btn.extra_bright:hover { background-color: #004DF5 !important; color: #fff; }
+.new-slide .offer-price_area-inner { justify-content: start; flex-wrap: nowrap; }
+.new-slide .offer-price_area-inner .new-slide-text { font-size: 14px; font-weight: 900; margin-left: 15px; padding: 0; }
+.new-slide .offer-price_area-inner .new-slide-text span:not(span.slash-out_price) { display: block; color: #ff0013; }
+.new-slide .offer-price_area-inner .new-slide-text span.slash-out_price { opacity: 1; margin-right: auto; margin-left: 0; }
+.new-slide .offer-price_area-inner .new-slide-text span.slash-out_price span.money { color: #ffffff50; opacity: 1; }
+.new-slide .video_cta { background: var(--site--highlight-clr); }
+.new-slide .video_cta:hover { background: #fff; }
+@media only screen and (max-width: 1440px) {
+ .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 26px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { padding-top: 16px; }
+.new_design-feature-section .new_design-row .new_design-item { gap: 20px; }
+ }
+@media only screen and (max-width: 1280px) {
+ .new_design-feature-section .new_design-row .new_design-item .new_design-item-left { max-width: 400px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 24px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { padding-top: 10px; }
+ }
+@media only screen and (max-width: 1180px) {
+ .game-section .new_design-item.row_custom.has_items-center.has_center.revers-md.has_center-text-md { gap: 90px; }
+ }
+@media only screen and (max-width: 991px) {
+ .new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { padding-top: 10px; font-size: 14px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left { max-width: 370px; }
+.new_design-bg-000 .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { max-width: 240px; }
+.new_design-inner-content .new_design-bg-000 .new_design-feature-section .new_design-row:nth-child(2n) .new_design-item,
+  .new_design-pdp-main .new_design-inner .new_design-inner-content .new_design-bg-000 .new_design-feature-section .new_design-row:nth-child(2n + 1) .new_design-item { padding: 0px 15px; gap: 70px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left { max-width: 400px; }
+ }
+@media only screen and (max-width: 820px) {
+ .game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left { max-width: 320px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-game-app-icons .app-logo { max-width: 120px; }
+.new_design-inner-content .game-section .new_design-feature-section { padding: 20px 0px; }
+ }
+@media only screen and (max-width: 768px) {
+ .new_design-feature-section { gap: 50px; }
+.new_design-feature-section .new_design-row { padding: 0px 27px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left,
+  .new_design-pdp-main .new_design-inner .new_design-bg-000 .new_design-feature-section .new_design-row .new_design-item .new_design-item-left,
+  .new_design-pdp-main .new_design-inner .new_design-bg-000 .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { max-width: 100%; }
+.new_design-feature-section .new_design-row:nth-child(2n) .new_design-item,
+  .new_design-pdp-main .new_design-inner .new_design-inner-content .new_design-bg-000 .new_design-feature-section .new_design-row:nth-child(2n + 1) .new_design-item,
+  .new_design-pdp-main .new_design-inner .new_design-inner-content .new_design-bg-000 .new_design-feature-section .new_design-row:nth-child(2n) .new_design-item { flex-direction: column-reverse; }
+.new_design-feature-section .new_design-row .new_design-item,
+  .new_design-pdp-main .new_design-inner .new_design-inner-content .new_design-bg-000 .new_design-feature-section .new_design-row:nth-child(2n) .new_design-item,
+  .new_design-pdp-main .new_design-inner .new_design-inner-content .new_design-bg-000 .new_design-feature-section .new_design-row:nth-child(2n + 1) .new_design-item { gap: 0px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left { padding-top: 0px; }
+.new_design-bg-000 .new_design-feature-section { padding-bottom: 50px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-game-app-icons { justify-content: center; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { max-width: 400px; margin: 0 auto; }
+.game-section .new_design-feature-section .new_design-row:nth-child(2n + 1) .new_design-item { row-gap: 20px; }
+.new_design-inner-content .new_design-bg-000 .new_design-feature-section .new_design-row:nth-child(2n) .new_design-item,
+  .new_design-pdp-main .new_design-inner .new_design-inner-content .new_design-bg-000 .new_design-feature-section .new_design-row:nth-child(2n + 1) .new_design-item { gap: 30px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { padding-top: 15px; max-width: 571px; margin: 0 auto; width: 100%; font-size: 16px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 30px; }
+.new_design-bg-000 .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3>br { display: none; }
+.new_design-bg-000 .audio_exp-section .audio_exp-section-inner { height: 500px; }
+.new_design-bg-000 .audio_exp-section-text img,
+  .new_design-pdp-main .new_design-inner .new_design-bg-000 .audio_exp-section-bg img.audio-exp-md { max-width: 520px; margin: 0 auto; }
+.new_design-bg-000 .audio_exp-section-text { position: relative; bottom: 130px; }
+#shopify-section-as-seen-in-gps-speaker .theme-block:nth-child(3) .single-img img,
+  #shopify-section-as-seen-in-gps-speaker .theme-block:nth-child(2) .rte p { visibility: hidden; }
+#shopify-section-as-seen-in-gps-speaker { background: url "( {  { 'player-plus-new-as-seen-bg.png' | asset_url } })" no-repeat center center / contain !important; }
+.video_scale_animation-main+.as-seen-in { padding: 0px 0px 40px; }
+.game-section .new_design-item.row_custom.has_items-center.has_center.revers-md.has_center-text-md { gap: 0px; flex-direction: row-reverse; flex-direction: column; }
+ }
+@media only screen and (max-width: 660px) {
+ .new_design-feature-section .new_design-row { padding: 0px 17px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 26px; }
+.new_design-bg-000 .new_design-feature-section { padding-bottom: 80px; }
+ }
+@media only screen and (max-width: 620px) {
+ .new_design-bg-000 .new_design-feature-section { padding-bottom: 60px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 24px; }
+.new_design-bg-000 .audio_exp-section .audio_exp-section-inner { height: 420px; }
+.new_design-bg-000 .audio_exp-section-text img,
+  .new_design-pdp-main .new_design-inner .new_design-bg-000 .audio_exp-section-bg img.audio-exp-md { max-width: 450px; }
+.new_design-bg-000 .audio_exp-section-text p { max-width: 480px; }
+ }
+@media only screen and (max-width: 575px) {
+ .new_design-feature-section .new_design-row { padding: 0px 7px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { font-size: 14px; max-width: 510px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 22px; }
+.new_design-bg-000 .new_design-feature-section { padding-bottom: 50px; }
+.new_design-bg-000 .audio_exp-section-text p { max-width: 410px; }
+.new_design-bg-000 .audio_exp-section-text img,
+  .new_design-pdp-main .new_design-inner .new_design-bg-000 .audio_exp-section-bg img.audio-exp-md { max-width: 390px; }
+.new_design-bg-000 .audio_exp-section-text { bottom: 100px; }
+.video_scale_animation-main .video_scale_animation video+.volume-btn span img { width: 30px; }
+.video_scale_animation-main .video_scale_animation video+.volume-btn { bottom: 10px; right: 10px; }
+.new_design-feature-section { gap: 35px; }
+ }
+@media only screen and (max-width: 480px) {
+ .new_design-feature-section .new_design-row { padding: 0px 0px; }
+ }
+@media only screen and (max-width: 420px) {
+ .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 20px; }
+.new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { font-size: 12px; padding-top: 5px; }
+.new_design-bg-000 .audio_exp-section-text img,
+  .new_design-pdp-main .new_design-inner .new_design-bg-000 .audio_exp-section-bg img.audio-exp-md { max-width: 340px; }
+.new_design-bg-000 .audio_exp-section-text p { max-width: 340px; }
+.new_design-bg-000 .audio_exp-section .audio_exp-section-inner { height: 380px; }
+ }
+/* EXCLUSIVE PRODUCT CSS START */
+.new-offer_exclusive-section { margin-bottom: 26px; }
+.new-offer_exclusive-section .exclusive-section_title { text-align: center; padding: 37px 0 29px; }
+.new-offer_exclusive-section .exclusive-section_title h2 { font-size: 70px; font-style: italic; font-weight: 900; line-height: 70px; letter-spacing: -2px; }
+.exclusive-section_slider-inner { display: flex; align-items: center; gap: clamp(40px, 4vw, 70px); flex-wrap: wrap; justify-content: center; }
+.exclusive-section_slider-inner .exclusive-section_item-top .owl-stage-outer { border-radius: 12px; }
+.exclusive-section_slider-inner .exclusive-section_product-title { font-size: 24px; font-style: italic; font-weight: 900; line-height: 24px; }
+.exclusive-section_slider-inner .exclusive-section_product-title+p { letter-spacing: 0.064px; max-width: 334px; width: 100%; }
+.exclusive-section_slider-inner .owl-dots { display: flex; justify-content: center; align-items: center; margin: 10px 0px 18px; }
+.exclusive-section_slider-inner .owl-dots button { height: 7px; width: 7px; margin-right: 6px; }
+.exclusive-section_slider-inner .owl-dots button span { height: 100%; width: 100%; display: block; background: #D9D9D9; border-radius: 50px; transition: .25s linear all; }
+.exclusive-section_slider-inner .owl-dots .owl-dot.active span { background: #090909; }
+.exclusive-section_slider-inner .exclusive-section_slider-item { max-width: 30%; width: 100%; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate { display: flex; gap: 7px; margin-top: 10px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { padding: 0px; font-weight: 900; font-style: italic; font-size: 32px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-cta { text-align: center; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .btn { background-color: #004DF5; color: white; padding: 12px 0px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; max-width: 100%; width: 100%; margin: 10px 0; display: inline-block; font-weight: 900; letter-spacing: 3.2px; min-height: inherit !important; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .btn:hover { background-color: #CB0000 !important; color: #fff; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline span { display: flex; margin-right: 7px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline { text-align: center; background-color: transparent; color: #000; padding: 6px 0px; border: 1px solid #000; border-radius: 50px; font-size: 12px; cursor: pointer; letter-spacing: 1.1px; max-width: 150px; width: 100%; display: flex; justify-content: center; font-weight: 900; min-height: inherit !important; margin: 0 auto; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline:hover { background-color: #000; color: #fff; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline:hover span .play-icon-new { filter: invert(1); }
+/* EXCLUSIVE PRODUCT CSS END */
+.slash-out_price { position: relative; font-size: 16px; color: #9F9F9F50; font-weight: 900; height: fit-content; display: flex; justify-content: center; align-items: center; padding: 0; }
+.slash-out_price::before { content: ''; position: absolute; height: 2px; width: 100%; background: #929292; }
+/* IMAGE SECTION CSS START */
+.new-offer_video-section { display: flex; }
+.new-offer_video-section img { width: 100%; }
+/* IMAGE SECTION CSS END */
+/* REVIEW SECTION CSS START  */
+.new-offer_review-section { background: #000; }
+.new-offer_review-section .new-offer_review-inner { max-width: 1440px; width: 100%; margin: 0 auto; text-align: center; display: flex; flex-direction: column; }
+.review-slider.owl-carousel .owl-stage { display: flex; flex-wrap: wrap; }
+.review-slider .item { height: 100%; }
+.review-block { background: #fff; padding: 3px; border-radius: 15px; height: 100%; }
+.review-block .review-img { border-top-left-radius: 12px; border-top-right-radius: 12px; }
+.review-content { padding: 10px 10px 30px; }
+.review-inner-conetnt { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; text-align: left; margin-bottom: 10px; }
+.review-title { display: flex; flex-wrap: wrap; align-items: center; }
+.review-title h3 { color: #000; font-style: normal; font-size: 20px; width: 45px; height: 45px; border-radius: 50%; border: 2px solid #000; margin-right: 10px; text-align: center; }
+.review-title h4 { font-size: 14px; text-transform: capitalize; line-height: normal; }
+.review-title h4 small { font-weight: normal; font-size: 10px; }
+.geore_gankas_box_bg-new.top { padding-bottom: 70px; border-bottom: 1px solid #ffffff50; margin-bottom: 23px; padding-top: 80px; }
+.geore_gankas_box_bg-new.top p { font-size: 18px; max-width: 555px; width: 100%; margin: 0 auto; line-height: 130%; letter-spacing: 0.4px; font-weight: 400; text-transform: none; padding-top: 35px; }
+.geore_gankas_box_bg-new .review-content p { color: #000; font-size: 12px; font-style: italic; font-weight: 500; text-transform: capitalize; padding: 0; text-align: left; line-height: inherit; letter-spacing: inherit; }
+.geore_gankas_box_bg-new h2.h2 span { color: #000; -webkit-text-stroke-width: 4px; -webkit-text-stroke-color: #fff; paint-order: stroke fill; }
+.geore_gankas_box_bg-new h2.h2 { font-weight: 900; font-size: 70px; line-height: 65px; text-align: center; text-transform: uppercase; -webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #fff; padding: 20px 0 0 0; color: #fff; font-style: italic; }
+.geore_gankas_box_bg-new p { color: #fff; font-style: inherit; font-weight: 700; font-size: 28px; line-height: 33px; letter-spacing: 0.2em; text-transform: uppercase; }
+.geore_gankas_box_bg-new .owl-dots { display: flex; justify-content: center; align-items: center; margin: 60px 0px 36px; gap: 12px; }
+.geore_gankas_box_bg-new .owl-dots button { height: 14px; width: 14px; }
+.geore_gankas_box_bg-new .owl-dots button span { height: 100%; width: 100%; display: block; border: 1.61px solid #fff; border-radius: 50px; transition: .25s linear all; }
+.geore_gankas_box_bg-new .owl-dots .owl-dot.active span { background: #fff; border: none; }
+.review-slider { padding: 0px 40px; margin-top: 45px; }
+.review-slider .owl-nav .owl-prev,
+.review-slider .owl-nav .owl-next { width: 40px; height: 40px; position: absolute; top: 45%; left: 0; }
+.review-slider .owl-nav .owl-next { left: auto; right: -25px; }
+.review-slider .owl-nav .owl-prev { left: -25px; }
+/* REVIEW SECTION CSS END */
+.new_bug { padding: 4px 8px; font-size: 9px; border-radius: 2px; background: #00D400; color: #000; }
+/* SEE MORE SECTION CSS START */
+.new-offer_see-more-section { background: #000; color: #fff; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title { max-width: 208px; width: 100%; margin: 0 auto; font-size: 28px; line-height: 28px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title+p { margin: 0 auto; max-width: 342px; font-size: 18px; }
+.new-offer_see-more-section .exclusive-section_item-bottom { text-align: center; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item { background-position: 0px -80px !important; background:url"( {  { 'btg-theme-pattern-neww.png' | asset_url }} )" no-repeat; background-size: contain; padding-bottom: 42px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate { justify-content: center; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate { margin: 27px 0px 43px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline span { display: flex; margin-right: 12px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline { text-align: center; background-color: transparent; color: #fff; padding: 12px 0px; line-height: 16px; border: 1px solid #fff; border-radius: 50px; font-size: 16px; cursor: pointer; letter-spacing: 2px; max-width: 238px; width: 100%; display: flex; justify-content: center; font-weight: 500; min-height: inherit !important; margin: 0 auto; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline:hover { background-color: #fff; color: #000; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline span .play-icon-new { filter: invert(1); scale: 1.6; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline:hover span .play-icon-new { filter: invert(0); }
+.new-offer_see-more-section .exclusive-section_slider-inner .owl-dots button { height: 14px; width: 14px; margin-right: 11px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .owl-dots button span { background: #424242; }
+.new-offer_see-more-section .exclusive-section_slider-inner .owl-dots .owl-dot.active span { background: #D9D9D9; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .btn { margin: 0px 0px 10px; }
+.new-offer_see-more-section .geore_gankas_box_bg-new h2.h2 { font-size: 55px; max-width: 711px; margin: 0 auto; padding: 20px 0 0; line-height: 92.7%; }
+.new-offer_see-more-section .exclusive-section_slider { margin-top: 100px; }
+/* SEE MORE SECTION CSS END */
+/* FEATURED SECTION CSS START */
+.featured-section_title { padding: 60px 0px; }
+.featured-section_title h2 { font-size: 55px; max-width: 800px; margin: 0 auto; padding: 20px 0 0; line-height: 92.7%; text-align: center; font-style: italic; }
+.featured-section_slider #container { width: auto; }
+.featured-section_slider ul { display: flex; gap: 10px; list-style: none; padding-bottom: 80px; align-items: center; opacity: 0.3; }
+.featured-section_slider li { background: var(--light-blue); color: var(--text-color); padding: 10px 20px; border-radius: 7px; box-shadow: 2px 2px 2px var(--dark-blue-shadow), 2px 3px 3px var(--dark-blue-shadow), 2px 5px 5px var(--dark-blue-shadow), 2px 8px 8px var(--dark-blue-shadow); }
+.featured-section_slider li img { max-width: 200px; }
+.featured-section_slider #container[data-animated] { overflow: hidden; }
+.featured-section_slider #list { width: max-content; animation: scroll 80s linear infinite; }
+@keyframes scroll {
+ to { translate: calc(-50% - 5px); }
+ }
+.feature-section_video-title.geore_gankas_box_bg-new { text-align: center; margin-bottom: 45px; }
+.feature-section_video-title.geore_gankas_box_bg-new .h2,
+.feature-section_video-title.geore_gankas_box_bg-new p { color: #000; }
+.feature-section_video-title.geore_gankas_box_bg-new .h2 { font-size: 40px; line-height: 40px; -webkit-text-stroke-width: 1px; padding: 0; -webkit-text-stroke-color: #000; }
+.feature-section_video-title.geore_gankas_box_bg-new h2.h2 span { -webkit-text-stroke-color: #000; -webkit-text-stroke-width: 1.2px; }
+.feature-section_video-title.geore_gankas_box_bg-new p { letter-spacing: 0.4px; font-size: 18px; padding: 15px 0 0; font-weight: 400; text-transform: none; line-height: 18px; }
+.featured-section_video-area { position: relative; padding-bottom: 50px; }
+.featured-section_video-area::before { content: ''; position: absolute; bottom: 0px; background: #000; height: 50%; width: 100%; }
+.feature-section_video video { border-radius: 24px; width: 100%; }
+.feature-section_video .feature-section_video-inner { position: relative; display: flex; justify-content: center; align-items: center; }
+
+/* FEATURED SECTION CSS END */
+/* VIDEO BANNER CSS START */
+.am-slider_overlapingContent__inner { max-width: 550px; width: 100%; height: 100%; display: flex; justify-content: center; align-items: flex-start; flex-direction: column; padding: 30px 0; }
+.video_banner_product_tagLine { margin-bottom: 14px; margin-top: 9px; }
+.am-slider_overlapingContent__inner picture { display: flex; }
+.am-slider_overlapingContent__inner picture.phone-banner-logo { display: none; }
+.video_banner-text p { padding:
+    0; line-height: 165%; font-size: clamp(14px, 1vw, 18px); }
+{% comment %} .video_banner_productLogo img { max-width: 250px; width: 100%; } {% endcomment %}
+.video_banner-text { max-width: clamp(300px, 49vw, 470px); margin-bottom: 30px; }
+.video_banner_ctas { width: 100%; display: flex; gap:
+    clamp(12px, 2vw, 18px); }
+.video_banner_ctas .video_cta_stroke:hover { background: #fff; color: #000; border-color: #fff; }
+.video_banner_ctas .video_cta_stroke { background:
+    transparent; border:
+    2px solid #fff; }
+.video_banner_ctas a:hover { color: #004DF5; background: #fff; border-color: #004DF5; }
+.video_banner_ctas a { color: #fff; padding: clamp(12px, 1.2vw, 17px) clamp(16px, 1.5vw, 19px); background:
+    #004DF5; border-radius:
+    50px; width: 100%; max-width: 220px; display: inline-flex; border: 2px solid #fff0; justify-content: center; line-height: 1; align-items: center; font-size: clamp(14px, 1.7vw, 16px); font-weight: 900; letter-spacing: 1.6px; }
+.video_banner_product_tagLine img { max-width: clamp(300px, 30vw, 524px); }
+/* .video_banner_productLogo img { max-width: 100%; width: auto; }
+*/
+.video_banner-text.price_video_banner { margin-bottom: 18px; }
+.price_video_banner p:nth-child(1) { font-size: clamp(24px, 3vw, 36px); font-weight: 600; }
+.price_video_banner p:nth-child(2) { font-size: 10px; line-height: 14px; color: #929292; font-weight: 900; }
+#am-slide_item-5 .video_banner_productLogo picture { margin-left: -7%; }
+#am-slide_item-5 .video_banner_productLogo picture img { max-width: clamp(250px, 30vw, 510px); }
+.am-slider_for-phone { display: none; }
+@media only screen and (max-width:768px) {
+ #am-slide_item-5 .video_banner_productLogo picture { margin-left: 0%; }
+.new-slide-text img { max-width: clamp(80px, 18vw, 190px); }
+.am-slider_overlapingContent__inner { align-items: center; max-width: 100%; justify-content: flex-start;  }
+.new-slide .offer-price_area-inner .new-slide-text { font-size: 8px; padding-top: 0px; }
+.new-slide .offer-price_area-inner { justify-content: center; }
+.am-slider_for-phone { display: flex; }
+.video_banner_product_tagLine img { max-width: 100%; margin: 0; }
+.video_banner_productLogo img { max-width: 100%; width: auto; ; }
+.video_banner-text p { text-align: center; font-size: clamp(14px, 2.6vw, 18px); }
+.video_banner-text p br { display: none; }
+.video_banner-text { max-width: clamp(270px, 48.2vw, 350px); }
+.video_banner_ctas { justify-content: center; padding: 0 50px; align-items: center; }
+.video_banner_ctas a { padding: clamp(12px, 1.2vw, 17px) clamp(12px, 1.5vw, 19px); max-width: 180px; }
+.price_video_banner { display: flex; align-items: center; gap: 10px; }
+.price_video_banner,
+  .video_banner-text,
+  .video_banner_product_tagLine,
+  .video_banner-text.price_video_banner { margin-bottom: 12px; }
+.price_video_banner p:nth-child(2) { text-align: left; font-size: 8px; max-width: 160px; width: 100%; }
+.am-slider_overlapingContent__inner picture.phone-banner-logo { display: block; }
+.am-slider_for-phone { display: block; padding: 0px 15px; }
+.new-slide .offer-price_area-inner .new-slide-text { margin-left: 5px; }
+.video_banner_productLogo { text-align: center; }
+.video_banner_productLogo picture { margin-left: 0; }
+ }
+/* VIDEO BANNER CSS END */
+ @media only screen and (max-width:1530px) {
+ .review-slider .owl-nav .owl-prev,
+  .review-slider .owl-nav .owl-next { width: 30px; height: 30px; }
+.review-slider .owl-nav .owl-next { left: auto; right: 5px; }
+.review-slider .owl-nav .owl-prev { left: 5px; }
+ }
+@media only screen and (max-width:1440px) {
+ .new-offer_exclusive-section .exclusive-section_title h2 { line-height: 60px; font-size: 60px; }
+.exclusive-section_slider-inner { column-gap: 5%; }
+.feature-section_video .feature-section_video-inner { max-width: 80%; margin: 0 auto; }
+
+.product_img.desktop { max-width: 780px; top: 0px; }
+ }
+@media only screen and (max-width:1340px) {
+ .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { font-size: 28px; }
+.product_img.desktop { max-width: 640px; top: -18px; }
+ }
+@media only screen and (max-width:1280px) {
+ .exclusive-section_slider-inner .exclusive-section_product-title { font-size: 22px; line-height: 22px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { font-size: 26px; }
+.new-offer_exclusive-section .exclusive-section_title { padding: 27px 0 19px; }
+.new-offer_exclusive-section .exclusive-section_title h2 { font-size: 50px; line-height: 50px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title+p { max-width: 302px; font-size: 16px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title { font-size: 26px; line-height: 26px; }
+.geore_gankas_box_bg-new h2.h2,
+  .featured-section_title h2 { font-size: 60px; line-height: 55px; }
+.geore_gankas_box_bg-new.top { padding-top: 60px; padding-bottom: 60px; }
+.geore_gankas_box_bg-new.top p { font-size: 16px; max-width: 485px; padding-top: 25px; }
+.geore_gankas_box_bg-new p { font-size: 26px; line-height: 26px; }
+.geore_gankas_box_bg-new .owl-dots { margin: 40px 0px 26px; }
+ }
+@media only screen and (max-width:1180px) {
+ .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { font-size: 24px; }
+.geore_gankas_box_bg-new h2.h2,
+  .featured-section_title h2 { font-size: 50px; line-height: 45px; }
+.geore_gankas_box_bg-new.top { padding-bottom: 40px; padding-top: 40px; }
+.geore_gankas_box_bg-new p { font-size: 24px; line-height: 24px; }
+.geore_gankas_box_bg-new .owl-dots { margin: 30px 0px 22px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title { font-size: 24px; line-height: 24px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline { max-width: 218px; font-size: 14px; line-height: 14px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate { margin: 17px 0px 33px; }
+.new-offer_see-more-section .geore_gankas_box_bg-new h2.h2 { line-height: 45px; font-size: 46px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 32px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { padding-top: 20px; }
+.game-section .btn.extra_bright { padding: 20px 56px; margin-top: 16px; }
+.new-offer_exclusive-section .exclusive-section_title h2 { font-size: 50px; line-height: 50px; }
+.exclusive-section_slider-inner .exclusive-section_product-title+p { font-size: 14px; }
+.exclusive-section_slider-inner .exclusive-section_product-title { font-size: 20px; line-height: 20px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .btn { padding: 8px 0px; font-size: 14px; }
+ }
+@media only screen and (max-width:1080px) {
+ .game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 26px; max-width: 327px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { line-height: 24px; }
+.game-section .btn.extra_bright { font-size: 14px; padding: 12px 26px; margin-top: 0; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-right .speaker-feature-imgs { max-width: 300px; }
+.exclusive-section_slider-inner .exclusive-section_product-title { font-size: 18px; line-height: 18px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { font-size: 22px; }
+.new-offer_exclusive-section .exclusive-section_title h2 { font-size: 40px; line-height: 40px; }
+.geore_gankas_box_bg-new h2.h2,
+  .featured-section_title h2 { font-size: 40px; line-height: 40px; max-width: 680px; margin: 0 auto; }
+.new-offer_see-more-section .exclusive-section_slider-inner .owl-dots button { height: 10px; width: 10px; margin-right: 7px; }
+.new-offer_see-more-section .exclusive-section_slider { margin-top: 60px; }
+.featured-section_title { padding: 30px 0px; }
+.featured-section_slider ul { padding-bottom: 40px; }
+.featured-section_slider li img { max-width: 120px; }
+.new-offer_see-more-section .geore_gankas_box_bg-new h2.h2 { line-height: 33px; font-size: 35px; }
+.exclusive-section_title.geore_gankas_box_bg-new img { max-width: 50px; }
+.feature-section_video-title.geore_gankas_box_bg-new { margin-bottom: 35px; }
+.new-design-text-icon .icon-two img { max-width: 100px; }
+.new-design-text-icon { justify-content: flex-start; }
+.new-design-text-icon .icon-two { flex: 0; }
+.product_img.desktop { max-width: 560px; top: -26px; }
+ }
+@media only screen and (max-width:991px) {
+ .geore_gankas_box_bg-new p { font-size: 18px; line-height: 18px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline { max-width: 188px; font-size: 12px; line-height: 16px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline span .play-icon-new { scale: 1.4; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 22px; max-width: 284px; }
+.new-design-text-icon .icon-two img { max-width: 80px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { padding-top: 10px; line-height: 20px; font-size: 14px; }
+.new-offer_see-more-section .exclusive-section_slider { margin-top: 40px; }
+.new-offer_see-more-section .geore_gankas_box_bg-new h2.h2 { line-height: 30px; font-size: 30px; }
+.geore_gankas_box_bg-new h2.h2 span { -webkit-text-stroke-width: 1px; }
+.geore_gankas_box_bg-new h2.h2 { -webkit-text-stroke-width: 1px; }
+.feature-section_video-title.geore_gankas_box_bg-new .h2 { font-size: 30px; line-height: 30px; }
+.feature-section_video-title.geore_gankas_box_bg-new p { font-size: 16px; padding: 10px 0 0 !important; line-height: 16px; }
+.featured-section_slider li img { max-width: 100px; }
+.geore_gankas_box_bg-new h2.h2, .featured-section_title h2 { font-size: 30px; line-height: 30px; max-width: 510px; }
+.feature-section_video .feature-section_video-inner { max-width: 90%; }
+.exclusive-section_slider-inner .exclusive-section_product-title + p { font-size: 12px; padding-top: 7px; }
+.new-offer_exclusive-section .exclusive-section_title h2 { font-size: 35px; line-height: 35px; }
+.geore_gankas_box_bg-new.top p { font-size: 14px; max-width: 365px; padding-top: 20px; }
+.exclusive-section_offer-tag-holder svg { max-width: 120px; width: 100%; }
+.clock-builder-output { font-size: 10px; }
+.exclusive-section_offer-tag { gap: 4px; margin-bottom: 7px; }
+.exclusive-section_offer-tag p { font-size: 8px; line-height: 10px; left: 7px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title+p { font-size: 14px; max-width: 222px; }
+.exclusive-section_slider-inner .exclusive-section_product-title { font-size: 16px; line-height: 16px; }
+.site_include-text { font-size: 8px; letter-spacing: 3.944px; }
+.light_site--text-banner { letter-spacing: 1.48px; column-gap: 10px; font-size: 8px; }
+ }
+@media only screen and (max-width:768px) {
+ .featured-section_slider ul#list_two { display: flex !important; }
+.new-offer_exclusive-section .page-width { padding: 0 clamp(15px, 8vw, 60px); }
+.new-offer_see-more-section .geore_gankas_box_bg-new h2.h2 { line-height: 43px; font-size: 50px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title { font-size: 38px; line-height: 38px; max-width: 340px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title+p { font-size: 18px; max-width: 460px; line-height: 26px; }
+.exclusive-section_slider-inner { flex-wrap: wrap; row-gap: clamp(20px, 6.8vw, 50px); }
+.exclusive-section_slider-inner .exclusive-section_slider-item { max-width: 100%; padding: 0px; flex-wrap: wrap; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { font-size: 20px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .btn { padding: 7px 0px; font-size: 12px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title { font-size: 18px; line-height: 18px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title+p { font-size: 12px; max-width: 222px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate { margin: 7px 0px 23px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left { max-width: 534px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 48px; max-width: 574px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 span { text-wrap: nowrap; white-space: nowrap; }
+.new-design-text-icon { gap: 12px; flex-direction: column; }
+.game-section .btn.extra_bright { font-size: 18px; padding: 20px 60px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { line-height: 38px; padding-top: 20px; font-size: 24px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-right .speaker-feature-imgs { max-width: 320px; }
+.featured-section_slider ul { padding-bottom: 00px; margin: 0; }
+.new-design-text-icon .icon-two img { max-width: 80px; }
+.exclusive-section_slider-inner .exclusive-section_product-title+p { font-size: 24PX; padding-top: 7PX; line-height: 130%; max-width: 606px; }
+.slash-out_price { font-size: 16px; }
+.exclusive-section_slider-inner .exclusive-section_product-title { font-size: 36px; line-height: 36px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { font-size: 60px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate { margin-top: 16px; }
+.exclusive-section_offer-tag p { font-size: 12px; line-height: 10px; left: 5px; }
+.clock-builder-output { font-size: 20px; }
+.exclusive-section_offer-tag { gap: 11px; }
+.exclusive-section_offer-tag-holder svg { max-width: 156px; width: 100%; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .btn { padding: 11px 0px; font-size: 18px; }
+.new-offer_exclusive-section .exclusive-section_title h2 { font-size: 45px; line-height: 45px; }
+.geore_gankas_box_bg-new h2.h2,
+  .featured-section_title h2 { font-size: 40px; line-height: 40px; max-width: 360px; }
+.feature-section_video-title.geore_gankas_box_bg-new .h2 { font-size: 40px; line-height: 40px; max-width: 520px; }
+.new-offer_see-more-section .geore_gankas_box_bg-new h2.h2 { line-height: 53px; font-size: 60px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title { font-size: 48px; line-height: 48px; max-width: 350px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title+p { font-size: 21px; max-width: 500px; line-height: 36px; }
+.review-slider .owl-nav .owl-next { right: 5px; }
+.review-slider .owl-nav .owl-prev { left: 5px; }
+.site_include-text { font-size: 8px; }
+.site_include-text { letter-spacing: 2.944px; }
+ }
+@media only screen and (max-width:720px) {
+ .offer-price_area { bottom: 9%; }
+ }
+@media only screen and (max-width:660px) {
+ .new-offer_see-more-section .geore_gankas_box_bg-new h2.h2 { line-height: 43px; font-size: 50px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title { font-size: 38px; line-height: 38px; max-width: 340px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title+p { font-size: 18px; max-width: 460px; line-height: 26px; }
+.geore_gankas_box_bg-new h2.h2,
+  .featured-section_title h2 { font-size: 30px; line-height: 30px; max-width: 250px; }
+.feature-section_video-title.geore_gankas_box_bg-new .h2 { font-size: 30px; line-height: 30px; max-width: 390px; }
+.exclusive-section_slider-inner .exclusive-section_product-title { font-size: 26px; line-height: 26px; }
+.exclusive-section_slider-inner .exclusive-section_product-title+p { font-size: 22PX; padding-top: 7PX; max-width: 496px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { font-size: 40px; }
+.geore_gankas_box_bg-new p { font-size: 16px; line-height: 16px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 38px; max-width: 434px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { line-height: 37px; padding-top: 11px; font-size: 22px; }
+.new_design-bg-000 .new_design-feature-section { padding-bottom: 40px; }
+.game-section .btn.extra_bright { font-size: 16px; padding: 13px 40px; }
+.new-design-text-icon .icon-two img { max-width: 60px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-right .speaker-feature-imgs { max-width: 270px; }
+.light_site--text-banner { font-size: 8px; }
+ }
+@media only screen and (max-width:620px) {
+ .exclusive-section_slider-inner .exclusive-section_product-title+p { max-width: 445px; font-size: 18PX; }
+.exclusive-section_slider-inner .exclusive-section_product-title { font-size: 24px; line-height: 24px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { font-size: 30px; }
+.clock-builder-output { font-size: 14px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .btn { padding: 12px 0px; font-size: 14px; }
+.new-offer_see-more-section .geore_gankas_box_bg-new h2.h2 { line-height: 36px; font-size: 40px; max-width: 510px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title { font-size: 28px; line-height: 28px; max-width: 270px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title+p { font-size: 16px; max-width: 410px; line-height: 26px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_slider-item .btn_outline { padding: 9px 0px; max-width: 168px; font-size: 10px; line-height: 15px; }
+.new-offer_exclusive-section .exclusive-section_title h2 { font-size: 35px; line-height: 35px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 28px; max-width: 354px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left { max-width: 444px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { line-height: 29px; padding-top: 11px; font-size: 18px; }
+.game-section .btn.extra_bright { font-size: 14px; padding: 12px 20px; }
+.new_design-bg-000 .new_design-feature-section { padding-bottom: 30px; }
+ }
+@media only screen and (max-width:575px) {
+ .Offer_Bug-Title { font-size: 8px; }
+.new-offer_exclusive-section .exclusive-section_title h2 { font-size: 32px; line-height: 32px; }
+.new-offer_exclusive-section .exclusive-section_title { padding: 27px 0 0px; }
+.geore_gankas_box_bg-new.top { padding-bottom: 20px; padding-top: 10px; }
+.review-slider { margin-top: 25px; }
+.review-slider .owl-nav .owl-prev,
+  .review-slider .owl-nav .owl-next { width: 30px; height: 30px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item { padding: 14px 20px; }
+.free-shiping-note { margin-top: 7px; font-size: 8px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { line-height: 26px; font-size: 16px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 24px; max-width: 304px; }
+.new-design-text-icon .icon-two img { max-width: 50px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-right .speaker-feature-imgs { max-width: 240px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left { max-width: 394px; }
+.top-tag { margin-bottom: 5px; }
+ }
+@media only screen and (max-width:520px) {
+ .exclusive-section_slider-inner .exclusive-section_product-title { font-size: 20px; line-height: 20px; }
+.exclusive-section_slider-inner .exclusive-section_product-title+p { max-width: 385px; font-size: 16PX; }
+.exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { font-size: 22px; }
+.slash-out_price { font-size: 14px; }
+.exclusive-section_slider-inner .exclusive-section_slider-item { padding: 14px 0px; }
+.geore_gankas_box_bg-new p { font-size: 14px; line-height: 14px; }
+.new-offer_see-more-section .geore_gankas_box_bg-new h2.h2 { line-height: 26px; font-size: 28px; max-width: 350px; }
+.exclusive-section_title.geore_gankas_box_bg-new img { max-width: 40px; }
+ }
+@media only screen and (max-width:480px) {
+ .am-slider_for-phone { max-width: 250px; }
+ }
+@media only screen and (max-width:440px) {
+ }
+@media only screen and (max-width:420px) {
+ .geore_gankas_box_bg-new h2.h2,
+  .featured-section_title h2 { font-size: 24px; max-width: 220px; line-height: 24px; }
+.feature-section_video-title.geore_gankas_box_bg-new .h2 { font-size: 22px; line-height: 20px; max-width: 290px; }
+.feature-section_video-title.geore_gankas_box_bg-new p { font-size: 12px; line-height: 12px; }
+.feature-section_video-title.geore_gankas_box_bg-new { margin-bottom: 25px; }
+.featured-section_title { padding: 9px 0px; }
+.featured-section_slider li img { max-width: 70px; }
+.feature-section_video video { border-radius: 17px; }
+.featured-section_video-area { padding-bottom: 30px; }
+.geore_gankas_box_bg-new p { font-size: 12px; line-height: 16px; padding: 0 15px !important; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title { font-size: 22px; line-height: 22px; max-width: 210px; }
+.new-offer_see-more-section .exclusive-section_slider-inner .exclusive-section_product-title+p { font-size: 14px; max-width: 350px; line-height: 21px; }
+.geore_gankas_box_bg-new.top p { font-size: 12px; max-width: 305px; padding-top: 10px !important; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left p { line-height: 21px; font-size: 14px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left h3 { font-size: 22px; max-width: 284px; }
+.game-section .btn.extra_bright { font-size: 12px; padding: 9px 15px; }
+.game-section .new_design-feature-section .new_design-row .new_design-item .new_design-item-left { max-width: 314px; }
+.light_site--text-banner { font-size: 8px; letter-spacing: 1px; column-gap: 6px; }
+ }
+@media only screen and (max-width:380px) {
+ .new-offer_exclusive-section .exclusive-section_title h2 { font-size: 28px; line-height: 28px; }
+ }
+</style>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  {{ 'owl.theme.css' | asset_url | stylesheet_tag }} {{ 'owl.carousel.css' |
+  asset_url | stylesheet_tag }} {{ 'owl.carousel.js' | asset_url | script_tag }}
+
+  <script>
+
+
+    // Logo slider start
+
+    const list = document.querySelector("#list");
+    const listContent = Array.from(list.children);
+
+    listContent.forEach((item) => {
+      const duplicatedItem = item.cloneNode(true);
+      duplicatedItem.setAttribute("aria-hidden", true);
+      list.appendChild(duplicatedItem);
+    });
+
+    // Logo slider end
+
+    // Video play and pause start
+{% comment %} 
+    function videoControling() {
+      document
+        .getElementById("videoControlIcon")
+        .addEventListener("click", function () {
+          var video = document.getElementById("myVideo");
+          var icon = document.getElementById("videoControlIcon");
+
+          // When the icon is clicked, play the video, hide the icon, and unmute the video
+          if (video.paused) {
+            video.play();
+            video.muted = false; // Unmute the video
+            icon.style.display = "none"; // Hide the pause icon when the video starts
+          }
+        });
+
+      // Add event listener for the video itself to pause it when clicked
+      document.getElementById("myVideo").addEventListener("click", function () {
+        var video = document.getElementById("myVideo");
+        var icon = document.getElementById("videoControlIcon");
+
+        // Pause the video, mute it, and show the pause icon when the video is clicked
+        if (!video.paused) {
+          video.pause();
+          video.muted = true; // Mute the video
+          icon.style.display = "block"; // Show the pause icon when the video is paused
+        }
+      });
+
+      // Add event listener for when the video ends
+      document.getElementById("myVideo").addEventListener("ended", function () {
+        var video = document.getElementById("myVideo");
+        var icon = document.getElementById("videoControlIcon");
+
+        // Show the pause icon, reset the video to the start, and mute it when the video ends
+        icon.style.display = "block";
+        video.currentTime = 0;
+        video.muted = true; // Mute the video when it ends
+      });
+    }
+    videoControling(); {% endcomment %}
+
+    // Video play and pause end
+
+    $(".exclusive-item-slider").owlCarousel({
+      loop: true,
+      dots: true,
+      margin: 10,
+      nav: false,
+      mouseDrag: true,
+      items: 1,
+    });
+
+    $(".review-slider").owlCarousel({
+      loop: true,
+      autoplay: true,
+      margin: 20,
+      nav: true,
+      dots: true,
+      navText: [
+        "<img src='{{'left-ic.png' | asset_url}}'>",
+        "<img src='{{'right-ic.png' | asset_url}}'>",
+      ],
+      mouseDrag: true,
+      responsive: {
+        0: {
+          items: 1,
+        },
+        576: {
+          items: 2,
+        },
+        768: {
+          items: 3,
+        },
+        992: {
+          items: 4,
+        },
+      },
+    });
+    $(".poptrigger").click(function () {
+      popID = $(this).attr("data-rel");
+      $("#" + popID).fadeIn();
+      $("#" + popID)
+        .find("#video1")
+        .play();
+      $("#" + popID)
+        .find("#video2")
+        .play();
+      $("#" + popID)
+        .find("#video3")
+        .play();
+      var popMargTop = $("#" + popID).height() / 2;
+      var popMargLeft = $("#" + popID).width() / 2;
+      return false;
+    });
+
+    $(document).on("click", ".closePop, #fade", function () {
+      $(".pop-upbox").fadeOut(function () {});
+      var video1 = $("#video1").get(0);
+      var video2 = $("#video2").get(0);
+      var video3 = $("#video3").get(0);
+      video1.pause();
+      video2.pause();
+      video3.pause();
+      return false;
+    });
+
+    $(document).on("click", function (event) {
+      if ($(event.target).has(".popup-box").length) {
+        $(".pop-upbox").fadeOut(function () {});
+
+        var video1 = $("#video1").get(0);
+        var video2 = $("#video2").get(0);
+        var video3 = $("#video3").get(0);
+        video1.pause();
+        video2.pause();
+        video3.pause();
+      }
+    });
+  </script>
+  <div class="pop-upbox" role="dialog" aria-modal="true" aria-label="Ringer Review Video Popup" id="ringer_review-video">
+    <div class="popup-box">
+      <div class="pop-close">
+        <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"
+          ><img src="{{'close-vector.png' | asset_url}}" alt="Close"
+        /></a>
+      </div>
+
+      <div class="video-popup">
+        <video id="video1" width="100%" height="100%" controls>
+          <source
+            src="https://cdn.shopify.com/videos/c/o/v/f3a8cd89f3a749a7b36ce46126e327a3.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <div class="pop-upbox" role="dialog" aria-modal="true" aria-label="Player Plus Review Video Popup" id="player-plus_review-video">
+    <div class="popup-box">
+      <div class="pop-close">
+        <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"
+          ><img src="{{'close-vector.png' | asset_url}}" alt="Close"
+        /></a>
+      </div>
+
+      <div class="video-popup">
+        <video id="video2" width="100%" height="100%" controls>
+          <source
+            src="https://cdn.shopify.com/videos/c/o/v/f3cb84d4b73b471aaab18fa21fea3732.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pop-upbox" role="dialog" aria-modal="true" aria-label="4ultra Review Video Popup" id="4ultra_review-video">
+  <div class="popup-box">
+    <div class="pop-close">
+      <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"
+        ><img src="{{'close-vector.png' | asset_url}}" alt="Close"
+      /></a>
+    </div>
+
+    <div class="video-popup">
+      <video id="video1" width="100%" height="100%" controls>
+        <source
+          src="https://cdn.shopify.com/videos/c/o/v/3f42a9dad3524005be435c07ef5327da.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
+<div class="pop-upbox" role="dialog" aria-modal="true" aria-label="Ringerpack Review Video Popup" id="ringerpack_review-video">
+  <div class="popup-box">
+    <div class="pop-close">
+      <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"
+        ><img src="{{'close-vector.png' | asset_url}}" alt="Close"
+      /></a>
+    </div>
+
+    <div class="video-popup">
+      <video id="video1" width="100%" height="100%" controls>
+        <source
+          src="https://cdn.shopify.com/videos/c/o/v/f3a8cd89f3a749a7b36ce46126e327a3.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
+
+<div class="pop-upbox" role="dialog" aria-modal="true" aria-label="3max Plus Review Video Popup" id="3max-plus_review-video">
+  <div class="popup-box">
+    <div class="pop-close">
+      <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"
+        ><img src="{{'close-vector.png' | asset_url}}" alt="Close"
+      /></a>
+    </div>
+
+    <div class="video-popup">
+      <video id="video1" width="100%" height="100%" controls>
+        <source
+          src="https://cdn.shopify.com/videos/c/o/v/de51a39d7753487caa2c009bc459c20c.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
+
+<div class="pop-upbox" role="dialog" aria-modal="true" aria-label="Player Pack Go Review Video Popup" id="player-pack-go_review-video">
+  <div class="popup-box">
+    <div class="pop-close">
+      <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"
+        ><img src="{{'close-vector.png' | asset_url}}" alt="Close"
+      /></a>
+    </div>
+
+    <div class="video-popup">
+      <video id="video2" width="100%" height="100%" controls>
+        <source
+          src="https://cdn.shopify.com/videos/c/o/v/7b9b7a04751f4aed8e9ea675e3171f19.mp4 "
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
+
+<div class="pop-upbox" role="dialog" aria-modal="true" aria-label="Player Go Review Video Popup" id="player-go_review-video">
+  <div class="popup-box">
+    <div class="pop-close">
+      <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video"
+        ><img src="{{'close-vector.png' | asset_url}}" alt="Close"
+      /></a>
+    </div>
+
+    <div class="video-popup">
+      <video id="video1" width="100%" height="100%" controls>
+        <source
+          src="https://cdn.shopify.com/videos/c/o/v/b4eba0e4471448ddbd4f12bee1afe51b.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
