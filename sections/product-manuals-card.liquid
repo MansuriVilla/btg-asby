@@ -59,11 +59,17 @@
               {% endif %}
 
               {% if block.settings.manual_pdfUrl %}
+                {%- if block.settings.manual_text != blank -%}
+                  {%- assign product_name = block.settings.manual_text -%}
+                {%- else -%}
+                  {%- assign product_name = block.settings.product.title | capitalize -%}
+                {%- endif -%}
                 <a
                   href="{{ block.settings.manual_pdfUrl }}"
                   class="manual-list__cta content-cta content-cta__solid"
                   target="_blank"
                   rel="noopener"
+                  aria-label="Download {{ product_name }} Manual"
                   >DOWNLOAD MANUAL</a
                 >
               {% endif %}

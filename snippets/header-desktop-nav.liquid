@@ -51,16 +51,25 @@
 {% assign menu_prod_image_mobile = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105310_5726ca55-94f5-4898-b90d-6dd6e07984a7.png?v=1782231540' %}
 
 <div class="site_flex site_header-content nav_left">
-  <div class="menu-toggle" id="menuToggle">
+  <button
+    type="button"
+    class="menu-toggle"
+    id="menuToggle"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="siteMainNav"
+  >
     <img
       class="isMenu_close"
       src="{{ 'menu_icon-new-header.png' | asset_url }}"
-      alt=" Menu icon ">
+      alt=""
+      aria-hidden="true">
     <img
       class="isMenu_open"
       src="{{ 'menu_icon-new-header_close.png' | asset_url }}"
-      alt=" Menu icon ">
-  </div>
+      alt=""
+      aria-hidden="true">
+  </button>
   <div class="site_header-left">
     <div class="header_logo">
       <a href="/" aria-label="Blue Tees logo Homepage">
@@ -81,7 +90,7 @@
     </div>
   </div>
   <span class="site_header__border"></span>
-  <nav class="site_header-center menu_custom" data-lenis-prevent>
+  <nav class="site_header-center menu_custom" id="siteMainNav" aria-label="Main navigation" data-lenis-prevent>
     {% if product.handle == 'speaker-bundle'
       or product.handle == 'gps-offer'
       or product.handle == 'laser-offer'
@@ -121,7 +130,7 @@
 
         <li class="site_header-link mobile-menu-bottom-image">
           <a href="/pages/{{ offer_page }}">
-            <img src="{{ 'playmaker_promo-banner-header-mobile.png' | asset_url }}" alt="Profile Icon">
+            <img src="{{ 'playmaker_promo-banner-header-mobile.png' | asset_url }}" alt="PlayMaker Promotion">
           </a>
         </li>
       </ul>
@@ -832,12 +841,11 @@
 
         <li class="site_header-link FF sdfdf" style="border-bottom: 0px;">
           <a href="/pages/sale-page-bfcm-v1" class="nav_link site__highLighted_clr">SALE</a>
-        </li>
-        <li class="site_header-link mobile-menu-bottom-image mobile-text">
+                <li class="site_header-link mobile-menu-bottom-image mobile-text">
            <a href="/products/rainmaker">
             <img
               src="{{menu_bottom_image}}"
-              alt="Profile Icon"
+              alt="Featured Promotion"
             >
           </a>
         </li>
@@ -849,7 +857,8 @@
           >
             <img
               src="{{ 'profile-icon-neew-header.svg' | asset_url }}"
-              alt="Profile Icon"
+              alt=""
+              aria-hidden="true"
             >
             <span>LOGIN</span>
           </a>
@@ -865,7 +874,8 @@
     >
       <img
         src="{{ 'profile-icon-neew-header.svg' | asset_url }}"
-        alt="Profile Icon"
+        alt=""
+        aria-hidden="true"
       >
       <span>LOGIN</span>
     </a>

@@ -576,7 +576,12 @@ document.addEventListener("DOMContentLoaded", function () {
             menus.forEach(m => m.classList.toggle("active"));
             toggleBodyScroll(true);
 
-            if (!Array.from(siteHeaders).some(h => h.classList.contains("active"))) {
+            // Update aria-expanded and aria-label for accessibility (Issue 145)
+            const isOpen = Array.from(siteHeaders).some(h => h.classList.contains("active"));
+            toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            toggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+
+            if (!isOpen) {
                 resetMegaMenus();
             }
         });
@@ -858,6 +863,36 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Start progress bar for active slide
+    let isPaused = false;
+    let liveRegion = null;
+    let pauseBtn = null;
+
+    // Create a live region for announcements
+    const sliderContainer = document.querySelector(".am-main_slider-container");
+    if (sliderContainer) {
+      liveRegion = document.createElement("div");
+      liveRegion.className = "sr-only";
+      liveRegion.setAttribute("aria-live", "polite");
+      liveRegion.setAttribute("aria-atomic", "true");
+      liveRegion.style.cssText = "position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;";
+      sliderContainer.appendChild(liveRegion);
+
+      // Pause slide rotation when keyboard focus enters the slideshow (A11Y requirement)
+      sliderContainer.addEventListener("focusin", () => {
+        if (!isPaused) {
+          isPaused = true;
+          clearTimeout(slideInterval);
+          if (pauseBtn) {
+            const pauseIcon = pauseBtn.querySelector(".pause-icon");
+            const playIcon = pauseBtn.querySelector(".play-icon");
+            if (pauseIcon) pauseIcon.style.display = "none";
+            if (playIcon) playIcon.style.display = "block";
+            pauseBtn.setAttribute("aria-label", "Play slideshow");
+          }
+        }
+      });
+    }
+
     function startProgressBar() {
       const activeText = document.querySelector(".am-main_slider-text.active");
       if (!activeText) return;
@@ -866,15 +901,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
       resetBarsInstantly(progressBars);
 
-      progressBars.forEach((bar) => {
-        bar.style.transition = bar === activeBar ? "width 5s linear" : "none";
-        bar.style.width = bar === activeBar ? "100%" : "0";
-      });
+      if (!isPaused) {
+        progressBars.forEach((bar) => {
+          bar.style.transition = bar === activeBar ? "width 5s linear" : "none";
+          bar.style.width = bar === activeBar ? "100%" : "0";
+        });
+      }
 
       clearTimeout(slideInterval);
-      slideInterval = setTimeout(() => {
-        nextSlide();
-      }, 5000);
+      if (!isPaused) {
+        slideInterval = setTimeout(() => {
+          nextSlide();
+        }, 5000);
+      }
     }
 
     // Show a specific slide
@@ -889,22 +928,36 @@ document.addEventListener("DOMContentLoaded", function () {
           10
         );
         const isExcluded = img.getAttribute("data-slide-none") === "true";
-        img.classList.toggle("active", imgIndex === slideIndex && !isExcluded);
+        const isActive = imgIndex === slideIndex && !isExcluded;
+        img.classList.toggle("active", isActive);
+        img.setAttribute("aria-hidden", isActive ? "false" : "true");
         if (isExcluded) {
           img.style.display = "none";
         }
       });
+
       texts.forEach((txt) => {
         const txtIndex = parseInt(
           txt.getAttribute("data-slide-index") || "9999",
           10
         );
         const isExcluded = txt.getAttribute("data-slide-none") === "true";
-        txt.classList.toggle("active", txtIndex === slideIndex && !isExcluded);
+        const isActive = txtIndex === slideIndex && !isExcluded;
+        txt.classList.toggle("active", isActive);
+        txt.setAttribute("aria-current", isActive ? "true" : "false");
         if (isExcluded) {
           txt.style.display = "none";
         }
       });
+
+      // Announce slide change to assistive technologies
+      const activeText = Array.from(texts).find(
+        (txt) => parseInt(txt.getAttribute("data-slide-index") || "9999", 10) === slideIndex
+      );
+      if (liveRegion && activeText) {
+        const titleText = activeText.querySelector(".slider_text")?.textContent.trim() || "slide";
+        liveRegion.textContent = `Showing slide: ${titleText}`;
+      }
 
       startProgressBar();
       currentSlide = slideIndex;
@@ -924,6 +977,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const sortedIndexes = getSortedSlides().map((slide) =>
         parseInt(slide.getAttribute("data-slide-index") || "9999", 10)
       );
+      if (sortedIndexes.length === 0) return;
       const currentIndex = sortedIndexes.indexOf(currentSlide);
       const newIndex = sortedIndexes[(currentIndex + 1) % sortedIndexes.length];
       showSlide(newIndex);
@@ -934,6 +988,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const sortedIndexes = getSortedSlides().map((slide) =>
         parseInt(slide.getAttribute("data-slide-index") || "9999", 10)
       );
+      if (sortedIndexes.length === 0) return;
       const currentIndex = sortedIndexes.indexOf(currentSlide);
       const newIndex =
         sortedIndexes[
@@ -942,22 +997,139 @@ document.addEventListener("DOMContentLoaded", function () {
       showSlide(newIndex);
     }
 
-    // Create navigation buttons
+    // Create navigation controls dynamically
     function createNavigationButtons() {
-      const nextBtn = document.querySelector(".am_slide--next");
-      const prevBtn = document.querySelector(".am_slide--previous");
+      const navContainer = document.querySelector(".am-main_slider-content");
+      if (!navContainer) return;
 
-      if (nextBtn) {
-        nextBtn.addEventListener("click", nextSlide);
-      }
-      if (prevBtn) {
-        prevBtn.addEventListener("click", prevSlide);
-      }
+      // 1. Create Play/Pause Button
+      pauseBtn = document.createElement("button");
+      pauseBtn.className = "am-slider-play-pause";
+      pauseBtn.setAttribute("type", "button");
+      pauseBtn.setAttribute("aria-label", "Pause slideshow");
+      pauseBtn.style.cssText = `
+        background: rgba(0,0,0,0.65);
+        border: 2px solid #fff;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        pointer-events: auto;
+        z-index: 10;
+        margin-left: 10px;
+        flex-shrink: 0;
+      `;
+      pauseBtn.innerHTML = `
+        <span class="pause-icon" style="display: block; font-weight: bold; font-family: monospace;">&#10074;&#10074;</span>
+        <span class="play-icon" style="display: none; font-weight: bold; font-family: monospace; font-size: 12px; margin-left: 2px;">&#9658;</span>
+      `;
+      
+      pauseBtn.addEventListener("click", () => {
+        isPaused = !isPaused;
+        const pauseIcon = pauseBtn.querySelector(".pause-icon");
+        const playIcon = pauseBtn.querySelector(".play-icon");
+        if (isPaused) {
+          clearTimeout(slideInterval);
+          resetBarsInstantly(progressBars);
+          if (pauseIcon) pauseIcon.style.display = "none";
+          if (playIcon) playIcon.style.display = "block";
+          pauseBtn.setAttribute("aria-label", "Play slideshow");
+        } else {
+          if (pauseIcon) pauseIcon.style.display = "block";
+          if (playIcon) playIcon.style.display = "none";
+          pauseBtn.setAttribute("aria-label", "Pause slideshow");
+          startProgressBar();
+        }
+      });
+
+      // 2. Create Previous Arrow Button
+      const prevArrow = document.createElement("button");
+      prevArrow.className = "am_slide--previous";
+      prevArrow.setAttribute("type", "button");
+      prevArrow.setAttribute("aria-label", "Previous slide");
+      prevArrow.style.cssText = `
+        background: rgba(0,0,0,0.65);
+        border: 2px solid #fff;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        pointer-events: auto;
+        z-index: 10;
+        margin-right: 10px;
+        flex-shrink: 0;
+      `;
+      prevArrow.innerHTML = "&#9664;";
+      prevArrow.addEventListener("click", prevSlide);
+
+      // 3. Create Next Arrow Button
+      const nextArrow = document.createElement("button");
+      nextArrow.className = "am_slide--next";
+      nextArrow.setAttribute("type", "button");
+      nextArrow.setAttribute("aria-label", "Next slide");
+      nextArrow.style.cssText = `
+        background: rgba(0,0,0,0.65);
+        border: 2px solid #fff;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        pointer-events: auto;
+        z-index: 10;
+        flex-shrink: 0;
+      `;
+      nextArrow.innerHTML = "&#9654;";
+      nextArrow.addEventListener("click", nextSlide);
+
+      // Append controls
+      navContainer.insertBefore(prevArrow, navContainer.firstChild);
+      navContainer.appendChild(nextArrow);
+      navContainer.appendChild(pauseBtn);
     }
 
     // Initialize the slider
     function initializeSlider() {
       hideExcludedSlides();
+      
+      // Make text indicators accessible controls (Issue requirement)
+      texts.forEach((text) => {
+        text.setAttribute("tabindex", "0");
+        text.setAttribute("role", "button");
+        const titleText = text.querySelector(".slider_text")?.textContent.trim() || "slide";
+        text.setAttribute("aria-label", `Show slide: ${titleText}`);
+
+        // Click trigger
+        text.addEventListener("click", () => {
+          const slideIndex = parseInt(text.getAttribute("data-slide-index") || "0", 10);
+          if (getSortedSlides().some(slide => parseInt(slide.getAttribute("data-slide-index"), 10) === slideIndex)) {
+            showSlide(slideIndex);
+          }
+        });
+
+        // Keyboard trigger (Enter / Space)
+        text.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            text.click();
+          }
+        });
+      });
+
       const firstSlideIndex =
         sortedSlides.length > 0
           ? parseInt(
@@ -975,26 +1147,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     initializeSlider();
-
-    // Add click event listeners to text elements
-    texts.forEach((text) => {
-      text.addEventListener("click", () => {
-        const slideIndex = parseInt(
-          text.getAttribute("data-slide-index") || "0",
-          10
-        );
-        // Only show slide if it is not excluded
-        if (
-          getSortedSlides().some(
-            (slide) =>
-              parseInt(slide.getAttribute("data-slide-index"), 10) ===
-              slideIndex
-          )
-        ) {
-          showSlide(slideIndex);
-        }
-      });
-    });
 
     // Re-center on window resize
     let resizeTimer;
@@ -1824,6 +1976,21 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!previewVideo || !playButtonContent) {
         console.warn(`Video block ${index + 1} missing core elements`);
         return;
+      }
+
+      // Make play button keyboard focusable and accessible (Issue 30)
+      if (playButtonContent.tagName !== "BUTTON" && playButtonContent.tagName !== "A") {
+        playButtonContent.setAttribute("role", "button");
+        playButtonContent.setAttribute("tabindex", "0");
+        if (!playButtonContent.getAttribute("aria-label")) {
+          playButtonContent.setAttribute("aria-label", "Play video");
+        }
+        playButtonContent.addEventListener("keydown", e => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            playButtonContent.click();
+          }
+        });
       }
 
       const hideLoader = () => {
@@ -2726,7 +2893,9 @@ changeImageOnVarient();
       });
     };
 
-    // 5. Global Custom Pop-upbox Accessibility Fixes
+    // 5. Global Custom Pop-upbox Accessibility Fixes (Issues 135, 143, 144)
+    let lastActiveElement = null;
+
     const fixAllCustomPopups = () => {
       document.querySelectorAll('.pop-upbox').forEach(popup => {
         if (!popup.getAttribute('role')) {
@@ -2735,14 +2904,22 @@ changeImageOnVarient();
         if (!popup.getAttribute('aria-modal')) {
           popup.setAttribute('aria-modal', 'true');
         }
-        if (!popup.getAttribute('aria-label')) {
+        
+        // Correct inaccurate accessible name for the Get Instant Quote modal (Issue 144)
+        if (popup.id === 'contact-us') {
+          popup.setAttribute('aria-label', 'Get Instant Quote Contact Form');
+        } else if (!popup.getAttribute('aria-label') || popup.getAttribute('aria-label') === 'Contact Us Video Popup') {
           const titleText = popup.id 
             ? popup.id.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) 
             : 'Dialog Popup';
           popup.setAttribute('aria-label', titleText);
         }
+
         popup.querySelectorAll('.closePop').forEach(closeLink => {
-          if (!closeLink.getAttribute('aria-label')) {
+          // Correct inaccurate accessible name for the close button (Issue 135/143)
+          if (popup.id === 'contact-us') {
+            closeLink.setAttribute('aria-label', 'Close contact form');
+          } else if (!closeLink.getAttribute('aria-label') || closeLink.getAttribute('aria-label') === 'Close Video') {
             closeLink.setAttribute('aria-label', 'Close dialog');
           }
           closeLink.querySelectorAll('img').forEach(img => {
@@ -2752,7 +2929,99 @@ changeImageOnVarient();
           });
         });
       });
+
+      // Correct trigger link elements to function as accessible buttons (Issue 129)
+      document.querySelectorAll('.poptrigger').forEach(trigger => {
+        if (!trigger.getAttribute('role')) {
+          trigger.setAttribute('role', 'button');
+        }
+        if (!trigger.getAttribute('aria-haspopup')) {
+          trigger.setAttribute('aria-haspopup', 'dialog');
+        }
+      });
     };
+
+    // Track triggering element and move focus to popup close button (Issue 135)
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.poptrigger');
+      if (trigger) {
+        lastActiveElement = trigger;
+        const popID = trigger.getAttribute('data-rel');
+        const popup = document.getElementById(popID);
+        if (popup) {
+          setTimeout(() => {
+            popup.setAttribute('tabindex', '-1');
+            const closeBtn = popup.querySelector('.closePop');
+            if (closeBtn) {
+              closeBtn.focus();
+            } else {
+              popup.focus();
+            }
+          }, 300);
+        }
+      }
+
+      // Handle restoring focus when Close button is clicked
+      const closeBtn = e.target.closest('.closePop, #fade');
+      if (closeBtn) {
+        if (lastActiveElement) {
+          setTimeout(() => {
+            lastActiveElement.focus();
+            lastActiveElement = null;
+          }, 100);
+        }
+      }
+    });
+
+    // Keyboard Dialog Manager: Escape to close and Tab Focus Trap (Issue 135)
+    document.addEventListener('keydown', (e) => {
+      const openPopup = Array.from(document.querySelectorAll('.pop-upbox')).find(
+        popup => popup.offsetWidth > 0 || popup.offsetHeight > 0
+      );
+      if (!openPopup) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        const closeBtn = openPopup.querySelector('.closePop');
+        if (closeBtn) {
+          closeBtn.click();
+        } else {
+          if (window.jQuery) {
+            window.jQuery(openPopup).fadeOut();
+          } else {
+            openPopup.style.display = 'none';
+          }
+          if (lastActiveElement) {
+            lastActiveElement.focus();
+            lastActiveElement = null;
+          }
+        }
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        // Query elements inside the popup that are focusable
+        const focusableElements = openPopup.querySelectorAll(
+          'a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
 
     // 6. Generic CTA accessible naming (A11Y-01)
     const fixGenericCTAs = () => {

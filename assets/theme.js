@@ -4630,6 +4630,9 @@ lazySizesConfig.expFactor = 4;
         }
   
         if (window.AOS) { AOS.refresh() }
+
+        // Update accessibility for slides on init
+        this.updateA11y();
       },
   
       slideChange: function(index) {
@@ -4673,6 +4676,33 @@ lazySizesConfig.expFactor = 4;
         if (this.args.childNav) {
           this.childNavGoTo(this.slideshow.selectedIndex);
         }
+
+        // Update accessibility for slides on slide change
+        this.updateA11y();
+      },
+      updateA11y: function() {
+        if (!this.el) return;
+        const slides = this.el.querySelectorAll(selectors.allSlides);
+        if (!slides.length) return;
+        slides.forEach(slide => {
+          const isSelected = slide.classList.contains('is-selected');
+          
+          // Set aria-hidden appropriately
+          slide.setAttribute('aria-hidden', isSelected ? 'false' : 'true');
+          
+          // Find all focusable elements inside the slide
+          const focusable = slide.querySelectorAll('a, button, input, select, textarea, [tabindex]');
+          focusable.forEach(el => {
+            // Skip the pause button itself if it's in the slideshow wrapper
+            if (el.classList.contains('slideshow__pause')) return;
+            
+            if (isSelected) {
+              el.removeAttribute('tabindex');
+            } else {
+              el.setAttribute('tabindex', '-1');
+            }
+          });
+        });
       },
       destroy: function() {
         if (this.args.childNav && this.childNavLinks.length) {

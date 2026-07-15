@@ -5,12 +5,14 @@
 
   {%- if section.blocks.size > 0 -%}
     <div class="slideshow-wrapper">
-      {%- if section.settings.autoplay and section.settings.style == 'bars' and section.blocks.size > 1 -%}
-        {%- style -%}
-          [data-bars][data-autoplay="true"] .flickity-page-dots .dot:after {
-            animation-duration: {{ section.settings.autoplay_speed | times: 1000 }}ms;
-          }
-        {%- endstyle -%}
+      {%- if section.settings.autoplay and section.blocks.size > 1 -%}
+        {%- if section.settings.style == 'bars' -%}
+          {%- style -%}
+            [data-bars][data-autoplay="true"] .flickity-page-dots .dot:after {
+              animation-duration: {{ section.settings.autoplay_speed | times: 1000 }}ms;
+            }
+          {%- endstyle -%}
+        {%- endif -%}
 
         <button type="button" class="visually-hidden slideshow__pause" data-id="{{ section.id }}" aria-live="polite">
           <span class="slideshow__pause-stop">
@@ -23,7 +25,6 @@
           </span>
         </button>
       {%- endif -%}
-
       {%- assign natural_height = false -%}
       {%- assign natural_mobile_height = false -%}
       {%- if section.settings.section_height == 'natural' or section.settings.mobile_height == 'auto' -%}
@@ -69,6 +70,9 @@
 
       <div class="{% if natural_height %}hero-natural--{{ section.id }}{% endif %}{% if natural_mobile_height %} hero-natural-mobile--{{ section.id }}{% endif %}">
         <div id="Slideshow-{{ section.id }}"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Featured promotions"
           class="hero hero--{{ section.settings.section_height }} hero--{{ section.id }} hero--mobile--{{ section.settings.mobile_height }} loading loading--delayed"
           {% if natural_height %}
             data-natural="true"

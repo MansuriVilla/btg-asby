@@ -5560,7 +5560,8 @@ font-family: 'Blue Tees Paragraph Italic';
   z-index: 1;
 }
 
-.our-values__right--item h4 {
+.our-values__right--item h4,
+.our-values__right--item .h4 {
   font-size: clamp(18px,1.3vw,24px);
   line-height: 1;
 }

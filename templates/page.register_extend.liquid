@@ -86,11 +86,13 @@
           Complete the form below to activate your 2-year technology warranty. Please ensure all information provided is
           accurate. Proof of purchase may be required upon claim submission.
         </p>
-        <div id="success-message" style="padding: 10px 10px;display:none"></div>
-        <div id="error-message" style="padding: 10px 10px;display:none; color: red"></div>
+        <p class="required-note" style="color: #e02b2b; font-size: 14px; margin-bottom: 15px; font-weight: bold; text-align: center;">* indicates required fields</p>
+        <div id="success-message" role="status" aria-live="polite" style="padding: 10px 10px;display:none"></div>
+        <div id="error-message" role="alert" aria-live="assertive" style="padding: 10px 10px;display:none; color: red"></div>
         <form id="register_extend_warranty">
           <input type="hidden" id="order_data">
           <div class="item">
+            <label for="first_name_85575908" style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 5px; text-align: left;">First Name *</label>
             <input
               class="required_input"
               id="first_name_85575908"
@@ -99,11 +101,13 @@
               placeholder="First Name"
               aria-label="First Name"
               aria-invalid="false"
+              aria-required="true"
             >
 
             <div class="erroclick"></div>
           </div>
           <div class="item">
+            <label for="last_name_85575909" style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 5px; text-align: left;">Last Name *</label>
             <input
               class="required_input"
               id="last_name_85575909"
@@ -113,13 +117,15 @@
               placeholder="Last Name"
               aria-label="Last Name"
               aria-invalid="false"
+              aria-required="true"
             >
 
             <div class="erroclick"></div>
           </div>
           <div class="item">
-            <select name="purchased_location" id="purchased_location_5575913" class="required_input">
-              <option value="" selected disabled>Purchase Location</option>
+            <label for="purchased_location_5575913" style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 5px; text-align: left;">Purchase Location *</label>
+            <select name="purchased_location" id="purchased_location_5575913" class="required_input" aria-required="true">
+              <option value="" selected disabled>Select Location</option>
               <!-- option value="Houston">Houston</option -->
               <option value="Company Website">Company Website</option>
               <option value="Amazon">Amazon</option>
@@ -129,6 +135,7 @@
             <div class="erroclick"></div>
           </div>
           <div class="item">
+            <label for="email_85575911" style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 5px; text-align: left;">Email *</label>
             <input
               class="required_input"
               id="email_85575911"
@@ -140,17 +147,20 @@
               placeholder="Email"
               aria-label="Email"
               aria-invalid="false"
+              aria-required="true"
             >
 
             <div class="erroclick"></div>
           </div>
           <div class="item">
-            <input class="required_input" type="tel" id="phone_number_85575913" placeholder="Phone Number">
+            <label for="phone_number_85575913" style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 5px; text-align: left;">Phone Number *</label>
+            <input class="required_input" type="tel" id="phone_number_85575913" placeholder="Phone Number" aria-required="true">
             <div class="erroclick"></div>
           </div>
           <div class="item">
-            <select name="product" id="product_5575913" class="required_input">
-              <option value="" disabled selected>Your Product</option>
+            <label for="product_5575913" style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 5px; text-align: left;">Your Product *</label>
+            <select name="product" id="product_5575913" class="required_input" aria-required="true">
+              <option value="" disabled selected>Select Product</option>
               <option
                 class=""
                 data-name="Series 3 Max"
@@ -171,18 +181,21 @@
             <div class="erroclick"></div>
           </div>
           <div class="item">
+            <label for="date_purchased_85575914" style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 5px; text-align: left;">Date Purchased *</label>
             <input
               class="required_input"
               type="text"
               id="date_purchased_85575914"
               placeholder="Date Purchased"
               onClick="datePurchased()"
+              aria-required="true"
             >
 
             <div class="erroclick"></div>
           </div>
           <div class="item">
-            <input class="required_input" type="text" id="serial_number" placeholder="Serial Number">
+            <label for="serial_number" style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 5px; text-align: left;">Serial Number *</label>
+            <input class="required_input" type="text" id="serial_number" placeholder="Serial Number" aria-required="true">
 
             <div class="erroclick"></div>
           </div>
@@ -198,7 +211,7 @@
           <button type="button" id="submit_btn" onClick="submitWarrantyData()">Activate Warranty</button>
         </form>
         <div class="close-not-thanks">
-          <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close Video">No, thanks</a>
+          <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close dialog">No, thanks</a>
         </div>
       </div>
     </div>

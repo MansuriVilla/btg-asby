@@ -7,7 +7,7 @@
   <div class="grid">
     <div class="grid__item small--one-third">
       {%- if article.image -%}
-        <a href="{{ article.url }}" class="article__grid-image" aria-label="{{ article.title | escape }}">
+        <a href="{{ article.url }}" class="article__grid-image" tabindex="-1" aria-hidden="true">
           {%- if fixed_aspect_ratio -%}
             <div class="image-wrap">
               <div
