@@ -5172,10 +5172,10 @@ NEW REGISTER PAGE START
 :root { --icon-ratio: clamp(40px, 3.6vw, 63px); }
 .tees_block-section:not(.no_space_top) { margin-top: clamp(50px, 5.8vw, 104px); padding-top: clamp(20px, 2.3vw, 37px); border-top: 1px solid #636872;}
 .tees_block-section { display: flex; align-items: center; justify-content: space-between; gap: 20px;}
-.tees_blocks { display: flex; align-items: center; justify-content: center; gap: clamp(30px, 4.8vw, 80px); }
+.tees_blocks { display: flex; align-items: center; justify-content: center; gap: clamp(30px, 4.8vw, 80px); margin: 0; }
 .item_right p { padding: 0; font-size: clamp(8px, 1vw, 16px); text-transform: uppercase; letter-spacing: 1.6px; text-align: left; }
 .tees_heading h3 { line-height: 1; color: #000; font-size: clamp(14px, 1.7vw, 24px); }
-.block_item { display: flex; align-items: center; justify-content: flex-start; gap: clamp(8px, 2vw, 20px); }
+.block_item { display: flex; align-items: center; justify-content: flex-start; gap: clamp(8px, 2vw, 20px); margin: 0; }
 .item_left img { display: flex; max-width: calc(var(--icon-ratio) - 30px); width: 100%; object-fit: contain; object-position: center; height: fit-content; min-width: 20px; }
 .item_left { display: flex; justify-content: center; align-items: center; background: var(--icon-bg); height: var(--icon-ratio); width: var(--icon-ratio); border-radius: 50px; padding: 8px;  aspect-ratio: 1/1;}
 .round-container .horizon-slide:last-child { margin-right: 30px; }

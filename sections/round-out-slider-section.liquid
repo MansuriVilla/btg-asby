@@ -96,8 +96,8 @@
         <div class="tees_heading">
           <h3 class="tees_heading-text">{{ section.settings.teesHeading }}</h3>
         </div>
-        <div class="tees_blocks">
-          <div class="block_item">
+        <ul class="tees_blocks">
+          <li class="block_item">
             {% if section.settings.itemOneIcon != blank %}
               <div class="item_left" style="--icon-bg:{{ section.settings.itemIconColor }}">
                 <img
@@ -114,8 +114,8 @@
                 <p class="custom_subHeading-text">{{ section.settings.itemOneText }}</p>
               </div>
             {% endif %}
-          </div>
-          <div class="block_item">
+          </li>
+          <li class="block_item">
             {% if section.settings.itemTwoIcon != blank %}
               <div class="item_left" style="--icon-bg:{{ section.settings.itemIconColor }}">
                 <img
@@ -132,8 +132,8 @@
                 <p class="custom_subHeading-text">{{ section.settings.itemTwoText }}</p>
               </div>
             {% endif %}
-          </div>
-          <div class="block_item">
+          </li>
+          <li class="block_item">
             {% if section.settings.itemThreeIcon != blank %}
               <div class="item_left" style="--icon-bg:{{ section.settings.itemIconColor }}">
                 <img
@@ -150,8 +150,8 @@
                 <p class="custom_subHeading-text">{{ section.settings.itemThreeText }}</p>
               </div>
             {% endif %}
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     {% endif %}
   </div>

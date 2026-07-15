@@ -156,10 +156,17 @@
         {{ block.shopify_attributes }}
       >
         {%- if block.settings.image != blank -%}
+           {% capture alt %}
+              {% if block.settings.image.alt != blank %}
+                {{ block.settings.image.alt }}
+              {% else %}
+                Team with social soul image {{forloop.index}}
+              {% endif %}
+            {% endcapture %}
           {{
             block.settings.image
             | image_url: width: 800
-            | image_tag: loading: 'lazy', alt: block.settings.image.alt
+            | image_tag: loading: 'lazy', alt: alt
             | escape
           }}
         {%- else -%}
