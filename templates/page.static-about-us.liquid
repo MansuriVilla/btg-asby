@@ -152,6 +152,16 @@
         />
       </div>
     </div>
+    <button 
+      id="slider-toggle" 
+      class="slider-toggle-btn"
+      aria-label="Pause slider animation"
+      aria-pressed="false"
+      aria-controls="slider-images-container"
+    >
+      <span class="pause-icon" aria-hidden="true">⏸</span>
+      <span class="play-icon" aria-hidden="true" style="display: none;">▶</span>
+    </button>
   </div>
 
   <div class="milestones_movement">
@@ -432,55 +442,55 @@
             <div class="rule_block-left">
               <span>01</span>
             </div>
-            <div class="rule_block-right">
-              <h3>
+            <dl class="rule_block-right">
+              <dt>
                 PERFORMANCE SHOULD <br />
                 BE ACCESSIBLE.
-              </h3>
-              <h5>
+              </dt>
+              <dd>
                 The best gear shouldn’t be <br />
                 reserved for tour players.
-              </h5>
-            </div>
+              </dd>
+            </dl>
           </div>
           <div class="rule_play-block">
             <div class="rule_block-left">
               <span>02</span>
             </div>
-            <div class="rule_block-right">
-              <h3>
+            <dl class="rule_block-right">
+              <dt>
                 TECHNOLOGY SHOULD <br />
                 FEEL EFFORTLESS
-              </h3>
-              <h5>
+              </dt>
+              <dd>
                 Golf is already hard. Your gear <br />
                 shouldn’t be.
-              </h5>
-            </div>
+              </dd>
+            </dl>
           </div>
           <div class="rule_play-block">
             <div class="rule_block-left">
               <span>03</span>
             </div>
-            <div class="rule_block-right">
-              <h3>DESIGN MATTERS.</h3>
-              <h5>
+            <dl class="rule_block-right">
+              <dt>DESIGN MATTERS.</dt>
+              <dd>
                 We obsess over how it looks, <br />
                 feels, and performs.
-              </h5>
-            </div>
+              </dd>
+            </dl>
           </div>
           <div class="rule_play-block">
             <div class="rule_block-left">
               <span>04</span>
             </div>
-            <div class="rule_block-right">
-              <h3>FUN ISN’T OPTIONAL.</h3>
-              <h5>
+            <dl class="rule_block-right">
+              <dt>FUN ISN’T OPTIONAL.</dt>
+              <dd>
                 It’s the point. And we’re here to <br />
                 bring it back.
-              </h5>
-            </div>
+              </dd>
+            </dl>
           </div>
         </div>
       </div>
@@ -696,8 +706,40 @@
   .slide_in-view__row { overflow: hidden; max-width: 1920px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: 30px; }
   .slide_in-view__row p { color: #fff; padding: 0; opacity: 0.3; font-weight: 900; letter-spacing: 4px; }
   .slide_in-view__container .slide_in-view__row .slide_in-view__images { white-space: nowrap; display: inline-block; will-change: transform; }
+  .slide_in-view__container { position: relative; }
   .slide_in-view__container .slide_in-view__row .slide_in-view__images img { display: inline-flex; height: 100%; max-width: clamp(70px, 9vw, 190px); object-fit: scale-down; margin-right: clamp(40px, 6vw, 100px); overflow: hidden; filter: invert(1); }
   .slide_in-view__images .slide_in-view__image { opacity: 0; transform: translateX(0%); will-change: transform; }
+
+  .slider-toggle-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .slider-toggle-btn:hover,
+  .slider-toggle-btn:focus {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+  }
+  .slider-toggle-btn:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 4px;
+  }
+  .slider-toggle-btn.paused {
+    background: rgba(0, 0, 0, 0.85);
+  }
 
 /*-----------------------------
   Milestone Styles
@@ -757,9 +799,9 @@
   .rule_block-left { border-radius: 50px; border: 2px solid #075ee1; height: 60px; width: 60px; display: flex; justify-content: center; align-items: center; }
   .rule_block-left span { font-weight: 900; color: #075ee1; }
   .rule_play-left p {  }
-  .rule_block-right h3 {  line-height: 1; }
-  .rule_block-right h5 { font-weight: 400; font-family: 'Blue Tees Paragraph'; }
-  .rule_block-right { display: flex; flex-direction: column; row-gap: 10px; }
+  .rule_block-right h3, .rule_block-right dt {  line-height: 1; }
+  .rule_block-right h5, .rule_block-right dd { font-weight: 400; font-family: 'Blue Tees Paragraph'; }
+  .rule_block-right { display: flex; flex-direction: column; row-gap: 10px; margin: 0; }
 
   @media only screen and (max-width: 860px) {
     .rule_play-inner { flex-wrap: wrap; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
@@ -768,7 +810,7 @@
     .ready_play-left { padding: clamp(30px, 7vw, 50px); text-align: center; }
     .ready_play-ctas { flex-direction: column; }
     .cta { justify-content: center; }
-    .rule_block-right h5 { line-height: calc(var(--font-paragraph) * 1.5); }
+    .rule_block-right h5, .rule_block-right dd { line-height: calc(var(--font-paragraph) * 1.5); }
   }
  
 /*-----------------------------
@@ -937,6 +979,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let initSlides = false;
 
+    let sliderTween = null;
+    let isPlaying = true;
+    const toggleBtn = document.getElementById('slider-toggle');
+
+    // For aria-controls
+    imagesContainer.id = 'slider-images-container';
+
     ScrollTrigger.create({
       trigger: container,
       start: "top 80%",
@@ -959,7 +1008,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ease: "power4.out",
         });
 
-        gsap.to(imagesContainer, {
+        sliderTween = gsap.to(imagesContainer, {
           x: -originalImagesWidth,
           ease: "none",
           duration: 80,
@@ -967,6 +1016,40 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       },
     });
+
+    if (toggleBtn) {
+      function toggleSlider() {
+        if (!sliderTween) return;
+
+        if (isPlaying) {
+          sliderTween.pause();
+          toggleBtn.setAttribute('aria-label', 'Play slider animation');
+          toggleBtn.setAttribute('aria-pressed', 'true');
+          toggleBtn.querySelector('.pause-icon').style.display = 'none';
+          toggleBtn.querySelector('.play-icon').style.display = 'inline';
+          toggleBtn.classList.add('paused');
+        } else {
+          sliderTween.play();
+          toggleBtn.setAttribute('aria-label', 'Pause slider animation');
+          toggleBtn.setAttribute('aria-pressed', 'false');
+          toggleBtn.querySelector('.pause-icon').style.display = 'inline';
+          toggleBtn.querySelector('.play-icon').style.display = 'none';
+          toggleBtn.classList.remove('paused');
+        }
+
+        isPlaying = !isPlaying;
+      }
+
+      toggleBtn.addEventListener('click', toggleSlider);
+
+      // Keyboard accessibility
+      toggleBtn.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          toggleSlider();
+        }
+      });
+    }
 
     ScrollTrigger.refresh();
   }

@@ -60,7 +60,13 @@
               <div class="faq-item_new">
             {% endif %}
             <div class="faq-item-custom faq-item-custom__{{ item_i }}" {{ block.shopify_attributes }}>
-              <div class="faq-item-header">
+              <button
+                class="faq-item-header"
+                type="button"
+                id="faq-header-{{ block.id }}"
+                aria-controls="faq-panel-{{ block.id }}"
+                aria-expanded="{% if layout == 'media' and forloop.first %}true{% else %}false{% endif %}"
+              >
                 <div class="faq-question-box{% if layout == 'media' %} custom_heading{% endif %}">
                   {{ item_question | escape }}
                 </div>
@@ -80,8 +86,13 @@
                 {% else %}
                   <div class="faq-icon-custom"></div>
                 {% endif %}
-              </div>
-              <div class="faq-item-body">
+              </button>
+              <div
+                class="faq-item-body"
+                id="faq-panel-{{ block.id }}"
+                role="region"
+                aria-labelledby="faq-header-{{ block.id }}"
+              >
                 <div class="faq-item-content">
                   {{ item_answer }}
                 </div>
@@ -117,7 +128,8 @@
   .faq-text{ font-size:clamp(20px,3vw, 44px); line-height:1; color:{{section.settings.content_clr}}; }
   .faq-list { display: flex; flex-direction: column; }
   .faq-item-custom { border-bottom: 1px solid {{section.settings.content_clr}}; overflow: hidden; background-color: transparent; }
-  .faq-item-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: transparent; }
+  .faq-item-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: transparent; border: none; width: 100%; text-align: left; padding: 0; font-family: inherit; color: inherit; }
+  .faq-item-header:focus, .faq-item-header:focus-visible { outline: 2px solid {{section.settings.content_clr}} !important; outline-offset: -2px !important; }
   .faq-question-box { background-color:rgba(255, 255, 240, 0); color: {{section.settings.content_clr}}; padding-block: 18px; font-size: clamp(1rem, 2vw, 1.125rem); font-weight: 600; }
   .faq-icon-custom { display:flex; align-items: center; justify-content: center; width: 24px; height: 24px; position: relative; flex-shrink: 0; transition: 0.3s all ease; }
   .faq-icon-custom::before, .faq-icon-custom::after { content: ''; position: absolute; background-color: {{section.settings.content_clr}}; transition: 0.3s all ease; }
@@ -189,7 +201,10 @@
           const body = item.querySelector('.faq-item-body');
           const header = item.querySelector('.faq-item-header');
           if (body) gsap.to(body, { height: 0, duration: 0.4, ease: 'power2.inOut' });
-          if (header) header.classList.remove('active');
+          if (header) {
+            header.classList.remove('active');
+            header.setAttribute('aria-expanded', 'false');
+          }
         });
       }
 
@@ -214,6 +229,7 @@
         });
 
         header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
         currentIndex = index;
       }
 
@@ -270,6 +286,7 @@
           if (isOpen) {
             gsap.to(body, { height: 0, duration: 0.4, ease: 'power2.inOut' });
             header.classList.remove('active');
+            header.setAttribute('aria-expanded', 'false');
             isOpen = false;
           } else {
             body.style.height = 'auto';
@@ -284,6 +301,7 @@
             });
 
             header.classList.add('active');
+            header.setAttribute('aria-expanded', 'true');
             isOpen = true;
           }
         });

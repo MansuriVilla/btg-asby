@@ -1,3 +1,33 @@
+{%- liquid
+  assign hero_image_alt = section.settings.hero_image.alt
+  if hero_image_alt == blank or hero_image_alt == 'Hero Image'
+    assign hero_image_str = section.settings.hero_image | image_url | downcase
+    if hero_image_str contains 'frame_1410105407654' or page.template_suffix contains 'captain' or product.handle contains 'captain' or template.suffix contains 'captain'
+      assign hero_image_alt = "Powered by Blue Tees GAME App"
+    elsif page.template_suffix contains 'rainmaker' or product.handle contains 'rainmaker' or template.suffix contains 'rainmaker'
+      assign hero_image_alt = "Powered by Blue Tees Launch App"
+    else
+      if section.settings.hero_heading != blank
+        assign hero_image_alt = section.settings.hero_heading | strip_html | escape
+      elsif product != blank and product.title != blank
+        assign hero_image_alt = product.title | append: " - Powered by Blue Tees" | escape
+      elsif page != blank and page.title != blank
+        assign hero_image_alt = page.title | escape
+      else
+        assign hero_image_alt = shop.name | default: 'Blue Tees Golf' | escape
+      endif
+    endif
+  endif
+
+  assign hero_main_image_alt = section.settings.hero_main_image.alt
+  if hero_main_image_alt == blank or hero_main_image_alt == 'Game Platform'
+    if page.template_suffix contains 'rainmaker' or product.handle contains 'rainmaker' or template.suffix contains 'rainmaker'
+      assign hero_main_image_alt = "Blue Tees Launch App on tablet and mobile showing shot metrics"
+    else
+      assign hero_main_image_alt = "Blue Tees GAME App interface on mobile device"
+    endif
+  endif
+-%}
 {% comment %} {% assign icon = section.settings.icon %}
 <div
   class="portiablity-meets-section portiablity-meets-section__{{ template.suffix | default: 'default' }} portiablity-meets-section__{{ section.id }}"
@@ -60,7 +90,7 @@
             section.settings.hero_image
             | image_url: width: 1800
             | image_tag:
-              alt: 'Hero Image',
+              alt: hero_image_alt,
               class: 'hero-image',
               loading: 'eager',
               fetchpriority: 'high',
@@ -97,7 +127,7 @@
             section.settings.hero_main_image
             | image_url: width: 1800
             | image_tag:
-              alt: 'Game Platform',
+              alt: hero_main_image_alt,
               class: full_class,
               loading: 'eager',
               fetchpriority: 'high',
@@ -602,7 +632,7 @@
             section.settings.hero_image
             | image_url: width: 1800
             | image_tag:
-              alt: 'Hero Image',
+              alt: hero_image_alt,
               class: 'hero-image',
               loading: section_loading,
               fetchpriority: section_fetchpriority,

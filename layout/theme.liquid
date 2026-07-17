@@ -895,6 +895,250 @@
   {{ shop.metafields.loox.global_html_body }}
   {% render 'oneclickupsellapp-theme', oneclickupsellapp: oneclickupsellapp %}
   {% assign oneclickupsellapp = true %}
+
+  <!-- Global Owl Carousel Dots Accessibility Patch -->
+  <style>
+    /* Accessibility: Carousel active slide pagination dots visual indicator */
+    .owl-dots .owl-dot.active span {
+      transform: scale(1.3) !important;
+      box-shadow: 0 0 0 2px currentColor !important;
+    }
+
+    .owl-autoplay-btn {
+      background: transparent;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: inherit;
+      padding: 0;
+      vertical-align: middle;
+      margin-left: 10px;
+      transition: all 0.2s ease;
+      opacity: 0.7;
+    }
+    
+    .owl-autoplay-btn:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    
+    .owl-autoplay-btn:focus-visible {
+      outline: 2px solid #004DF5;
+      outline-offset: 2px;
+    }
+    
+    .owl-dots + .owl-autoplay-btn {
+      margin-top: 10px;
+      display: block;
+      margin-inline: auto;
+    }
+  </style>
+
+  <script>
+    (function() {
+      // Global patch for autoplay carousels
+      if (typeof jQuery !== 'undefined' && jQuery.fn && jQuery.fn.owlCarousel) {
+        var originalOwl = jQuery.fn.owlCarousel;
+        jQuery.fn.owlCarousel = function(options) {
+          options = options || {};
+          if (options.autoplay === true) {
+            var $carousel = this;
+            $carousel.on('initialized.owl.carousel', function(event) {
+              setTimeout(function() {
+                var $dots = $carousel.find('.owl-dots');
+                var $nav = $carousel.find('.owl-nav');
+                var $btn = $('<button type="button" class="owl-autoplay-btn" aria-label="Pause slideshow" aria-pressed="false">' +
+                  '<svg class="pause-icon" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.5" y="0.5" width="2" height="9" fill="currentColor"/><rect x="6.5" y="0.5" width="2" height="9" fill="currentColor"/></svg>' +
+                  '<svg class="play-icon" style="display:none;" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 1L8.5 5L2.5 9V1Z" fill="currentColor"/></svg>' +
+                  '</button>');
+                
+                if ($dots.length > 0) {
+                  $dots.after($btn);
+                } else if ($nav.length > 0) {
+                  $nav.append($btn);
+                } else {
+                  $carousel.append($btn);
+                }
+                
+                $btn.on('click', function() {
+                  var isPaused = $btn.attr('aria-pressed') === 'true';
+                  if (isPaused) {
+                    $carousel.trigger('play.owl.autoplay');
+                    $btn.attr('aria-pressed', 'false');
+                    $btn.attr('aria-label', 'Pause slideshow');
+                    $btn.find('.pause-icon').show();
+                    $btn.find('.play-icon').hide();
+                  } else {
+                    $carousel.trigger('stop.owl.autoplay');
+                    $btn.attr('aria-pressed', 'true');
+                    $btn.attr('aria-label', 'Play slideshow');
+                    $btn.find('.pause-icon').hide();
+                    $btn.find('.play-icon').show();
+                  }
+                });
+              }, 300);
+            });
+          }
+          return originalOwl.apply(this, arguments);
+        };
+      }
+
+      // Create global visually-hidden live announcer for carousels
+      let announcer = document.getElementById('carousel-live-announcer');
+      if (!announcer) {
+        announcer = document.createElement('div');
+        announcer.id = 'carousel-live-announcer';
+        announcer.className = 'visually-hidden';
+        announcer.setAttribute('aria-live', 'polite');
+        announcer.setAttribute('aria-atomic', 'true');
+        announcer.style.position = 'absolute';
+        announcer.style.width = '1px';
+        announcer.style.height = '1px';
+        announcer.style.padding = '0';
+        announcer.style.margin = '-1px';
+        announcer.style.overflow = 'hidden';
+        announcer.style.clip = 'rect(0, 0, 0, 0)';
+        announcer.style.border = '0';
+        document.body.appendChild(announcer);
+      }
+
+      function announceSlideChange(message) {
+        if (announcer) {
+          announcer.textContent = '';
+          setTimeout(() => {
+            announcer.textContent = message;
+          }, 50);
+        }
+      }
+
+      function updateOwlDots(dotsContainer) {
+        if (!dotsContainer) return;
+        const dots = dotsContainer.querySelectorAll('.owl-dot');
+        let activeIdx = -1;
+
+        dots.forEach((dot, index) => {
+          const slideNum = index + 1;
+          const labelText = 'Go to slide ' + slideNum;
+          if (dot.getAttribute('aria-label') !== labelText) {
+            dot.setAttribute('aria-label', labelText);
+          }
+          
+          const isActive = dot.classList.contains('active');
+          if (isActive) {
+            activeIdx = index;
+            if (dot.getAttribute('aria-current') !== 'true') {
+              dot.setAttribute('aria-current', 'true');
+            }
+          } else {
+            if (dot.hasAttribute('aria-current')) {
+              dot.removeAttribute('aria-current');
+            }
+          }
+        });
+
+        // Trigger slide announcement to screen readers
+        if (activeIdx !== -1 && dots.length > 0) {
+          const slideNum = activeIdx + 1;
+          const totalSlides = dots.length;
+          const lastAnnounced = dotsContainer.getAttribute('data-last-announced');
+          
+          if (lastAnnounced !== String(slideNum)) {
+            dotsContainer.setAttribute('data-last-announced', slideNum);
+            const carousel = dotsContainer.closest('.owl-carousel');
+            let title = '';
+            if (carousel) {
+              title = carousel.getAttribute('aria-label') || carousel.getAttribute('title');
+              if (!title) {
+                const section = carousel.closest('section, .shopify-section, .new-offer_main');
+                if (section) {
+                  const heading = section.querySelector('h1, h2, h3');
+                  if (heading) {
+                    title = heading.textContent.trim();
+                  }
+                }
+              }
+            }
+            title = title || 'Carousel';
+            if (title.length > 50) {
+              title = title.substring(0, 47) + '...';
+            }
+            announceSlideChange(title + ': Slide ' + slideNum + ' of ' + totalSlides);
+          }
+        }
+      }
+
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'childList') {
+            mutation.addedNodes.forEach((node) => {
+              if (node.nodeType === 1) {
+                if (node.classList.contains('owl-dots')) {
+                  updateOwlDots(node);
+                } else {
+                  node.querySelectorAll('.owl-dots').forEach(updateOwlDots);
+                }
+              }
+            });
+          } else if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            const target = mutation.target;
+            if (target.classList.contains('owl-dot')) {
+              updateOwlDots(target.closest('.owl-dots'));
+            }
+          }
+        });
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class']
+      });
+
+      // Event delegation for sliders without dots (prev/next click)
+      document.addEventListener('click', function(event) {
+        const trigger = event.target.closest('.owl-prev, .owl-next');
+        if (trigger) {
+          const carousel = trigger.closest('.owl-carousel');
+          if (carousel && !carousel.querySelector('.owl-dots')) {
+            setTimeout(() => {
+              const items = Array.from(carousel.querySelectorAll('.owl-item'));
+              const activeItems = items.filter(item => item.classList.contains('active'));
+              const nonClonedItems = items.filter(item => !item.classList.contains('cloned'));
+              const total = nonClonedItems.length || items.length;
+              if (activeItems.length > 0) {
+                const index = items.indexOf(activeItems[0]);
+                const slideNum = (index % total) + 1;
+                let title = carousel.getAttribute('aria-label') || carousel.getAttribute('title');
+                if (!title) {
+                  const section = carousel.closest('section, .shopify-section, .new-offer_main');
+                  if (section) {
+                    const heading = section.querySelector('h1, h2, h3');
+                    if (heading) {
+                      title = heading.textContent.trim();
+                    }
+                  }
+                }
+                title = title || 'Carousel';
+                if (title.length > 50) {
+                  title = title.substring(0, 47) + '...';
+                }
+                announceSlideChange(title + ': Slide ' + slideNum + ' of ' + total);
+              }
+            }, 300);
+          }
+        }
+      });
+
+      // Run once for static elements
+      document.querySelectorAll('.owl-dots').forEach(updateOwlDots);
+    })();
+  </script>
 </body>
 
 </html>

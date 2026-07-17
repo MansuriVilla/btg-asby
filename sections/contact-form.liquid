@@ -16,7 +16,7 @@
       {%- form 'contact', id: form_id -%}
 
         {%- if form.posted_successfully? -%}
-          <p class="note note--success">
+          <p class="note note--success" role="status" aria-live="polite">
             {{ 'contact.form.post_success' | t }}
           </p>
         {%- endif -%}

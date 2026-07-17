@@ -1,4 +1,4 @@
-<div id="container" data-animated>
+<div id="container" class="site_ticker-logo" data-animated>
   <div class="ticker-heading">
     <h2 class="ticker-heading__text">{{section.settings.tickerHeading}}</h2>
   </div>
@@ -8,7 +8,7 @@
         <img
           class="logo_image"
           src="{{block.settings.logo | image_url}}"
-          alt="You Are Seeing logos In Which Blue Tees Golf Featured {{forloop.index}}"
+          alt="{{block.settings.logo.alt}}"
           height="100%"
           width="100%"
           loading="lazy"
@@ -17,9 +17,28 @@
       </li>
     {% endfor %}
   </ul>
+ <div class="ticker_action--button">
+   <button
+      type="button"
+      id="carousel-control-btn"
+      class="carousel-control-btn"
+      aria-label="Pause logo carousel"
+      aria-pressed="false"
+    >
+      <svg class="pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="1" width="3" height="12" fill="currentColor"/>
+        <rect x="9" y="1" width="3" height="12" fill="currentColor"/>
+      </svg>
+      <svg class="play-icon" style="display:none;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 1.5L12 7L3 12.5V1.5Z" fill="currentColor"/>
+      </svg>
+    </button>
+ </div>
 </div>
 
 <style>
+  .site_ticker-logo{display:flex; flex-direction: column; width:100%;}
+  .ticker_action--button{display:flex; justify-content: flex-end; padding:20px;}
 .ticker-heading__text {
   padding: 0;
   font-size: clamp(16px,2vw,18px);
@@ -36,6 +55,36 @@
   justify-content: center;
   align-items: center;
   padding-bottom: clamp(25px,2.4vw,35px);
+  gap: 12px;
+}
+
+.carousel-control-btn {
+  background: transparent;
+  border: 1px solid #9B9DA3;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #9B9DA3;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.carousel-control-btn:hover {
+  color: #fff;
+  background: #9B9DA3;
+}
+
+.carousel-control-btn:focus-visible {
+  outline: 2px solid #004DF5;
+  outline-offset: 2px;
+}
+
+#container[data-animated].paused #list {
+  animation-play-state: paused;
 }
 
     [data-animated] li img { max-width: clamp(128px,26vw,198px); width: 100%; aspect-ratio: 8/3; object-fit: contain; object-position: center center; }
@@ -61,6 +110,29 @@
     duplicatedItem.setAttribute('aria-hidden', true);
     list.appendChild(duplicatedItem);
   });
+
+  const controlBtn = document.querySelector('#carousel-control-btn');
+  const container = document.querySelector('#container');
+  
+  if (controlBtn && container) {
+    controlBtn.addEventListener('click', function() {
+      const isPaused = container.classList.toggle('paused');
+      controlBtn.setAttribute('aria-pressed', isPaused);
+      
+      const pauseIcon = controlBtn.querySelector('.pause-icon');
+      const playIcon = controlBtn.querySelector('.play-icon');
+      
+      if (isPaused) {
+        controlBtn.setAttribute('aria-label', 'Play logo carousel');
+        pauseIcon.style.display = 'none';
+        playIcon.style.display = 'block';
+      } else {
+        controlBtn.setAttribute('aria-label', 'Pause logo carousel');
+        pauseIcon.style.display = 'block';
+        playIcon.style.display = 'none';
+      }
+    });
+  }
 </script>
 
 {% schema %}

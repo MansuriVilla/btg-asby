@@ -18,7 +18,7 @@
     <input type="hidden" name="contact[tags]" value="prospect,newsletter">
     <input type="hidden" name="contact[context]" value="{{ snippet_context }}">
     <div class="input-group newsletter__input-group">
-      <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email-{{ section_id }}" class="input-group-field newsletter__input" autocorrect="off" autocapitalize="off" autocomplete="email" {% if has_error %}aria-invalid="true" aria-describedby="NewsletterErrors-{{ section_id }}"{% endif %}>
+      <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email-{{ section_id }}" class="input-group-field newsletter__input" autocorrect="off" autocapitalize="off" autocomplete="email" {% if has_error %}aria-invalid="true" aria-describedby="NewsletterErrors-{{ section_id }}"{% endif %} aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}">
       <div class="input-group-btn">
         <button type="submit" class="btn" name="commit">
           <span class="form__submit--large">{{ 'general.newsletter_form.submit' | t }}</span>

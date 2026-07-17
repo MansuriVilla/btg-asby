@@ -64,6 +64,12 @@
         {%- endfor -%}
       </div>
 
+      {%- capture product_names -%}
+        {%- for p_block in products -%}
+          {{ p_block.settings.product_name }}{% unless forloop.last %}, {% endunless %}
+        {%- endfor -%}
+      {%- endcapture -%}
+
       <div class="product-comparison__tables">
         {%- assign current_table_open = false -%}
         {%- for block in section.blocks -%}
@@ -78,6 +84,9 @@
               <h3 class="product-comparison__category-title">{{ block.settings.title | upcase }}</h3>
               <div class="product-comparison__table-wrapper">
                 <table class="product-comparison__table" role="table">
+                  <caption class="visually-hidden">
+                    Comparison of {{ block.settings.title }} features for {{ product_names | strip }}
+                  </caption>
                   <thead class="product-comparison__table-head visually-hidden" role="rowgroup">
                     <tr role="row">
                       <th scope="col" role="columnheader">Feature</th>

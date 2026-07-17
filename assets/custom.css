@@ -3184,7 +3184,7 @@ label.university-of-georgia { text-indent:-99999px; height:60px; width:60px; bac
 #product-gallary .owl-stage-outer { padding-bottom:15px; }
 #product-gallary { width: auto; }
 #shopify-section-next-level-feature .rte a.btn { background: #004DF5 !important; border: 1px solid #004DF5; font-weight: 900; font-size: 16px; line-height: 19px; letter-spacing: .2em; padding: 10px 65px; border-radius: 5px; margin-top: 25px; }
-.bottom-add-to-cart { background: #004DF5 !important; border: 1px solid #004DF5; font-weight: 900; font-size: 16px; line-height: 19px; letter-spacing: .2em; padding: 10px 65px; border-radius: 50px; margin-top: 25px; display: flex; justify-content: center; align-items: center text-align: center; color:#fff; }
+.bottom-add-to-cart { background: #004DF5 !important; border: 1px solid #004DF5; font-weight: 900; font-size: 16px; line-height: 19px; letter-spacing: .2em; padding: 10px 65px; border-radius: 50px; margin-top: 25px; display: flex; justify-content: center; align-items: center; text-align: center; color:#fff; }
 .max3-product-page #shopify-section-product-recommendations .grid-product__image-mask { min-height:inherit !important; }
 .max3-product-page .new-product-related .grid-product__image-mask { min-height:inherit !important; }
 .max3-product-page .product-single__meta .variant-input-wrap label { position:relative; }
@@ -3449,12 +3449,15 @@ NEW BUTTONS CSS PDP
 .offer-price span:not(.price-compare){font-weight: 400;}
 .rule_play-blocks{display: flex;flex-direction: column;}
 .rule_play-block{display: flex;align-items: center;gap: 7px;padding: 0px 10px 8px;}
-.rule_play-block:first-child{padding-top: 8px;}
-.rule_block-right{display: flex;flex-direction: column;gap: 2px;}
+.rule_play-block:first-child{padding-top: 8px;}.rule_block-right{display: flex;flex-direction: column;gap: 2px;margin: 0;}
 .rule_block-right h3,
-.rule_block-right h5{font-family: 'Blue Tees Paragraph';}
-.rule_block-right h5{font-size: clamp(10px, 0.7vw, 12px);font-weight: 400;line-height: 1;text-transform: none;}
-.rule_block-right h3{font-size: clamp(14px, 1.1vw, 18px);line-height: 1;display: flex;align-items: center;gap: 5px;}
+.rule_block-right dt,
+.rule_block-right h5,
+.rule_block-right dd{font-family: 'Blue Tees Paragraph';}
+.rule_block-right h5,
+.rule_block-right dd{font-size: clamp(10px, 0.7vw, 12px);font-weight: 400;line-height: 1;text-transform: none;margin: 0;}
+.rule_block-right h3,
+.rule_block-right dt{font-size: clamp(14px, 1.1vw, 18px);line-height: 1;display: flex;align-items: center;gap: 5px;margin: 0;font-weight: bold;}
 .newupshell .checkbox-list label { position: unset; color: #fff; cursor: pointer; padding-left: 0px; }
 .newupshell .checkbox-list input[type="radio"] { display: none; }
 .newupshell .checkbox-list input[type="radio"]:checked + label:after { display: block; }
@@ -4574,11 +4577,25 @@ NEW REGISTER PAGE START
 .quick-add-swatches { display: flex; flex-wrap: wrap; gap: 10px; }
 .single-color { position: relative; line-height: 1; }
 .grid__item-new .swatch.color-navy { background: #203366 !important; }
-.single-color input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+.single-color input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  opacity: 0;
+}
 .swatch { display: block; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(0, 0, 0, 0.1); font-size: 0; transition: transform 0.2s ease; box-sizing: border-box; }
 .swatch:hover { transform: scale(1.1); }
 .product-item__cta .swatch { margin: 0; }
 .single-color input[type="radio"]:checked+.swatch { outline: 1px solid #000; outline-offset: 3px; }
+.single-color input[type="radio"]:focus-visible + .swatch {
+  outline: 2px solid #004DF5 !important;
+  outline-offset: 3px !important;
+}
 .swatch-more { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background-color: #e5e5e5; color: #000; font-weight: bold; font-size: 11px; cursor: pointer; line-height: 1; transition: transform 0.2s ease; }
 .swatch-more:hover { transform: scale(1.1); }
 .variant-title { display: none; }
@@ -5174,7 +5191,7 @@ NEW REGISTER PAGE START
 .tees_block-section { display: flex; align-items: center; justify-content: space-between; gap: 20px;}
 .tees_blocks { display: flex; align-items: center; justify-content: center; gap: clamp(30px, 4.8vw, 80px); margin: 0; }
 .item_right p { padding: 0; font-size: clamp(8px, 1vw, 16px); text-transform: uppercase; letter-spacing: 1.6px; text-align: left; }
-.tees_heading h3 { line-height: 1; color: #000; font-size: clamp(14px, 1.7vw, 24px); }
+.tees_heading h2 { line-height: 1; color: #000; font-size: clamp(14px, 1.7vw, 24px); }
 .block_item { display: flex; align-items: center; justify-content: flex-start; gap: clamp(8px, 2vw, 20px); margin: 0; }
 .item_left img { display: flex; max-width: calc(var(--icon-ratio) - 30px); width: 100%; object-fit: contain; object-position: center; height: fit-content; min-width: 20px; }
 .item_left { display: flex; justify-content: center; align-items: center; background: var(--icon-bg); height: var(--icon-ratio); width: var(--icon-ratio); border-radius: 50px; padding: 8px;  aspect-ratio: 1/1;}
@@ -5219,10 +5236,10 @@ NEW REGISTER PAGE START
 @media only screen and (max-width:860px) {
  .round-container .slider_navigation-area { padding-right: 10px; }
   .block_item, .tees_block-section { flex-direction: column; }
-  .tees_heading h3 { text-align: center; }
+  .tees_heading h2 { text-align: center; }
   .round-card-content { display: flex; flex-direction: column; justify-content: center; align-items: center; }
   .item_right p { letter-spacing: 1px; text-align: center; }
-  .tees_heading h3 br {
+  .tees_heading h2 br {
   display: none;
 }
 }
@@ -6049,4 +6066,53 @@ a:focus-visible {
     transition-duration: 0s !important;
     transition-delay: 0s !important;
   }
+}
+
+/* Accessibility: Product Card keyboard focus states matching hover effects */
+.product-card:has(.content-cta__solid:focus) .product-card__content::after {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(0, 0, 0, 0) 100%);
+  opacity: 1;
+}
+
+.product-card:has(.content-cta__solid:focus) .card-background__initial {
+  opacity: 0;
+}
+
+.product-card:has(.content-cta__solid:focus) :is(.product-card__product-name, .product-card__subtext) {
+  color: #fff;
+}
+
+.product-card:has(.content-cta__solid:focus) .content-cta__solid {
+  background: #004DF5 !important;
+  border-color: #004DF5 !important;
+  color: #fff !important;
+}
+
+/* Ensure focus outline is visible and clean for keyboard users */
+.product-card .content-cta__solid:focus-visible {
+  outline: 2px solid #004DF5 !important;
+  outline-offset: 3px !important;
+}
+
+/* Accessibility: Product Card Link resets */
+a.grid-product__link {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+a.grid-product__link:hover,
+a.grid-product__link:focus,
+a.grid-product__link:active {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+a.grid-product__link:focus,
+a.grid-product__link:focus-visible {
+  outline: none !important;
+}
+
+/* Accessibility: Draw outline around the entire product card content on focus */
+.grid-product__content:has(a.grid-product__link:focus) {
+  outline: 2px solid #004DF5 !important;
+  outline-offset: -2px !important;
+  border-radius: 12px;
 }

@@ -103,7 +103,15 @@
       </div>
 
       <div class="product-comparison__table-wrapper">
+        {%- capture product_names -%}
+          {%- for block in products -%}
+            {{ block.settings.product_name }}{% unless forloop.last %}, {% endunless %}
+          {%- endfor -%}
+        {%- endcapture -%}
         <table class="product-comparison__table" role="table">
+          <caption class="visually-hidden">
+            Comparison of product features for {{ product_names | strip }}
+          </caption>
           <thead class="product-comparison__table-head visually-hidden" role="rowgroup">
             <tr role="row">
               <th scope="col" role="columnheader">Feature</th>

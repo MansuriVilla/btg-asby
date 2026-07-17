@@ -72,10 +72,12 @@
                 playsinline
               ></video>
               <div class="video_overlay-holder">
-                <div
-                  class="play-button play-button cta_pluse"
+                <button
+                  type="button"
+                  class="play-button cta_pluse"
                   id="play-button-1"
-                  style="--ripple-clr: #ffffff61"
+                  style="--ripple-clr: #ffffff61; background: transparent; border: none; padding: 0; cursor: pointer;"
+                  aria-label="Play video{% if heading != blank %}: {{ heading }}{% endif %}"
                 >
                   <img
                     id="video_block-icon-desktop"
@@ -83,7 +85,7 @@
                     src="{{ 'white-play-icon.png' | asset_url }}"
                     alt="Play video"
                   >
-                </div>
+                </button>
                 {% if video_src_text != blank %}
                   <p class="play_icon-text play_button-text">
                     {{ video_src_text }}

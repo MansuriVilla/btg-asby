@@ -27,10 +27,12 @@
             playsinline
           ></video>
           <div class="video_overlay-holder">
-            <div
+            <button
+              type="button"
               class="video_overlay-content play-button"
               id="play-button-1"
-              style="--ripple-clr:{{section.settings.ripple_clr}};"
+              style="--ripple-clr:{{section.settings.ripple_clr}}; background: transparent; border: none; padding: 0; cursor: pointer;"
+              aria-label="Play video{% if section.settings.videoHeading != blank %}: {{ section.settings.videoHeading }}{% endif %}"
             >
               <img
                 id="video_block-icon-desktop"
@@ -38,7 +40,7 @@
                 src="{{'white-play-icon.png' | asset_url}}"
                 alt="white-play-icon"
               >
-            </div>
+            </button>
             {% if section.settings.playText != blank %}
               <p class="play_icon-text play_button-text">{{ section.settings.playText }}</p>
             {% endif %}

@@ -1,3 +1,60 @@
+{%- liquid
+  assign title_alt = section.settings.title.alt
+  if title_alt == blank
+    assign title_str = section.settings.title | image_url | downcase
+    if title_str contains 'unlock_your_captain_pro' or title_str contains 'unlock-your-captain-pro'
+      assign title_alt = "Unlock your Captain Pro's full intelligence"
+    elsif title_str contains 'unlock_your_captain_air' or title_str contains 'unlock-your-captain-air'
+      assign title_alt = "Unlock your Captain Air's full intelligence"
+    elsif page.template_suffix contains 'captain-pro' or product.handle contains 'captain-pro' or template.suffix contains 'captain-pro'
+      assign title_alt = "Captain Pro your secret to smarter golf"
+    elsif page.template_suffix contains 'captain-air' or product.handle contains 'captain-air' or template.suffix contains 'captain-air'
+      assign title_alt = "Captain Air your secret to smarter golf"
+    elsif page.template_suffix contains 'rainmaker' or product.handle contains 'rainmaker' or template.suffix contains 'rainmaker'
+      assign title_alt = "Rainmaker Launch Monitor"
+    elsif page.template_suffix contains 'player-pro' or product.handle contains 'player-pro' or template.suffix contains 'player-pro'
+      assign title_alt = "Player Pro"
+    elsif page.template_suffix contains 's3-max' or product.handle contains 's3-max' or template.suffix contains 's3-max'
+      assign title_alt = "Series 3 Max+"
+    else
+      if product != blank and product.title != blank
+        assign title_alt = product.title
+      elsif page != blank and page.title != blank
+        assign title_alt = page.title
+      else
+        assign title_alt = shop.name | default: 'Blue Tees Golf'
+      endif
+    endif
+  endif
+
+  assign badge_image_alt = section.settings.badge_image.alt
+  if badge_image_alt == blank
+    assign badge_image_alt = shop.name | default: 'Blue Tees Golf' | append: ' Logo'
+  endif
+
+  assign product_image_alt = section.settings.product_image.alt
+  if product_image_alt == blank
+    if page.template_suffix contains 'captain-pro' or product.handle contains 'captain-pro' or template.suffix contains 'captain-pro'
+      assign product_image_alt = "Captain Pro Rangefinder"
+    elsif page.template_suffix contains 'captain-air' or product.handle contains 'captain-air' or template.suffix contains 'captain-air'
+      assign product_image_alt = "Captain Air Rangefinder"
+    elsif page.template_suffix contains 'rainmaker' or product.handle contains 'rainmaker' or template.suffix contains 'rainmaker'
+      assign product_image_alt = "Rainmaker Launch Monitor"
+    elsif page.template_suffix contains 'player-pro' or product.handle contains 'player-pro' or template.suffix contains 'player-pro'
+      assign product_image_alt = "Player Pro Speaker"
+    elsif page.template_suffix contains 's3-max' or product.handle contains 's3-max' or template.suffix contains 's3-max'
+      assign product_image_alt = "Series 3 Max+ Rangefinder"
+    else
+      if product != blank and product.title != blank
+        assign product_image_alt = product.title
+      elsif page != blank and page.title != blank
+        assign product_image_alt = page.title
+      else
+        assign product_image_alt = 'Product Image'
+      endif
+    endif
+  endif
+-%}
 <div
   class="hero-{{ section.id }}{% if section.settings.no_space_top %} no_space-top{% endif %}"
   data-section-id="{{ section.id }}"
@@ -16,7 +73,7 @@
         section.settings.badge_image
         | image_url: width: 250
         | image_tag:
-          alt: section.settings.subtext,
+          alt: badge_image_alt,
           fetchpriority: 'high',
           widths: '400,600,800,1200,1600,2000',
           height: 'auto',
@@ -29,7 +86,7 @@
     <picture>
       <source srcset="{{ section.settings.title | image_url }}" media="(min-width:861px)">
       <source srcset="{{ section.settings.titleMobile | image_url }}" media="(max-width:860px)">
-      <img src="{{ section.settings.title | image_url }}" alt="{{ section.settings.badge_text }}" loading="lazy">
+      <img src="{{ section.settings.title | image_url }}" alt="{{ title_alt | escape }}" loading="lazy">
     </picture>
   </div>
   {% if section.settings.subtext != blank %}
@@ -113,7 +170,7 @@
           section.settings.product_image
           | image_url: width: 2000
           | image_tag:
-            alt: section.settings.title,
+            alt: product_image_alt,
             loading: 'lazy',
             widths: '400,600,800,1000,1200,1400,1600,1800,2000,2400',
             sizes: '(min-width: 861px) 50vw, 100vw',

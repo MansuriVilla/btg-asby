@@ -120,7 +120,7 @@
         <div id="comments">
           {%- if comment and comment.errors == blank -%}
             <hr class="hr--small hr--clear">
-            <p class="note note--success">
+            <p class="note note--success" role="status" aria-live="polite">
               {%- if blog.moderated? -%}
                 {{ 'blogs.comments.success_moderated' | t }}
               {%- else -%}
