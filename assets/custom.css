@@ -5401,10 +5401,10 @@ NEW REGISTER PAGE START
     .section_title-heading { font-size: clamp(16px,2.2vw,32px); line-height: 1; max-width: 150px; text-align:left; }
     .product-manuals-row { max-width: 1242px;  width: 100%; margin-inline: auto; text-align: center; display: flex; flex-direction: column; padding-inline: 26px; gap: clamp(20px,4vw,64px); }
     .product-manuals-list { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; }
-    .product-manuals-info { background: #d5d5d5; border-radius: 12px; overflow: hidden; aspect-ratio: 1/1.05; display: flex; justify-content: center; align-items: center;}
+    .product-manuals-info { background: #d5d5d5; border-radius: 12px; overflow: hidden; aspect-ratio: 1/1.05; display: flex; justify-content: center; align-items: center; transition: all.6s ease;}
     .product-manuals-info img { display: flex; object-fit: contain; object-position: center center; transition: all.6s ease; }
     .manual-list__item { display: flex; flex-direction: column; gap: 20px; justify-content: center; align-items: center; }
-    .manual-list__item:has(.manual-list__cta:hover, .product-manuals-info:hover) img { scale:1.1; }
+    .manual-list__item:has(.manual-list__cta:hover, .manual-list__cta:focus, .product-manuals-info:hover, .product-manuals-info:focus) img { scale:1.1; }
     .manual-item__title{font-size:20px;line-height: 1; flex:1;}
     .manual-list__cta { max-width: fit-content; }
     .manual-list__cta:hover { color: #004df5; border-color: #004df5; } 

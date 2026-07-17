@@ -4743,11 +4743,15 @@ lazySizesConfig.expFactor = 4;
   
       initChildNav: function() {
         this.childNavLinks[this.args.initialIndex].classList.add('is-active');
+        this.childNavLinks[this.args.initialIndex].setAttribute('aria-current', 'true');
   
         // Setup events
         this.childNavLinks.forEach((link, i) => {
           // update data-index because image-set feature may be enabled
           link.setAttribute('data-index', i);
+          if (i !== this.args.initialIndex) {
+            link.removeAttribute('aria-current');
+          }
   
           link.addEventListener('click', function(evt) {
             evt.preventDefault();
@@ -4779,10 +4783,12 @@ lazySizesConfig.expFactor = 4;
         this.childNavLinks.forEach(a => {
           a.blur();
           a.classList.remove(classes.isActive);
+          a.removeAttribute('aria-current');
         });
   
         var el = this.childNavLinks[index];
         el.classList.add(classes.isActive);
+        el.setAttribute('aria-current', 'true');
   
         if (!this.args.childNavScroller) {
           return;

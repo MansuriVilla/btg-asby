@@ -29,11 +29,11 @@
             GAME CHASING <br />
             GOLFERS.
           </h1>
-          <h3>
+          <p class="font-title">
             Performance-first. Player-priced. Blue Tees puts pro-level tech in
             <br />
             every player’s hands—minus the premium price tag.
-          </h3>
+          </p>
         </div>
       </div>
     </div>
@@ -48,29 +48,29 @@
         </h2>
       </div>
       <div class="golfers_paragraph">
-        <h4>
+        <p class="font-subtitle">
           Blue Tees started with a simple question: Why does great golf tech
           cost so much and still look like it was built in 1990s?
-        </h4>
-        <h4>
+        </p>
+        <p class="font-subtitle">
           We saw an industry stuck in the past—overpriced tech, outdated
           designs, and a lack of innovation. So we set out to change that. We
           created products that looked better, worked smarter, and didn’t break
           the bank. Our first rangefinder took off, and we haven’t stopped
           innovating since.
-        </h4>
-        <h4>
+        </p>
+        <p class="font-subtitle">
           Today, we’re building something bigger: a connected ecosystem of golf
           technology designed to help players own their game. From tee to green,
           our end-to-end platform gives golfers smarter insights, seamless
           experiences, and the confidence to play their best on and off the
           course.
-        </h4>
-        <h4>
+        </p>
+        <p class="font-subtitle">
           We’re not here to follow tradition. We’re here to lead the future of
           golf game improvement for every golfer who wants to play their way and
           have a damn good time doing it.
-        </h4>
+        </p>
       </div>
     </div>
   </div>
@@ -174,7 +174,8 @@
         </h2>
       </div>
       <div class="milestones_bottom">
-        <div class="horizon-slider_container milestones_slider">
+        <div id="milestones-carousel-status" aria-live="polite" role="status" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;"></div>
+        <div class="horizon-slider_container milestones_slider" role="region" aria-roledescription="carousel" aria-label="Milestones timeline gallery">
           <div class="horizon-slider_track">
             <div class="horizon-slide">
               <div class="milestones_slide-inner">
@@ -398,7 +399,7 @@
         </div>
         <div class="timeline-navigation--holder">
           <div class="timeline-navigation">
-            <div class="timeline-item active" data-target-slide="0">
+            <div class="timeline-item active" data-target-slide="0" aria-current="step">
               <span class="timeline-year">2021</span>
               <span class="timeline-text">THE FIRST LASER</span>
             </div>
@@ -431,10 +432,10 @@
   <div class="rule_play-by">
     <div class="rule_play-inner">
       <div class="rule_play-left">
-        <p class="font-large custom_heading">
+        <h2 class="font-large custom_heading">
           THE Rules <br />
           we play by...
-        </p>
+        </h2>
       </div>
       <div class="rule_play-right">
         <div class="rule_play-blocks">
@@ -519,10 +520,10 @@
         </div>
         <div class="our_mission-text hero_content-text">
           <h5>OUR MISSION</h5>
-          <h3>
+          <p class="font-title">
             TO EQUIP GOLFERS EVERYWHERE WITH THE TOOLS THEY NEED TO SHOW UP WITH
             CONFIDENCE, SWING WITH CLARITY & PLAY WITHOUT COMPROMISE.
-          </h3>
+          </p>
         </div>
       </div>
     </div>
@@ -535,11 +536,11 @@
           Championed by Pros. <br />
           Chosen by Players.
         </h2>
-        <h4>
+        <p class="font-subtitle">
           From tour veterans to weekend warriors, our ambassadors represent
           every level <br />
           of the game—and they’re all helping shape what comes next.
-        </h4>
+        </p>
       </div>
       <div class="campioned_pros-cards">
         <div class="pros_card">
@@ -547,7 +548,7 @@
             <img
               class="image_reveal-init"
               src="{{ 'pros-cards-image-1.png' | asset_url }}"
-              alt="Pros Card Image"
+              alt="SEAN FOLEY"
             />
           </div>
           <div class="pros_card-text">
@@ -563,7 +564,7 @@
             <img
               class="image_reveal-init"
               src="{{ 'pros-cards-image-2.png' | asset_url }}"
-              alt="Pros Card Image"
+              alt="PAIGE SPIRANAC"
             />
           </div>
           <div class="pros_card-text">
@@ -579,7 +580,7 @@
             <img
               class="image_reveal-init"
               src="{{ 'pros-cards-image-3.png' | asset_url }}"
-              alt="Pros Card Image"
+              alt="NICK GISMONDI"
             />
           </div>
           <div class="pros_card-text">
@@ -602,10 +603,10 @@
             READY TO <br />
             PLAY DIFFERENT?
           </h2>
-          <h4>
+          <p class="font-subtitle">
             Premium gear. Real performance. Powered by a community <br />
             that’s rewriting the rules. Come play the game your way.
-          </h4>
+          </p>
           <div class="ready_play-ctas">
             <a class="cta" href="/pages/offer">SHOP NOW</a>
             <a
@@ -660,7 +661,7 @@
 .about_us-page-content :is(picture, img, video, svg) { display: flex; }
 .about_us-page-content :is(picture, img) { height: auto; width: 100%; }
 :is(h1, .font-large) { --font-large: clamp(24px, 4.4vw, 48px); font-size: var(--font-large); line-height: var(--font-large); text-transform: uppercase; }
-:is(h2, .font-heading) { --font-heading: clamp(22px, 3.2vw, 32px); font-size: var(--font-heading); line-height: var(--font-heading); text-transform: none; }
+:is(h2:not(.font-large), .font-heading) { --font-heading: clamp(22px, 3.2vw, 32px); font-size: var(--font-heading); line-height: var(--font-heading); text-transform: none; }
 :is(h3, .font-title) { --font-title: 20px; font-size: var(--font-title); line-height: calc(var(--font-title) + clamp(4px, 0.5vw, 10px)); text-transform: none; }
 :is(h4, .font-subtitle) { --font-subtitle: clamp(16px, 1.4vw, 18px); font-size: var(--font-subtitle); line-height: calc(var(--font-subtitle) + clamp(4px, 0.5vw, 8px)); text-transform: none; }
 :is(h5, .font-paragraph) { --font-paragraph: 16px; font-size: var(--font-paragraph); line-height: var(--font-paragraph); text-transform: none; }
@@ -1168,7 +1169,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateTimelineActiveState(activeIndex, shouldScroll = false) {
       timelineItems.forEach((item, index) => {
-        item.classList.toggle("active", index === activeIndex);
+        const isActive = index === activeIndex;
+        item.classList.toggle("active", isActive);
+        if (isActive) {
+          item.setAttribute("aria-current", "step");
+        } else {
+          item.removeAttribute("aria-current");
+        }
       });
 
       const activeItem = timelineItems[activeIndex];
@@ -1249,6 +1256,19 @@ document.addEventListener("DOMContentLoaded", () => {
         (event) => {
           const newIndex = event.detail.currentIndex;
           updateTimelineActiveState(newIndex, true);
+
+          // Update status message for screen readers
+          const sliderInstance = milestonesSliderElement.HorizonSliderInstance;
+          if (sliderInstance) {
+            const totalSlides = sliderInstance.slides.length;
+            const currentSlide = sliderInstance.slides[newIndex];
+            const slideTitle = currentSlide ? (currentSlide.querySelector("h3")?.textContent.trim() || "") : "";
+            const slideText = currentSlide ? (currentSlide.querySelector("p")?.textContent.trim() || "") : "";
+            const statusElement = document.getElementById("milestones-carousel-status");
+            if (statusElement) {
+              statusElement.textContent = `Slide ${newIndex + 1} of ${totalSlides}: ${slideTitle}. ${slideText}`;
+            }
+          }
         }
       );
     }
@@ -1260,7 +1280,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // Set initial status once slider instance is ready
       const totalSlides = sliderInstance.slides.length;
+      const currentSlide = sliderInstance.slides[sliderInstance.currentIndex];
+      const slideTitle = currentSlide ? (currentSlide.querySelector("h3")?.textContent.trim() || "") : "";
+      const slideText = currentSlide ? (currentSlide.querySelector("p")?.textContent.trim() || "") : "";
+      const statusElement = document.getElementById("milestones-carousel-status");
+      if (statusElement) {
+        statusElement.textContent = `Slide ${sliderInstance.currentIndex + 1} of ${totalSlides}: ${slideTitle}. ${slideText}`;
+      }
+
       const mediaQuery = window.matchMedia("(min-width: 861px)");
 
       const existingTrigger = ScrollTrigger.getById("milestonesTrigger");

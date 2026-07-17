@@ -162,6 +162,14 @@
 
         Your browser does not support the video tag.
       </video>
+      <button type="button" class="video-control__play-pause-btn" aria-label="Pause video" aria-pressed="false">
+        <svg class="icon icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+        <svg class="icon icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16" style="display: none;">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
     {% else %}
       <picture>
         <source srcset="{{ section.settings.product_image | image_url }}" media="(min-width:861px)">
@@ -520,6 +528,39 @@
                     max-width: 100%;
                 }
               }
+
+              .video-control__play-pause-btn {
+                position: absolute;
+                bottom: clamp(10px, 2vw, 20px);
+                right: clamp(10px, 2vw, 20px);
+                z-index: 10;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.6);
+                color: #fff;
+                border: 1.5px solid rgba(255, 255, 255, 0.8);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                transition: all 0.2s ease-in-out;
+              }
+              .video-control__play-pause-btn:hover {
+                background: rgba(0, 0, 0, 0.8);
+                transform: scale(1.05);
+              }
+              .video-control__play-pause-btn:focus-visible {
+                outline: 2px solid #CDFF07 !important;
+                outline-offset: 2px !important;
+              }
+              .video-control__play-pause-btn svg {
+                display: block;
+                width: 14px;
+                height: 14px;
+                fill: currentColor;
+              }
 {%- endstyle -%}
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js" defer="defer"></script>
@@ -565,6 +606,31 @@
     }
     setDynamicLinks();
   }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const video = document.querySelector('.product-video__{{ section.id }}');
+    const playPauseBtn = document.querySelector('.video-control__play-pause-btn');
+    if (video && playPauseBtn) {
+      const pauseIcon = playPauseBtn.querySelector('.icon-pause');
+      const playIcon = playPauseBtn.querySelector('.icon-play');
+
+      playPauseBtn.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+          playPauseBtn.setAttribute('aria-label', 'Pause video');
+          playPauseBtn.setAttribute('aria-pressed', 'false');
+          pauseIcon.style.display = 'block';
+          playIcon.style.display = 'none';
+        } else {
+          video.pause();
+          playPauseBtn.setAttribute('aria-label', 'Play video');
+          playPauseBtn.setAttribute('aria-pressed', 'true');
+          pauseIcon.style.display = 'none';
+          playIcon.style.display = 'block';
+        }
+      });
+    }
+  });
 </script>
 
 {% schema %}

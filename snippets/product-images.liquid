@@ -164,7 +164,7 @@
     <div class="product__photos product__photos-{{ section_id }} product__photos--{{ thumbnail_position }}">
       
       <div class="product__main-photos" data-aos data-product-single-media-group>
-        <div data-product-photos class="product-slideshow" id="ProductPhotos-{{ section_id }}">
+        <div data-product-photos class="product-slideshow" id="ProductPhotos-{{ section_id }}" role="region" aria-roledescription="carousel" aria-label="Product image gallery">
           
           {% if product.media != blank %}
             {%- for media in product.media -%}
@@ -259,7 +259,8 @@
                     class="product__thumb"
                     data-index="{{ forloop.index0 }}"
                     data-id="{{ media.id }}"
-                    aria-label="View larger image {{ forloop.index }} of {{ product.media.size }}: {{ media.alt | default: product.title | escape }}">
+                    aria-label="View larger image {{ forloop.index }} of {{ product.media.size }}: {{ media.alt | default: product.title | escape }}"
+                    {% if media.id == featured_media.id %}aria-current="true"{% endif %}>
 
                     {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
                       <span class="product__thumb-icon" aria-hidden="true">

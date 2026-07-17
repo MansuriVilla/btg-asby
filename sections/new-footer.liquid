@@ -670,7 +670,7 @@
                   </div>
                 </div>
               {% endif %}
-              <h4>{{ product.title | upcase }}</h4>
+              <h2>{{ product.title | upcase }}</h2>
               <div class="product-atc-product-rte">
                 {% if product.compare_at_price > product.price %}
                   <div class="product-atc_discount-rate">
@@ -717,6 +717,7 @@
                   id="bottom-add-to-cart-stikey"
 
                   data-prod="pre-order"
+                  aria-label="Add {{ product.title }} to cart"
 
                   {% unless product.selected_or_first_available_variant.available %}
                     disabled
@@ -1181,7 +1182,7 @@
 
         if (addToCartSection) {
           var productName = document
-            .querySelector('.product-atc-product-details h4')
+            .querySelector('.product-atc-product-details h2')
             ?.textContent.trim()
             .replace(/\s+/g, '-');
 
@@ -1224,7 +1225,7 @@
     .product-atc_main.show { transform: translateY(0); }
     .product-atc_main .product-atc_inner {display:flex; justify-content: space-between; color:#fff; padding: 10px 0; align-items: center;}
     .product-atc_main .product-atc_inner .product-atc_left{gap:8px;}
-    .product-atc_main .product-atc-product-details h4 { font-size: 16px; color: #000; line-height: inherit;  text-transform: none; font-variation-settings: "slnt" 0,"wdth" 100,"GRAD" -200,"XOPQ" 96,"XTRA" 499,"YOPQ" 79,"YTAS" 750,"YTDE" -203,"YTFI" 738,"YTLC" 514,"YTUC" 601;}
+    .product-atc_main .product-atc-product-details h2 { font-size: 16px; color: #000; line-height: inherit;  text-transform: none; font-variation-settings: "slnt" 0,"wdth" 100,"GRAD" -200,"XOPQ" 96,"XTRA" 499,"YOPQ" 79,"YTAS" 750,"YTDE" -203,"YTFI" 738,"YTLC" 514,"YTUC" 601;}
     .product-atc_main .product-atc_inner .product-atc_left, .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte { display: flex; align-items: center; justify-content: center;}
     .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte { justify-content: flex-start; gap:6px;}
     .product-atc_main .product-atc_inner .product-atc_left .product-atc-img-container{background-color: #DFDFDF; border-radius: 8px; aspect-ratio: 1 / 1; display: flex; justify-content: center; align-items: center; max-width: 80px; overflow: hidden;}
@@ -1271,7 +1272,7 @@
       .product-atc_main .product-atc_inner .product-atc-offer_rate p{font-size: 12px; padding: 2px 5px !important;}
       .product-atc_main .product-atc_inner .product-atc_rate p { font-size: 14px; padding-right: 0px; }
       .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte + p{font-size: 10px;}
-      .product-atc_main .product-atc-product-details h4 { font-size: 12px; }
+      .product-atc_main .product-atc-product-details h2 { font-size: 12px; }
       .product-atc_main .product-atc_inner .product-atc_left .product-atc-img-container { max-width: 50px; border-radius: 5px; }
       .product-atc_main .product-atc_right .btn{padding: 8px 10px; font-size: 10px; line-height: 10px; max-width: 100%; letter-spacing: 1px;}
       .product-atc_right { width: 35%; }
@@ -1281,7 +1282,7 @@
 
     @media only screen and (max-width:400px){
       .product-atc_main .product-atc_inner .product-atc_rate p { font-size: 12px; }
-      .product-atc-product-details h4 { font-size: 14px; }
+      .product-atc-product-details h2 { font-size: 14px; }
       .product-atc_main .product-atc_right .btn{padding: 9px; font-size: 10px; border-radius: 7px; letter-spacing: 0.7px;}
       .product-atc_main .product-atc_inner .product-atc_left .product-atc-img-container{max-width: 40px; padding: 4px;}
       .product-atc-offer_rate .Offer_Bug-Container{font-size: 8px;}

@@ -926,6 +926,34 @@
 {% endif %}
 
 <style>
+  /* Accessibility: Allow the checkbox to be reached by Tab, but visually hidden */
+  .checkbox-list input[type="checkbox"].selectRV {
+    display: block !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  /* Accessibility: Show visual focus indicators on custom checkboxes when native checkbox is focused */
+  .checkbox-list input[type="checkbox"].selectRV:focus + label::before,
+  .checkbox-list input[type="checkbox"].selectRV:focus-visible + label::before {
+    outline: 2px solid #CDFF07 !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 4px #CDFF07 !important;
+  }
+
+  /* Ensure focus outline doesn't show on mouse clicks in browsers supporting focus-visible */
+  .checkbox-list input[type="checkbox"].selectRV:focus:not(:focus-visible) + label::before {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
   .cta_content { width: 100%; max-width: fit-content; cursor: pointer; }
   .block_image { --ratio: 30px; max-width: var(--ratio); display: flex; width: var(--ratio); }
   .newupshell .offer_cap-pro .offer-description-info .offer-description p { max-width: 267px !important; }
