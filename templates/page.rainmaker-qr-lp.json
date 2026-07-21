@@ -1,1 +1,329 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"show_hero_v2":false,"hero_normal":false,"align_content_left":false,"bg_clr":"","no_bg_scale":false,"has_mobile_image":false,"custom_title":"","custom_description":"","hero_cta_text":"","hero_cta_url":"","text_color":"","hide_default_content":false}},"lp_hero_section_XgXPez":{"type":"lp-hero-section","name":"Rainmaker Hero","settings":{"no_space_top":false,"no_bottom_space":false,"bg_clr":"rgba(0,0,0,0)","badge_text":"","badge_image":"shopify:\/\/shop_images\/Wordmark.png","title":"shopify:\/\/shop_images\/text-desktop-rainmaker-lp-qr.png","titleMobile":"shopify:\/\/shop_images\/text-mobile-rainmaker-lp-qr.png","subtext":"Your Rainmaker includes a complimentary 1-Year GAME membership.\u2028 Activate it now to unlock more data, deeper immersion, and smarter distances across the entire Blue Tees ecosystem.","button_text":"ACTIVATE MEMBERSHIP","button_link":"","image_has_ratio":false,"product_image":"shopify:\/\/shop_images\/Frame_141010544845.png","product_image_mobile":"shopify:\/\/shop_images\/Frame_1410105448_14017886-d67d-4713-8f66-4ecbeab1d405.png","bg_content_clr":"","show_video":false,"heading_bottom":"","subheading_bottom":"","bottom_button_text":"","bottom_button_link":""}},"how_it_works_DU4BM3":{"type":"how-it-works","blocks":{"step_xJFqdU":{"type":"step","settings":{"title":"ACTIVATE <br> YOUR MEMBERSHIP","description":"Start your complimentary membership to unlock the full LAUNCH and GAME App experiences.","cta_type":"button","button_label":"ACTIVATE NOW","button_link":"","app_store_link":"","google_play_link":"","image":"shopify:\/\/shop_images\/Frame_1410105284-1_ff88e95b-070b-4906-a4d9-fc22eae0bfd6.png"}},"step_tQneVd":{"type":"step","settings":{"title":"DOWNLOAD <br> THE LAUNCH APP","description":"Install the LAUNCH app on iOS or Android.\n<br> <span style=\"color:#ffffff50; font-size:14px;\">*Download on tablet. Mobile app coming soon.<\/span>","cta_type":"stores","button_label":"START FREE TRIAL","button_link":"","app_store_img":"shopify:\/\/shop_images\/app-store-icon-new_8a7a43bf-6a6b-4a4c-94b7-e2b902e35d03.png","app_store_link":"https:\/\/apps.apple.com\/app\/id6746279551","google_play_img":"shopify:\/\/shop_images\/play-store-icon-new_429e0f8d-8539-4fbe-a246-61e308e42e1e.png","google_play_link":"https:\/\/play.google.com\/store\/apps\/details?id=com.blueteesgolf.launch","image":"shopify:\/\/shop_images\/Frame_1410105284_e276a4f6-1414-46ef-a4da-4b48643963d4.png"}},"step_8LPGiz":{"type":"step","settings":{"title":"CONNECT <br> YOUR DEVICE","description":"Open the LAUNCH app and enter your phone number to sync your GAME account, or follow the on-screen instructions to create your account. From there, you can set up your bag, customize your preferences, or simply start hitting shots.","cta_type":"none","button_label":"START FREE TRIAL","button_link":"","app_store_link":"","google_play_link":"","image":"shopify:\/\/shop_images\/Frame_1410105283_d74c0ded-a58c-4100-8731-39d46d76c99d.png"}}},"block_order":["step_xJFqdU","step_tQneVd","step_8LPGiz"],"name":"How It Works","settings":{"heading":"GET STARTED IN 3 SIMPLE STEPS"}},"account_activation_nebAKi":{"type":"account-activation","name":"Account Activation","settings":{"heading":"ALREADY HAVE A GAME ACCOUNT?","subheading":"Sign in to the LAUNCH app with your existing email and your complimentary 12 month intelligence package will automatically be added on top of your current subscription. No duplicate accounts. No interruption.","button_label":"SIGN IN & ACTIVATE","button_link":"https:\/\/postgame.blueteesgolf.com\/"}},"two_layout_lp_section_GcyWna":{"type":"two-layout-lp-section","blocks":{"two_layout_block_xrkUX4":{"type":"two_layout_block","settings":{"icon":"shopify:\/\/shop_images\/Frame_2.svg","sectionTitle":"FULL ACCESS TO THE<br> LAUNCH APP","sectionDescription":"Take Rainmaker further on tablet or mobile with deeper insights,shot analysis, simulation access, personalized club data and so much more.","disclaimer":"","has_store_icon":true,"app_store_image":"shopify:\/\/shop_images\/app-store-icon-new_b5b5b592-d22a-4e76-9a76-cb91b68b3a69.png","app_store_link":"https:\/\/apps.apple.com\/us\/app\/blue-tees-game-ai-golf-gps\/id6448720121","play_store_image_new":"shopify:\/\/shop_images\/play-store-icon-new_780b8c89-332b-4c73-8e93-c4b250362da5.png","play_store_link_new":"https:\/\/play.google.com\/store\/apps\/details?id=com.bluetees","hasImage":true,"sectionImage":"shopify:\/\/shop_images\/Frame_1410105493.png","hasMobileImage":false,"hasMedia":false,"image_full":false,"sectionDirection":false}}},"block_order":["two_layout_block_xrkUX4"],"name":"Two Layout Section New","settings":{"layoutHeading":"KEY FEATURES THAT YOUR MEMBERSHIP UNLOCKS","sectionColor":"rgba(0,0,0,0)","heading_clr":"#ffffff","sectionLayout":false,"section_pad":false}},"new_faq_section_q6haRF":{"type":"new-faq-section","blocks":{"faq_item_eAxCVn":{"type":"faq_item","settings":{"question":"Advanced Performance Metrics","answer":"<p>Go beyond basic distances. Full access unlocks deeper shot analytics including dispersion patterns, launch tendencies, and consistency tracking so you can understand not just what happened, but why.<\/p>","media":"shopify:\/\/shop_images\/Frame_1000011419.png"}},"faq_item_TqGNjJ":{"type":"faq_item","settings":{"question":"Unlimited Shot History Storage","answer":"<p>Every swing, every session, saved. Build a complete performance archive over time and track your progress without limits. Compare rounds, identify trends, and make data-backed improvements.<\/p>","media":"shopify:\/\/shop_images\/Frame_10000114194654.png"}},"faq_item_fNHnTk":{"type":"faq_item","settings":{"question":"Data Visualization & Immersion","answer":"<p>Your data, brought to life. Interactive visuals transform raw numbers into intuitive insights with shot maps, dispersion groupings, and performance overlays that make patterns instantly clear.<\/p>","media":"shopify:\/\/shop_images\/Frame_100001141963546.png"}},"faq_item_gQqVtz":{"type":"faq_item","settings":{"question":"Smart Sync Across Devices","answer":"<p>Seamlessly sync your shot and club data across the entire ecosystem. Whether you're using your launch monitor, GPS speaker, or app, everything works together to deliver more personalized club recommendations and smarter insights.<\/p>","media":"shopify:\/\/shop_images\/Frame_100001141945.png"}},"faq_item_6peBhB":{"type":"faq_item","settings":{"question":"Full Access to GAME Features","answer":"<p>Unlock the complete GAME experience including advanced scoring, round tracking, competitive modes, and deeper analytics designed to elevate how you play and compete.<\/p>","media":"shopify:\/\/shop_images\/Frame_1000011419789.png"}},"faq_item_yDVRQP":{"type":"faq_item","settings":{"question":"ALL DEVICE FEATURES UNLOCKED","answer":"<p>Get more out of other Blue Tees devices. Your membership will give you full  access to all features, enabling richer data capture, improved integrations, and a more seamless on-course and practice experience.<\/p>","media":"shopify:\/\/shop_images\/Frame_100001141954.png"}},"faq_item_kAbkrB":{"type":"faq_item","settings":{"question":"Full Course Simulation","answer":"<p>Experience the course anywhere. Simulate full rounds with realistic shot tracking and course data integration, bringing a true-to-life playing experience into your practice sessions.<\/p>","media":"shopify:\/\/shop_images\/Frame_1000011419654.png"}}},"block_order":["faq_item_eAxCVn","faq_item_TqGNjJ","faq_item_fNHnTk","faq_item_gQqVtz","faq_item_6peBhB","faq_item_yDVRQP","faq_item_kAbkrB"],"name":"FAQ Accordion","settings":{"title":"","outline_title":"","backGroundColor":"","content_clr":"#ffffff","padding_top":40,"padding_bottom":40,"layout_option":"media","has_ratio":false}},"two_layout_lp_section_BUtYag":{"type":"two-layout-lp-section","blocks":{"two_layout_block_LRVPen":{"type":"two_layout_block","settings":{"icon":"shopify:\/\/shop_images\/Frame_2_ddf.svg","sectionTitle":"FULL ACCESS TO THE <br> GAME APP","sectionDescription":"Make smarter, AI-powered decisions on every shot across 42,000+ courses. Get precise distances and personalized insights that refine your course strategy and help you score lower. Use it on its own or seamlessly pair it with your Blue Tees devices.","disclaimer":"","has_store_icon":true,"app_store_image":"shopify:\/\/shop_images\/app-store-icon-new_b5b5b592-d22a-4e76-9a76-cb91b68b3a69.png","app_store_link":"https:\/\/apps.apple.com\/us\/app\/blue-tees-game-ai-golf-gps\/id6448720121","play_store_image_new":"shopify:\/\/shop_images\/play-store-icon-new_780b8c89-332b-4c73-8e93-c4b250362da5.png","play_store_link_new":"https:\/\/play.google.com\/store\/apps\/details?id=com.bluetees","hasImage":true,"sectionImage":"shopify:\/\/shop_images\/GAME_Stylized_phone_mockup_2_2_1.png","hasMobileImage":false,"hasMedia":false,"image_full":false,"sectionDirection":false}}},"block_order":["two_layout_block_LRVPen"],"name":"Two Layout Section New","settings":{"layoutHeading":"","sectionColor":"rgba(0,0,0,0)","heading_clr":"#ffffff","sectionLayout":false,"section_pad":true}},"new_image_section_Lzh7tB":{"type":"new-image-section","name":"Section Image","settings":{"sectionImage":"shopify:\/\/shop_images\/Frame_1410105277546.png","sectionImageMobile":"shopify:\/\/shop_images\/Frame_141010530545.png"}},"membership_cta_qfr8fr":{"type":"membership-cta","name":"Membership CTA","settings":{"bg_color":"#000000","heading":"UNDERSTAND YOUR GAME.\nIMPROVE YOUR SCORE.","subheading":"Activate your complimentary membership trial to unlock the full intelligence your game deserves.","button_label":"ACTIVATE FREE MEMBERSHIP","button_link":""}},"page_new_footer_JrdEMC":{"type":"page-new-footer","name":"Simple Footer","settings":{"bg_color":"#171923","logo":"shopify:\/\/shop_images\/Wordmark.png","copyright_text":"<p>T&C's Apply. @2026 Blue Tees Golf. All Rights Reserved.<\/p>"}}},"order":["main","lp_hero_section_XgXPez","how_it_works_DU4BM3","account_activation_nebAKi","two_layout_lp_section_GcyWna","new_faq_section_q6haRF","two_layout_lp_section_BUtYag","new_image_section_Lzh7tB","membership_cta_qfr8fr","page_new_footer_JrdEMC"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_hero_v2": false,
+        "hero_normal": false,
+        "align_content_left": false,
+        "bg_clr": "",
+        "no_bg_scale": false,
+        "has_mobile_image": false,
+        "custom_title": "",
+        "custom_description": "",
+        "hero_cta_text": "",
+        "hero_cta_url": "",
+        "text_color": "",
+        "hide_default_content": false
+      }
+    },
+    "lp_hero_section_XgXPez": {
+      "type": "lp-hero-section",
+      "name": "Rainmaker Hero",
+      "settings": {
+        "no_space_top": false,
+        "no_bottom_space": false,
+        "bg_clr": "rgba(0,0,0,0)",
+        "badge_text": "",
+        "badge_image": "shopify://shop_images/Wordmark.png",
+        "title": "shopify://shop_images/text-desktop-rainmaker-lp-qr.png",
+        "titleMobile": "shopify://shop_images/text-mobile-rainmaker-lp-qr.png",
+        "subtext": "Your Rainmaker includes a complimentary 1-Year GAME membership.  Activate it now to unlock more data, deeper immersion, and smarter distances across the entire Blue Tees ecosystem.",
+        "button_text": "ACTIVATE MEMBERSHIP",
+        "button_link": "",
+        "image_has_ratio": false,
+        "product_image": "shopify://shop_images/Frame_141010544845.png",
+        "product_image_mobile": "shopify://shop_images/Frame_1410105448_14017886-d67d-4713-8f66-4ecbeab1d405.png",
+        "bg_content_clr": "",
+        "show_video": false,
+        "heading_bottom": "",
+        "subheading_bottom": "",
+        "bottom_button_text": "",
+        "bottom_button_link": ""
+      }
+    },
+    "how_it_works_DU4BM3": {
+      "type": "how-it-works",
+      "blocks": {
+        "step_xJFqdU": {
+          "type": "step",
+          "settings": {
+            "title": "ACTIVATE <br> YOUR MEMBERSHIP",
+            "description": "Start your complimentary membership to unlock the full LAUNCH and GAME App experiences.",
+            "cta_type": "button",
+            "button_label": "ACTIVATE NOW",
+            "button_link": "",
+            "app_store_link": "",
+            "google_play_link": "",
+            "image": "shopify://shop_images/Frame_1410105284-1_ff88e95b-070b-4906-a4d9-fc22eae0bfd6.png"
+          }
+        },
+        "step_tQneVd": {
+          "type": "step",
+          "settings": {
+            "title": "DOWNLOAD <br> THE LAUNCH APP",
+            "description": "Install the LAUNCH app on iOS or Android.",
+            "cta_type": "stores",
+            "button_label": "START FREE TRIAL",
+            "button_link": "",
+            "app_store_img": "shopify://shop_images/app-store-icon-new_8a7a43bf-6a6b-4a4c-94b7-e2b902e35d03.png",
+            "app_store_link": "https://apps.apple.com/app/id6746279551",
+            "google_play_img": "shopify://shop_images/play-store-icon-new_429e0f8d-8539-4fbe-a246-61e308e42e1e.png",
+            "google_play_link": "https://play.google.com/store/apps/details?id=com.blueteesgolf.launch",
+            "image": "shopify://shop_images/Frame_1410105284_e276a4f6-1414-46ef-a4da-4b48643963d4.png"
+          }
+        },
+        "step_8LPGiz": {
+          "type": "step",
+          "settings": {
+            "title": "CONNECT <br> YOUR DEVICE",
+            "description": "Open the LAUNCH app and enter your phone number to sync your GAME account, or follow the on-screen instructions to create your account. From there, you can set up your bag, customize your preferences, or simply start hitting shots.",
+            "cta_type": "none",
+            "button_label": "START FREE TRIAL",
+            "button_link": "",
+            "app_store_link": "",
+            "google_play_link": "",
+            "image": "shopify://shop_images/Frame_1410105283_d74c0ded-a58c-4100-8731-39d46d76c99d.png"
+          }
+        }
+      },
+      "block_order": [
+        "step_xJFqdU",
+        "step_tQneVd",
+        "step_8LPGiz"
+      ],
+      "name": "How It Works",
+      "settings": {
+        "heading": "GET STARTED IN 3 SIMPLE STEPS"
+      }
+    },
+    "account_activation_nebAKi": {
+      "type": "account-activation",
+      "name": "Account Activation",
+      "settings": {
+        "heading": "ALREADY HAVE A GAME ACCOUNT?",
+        "subheading": "Sign in to the LAUNCH app with your existing email and your complimentary 12 month intelligence package will automatically be added on top of your current subscription. No duplicate accounts. No interruption.",
+        "button_label": "SIGN IN & ACTIVATE",
+        "button_link": "https://postgame.blueteesgolf.com/"
+      }
+    },
+    "two_layout_lp_section_GcyWna": {
+      "type": "two-layout-lp-section",
+      "blocks": {
+        "two_layout_block_xrkUX4": {
+          "type": "two_layout_block",
+          "settings": {
+            "layout": "center",
+            "icon": "shopify://shop_images/Frame_2.svg",
+            "sectionTitle": "FULL ACCESS TO THE<br> LAUNCH APP",
+            "sectionDescription": "Take Rainmaker further on tablet or mobile with deeper insights,shot analysis, simulation access, personalized club data and so much more.",
+            "cta_enable": false,
+            "cta_text": "",
+            "cta_link": "",
+            "disclaimer": "",
+            "has_store_icon": true,
+            "app_store_image": "shopify://shop_images/app-store-icon-new_b5b5b592-d22a-4e76-9a76-cb91b68b3a69.png",
+            "app_store_link": "https://apps.apple.com/us/app/blue-tees-game-ai-golf-gps/id6448720121",
+            "play_store_image_new": "shopify://shop_images/play-store-icon-new_780b8c89-332b-4c73-8e93-c4b250362da5.png",
+            "play_store_link_new": "https://play.google.com/store/apps/details?id=com.bluetees",
+            "hasImage": true,
+            "sectionImage": "shopify://shop_images/Frame_1410105493.png",
+            "hasMobileImage": false,
+            "hasMedia": false,
+            "image_full": false,
+            "sectionDirection": false
+          }
+        }
+      },
+      "block_order": [
+        "two_layout_block_xrkUX4"
+      ],
+      "name": "Two Layout Section New",
+      "settings": {
+        "layoutHeading": "KEY FEATURES THAT YOUR MEMBERSHIP UNLOCKS",
+        "sectionColor": "rgba(0,0,0,0)",
+        "heading_clr": "#ffffff",
+        "sectionLayout": false,
+        "section_container": false,
+        "section_custom": false,
+        "section_pad": false,
+        "eager_load": false
+      }
+    },
+    "new_faq_section_q6haRF": {
+      "type": "new-faq-section",
+      "blocks": {
+        "faq_item_eAxCVn": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Advanced Performance Metrics",
+            "answer": "<p>Go beyond basic distances. Full access unlocks deeper shot analytics including dispersion patterns, launch tendencies, and consistency tracking so you can understand not just what happened, but why.</p>",
+            "media": "shopify://shop_images/Frame_1000011419.png"
+          }
+        },
+        "faq_item_TqGNjJ": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Unlimited Shot History Storage",
+            "answer": "<p>Every swing, every session, saved. Build a complete performance archive over time and track your progress without limits. Compare rounds, identify trends, and make data-backed improvements.</p>",
+            "media": "shopify://shop_images/Frame_10000114194654.png"
+          }
+        },
+        "faq_item_fNHnTk": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Data Visualization & Immersion",
+            "answer": "<p>Your data, brought to life. Interactive visuals transform raw numbers into intuitive insights with shot maps, dispersion groupings, and performance overlays that make patterns instantly clear.</p>",
+            "media": "shopify://shop_images/Frame_100001141963546.png"
+          }
+        },
+        "faq_item_gQqVtz": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Smart Sync Across Devices",
+            "answer": "<p>Seamlessly sync your shot and club data across the entire ecosystem. Whether you're using your launch monitor, GPS speaker, or app, everything works together to deliver more personalized club recommendations and smarter insights.</p>",
+            "media": "shopify://shop_images/Frame_100001141945.png"
+          }
+        },
+        "faq_item_6peBhB": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Full Access to GAME Features",
+            "answer": "<p>Unlock the complete GAME experience including advanced scoring, round tracking, competitive modes, and deeper analytics designed to elevate how you play and compete.</p>",
+            "media": "shopify://shop_images/Frame_1000011419789.png"
+          }
+        },
+        "faq_item_yDVRQP": {
+          "type": "faq_item",
+          "settings": {
+            "question": "ALL DEVICE FEATURES UNLOCKED",
+            "answer": "<p>Get more out of other Blue Tees devices. Your membership will give you full  access to all features, enabling richer data capture, improved integrations, and a more seamless on-course and practice experience.</p>",
+            "media": "shopify://shop_images/Frame_100001141954.png"
+          }
+        },
+        "faq_item_kAbkrB": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Full Course Simulation",
+            "answer": "<p>Experience the course anywhere. Simulate full rounds with realistic shot tracking and course data integration, bringing a true-to-life playing experience into your practice sessions.</p>",
+            "media": "shopify://shop_images/Frame_1000011419654.png"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_eAxCVn",
+        "faq_item_TqGNjJ",
+        "faq_item_fNHnTk",
+        "faq_item_gQqVtz",
+        "faq_item_6peBhB",
+        "faq_item_yDVRQP",
+        "faq_item_kAbkrB"
+      ],
+      "name": "FAQ Accordion",
+      "settings": {
+        "title": "",
+        "outline_title": "",
+        "backGroundColor": "",
+        "content_clr": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "layout_option": "media",
+        "has_ratio": false
+      }
+    },
+    "two_layout_lp_section_BUtYag": {
+      "type": "two-layout-lp-section",
+      "blocks": {
+        "two_layout_block_LRVPen": {
+          "type": "two_layout_block",
+          "settings": {
+            "layout": "center",
+            "icon": "shopify://shop_images/Frame_2_ddf.svg",
+            "sectionTitle": "FULL ACCESS TO THE <br> GAME APP",
+            "sectionDescription": "Make smarter, AI-powered decisions on every shot across 42,000+ courses. Get precise distances and personalized insights that refine your course strategy and help you score lower. Use it on its own or seamlessly pair it with your Blue Tees devices.",
+            "cta_enable": false,
+            "cta_text": "",
+            "cta_link": "",
+            "disclaimer": "",
+            "has_store_icon": true,
+            "app_store_image": "shopify://shop_images/app-store-icon-new_b5b5b592-d22a-4e76-9a76-cb91b68b3a69.png",
+            "app_store_link": "https://apps.apple.com/us/app/blue-tees-game-ai-golf-gps/id6448720121",
+            "play_store_image_new": "shopify://shop_images/play-store-icon-new_780b8c89-332b-4c73-8e93-c4b250362da5.png",
+            "play_store_link_new": "https://play.google.com/store/apps/details?id=com.bluetees",
+            "hasImage": true,
+            "sectionImage": "shopify://shop_images/GAME_Stylized_phone_mockup_2_2_1.png",
+            "hasMobileImage": false,
+            "hasMedia": false,
+            "image_full": false,
+            "sectionDirection": false
+          }
+        }
+      },
+      "block_order": [
+        "two_layout_block_LRVPen"
+      ],
+      "name": "Two Layout Section New",
+      "settings": {
+        "layoutHeading": "",
+        "sectionColor": "rgba(0,0,0,0)",
+        "heading_clr": "#ffffff",
+        "sectionLayout": false,
+        "section_container": false,
+        "section_custom": false,
+        "section_pad": true,
+        "eager_load": false
+      }
+    },
+    "new_image_section_Lzh7tB": {
+      "type": "new-image-section",
+      "name": "Section Image",
+      "settings": {
+        "sectionImage": "shopify://shop_images/Frame_1410105277546.png",
+        "sectionImageMobile": "shopify://shop_images/Frame_141010530545.png",
+        "eager_load": false
+      }
+    },
+    "membership_cta_qfr8fr": {
+      "type": "membership-cta",
+      "name": "Membership CTA",
+      "settings": {
+        "bg_color": "#000000",
+        "heading": "UNDERSTAND YOUR GAME.\nIMPROVE YOUR SCORE.",
+        "subheading": "Activate your complimentary membership trial to unlock the full intelligence your game deserves.",
+        "button_label": "ACTIVATE FREE MEMBERSHIP",
+        "button_link": ""
+      }
+    },
+    "page_new_footer_JrdEMC": {
+      "type": "page-new-footer",
+      "name": "Simple Footer",
+      "settings": {
+        "bg_color": "#171923",
+        "logo": "shopify://shop_images/Wordmark.png",
+        "copyright_text": "<p>T&C's Apply. @2026 Blue Tees Golf. All Rights Reserved.</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "lp_hero_section_XgXPez",
+    "how_it_works_DU4BM3",
+    "account_activation_nebAKi",
+    "two_layout_lp_section_GcyWna",
+    "new_faq_section_q6haRF",
+    "two_layout_lp_section_BUtYag",
+    "new_image_section_Lzh7tB",
+    "membership_cta_qfr8fr",
+    "page_new_footer_JrdEMC"
+  ]
+}

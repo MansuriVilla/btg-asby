@@ -1222,9 +1222,17 @@
 <div class="pop-upbox" role="dialog" aria-modal="true" aria-label="Get Instant Quote Contact Form" id="contact-us">
   <div class="popup-box">
     <div class="pop-close">
-      <a href="javascript:void(0);" class="closePop" role="button" aria-label="Close contact form">
-        <!-- -img  src="{{'close-vector.png' | asset_url}}" alt="Close"- -->
-      </a>
+      <button type="button" class="closePop" aria-label="Close" style="
+    display: flex;
+    padding: 0;
+">
+         <img style="
+    max-width: 30px;
+    background: #fff;
+    border-radius: 7px;
+    padding: 5px;
+"  src="https://www.svgrepo.com/show/499592/close-x.svg" alt="Close"/>
+      </button>
     </div>
 
     <div class="video-popup">
@@ -1283,27 +1291,53 @@
 
             // 3. Fix list markup & ARIA role on error lists (Issues 141, 142)
             const observer = new MutationObserver(() => {
-              form.querySelectorAll('.hs-error-msgs').forEach(ul => {
-                // If only one error, remove list semantics (Issue 141)
-                const items = ul.querySelectorAll('li');
-                if (items.length === 1) {
-                  ul.setAttribute('role', 'presentation');
+              form.querySelectorAll('.hs-error-msgs').forEach(errorContainer => {
+                const field = errorContainer.closest('.hs-form-field');
+                const input = field ? field.querySelector('input, select, textarea') : null;
+                const errorId = 'error-' + (input && input.id ? input.id : Math.random().toString(36).substr(2, 9));
+                
+                if (input) {
+                  input.setAttribute('aria-invalid', 'true');
+                  const currentDescribedBy = input.getAttribute('aria-describedby') || '';
+                  if (!currentDescribedBy.includes(errorId)) {
+                    input.setAttribute('aria-describedby', (currentDescribedBy + ' ' + errorId).trim());
+                  }
                 }
 
-                // Remove role="alert" from <ul> (Issue 142)
-                if (ul.getAttribute('role') === 'alert') {
-                  ul.removeAttribute('role');
-                }
-
-                // Wrap inside alert container div (Issue 142)
-                const inputWrapper = ul.closest('.input');
-                if (inputWrapper && !inputWrapper.querySelector('.hs-error-alert-wrapper')) {
-                  const alertWrapper = document.createElement('div');
-                  alertWrapper.className = 'hs-error-alert-wrapper';
-                  alertWrapper.setAttribute('role', 'alert');
-                  alertWrapper.setAttribute('aria-live', 'assertive');
-                  ul.parentNode.insertBefore(alertWrapper, ul);
-                  alertWrapper.appendChild(ul);
+                if (errorContainer.tagName.toLowerCase() === 'ul') {
+                  const items = errorContainer.querySelectorAll('li');
+                  
+                  if (items.length === 1) {
+                    const label = items[0].querySelector('label');
+                    if (label) {
+                      const errorDiv = document.createElement('div');
+                      errorDiv.className = errorContainer.className;
+                      errorDiv.id = errorId;
+                      errorDiv.setAttribute('role', 'alert');
+                      errorDiv.setAttribute('aria-live', 'assertive');
+                      
+                      const newLabel = document.createElement('label');
+                      newLabel.className = label.className;
+                      newLabel.innerHTML = label.innerHTML;
+                      errorDiv.appendChild(newLabel);
+                      
+                      errorContainer.parentNode.replaceChild(errorDiv, errorContainer);
+                    }
+                  } else if (items.length > 1) {
+                    errorContainer.id = errorId;
+                    if (errorContainer.getAttribute('role') === 'alert') {
+                      errorContainer.removeAttribute('role');
+                    }
+                    const inputWrapper = errorContainer.closest('.input') || errorContainer.parentNode;
+                    if (inputWrapper && !inputWrapper.querySelector('.hs-error-alert-wrapper')) {
+                      const alertWrapper = document.createElement('div');
+                      alertWrapper.className = 'hs-error-alert-wrapper';
+                      alertWrapper.setAttribute('role', 'alert');
+                      alertWrapper.setAttribute('aria-live', 'assertive');
+                      errorContainer.parentNode.insertBefore(alertWrapper, errorContainer);
+                      alertWrapper.appendChild(errorContainer);
+                    }
+                  }
                 }
               });
             });
@@ -1646,30 +1680,86 @@ slideInView();
 </script>
 
 <script type="text/javascript">
-  $('.poptrigger').click(function () {
-    popID = $(this).attr('data-rel');
-    $('#' + popID).fadeIn();
-    $('#' + popID)
-      .find('#video1')
-      .play();
-    var popMargTop = $('#' + popID).height() / 2;
-    var popMargLeft = $('#' + popID).width() / 2;
+  var lastFocusedElement;
+
+  function trapFocus(element) {
+    var focusableEls = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])');
+    var firstFocusableEl = focusableEls[0];  
+    var lastFocusableEl = focusableEls[focusableEls.length - 1];
+    var KEYCODE_TAB = 9;
+
+    $(element).off('keydown.trap').on('keydown.trap', function(e) {
+      var isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
+      if (!isTabPressed) { 
+        return; 
+      }
+      if (e.shiftKey) /* shift + tab */ {
+        if (document.activeElement === firstFocusableEl) {
+          lastFocusableEl.focus();
+          e.preventDefault();
+        }
+      } else /* tab */ {
+        if (document.activeElement === lastFocusableEl) {
+          firstFocusableEl.focus();
+          e.preventDefault();
+        }
+      }
+    });
+  }
+
+  function closeModal() {
+    $('.pop-upbox').fadeOut(function () {
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
+    });
+    var video1 = $('#video1').get(0);
+    if(video1) video1.pause();
+    $(document).off('keydown.modal');
+  }
+
+  $('.poptrigger').click(function (e) {
+    e.preventDefault();
+    lastFocusedElement = document.activeElement;
+    var popID = $(this).attr('data-rel');
+    var $modal = $('#' + popID);
+    
+    $modal.fadeIn(function() {
+      // Focus first interactive element or the dialog itself
+      var $focusable = $modal.find('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])').filter(':visible');
+      if ($focusable.length) {
+        $focusable.first().focus();
+      } else {
+        $modal.attr('tabindex', '-1').focus();
+      }
+    });
+
+    var video = $modal.find('#video1').get(0);
+    if (video && typeof video.play === 'function') {
+      video.play();
+    }
+    
+    trapFocus($modal[0]);
+    
+    // Add Esc key listener
+    $(document).off('keydown.modal').on('keydown.modal', function(e) {
+      if (e.key === 'Escape' || e.keyCode === 27) {
+        closeModal();
+      }
+    });
+    
     return false;
   });
 
-  $(document).on('click', '.closePop, #fade', function () {
-    $('.pop-upbox').fadeOut(function () {});
-    var video1 = $('#video1').get(0);
-    video1.pause();
+  $(document).on('click', '.closePop, #fade', function (e) {
+    e.preventDefault();
+    closeModal();
     return false;
   });
 
   $(document).on('click', function (event) {
     if ($(event.target).has('.popup-box').length) {
-      $('.pop-upbox').fadeOut(function () {});
-
-      var video1 = $('#video1').get(0);
-      video1.pause();
+      closeModal();
     }
   });
 </script>

@@ -454,6 +454,8 @@
       or collection.metafields.custom.no_index
       or page.metafields.custom.no_index
       or request.path == '/collections'
+      or request.path == '/collections/all'
+      or request.path == '/search'
       %}
       <meta name="robots" content="noindex, nofollow">
       {% endif %}

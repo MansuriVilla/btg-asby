@@ -1,0 +1,58 @@
+# we use Shopify as our ecommerce platform
+{%- comment -%}
+# Caution! Please read https://help.shopify.com/en/manual/promoting-marketing/seo/editing-robots-txt before proceeding to make changes to this file.
+{% endcomment %}
+{% for group in robots.default_groups %}
+  {{- group.user_agent -}}
+
+  {% for rule in group.rules %}
+    {{- rule -}}
+  {% endfor %}
+
+   {%- if group.user_agent.value == '*' -%}
+    {{ 'Disallow: /pages/2021' }}
+    {{ 'Disallow: /pages/2pro-qr-code' }}
+    {{ 'Disallow: /pages/bfcm21-ca' }}
+    {{ 'Disallow: /pages/copy-of-bfcm21-video-af' }}
+     {{ 'Disallow: /pages/divot-tool-qr-code' }}
+     {{ 'Disallow: /pages/copy-of-bfcm21-video-af' }}
+     {{ 'Disallow: /pages/free-strap-offer' }}
+     {{ 'Disallow: /pages/golf-rangefinders' }}
+     {{ 'Disallow: /pages/golf-icons' }}
+     {{ 'Disallow: /pages/holiday-ca' }}
+     {{ 'Disallow: /pages/holiday-v2' }}
+     {{ 'Disallow: /pages/holidayv2' }}
+     {{ 'Disallow: /pages/maghub-learn-more' }}
+     {{ 'Disallow: /pages/magtowel-qr-code' }}
+     {{ 'Disallow: /pages/manuals-downloads' }}
+     {{ 'Disallow: /pages/need-help' }}
+     {{ 'Disallow: /pages/our-story' }}
+     {{ 'Disallow: /pages/player-qr-code' }}
+     {{ 'Disallow: /pages/rangefinders-2021-v3' }}
+     {{ 'Disallow: /pages/series-2-display' }}
+     {{ 'Disallow: /pages/series-2-pro-display' }}
+     {{ 'Disallow: /pages/series-2-rangefinder' }}
+     {{ 'Disallow: /pages/series-3-black-box-qr-code' }}
+     {{ 'Disallow: /pages/series-3-box' }}
+     {{ 'Disallow: /pages/series-3-intro' }}
+     {{ 'Disallow: /pages/series-3-max-display' }}
+     {{ 'Disallow: /pages/series-3-pink-box-qr-code' }}
+     {{ 'Disallow: /pages/series-3-prelaunch-2' }}
+     {{ 'Disallow: /pages/series3-pre-launch-3' }}
+     {{ 'Disallow: /pages/series3max-sale' }}
+     {{ 'Disallow: /pages/share-cart' }}
+     {{ 'Disallow: /pages/something-big-is-coming' }}
+     {{ 'Disallow: /pages/test' }}
+     {{ 'Disallow: /pages/test-2' }}
+     {{ 'Disallow: /search' }}
+     {{ 'Disallow: /pages/privacy-policy'}}
+     {{ 'Disallow: /collections/home-page' }}
+     {{ 'Disallow: /collections/all-accessories' }}
+     
+  {%- endif -%}
+  
+  {%- if group.sitemap != blank -%}
+    {{ group.sitemap }}
+  {%- endif -%}
+{% endfor %}
+
