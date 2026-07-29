@@ -35,7 +35,7 @@
                 {%- assign current_variant = product_ref.selected_or_first_available_variant -%}
                 <button
                   type="button"
-                  class="content-cta content-cta__solid{% if block.settings.is_preorder %} product-comparison__product-cta--preorder{% endif %} js-add-to-cart-btn"
+                  class="content-cta content-cta__solid{% if block.settings.is_preorder %} product-comparison__product-cta--preorder{% endif %} js-add-to-cart-btn {% unless product.selected_or_first_available_variant.available %} sticky_sold-out--button button_sold-out{%endunless %}"
                   data-id="{{ current_variant.id }}"
                   aria-label="Add {{ block.settings.product_name }} to cart"
                   {% unless current_variant.available %}

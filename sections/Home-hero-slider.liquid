@@ -14,7 +14,7 @@
 
         <button type="button" class="visually-hidden slideshow__pause" data-id="{{ section.id }}" aria-live="polite">
           <span class="slideshow__pause-stop">
-            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-pause" viewBox="0 0 10 13"><g fill="#000" fill-rule="evenodd"><path d="M0 0h3v13H0zM7 0h3v13H7z"/></g></svg>
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-pause" viewBox="0 0 10 13"><g fill="var(--new-black)" fill-rule="evenodd"><path d="M0 0h3v13H0zM7 0h3v13H7z"/></g></svg>
             <span class="icon__fallback-text">{{ 'sections.slideshow.pause_slideshow' | t }}</span>
           </span>
           <span class="slideshow__pause-play">
@@ -113,7 +113,7 @@
                     {%- assign accent_brightness = block.settings.color_accent | color_extract: 'lightness' -%}
 
                     {% if accent_brightness > 40 %}
-                      color: #000 !important;
+                      color: var(--new-black) !important;
                     {% endif %}
                   }
 
@@ -135,7 +135,7 @@
                     top: 0;
                     bottom: 0;
                     z-index: 3;
-                    background-color: #000;
+                    background-color: var(--new-black);
                     opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
                   }
                 {% endif %}

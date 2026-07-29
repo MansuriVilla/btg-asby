@@ -1,3 +1,15 @@
+{% liquid 
+  assign mobile_image_center = false
+  
+  if section.settings.mobile_image_center
+  assign mobile_image_center = true
+  endif
+
+
+%}
+
+
+
 {% if section.settings.formBlock contains 'class="hs-form-frame"' %}
   <script src="https://js.hsforms.net/forms/embed/7645267.js" defer></script>
 {% endif %}
@@ -199,7 +211,8 @@
     .form_section-subheading {
       font-size: clamp(14px, 1.5vw, 16px);
       line-height: 1.5;
-      color: #b0b5c1;
+      {% comment %} color: #b0b5c1; {% endcomment %}
+      color: #fff;
       margin: 0 0 30px 0;
       max-width: clamp(250px,32vw,550px);
     }
@@ -238,7 +251,7 @@
     .form-loader .spinner {
       width: 48px;
       height: 48px;
-      border: 5px solid #000;
+      border: 5px solid var(--new-black);
       border-top: 5px solid #fff;
       border-radius: 50%;
       animation: spin 1s linear infinite;
@@ -274,10 +287,33 @@
 .layout-split_right .form_section-heading {margin: 0 0 360px 0;}
 .layout-split_right.form_section{padding-block: 10px clamp(60px, 6vw, 91px);}
 .layout-split_right .form_section-side-image{position: absolute;
-  top: 24%;
-  left: 50%;
-  transform: translate(-50%, -50%);}
+  {%if mobile_image_center %}
+    top: 53%;
+    {%else %}
+      top: 24%;
+      {%endif %}
+      left: 50%;
+      transform: translate(-50%, -50%);}
     }
+    @media only screen and (max-width: 380px){
+      .layout-split_right .form_section-side-image{
+  {%if mobile_image_center %}
+  top: 49%;
+  {%else %}
+    top: 24%;
+    {%endif %}
+}
+    }
+    @media only screen and (max-width: 320px){
+      .layout-split_right .form_section-side-image{
+  {%if mobile_image_center %}
+  top: 45%;
+  {%else %}
+    top: 24%;
+    {%endif %}
+}
+    }
+
 </style>
 
 <script>
@@ -364,6 +400,12 @@
       "label": "Logo Image (Above Heading)"
     },
     {
+      "type": "checkbox",
+      "id": "mobile_image_center",
+      "label": "Center Image in mobile"
+    },
+    
+    {
       "type": "textarea",
       "id": "tag_line",
       "label": "Tag Line"
@@ -394,7 +436,7 @@
       "id": "sectionBackgroundClr",
       "label": "Background Color",
       "alpha": true,
-      "default": "#000"
+      "default": "#000000"
     }
   ],
   "presets": [

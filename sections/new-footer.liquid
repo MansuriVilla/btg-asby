@@ -722,7 +722,7 @@
                   {% unless product.selected_or_first_available_variant.available %}
                     disabled
                   {% endunless %}
-                  class="btn{% if enable_preorder %} button_preorder btn_pre-order{% endif %}"
+                  class="btn{% if enable_preorder %} button_preorder btn_pre-order{% endif %} {% unless product.selected_or_first_available_variant.available %} sticky_sold-out--button button_sold-out{%endunless %}"
                   {% comment %} data-id="{{ product.variants.first.id }}" {% endcomment %}
                   data-id="{{ product.selected_or_first_available_variant.id }}"
                   {% if product.handle contains 'rangefinder-magnetic-strap'
@@ -1225,7 +1225,7 @@
     .product-atc_main.show { transform: translateY(0); }
     .product-atc_main .product-atc_inner {display:flex; justify-content: space-between; color:#fff; padding: 10px 0; align-items: center;}
     .product-atc_main .product-atc_inner .product-atc_left{gap:8px;}
-    .product-atc_main .product-atc-product-details h2 { font-size: 16px; color: #000; line-height: inherit;  text-transform: none; font-variation-settings: "slnt" 0,"wdth" 100,"GRAD" -200,"XOPQ" 96,"XTRA" 499,"YOPQ" 79,"YTAS" 750,"YTDE" -203,"YTFI" 738,"YTLC" 514,"YTUC" 601;}
+    .product-atc_main .product-atc-product-details h2 { font-size: 16px; color: var(--new-black); line-height: inherit;  text-transform: none; font-variation-settings: "slnt" 0,"wdth" 100,"GRAD" -200,"XOPQ" 96,"XTRA" 499,"YOPQ" 79,"YTAS" 750,"YTDE" -203,"YTFI" 738,"YTLC" 514,"YTUC" 601;}
     .product-atc_main .product-atc_inner .product-atc_left, .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte { display: flex; align-items: center; justify-content: center;}
     .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte { justify-content: flex-start; gap:6px;}
     .product-atc_main .product-atc_inner .product-atc_left .product-atc-img-container{background-color: #DFDFDF; border-radius: 8px; aspect-ratio: 1 / 1; display: flex; justify-content: center; align-items: center; max-width: 80px; overflow: hidden;}
@@ -1235,10 +1235,10 @@
     .product-atc_main .product-atc_inner .product-atc_offer svg { position: absolute; z-index: -1; bottom: 0; }
     .product-atc_main .product-atc_inner .product-atc_discount-rate p { color: #A1A3A9; text-decoration: line-through; font-size: 12px; }
 
-    .button_preorder.btn_pre-order { border-color: transparent !important; background:#0059FF !important;}
+    .button_preorder.btn_pre-order { border-color: transparent !important; background:var(--new-blue-dark) !important;}
 
     body.sale-on .product-atc_main .product-atc_inner .product-atc_rate p { color: #D80027; padding-right: 0px; font-weight: 900; font-size: 18px; }
-    .product-atc_main .product-atc_inner .product-atc_rate p { color: #000; padding-right: 0px; font-weight: 900; font-size: 18px; }
+    .product-atc_main .product-atc_inner .product-atc_rate p { color: var(--new-black); padding-right: 0px; font-weight: 900; font-size: 18px; }
 
 
 
@@ -1248,10 +1248,10 @@
 
     {% comment %} .product-atc_discount-rate { display: none; } {% endcomment %}
 
-      .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte + p{color: #000; font-weight: 600; padding: 0; font-size: 8px;     text-transform: uppercase;}
+      .product-atc_main .product-atc_inner .product-atc_left .product-atc-product-details .product-atc-product-rte + p{color: var(--new-black); font-weight: 600; padding: 0; font-size: 8px;     text-transform: uppercase;}
 
-    .product-atc_main .product-atc_right .btn {background: #004DF5; padding: 10px 30px; font-weight: 900; font-size: 16px; line-height: 17px; color: #FFFFFF; border-radius: 10px; letter-spacing: 1.6px; max-width: 198px; width: 100%; border:2px solid #004DF5; min-width: max-content;  transition: all .2s ease 0s !important;}
-    .product-atc_main .product-atc_right .btn:hover{background: #fff !important; color: #004DF5; border-color: #004DF5 !important;}
+    .product-atc_main .product-atc_right .btn {background: var(--new-blue); padding: 10px 30px; font-weight: 900; font-size: 16px; line-height: 17px; color: #FFFFFF; border-radius: 10px; letter-spacing: 1.6px; max-width: 198px; width: 100%; border:2px solid var(--new-blue); min-width: max-content;  transition: all .2s ease 0s !important;}
+    .product-atc_main .product-atc_right .btn:hover{background: #fff !important; color: var(--new-blue); border-color: var(--new-blue) !important;}
 
     @media only screen and (max-width:660px){
       .product-atc_main .product-atc_inner .product-atc_left .product-atc-img-container{max-width: 60px;}
@@ -1625,7 +1625,7 @@
             .footer_appbutton .appbutton a {
           {% comment %} padding: 8px; {% endcomment %}
           border: 1px solid #fff;
-          background: #000;
+          background: var(--new-black);
         }
 
         .footer-solical-links {
@@ -1645,7 +1645,7 @@
               .footer-m-logo{display: none;}
               .footer-title h2{color: #fff;font-size: 21px;line-height: 25px;margin-bottom: 22px;}
               .footer-col-list{display: flex;gap: 30px; padding-bottom: 62px;border-bottom: 1px solid rgb(95, 95, 95);}
-              .footer-col-list a{color: #A1A3A9;font-size: 13px;line-height: 15px;letter-spacing: 0.3px;display: block;}
+              .footer-col-list a{color: #fff;font-size: 13px;line-height: 15px;letter-spacing: 0.3px;display: block;}
               .footer-col-list a:hover{color: #fff;}
               .footer-col-list .col-4.footer-item{flex: 30%;}
               .footer-col-list .col-4.footer-item:last-child{flex: 55%;}
@@ -1653,10 +1653,10 @@
               .footmenu-list ul li{margin-top: 15px;margin-bottom: 0px;}
               .footer-contact-info .footer-title p{padding: 0;font-size: 14px;color: #fff;margin-bottom: 25px;line-height: 24px;}
               .signup-form{position: relative;display: flex;height: 54px;background: #fff;padding: 2px;border-radius: 50px;}
-              .signup-form input{border: 0px;color: #6A6A6A;width: 100%;border-radius: 50px;padding-left: 20px;}
-              .signup-form input::placeholder{color: #A1A3A9;}
-              .signup-form-btn{color: #fff;width: 154px;background: #004DF5;border-radius: 50px;padding: 8px 15px;font-size: 13px;font-weight: 900;letter-spacing: 10%; border: 1px solid transparent; transition: all 0.3s ease;}
-              .signup-form-btn:hover { background: transparent; border-color: #004DF5; color: #004DF5; }
+              .signup-form input{border: 0px;color: var(--new-black);width: 100%;border-radius: 50px;padding-left: 20px;}
+              .signup-form input::placeholder{color: var(--new-gray);}
+              .signup-form-btn{color: #fff;width: 154px;background: var(--new-blue);border-radius: 50px;padding: 8px 15px;font-size: 13px;font-weight: 900;letter-spacing: 10%; border: 1px solid transparent; transition: all 0.3s ease;}
+              .signup-form-btn:hover { background: transparent; border-color: var(--new-blue); color: var(--new-blue); }
               .footer-solical-links a{display: inline-block;}
               .footer-solical-links a:last-child{margin: 0;}
               .footer-solical-links a img{max-height: 15px;}
@@ -1669,13 +1669,13 @@
               .copyright-text p{color: #A1A3A9;font-weight: 400;font-size: 13px;padding: 0;line-height: 16px;}
               .multi-selectors{color: rgb(159, 159, 159);justify-content: end;}
               .multi-selectors__item{margin: 0px;}
-              .language-seclector-form .disclosure-list__option:focus .disclosure-list__label, .language-seclector-form .disclosure-list__option:hover .disclosure-list__label{color: #000;}
+              .language-seclector-form .disclosure-list__option:focus .disclosure-list__label, .language-seclector-form .disclosure-list__option:hover .disclosure-list__label{color: var(--new-black);}
               /* footer new design css */
 
               .footer_appbutton{margin-top: 22px;}
               .footer_appbutton .appbutton_title{padding: 0px;text-transform: uppercase;font-weight: 900;margin-bottom: 15px;color:#fff;letter-spacing: 0; font-size: clamp(16px,1.2vw,16px); max-width: 360px;
           line-height: 1;}
-              .footer_appbutton a{display: flex; background: #000; overflow: hidden; border-radius: 7px;}
+              .footer_appbutton a{display: flex; background: var(--new-black); overflow: hidden; border-radius: 7px;}
               .footer_appbutton .appbutton{display: flex;gap: 8px;}
               .mobile-view .footer_appbutton{display: none;}
 

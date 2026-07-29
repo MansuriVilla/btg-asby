@@ -1,7 +1,3 @@
-
-
-
-
 function ArrowHandler() {
   const arrowHover = document.querySelectorAll(".Hover__arrow");
 
@@ -410,14 +406,14 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         if (isAnyHeaderActive || state) {
-            const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+            // const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
             document.body.classList.add("no-scroll");
             document.body.style.overflow = "hidden";
-            document.body.style.paddingRight = scrollBarWidth + "px";
+            // document.body.style.paddingRight = scrollBarWidth + "px";
         } else {
             document.body.classList.remove("no-scroll");
             document.body.style.overflow = "";
-            document.body.style.paddingRight = "";
+            // document.body.style.paddingRight = "";
         }
     }
 
@@ -435,43 +431,74 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ─── Animate columns with delay between them, children together (mobile) or staggered (desktop) ───
-    function animateColumns(container, opening = true) {
-        const duration = opening ? 0.38 : 0.24;
-        const staggerInside = isMobile() ? 0 : 0.055;   // desktop only: small stagger inside column
+    // ─── Animate content crossfade with pure smooth opacity fade ───
+    function transitionContent(outgoingContainer, incomingContainer, isSwitching = false) {
+        const easeOut = "power2.inOut";
+        const easeIn = "cubic-bezier(0.16, 1, 0.3, 1)";
+        const durationOut = isSwitching ? 0.16 : 0.2;
+        const durationIn = isSwitching ? 0.3 : 0.35;
 
-        // Left columns ────────────────────────────────────────
-        const leftCols = getSortedChildren(container, ".site_megaMenu_left-ul");
+        // Outgoing content pure fade out
+        if (outgoingContainer) {
+            const outgoingInner = outgoingContainer.querySelector(".site__megaMenu_content__inner");
+            if (outgoingInner) {
+                gsap.killTweensOf(outgoingInner);
+                gsap.to(outgoingInner, {
+                    opacity: 0,
+                    duration: durationOut,
+                    ease: easeOut
+                });
+            }
+        }
 
-        leftCols.forEach((col, i) => {
-            const items = col.querySelectorAll("li, .site_megaMenu_ul-inner");
-            gsap.to(items, {
-                opacity: opening ? 1 : 0,
-                y: opening ? 0 : 20,
-                duration,
-                ease: opening ? "power2.out" : "power1.out",
-                stagger: staggerInside,
-                delay: opening ? i * 0.10 : 0
-            });
-        });
+        // Incoming content pure fade in
+        if (incomingContainer) {
+            const incomingInner = incomingContainer.querySelector(".site__megaMenu_content__inner");
+            if (incomingInner) {
+                gsap.killTweensOf(incomingInner);
+                gsap.fromTo(incomingInner,
+                    { opacity: 0 },
+                    { 
+                        opacity: 1, 
+                        duration: durationIn, 
+                        ease: easeIn,
+                        delay: isSwitching ? 0.04 : 0
+                    }
+                );
+            }
 
-        // Right columns ───────────────────────────────────────
-        const rightCols = getSortedChildren(container, ".site__megaMenu_right");
-
-        rightCols.forEach((col, i) => {
-            const items = col.querySelectorAll("li");
-            gsap.to(items, {
-                opacity: opening ? 1 : 0,
-                y: opening ? 0 : 20,
-                duration,
-                ease: opening ? "power2.out" : "power1.out",
-                stagger: staggerInside,
-                delay: opening ? i * 0.11 + 0.08 : 0   // slight offset after left side
-            });
-        });
+            // Staggered text items pure fade in
+            const items = incomingContainer.querySelectorAll("li, .site_megaMenu_ul-inner");
+            gsap.killTweensOf(items);
+            gsap.fromTo(items,
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    duration: durationIn,
+                    ease: easeIn,
+                    stagger: isMobile() ? 0 : (isSwitching ? 0.012 : 0.025),
+                    delay: isSwitching ? 0.05 : 0
+                }
+            );
+        }
     }
 
-    // ─── Desktop logic ──────────────────────────────────────────────────────────────
+    function animateColumns(container, opening = true) {
+        if (!container) return;
+        const duration = opening ? 0.35 : 0.2;
+        const ease = opening ? "power3.out" : "power2.in";
+        const contentInner = container.querySelector(".site__megaMenu_content__inner");
+
+        if (!opening && contentInner) {
+            gsap.killTweensOf(contentInner);
+            gsap.to(contentInner, { opacity: 0, duration, ease });
+        }
+    }
+
+    // ─── Apple-Style Desktop Navigation Logic ──────────────────────────────────────
+    let activeNavContainer = null;
+    let activeNavHeaderItem = null;
+
     document.querySelectorAll(".site_headerContains__megaMenu").forEach(item => {
         const megaMenu = item.querySelector(".site__megaMenu_container");
         const navLink = item.querySelector(".item_has--dropdown");
@@ -487,7 +514,7 @@ document.addEventListener("DOMContentLoaded", function () {
             navLink?.classList.add("site_megaMenu__Active");
             navLink?.setAttribute("aria-expanded", "true");
             gsap.set(megaMenu, { height: "auto" });
-            animateColumns(megaMenu, true);
+            transitionContent(null, megaMenu, false);
             toggleMenu(true);
             return;
         }
@@ -495,51 +522,142 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isMobile()) return; // mobile handled separately
 
         item.addEventListener("mouseenter", () => {
-            closeAllMenus(item);
+            if (activeNavHeaderItem === item) return; // Prevent re-triggering if already inside active menu
+
+            const isSwitching = activeNavHeaderItem && activeNavHeaderItem !== item;
+            const prevContainer = activeNavContainer;
+            const prevHeaderItem = activeNavHeaderItem;
+
+            activeNavHeaderItem = item;
+            activeNavContainer = megaMenu;
+
+            let startHeight = 0;
+            if (isSwitching && prevContainer) {
+                startHeight = prevContainer.getBoundingClientRect().height || prevContainer.offsetHeight || 0;
+                
+                // Animate outgoing content smooth fade out
+                transitionContent(prevContainer, null, true);
+
+                setTimeout(() => {
+                    if (activeNavContainer !== prevContainer) {
+                        prevContainer.classList.remove("site_megaMenu__Active");
+                        const prevLink = prevHeaderItem?.querySelector(".item_has--dropdown");
+                        prevLink?.classList.remove("site_megaMenu__Active");
+                        prevLink?.setAttribute("aria-expanded", "false");
+                        gsap.killTweensOf(prevContainer);
+                        gsap.set(prevContainer, { height: 0 });
+                    }
+                }, 150);
+            }
+
             megaMenu.classList.add("site_megaMenu__Active");
             navLink?.classList.add("site_megaMenu__Active");
             navLink?.setAttribute("aria-expanded", "true");
-            animateToAutoHeight(megaMenu);
-            animateColumns(megaMenu, true);
+
+            megaMenu.style.height = "auto";
+            const targetHeight = megaMenu.getBoundingClientRect().height || megaMenu.offsetHeight;
+            megaMenu.style.height = startHeight + "px";
+
+            gsap.killTweensOf(megaMenu);
+            gsap.to(megaMenu, {
+                height: targetHeight,
+                duration: isSwitching ? 0.32 : 0.38,
+                ease: "cubic-bezier(0.16, 1, 0.3, 1)",
+                onComplete: () => {
+                    if (activeNavContainer === megaMenu) {
+                        megaMenu.style.height = "auto";
+                    }
+                }
+            });
+
+            transitionContent(null, megaMenu, isSwitching);
             toggleMenu(true);
         });
 
         item.addEventListener("mouseleave", () => {
-            const stillHovered = document.querySelector(".site_headerContains__megaMenu:hover");
-            if (stillHovered) {
-                const newMenu = stillHovered.querySelector(".site__megaMenu_container");
-                if (newMenu) {
+            setTimeout(() => {
+                const stillHovered = document.querySelector(".site_headerContains__megaMenu:hover");
+                if (!stillHovered) {
+                    activeNavHeaderItem = null;
+                    activeNavContainer = null;
                     gsap.killTweensOf(megaMenu);
-                    newMenu.style.height = "auto";
-                    const targetH = newMenu.offsetHeight;
-                    gsap.to(megaMenu, { height: targetH, duration: 0.3, ease: "power2.out" });
+                    gsap.to(megaMenu, { 
+                        height: 0, 
+                        duration: 0.28, 
+                        ease: "power2.inOut",
+                        onComplete: () => {
+                            megaMenu.classList.remove("site_megaMenu__Active");
+                        }
+                    });
+                    navLink?.classList.remove("site_megaMenu__Active");
+                    navLink?.setAttribute("aria-expanded", "false");
+                    animateColumns(megaMenu, false);
+                    toggleMenu(false);
                 }
-            } else {
-                gsap.to(megaMenu, { height: 0, duration: 0.3, ease: "power2.out" });
-                navLink?.setAttribute("aria-expanded", "false");
-                animateColumns(megaMenu, false);
-                closeAllMenus();
-                toggleMenu(false);
-            }
+            }, 15);
         });
 
         item.addEventListener("focusin", () => {
-            closeAllMenus(item);
+            if (activeNavHeaderItem === item) return; // Prevent re-triggering animation when tabbing through links inside the active menu
+
+            const isSwitching = activeNavHeaderItem && activeNavHeaderItem !== item;
+            const prevContainer = activeNavContainer;
+            const prevHeaderItem = activeNavHeaderItem;
+
+            activeNavHeaderItem = item;
+            activeNavContainer = megaMenu;
+
+            let startHeight = 0;
+            if (isSwitching && prevContainer) {
+                startHeight = prevContainer.getBoundingClientRect().height || prevContainer.offsetHeight || 0;
+                transitionContent(prevContainer, null, true);
+
+                setTimeout(() => {
+                    if (activeNavContainer !== prevContainer) {
+                        prevContainer.classList.remove("site_megaMenu__Active");
+                        const prevLink = prevHeaderItem?.querySelector(".item_has--dropdown");
+                        prevLink?.classList.remove("site_megaMenu__Active");
+                        prevLink?.setAttribute("aria-expanded", "false");
+                        gsap.killTweensOf(prevContainer);
+                        gsap.set(prevContainer, { height: 0 });
+                    }
+                }, 150);
+            }
+
             megaMenu.classList.add("site_megaMenu__Active");
             navLink?.classList.add("site_megaMenu__Active");
             navLink?.setAttribute("aria-expanded", "true");
-            animateToAutoHeight(megaMenu);
-            animateColumns(megaMenu, true);
+
+            megaMenu.style.height = "auto";
+            const targetHeight = megaMenu.getBoundingClientRect().height || megaMenu.offsetHeight;
+            megaMenu.style.height = startHeight + "px";
+
+            gsap.killTweensOf(megaMenu);
+            gsap.to(megaMenu, {
+                height: targetHeight,
+                duration: 0.35,
+                ease: "cubic-bezier(0.16, 1, 0.3, 1)",
+                onComplete: () => { megaMenu.style.height = "auto"; }
+            });
+            transitionContent(null, megaMenu, isSwitching);
             toggleMenu(true);
         });
 
         item.addEventListener("focusout", (e) => {
             if (!item.contains(e.relatedTarget)) {
-                gsap.to(megaMenu, { height: 0, duration: 0.3, ease: "power2.out" });
-                navLink?.setAttribute("aria-expanded", "false");
-                animateColumns(megaMenu, false);
-                closeAllMenus();
-                toggleMenu(false);
+                setTimeout(() => {
+                    const stillFocused = document.querySelector(".site_headerContains__megaMenu:focus-within");
+                    if (!stillFocused) {
+                        activeNavHeaderItem = null;
+                        activeNavContainer = null;
+                        gsap.killTweensOf(megaMenu);
+                        gsap.to(megaMenu, { height: 0, duration: 0.28, ease: "power2.inOut" });
+                        navLink?.classList.remove("site_megaMenu__Active");
+                        navLink?.setAttribute("aria-expanded", "false");
+                        animateColumns(megaMenu, false);
+                        toggleMenu(false);
+                    }
+                }, 15);
             }
         });
     });
@@ -795,7 +913,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function centerActiveItem() {
       if (window.innerWidth <= 860) {
         const activeText = document.querySelector(".am-main_slider-text.active");
-        const container = document.querySelector(".am-main_slider-content");
+        const container = document.querySelector(".am-slider_content-inner");
         
         if (activeText && container) {
           const containerWidth = container.offsetWidth;
@@ -878,7 +996,11 @@ document.addEventListener("DOMContentLoaded", function () {
       sliderContainer.appendChild(liveRegion);
 
       // Pause slide rotation when keyboard focus enters the slideshow (A11Y requirement)
-      sliderContainer.addEventListener("focusin", () => {
+      // Pause slide rotation when keyboard focus enters the slideshow (A11Y requirement)
+      sliderContainer.addEventListener("focusin", (e) => {
+        // Ignore if focus is on the navigation controls themselves
+        if (e.target.closest('.am-slider-play-pause, .am_slide--previous, .am_slide--next')) return;
+        
         if (!isPaused) {
           isPaused = true;
           clearTimeout(slideInterval);
@@ -886,7 +1008,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const pauseIcon = pauseBtn.querySelector(".pause-icon");
             const playIcon = pauseBtn.querySelector(".play-icon");
             if (pauseIcon) pauseIcon.style.display = "none";
-            if (playIcon) playIcon.style.display = "block";
+            if (playIcon) playIcon.style.display = "flex";
             pauseBtn.setAttribute("aria-label", "Play slideshow");
           }
         }
@@ -1011,8 +1133,8 @@ document.addEventListener("DOMContentLoaded", function () {
         background: rgba(0,0,0,0.65);
         border: 2px solid #fff;
         border-radius: 50%;
-        width: 36px;
-        height: 36px;
+        width: clamp(30px,2vw,36px) !important;
+        height: clamp(30px,2vw,36px) !important;
         color: #fff;
         cursor: pointer;
         display: flex;
@@ -1025,8 +1147,16 @@ document.addEventListener("DOMContentLoaded", function () {
         flex-shrink: 0;
       `;
       pauseBtn.innerHTML = `
-        <span class="pause-icon" style="display: block; font-weight: bold; font-family: monospace;">&#10074;&#10074;</span>
-        <span class="play-icon" style="display: none; font-weight: bold; font-family: monospace; font-size: 12px; margin-left: 2px;">&#9658;</span>
+        <span class="pause-icon" style="display: flex;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+  <rect x="6" y="5" width="4" height="14" rx="1" />
+  <rect x="14" y="5" width="4" height="14" rx="1" />
+</svg>
+</span>
+        <span class="play-icon" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" height="24" width="24">
+  <g id="Play-Arrow">
+    <path id="Union" d="M7.51855 4.12297c0.3199 -0.17556 0.71069 -0.16266 1.01856 0.0332L19.5371 11.1562c0.2883 0.1835 0.4628 0.502 0.4629 0.8437 0 0.3419 -0.1746 0.6602 -0.4629 0.8438l-10.99999 7c-0.30792 0.1959 -0.69861 0.2088 -1.01856 0.0332C7.19869 19.7012 7 19.3649 7 18.9999V4.99992c0.00008 -0.36488 0.1987 -0.70135 0.51855 -0.87695M9 17.1777l8.1367 -5.1778L9 6.82121z" stroke-width="1"></path>
+  </g>
+</svg></span>
       `;
       
       pauseBtn.addEventListener("click", () => {
@@ -1037,10 +1167,10 @@ document.addEventListener("DOMContentLoaded", function () {
           clearTimeout(slideInterval);
           resetBarsInstantly(progressBars);
           if (pauseIcon) pauseIcon.style.display = "none";
-          if (playIcon) playIcon.style.display = "block";
+          if (playIcon) playIcon.style.display = "flex";
           pauseBtn.setAttribute("aria-label", "Play slideshow");
         } else {
-          if (pauseIcon) pauseIcon.style.display = "block";
+          if (pauseIcon) pauseIcon.style.display = "flex";
           if (playIcon) playIcon.style.display = "none";
           pauseBtn.setAttribute("aria-label", "Pause slideshow");
           startProgressBar();
@@ -1056,8 +1186,8 @@ document.addEventListener("DOMContentLoaded", function () {
         background: rgba(0,0,0,0.65);
         border: 2px solid #fff;
         border-radius: 50%;
-        width: 36px;
-        height: 36px;
+        width: clamp(30px,2vw,36px) !important;
+        height: clamp(30px,2vw,36px) !important;
         color: #fff;
         cursor: pointer;
         display: flex;
@@ -1069,7 +1199,9 @@ document.addEventListener("DOMContentLoaded", function () {
         margin-right: 10px;
         flex-shrink: 0;
       `;
-      prevArrow.innerHTML = "&#9664;";
+      prevArrow.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M9.98862 19.1867L3.3245 12.5226C3.25565 12.4538 3.20104 12.3722 3.16377 12.2823C3.12651 12.1924 3.10733 12.096 3.10733 11.9987C3.10733 11.9014 3.12651 11.8051 3.16377 11.7152C3.20104 11.6253 3.25565 11.5436 3.3245 11.4749L9.98862 4.81074C10.1276 4.6718 10.316 4.59375 10.5125 4.59375C10.709 4.59375 10.8974 4.6718 11.0364 4.81074C11.1753 4.94968 11.2534 5.13813 11.2534 5.33462C11.2534 5.53111 11.1753 5.71955 11.0364 5.85849L5.63565 11.2583L20.1384 11.2583C20.3348 11.2583 20.5232 11.3363 20.662 11.4752C20.8009 11.614 20.8789 11.8024 20.8789 11.9987C20.8789 12.1951 20.8009 12.3835 20.662 12.5223C20.5232 12.6612 20.3348 12.7392 20.1384 12.7392L5.63565 12.7392L11.0364 18.139C11.1753 18.2779 11.2534 18.4664 11.2534 18.6629C11.2534 18.8594 11.1753 19.0478 11.0364 19.1867C10.8974 19.3257 10.709 19.4037 10.5125 19.4037C10.316 19.4037 10.1276 19.3257 9.98862 19.1867Z" fill="currentColor"></path>
+					</svg>`;
       prevArrow.addEventListener("click", prevSlide);
 
       // 3. Create Next Arrow Button
@@ -1081,8 +1213,8 @@ document.addEventListener("DOMContentLoaded", function () {
         background: rgba(0,0,0,0.65);
         border: 2px solid #fff;
         border-radius: 50%;
-        width: 36px;
-        height: 36px;
+        width: clamp(30px,2vw,36px)!important;
+        height: clamp(30px,2vw,36px) !important;
         color: #fff;
         cursor: pointer;
         display: flex;
@@ -1093,13 +1225,30 @@ document.addEventListener("DOMContentLoaded", function () {
         z-index: 10;
         flex-shrink: 0;
       `;
-      nextArrow.innerHTML = "&#9654;";
+      nextArrow.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M14.0133 4.80545L20.6775 11.4696C20.7463 11.5383 20.8009 11.62 20.8382 11.7099C20.8754 11.7998 20.8946 11.8961 20.8946 11.9934C20.8946 12.0908 20.8754 12.1871 20.8382 12.277C20.8009 12.3669 20.7463 12.4486 20.6775 12.5173L14.0133 19.1814C13.8744 19.3204 13.686 19.3984 13.4895 19.3984C13.293 19.3984 13.1045 19.3204 12.9656 19.1814C12.8266 19.0425 12.7486 18.8541 12.7486 18.6576C12.7486 18.4611 12.8266 18.2726 12.9656 18.1337L18.3663 12.7339L3.8635 12.7339C3.66712 12.7339 3.47879 12.6559 3.33992 12.517C3.20106 12.3782 3.12305 12.1898 3.12305 11.9934C3.12305 11.7971 3.20106 11.6087 3.33992 11.4699C3.47879 11.331 3.66712 11.253 3.8635 11.253L18.3663 11.253L12.9656 5.8532C12.8266 5.71426 12.7486 5.52581 12.7486 5.32932C12.7486 5.13283 12.8266 4.94439 12.9656 4.80545C13.1045 4.66651 13.293 4.58845 13.4895 4.58845C13.686 4.58845 13.8744 4.66651 14.0133 4.80545Z" fill="currentColor"></path>
+					</svg>`;
       nextArrow.addEventListener("click", nextSlide);
 
-      // Append controls
-      navContainer.insertBefore(prevArrow, navContainer.firstChild);
-      navContainer.appendChild(nextArrow);
-      navContainer.appendChild(pauseBtn);
+      // Create controls wrapper
+      const controlsWrapper = document.createElement("div");
+      controlsWrapper.className = "am-slider-controls-wrapper";
+      controlsWrapper.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 2;
+      `;
+      
+      // Remove specific margins to let flex gap handle it
+      prevArrow.style.marginRight = "0";
+      pauseBtn.style.marginLeft = "0";
+
+      controlsWrapper.appendChild(prevArrow);
+      controlsWrapper.appendChild(nextArrow);
+      controlsWrapper.appendChild(pauseBtn);
+
+      navContainer.appendChild(controlsWrapper);
     }
 
     // Initialize the slider
@@ -1144,8 +1293,13 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         centerActiveItem();
       }, 100);
+       // Remove skeleton loading state
+      if (sliderContainer) {
+        sliderContainer.classList.add("slider-loaded");
+      }
     }
 
+    
     initializeSlider();
 
     // Re-center on window resize
@@ -1953,25 +2107,396 @@ document.addEventListener("DOMContentLoaded", function () {
 
   parallexHero();
 
-  /*----------------------------
+  // /*----------------------------
+  //   VIDEO PREVIEW LOGIC  
+  // ----------------*/
+
+  // function handleVideoPreview() {
+  //   const videoPreviews = document.querySelectorAll(".video-preview");
+  //   const specialCase =   window.location.pathname === "/pages/careers";
+  //   const startTime = specialCase ? 11 : 0;
+  //   const endTime = specialCase ? 16 : 5;
+
+
+  //   const videoInstances = [];
+
+  //   videoPreviews.forEach((preview, index) => {
+  //     // ────────────────────────────────────────────────
+  //     // Core elements
+  //     const previewVideo     = preview.querySelector(".preview-video");
+  //     const playButtonContent = preview.querySelector(".video_overlay-content, .video_overlay-holder");
+  //     const loader           = preview.querySelector("[id*='loader-'], .loader, .video-loader");
+
+  //     if (!previewVideo || !playButtonContent) {
+  //       console.warn(`Video block ${index + 1} missing core elements`);
+  //       return;
+  //     }
+
+  //     // Make play button keyboard focusable and accessible (Issue 30)
+  //     if (playButtonContent.tagName !== "BUTTON" && playButtonContent.tagName !== "A") {
+  //       playButtonContent.setAttribute("role", "button");
+  //       playButtonContent.setAttribute("tabindex", "0");
+  //       if (!playButtonContent.getAttribute("aria-label")) {
+  //         playButtonContent.setAttribute("aria-label", "Play video");
+  //       }
+  //       playButtonContent.addEventListener("keydown", e => {
+  //         if (e.key === "Enter" || e.key === " ") {
+  //           e.preventDefault();
+  //           playButtonContent.click();
+  //         }
+  //       });
+  //     }
+
+  //     const hideLoader = () => {
+  //       if (loader) loader.style.display = "none";
+  //       preview.classList.add("dialog-video__loading");
+  //     };
+
+  //     // ────────────────────────────────────────────────
+  //     // Popup elements (only relevant in popup mode)
+  //     const videoPopup   = document.getElementById("[id*='dialog-video__']");
+  //     const popupContent = document.getElementById("[id*='dialog-content__']");
+  //     const fullVideo    = document.getElementById("[id*='dialog-full__video-']");
+  //     const closeButton  = document.getElementById("[id*='dialog-close__btn-']");
+
+  //     const hasPopupElements = videoPopup && popupContent && fullVideo && closeButton;
+
+  //     // Playback mode decision
+  //     const playInPlaceAttr = preview.dataset.playInPlace;
+  //     let playInPlace = playInPlaceAttr === "true" ? true :
+  //                       playInPlaceAttr === "false" ? false :
+  //                       !hasPopupElements;
+
+  //     if (playInPlaceAttr === "false" && !hasPopupElements) {
+  //       console.warn(`Block ${index + 1} forced popup but no popup elements → fallback to in-place`);
+  //       playInPlace = true;
+  //     }
+
+  //     // ────────────────────────────────────────────────
+  //     // Video source & type detection
+  //     const videoUrl = preview.dataset.videoUrl || previewVideo.src || "";
+  //     const isVimeo  = videoUrl.includes("vimeo.com") || videoUrl.includes("player.vimeo.com");
+  //     const isIframe = previewVideo.tagName === "IFRAME" || isVimeo;
+
+  //     if (!isIframe) {
+  //       previewVideo.src = videoUrl;
+  //       if (!playInPlace && fullVideo) fullVideo.src = videoUrl;
+  //     }
+
+  //     // ────────────────────────────────────────────────
+  //     let vimeoPlayer   = null;
+  //     let isPreviewMode = true;
+  //     let isPlayingFull = false;
+
+  //     const videoInstance = {
+  //       index,
+  //       previewVideo,
+  //       playButtonContent,
+  //       isIframe,
+  //       isVimeo,
+  //       vimeoPlayer: null,
+  //       playInPlace,
+  //       stopFullPlayback: () => {
+  //         if (!isPlayingFull) return;
+
+  //         if (isVimeo && vimeoPlayer) {
+  //           vimeoPlayer.pause();
+  //           vimeoPlayer.setCurrentTime(startTime);
+  //           vimeoPlayer.setLoop(true);
+  //           vimeoPlayer.play().catch(() => {});
+  //         } else {
+  //           previewVideo.pause();
+  //           previewVideo.currentTime = startTime;
+  //           previewVideo.loop = true;
+  //           previewVideo.muted = true;
+  //           previewVideo.play().catch(() => {});
+  //         }
+
+  //         playButtonContent.style.opacity = "1";
+  //         playButtonContent.style.pointerEvents = "auto";
+  //         isPreviewMode = true;
+  //         isPlayingFull = false;
+  //       }
+  //     };
+  //     videoInstances.push(videoInstance);
+
+  //     // ────────────────────────────────────────────────
+  //     // Reliable loader hiding
+  //     const safeHideLoader = () => {
+  //       hideLoader();
+  //       // console.log(`Loader hidden - block ${index + 1}`);
+  //     };
+
+  //     if (isVimeo) {
+  //       try {
+  //         vimeoPlayer = new Vimeo.Player(previewVideo);
+  //         videoInstance.vimeoPlayer = vimeoPlayer;
+
+  //         vimeoPlayer.on("playing", safeHideLoader);
+  //         vimeoPlayer.on("play", safeHideLoader);
+
+  //         vimeoPlayer.on("loaded", () => {
+  //           vimeoPlayer.setCurrentTime(startTime).then(() => {
+  //             vimeoPlayer.play().catch(err => {
+  //               console.log(`Vimeo autoplay blocked ${index + 1}:`, err);
+  //               safeHideLoader();
+  //             });
+  //           });
+  //         });
+
+  //         vimeoPlayer.on("timeupdate", data => {
+  //           if (isPreviewMode && data.seconds >= endTime) {
+  //             vimeoPlayer.setCurrentTime(startTime);
+  //           }
+  //         });
+
+  //         vimeoPlayer.on("error", err => {
+  //           console.error(`Vimeo error ${index + 1}:`, err);
+  //           safeHideLoader();
+  //         });
+
+  //         setTimeout(safeHideLoader, 6000);
+
+  //       } catch (err) {
+  //         console.error(`Vimeo init failed ${index + 1}:`, err);
+  //         safeHideLoader();
+  //       }
+  //     } else {
+  //       // HTML5 <video>
+  //       previewVideo.addEventListener("loadedmetadata", () => {
+  //         previewVideo.currentTime = startTime;
+  //         previewVideo.muted = true;
+  //         previewVideo.loop = true;
+  //         previewVideo.play().catch(err => {
+  //           console.log(`HTML5 autoplay blocked ${index + 1}:`, err);
+  //           safeHideLoader();
+  //         });
+  //         safeHideLoader();
+  //       });
+
+  //       previewVideo.addEventListener("canplay", safeHideLoader);
+  //       previewVideo.addEventListener("timeupdate", () => {
+  //         if (isPreviewMode && previewVideo.currentTime >= endTime) {
+  //           previewVideo.currentTime = startTime;
+  //         }
+  //       });
+
+  //       previewVideo.addEventListener("error", () => {
+  //         console.error(`HTML5 error ${index + 1}`);
+  //         safeHideLoader();
+  //       });
+
+  //       setTimeout(safeHideLoader, 6000);
+  //     }
+
+  //     // ────────────────────────────────────────────────
+  //     // Play button → start full playback
+  //     playButtonContent.addEventListener("click", e => {
+  //       e.stopPropagation();
+
+  //       // Stop other in-place videos
+  //       videoInstances.forEach(inst => {
+  //         if (inst.index !== index && inst.playInPlace) {
+  //           inst.stopFullPlayback();
+  //         }
+  //       });
+
+  //       isPreviewMode = false;
+  //       isPlayingFull = true;
+  //       playButtonContent.style.opacity = "0";
+  //       playButtonContent.style.pointerEvents = "none";
+
+  //       if (playInPlace) {
+  //         // In-place full playback
+  //         if (isVimeo && vimeoPlayer) {
+  //           vimeoPlayer.setCurrentTime(0)
+  //             .then(() => {
+  //               vimeoPlayer.setLoop(false);
+  //               vimeoPlayer.play();
+  //             })
+  //             .catch(err => {
+  //               console.error(`Vimeo full play error ${index + 1}:`, err);
+  //               playButtonContent.style.opacity = "1";
+  //               playButtonContent.style.pointerEvents = "auto";
+  //               isPreviewMode = true;
+  //               isPlayingFull = false;
+  //             });
+
+  //           vimeoPlayer.off("ended"); // clean previous listeners
+  //           vimeoPlayer.on("ended", () => {
+  //             playButtonContent.style.opacity = "1";
+  //             playButtonContent.style.pointerEvents = "auto";
+  //             isPreviewMode = true;
+  //             isPlayingFull = false;
+  //             vimeoPlayer.setCurrentTime(startTime);
+  //             vimeoPlayer.setLoop(true);
+  //             vimeoPlayer.play();
+  //           });
+  //         } else {
+  //           // HTML5 full
+  //           previewVideo.currentTime = 0;
+  //           previewVideo.loop = false;
+  //           previewVideo.muted = false;
+
+  //           previewVideo.play().catch(err => {
+  //             console.error(`HTML5 full play error ${index + 1}:`, err);
+  //             playButtonContent.style.opacity = "1";
+  //             playButtonContent.style.pointerEvents = "auto";
+  //             isPreviewMode = true;
+  //             isPlayingFull = false;
+  //             previewVideo.muted = true;
+  //           });
+
+  //           const onEnd = () => {
+  //             playButtonContent.style.opacity = "1";
+  //             playButtonContent.style.pointerEvents = "auto";
+  //             isPreviewMode = true;
+  //             isPlayingFull = false;
+  //             previewVideo.currentTime = startTime;
+  //             previewVideo.loop = true;
+  //             previewVideo.muted = true;
+  //             previewVideo.play().catch(() => {});
+  //             previewVideo.removeEventListener("ended", onEnd);
+  //           };
+  //           previewVideo.addEventListener("ended", onEnd);
+  //         }
+  //       } else if (hasPopupElements) {
+  //         // Popup mode
+  //         if (isVimeo && vimeoPlayer) vimeoPlayer.pause();
+
+  //         document.body.classList.add("dialog-box__open");
+
+  //         gsap.to(videoPopup, {
+  //           opacity: 1,
+  //           duration: 0.2,
+  //           ease: "power2.out",
+  //           onStart: () => {
+  //             videoPopup.style.display = "flex";
+  //             videoPopup.style.pointerEvents = "auto";
+  //           }
+  //         });
+
+  //         gsap.to(popupContent, {
+  //           opacity: 1,
+  //           duration: 0.5,
+  //           delay: 0.2,
+  //           ease: "power2.out",
+  //           onComplete: () => {
+  //             if (isVimeo) {
+  //               new Vimeo.Player(fullVideo).play();
+  //             } else {
+  //               fullVideo.play();
+  //             }
+  //           }
+  //         });
+  //       }
+  //     });
+
+  //     // ────────────────────────────────────────────────
+  //     // NEW: Click anywhere on preview area to exit full playback (playInPlace only)
+  //     if (playInPlace) {
+  //       const exitFullOnClick = e => {
+  //         // Ignore clicks on the play button overlay
+  //         if (playButtonContent.contains(e.target)) return;
+
+  //         if (isPlayingFull) {
+  //           e.preventDefault();
+  //           e.stopPropagation();
+
+  //           if (isVimeo && vimeoPlayer) {
+  //             vimeoPlayer.pause();
+  //             vimeoPlayer.setCurrentTime(startTime);
+  //             vimeoPlayer.setLoop(true);
+  //             vimeoPlayer.play().catch(() => {});
+  //           } else {
+  //             previewVideo.pause();
+  //             previewVideo.currentTime = startTime;
+  //             previewVideo.loop = true;
+  //             previewVideo.muted = true;
+  //             previewVideo.play().catch(() => {});
+  //           }
+
+  //           playButtonContent.style.opacity = "1";
+  //           playButtonContent.style.pointerEvents = "auto";
+  //           isPreviewMode = true;
+  //           isPlayingFull = false;
+  //         }
+  //       };
+
+  //       preview.addEventListener("click", exitFullOnClick);
+  //       // Optional: more precise → only on video/iframe
+  //       // previewVideo.addEventListener("click", exitFullOnClick);
+  //     }
+
+  //     // ────────────────────────────────────────────────
+  //     // Popup close (only popup mode)
+  //     if (!playInPlace && closeButton) {
+  //       closeButton.addEventListener("click", () => {
+  //         gsap.to(popupContent, {
+  //           opacity: 0,
+  //           duration: 0.5,
+  //           ease: "power2.in",
+  //           onStart: () => {
+  //             if (isVimeo) {
+  //               const fp = new Vimeo.Player(fullVideo);
+  //               fp.pause();
+  //               if (fullVideo.dataset.videoBehavior === "restart") fp.setCurrentTime(0);
+  //             } else {
+  //               fullVideo.pause();
+  //               if (fullVideo.dataset.videoBehavior === "restart") fullVideo.currentTime = 0;
+  //             }
+  //           }
+  //         });
+
+  //         gsap.to(videoPopup, {
+  //           opacity: 0,
+  //           duration: 0.2,
+  //           delay: 0.5,
+  //           ease: "power2.in",
+  //           onComplete: () => {
+  //             videoPopup.style.display = "none";
+  //             videoPopup.style.pointerEvents = "none";
+  //             document.body.classList.remove("dialog-box__open");
+
+  //             if (isVimeo && vimeoPlayer) vimeoPlayer.play().catch(() => {});
+  //             else previewVideo.play().catch(() => {});
+  //           }
+  //         });
+  //       });
+
+  //       document.addEventListener("keydown", e => {
+  //         if (e.key === "Escape" && videoPopup.style.display !== "none") {
+  //           closeButton.click();
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
+
+  // handleVideoPreview();
+
+    /*----------------------------
     VIDEO PREVIEW LOGIC  
   ----------------*/
 
   function handleVideoPreview() {
     const videoPreviews = document.querySelectorAll(".video-preview");
-    const specialCase =   window.location.pathname === "/pages/careers";
+    const specialCase = window.location.pathname === "/pages/careers";
     const startTime = specialCase ? 11 : 0;
     const endTime = specialCase ? 16 : 5;
-
 
     const videoInstances = [];
 
     videoPreviews.forEach((preview, index) => {
       // ────────────────────────────────────────────────
       // Core elements
-      const previewVideo     = preview.querySelector(".preview-video");
-      const playButtonContent = preview.querySelector(".video_overlay-content, .video_overlay-holder");
-      const loader           = preview.querySelector("[id*='loader-'], .loader, .video-loader");
+      const previewVideo = preview.querySelector(".preview-video");
+      const playButtonContent = preview.querySelector(
+        ".video_overlay-content, .video_overlay-holder",
+      );
+      const loader = preview.querySelector(
+        "[id*='loader-'], .loader, .video-loader",
+      );
 
       if (!previewVideo || !playButtonContent) {
         console.warn(`Video block ${index + 1} missing core elements`);
@@ -1979,13 +2504,16 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // Make play button keyboard focusable and accessible (Issue 30)
-      if (playButtonContent.tagName !== "BUTTON" && playButtonContent.tagName !== "A") {
+      if (
+        playButtonContent.tagName !== "BUTTON" &&
+        playButtonContent.tagName !== "A"
+      ) {
         playButtonContent.setAttribute("role", "button");
         playButtonContent.setAttribute("tabindex", "0");
         if (!playButtonContent.getAttribute("aria-label")) {
           playButtonContent.setAttribute("aria-label", "Play video");
         }
-        playButtonContent.addEventListener("keydown", e => {
+        playButtonContent.addEventListener("keydown", (e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
             playButtonContent.click();
@@ -2000,28 +2528,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // ────────────────────────────────────────────────
       // Popup elements (only relevant in popup mode)
-      const videoPopup   = document.getElementById("[id*='dialog-video__']");
+      const videoPopup = document.getElementById("[id*='dialog-video__']");
       const popupContent = document.getElementById("[id*='dialog-content__']");
-      const fullVideo    = document.getElementById("[id*='dialog-full__video-']");
-      const closeButton  = document.getElementById("[id*='dialog-close__btn-']");
+      const fullVideo = document.getElementById("[id*='dialog-full__video-']");
+      const closeButton = document.getElementById("[id*='dialog-close__btn-']");
 
-      const hasPopupElements = videoPopup && popupContent && fullVideo && closeButton;
+      const hasPopupElements =
+        videoPopup && popupContent && fullVideo && closeButton;
 
       // Playback mode decision
       const playInPlaceAttr = preview.dataset.playInPlace;
-      let playInPlace = playInPlaceAttr === "true" ? true :
-                        playInPlaceAttr === "false" ? false :
-                        !hasPopupElements;
+      let playInPlace =
+        playInPlaceAttr === "true"
+          ? true
+          : playInPlaceAttr === "false"
+            ? false
+            : !hasPopupElements;
 
       if (playInPlaceAttr === "false" && !hasPopupElements) {
-        console.warn(`Block ${index + 1} forced popup but no popup elements → fallback to in-place`);
+        console.warn(
+          `Block ${index + 1} forced popup but no popup elements → fallback to in-place`,
+        );
         playInPlace = true;
       }
 
       // ────────────────────────────────────────────────
       // Video source & type detection
       const videoUrl = preview.dataset.videoUrl || previewVideo.src || "";
-      const isVimeo  = videoUrl.includes("vimeo.com") || videoUrl.includes("player.vimeo.com");
+      const isVimeo =
+        videoUrl.includes("vimeo.com") || videoUrl.includes("player.vimeo.com");
       const isIframe = previewVideo.tagName === "IFRAME" || isVimeo;
 
       if (!isIframe) {
@@ -2030,7 +2565,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // ────────────────────────────────────────────────
-      let vimeoPlayer   = null;
+      let vimeoPlayer = null;
       let isPreviewMode = true;
       let isPlayingFull = false;
 
@@ -2051,6 +2586,7 @@ document.addEventListener("DOMContentLoaded", function () {
             vimeoPlayer.setLoop(true);
             vimeoPlayer.play().catch(() => {});
           } else {
+            previewVideo.removeAttribute("controls");
             previewVideo.pause();
             previewVideo.currentTime = startTime;
             previewVideo.loop = true;
@@ -2062,7 +2598,7 @@ document.addEventListener("DOMContentLoaded", function () {
           playButtonContent.style.pointerEvents = "auto";
           isPreviewMode = true;
           isPlayingFull = false;
-        }
+        },
       };
       videoInstances.push(videoInstance);
 
@@ -2070,7 +2606,6 @@ document.addEventListener("DOMContentLoaded", function () {
       // Reliable loader hiding
       const safeHideLoader = () => {
         hideLoader();
-        // console.log(`Loader hidden - block ${index + 1}`);
       };
 
       if (isVimeo) {
@@ -2083,26 +2618,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
           vimeoPlayer.on("loaded", () => {
             vimeoPlayer.setCurrentTime(startTime).then(() => {
-              vimeoPlayer.play().catch(err => {
+              vimeoPlayer.play().catch((err) => {
                 console.log(`Vimeo autoplay blocked ${index + 1}:`, err);
                 safeHideLoader();
               });
             });
           });
 
-          vimeoPlayer.on("timeupdate", data => {
+          vimeoPlayer.on("timeupdate", (data) => {
             if (isPreviewMode && data.seconds >= endTime) {
               vimeoPlayer.setCurrentTime(startTime);
             }
           });
 
-          vimeoPlayer.on("error", err => {
+          vimeoPlayer.on("error", (err) => {
             console.error(`Vimeo error ${index + 1}:`, err);
             safeHideLoader();
           });
 
           setTimeout(safeHideLoader, 6000);
-
         } catch (err) {
           console.error(`Vimeo init failed ${index + 1}:`, err);
           safeHideLoader();
@@ -2113,7 +2647,7 @@ document.addEventListener("DOMContentLoaded", function () {
           previewVideo.currentTime = startTime;
           previewVideo.muted = true;
           previewVideo.loop = true;
-          previewVideo.play().catch(err => {
+          previewVideo.play().catch((err) => {
             console.log(`HTML5 autoplay blocked ${index + 1}:`, err);
             safeHideLoader();
           });
@@ -2137,11 +2671,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // ────────────────────────────────────────────────
       // Play button → start full playback
-      playButtonContent.addEventListener("click", e => {
+      playButtonContent.addEventListener("click", (e) => {
         e.stopPropagation();
 
         // Stop other in-place videos
-        videoInstances.forEach(inst => {
+        videoInstances.forEach((inst) => {
           if (inst.index !== index && inst.playInPlace) {
             inst.stopFullPlayback();
           }
@@ -2155,12 +2689,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (playInPlace) {
           // In-place full playback
           if (isVimeo && vimeoPlayer) {
-            vimeoPlayer.setCurrentTime(0)
+            vimeoPlayer
+              .setCurrentTime(0)
               .then(() => {
                 vimeoPlayer.setLoop(false);
                 vimeoPlayer.play();
               })
-              .catch(err => {
+              .catch((err) => {
                 console.error(`Vimeo full play error ${index + 1}:`, err);
                 playButtonContent.style.opacity = "1";
                 playButtonContent.style.pointerEvents = "auto";
@@ -2179,13 +2714,17 @@ document.addEventListener("DOMContentLoaded", function () {
               vimeoPlayer.play();
             });
           } else {
-            // HTML5 full
+            // HTML5 full - enable video controls without download option
+            previewVideo.setAttribute("controls", "true");
+            previewVideo.setAttribute("controlsList", "nodownload");
             previewVideo.currentTime = 0;
             previewVideo.loop = false;
             previewVideo.muted = false;
 
-            previewVideo.play().catch(err => {
+            previewVideo.play().catch((err) => {
               console.error(`HTML5 full play error ${index + 1}:`, err);
+              previewVideo.removeAttribute("controls");
+              previewVideo.removeAttribute("controlsList");
               playButtonContent.style.opacity = "1";
               playButtonContent.style.pointerEvents = "auto";
               isPreviewMode = true;
@@ -2194,6 +2733,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             const onEnd = () => {
+              previewVideo.removeAttribute("controls");
+              previewVideo.removeAttribute("controlsList");
               playButtonContent.style.opacity = "1";
               playButtonContent.style.pointerEvents = "auto";
               isPreviewMode = true;
@@ -2219,7 +2760,7 @@ document.addEventListener("DOMContentLoaded", function () {
             onStart: () => {
               videoPopup.style.display = "flex";
               videoPopup.style.pointerEvents = "auto";
-            }
+            },
           });
 
           gsap.to(popupContent, {
@@ -2231,17 +2772,19 @@ document.addEventListener("DOMContentLoaded", function () {
               if (isVimeo) {
                 new Vimeo.Player(fullVideo).play();
               } else {
+                fullVideo.setAttribute("controls", "true");
+                fullVideo.setAttribute("controlsList", "nodownload");
                 fullVideo.play();
               }
-            }
+            },
           });
         }
       });
 
       // ────────────────────────────────────────────────
-      // NEW: Click anywhere on preview area to exit full playback (playInPlace only)
+      // Exit full playback on click (playInPlace only)
       if (playInPlace) {
-        const exitFullOnClick = e => {
+        const exitFullOnClick = (e) => {
           // Ignore clicks on the play button overlay
           if (playButtonContent.contains(e.target)) return;
 
@@ -2255,6 +2798,8 @@ document.addEventListener("DOMContentLoaded", function () {
               vimeoPlayer.setLoop(true);
               vimeoPlayer.play().catch(() => {});
             } else {
+              previewVideo.removeAttribute("controls");
+              previewVideo.removeAttribute("controlsList");
               previewVideo.pause();
               previewVideo.currentTime = startTime;
               previewVideo.loop = true;
@@ -2270,8 +2815,6 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         preview.addEventListener("click", exitFullOnClick);
-        // Optional: more precise → only on video/iframe
-        // previewVideo.addEventListener("click", exitFullOnClick);
       }
 
       // ────────────────────────────────────────────────
@@ -2286,12 +2829,15 @@ document.addEventListener("DOMContentLoaded", function () {
               if (isVimeo) {
                 const fp = new Vimeo.Player(fullVideo);
                 fp.pause();
-                if (fullVideo.dataset.videoBehavior === "restart") fp.setCurrentTime(0);
+                if (fullVideo.dataset.videoBehavior === "restart")
+                  fp.setCurrentTime(0);
               } else {
+                fullVideo.removeAttribute("controls");
                 fullVideo.pause();
-                if (fullVideo.dataset.videoBehavior === "restart") fullVideo.currentTime = 0;
+                if (fullVideo.dataset.videoBehavior === "restart")
+                  fullVideo.currentTime = 0;
               }
-            }
+            },
           });
 
           gsap.to(videoPopup, {
@@ -2306,11 +2852,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
               if (isVimeo && vimeoPlayer) vimeoPlayer.play().catch(() => {});
               else previewVideo.play().catch(() => {});
-            }
+            },
           });
         });
 
-        document.addEventListener("keydown", e => {
+        document.addEventListener("keydown", (e) => {
           if (e.key === "Escape" && videoPopup.style.display !== "none") {
             closeButton.click();
           }

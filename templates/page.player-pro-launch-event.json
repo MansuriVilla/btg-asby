@@ -27,7 +27,7 @@
         "hide_default_content": false
       }
     },
-    "page_new_header_A4XVTP": {
+    "page_new_header_Qg49Er": {
       "type": "page-new-header",
       "name": "New Page Header",
       "settings": {
@@ -36,30 +36,32 @@
         "section_padding": 30
       }
     },
-    "form_section_7dq8Hc": {
+    "form_section_AnpPiW": {
       "type": "form-section",
       "name": "Form Section",
       "settings": {
         "layout_style": "split_right",
-        "image_desktop": "shopify://shop_images/Rainmaker_017_2_71ea4637-d85b-4a45-9669-1833f4b6ddbe.png",
-        "image_mobile": "shopify://shop_images/Frame_1410105568.png",
-        "tag_line": "RAINMAKER LAUNCH PARTY",
+        "image_desktop": "shopify://shop_images/Frame_1410105570.webp",
+        "image_mobile": "shopify://shop_images/Frame_1410105565_3.png",
+        "mobile_image_center": true,
+        "tag_line": "PGA BUYER'S SUMMIT",
         "heading": "WELCOME. <br> CHECK-IN BELOW",
-        "subheading": "Enter your info below to grab your wristband, score free tacos, demo the Rainmaker, and be entered to win prizes — announced live at the range every 30 minutes",
-        "formBlock": "<div class=\"klaviyo-form-UxUqxx\"></div>",
+        "subheading": "Fill out the form below to get the latest on product drops, updates, and exclusive offers, and be entered for a chance to WIN a Player Pro GPS Speaker.",
+        "formBlock": "<div class=\"klaviyo-form-WZySHG\"></div>",
         "formNote": "",
         "sectionBackgroundClr": "#000000"
       }
     },
-    "new_image_section_MWMtNb": {
+    "new_image_section_PdPG6P": {
       "type": "new-image-section",
       "name": "Section Image",
       "settings": {
-        "sectionImage": "shopify://shop_images/Frame_1410105277546.png",
-        "sectionImageMobile": "shopify://shop_images/Frame_141010530545.png"
+        "sectionImage": "shopify://shop_images/Frame_1410105563.webp",
+        "sectionImageMobile": "shopify://shop_images/Frame_1410105563_1.webp",
+        "eager_load": false
       }
     },
-    "page_new_footer_bgFqKk": {
+    "page_new_footer_xExcti": {
       "type": "page-new-footer",
       "name": "Simple Footer",
       "settings": {
@@ -71,9 +73,9 @@
   },
   "order": [
     "main",
-    "page_new_header_A4XVTP",
-    "form_section_7dq8Hc",
-    "new_image_section_MWMtNb",
-    "page_new_footer_bgFqKk"
+    "page_new_header_Qg49Er",
+    "form_section_AnpPiW",
+    "new_image_section_PdPG6P",
+    "page_new_footer_xExcti"
   ]
 }

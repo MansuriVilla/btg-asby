@@ -43,10 +43,10 @@ $(document).ready(function() {
             .countdown_main-container{display:flex; justify-content: center; align-items: flex-end; gap: 28px;}
 
             /* .countdown_main-container .shop-now-btn{ font-size:13px; margin-top: 11px; background-color: transparent !important; border-radius: 50px; border: 1.77px solid #CDFF07; padding: 10px 26px; line-height: 13px;}
-            .countdown_main-container .shop-now-btn:hover { background: #CDFF07 !important; color: #000;} */
+            .countdown_main-container .shop-now-btn:hover { background: #CDFF07 !important; color: var(--new-black);} */
 
   .countdown_main-container .shop-now-btn { font-size: 13px; margin-top: 11px; padding: 10px 26px; line-height: 13px; position: relative; z-index: 2; color: #fff; text-decoration: none; transition: background 0.3s ease, color 0.3s ease; /* background: url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/winter_sale--offer_bug-bg.png?v=1733986046) no-repeat center center / cover; */  border-radius: 50px; }
-  .countdown_main-container .shop-now-btn::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 50px; background: #000; z-index: -1; padding: 1.77px; transition: background 0.3s ease; margin: 2px; }
+  .countdown_main-container .shop-now-btn::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 50px; background: var(--new-black); z-index: -1; padding: 1.77px; transition: background 0.3s ease; margin: 2px; }
   .countdown_main-container .shop-now-btn:hover { /* background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/winter_sale--offer_bug-bg.png?v=1733986046) no-repeat center center / cover; */ color: #fff;  }
   .countdown_main-container .shop-now-btn:hover::before , .shop-now-btn:hover { background-color: #9B0000 !important; }
 
@@ -76,8 +76,8 @@ $(document).ready(function() {
             .countdown_main-container .flip-clock-divider.minutes .flip-clock-label { right: -91px;  }
             .countdown_main-container .flip-clock-dot{background: #fff;}
 
-            .shop-now-btn { background-color: #CB0000; color: white; padding: 11px 0px; border: none; border-radius: 5px; font-size: 14px; cursor: pointer; letter-spacing: 1px; max-width: 148px; width: 100%; margin-top: 34px; display: inline-block; font-weight: 900; letter-spacing: 3.2px; min-height: inherit !important; }
-            .shop-now-btn:hover { background-color: #004DF5;  color:#fff; }
+            .shop-now-btn { background-color: var(--new-red); color: white; padding: 11px 0px; border: none; border-radius: 5px; font-size: 14px; cursor: pointer; letter-spacing: 1px; max-width: 148px; width: 100%; margin-top: 34px; display: inline-block; font-weight: 900; letter-spacing: 3.2px; min-height: inherit !important; }
+            .shop-now-btn:hover { background-color: var(--new-blue);  color:#fff; }
 
             @media only screen and (max-width:768px){
               .countdown_main-container{gap: 18px;}

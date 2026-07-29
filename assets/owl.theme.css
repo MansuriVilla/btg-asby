@@ -56,7 +56,7 @@
     border-radius: 30px
 }
 .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
-    background: #004DF5
+    background: var(--new-blue)
 }
 
 

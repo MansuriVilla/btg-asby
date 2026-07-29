@@ -154,7 +154,7 @@
     </div>
     <button 
       id="slider-toggle" 
-      class="slider-toggle-btn"
+      class="carousel-control-btn"
       aria-label="Pause slider animation"
       aria-pressed="false"
       aria-controls="slider-images-container"
@@ -449,7 +449,7 @@
                 BE ACCESSIBLE.
               </dt>
               <dd>
-                The best gear shouldn’t be <br />
+                The best gear shouldn’t be 
                 reserved for tour players.
               </dd>
             </dl>
@@ -464,7 +464,7 @@
                 FEEL EFFORTLESS
               </dt>
               <dd>
-                Golf is already hard. Your gear <br />
+                Golf is already hard. Your gear
                 shouldn’t be.
               </dd>
             </dl>
@@ -476,7 +476,7 @@
             <dl class="rule_block-right">
               <dt>DESIGN MATTERS.</dt>
               <dd>
-                We obsess over how it looks, <br />
+                We obsess over how it looks,
                 feels, and performs.
               </dd>
             </dl>
@@ -488,7 +488,7 @@
             <dl class="rule_block-right">
               <dt>FUN ISN’T OPTIONAL.</dt>
               <dd>
-                It’s the point. And we’re here to <br />
+                It’s the point. And we’re here to
                 bring it back.
               </dd>
             </dl>
@@ -668,6 +668,33 @@
 :is(p) { font-size: 14px; padding: 0px; }
 .about_us-page-content { display: flex; flex-direction: column; row-gap: clamp(38px, 8vw, 125px); }
 
+
+.carousel-control-btn {
+  background: transparent;
+  border: 1px solid #9B9DA3;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #9B9DA3;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+  margin-inline: auto 20px;
+}
+
+.carousel-control-btn:hover {
+  color: #fff;
+  background: #9B9DA3;
+}
+
+.carousel-control-btn:focus-visible {
+  outline: 2px solid var(--new-blue);
+  outline-offset: 2px;
+}
+
 /*-------------------------
   Hero Styles
   ----------------*/
@@ -683,7 +710,7 @@
     .hero_content { align-items: flex-end; justify-content: center; }
     .hero_inner .has_parallex:not(.our_mission img.has_parallex) { object-fit: scale-down; max-height: none; object-position: right; }
     .hero_content-text { padding-left: 0; margin-top: 0; text-align: center; max-width: 330px; padding-bottom: 30px; }
-    .hero_content-background { height: clamp(90vh, 70vw, 100vh); background: #000; max-height: none; }
+    .hero_content-background { height: clamp(90vh, 70vw, 100vh); background: var(--new-black); max-height: none; }
     .hero_content-text h1 br:nth-child(2) { display: none; }
   }
 
@@ -760,14 +787,14 @@
   .timeline-navigation--holder { position: relative; max-width: 100%; width: 100%; margin: 0 auto; }
   .milestones_slider .slider_navigation-area { margin: 0px; }
   .timeline-navigation--holder::after { content: ""; position: absolute; right: -8px; top: -5.1px; background: url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171276590.svg?v=1753255992) center center / contain no-repeat; height: 10px; width: 10px; z-index: 9; display: flex; }
-  .timeline-navigation--holder::before { content: ""; position: absolute; top: 0px; left: 0; width: 100%; background: #c1c1c1; height: 1px; }
+  .timeline-navigation--holder::before { content: ""; position: absolute; top: 0px; left: 0; width: 100%; background: var(--new-gray); height: 1px; }
   .timeline-navigation { display: flex; justify-content: space-between; align-items: flex-start; position: relative; padding: 0px clamp(20px, 7vw, 100px); }
   .timeline-item { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; z-index: 2; text-align: center; flex: 1 1 auto; }
-  .timeline-item::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background-color: #d9d9d9; margin-bottom: 10px; transition: background-color 0.3s ease; margin-top: -6px; }
+  .timeline-item::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background-color: var(--new-gray); margin-bottom: 10px; transition: background-color 0.3s ease; margin-top: -6px; }
   .timeline-item.active::before { background-color: #075ee1; }
-  .timeline-item.active :is(.timeline-year, .timeline-text) { color: #000; }
-  .timeline-item .timeline-year { font-weight: bold; font-size: 16px; color: #c5c5c5; margin-bottom: 5px; letter-spacing: 1.6px; font-family: 'Blue Tees Subhead Italic'; }
-  .timeline-item .timeline-text { font-size: 10px; color: #9c9c9c; line-height: 1.2; }
+  .timeline-item.active :is(.timeline-year, .timeline-text) { color: var(--new-black); }
+  .timeline-item .timeline-year { font-weight: bold; font-size: 16px; color: var(--new-gray); margin-bottom: 5px; letter-spacing: 1.6px; font-family: 'Blue Tees Subhead Italic'; }
+  .timeline-item .timeline-text { font-size: 10px; color: var(--new-gray); line-height: 1.2; }
 
   @media (max-width: 860px) {
     .milestones_slide-inner { flex-wrap: wrap; justify-content: center; gap: clamp(20px, 3vw, 40px); padding-top: clamp(47px, 9vw, 73px); }
@@ -819,9 +846,9 @@
   ----------------*/
   .our_mission .hero_content { justify-content: center; align-items: center; }
   .our_mission .hero_content-background { max-height: 550px; }
-  .our_mission-text { background: #004DF5e8; border-radius: 11px; text-align: center; padding: clamp(30px, 7vw, 100px) clamp(20px, 7vw, 140px) clamp(60px, 7vw, 100px); max-width: clamp(290px, 82vw, 1300px); margin: 0 20px; }
-  .our_mission-text h3 { --font-heading: clamp(20px, 2.4vw, 36px); font-size: var(--font-heading); line-height: calc(var(--font-heading) * 4px); font-weight: 900;  font-family: 'Blue Tees Subhead Italic'; }
-  .our_mission-text h5 { color: #80b2ff; letter-spacing: 4px; font-weight: 900; line-height: 28px; }
+  .our_mission-text { background: var(--new-blue); border-radius: 11px; text-align: center; padding: clamp(30px, 7vw, 100px) clamp(20px, 7vw, 140px) clamp(60px, 7vw, 100px); max-width: clamp(290px, 82vw, 1300px); margin: 0 20px; width: 100%; }
+  .our_mission-text p { --font-heading: clamp(20px, 2.4vw, 36px); font-size: var(--font-heading); line-height: calc(var(--font-heading) * 4px); font-weight: 900;  font-family: 'Blue Tees Subhead Italic'; width: 100%;  max-width: 100%; }
+  .our_mission-text h5 { color: #fff; letter-spacing: 4px; font-weight: 900; line-height: 28px; }
   .our_mission .has_parallex { scale: 1.3; height: 100vh; max-height: 500px; object-fit: cover; }
 
 
@@ -834,7 +861,7 @@
   .campioned_pros-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
   .campioned_pros-inner { display: flex; flex-direction: column; gap: 30px; text-align: center; max-width: 1300px; margin: 0 auto; padding: 0 20px; }
   .campioned_pros-head { display: flex; flex-direction: column; row-gap: 10px; }
-  .campioned_pros-head h2 {  }
+  .campioned_pros-head h2 { text-transform: uppercase; }
   .campioned_pros-head h4 { font-weight: 400;  font-family: 'Blue Tees Paragraph';}
   .pros_card-text h4 { letter-spacing: 2.4px; }
   .pros_card-text p { font-style: italic; }

@@ -553,8 +553,8 @@
               <option value="section8">Activity Tracking</option>
             </select>
             <div class="desktop-carousel-controls" aria-label="Feature navigation" style="display: flex; gap: 10px; margin-top: 20px; justify-content: center;">
-              <button id="desktopPrevBtn" class="cta_stroke-btn" style="padding: 10px 20px; border-color: #000; color: #000; font-size: 14px;" aria-label="Previous feature" disabled>Prev</button>
-              <button id="desktopNextBtn" class="cta_solid-bg" style="padding: 10px 20px; font-size: 14px; border: 2px solid transparent;" aria-label="Next feature">Next</button>
+              <button id="desktopPrevBtn" type="button" class="cta_stroke-btn" style="padding: 10px 20px; border-color: var(--new-black); color: var(--new-black); font-size: 14px;" aria-label="Previous feature" disabled>Prev</button>
+              <button id="desktopNextBtn" type="button" class="cta_solid-bg" style="padding: 10px 20px; font-size: 14px; border: 2px solid transparent;" aria-label="Next feature">Next</button>
             </div>
             <div id="desktopLiveRegion" aria-live="polite" class="visually-hidden" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0);">Showing feature: Advanced Course View</div>
           </div>
@@ -1000,7 +1000,7 @@
 <style>
   .video_scale_animation-main{height:auto;}
 .pm_toolArea__innerBottom h3 {
-  color: #000;
+  color: var(--new-black);
 }
 
 
@@ -1012,7 +1012,7 @@
   .compare__title { font-size: clamp(24px, 3vw, 32px); line-height: 120%; font-style: normal; }
   .playmaker_header-custom.section_IsWhite img.white-logo { display: none !important; }
   .playmaker_header-custom.section_IsWhite img.dark-logo { display: block !important; }
-  .playmaker_plusMain { background: #000; }
+  .playmaker_plusMain { background: var(--new-black); }
   .bentoGrid__areaContainer { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: clamp(300px, 30vw, 444px); gap: 20px; max-width: 1500px; padding-bottom: clamp(15px, 12vw, 136px); }
   .bentoGrid__item { display: flex; align-items: flex-start; justify-content: flex-start; border-radius: 20px; min-height: 300px; background: linear-gradient(225deg, #505469 -95.08%, #020202 150.57%); position: relative; padding: clamp(20px, 2.2vw, 30px); overflow: hidden; }
   .bentoGrid__item__title { position: relative; z-index: 1; width: 100%; }
@@ -1031,19 +1031,19 @@
   .bentoGrid__item-6 { grid-column: span 5; }
   .playMakerPlus__whiteArea.playMakerPlus___compareArea { background: #fff; border-radius: 20px 20px 0 0; }
   .compareArea__Inner { padding-top: 60px; padding-bottom: 60px; display: flex; flex-direction: column; row-gap: 50px; justify-content: center; align-items: center; position: relative; }
-  .compareArea__Title { text-align: center; color: #000; max-width: 590px; width: 100%; margin: 0 auto;  }
+  .compareArea__Title { text-align: center; color: var(--new-black); max-width: 590px; width: 100%; margin: 0 auto;  }
   .compare__imageArea img { max-width: 1130px; margin: 0 auto; width: 100%; }
   .playmaker_header-inner { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
-  .playmaker_header-custom { padding: clamp(15px, 4vw, 29px) 0; position: sticky; top: 0; background-color: #000; color: #fff; z-index: 5; transition: 0.3s all linear; }
+  .playmaker_header-custom { padding: clamp(15px, 4vw, 29px) 0; position: sticky; top: 0; background-color: var(--new-black); color: #fff; z-index: 5; transition: 0.3s all linear; }
   .playmaker_links-parent { display: flex; gap: 20px; color: #fff; margin: 0; }
   .playmaker_links { margin: 0; list-style: none; }
   .playmaker_link:hover { color: #9B9DA3; text-decoration: underline; }
   .playmaker_link { color: #9B9DA3; transition: color 0.3s ease-in-out; font-size: clamp(13px, 1.6vw, 16px); }
   .playmaker_header-custom .page-width { padding: 0 clamp(10px, 1.7vw, 40px); }
   .playmaker_link.active { color: #fff; text-decoration: underline; }
-  .playmaker_header-custom.section_IsWhite { background-color: #fff; color: #000; }
+  .playmaker_header-custom.section_IsWhite { background-color: #fff; color: var(--new-black); }
   .playmaker_header-custom.section_IsWhite .playmaker_header-left img:not(img.dark-logo) { filter: invert(1); }
-  .playmaker_header-custom.section_IsWhite .playmaker_link.active { color: #000; }
+  .playmaker_header-custom.section_IsWhite .playmaker_link.active { color: var(--new-black); }
   #shopify-section-playmaker-html .playmaker_header-right .cta_solid-bg { background: #cb0000; border: 2px solid #fff0; padding: clamp(12px, 1.1vw, 17px) clamp(14px, 2.2vw, 50px); letter-spacing: clamp(1px, 0.4vw, 1.6px); font-size: 14px; border-radius: 50px;
   color: #fff;
   font-weight: 900; display: flex;
@@ -1052,7 +1052,7 @@
   #shopify-section-playmaker-html .playmaker_header-right .cta_solid-bg:hover { color: #cb0000; background: #fff; border-color: #cb0000; }
   .playmaker_plus--featureArea { background: #fff; border-radius: 20px; padding: clamp(25px, 10vw, 129px) 0; position: relative; margin-top: -2%; }
   .tow_content--sticky-area { display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: 20px; }
-  .playmaker_header-custom.section_IsWhite #menuSelect { background: url("https://cdn.shopify.com/s/files/1/0057/8958/1381/files/dropdown-arrow.png") no-repeat center; background-position: 93%; background-size: 12px; color: #000; filter: inherit; }
+  .playmaker_header-custom.section_IsWhite #menuSelect { background: url("https://cdn.shopify.com/s/files/1/0057/8958/1381/files/dropdown-arrow.png") no-repeat center; background-position: 93%; background-size: 12px; color: var(--new-black); filter: inherit; }
   #menuSelect { background: url("https://cdn.shopify.com/s/files/1/0057/8958/1381/files/dropdown-arrow.png") no-repeat center; background-size: 12px; filter: brightness(0) invert(1); background-position: 93%; }
   #sectionDropdown { border-radius: 50px; border: 2px solid #363636; text-transform: capitalize; max-width: clamp(390px, 20vw, 390px); padding: 18px 30px; width: 100%; background: url("https://cdn.shopify.com/s/files/1/0057/8958/1381/files/dropdown-arrow.png") white no-repeat calc(100% - 30px) !important; }
   select::-ms-expand { display: none; }
@@ -1072,7 +1072,7 @@
   .goFeature_rightTop { display: flex; flex-direction: column; row-gap: 21px; align-items: flex-start; }
   .playMakerPlus__goFeature_area { padding: clamp(30px, 6vw, 100px) 0px clamp(25px, 4vw, 60px); }
   .goFeature_topRight { flex: 40%; }
-  .goFeature_rightTop span { background: #004DF5; padding: 12px 20px; border-radius: 50px; display: inline-flex; line-height: 1; font-size: 12px; font-weight: 900; letter-spacing: 1.6px; }
+  .goFeature_rightTop span { background: var(--new-blue); padding: 12px 20px; border-radius: 50px; display: inline-flex; line-height: 1; font-size: 12px; font-weight: 900; letter-spacing: 1.6px; }
   .goFeature_rightTop img { max-width: 185px; }
   .goFeature_rightTop h3 { color: #fff; font-size: clamp(24px, 3vw, 32px); max-width: 370px; line-height: clamp(24px, 3vw, 32px); }
   .goFeature_topLeft .goFeature_rightBottomInner .game_linkArea_store { display: none; }
@@ -1118,7 +1118,7 @@
   .playmaker_Plus_playSmarter-Area { padding: clamp(20px, 6vw, 70px) 0; }
   .playSmarter-Inner { display: flex; flex-direction: column; row-gap: clamp(30px, 7vw, 88px); }
   .playSmarter_content { color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: 20px; }
-  .screens-container { width: 100%; overflow: hidden; background: #000; height: 100%; display: flex; justify-content: center; align-items: center; max-height: clamp(110px, 20vw, 215px); max-width: clamp(90px, 12vw, 155px); }
+  .screens-container { width: 100%; overflow: hidden; background: var(--new-black); height: 100%; display: flex; justify-content: center; align-items: center; max-height: clamp(110px, 20vw, 215px); max-width: clamp(90px, 12vw, 155px); }
   .stacking_section-container { position: relative; /* min-height: 100vh; */ }
   .stacking_section-innner__l { display: flex; /* min-height: 100vh; */ align-items: center; justify-content: center; }
   .stacking_section-inner { height: 85vh; display: flex; justify-content: center; flex-direction: column; }
@@ -1156,19 +1156,22 @@
   .protectPlay_maker_left.flex_col { flex: 50%; padding-top: clamp(25px, 2.9vw, 50px); }
   .protectPlay_maker_center.flex_col { flex: 55%; padding-top: clamp(25px, 2.9vw, 50px); }
   .protectPlay_maker_right.flex_col { flex: 40%; align-items: center; }
-  .protectPlay_maker_left p { padding: 0; color: #ff0000; font-weight: 500; font-size: 12px; text-align: left; width: 100%; }
+  .protectPlay_maker_left p { padding: 0; color: var(--new-red); font-weight: 500; font-size: 12px; text-align: left; width: 100%; }
   a.cta_stroke-btn { border: 2px solid #fff; border-radius: 50px; max-width: fit-content; padding: clamp(12px, 2vw, 20px) clamp(15px, 3vw, 45px); color: #fff; letter-spacing: clamp(0.6px, 0.5vw, 1.6px); font-weight: 900; font-size: 14px; }
-  a.cta_stroke-btn:hover { background: #fff; color: #000; }
+  a.cta_stroke-btn:hover { background: #fff; color: var(--new-black); }
   .blueTeesDevice__right { flex: 60%; }
   .protectPlay_maker_right.flex_col img { max-width: clamp(120px, 15vw, 196px); width: 100%; }
   .protectPlay_maker_centerBottom { display: flex; align-items: center; justify-content: space-between; width: 100%; text-align: center; gap: 18px; }
   .protectPlay_maker_centerTop p { padding: 0; margin-bottom: clamp(15px, 2vw, 30px); }
-  .protectPlay_maker_centerBottom a.cta_stroke-btn { border-color: #000; color: #000; padding: 17px 19px; max-width: 100%; font-size: 14px; flex: 1; text-align: center; min-width: fit-content; }
+  .protectPlay_maker_centerBottom a.cta_stroke-btn { border-color: var(--new-black); color: var(--new-black); padding: 17px 19px; max-width: 100%; font-size: 14px; flex: 1; text-align: center; min-width: fit-content; }
   .protectPlay_maker_centerBottom a.cta_stroke-btn:hover { border-color: #fff0; }
-  a.cta_solid-bg, #bottom-only-watch.cta_solid-bg { background: #004DF5; padding: clamp(12px, 1.1vw, 17px) clamp(14px, 2.2vw, 50px); border-radius: 50px; color: #fff; font-weight: 900; letter-spacing: 1.6px; flex: 1; font-size: 14px; min-width: fit-content; border: 2px solid transparent; overflow: hidden;  display: flex;
+  a.cta_solid-bg, #bottom-only-watch.cta_solid-bg { background: var(--new-blue); padding: clamp(12px, 1.1vw, 17px) clamp(14px, 2.2vw, 50px); border-radius: 50px; color: #fff; font-weight: 900; letter-spacing: 1.6px; flex: 1; font-size: 14px; min-width: fit-content; border: 2px solid transparent; overflow: hidden;  display: flex;
   justify-content: center;
   align-items: center;}
-  a.cta_solid-bg:hover, #bottom-only-watch.cta_solid-bg:hover { background: #fff; color: #004DF5; border-color: #004DF5; }
+  a.cta_solid-bg:hover, #bottom-only-watch.cta_solid-bg:hover { background: #fff; color: var(--new-blue); border-color: var(--new-blue); }
+  /* Disabled state for Prev/Next carousel buttons */
+  button#desktopPrevBtn:disabled,
+  button#desktopNextBtn:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
   @media only screen and (max-width: 1280px) {
    .protectPlay_maker_centerBottom a,
     .protectPlay_maker_centerBottom a.cta_stroke-btn { padding: 10px; font-size: 12px; }
@@ -1488,10 +1491,14 @@
         });
 
         const dropdown = container.querySelector('#desktopSectionDropdown');
-        const prevBtn = document.getElementById('desktopPrevBtn');
-        const nextBtn = document.getElementById('desktopNextBtn');
-        const liveRegion = document.getElementById('desktopLiveRegion');
+        const prevBtn = container.querySelector('#desktopPrevBtn') || document.getElementById('desktopPrevBtn');
+        const nextBtn = container.querySelector('#desktopNextBtn') || document.getElementById('desktopNextBtn');
+        const liveRegion = container.querySelector('#desktopLiveRegion') || document.getElementById('desktopLiveRegion');
         let currentActiveFeature = null;
+
+        // Gray out buttons until JS is fully initialized
+        if (prevBtn) prevBtn.disabled = true;
+        if (nextBtn) nextBtn.disabled = true;
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -1532,30 +1539,58 @@
           },
         });
 
+        // Enable controls once timeline is ready
+        gsap.delayedCall(0.3, () => {
+          if (prevBtn) prevBtn.disabled = true; // first feature — prev stays disabled
+          if (nextBtn) nextBtn.disabled = texts.length <= 1;
+        });
+
         function goToFeature(idx) {
           if (!tl.scrollTrigger) return;
           const st = tl.scrollTrigger;
           const labelTime = tl.labels[`feature${idx}_start`];
           if (labelTime === undefined) return;
-          const progress = labelTime / tl.duration();
-          const scrollPos = st.start + (st.end - st.start) * progress;
-          window.scrollTo({ top: scrollPos + 5, behavior: 'smooth' });
+          // Offset by entrance duration so we land when item is fully visible (opacity 1)
+          const targetTime = labelTime + config.duration;
+          const progress = targetTime / tl.duration();
+          const scrollPos = Math.round(st.start + (st.end - st.start) * Math.min(progress, 1));
+          
+          // Instantly jump to the target scroll position
+          window.scrollTo({ top: scrollPos });
+          
+          // Poll until scrollY reaches target, then force update
+          let attempts = 0;
+          const waitForScroll = () => {
+            attempts++;
+            if (Math.abs(window.scrollY - scrollPos) < 5 || attempts > 20) {
+              ScrollTrigger.update();
+              tl.scrollTrigger.update();
+            } else {
+              requestAnimationFrame(waitForScroll);
+            }
+          };
+          requestAnimationFrame(waitForScroll);
         }
 
         if (prevBtn) {
-          prevBtn.addEventListener('click', () => {
-            if (currentActiveFeature > 1) goToFeature(currentActiveFeature - 1);
+          prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const current = currentActiveFeature || 1;
+            if (current > 1) goToFeature(current - 1);
           });
         }
         
         if (nextBtn) {
-          nextBtn.addEventListener('click', () => {
-            if (currentActiveFeature < texts.length) goToFeature(currentActiveFeature + 1);
+          nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const current = currentActiveFeature || 1;
+            if (current < texts.length) goToFeature(current + 1);
           });
         }
         
         if (dropdown) {
           dropdown.addEventListener('change', (e) => {
+            e.preventDefault();
             const idx = parseInt(e.target.value.replace('section', ''));
             goToFeature(idx);
           });

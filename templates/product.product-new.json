@@ -1,1 +1,954 @@
-{"sections":{"main":{"type":"new-main-product","blocks":{"price":{"type":"price","settings":{}},"description":{"type":"description","settings":{"is_tab":false}},"icons_row_RRtTbq":{"type":"icons_row","disabled":true,"settings":{"itemIcon":"shopify:\/\/shop_images\/icon-truck-pdp.svg","itemText":"FAST + FREE SHIPPING","itemIconTwo":"shopify:\/\/shop_images\/icon-lock-pdp.svg","itemTextTwo":"SECURE CHECKOUT","itemIconThree":"shopify:\/\/shop_images\/icon-return-pdp.svg","itemTextThree":"100 DAY RETURNS","itemIconFour":"shopify:\/\/shop_images\/icon-badge-pdp.svg","itemTextFour":"2 YEAR WARRANTY"}},"loox-rating":{"type":"shopify:\/\/apps\/loox-reviews\/blocks\/loox-rating\/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e","disabled":true,"settings":{"contentSize":16,"pattern":"","hideText":false,"alignment":"","layout":"","textColor":"","starColor":"","showAllReviews":false,"looxOpenFloatingWidget":false,"emptyRatingWidget":false}},"variant_picker":{"type":"variant_picker","settings":{"size_chart":"","variant_labels":true,"picker_type":"button","color_swatches":true}},"buy_buttons":{"type":"buy_buttons","settings":{"show_dynamic_checkout":false,"surface_pickup_enable":true,"pre_order":true,"cta_note_text":"FREE SHIPPING"}},"tab_DkLFBn":{"type":"tab","settings":{"title":"FEATURES","content":"<picture>\n          <source srcset=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0057\/8958\/1381\/files\/ca-f-icons-desktop.png?v=1772427363\" media=\"(min-width:992px)\">\n          <source srcset=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0057\/8958\/1381\/files\/ca-f-icons-mobile.png?v=1772427362\" media=\"(max-width:991px)\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0057\/8958\/1381\/files\/ca-f-icons-desktop.png?v=1772427363\" alt=\"Blue Tees Logo\" height=\"100%\" width=\"100%\">\n        <\/source><\/source><\/picture>","page":""}},"tab_xH6FTH":{"type":"tab","settings":{"title":"WHAT’S INCLUDED","content":"<img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0057\/8958\/1381\/files\/ContentArea-1_3186d039-6ced-4e84-882e-a8f5fab579ca.png?v=1770278931\" alt=\"Product Features Icons\">","page":""}},"tab_akWX4b":{"type":"tab","settings":{"title":"USER MANUAL","content":"<div class=\"user-manual-tab\">\n  <div class=\"bottom-buttons\">\n<ul>\n      <li><p><strong>Quick Start How-To Video<\/strong><\/p><\/li>\n      <li class=\"review\"><a href=\"javascript:void(0);\" style=\"text-align: center;background-position-x: 20px !important;\" class=\"videopopup_link\" data-video-id=\"1174642375\">PLAY VIDEO<\/a><\/li>\n    <\/ul>\n    <ul>\n      <li><p><strong>Complete User Manual PDF<\/strong><\/p><\/li>\n      <li class=\"review download\"><a href=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0057\/8958\/1381\/files\/Captain_Air_Product_Manual_1.1_rfs.pdf?v=1772686837\" target=\"_blank\">DOWNLOAD PDF<\/a><\/li>\n    <\/ul>\n  <\/div>\n<\/div>","page":""}}},"block_order":["price","description","icons_row_RRtTbq","loox-rating","variant_picker","buy_buttons","tab_DkLFBn","tab_xH6FTH","tab_akWX4b"],"settings":{"must_watch":"1161392004","display_review_button":false,"review_video":"1132441995","show_label":false,"sku_enable":true,"image_position":"left","image_size":"large","product_zoom_enable":true,"thumbnail_position":"below","thumbnail_arrows":true,"mobile_layout":"full","enable_video_looping":true,"product_video_style":"muted"}},"sub":{"type":"product-full-width","disabled":true,"settings":{"max_width":true}},"product-recommendations":{"type":"product-recommendations","disabled":true,"settings":{"show_product_recommendations":false,"product_recommendations_heading":"You may also like","related_count":5}},"recently-viewed":{"type":"recently-viewed","disabled":true,"settings":{"recent_count":5}},"lp_hero_section_Hd8MC6":{"type":"lp-hero-section","name":"Rainmaker Hero","settings":{"no_space_top":false,"no_bottom_space":false,"bg_clr":"","badge_text":"","title":"shopify:\/\/shop_images\/Group_1410105143.png","titleMobile":"shopify:\/\/shop_images\/Group_1410105171.png","subtext":"","button_text":"ADD TO CART","button_link":"#","image_has_ratio":false,"product_image":"shopify:\/\/shop_images\/Frame_1410105142_1.png","product_image_mobile":"shopify:\/\/shop_images\/Frame_1410105140_1.png","bg_content_clr":"","show_video":true,"product_video":"shopify:\/\/files\/videos\/CPT Air_002.mp4","product_video_mobile":"shopify:\/\/files\/videos\/CPT Air Mobile_001.mp4","heading_bottom":"","subheading_bottom":"","bottom_button_text":"","bottom_button_link":""}},"portability_meets_section_kbi3qC":{"type":"portability-meets-section","name":"Portiablity-Meets Platform","settings":{"hero_heading_top":"","hero_heading":"THE CONNECTED<br>ESSENTIAL.","hero_heading_image_enable":false,"heading_small":false,"hero_description":"<p>The Captain Air brings connected, pro-grade precision to every golfer. With Bluetooth connectivity and seamless integration with the Blue Tees GAME app, you’ll unlock yardages for 42,000+ courses, slope-adjusted distances, and a clean, intuitive display. Compact, waterproof, and always ready, Captain Air gives you the confidence to play smarter—whether it’s your first rangefinder or your next connected upgrade.<br\/><br\/><\/p>","note":"","desc_large":true,"desc_clr":"#ffffff","hero_main_image":"shopify:\/\/shop_images\/Frame_1171277889_2.png","hero_main_image_large":true,"hero_main_image_large_top":false,"hero_main_image_fill_top":false,"hero_main_image_full_mobile":false,"container":false,"bg_color_top":"#171923","bg_content_clr":"","textColor":"#ffffff","cardClr":"","slider_heading":"","slider_description":"","extra_space":false,"image_space":false,"show_arrow":false,"heading_clr":"#ffffff","icon_white":false,"layout_change":false,"desc_order":"0"}},"two_layout_lp_section_9kmAQQ":{"type":"two-layout-lp-section","blocks":{"two_layout_block_NEbwkt":{"type":"two_layout_block","settings":{"sectionTitle":"Red \/ Black HD <br> Display","sectionDescription":"A high-contrast display with dual color modes keeps yardages easy to read in any lighting.","disclaimer":"","has_store_icon":false,"app_store_link":"","play_store_link_new":"","hasImage":true,"sectionImage":"shopify:\/\/shop_images\/Frame_1171277725_2.png","hasMobileImage":false,"hasMedia":false,"image_full":false,"sectionDirection":false}},"two_layout_block_bLPgnm":{"type":"two_layout_block","settings":{"sectionTitle":"6X MAGNIFICATION WITH\u2028 <br> 1000 Yard Precision","sectionDescription":"Lock onto pins faster with 6X optical magnification and a 1000-yard measurement range. Together, they give you the long-range visibility and tour-level accuracy to attack every shot with confidence.","disclaimer":"","has_store_icon":false,"app_store_link":"","play_store_link_new":"","hasImage":true,"sectionImage":"shopify:\/\/shop_images\/Group_1410105035.png","hasMobileImage":false,"hasMedia":false,"image_full":false,"sectionDirection":false}}},"block_order":["two_layout_block_NEbwkt","two_layout_block_bLPgnm"],"name":"Two Layout Section New","settings":{"layoutHeading":"","sectionColor":"#171923","heading_clr":"#ffffff","sectionLayout":true,"section_pad":false}},"two_layout_lp_section_nTG796":{"type":"two-layout-lp-section","blocks":{"two_layout_block_F7FTKd":{"type":"two_layout_block","settings":{"sectionTitle":"FRONT, CENTER, BACK <br> GPS DISTANCES","sectionDescription":"Instantly see crystal-clear yardages for any course you play, helping you choose smarter targets and commit with confidence.","disclaimer":"","has_store_icon":false,"app_store_link":"","play_store_link_new":"","hasImage":true,"sectionImage":"shopify:\/\/shop_images\/Frame_11712778214656.png","hasMobileImage":false,"hasMedia":false,"image_full":false,"sectionDirection":false}},"two_layout_block_KFNfaX":{"type":"two_layout_block","settings":{"sectionTitle":"“FIND MY”\u2028 <br> RANGEFINDER","sectionDescription":"Built-in Bluetooth tracking helps you locate your device in seconds—no more digging through carts or bags to find it.","disclaimer":"","has_store_icon":false,"app_store_link":"","play_store_link_new":"","hasImage":true,"sectionImage":"shopify:\/\/shop_images\/Frame_1171277821-1.png","hasMobileImage":false,"hasMedia":false,"image_full":false,"sectionDirection":false}}},"block_order":["two_layout_block_F7FTKd","two_layout_block_KFNfaX"],"name":"Two Layout Section New","settings":{"layoutHeading":"","sectionColor":"#171923","heading_clr":"#ffffff","sectionLayout":true,"section_pad":false}},"portability_meets_section_BQVq3e":{"type":"portability-meets-section","name":"Portiablity-Meets Platform","settings":{"hero_heading_top":"","hero_heading":"","hero_heading_image_enable":false,"heading_small":false,"hero_image":"shopify:\/\/shop_images\/Frame_1410105407654.png","hero_description":"","note":"","desc_large":false,"desc_clr":"#ffffff","hero_main_image":"shopify:\/\/shop_images\/Frame_1171277677456.png","hero_main_image_large":false,"hero_main_image_large_top":true,"hero_main_image_fill_top":false,"hero_main_image_full_mobile":false,"container":false,"bg_color_top":"#000000","bg_content_clr":"","textColor":"#ffffff","cardClr":"","bgImage":"shopify:\/\/shop_images\/lp-bg-glow.svg","slider_heading":"","slider_description":"","extra_space":false,"image_space":false,"show_arrow":false,"heading_clr":"#ffffff","icon_white":false,"layout_change":false,"desc_order":"0"}},"two_layout_lp_section_zLRncn":{"type":"two-layout-lp-section","blocks":{"two_layout_block_EVGfRn":{"type":"two_layout_block","settings":{"sectionTitle":"CLUB <br> \u2028SUGGESTIONS","sectionDescription":"AI analyzes your shot history to recommend the best club for each situation, helping you make smarter decisions instantly – displayed right in the ocular chamber.","disclaimer":"","has_store_icon":false,"app_store_link":"","play_store_link_new":"","hasImage":true,"sectionImage":"shopify:\/\/shop_images\/capt_rangefinders_ocular_chamber.png","hasMobileImage":false,"hasMedia":false,"image_full":false,"sectionDirection":false}},"two_layout_block_LxXd9M":{"type":"two_layout_block","settings":{"sectionTitle":"TRUE DISTANCE™ <br> ADJUSTED YARDAGES","sectionDescription":"Automatically factors slope, wind, elevation, and temperature into your yardages, giving you real-world numbers you can trust on every swing.","disclaimer":"","has_store_icon":false,"app_store_link":"","play_store_link_new":"","hasImage":true,"sectionImage":"shopify:\/\/shop_images\/Frame_1171277783_63a2ae88-b05e-4ab2-8b6c-4eabc87e16c5.png","hasMobileImage":false,"hasMedia":false,"image_full":false,"sectionDirection":false}}},"block_order":["two_layout_block_EVGfRn","two_layout_block_LxXd9M"],"name":"Two Layout Section New","settings":{"layoutHeading":"","sectionColor":"#000000","heading_clr":"#ffffff","sectionLayout":true,"section_pad":true}},"new_image_section_nrRFVC":{"type":"new-image-section","name":"Section Image","settings":{"sectionImage":"shopify:\/\/shop_images\/Frame_1171277896.png","sectionImageMobile":"shopify:\/\/shop_images\/Frame_1171277966_fca21a89-2644-4734-9167-5c8a87bff087.png"}},"portability_meets_section_x78etY":{"type":"portability-meets-section","name":"Portiablity-Meets Platform","settings":{"hero_heading_top":"","hero_heading":"Tournament-Legal <br> Slope switch","hero_heading_image_enable":false,"heading_small":true,"hero_description":"<p>Toggle slope-adjusted distances on or off with ease —practice smarter, play legal.<br\/><br\/><\/p>","note":"","desc_large":false,"desc_clr":"#ffffff","hero_main_image":"shopify:\/\/shop_images\/Frame_1171277826897.png","hero_main_image_large":true,"hero_main_image_large_top":true,"hero_main_image_fill_top":false,"hero_main_image_full_mobile":false,"container":false,"bg_color_top":"#171923","bg_content_clr":"","textColor":"#ffffff","cardClr":"","slider_heading":"","slider_description":"","extra_space":false,"image_space":false,"show_arrow":false,"heading_clr":"#ffffff","icon_white":false,"layout_change":false,"desc_order":"0"}},"two_layout_lp_section_zcHkmp":{"type":"two-layout-lp-section","blocks":{"two_layout_block_zjmMMU":{"type":"two_layout_block","settings":{"sectionTitle":"BUILT-IN <br> \u2028MAGNETIC STRIP","sectionDescription":"A powerful magnet snaps securely to carts, posts, and metal surfaces, keeping Captain Air accessible and out of the way.","disclaimer":"","has_store_icon":false,"app_store_link":"","play_store_link_new":"","hasImage":true,"sectionImage":"shopify:\/\/shop_images\/Frame_1171277741.png","hasMobileImage":false,"hasMedia":false,"image_full":false,"sectionDirection":false}},"two_layout_block_6KtyVb":{"type":"two_layout_block","settings":{"sectionTitle":"IP65 DUST + <br> WATERPROOF","sectionDescription":"Engineered to perform in any condition—rain, wind, dust, or heat—so your round never stops when the weather turns.","disclaimer":"","has_store_icon":false,"app_store_link":"","play_store_link_new":"","hasImage":true,"sectionImage":"shopify:\/\/shop_images\/Frame_1171277681987987.png","hasMobileImage":false,"hasMedia":false,"image_full":false,"sectionDirection":false}}},"block_order":["two_layout_block_zjmMMU","two_layout_block_6KtyVb"],"name":"Two Layout Section New","settings":{"layoutHeading":"","sectionColor":"#171923","heading_clr":"#ffffff","sectionLayout":true,"section_pad":false}},"product_comparison_hPjkqg":{"type":"product-comparison","blocks":{"product_8RbWh3":{"type":"product","settings":{"product_image":"shopify:\/\/shop_images\/Frame_1000012149.png","product_name":"Series 3 Max+","product_ref":"","button_text":"Shop Now","button_link":"shopify:\/\/products\/series-3-max-golf-rangefinder-with-slope","is_preorder":false}},"product_QCTpLd":{"type":"product","settings":{"product_image":"shopify:\/\/shop_images\/Frame_1000012151.png","product_name":"Captain Air","product_ref":"captain-air","button_text":"ADD TO CART","button_link":"shopify:\/\/products\/captain-air","is_preorder":true}},"product_rNEJbj":{"type":"product","settings":{"product_image":"shopify:\/\/shop_images\/Frame_1000012152.png","product_name":"Captain Pro","product_ref":"","button_text":"Shop now","button_link":"shopify:\/\/products\/captain-pro","is_preorder":true}},"feature_cqbAmh":{"type":"feature","settings":{"category":"HARDWARE & FEATURES","feature_name":"Magnification","product_1_value":"6X","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"6X","product_3_highlight":false,"product_4_value":"7X","product_4_highlight":true}},"feature_gKqWCn":{"type":"feature","settings":{"category":"HARDWARE & FEATURES","feature_name":"Display Type","product_1_value":"LCD","product_1_highlight":false,"product_2_value":"","product_2_highlight":true,"product_3_value":"LCD","product_3_highlight":false,"product_4_value":"OLED","product_4_highlight":true}},"feature_BRkw8J":{"type":"feature","settings":{"category":"HARDWARE & FEATURES","feature_name":"Flag Lock + Pulse Vibration","product_1_value":"check","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"check","product_3_highlight":false,"product_4_value":"check","product_4_highlight":false}},"feature_wg8Kqj":{"type":"feature","settings":{"category":"HARDWARE & FEATURES","feature_name":"Slope Switch","product_1_value":"check","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"check","product_3_highlight":false,"product_4_value":"check","product_4_highlight":false}},"feature_BbNzXg":{"type":"feature","settings":{"category":"HARDWARE & FEATURES","feature_name":"Max Range","product_1_value":"900 Yards","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"1000 Yards","product_3_highlight":false,"product_4_value":"1200 Yards","product_4_highlight":true}},"feature_WtRtiV":{"type":"feature","settings":{"category":"HARDWARE & FEATURES","feature_name":"Waterproof Rating","product_1_value":"IPX4","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"IP65","product_3_highlight":false,"product_4_value":"IP67","product_4_highlight":true}},"feature_WVgHWC":{"type":"feature","settings":{"category":"HARDWARE & FEATURES","feature_name":"Magnetic Mount","product_1_value":"check","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"check","product_3_highlight":false,"product_4_value":"check","product_4_highlight":false}},"feature_NQJLxD":{"type":"feature","settings":{"category":"HARDWARE & FEATURES","feature_name":"Battery","product_1_value":"USB-C Rechargeable","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"USB-C Rechargeable","product_3_highlight":true,"product_4_value":"USB-C Rechargeable","product_4_highlight":true}},"feature_MFpDDi":{"type":"feature","settings":{"category":"CONNECTIVITY FEATURES","feature_name":"Bluetooth Connectivity","product_1_value":"cross","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"check","product_3_highlight":true,"product_4_value":"check","product_4_highlight":true}},"feature_rVGa8R":{"type":"feature","settings":{"category":"CONNECTIVITY FEATURES","feature_name":"GAME App Integration","product_1_value":"cross","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"check","product_3_highlight":true,"product_4_value":"check","product_4_highlight":true}},"feature_iaY3Jm":{"type":"feature","settings":{"category":"CONNECTIVITY FEATURES","feature_name":"Find My Rangefinder","product_1_value":"cross","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"check","product_3_highlight":true,"product_4_value":"check","product_4_highlight":true}},"feature_xqXzg4":{"type":"feature","settings":{"category":"CONNECTIVITY FEATURES","feature_name":"Shot Tracking","product_1_value":"cross","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"cross","product_3_highlight":true,"product_4_value":"check","product_4_highlight":true}},"feature_Lce6gK":{"type":"feature","settings":{"category":"CONNECTIVITY FEATURES","feature_name":"Custom Action Button","product_1_value":"cross","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"cross","product_3_highlight":true,"product_4_value":"check","product_4_highlight":true}},"feature_FqDzfV":{"type":"feature","settings":{"category":"CONNECTIVITY FEATURES","feature_name":"Post-Round Data Sync","product_1_value":"cross","product_1_highlight":false,"product_2_value":"","product_2_highlight":false,"product_3_value":"cross","product_3_highlight":true,"product_4_value":"check","product_4_highlight":true}}},"block_order":["product_8RbWh3","product_QCTpLd","product_rNEJbj","feature_cqbAmh","feature_gKqWCn","feature_BRkw8J","feature_wg8Kqj","feature_BbNzXg","feature_WtRtiV","feature_WVgHWC","feature_NQJLxD","feature_MFpDDi","feature_rVGa8R","feature_iaY3Jm","feature_xqXzg4","feature_Lce6gK","feature_FqDzfV"],"name":"Product Comparison","settings":{"heading":"Which Rangefinder is Right For You?","subheading":"From fast, accurate optics to fully connected shot intelligence — compare our rangefinder lineup and choose the one that fits how you play.","disclaimer":""}},"new_faq_section_ETa8r8":{"type":"new-faq-section","blocks":{"faq_item_yHkcLL":{"type":"faq_item","settings":{"question":"Is Captain Air tournament legal?","answer":"<p>Yes. Captain Air includes a Slope Mode that can be turned off using the external slope switch, making it fully compliant for tournament play.<\/p>"}},"faq_item_NnF4xe":{"type":"faq_item","settings":{"question":"How do I see True Distance™ yardages in my rangefinder?","answer":"<p>True Distance™ yardages are controlled through the app and need to be turned on before they appear in the device’s reticle.<br\/>To enable it:<\/p><ol><li>Start a round in the GAME App<\/li><li>Open the menu (top corner \/ hamburger menu)<\/li><li>Toggle True Distance™ on<\/li><\/ol><p>Once enabled, your rangefinder will display adjusted yardages directly in the reticle when you’re ranging targets.<br\/>If you don’t see adjusted distances, it usually means the toggle is off — not that the feature isn’t working.<\/p>"}},"faq_item_QgxdKz":{"type":"faq_item","settings":{"question":"What happens if I lose it on the course?","answer":"<p>Captain Air includes “Find My Rangefinder” through the GAME App.<br\/>If it gets left behind, you can check its last known location directly from your phone, making it much easier to recover.<\/p>"}},"faq_item_bX9Xzx":{"type":"faq_item","settings":{"question":"What if I don’t want all the connected or AI features?","answer":"<p>No problem at all. Captain Air works perfectly as a simple point-and-shoot laser rangefinder right out of the box.<br\/>All connected features are optional — you can use it traditionally or unlock more functionality when you’re ready.<\/p>"}},"faq_item_DkeQKP":{"type":"faq_item","settings":{"question":"Are the numbers shown in photos exactly what I’ll see through the viewfinder?","answer":"<p>In-use product images are designed to reflect the red display color customers see through the device. Some marketing images use enlarged graphic numbers to make distances and key data easier to read online.<\/p>"}},"faq_item_FqRXap":{"type":"faq_item","settings":{"question":"What does the IP65 rating actually mean?","answer":"<p>IP65 means the device is protected against dust and water from any direction.<br\/>In real terms, it’s built to handle steady rain, wet carts, early morning dew, and gritty conditions without affecting performance.<\/p>"}},"faq_item_6cPBVM":{"type":"faq_item","settings":{"question":"How does the flag-locking technology work?","answer":"<p>Captain Air uses rapid targeting with built-in Pulse Vibration feedback.<br\/>When you lock onto the flag, you’ll feel a quick pulse — confirming you’ve hit the pin, not the background.<br\/><br\/>It’s especially helpful for:<\/p><ul><li>Shaky hands<\/li><li>Busy backgrounds (trees, bunkers)<\/li><li>Long-distance shots<\/li><\/ul>"}},"faq_item_JtCqXY":{"type":"faq_item","settings":{"question":"How do Club Recommendations work?","answer":"<p>When you connect to the GAME App, you’ll start with default club distances.<br\/>From there:<\/p><ul><li>You can manually adjust your yardages<\/li><li>Over time, the system learns from your rounds<\/li><li>Data from gameplay and Rainmaker sessions refines recommendations<\/li><\/ul><p>It evolves from general guidance into personalized, data-driven club selection.<\/p>"}},"faq_item_WMNXVK":{"type":"faq_item","settings":{"question":"What’s the difference between Captain Air and Captain Pro?","answer":"<p>Captain Air is designed to give you everything you need — and then some — in a simple, accessible package.<br\/><br\/>If you want:<\/p><ul><li>Stronger optics<\/li><li>Sharper display clarity<\/li><li>More customization<\/li><\/ul><p><strong>Then Captain Pro is the upgrade.<\/strong><\/p><p>Air keeps it clean and capable. Pro takes it to the next level.<\/p>"}}},"block_order":["faq_item_yHkcLL","faq_item_NnF4xe","faq_item_QgxdKz","faq_item_bX9Xzx","faq_item_DkeQKP","faq_item_FqRXap","faq_item_6cPBVM","faq_item_JtCqXY","faq_item_WMNXVK"],"name":"FAQ Accordion","settings":{"title":"Frequently Asked","outline_title":"Questions","backGroundColor":"#ffffff","content_clr":"#000000","padding_top":40,"padding_bottom":40,"layout_option":"normal","has_ratio":false}},"product_review_section_HGfPgF":{"type":"product-review-section","name":"Product Review Loox","settings":{}},"loox-product-reviews-app-section":{"type":"apps","blocks":{"loox-product-reviews":{"type":"shopify:\/\/apps\/loox-reviews\/blocks\/loox-dynamic-section\/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e","settings":{"reviews_to_display":"","default_tab":"automatic","only_photos":true,"aggregated":false,"limit":20,"hide_thumbnails":false,"maxwidth":1080,"is_sample":true}}},"block_order":["loox-product-reviews"],"disabled":true,"settings":{"full_width":false,"space_around":true}},"collection-return":{"type":"collection-return","settings":{}}},"order":["main","sub","product-recommendations","recently-viewed","lp_hero_section_Hd8MC6","portability_meets_section_kbi3qC","two_layout_lp_section_9kmAQQ","two_layout_lp_section_nTG796","portability_meets_section_BQVq3e","two_layout_lp_section_zLRncn","new_image_section_nrRFVC","portability_meets_section_x78etY","two_layout_lp_section_zcHkmp","product_comparison_hPjkqg","new_faq_section_ETa8r8","product_review_section_HGfPgF","loox-product-reviews-app-section","collection-return"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "new-main-product",
+      "blocks": {
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "is_tab": false
+          }
+        },
+        "icons_row_RRtTbq": {
+          "type": "icons_row",
+          "disabled": true,
+          "settings": {
+            "itemIcon": "shopify://shop_images/icon-truck-pdp.svg",
+            "itemText": "FAST + FREE SHIPPING",
+            "itemIconTwo": "shopify://shop_images/icon-lock-pdp.svg",
+            "itemTextTwo": "SECURE CHECKOUT",
+            "itemIconThree": "shopify://shop_images/icon-return-pdp.svg",
+            "itemTextThree": "100 DAY RETURNS",
+            "itemIconFour": "shopify://shop_images/icon-badge-pdp.svg",
+            "itemTextFour": "2 YEAR WARRANTY"
+          }
+        },
+        "loox-rating": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "disabled": true,
+          "settings": {
+            "contentSize": 16,
+            "pattern": "",
+            "hideText": false,
+            "alignment": "",
+            "layout": "",
+            "textColor": "",
+            "starColor": "",
+            "showAllReviews": false,
+            "looxOpenFloatingWidget": false,
+            "emptyRatingWidget": false
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_chart": "",
+            "variant_labels": true,
+            "picker_type": "button",
+            "color_swatches": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "surface_pickup_enable": true,
+            "pre_order": true,
+            "cta_note_text": "FREE SHIPPING"
+          }
+        },
+        "tab_DkLFBn": {
+          "type": "tab",
+          "settings": {
+            "title": "FEATURES",
+            "content": "<picture>\n          <source srcset=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ca-f-icons-desktop.png?v=1772427363\" media=\"(min-width:992px)\">\n          <source srcset=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ca-f-icons-mobile.png?v=1772427362\" media=\"(max-width:991px)\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ca-f-icons-desktop.png?v=1772427363\" alt=\"Captain Air Rangefinder key features and specifications\" height=\"100%\" width=\"100%\">\n        </source></source></picture>",
+            "page": ""
+          }
+        },
+        "tab_xH6FTH": {
+          "type": "tab",
+          "settings": {
+            "title": "WHAT’S INCLUDED",
+            "content": "<img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_3186d039-6ced-4e84-882e-a8f5fab579ca.png?v=1770278931\" alt=\"What's included with the Captain Air Rangefinder: Captain Air Rangefinder device, Rangefinder Carrying Case, and USB-C Charging Cable\">",
+            "page": ""
+          }
+        },
+        "tab_akWX4b": {
+          "type": "tab",
+          "settings": {
+            "title": "USER MANUAL",
+            "content": "<div class=\"user-manual-tab\">\n  <div class=\"bottom-buttons\">\n<ul>\n      <li><p><strong>Quick Start How-To Video</strong></p></li>\n      <li class=\"review\"><a href=\"javascript:void(0);\" style=\"text-align: center;background-position-x: 20px !important;\" class=\"videopopup_link\" data-video-id=\"1174642375\">PLAY VIDEO</a></li>\n    </ul>\n    <ul>\n      <li><p><strong>Complete User Manual PDF</strong></p></li>\n      <li class=\"review download\"><a href=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Captain_Air_Product_Manual_1.1_rfs.pdf?v=1772686837\" target=\"_blank\">DOWNLOAD PDF</a></li>\n    </ul>\n  </div>\n</div>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "price",
+        "description",
+        "icons_row_RRtTbq",
+        "loox-rating",
+        "variant_picker",
+        "buy_buttons",
+        "tab_DkLFBn",
+        "tab_xH6FTH",
+        "tab_akWX4b"
+      ],
+      "settings": {
+        "must_watch": "1161392004",
+        "display_review_button": false,
+        "review_video": "1132441995",
+        "show_label": false,
+        "sku_enable": true,
+        "image_position": "left",
+        "image_size": "large",
+        "product_zoom_enable": true,
+        "thumbnail_position": "below",
+        "thumbnail_arrows": true,
+        "mobile_layout": "full",
+        "enable_video_looping": true,
+        "product_video_style": "muted"
+      }
+    },
+    "sub": {
+      "type": "product-full-width",
+      "disabled": true,
+      "settings": {
+        "max_width": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": false,
+        "product_recommendations_heading": "You may also like",
+        "related_count": 5
+      }
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "disabled": true,
+      "settings": {
+        "recent_count": 5
+      }
+    },
+    "lp_hero_section_Hd8MC6": {
+      "type": "lp-hero-section",
+      "name": "Rainmaker Hero",
+      "settings": {
+        "no_space_top": false,
+        "no_bottom_space": false,
+        "bg_clr": "",
+        "badge_text": "",
+        "title": "shopify://shop_images/Group_1410105143.png",
+        "titleMobile": "shopify://shop_images/Group_1410105171.png",
+        "subtext": "",
+        "button_text": "ADD TO CART",
+        "button_link": "#",
+        "image_has_ratio": false,
+        "product_image": "shopify://shop_images/Frame_1410105142_1.png",
+        "product_image_mobile": "shopify://shop_images/Frame_1410105140_1.png",
+        "bg_content_clr": "",
+        "show_video": true,
+        "product_video": "shopify://files/videos/CPT Air_002.mp4",
+        "product_video_mobile": "shopify://files/videos/CPT Air Mobile_001.mp4",
+        "heading_bottom": "",
+        "subheading_bottom": "",
+        "bottom_button_text": "",
+        "bottom_button_link": ""
+      }
+    },
+    "portability_meets_section_kbi3qC": {
+      "type": "portability-meets-section",
+      "name": "Portiablity-Meets Platform",
+      "settings": {
+        "hero_heading_top": "",
+        "hero_heading": "THE CONNECTED<br>ESSENTIAL.",
+        "hero_heading_image_enable": false,
+        "heading_small": false,
+        "hero_description": "<p>The Captain Air brings connected, pro-grade precision to every golfer. With Bluetooth connectivity and seamless integration with the Blue Tees GAME app, you’ll unlock yardages for 42,000+ courses, slope-adjusted distances, and a clean, intuitive display. Compact, waterproof, and always ready, Captain Air gives you the confidence to play smarter—whether it’s your first rangefinder or your next connected upgrade.<br/><br/></p>",
+        "note": "",
+        "desc_large": true,
+        "desc_clr": "#ffffff",
+        "hero_main_image": "shopify://shop_images/Frame_1171277889_2.png",
+        "hero_main_image_large": true,
+        "hero_main_image_large_top": false,
+        "hero_main_image_fill_top": false,
+        "hero_main_image_full_mobile": false,
+        "container": false,
+        "bg_color_top": "#171923",
+        "bg_content_clr": "",
+        "textColor": "#ffffff",
+        "cardClr": "",
+        "slider_heading": "",
+        "slider_description": "",
+        "extra_space": false,
+        "image_space": false,
+        "show_arrow": false,
+        "heading_clr": "#ffffff",
+        "icon_white": false,
+        "layout_change": false,
+        "desc_order": "0",
+        "eager_load": false
+      }
+    },
+    "two_layout_lp_section_9kmAQQ": {
+      "type": "two-layout-lp-section",
+      "blocks": {
+        "two_layout_block_NEbwkt": {
+          "type": "two_layout_block",
+          "settings": {
+            "layout": "center",
+            "sectionTitle": "Red / Black HD <br> Display",
+            "sectionDescription": "A high-contrast display with dual color modes keeps yardages easy to read in any lighting.",
+            "cta_enable": false,
+            "cta_text": "",
+            "cta_link": "",
+            "disclaimer": "",
+            "has_store_icon": false,
+            "app_store_link": "",
+            "play_store_link_new": "",
+            "hasImage": true,
+            "sectionImage": "shopify://shop_images/Frame_1171277725_2.png",
+            "hasMobileImage": false,
+            "hasMedia": false,
+            "image_full": false,
+            "sectionDirection": false
+          }
+        },
+        "two_layout_block_bLPgnm": {
+          "type": "two_layout_block",
+          "settings": {
+            "layout": "center",
+            "sectionTitle": "6X MAGNIFICATION WITH  <br> 1000 Yard Precision",
+            "sectionDescription": "Lock onto pins faster with 6X optical magnification and a 1000-yard measurement range. Together, they give you the long-range visibility and tour-level accuracy to attack every shot with confidence.",
+            "cta_enable": false,
+            "cta_text": "",
+            "cta_link": "",
+            "disclaimer": "",
+            "has_store_icon": false,
+            "app_store_link": "",
+            "play_store_link_new": "",
+            "hasImage": true,
+            "sectionImage": "shopify://shop_images/Group_1410105035.png",
+            "hasMobileImage": false,
+            "hasMedia": false,
+            "image_full": false,
+            "sectionDirection": false
+          }
+        }
+      },
+      "block_order": [
+        "two_layout_block_NEbwkt",
+        "two_layout_block_bLPgnm"
+      ],
+      "name": "Two Layout Section New",
+      "settings": {
+        "layoutHeading": "",
+        "sectionColor": "#171923",
+        "heading_clr": "#ffffff",
+        "sectionLayout": true,
+        "section_container": false,
+        "section_custom": false,
+        "section_pad": false,
+        "eager_load": false
+      }
+    },
+    "two_layout_lp_section_nTG796": {
+      "type": "two-layout-lp-section",
+      "blocks": {
+        "two_layout_block_F7FTKd": {
+          "type": "two_layout_block",
+          "settings": {
+            "layout": "center",
+            "sectionTitle": "FRONT, CENTER, BACK <br> GPS DISTANCES",
+            "sectionDescription": "Instantly see crystal-clear yardages for any course you play, helping you choose smarter targets and commit with confidence.",
+            "cta_enable": false,
+            "cta_text": "",
+            "cta_link": "",
+            "disclaimer": "",
+            "has_store_icon": false,
+            "app_store_link": "",
+            "play_store_link_new": "",
+            "hasImage": true,
+            "sectionImage": "shopify://shop_images/Frame_11712778214656.png",
+            "hasMobileImage": false,
+            "hasMedia": false,
+            "image_full": false,
+            "sectionDirection": false
+          }
+        },
+        "two_layout_block_KFNfaX": {
+          "type": "two_layout_block",
+          "settings": {
+            "layout": "center",
+            "sectionTitle": "“FIND MY”  <br> RANGEFINDER",
+            "sectionDescription": "Built-in Bluetooth tracking helps you locate your device in seconds—no more digging through carts or bags to find it.",
+            "cta_enable": false,
+            "cta_text": "",
+            "cta_link": "",
+            "disclaimer": "",
+            "has_store_icon": false,
+            "app_store_link": "",
+            "play_store_link_new": "",
+            "hasImage": true,
+            "sectionImage": "shopify://shop_images/Frame_1171277821-1.png",
+            "hasMobileImage": false,
+            "hasMedia": false,
+            "image_full": false,
+            "sectionDirection": false
+          }
+        }
+      },
+      "block_order": [
+        "two_layout_block_F7FTKd",
+        "two_layout_block_KFNfaX"
+      ],
+      "name": "Two Layout Section New",
+      "settings": {
+        "layoutHeading": "",
+        "sectionColor": "#171923",
+        "heading_clr": "#ffffff",
+        "sectionLayout": true,
+        "section_container": false,
+        "section_custom": false,
+        "section_pad": false,
+        "eager_load": false
+      }
+    },
+    "portability_meets_section_BQVq3e": {
+      "type": "portability-meets-section",
+      "name": "Portiablity-Meets Platform",
+      "settings": {
+        "hero_heading_top": "",
+        "hero_heading": "",
+        "hero_heading_image_enable": false,
+        "heading_small": false,
+        "hero_image": "shopify://shop_images/Frame_1410105407654.png",
+        "hero_description": "",
+        "note": "",
+        "desc_large": false,
+        "desc_clr": "#ffffff",
+        "hero_main_image": "shopify://shop_images/Frame_1171277677456.png",
+        "hero_main_image_large": false,
+        "hero_main_image_large_top": true,
+        "hero_main_image_fill_top": false,
+        "hero_main_image_full_mobile": false,
+        "container": false,
+        "bg_color_top": "#000000",
+        "bg_content_clr": "",
+        "textColor": "#ffffff",
+        "cardClr": "",
+        "bgImage": "shopify://shop_images/lp-bg-glow.svg",
+        "slider_heading": "",
+        "slider_description": "",
+        "extra_space": false,
+        "image_space": false,
+        "show_arrow": false,
+        "heading_clr": "#ffffff",
+        "icon_white": false,
+        "layout_change": false,
+        "desc_order": "0",
+        "eager_load": false
+      }
+    },
+    "two_layout_lp_section_zLRncn": {
+      "type": "two-layout-lp-section",
+      "blocks": {
+        "two_layout_block_EVGfRn": {
+          "type": "two_layout_block",
+          "settings": {
+            "layout": "center",
+            "sectionTitle": "CLUB <br>  SUGGESTIONS",
+            "sectionDescription": "AI analyzes your shot history to recommend the best club for each situation, helping you make smarter decisions instantly – displayed right in the ocular chamber.",
+            "cta_enable": false,
+            "cta_text": "",
+            "cta_link": "",
+            "disclaimer": "",
+            "has_store_icon": false,
+            "app_store_link": "",
+            "play_store_link_new": "",
+            "hasImage": true,
+            "sectionImage": "shopify://shop_images/capt_rangefinders_ocular_chamber.png",
+            "hasMobileImage": false,
+            "hasMedia": false,
+            "image_full": false,
+            "sectionDirection": false
+          }
+        },
+        "two_layout_block_LxXd9M": {
+          "type": "two_layout_block",
+          "settings": {
+            "layout": "center",
+            "sectionTitle": "TRUE DISTANCE™ <br> ADJUSTED YARDAGES",
+            "sectionDescription": "Automatically factors slope, wind, elevation, and temperature into your yardages, giving you real-world numbers you can trust on every swing.",
+            "cta_enable": false,
+            "cta_text": "",
+            "cta_link": "",
+            "disclaimer": "",
+            "has_store_icon": false,
+            "app_store_link": "",
+            "play_store_link_new": "",
+            "hasImage": true,
+            "sectionImage": "shopify://shop_images/Frame_1171277783_63a2ae88-b05e-4ab2-8b6c-4eabc87e16c5.png",
+            "hasMobileImage": false,
+            "hasMedia": false,
+            "image_full": false,
+            "sectionDirection": false
+          }
+        }
+      },
+      "block_order": [
+        "two_layout_block_EVGfRn",
+        "two_layout_block_LxXd9M"
+      ],
+      "name": "Two Layout Section New",
+      "settings": {
+        "layoutHeading": "",
+        "sectionColor": "#000000",
+        "heading_clr": "#ffffff",
+        "sectionLayout": true,
+        "section_container": false,
+        "section_custom": false,
+        "section_pad": true,
+        "eager_load": false
+      }
+    },
+    "new_image_section_nrRFVC": {
+      "type": "new-image-section",
+      "name": "Section Image",
+      "settings": {
+        "sectionImage": "shopify://shop_images/Frame_1171277896.png",
+        "sectionImageMobile": "shopify://shop_images/Frame_1171277966_fca21a89-2644-4734-9167-5c8a87bff087.png",
+        "eager_load": false
+      }
+    },
+    "portability_meets_section_x78etY": {
+      "type": "portability-meets-section",
+      "name": "Portiablity-Meets Platform",
+      "settings": {
+        "hero_heading_top": "",
+        "hero_heading": "Tournament-Legal <br> Slope switch",
+        "hero_heading_image_enable": false,
+        "heading_small": true,
+        "hero_description": "<p>Toggle slope-adjusted distances on or off with ease —practice smarter, play legal.<br/><br/></p>",
+        "note": "",
+        "desc_large": false,
+        "desc_clr": "#ffffff",
+        "hero_main_image": "shopify://shop_images/Frame_1171277826897.png",
+        "hero_main_image_large": true,
+        "hero_main_image_large_top": true,
+        "hero_main_image_fill_top": false,
+        "hero_main_image_full_mobile": false,
+        "container": false,
+        "bg_color_top": "#171923",
+        "bg_content_clr": "",
+        "textColor": "#ffffff",
+        "cardClr": "",
+        "slider_heading": "",
+        "slider_description": "",
+        "extra_space": false,
+        "image_space": false,
+        "show_arrow": false,
+        "heading_clr": "#ffffff",
+        "icon_white": false,
+        "layout_change": false,
+        "desc_order": "0",
+        "eager_load": false
+      }
+    },
+    "two_layout_lp_section_zcHkmp": {
+      "type": "two-layout-lp-section",
+      "blocks": {
+        "two_layout_block_zjmMMU": {
+          "type": "two_layout_block",
+          "settings": {
+            "layout": "center",
+            "sectionTitle": "BUILT-IN <br>  MAGNETIC STRIP",
+            "sectionDescription": "A powerful magnet snaps securely to carts, posts, and metal surfaces, keeping Captain Air accessible and out of the way.",
+            "cta_enable": false,
+            "cta_text": "",
+            "cta_link": "",
+            "disclaimer": "",
+            "has_store_icon": false,
+            "app_store_link": "",
+            "play_store_link_new": "",
+            "hasImage": true,
+            "sectionImage": "shopify://shop_images/Frame_1171277741.png",
+            "hasMobileImage": false,
+            "hasMedia": false,
+            "image_full": false,
+            "sectionDirection": false
+          }
+        },
+        "two_layout_block_6KtyVb": {
+          "type": "two_layout_block",
+          "settings": {
+            "layout": "center",
+            "sectionTitle": "IP65 DUST + <br> WATERPROOF",
+            "sectionDescription": "Engineered to perform in any condition—rain, wind, dust, or heat—so your round never stops when the weather turns.",
+            "cta_enable": false,
+            "cta_text": "",
+            "cta_link": "",
+            "disclaimer": "",
+            "has_store_icon": false,
+            "app_store_link": "",
+            "play_store_link_new": "",
+            "hasImage": true,
+            "sectionImage": "shopify://shop_images/Frame_1171277681987987.png",
+            "hasMobileImage": false,
+            "hasMedia": false,
+            "image_full": false,
+            "sectionDirection": false
+          }
+        }
+      },
+      "block_order": [
+        "two_layout_block_zjmMMU",
+        "two_layout_block_6KtyVb"
+      ],
+      "name": "Two Layout Section New",
+      "settings": {
+        "layoutHeading": "",
+        "sectionColor": "#171923",
+        "heading_clr": "#ffffff",
+        "sectionLayout": true,
+        "section_container": false,
+        "section_custom": false,
+        "section_pad": false,
+        "eager_load": false
+      }
+    },
+    "product_comparison_hPjkqg": {
+      "type": "product-comparison",
+      "blocks": {
+        "product_8RbWh3": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/Frame_1000012149.png",
+            "product_name": "Series 3 Max+",
+            "product_ref": "",
+            "button_text": "Shop Now",
+            "button_link": "shopify://products/series-3-max-golf-rangefinder-with-slope",
+            "is_preorder": false
+          }
+        },
+        "product_QCTpLd": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/Frame_1000012151.png",
+            "product_name": "Captain Air",
+            "product_ref": "captain-air",
+            "button_text": "ADD TO CART",
+            "button_link": "shopify://products/captain-air",
+            "is_preorder": true
+          }
+        },
+        "product_rNEJbj": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/Frame_1000012152.png",
+            "product_name": "Captain Pro",
+            "product_ref": "",
+            "button_text": "Shop now",
+            "button_link": "shopify://products/captain-pro",
+            "is_preorder": true
+          }
+        },
+        "feature_cqbAmh": {
+          "type": "feature",
+          "settings": {
+            "category": "HARDWARE & FEATURES",
+            "feature_name": "Magnification",
+            "product_1_value": "6X",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "6X",
+            "product_3_highlight": false,
+            "product_4_value": "7X",
+            "product_4_highlight": true
+          }
+        },
+        "feature_gKqWCn": {
+          "type": "feature",
+          "settings": {
+            "category": "HARDWARE & FEATURES",
+            "feature_name": "Display Type",
+            "product_1_value": "LCD",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": true,
+            "product_3_value": "LCD",
+            "product_3_highlight": false,
+            "product_4_value": "OLED",
+            "product_4_highlight": true
+          }
+        },
+        "feature_BRkw8J": {
+          "type": "feature",
+          "settings": {
+            "category": "HARDWARE & FEATURES",
+            "feature_name": "Flag Lock + Pulse Vibration",
+            "product_1_value": "check",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "check",
+            "product_3_highlight": false,
+            "product_4_value": "check",
+            "product_4_highlight": false
+          }
+        },
+        "feature_wg8Kqj": {
+          "type": "feature",
+          "settings": {
+            "category": "HARDWARE & FEATURES",
+            "feature_name": "Slope Switch",
+            "product_1_value": "check",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "check",
+            "product_3_highlight": false,
+            "product_4_value": "check",
+            "product_4_highlight": false
+          }
+        },
+        "feature_BbNzXg": {
+          "type": "feature",
+          "settings": {
+            "category": "HARDWARE & FEATURES",
+            "feature_name": "Max Range",
+            "product_1_value": "900 Yards",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "1000 Yards",
+            "product_3_highlight": false,
+            "product_4_value": "1200 Yards",
+            "product_4_highlight": true
+          }
+        },
+        "feature_WtRtiV": {
+          "type": "feature",
+          "settings": {
+            "category": "HARDWARE & FEATURES",
+            "feature_name": "Waterproof Rating",
+            "product_1_value": "IPX4",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "IP65",
+            "product_3_highlight": false,
+            "product_4_value": "IP67",
+            "product_4_highlight": true
+          }
+        },
+        "feature_WVgHWC": {
+          "type": "feature",
+          "settings": {
+            "category": "HARDWARE & FEATURES",
+            "feature_name": "Magnetic Mount",
+            "product_1_value": "check",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "check",
+            "product_3_highlight": false,
+            "product_4_value": "check",
+            "product_4_highlight": false
+          }
+        },
+        "feature_NQJLxD": {
+          "type": "feature",
+          "settings": {
+            "category": "HARDWARE & FEATURES",
+            "feature_name": "Battery",
+            "product_1_value": "USB-C Rechargeable",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "USB-C Rechargeable",
+            "product_3_highlight": true,
+            "product_4_value": "USB-C Rechargeable",
+            "product_4_highlight": true
+          }
+        },
+        "feature_MFpDDi": {
+          "type": "feature",
+          "settings": {
+            "category": "CONNECTIVITY FEATURES",
+            "feature_name": "Bluetooth Connectivity",
+            "product_1_value": "cross",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "check",
+            "product_3_highlight": true,
+            "product_4_value": "check",
+            "product_4_highlight": true
+          }
+        },
+        "feature_rVGa8R": {
+          "type": "feature",
+          "settings": {
+            "category": "CONNECTIVITY FEATURES",
+            "feature_name": "GAME App Integration",
+            "product_1_value": "cross",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "check",
+            "product_3_highlight": true,
+            "product_4_value": "check",
+            "product_4_highlight": true
+          }
+        },
+        "feature_iaY3Jm": {
+          "type": "feature",
+          "settings": {
+            "category": "CONNECTIVITY FEATURES",
+            "feature_name": "Find My Rangefinder",
+            "product_1_value": "cross",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "check",
+            "product_3_highlight": true,
+            "product_4_value": "check",
+            "product_4_highlight": true
+          }
+        },
+        "feature_xqXzg4": {
+          "type": "feature",
+          "settings": {
+            "category": "CONNECTIVITY FEATURES",
+            "feature_name": "Shot Tracking",
+            "product_1_value": "cross",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "cross",
+            "product_3_highlight": true,
+            "product_4_value": "check",
+            "product_4_highlight": true
+          }
+        },
+        "feature_Lce6gK": {
+          "type": "feature",
+          "settings": {
+            "category": "CONNECTIVITY FEATURES",
+            "feature_name": "Custom Action Button",
+            "product_1_value": "cross",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "cross",
+            "product_3_highlight": true,
+            "product_4_value": "check",
+            "product_4_highlight": true
+          }
+        },
+        "feature_FqDzfV": {
+          "type": "feature",
+          "settings": {
+            "category": "CONNECTIVITY FEATURES",
+            "feature_name": "Post-Round Data Sync",
+            "product_1_value": "cross",
+            "product_1_highlight": false,
+            "product_2_value": "",
+            "product_2_highlight": false,
+            "product_3_value": "cross",
+            "product_3_highlight": true,
+            "product_4_value": "check",
+            "product_4_highlight": true
+          }
+        }
+      },
+      "block_order": [
+        "product_8RbWh3",
+        "product_QCTpLd",
+        "product_rNEJbj",
+        "feature_cqbAmh",
+        "feature_gKqWCn",
+        "feature_BRkw8J",
+        "feature_wg8Kqj",
+        "feature_BbNzXg",
+        "feature_WtRtiV",
+        "feature_WVgHWC",
+        "feature_NQJLxD",
+        "feature_MFpDDi",
+        "feature_rVGa8R",
+        "feature_iaY3Jm",
+        "feature_xqXzg4",
+        "feature_Lce6gK",
+        "feature_FqDzfV"
+      ],
+      "name": "Product Comparison",
+      "settings": {
+        "heading": "Which Rangefinder is Right For You?",
+        "subheading": "From fast, accurate optics to fully connected shot intelligence — compare our rangefinder lineup and choose the one that fits how you play.",
+        "disclaimer": ""
+      }
+    },
+    "new_faq_section_ETa8r8": {
+      "type": "new-faq-section",
+      "blocks": {
+        "faq_item_yHkcLL": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Captain Air tournament legal?",
+            "answer": "<p>Yes. Captain Air includes a Slope Mode that can be turned off using the external slope switch, making it fully compliant for tournament play.</p>"
+          }
+        },
+        "faq_item_NnF4xe": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I see True Distance™ yardages in my rangefinder?",
+            "answer": "<p>True Distance™ yardages are controlled through the app and need to be turned on before they appear in the device’s reticle.<br/>To enable it:</p><ol><li>Start a round in the GAME App</li><li>Open the menu (top corner / hamburger menu)</li><li>Toggle True Distance™ on</li></ol><p>Once enabled, your rangefinder will display adjusted yardages directly in the reticle when you’re ranging targets.<br/>If you don’t see adjusted distances, it usually means the toggle is off — not that the feature isn’t working.</p>"
+          }
+        },
+        "faq_item_QgxdKz": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What happens if I lose it on the course?",
+            "answer": "<p>Captain Air includes “Find My Rangefinder” through the GAME App.<br/>If it gets left behind, you can check its last known location directly from your phone, making it much easier to recover.</p>"
+          }
+        },
+        "faq_item_bX9Xzx": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What if I don’t want all the connected or AI features?",
+            "answer": "<p>No problem at all. Captain Air works perfectly as a simple point-and-shoot laser rangefinder right out of the box.<br/>All connected features are optional — you can use it traditionally or unlock more functionality when you’re ready.</p>"
+          }
+        },
+        "faq_item_DkeQKP": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are the numbers shown in photos exactly what I’ll see through the viewfinder?",
+            "answer": "<p>In-use product images are designed to reflect the red display color customers see through the device. Some marketing images use enlarged graphic numbers to make distances and key data easier to read online.</p>"
+          }
+        },
+        "faq_item_FqRXap": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What does the IP65 rating actually mean?",
+            "answer": "<p>IP65 means the device is protected against dust and water from any direction.<br/>In real terms, it’s built to handle steady rain, wet carts, early morning dew, and gritty conditions without affecting performance.</p>"
+          }
+        },
+        "faq_item_6cPBVM": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does the flag-locking technology work?",
+            "answer": "<p>Captain Air uses rapid targeting with built-in Pulse Vibration feedback.<br/>When you lock onto the flag, you’ll feel a quick pulse — confirming you’ve hit the pin, not the background.<br/><br/>It’s especially helpful for:</p><ul><li>Shaky hands</li><li>Busy backgrounds (trees, bunkers)</li><li>Long-distance shots</li></ul>"
+          }
+        },
+        "faq_item_JtCqXY": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do Club Recommendations work?",
+            "answer": "<p>When you connect to the GAME App, you’ll start with default club distances.<br/>From there:</p><ul><li>You can manually adjust your yardages</li><li>Over time, the system learns from your rounds</li><li>Data from gameplay and Rainmaker sessions refines recommendations</li></ul><p>It evolves from general guidance into personalized, data-driven club selection.</p>"
+          }
+        },
+        "faq_item_WMNXVK": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What’s the difference between Captain Air and Captain Pro?",
+            "answer": "<p>Captain Air is designed to give you everything you need — and then some — in a simple, accessible package.<br/><br/>If you want:</p><ul><li>Stronger optics</li><li>Sharper display clarity</li><li>More customization</li></ul><p><strong>Then Captain Pro is the upgrade.</strong></p><p>Air keeps it clean and capable. Pro takes it to the next level.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_yHkcLL",
+        "faq_item_NnF4xe",
+        "faq_item_QgxdKz",
+        "faq_item_bX9Xzx",
+        "faq_item_DkeQKP",
+        "faq_item_FqRXap",
+        "faq_item_6cPBVM",
+        "faq_item_JtCqXY",
+        "faq_item_WMNXVK"
+      ],
+      "name": "FAQ Accordion",
+      "settings": {
+        "title": "Frequently Asked",
+        "outline_title": "Questions",
+        "backGroundColor": "#ffffff",
+        "content_clr": "#000000",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "layout_option": "normal",
+        "has_ratio": false
+      }
+    },
+    "product_review_section_HGfPgF": {
+      "type": "product-review-section",
+      "name": "Product Review Loox",
+      "settings": {}
+    },
+    "loox-product-reviews-app-section": {
+      "type": "apps",
+      "blocks": {
+        "loox-product-reviews": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "reviews_to_display": "",
+            "default_tab": "automatic",
+            "only_photos": true,
+            "aggregated": false,
+            "limit": 20,
+            "hide_thumbnails": false,
+            "maxwidth": 1080,
+            "is_sample": true
+          }
+        }
+      },
+      "block_order": [
+        "loox-product-reviews"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
+    },
+    "collection-return": {
+      "type": "collection-return",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "sub",
+    "product-recommendations",
+    "recently-viewed",
+    "lp_hero_section_Hd8MC6",
+    "portability_meets_section_kbi3qC",
+    "two_layout_lp_section_9kmAQQ",
+    "two_layout_lp_section_nTG796",
+    "portability_meets_section_BQVq3e",
+    "two_layout_lp_section_zLRncn",
+    "new_image_section_nrRFVC",
+    "portability_meets_section_x78etY",
+    "two_layout_lp_section_zcHkmp",
+    "product_comparison_hPjkqg",
+    "new_faq_section_ETa8r8",
+    "product_review_section_HGfPgF",
+    "loox-product-reviews-app-section",
+    "collection-return"
+  ]
+}

@@ -27,6 +27,41 @@
         "hide_default_content": false
       }
     },
+    "lp_hero_section_g8pThw": {
+      "type": "lp-hero-section",
+      "custom_css": [
+        ".hero-title__text{padding-top:clamp(40px, 6vw,100px);}"
+      ],
+      "name": "Rainmaker Hero",
+      "settings": {
+        "no_space_top": false,
+        "no_bottom_space": false,
+        "bg_type": "solid",
+        "bg_clr": "rgba(0,0,0,0)",
+        "bg_solid_clr": "#000000",
+        "bg_content_clr": "",
+        "badge_text": "",
+        "title_type": "text",
+        "title_text": "REGISTER YOUR PRODUCT",
+        "title_font_size": 52,
+        "title_font_size_mobile": 26,
+        "title": "shopify://shop_images/text-desktop-rainmaker-lp-qr.png",
+        "titleMobile": "shopify://shop_images/text-mobile-rainmaker-lp-qr.png",
+        "subtext": "Register your device to activate warranty coverage, firmware updates, connected features, and premium support.",
+        "button_type": "custom",
+        "custom_button_code": "<button type=\"button\" aria-label=\"Register Now\" onclick=\"var _klOnsite = window._klOnsite || []; _klOnsite.push(['openForm', 'Sa2zcc']);\" class=\"content-cta content-cta__solid\">\n  <span data-add-to-cart-text=\"\" data-default-text=\"ADD TO CART\">REGISTER NOW</span>\n</button>",
+        "button_text": "ACTIVATE MEMBERSHIP",
+        "button_link": "",
+        "image_has_ratio": false,
+        "product_image": "shopify://shop_images/image_2_12d6cf45-eb8f-403f-90d5-0dec9b9802bb.png",
+        "product_image_mobile": "shopify://shop_images/image_2_1.png",
+        "show_video": false,
+        "heading_bottom": "",
+        "subheading_bottom": "",
+        "bottom_button_text": "",
+        "bottom_button_link": ""
+      }
+    },
     "advanced_content_LPNiP4": {
       "type": "advanced-content",
       "blocks": {
@@ -52,6 +87,7 @@
         "liquid_FxnnHh",
         "image_BL6VGb"
       ],
+      "disabled": true,
       "settings": {
         "full_width": false,
         "space_around": true
@@ -60,6 +96,7 @@
   },
   "order": [
     "main",
+    "lp_hero_section_g8pThw",
     "advanced_content_LPNiP4"
   ]
 }

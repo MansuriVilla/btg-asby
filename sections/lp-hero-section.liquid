@@ -83,11 +83,21 @@
     </div>
   {% endif %}
   <div class="hero-title">
-    <picture>
-      <source srcset="{{ section.settings.title | image_url }}" media="(min-width:861px)">
-      <source srcset="{{ section.settings.titleMobile | image_url }}" media="(max-width:860px)">
-      <img src="{{ section.settings.title | image_url }}" alt="{{ title_alt | escape }}" loading="lazy">
-    </picture>
+    {% if section.settings.title_type == 'text' %}
+      {% if section.settings.title_text != blank %}
+        <h1 class="hero-title__text">{{ section.settings.title_text }}</h1>
+      {% endif %}
+    {% else %}
+      {% if section.settings.title != blank %}
+        <picture>
+          <source srcset="{{ section.settings.title | image_url }}" media="(min-width:861px)">
+          {% if section.settings.titleMobile != blank %}
+            <source srcset="{{ section.settings.titleMobile | image_url }}" media="(max-width:860px)">
+          {% endif %}
+          <img src="{{ section.settings.title | image_url }}" alt="{{ title_alt | escape }}" loading="lazy">
+        </picture>
+      {% endif %}
+    {% endif %}
   </div>
   {% if section.settings.subtext != blank %}
     <p class="hero-subtext">
@@ -95,7 +105,11 @@
     </p>
   {% endif %}
 
-  {% if section.settings.button_text != blank %}
+  {% if section.settings.button_type == 'custom' and section.settings.custom_button_code != blank %}
+    <div class="hero-custom-button-wrapper">
+      {{ section.settings.custom_button_code }}
+    </div>
+  {% elsif section.settings.button_text != blank %}
     <a
       {% if request.path contains 'products' %}
         href="javascript:void(0);"
@@ -201,7 +215,7 @@
           {% endunless %}
           data-variant-id="{{ product.selected_or_first_available_variant.id }}"
           id="pre-order-btn"
-          class="content-cta content-cta__solid"
+          class="content-cta content-cta__solid {% unless current_variant.available %} button_sold-out{%endunless %}"
         >
           {% if  product.template_suffix == 'new-s3-max'%}
             SOLD OUT
@@ -317,7 +331,12 @@
     {% endif %}
 
               .hero-{{ section.id }} {
-                background: {{section.settings.bg_clr | default: 'linear-gradient(-180deg,#242632,#000 24%)'}};
+                {% if section.settings.bg_type == 'solid' %}
+                  background-color: {{ section.settings.bg_solid_clr | default: '#242632' }};
+                  background-image: none;
+                {% else %}
+                  background: {{ section.settings.bg_clr | default: 'linear-gradient(-180deg,#242632,var(--new-black) 24%)' }};
+                {% endif %}
                 text-align: center;
                 color: #ffffff;
                 overflow: hidden;
@@ -329,7 +348,7 @@
                 {% if section.settings.bg_content_clr %}
               .hero-{{ section.id }} {
 
-        background:radial-gradient( circle clamp(400px,50vw,1240px) at center, #D9D9D9 -30%, #000 50% );
+        background:radial-gradient( circle clamp(400px,50vw,1240px) at center, var(--new-gray) -30%, var(--new-black) 50% );
         padding-block: clamp(50px,8.6vw,160px)  {% if section.settings.no_bottom_space == false%}clamp(40px,4.6vw,80px) {%else%} 0{%endif%};
         padding-inline: 20px;
 
@@ -340,7 +359,7 @@
 
       @media screen and (max-width: 860px) {
         .hero-{{ section.id }} {
-        background:radial-gradient( circle clamp(400px,50vw,1240px) at 50% 35%, #D9D9D9 -30%, #000 50% );
+        background:radial-gradient( circle clamp(400px,50vw,1240px) at 50% 35%, var(--new-gray) -30%, var(--new-black) 50% );
       }
 
       }
@@ -389,9 +408,20 @@
                 display: flex;
                 justify-content: center;
                 animation: fadeInUp 0.8s ease forwards 0.2s;
+              }
 
+              .hero-{{ section.id }} .hero-title__text {
+                font-size: {{ section.settings.title_font_size | default: 60 }}px;
+                margin: 0;
+                line-height: 1.1;
+                font-weight: 700;
+                text-transform: uppercase;
+              }
 
-
+              @media screen and (max-width: 860px) {
+                .hero-{{ section.id }} .hero-title__text {
+                  font-size: {{ section.settings.title_font_size_mobile | default: 36 }}px;
+                }
               }
 
               .hero-{{ section.id }} .hero-subtext {
@@ -534,8 +564,8 @@
                 bottom: clamp(10px, 2vw, 20px);
                 right: clamp(10px, 2vw, 20px);
                 z-index: 10;
-                width: 36px;
-                height: 36px;
+                width: 36px !important;
+                height: 36px !important;
                 border-radius: 50%;
                 background: rgba(0, 0, 0, 0.6);
                 color: #fff;
@@ -639,6 +669,10 @@
   "tag": "section",
   "settings": [
     {
+      "type": "header",
+      "content": "Layout & Spacing Settings"
+    },
+    {
       "type": "checkbox",
       "id": "no_space_top",
       "label": "Remove Padding From Top"
@@ -649,10 +683,45 @@
       "label": "Remove Padding From Bottom"
     },
     {
-      "type": "color",
+      "type": "header",
+      "content": "Background Settings"
+    },
+    {
+      "type": "select",
+      "id": "bg_type",
+      "label": "Background Type",
+      "options": [
+        {
+          "value": "gradient",
+          "label": "Gradient Color"
+        },
+        {
+          "value": "solid",
+          "label": "Single Static Color"
+        }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "color_background",
       "id": "bg_clr",
-      "label": "Background Color",
-      "alpha": true
+      "label": "Gradient Background Color",
+      "default": "linear-gradient(-180deg,#242632,#000000 24%)"
+    },
+    {
+      "type": "color",
+      "id": "bg_solid_clr",
+      "label": "Static Solid Color",
+      "default": "#242632"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_content_clr",
+      "label": "Content Background Color (Radial/Special)"
+    },
+    {
+      "type": "header",
+      "content": "Badge & Header Logo"
     },
     {
       "type": "text",
@@ -663,17 +732,63 @@
     {
       "type": "image_picker",
       "id": "badge_image",
-      "label": "Logo"
+      "label": "Logo Badge Image"
+    },
+    {
+      "type": "header",
+      "content": "Hero Title Settings"
+    },
+    {
+      "type": "select",
+      "id": "title_type",
+      "label": "Title Display Type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image Title"
+        },
+        {
+          "value": "text",
+          "label": "Text Title"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title_text",
+      "label": "Text Title",
+      "default": "Unlock Your Intelligence"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 20,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Font Size (Desktop)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Font Size (Mobile)",
+      "default": 36
     },
     {
       "type": "image_picker",
       "id": "title",
-      "label": "Title"
+      "label": "Title Image (Desktop)"
     },
     {
       "type": "image_picker",
       "id": "titleMobile",
-      "label": "Title For Mobile"
+      "label": "Title Image (Mobile)"
     },
     {
       "type": "text",
@@ -681,72 +796,99 @@
       "label": "Sub Text"
     },
     {
+      "type": "header",
+      "content": "Top CTA Button Settings"
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "label": "Button Type",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard Link / Add to Cart"
+        },
+        {
+          "value": "custom",
+          "label": "Custom HTML / Form Code"
+        }
+      ],
+      "default": "standard"
+    },
+    {
+      "type": "html",
+      "id": "custom_button_code",
+      "label": "Custom Button Code / Form HTML",
+      "info": "Paste your custom button or Klaviyo/HubSpot popup trigger code here."
+    },
+    {
       "type": "text",
       "id": "button_text",
-      "label": "Button Text",
+      "label": "Standard Button Text",
       "default": "GET NOTIFIED"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button Link"
+      "label": "Standard Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Product Media (Image / Video)"
     },
     {
       "type": "checkbox",
       "id": "image_has_ratio",
-      "label": "Set Image Width"
+      "label": "Set Max Width / Aspect Constraint on Image"
     },
     {
       "type": "image_picker",
       "id": "product_image",
-      "label": "Product Image For Desktop"
+      "label": "Product Image (Desktop)"
     },
     {
       "type": "image_picker",
       "id": "product_image_mobile",
-      "label": "Product Image For Mobile"
-    },
-    {
-      "type": "color_background",
-      "id": "bg_content_clr",
-      "label": "Content Background Color"
+      "label": "Product Image (Mobile)"
     },
     {
       "type": "checkbox",
       "id": "show_video",
-      "label": "Check This To Add Video"
+      "label": "Enable Product Video Instead of Image"
     },
     {
       "type": "video",
       "id": "product_video",
-      "label": "Upload Video here For Desktop",
-      "visible_if": "{{ section.settings.show_video }}"
+      "label": "Upload Video (Desktop)"
     },
     {
       "type": "video",
       "id": "product_video_mobile",
-      "label": "Upload Video here For Mobile",
-      "visible_if": "{{ section.settings.show_video }}"
+      "label": "Upload Video (Mobile)"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Heading & CTA Settings"
     },
     {
       "type": "text",
       "id": "heading_bottom",
-      "label": "Heading Bottom"
+      "label": "Bottom Heading"
     },
     {
       "type": "text",
       "id": "subheading_bottom",
-      "label": "Sub Heading Bottom"
+      "label": "Bottom Sub-heading"
     },
     {
       "type": "text",
       "id": "bottom_button_text",
-      "label": "Button Text"
+      "label": "Bottom Button Text"
     },
     {
       "type": "url",
       "id": "bottom_button_link",
-      "label": "Button URL"
+      "label": "Bottom Button Link"
     }
   ],
   "presets": [

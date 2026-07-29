@@ -108,8 +108,16 @@
           </div>
         {%- when 'button' -%}
           <div class="rte">
-            <a href="{{ block.settings.link }}" class="btn">
-              {{ block.settings.link_text }}
+            <a  {%if product.selected_or_first_available_variant.available %}
+                href="{{ block.settings.link }}"
+                {%else %}
+                href="javascript:void(0);"
+              {%endif %}   class="btn {% unless product.selected_or_first_available_variant.available %} button_sold-out{%endunless %}">
+              {%if product.selected_or_first_available_variant.available %}
+                {{ block.settings.link_text }}
+                {%else %}
+                SOLD OUT
+              {%endif %}
             </a>
           </div>
         {%- when 'four_icon' -%}

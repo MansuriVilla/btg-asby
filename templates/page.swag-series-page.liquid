@@ -1,7 +1,7 @@
 <div class="swag_countdown_timer">
 {% render 'countdown-timer-swag-series' %}
 </div>
-<div class="swag_series_top"  style="background:#000 url({{'swagseries-bg.png' | asset_url}}) no-repeat bottom center">
+<div class="swag_series_top"  style="background:var(--new-black) url({{'swagseries-bg.png' | asset_url}}) no-repeat bottom center">
 	<div class="page-width">
     	<div class="top_img"><img src="{{'top-logo.png' | asset_url}}" alt=""></div>
         <h2><span>Enter To Win</span><br />The Meadows at Mystic Lake<br/> Swag Series Event</h2>
@@ -73,31 +73,31 @@
 </div>
 
 <style>
-.swag_countdown_timer .countdown-timer { background:#000;}
+.swag_countdown_timer .countdown-timer { background:var(--new-black);}
 .swag_series_top { text-align:center; background-size:cover !important; padding-bottom:600px;}
 .swag_series_top .top_img { max-width:317px; margin:0 auto; padding-top:35px;}
 .swag_series_top h2 {font-style: italic; font-weight: 900; font-size: 90px; line-height: 96px; text-align: center; text-transform: uppercase; color: #FFFFFF; padding:30px 0 0 0;}
 .swag_series_top h2 span {color: transparent; -webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #ffffff; }
 .swag_series_top p {font-style: normal; font-weight: 400; font-size: 20px; line-height: 130%; text-align: center; color: #FFFFFF; padding:10px 0 30px 0;}
-.swag_series_top .button a {background:#004DF5; border-radius: 25px; font-weight: 900; font-size: 18px; line-height: 21px; text-align: center; letter-spacing: 3px; color:#FFFFFF; padding:12px 30px;}
-.swag_series_top .button a:hover { background:#fff; color:#000;}
+.swag_series_top .button a {background:var(--new-blue); border-radius: 25px; font-weight: 900; font-size: 18px; line-height: 21px; text-align: center; letter-spacing: 3px; color:#FFFFFF; padding:12px 30px;}
+.swag_series_top .button a:hover { background:#fff; color:var(--new-black);}
 
 .swag_series_text_bg { padding:94px 0;}
 .swag_series_text_bg p {font-weight: 400; font-size: 20px; line-height: 130%; color: #000000; padding:50px 0 0 0;}
-.swag_series_text_bg p a { color:#000; text-decoration:underline;}
+.swag_series_text_bg p a { color:var(--new-black); text-decoration:underline;}
 .swag_series_text_bg ul { list-style:none; padding:0; margin:0;}
 .swag_series_text_bg li {font-weight: 400; font-size: 20px; line-height: 130%; color: #000000; padding:0 0 0 20px; background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/t/77/assets/dot-icon1.png) left 9px no-repeat; list-style:none;}
-.swag_series_text_bg li a { color:#000; text-decoration:underline;}
+.swag_series_text_bg li a { color:var(--new-black); text-decoration:underline;}
 
 .swag_series_text_bg .page-width { max-width:1330px; margin:0 auto; display: flex; flex-wrap: wrap;}
 .swag_series_text_bg .swagseries_left { width:35%; padding-right:30px;}
-.swag_series_text_bg .swagseries_right { width:65%; border-left:1px solid #000; padding-left:30px;}
+.swag_series_text_bg .swagseries_right { width:65%; border-left:1px solid var(--new-black); padding-left:30px;}
 .swag_series_text_bg .swagseries_left .text { max-width:193px;}
 .swag_series_text_bg .swagseries_left h4 { font-style: italic; font-weight: 700; font-size: 48px; line-height: 56px; color: #000000; padding:30px 0 5px 0; text-transform:inherit;}
-.swag_series_text_bg .swagseries_left .icon {display: flex; align-items: center; margin:25px 0  0 0; font-weight: 400; font-size: 20px; line-height: 130%; color:#000; width:100%;}
+.swag_series_text_bg .swagseries_left .icon {display: flex; align-items: center; margin:25px 0  0 0; font-weight: 400; font-size: 20px; line-height: 130%; color:var(--new-black); width:100%;}
 .swag_series_text_bg .swagseries_left .icon img { width:18px; margin-right:20px;}
-.swag_series_text_bg .swagseries_left .perteam {font-weight: 400; font-size: 24px; line-height: 130%; color:#000;}
-.swag_series_text_bg .swagseries_left .perteam span {font-weight: 700; font-size: 36px; line-height: 130%; color:#000;}
+.swag_series_text_bg .swagseries_left .perteam {font-weight: 400; font-size: 24px; line-height: 130%; color:var(--new-black);}
+.swag_series_text_bg .swagseries_left .perteam span {font-weight: 700; font-size: 36px; line-height: 130%; color:var(--new-black);}
 .swag_series_text_bg .swagseries_left p { padding:20px 0 30px 0;}
 .swag_series_text_bg .swagseries_left .perteam p { padding:50px 0 0 0;}
 .swag_series_text_bg .swagseries_left p i {font-weight: 400; font-size: 18px; line-height: 130%; color: #000000; opacity: 0.5;}
@@ -125,7 +125,7 @@
 .swag_series_top p { font-size:16px;}
 .swag_series_top .button a { font-size:16px;}
 .swag_series_text_bg .swagseries_left { width:100%; padding-right:0;}
-.swag_series_text_bg .swagseries_right { width:100%; border-top:1px solid #000; border-left:none; margin-top:30px; padding:30px 0 0 0;}
+.swag_series_text_bg .swagseries_right { width:100%; border-top:1px solid var(--new-black); border-left:none; margin-top:30px; padding:30px 0 0 0;}
 .swag_series_text_bg p { font-size:16px; padding:30px 0 0 0;}
 .swag_series_text_bg li { font-size:16px; }
 .swag_series_text_bg .swagseries_left .perteam { font-size: 16px; }

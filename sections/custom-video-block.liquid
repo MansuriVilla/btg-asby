@@ -1,3 +1,12 @@
+{%- liquid
+  if section.settings.videoHeading != blank
+    assign label_text = section.settings.videoHeading
+  else
+    assign label_text = section.settings.playText
+  endif
+-%}
+
+
 {% if section.settings.videoUrl != blank %}
   <div
     id="custom_video-block--{{ section.id }}"
@@ -32,7 +41,7 @@
               class="video_overlay-content play-button"
               id="play-button-1"
               style="--ripple-clr:{{section.settings.ripple_clr}}; background: transparent; border: none; padding: 0; cursor: pointer;"
-              aria-label="Play video{% if section.settings.videoHeading != blank %}: {{ section.settings.videoHeading }}{% endif %}"
+              aria-label="Play video: {{ label_text }}"
             >
               <img
                 id="video_block-icon-desktop"

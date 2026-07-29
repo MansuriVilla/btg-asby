@@ -1,36 +1,31 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction }}">
+  <head>
+    {% comment %}
+      <script src="https://app.termly.io/resource-blocker/814c3560-92de-488c-801f-f93fe4c3322c?autoBlock=on"></script>
+    {% endcomment %}
 
-<head>
-  {% comment %}
-  <script src="https://app.termly.io/resource-blocker/814c3560-92de-488c-801f-f93fe4c3322c?autoBlock=on"></script>
-  {% endcomment %}
+    {%- if settings.favicon != blank -%}
+      {% comment %} <!-- Modern Standard Favicons --> {% endcomment %}
+      <link rel="icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" sizes="32x32">
+      <link rel="icon" href="{{ settings.favicon | img_url: '48x48' }}" type="image/png" sizes="48x48">
+      <link rel="icon" href="{{ settings.favicon | img_url: '96x96' }}" type="image/png" sizes="96x96">
+      <link rel="icon" href="{{ settings.favicon | img_url: '192x192' }}" type="image/png" sizes="192x192">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '180x180' }}" sizes="180x180">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '192x192' }}" sizes="192x192">
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+      <meta name="msapplication-TileImage" content="{{ settings.favicon | img_url: '144x144' }}">
+      <meta name="msapplication-TileColor" content="#ffffff">
+    {%- endif -%}
 
+    <script>
+      if (window.location.pathname === '/cart') {
+        window.location.href = '/checkout';
+      }
+    </script>
 
-  {%- if settings.favicon != blank -%}
-  {% comment %} <!-- Modern Standard Favicons --> {% endcomment %}
-  <link rel="icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" sizes="32x32">
-  <link rel="icon" href="{{ settings.favicon | img_url: '48x48' }}" type="image/png" sizes="48x48">
-  <link rel="icon" href="{{ settings.favicon | img_url: '96x96' }}" type="image/png" sizes="96x96">
-  <link rel="icon" href="{{ settings.favicon | img_url: '192x192' }}" type="image/png" sizes="192x192">
-  <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '180x180' }}" sizes="180x180">
-  <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '192x192' }}" sizes="192x192">
-  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
-  <meta name="msapplication-TileImage" content="{{ settings.favicon | img_url: '144x144' }}">
-  <meta name="msapplication-TileColor" content="#ffffff">
-
-
-  {%- endif -%}
-
-
-  <script>
-    if (window.location.pathname === '/cart') {
-      window.location.href = '/checkout';
-    }
-  </script>
-
-  {% comment %} schema markup for organization {% endcomment %}
-  <script type="application/ld+json">
+    {% comment %} schema markup for organization {% endcomment %}
+    <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -59,8 +54,8 @@
       }
     </script>
 
-  {% comment %} schema markup for website {% endcomment %}
-  <script type="application/ld+json">
+    {% comment %} schema markup for website {% endcomment %}
+    <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "OnlineStore",
@@ -122,326 +117,339 @@
           "@type": "Organization",
           "name": "Blue Tees"
         },
-        "description": "Play Different"
+        "description": "Blue Tees Golf is redefining golf technology with a mission to make the game smarter, more connected, and more enjoyable. Known for delivering premium technology and modern design at an accessible price point, Blue Tees is expanding its ecosystem of connected products and software to create a more seamless experience for golfers on the course, at the driving range, and beyond. By connecting the tools used throughout the game, Blue Tees helps players get more out of every round."
       }
     </script>
 
-  {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}
-  {% style %}
-  header,footer{display:none !important;}
-  {%if page.template_suffix == 'towel-qr-lp' or page.template_suffix == 'divot-tool-qr-lp' or page.template_suffix ==
-  'rainmaker-qr-lp' or page.template_suffix == 'rainmaker-event-qr-lp'%}
-  main{background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278048_2.png?v=1774348073) top
-  center / cover no-repeat #000 !important;}
-  {% else %}
-  main{background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/qr-page-glow-blocks.png?v=1773640228) top
-  center / contain no-repeat #000 !important;}
-  {% endif %}
-  section[id*="__lp_hero_section_"] { padding-block: clamp(15px, 5.3vw,95px) 0; }
-  @media only screen and (max-width:860px){
-  main{background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/qr-page-glow-blocks.png?v=1773640228)
-  center top /cover no-repeat #000 !important;}
-  }
-  {% endstyle %}
-  {% endif %}
+    {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}
+      {% style %}
+        header,footer{display:none !important;}
+        {%if page.template_suffix == 'towel-qr-lp' or page.template_suffix == 'divot-tool-qr-lp' or page.template_suffix ==
+        'rainmaker-qr-lp' or page.template_suffix == 'rainmaker-event-qr-lp'%}
+        main{background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278048_2.png?v=1774348073) top
+        center / cover no-repeat var(--new-black) !important;}
+        {% else %}
+        main{background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/qr-page-glow-blocks.png?v=1773640228) top
+        center / contain no-repeat var(--new-black) !important;}
+        {% endif %}
+        section[id*="__lp_hero_section_"] { padding-block: clamp(15px, 5.3vw,95px) 0; }
+        @media only screen and (max-width:860px){
+        main{background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/qr-page-glow-blocks.png?v=1773640228)
+        center top /cover no-repeat var(--new-black) !important;}
+        }
+      {% endstyle %}
+    {% endif %}
 
-  {% include 'visually_io_sdk' %}
-  {% include 'dataLayer-allPages' %}
+    {% include 'visually_io_sdk' %}
+    {% include 'dataLayer-allPages' %}
 
-  {% if localization.country.iso_code == 'GB' %}
-  {% if page.handle contains 'app-credit' %}
-  <script>
-    window.location.href = 'https://blueteesgolf.co.uk/pages/app-credit';
-  </script>
-  {% endif %}
-  {% if page.handle contains 'manuals' %}
-  <script>
-    window.location.href = 'https://blueteesgolf.co.uk/pages/manuals';
-  </script>
-  {% endif %}
-  {% if page.handle contains 'app-download-lp' %}
-  <script>
-    window.location.href = 'https://blueteesgolf.co.uk/pages/app-download-lp';
-  </script>
-  {% endif %}
-  {% endif %}
-
-  {% if request.path == '/collections/all-accessories' %}
-  <script>
-    window.location.href = 'https://blueteesgolf.com/collections/accessories';
-  </script>
-  {% endif %}
-
-  {% if request.path == '/collections/blue-tees-golf-rangefinders' %}
-  <script>
-    window.location.href = 'https://blueteesgolf.com/collections/rangefinders';
-  </script>
-  {% endif %}
-  {% if theme.role == 'main' %}
-  {% if localization.country.iso_code == 'AT'
-  or localization.country.iso_code == 'BE'
-  or localization.country.iso_code == 'BG'
-  or localization.country.iso_code == 'HR'
-  or localization.country.iso_code == 'CY'
-  or localization.country.iso_code == 'DK'
-  or localization.country.iso_code == 'FI'
-  or localization.country.iso_code == 'FR'
-  or localization.country.iso_code == 'DE'
-  or localization.country.iso_code == 'HU'
-  or localization.country.iso_code == 'IE'
-  or localization.country.iso_code == 'IT'
-  or localization.country.iso_code == 'LV'
-  or localization.country.iso_code == 'LT'
-  or localization.country.iso_code == 'LU'
-  or localization.country.iso_code == 'MT'
-  or localization.country.iso_code == 'NL'
-  or localization.country.iso_code == 'NO'
-  or localization.country.iso_code == 'PL'
-  or localization.country.iso_code == 'PT'
-  or localization.country.iso_code == 'RO'
-  or localization.country.iso_code == 'SK'
-  or localization.country.iso_code == 'SI'
-  or localization.country.iso_code == 'ES'
-  or localization.country.iso_code == 'SE'
-  or localization.country.iso_code == 'CH'
-  %}
-  {% if page.handle contains 'app-credit' %}
-  <script>
-    window.location.href = 'https://blueteesgolf.eu/pages/app-credit';
-  </script>
-  {% endif %}
-  {% endif %}
-  {% endif %}
-
-  {% if localization.country.iso_code == 'GB' %}
-  {% if page.handle contains 'privacy-policy' %}
-  {% else %}
-  <script>
-    window.location.href = 'https://blueteesgolf.co.uk/';
-  </script>
-  {% endif %}
-  {% endif %}
-
-  {% if localization.country.iso_code == 'KR' %}
-  {% if page.handle contains 'privacy-policy' %}
-  {% else %}
-  <script>
-    window.location.href = 'https://blueteesgolfkorea.com/';
-  </script>
-  {% endif %}
-  {% endif %}
-
-  {% unless template.suffix contains 'qr-lp' %}
-  {% if theme.role == 'main' %}
-  {% if localization.country.iso_code == 'AT'
-  or localization.country.iso_code == 'BE'
-  or localization.country.iso_code == 'BG'
-  or localization.country.iso_code == 'HR'
-  or localization.country.iso_code == 'CY'
-  or localization.country.iso_code == 'DK'
-  or localization.country.iso_code == 'FI'
-  or localization.country.iso_code == 'FR'
-  or localization.country.iso_code == 'DE'
-  or localization.country.iso_code == 'HU'
-  or localization.country.iso_code == 'IE'
-  or localization.country.iso_code == 'IT'
-  or localization.country.iso_code == 'LV'
-  or localization.country.iso_code == 'LT'
-  or localization.country.iso_code == 'LU'
-  or localization.country.iso_code == 'MT'
-  or localization.country.iso_code == 'NL'
-  or localization.country.iso_code == 'NO'
-  or localization.country.iso_code == 'PL'
-  or localization.country.iso_code == 'PT'
-  or localization.country.iso_code == 'RO'
-  or localization.country.iso_code == 'SK'
-  or localization.country.iso_code == 'SI'
-  or localization.country.iso_code == 'ES'
-  or localization.country.iso_code == 'SE'
-  or localization.country.iso_code == 'CH'
-  %}
-  {% if page.handle contains 'privacy-policy' %}
-  {% else %}
-  <script>
-    window.location.href = 'https://blueteesgolf.eu/';
-  </script>
-  {% endif %}
-  {% endif %}
-  {% endif %}
-  {% endunless %}
-
-  {% unless template.suffix contains 'qr-lp' %}
-  {% if theme.role == 'main' %}
-  {% if localization.country.iso_code == 'CA' %}
-  <script>
-    window.location.href = 'http://blueteesgolf.ca/';
-  </script>
-  {% endif %}
-  {% endif %}
-  {% endunless %}
-
-  {% if theme.role == 'main' %}
-  {% if product.title == '1YR Non-Connected Devices Subscription - Game App'
-  or product.title == '1YR Premium Membership - Player Pack GO - 50% Off First Year Membership'
-  or product.title == '6MO Premium GPS Game App Subscription'
-  or product.title == '1YR Player+ Premium'
-  or product.title == '2YR Player+ Premium'
-  or product.title == '2YR Ringer Premium'
-  or product.title contains 'Membership'
-  or product.title contains '1 Year GAME AI Package'
-  or product.title contains 'Analytics Package'
-  %}
-  <script>
-    window.location.href = 'https://blueteesgolf.com/pages/membership';
-  </script>
-  {% endif %}
-  {% endif %}
-  {% if theme.role == 'main' and product.handle == 'rainmaker-presale-1-year-plan'%}
-
-  <script>
-    window.location.href = 'https://blueteesgolf.com/products/rainmaker';
-  </script>
-
-  {% endif %}
-
-  {% style %}
-  h1.visually-hidden.custom_h1_tag{display:none;}
-  {% endstyle %}
-
-  {%- if request.path contains 'pages' and page.metafields.custom.seo_title_h1_tag != blank -%}
-    <h1 class="visually-hidden custom_h1_tag">{{ page.metafields.custom.seo_title_h1_tag }}</h1>
-  {%- endif -%}
-
-  {%- if template.name == 'index' -%}
-    <h1 class="visually-hidden custom_h1_tag">
-      Smart Golf Technology — Rangefinders, GPS Speakers & More By Blue Tees Golf
-    </h1>
-  {%- endif -%}
-
-  {%- if request.path contains 'collections' and collection.metafields.custom.seo_title_h1 != blank -%}
-    <h1 class="visually-hidden custom_h1_tag">{{ collection.metafields.custom.seo_title_h1 }}</h1>
-  {%- endif -%}
-
-      <script id="script_tag_id" data-last-check-status-key="_prevCheckIsOk"
-        data-last-check-timestamp-key="_prevCheckTimestamp" data-refresh-interval-ms="120000"
-        data-script-src="https://d2fj3s7h83rb61.cloudfront.net/4414DSE1uv/bin" data-app-info="1-1--1.6.1"
-        data-app-platform="1" data-app-type="1" data-app-version="1.6.1">
-          (function () {
-            var currentScript = document.currentScript;
-            var currentScriptDataset = currentScript.dataset;
-            var lastCheckStatusKey = currentScriptDataset.lastCheckStatusKey;
-            var lastCheckTimestampKey = currentScriptDataset.lastCheckTimestampKey;
-            var refreshIntervalMs = parseInt(currentScriptDataset.refreshIntervalMs, 10);
-            var scriptSrc = currentScriptDataset.scriptSrc;
-
-            if (
-              lastCheckStatusKey &&
-              lastCheckTimestampKey &&
-              refreshIntervalMs &&
-              scriptSrc &&
-              !isNaN(refreshIntervalMs)
-            ) {
-              if (localStorage.getItem(lastCheckStatusKey) === null) {
-                localStorage.setItem(lastCheckStatusKey, String(false));
-              }
-
-              if (localStorage.getItem(lastCheckTimestampKey) === null) {
-                localStorage.setItem(lastCheckTimestampKey, String(0));
-              }
-
-              var locationHref = document.location.href;
-              var now = Date.now();
-              var lastCheckStatus = String(localStorage.getItem(lastCheckStatusKey)).toLowerCase() === 'true';
-              var lastCheckTimestamp = parseInt(localStorage.getItem(lastCheckTimestampKey), 10);
-
-              if (!isNaN(lastCheckTimestamp)) {
-                var needRefreshByInterval = now - lastCheckTimestamp > refreshIntervalMs;
-
-                if (needRefreshByInterval || lastCheckStatus) {
-                  var LOAD = 'load';
-                  var ERROR = 'error';
-                  var script = document.createElement('script');
-
-                  function scriptEventHandler(evt) {
-                    var target = evt.target;
-                    var evtType = evt.type;
-
-                    var currentCheckStatus = false;
-                    var currentCheckTimestamp = Date.now();
-
-                    if (evtType === LOAD) {
-                      currentCheckStatus = true;
-                    }
-
-                    localStorage.setItem(lastCheckStatusKey, String(currentCheckStatus));
-                    localStorage.setItem(lastCheckTimestampKey, String(currentCheckTimestamp));
-
-                    target.removeEventListener(LOAD, scriptEventHandler);
-                    target.removeEventListener(ERROR, scriptEventHandler);
-                  }
-
-                  if (!locationHref.match(/(\/checkouts\/|\/thank_you)/gi)) {
-                    script.defer = true;
-                  }
-
-                  script.addEventListener(LOAD, scriptEventHandler);
-                  script.addEventListener(ERROR, scriptEventHandler);
-
-                  script.src = scriptSrc;
-
-                  document.head.insertBefore(script, currentScript);
-                }
-              }
-            } else {
-              console.error('wrapper is not right configured');
-            }
-          })();
+    {% if localization.country.iso_code == 'GB' %}
+      {% if page.handle contains 'app-credit' %}
+        <script>
+          window.location.href = 'https://blueteesgolf.co.uk/pages/app-credit';
         </script>
+      {% endif %}
+      {% if page.handle contains 'manuals' %}
+        <script>
+          window.location.href = 'https://blueteesgolf.co.uk/pages/manuals';
+        </script>
+      {% endif %}
+      {% if page.handle contains 'app-download-lp' %}
+        <script>
+          window.location.href = 'https://blueteesgolf.co.uk/pages/app-download-lp';
+        </script>
+      {% endif %}
+    {% endif %}
 
-      <link rel="preload"
-        href="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bluetees-logo-full-new.svg?v=1767964501" as="image"
-        type="image/svg+xml" fetchpriority="high" crossorigin="anonymous">
+    {% if request.path == '/collections/all-accessories' %}
+      <script>
+        window.location.href = 'https://blueteesgolf.com/collections/accessories';
+      </script>
+    {% endif %}
 
+    {% if request.path == '/collections/blue-tees-golf-rangefinders' %}
+      <script>
+        window.location.href = 'https://blueteesgolf.com/collections/rangefinders';
+      </script>
+    {% endif %}
+    {% if theme.role == 'main' %}
+      {% if localization.country.iso_code == 'AT'
+        or localization.country.iso_code == 'BE'
+        or localization.country.iso_code == 'BG'
+        or localization.country.iso_code == 'HR'
+        or localization.country.iso_code == 'CY'
+        or localization.country.iso_code == 'DK'
+        or localization.country.iso_code == 'FI'
+        or localization.country.iso_code == 'FR'
+        or localization.country.iso_code == 'DE'
+        or localization.country.iso_code == 'HU'
+        or localization.country.iso_code == 'IE'
+        or localization.country.iso_code == 'IT'
+        or localization.country.iso_code == 'LV'
+        or localization.country.iso_code == 'LT'
+        or localization.country.iso_code == 'LU'
+        or localization.country.iso_code == 'MT'
+        or localization.country.iso_code == 'NL'
+        or localization.country.iso_code == 'NO'
+        or localization.country.iso_code == 'PL'
+        or localization.country.iso_code == 'PT'
+        or localization.country.iso_code == 'RO'
+        or localization.country.iso_code == 'SK'
+        or localization.country.iso_code == 'SI'
+        or localization.country.iso_code == 'ES'
+        or localization.country.iso_code == 'SE'
+        or localization.country.iso_code == 'CH'
+      %}
+        {% if page.handle contains 'app-credit' %}
+          <script>
+            window.location.href = 'https://blueteesgolf.eu/pages/app-credit';
+          </script>
+        {% endif %}
+      {% endif %}
+    {% endif %}
 
-      {% if request.path contains '/products/' %}
+    {% if localization.country.iso_code == 'GB' %}
+      {% if page.handle contains 'privacy-policy' %}
+      {% else %}
+        <script>
+          window.location.href = 'https://blueteesgolf.co.uk/';
+        </script>
+      {% endif %}
+    {% endif %}
+
+    {% if localization.country.iso_code == 'KR' %}
+      {% if page.handle contains 'privacy-policy' %}
+      {% else %}
+        <script>
+          window.location.href = 'https://blueteesgolfkorea.com/';
+        </script>
+      {% endif %}
+    {% endif %}
+
+    {% unless template.suffix contains 'qr-lp' %}
+      {% if theme.role == 'main' %}
+        {% if localization.country.iso_code == 'AT'
+          or localization.country.iso_code == 'BE'
+          or localization.country.iso_code == 'BG'
+          or localization.country.iso_code == 'HR'
+          or localization.country.iso_code == 'CY'
+          or localization.country.iso_code == 'DK'
+          or localization.country.iso_code == 'FI'
+          or localization.country.iso_code == 'FR'
+          or localization.country.iso_code == 'DE'
+          or localization.country.iso_code == 'HU'
+          or localization.country.iso_code == 'IE'
+          or localization.country.iso_code == 'IT'
+          or localization.country.iso_code == 'LV'
+          or localization.country.iso_code == 'LT'
+          or localization.country.iso_code == 'LU'
+          or localization.country.iso_code == 'MT'
+          or localization.country.iso_code == 'NL'
+          or localization.country.iso_code == 'NO'
+          or localization.country.iso_code == 'PL'
+          or localization.country.iso_code == 'PT'
+          or localization.country.iso_code == 'RO'
+          or localization.country.iso_code == 'SK'
+          or localization.country.iso_code == 'SI'
+          or localization.country.iso_code == 'ES'
+          or localization.country.iso_code == 'SE'
+          or localization.country.iso_code == 'CH'
+        %}
+          {% if page.handle contains 'privacy-policy' %}
+          {% else %}
+            <script>
+              window.location.href = 'https://blueteesgolf.eu/';
+            </script>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endunless %}
+
+    {% unless template.suffix contains 'qr-lp' %}
+      {% if theme.role == 'main' %}
+        {% if localization.country.iso_code == 'CA' %}
+          <script>
+            window.location.href = 'http://blueteesgolf.ca/';
+          </script>
+        {% endif %}
+      {% endif %}
+    {% endunless %}
+
+    {% if theme.role == 'main' %}
+      {% if product.title == '1YR Non-Connected Devices Subscription - Game App'
+        or product.title == '1YR Premium Membership - Player Pack GO - 50% Off First Year Membership'
+        or product.title == '6MO Premium GPS Game App Subscription'
+        or product.title == '1YR Player+ Premium'
+        or product.title == '2YR Player+ Premium'
+        or product.title == '2YR Ringer Premium'
+        or product.title contains 'Membership'
+        or product.title contains '1 Year GAME AI Package'
+        or product.title contains 'Analytics Package'
+      %}
+        <script>
+          window.location.href = 'https://blueteesgolf.com/pages/membership';
+        </script>
+      {% endif %}
+    {% endif %}
+    {% if theme.role == 'main' and product.handle == 'rainmaker-presale-1-year-plan' %}
+      <script>
+        window.location.href = 'https://blueteesgolf.com/products/rainmaker';
+      </script>
+    {% endif %}
+
+    {% style %}
+      h1.visually-hidden.custom_h1_tag{display:none;}
+    {% endstyle %}
+
+    {%- if request.path contains 'pages' and page.metafields.custom.seo_title_h1_tag != blank -%}
+      <h1 class="visually-hidden custom_h1_tag">{{ page.metafields.custom.seo_title_h1_tag }}</h1>
+    {%- endif -%}
+
+    {%- if template.name == 'index' -%}
+      <h1 class="visually-hidden custom_h1_tag">
+        Smart Golf Technology — Rangefinders, GPS Speakers & More By Blue Tees Golf
+      </h1>
+    {%- endif -%}
+
+    {%- if request.path contains 'collections' and collection.metafields.custom.seo_title_h1 != blank -%}
+      <h1 class="visually-hidden custom_h1_tag">{{ collection.metafields.custom.seo_title_h1 }}</h1>
+    {%- endif -%}
+
+    <script
+      id="script_tag_id"
+      data-last-check-status-key="_prevCheckIsOk"
+      data-last-check-timestamp-key="_prevCheckTimestamp"
+      data-refresh-interval-ms="120000"
+      data-script-src="https://d2fj3s7h83rb61.cloudfront.net/4414DSE1uv/bin"
+      data-app-info="1-1--1.6.1"
+      data-app-platform="1"
+      data-app-type="1"
+      data-app-version="1.6.1"
+    >
+      (function () {
+        var currentScript = document.currentScript;
+        var currentScriptDataset = currentScript.dataset;
+        var lastCheckStatusKey = currentScriptDataset.lastCheckStatusKey;
+        var lastCheckTimestampKey = currentScriptDataset.lastCheckTimestampKey;
+        var refreshIntervalMs = parseInt(currentScriptDataset.refreshIntervalMs, 10);
+        var scriptSrc = currentScriptDataset.scriptSrc;
+
+        if (
+          lastCheckStatusKey &&
+          lastCheckTimestampKey &&
+          refreshIntervalMs &&
+          scriptSrc &&
+          !isNaN(refreshIntervalMs)
+        ) {
+          if (localStorage.getItem(lastCheckStatusKey) === null) {
+            localStorage.setItem(lastCheckStatusKey, String(false));
+          }
+
+          if (localStorage.getItem(lastCheckTimestampKey) === null) {
+            localStorage.setItem(lastCheckTimestampKey, String(0));
+          }
+
+          var locationHref = document.location.href;
+          var now = Date.now();
+          var lastCheckStatus = String(localStorage.getItem(lastCheckStatusKey)).toLowerCase() === 'true';
+          var lastCheckTimestamp = parseInt(localStorage.getItem(lastCheckTimestampKey), 10);
+
+          if (!isNaN(lastCheckTimestamp)) {
+            var needRefreshByInterval = now - lastCheckTimestamp > refreshIntervalMs;
+
+            if (needRefreshByInterval || lastCheckStatus) {
+              var LOAD = 'load';
+              var ERROR = 'error';
+              var script = document.createElement('script');
+
+              function scriptEventHandler(evt) {
+                var target = evt.target;
+                var evtType = evt.type;
+
+                var currentCheckStatus = false;
+                var currentCheckTimestamp = Date.now();
+
+                if (evtType === LOAD) {
+                  currentCheckStatus = true;
+                }
+
+                localStorage.setItem(lastCheckStatusKey, String(currentCheckStatus));
+                localStorage.setItem(lastCheckTimestampKey, String(currentCheckTimestamp));
+
+                target.removeEventListener(LOAD, scriptEventHandler);
+                target.removeEventListener(ERROR, scriptEventHandler);
+              }
+
+              if (!locationHref.match(/(\/checkouts\/|\/thank_you)/gi)) {
+                script.defer = true;
+              }
+
+              script.addEventListener(LOAD, scriptEventHandler);
+              script.addEventListener(ERROR, scriptEventHandler);
+
+              script.src = scriptSrc;
+
+              document.head.insertBefore(script, currentScript);
+            }
+          }
+        } else {
+          console.error('wrapper is not right configured');
+        }
+      })();
+    </script>
+
+    <link
+      rel="preload"
+      href="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bluetees-logo-full-new.svg?v=1767964501"
+      as="image"
+      type="image/svg+xml"
+      fetchpriority="high"
+      crossorigin="anonymous"
+    >
+
+    {% if request.path contains '/products/' %}
       {% comment %} <!-- Facebook Microdata Tags --> {% endcomment %}
       <meta property="og:type" content="product">
       <meta property="og:title" content="{{ product.title }}">
       <meta property="og:description" content="{{ product.description | strip_html | escape }}">
       <meta property="og:url" content="{{ shop.url }}{{ product.url }}">
-      <meta property="og:image"
-        content="{% if product.featured_image %}{{ product.featured_image.src | img_url: 'large' }}{% endif %}">
+      <meta
+        property="og:image"
+        content="{% if product.featured_image %}{{ product.featured_image.src | img_url: 'large' }}{% endif %}"
+      >
       <meta property="product:price:amount" content="{{ product.price | divided_by: 100.0 }}">
       <meta property="product:price:currency" content="{{ shop.currency }}">
-      <meta property="product:availability"
-        content="{% if product.available %}in stock{% else %}out of stock{% endif %}">
-      {% endif %}
-      {% comment %} <!-- Title and description ================================================== --> {% endcomment %}
-      <title>
-        {%if request.path contains '/a/loop_subscriptions/'%}
-        Request Subscription Login Link | {{shop.name}}
-        {%else%}
+      <meta
+        property="product:availability"
+        content="{% if product.available %}in stock{% else %}out of stock{% endif %}"
+      >
+    {% endif %}
+    {% comment %} <!-- Title and description ================================================== --> {% endcomment %}
+    <title>
+      {% if request.path contains '/a/loop_subscriptions/' %}
+        Request Subscription Login Link | {{ shop.name }}
+      {% else %}
         {{ page_title }}
         {% if current_tags -%}
-        {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+          {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
         {%- endif %}
         {% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
         {% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
-        {%endif%}
-      </title>
-
-      {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
       {% endif %}
-      {%- comment -%}
-      {% include 'booster-seo' %}
-      {%- endcomment -%}
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta name="theme-color" content="{{ settings.color_button }}">
+    </title>
 
-      {% if handle contains 'privacy-policy'
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+    {%- comment -%}
+      {% include 'booster-seo' %}
+    {%- endcomment -%}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_button }}">
+
+    {% if handle contains 'privacy-policy'
       or handle contains 'winner-player-plus'
       or page.handle == 'play-maker-plus'
       or page.handle == 'app-faqs-cs-team'
@@ -456,41 +464,41 @@
       or request.path == '/collections'
       or request.path == '/collections/all'
       or request.path == '/search'
-      %}
+    %}
       <meta name="robots" content="noindex, nofollow">
-      {% endif %}
+    {% endif %}
 
-      <link rel="canonical" href="{{ canonical_url }}">
-      <link rel="preconnect" href="https://cdn.shopify.com">
-      <link rel="preconnect" href="https://fonts.shopifycdn.com">
-      <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
-      <link rel="dns-prefetch" href="https://ajax.googleapis.com">
-      <link rel="dns-prefetch" href="https://maps.googleapis.com">
-      <link rel="dns-prefetch" href="https://maps.gstatic.com">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com">
+    <link rel="preconnect" href="https://fonts.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+    <link rel="dns-prefetch" href="https://maps.googleapis.com">
+    <link rel="dns-prefetch" href="https://maps.gstatic.com">
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-720010703"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-720010703"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
 
-        gtag('config', 'AW-720010703');
-      </script>
+      gtag('config', 'AW-720010703');
+    </script>
 
-      <script>
-        var head = document.head;
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src =
-          'https://181813.tracking.hyros.com/v1/lst/universal-script?ph=ad8c7cdb2127f2f95a2108d8459dd9087ec9382b4c93b16e48d069b8529fc4f0&tag=!tracking';
-        head.appendChild(script);
-      </script>
+    <script>
+      var head = document.head;
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src =
+        'https://181813.tracking.hyros.com/v1/lst/universal-script?ph=ad8c7cdb2127f2f95a2108d8459dd9087ec9382b4c93b16e48d069b8529fc4f0&tag=!tracking';
+      head.appendChild(script);
+    </script>
 
-      {% comment %}
+    {% comment %}
       script>
       gtag('event', 'page_view', {
       'send_to': 'AW-720010703',
@@ -500,9 +508,11 @@
       'google_business_vertical': 'retail'
       }]
       });
-      </script {% endcomment %} <meta name="facebook-domain-verification" content="79kwt1p2v1iobw4b3iltqovd721dfh">
+      </script
+    {% endcomment %}
+    <meta name="facebook-domain-verification" content="79kwt1p2v1iobw4b3iltqovd721dfh">
 
-      {% comment %}
+    {% comment %}
       <!-- BEGIN Merchantverse Code -->
       <!--
         <script id='merchantverseScript'
@@ -516,611 +526,563 @@
         </script>
       -->
       <!-- END Merchantverse Code -->
-      {% endcomment %}
+    {% endcomment %}
 
-      {% comment %} <!-- Hotjar Tracking Code for https://www.blueteesgolf.com/ --> {% endcomment %}
-      <script>
-        (function (h, o, t, j, a, r) {
-          h.hj =
-            h.hj ||
+    {% comment %} <!-- Hotjar Tracking Code for https://www.blueteesgolf.com/ --> {% endcomment %}
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 1838883, hjsv: 6 };
+        a = o.getElementsByTagName('head')[0];
+        r = o.createElement('script');
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
+
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = 'https://www.clarity.ms/tag/' + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, 'clarity', 'script', 'iyqwzntz51');
+    </script>
+
+    {% comment %} <!-- Third Party Tracking Goaffpro --> {% endcomment %}
+
+    <script>
+      (function (w, d, t, r, u) {
+        var f, n, i;
+        (w[u] = w[u] || []),
+          (f = function () {
+            var o = { ti: '56296754' };
+            (o.q = w[u]), (w[u] = new UET(o)), w[u].push('pageLoad');
+          }),
+          (n = d.createElement(t)),
+          (n.src = r),
+          (n.async = 1),
+          (n.onload = n.onreadystatechange =
             function () {
-              (h.hj.q = h.hj.q || []).push(arguments);
-            };
-          h._hjSettings = { hjid: 1838883, hjsv: 6 };
-          a = o.getElementsByTagName('head')[0];
-          r = o.createElement('script');
-          r.async = 1;
-          r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-          a.appendChild(r);
-        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
-      </script>
-
-      <script type="text/javascript">
-        (function (c, l, a, r, i, t, y) {
-          c[a] =
-            c[a] ||
-            function () {
-              (c[a].q = c[a].q || []).push(arguments);
-            };
-          t = l.createElement(r);
-          t.async = 1;
-          t.src = 'https://www.clarity.ms/tag/' + i;
-          y = l.getElementsByTagName(r)[0];
-          y.parentNode.insertBefore(t, y);
-        })(window, document, 'clarity', 'script', 'iyqwzntz51');
-      </script>
-
-      {% comment %} <!-- Third Party Tracking Goaffpro --> {% endcomment %}
-
-      <script>
-        (function (w, d, t, r, u) {
-          var f, n, i;
-          (w[u] = w[u] || []),
-            (f = function () {
-              var o = { ti: '56296754' };
-              (o.q = w[u]), (w[u] = new UET(o)), w[u].push('pageLoad');
+              var s = this.readyState;
+              (s && s !== 'loaded' && s !== 'complete') || (f(), (n.onload = n.onreadystatechange = null));
             }),
-            (n = d.createElement(t)),
-            (n.src = r),
-            (n.async = 1),
-            (n.onload = n.onreadystatechange =
-              function () {
-                var s = this.readyState;
-                (s && s !== 'loaded' && s !== 'complete') || (f(), (n.onload = n.onreadystatechange = null));
-              }),
-            (i = d.getElementsByTagName(t)[0]),
-            i.parentNode.insertBefore(n, i);
-        })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
-      </script>
+          (i = d.getElementsByTagName(t)[0]),
+          i.parentNode.insertBefore(n, i);
+      })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
+    </script>
 
-      {% include 'ufe-offer' %}
+    {% include 'ufe-offer' %}
 
-      {% comment %} Extend - render Extend SDK snippet {% endcomment %}
-      {% render 'extend-configuration' %}
-      {% comment %} Extend - end Extend code {% endcomment %}
-      {% comment %}
+    {% comment %} Extend - render Extend SDK snippet {% endcomment %}
+    {% render 'extend-configuration' %}
+    {% comment %} Extend - end Extend code {% endcomment %}
+    {% comment %}
       {%- if settings.favicon != blank -%}
       <link rel="icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
       <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
-      {%- endif -%} {% endcomment %}
-
-
-
-
-      {% comment %} {%- render 'seo-title' -%} {% endcomment %}
-
-      {%- if page_description -%}
-      {% comment %}
-      <meta name="description" content="{{ page_description | escape }}">{% endcomment %}
       {%- endif -%}
+    {% endcomment %}
 
-      {%- render 'social-meta-tags' -%}
+    {% comment %} {%- render 'seo-title' -%} {% endcomment %}
 
-      {%- render 'font-face' -%}
-      {{ 'new-theme.css' | asset_url | stylesheet_tag: preload: true }}
-      {%- render 'css-variables' -%}
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
 
-      <script>
-        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    {%- render 'social-meta-tags' -%}
 
-        window.theme = window.theme || {};
-        theme.routes = {
-          home: "{{ routes.root_url }}",
-          cart: "{{ routes.cart_url | append: '.js' }}",
-          cartPage: "{{ routes.cart_url }}",
-          cartAdd: "{{ routes.cart_add_url | append: '.js' }}",
-          cartChange: "{{ routes.cart_change_url | append: '.js' }}",
-          search: "{{ routes.search_url }}"
-        };
-        /* prettier-ignore */
-        theme.strings = {
-          soldOut: {{ 'products.product.sold_out' | t | json }},
-          unavailable: {{ 'products.product.unavailable' | t | json }},
-          inStockLabel: {{ 'products.product.in_stock_label' | t | json }},
-          stockLabel: {{ 'products.product.stock_label' | t: count: '[count]' | json }},
-          willNotShipUntil: {{ 'products.product.will_not_ship_until' | t: date: '[date]' | json }},
-          willBeInStockAfter: {{ 'products.product.will_be_in_stock_after' | t: date: '[date]' | json }},
-          waitingForStock: {{ 'products.product.waiting_for_stock' | t | json }},
-          savePrice: {{ 'products.general.save_html' | t: saved_amount: '[saved_amount]' | json }},
-          cartEmpty: {{ 'cart.general.empty' | t | json }},
-          cartTermsConfirmation: {{ 'cart.general.terms_confirm' | t | json }},
-          searchCollections: {{ 'general.search.collections' | t | json }},
-          searchPages: {{ 'general.search.pages' | t | json }},
-          searchArticles: {{ 'general.search.articles' | t | json }}
-        };
-        /* prettier-ignore */
-        theme.settings = {
-          dynamicVariantsEnable: true,
-          cartType: {{ settings.cart_type | json }},
-          isCustomerTemplate: {% if request.page_type contains 'customers/' %}true{% else %}false{% endif %},
-          moneyFormat: {{ shop.money_format | json }},
-          saveType: {{ settings.product_save_type | json }},
-          productImageSize: {{ settings.product_grid_image_size | json }},
-          productImageCover: {{ settings.product_grid_image_fill }},
-          predictiveSearch: {{ settings.predictive_search_enabled }},
-          predictiveSearchType: {{ settings.search_type | json }},
-          quickView: {{ settings.quick_shop_enable }},
-          themeName: 'Impulse',
-          themeVersion: "5.5.3"
-        };
-      </script>
+    {%- render 'font-face' -%}
+    {{ 'new-theme.css' | asset_url | stylesheet_tag: preload: true }}
+    {%- render 'css-variables' -%}
 
-      {{ content_for_header }}
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
 
-      <script src="{{ 'vendor-scripts-v11.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+      window.theme = window.theme || {};
+      theme.routes = {
+        home: "{{ routes.root_url }}",
+        cart: "{{ routes.cart_url | append: '.js' }}",
+        cartPage: "{{ routes.cart_url }}",
+        cartAdd: "{{ routes.cart_add_url | append: '.js' }}",
+        cartChange: "{{ routes.cart_change_url | append: '.js' }}",
+        search: "{{ routes.search_url }}"
+      };
+      /* prettier-ignore */
+      theme.strings = {
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }},
+        inStockLabel: {{ 'products.product.in_stock_label' | t | json }},
+        stockLabel: {{ 'products.product.stock_label' | t: count: '[count]' | json }},
+        willNotShipUntil: {{ 'products.product.will_not_ship_until' | t: date: '[date]' | json }},
+        willBeInStockAfter: {{ 'products.product.will_be_in_stock_after' | t: date: '[date]' | json }},
+        waitingForStock: {{ 'products.product.waiting_for_stock' | t | json }},
+        savePrice: {{ 'products.general.save_html' | t: saved_amount: '[saved_amount]' | json }},
+        cartEmpty: {{ 'cart.general.empty' | t | json }},
+        cartTermsConfirmation: {{ 'cart.general.terms_confirm' | t | json }},
+        searchCollections: {{ 'general.search.collections' | t | json }},
+        searchPages: {{ 'general.search.pages' | t | json }},
+        searchArticles: {{ 'general.search.articles' | t | json }}
+      };
+      /* prettier-ignore */
+      theme.settings = {
+        dynamicVariantsEnable: true,
+        cartType: {{ settings.cart_type | json }},
+        isCustomerTemplate: {% if request.page_type contains 'customers/' %}true{% else %}false{% endif %},
+        moneyFormat: {{ shop.money_format | json }},
+        saveType: {{ settings.product_save_type | json }},
+        productImageSize: {{ settings.product_grid_image_size | json }},
+        productImageCover: {{ settings.product_grid_image_fill }},
+        predictiveSearch: {{ settings.predictive_search_enabled }},
+        predictiveSearchType: {{ settings.search_type | json }},
+        quickView: {{ settings.quick_shop_enable }},
+        themeName: 'Impulse',
+        themeVersion: "5.5.3"
+      };
+    </script>
 
-      {%- if shop.enabled_currencies.size > 1 -%}
+    {{ content_for_header }}
+
+    <script src="{{ 'vendor-scripts-v11.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+
+    {%- if shop.enabled_currencies.size > 1 -%}
       <link rel="stylesheet" href="{{ 'country-flags.css' | asset_url | split: '?' | first }}">
-      {%- endif -%}
+    {%- endif -%}
 
-      <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
-      <script src="{{ 'gsap.js' | asset_url }}"></script>
-      <script src="{{ 'ScrollTrigger.min.js' | asset_url }}"></script>
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'gsap.js' | asset_url }}"></script>
+    <script src="{{ 'ScrollTrigger.min.js' | asset_url }}"></script>
 
-      {{ 'HorizonSlider.css' | asset_url | stylesheet_tag }}
-      <script src="{{ 'HorizonSlider.min.js.js' | asset_url }}" defer></script>
-      <script src="{{ 'custom.js' | asset_url }}" defer></script>
-      <script src="{{ 'uuid.js' | asset_url }}" defer="defer"></script>
-      <script src="{{ 'register-data.js' | asset_url }}" defer="defer"></script>
+    {{ 'HorizonSlider.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'HorizonSlider.min.js.js' | asset_url }}" defer></script>
+    <script src="{{ 'custom.js' | asset_url }}" defer></script>
+    <script src="{{ 'uuid.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'register-data.js' | asset_url }}" defer="defer"></script>
 
-      {%- if request.page_type contains 'customers/' -%}
+    {%- if request.page_type contains 'customers/' -%}
       <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
-      {%- endif -%}
-      {% comment %}{% render 'minmaxify-head' %}{% endcomment %}
+    {%- endif -%}
+    {% comment %}{% render 'minmaxify-head' %}{% endcomment %}
 
-      {{ shop.metafields.loox.global_html_head }}
+    {{ shop.metafields.loox.global_html_head }}
 
-      {% comment %}
+    {% comment %}
       <link rel="preload" href="{{ 'try-with-nok.js' | asset_url }}" as="script">
       <link rel="preload" href="{{ 'try-with-nok.css' | asset_url }}" as="style">
       <link rel="stylesheet" href="{{ 'try-with-nok.css' | asset_url }}" type="text/css">
-      {% endcomment %}
+    {% endcomment %}
 
-      {{ shop.metafields.loox.global_html_head }}
+    {{ shop.metafields.loox.global_html_head }}
 
-      <script type="text/javascript" id="loop-subscription-script" src="{{ 'loop-widget.js' | asset_url }}"></script>
-      {{ 'custom.css' | asset_url | stylesheet_tag }}
+    <script type="text/javascript" id="loop-subscription-script" src="{{ 'loop-widget.js' | asset_url }}"></script>
+    {{ 'custom.css' | asset_url | stylesheet_tag }}
 
-      {% comment %} <!-- Meta Pixel Code --> {% endcomment %}
-      <script>
-        !(function (f, b, e, v, n, t, s) {
-          if (f.fbq) return;
-          n = f.fbq = function () {
-            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-          };
-          if (!f._fbq) f._fbq = n;
-          n.push = n;
-          n.loaded = !0;
-          n.version = '2.0';
-          n.queue = [];
-          t = b.createElement(e);
-          t.async = !0;
-          t.src = v;
-          s = b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t, s);
-        })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '7304912509600603');
-        fbq('track', 'PageView');
-      </script>
-      <noscript><img height="1" width="1" style="display:none"
-          src="https://www.facebook.com/tr?id=7304912509600603&ev=PageView&noscript=1"></noscript>
-      {% comment %} <!-- End Meta Pixel Code --> {% endcomment %}
+    {% comment %} <!-- Meta Pixel Code --> {% endcomment %}
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '7304912509600603');
+      fbq('track', 'PageView');
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=7304912509600603&ev=PageView&noscript=1"
+    ></noscript>
+    {% comment %} <!-- End Meta Pixel Code --> {% endcomment %}
 
-      <meta name="google-site-verification" content="UtHNlCq8QaKM2N6B8WDzPc0MimFlnszYYTNKrALRzA8">
+    <meta name="google-site-verification" content="UtHNlCq8QaKM2N6B8WDzPc0MimFlnszYYTNKrALRzA8">
 
-      <style class="loop-style">
-        {
-          % render 'loop-widget.css' %
-        }
-      </style>
-</head>
+    <style class="loop-style">
+      {
+        % render 'loop-widget.css' %
+      }
+    </style>
+  </head>
 
-<body
-  class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}{% if page.handle == 'canada' %} template-canada{% endif %}"
-  data-center-text="{{ settings.type_body_align_text }}" data-button_style="{{ settings.button_style }}"
-  data-type_header_capitalize="{{ settings.type_header_capitalize }}"
-  data-type_headers_align_text="{{ settings.type_headers_align_text }}"
-  data-type_product_capitalize="{{ settings.type_product_capitalize }}" data-swatch_style="{{ settings.swatch_style }}"
-  {% if settings.disable_animations %} data-disable-animations="true" {% endif %}>
-  <div id="a11y-live-region" aria-live="polite" class="visually-hidden"
-    style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
-  </div>
+  <body
+    class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}{% if page.handle == 'canada' %} template-canada{% endif %}"
+    data-center-text="{{ settings.type_body_align_text }}"
+    data-button_style="{{ settings.button_style }}"
+    data-type_header_capitalize="{{ settings.type_header_capitalize }}"
+    data-type_headers_align_text="{{ settings.type_headers_align_text }}"
+    data-type_product_capitalize="{{ settings.type_product_capitalize }}"
+    data-swatch_style="{{ settings.swatch_style }}"
+    {% if settings.disable_animations %}
+      data-disable-animations="true"
+    {% endif %}
+  >
+    <div
+      id="a11y-live-region"
+      aria-live="polite"
+      class="visually-hidden"
+      style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;"
+    ></div>
 
-  {% if theme.role == 'unpublished' and request.path contains 'products' and settings.custom_debug_mode %}
-  {% assign current_variant = product.selected_or_first_available_variant %}
+    {% if theme.role == 'unpublished' and request.path contains 'products' and settings.custom_debug_mode %}
+      {% assign current_variant = product.selected_or_first_available_variant %}
 
-  <p>
-    Variant: {{ current_variant.title -}}
-    <br>
-    Price: {{ current_variant.price | money -}}
-    <br>
-    Variant ID: {{ current_variant.id }}
-    <br>
-    Product Template: {{ product.template_suffix }}
-  </p>
+      <p>
+        Variant: {{ current_variant.title -}}
+        <br>
+        Price: {{ current_variant.price | money -}}
+        <br>
+        Variant ID: {{ current_variant.id }}
+        <br>
+        Product Template: {{ product.template_suffix }}
+      </p>
 
-  {% assign selected_allocation = current_variant.selected_selling_plan_allocation %}
+      {% assign selected_allocation = current_variant.selected_selling_plan_allocation %}
 
-  {% if selected_allocation %}
-  <p>
-    <strong>Selected Selling Plan:</strong> {{ selected_allocation.selling_plan.name -}}
-    <br>
-    Selling Plan ID: <code>{{ selected_allocation.selling_plan.id }}</code><br>
-    Price (adjusted): {{ selected_allocation.price | money -}}
-    <br>
-    Compare-at: {{ selected_allocation.compare_at_price | money }}
-  </p>
-  {% elsif current_variant.selling_plan_allocations.size > 0 %}
-  {% assign default_allocation = current_variant.selling_plan_allocations[0] %}
-  <p>
-    <strong>Default Selling Plan (no selection yet):</strong> {{ default_allocation.selling_plan.name -}}
-    <br>
-    Selling Plan ID: <code>{{ default_allocation.selling_plan_id }}</code><br>
-    Price: {{ default_allocation.price | money }}
-  </p>
-  {% else %}
-  <p>No selling plan selected or available (one-time purchase only).</p>
-  {% endif %}
-  {% endif %}
+      {% if selected_allocation %}
+        <p>
+          <strong>Selected Selling Plan:</strong> {{ selected_allocation.selling_plan.name -}}
+          <br>
+          Selling Plan ID: <code>{{ selected_allocation.selling_plan.id }}</code><br>
+          Price (adjusted): {{ selected_allocation.price | money -}}
+          <br>
+          Compare-at: {{ selected_allocation.compare_at_price | money }}
+        </p>
+      {% elsif current_variant.selling_plan_allocations.size > 0 %}
+        {% assign default_allocation = current_variant.selling_plan_allocations[0] %}
+        <p>
+          <strong>Default Selling Plan (no selection yet):</strong> {{ default_allocation.selling_plan.name -}}
+          <br>
+          Selling Plan ID: <code>{{ default_allocation.selling_plan_id }}</code><br>
+          Price: {{ default_allocation.price | money }}
+        </p>
+      {% else %}
+        <p>No selling plan selected or available (one-time purchase only).</p>
+      {% endif %}
+    {% endif %}
 
-  <a class="in-page-link visually-hidden skip-link" href="#MainContent">
-    {{- 'general.accessibility.skip_to_content' | t -}}
-  </a>
+    <a class="in-page-link visually-hidden skip-link" href="#MainContent">
+      {{- 'general.accessibility.skip_to_content' | t -}}
+    </a>
 
-  {%- section 'header' -%}
-  {% comment %}
-  {% if page.handle contains 'sale-offer' %}
-  {% render 'countdown-timer' %}
-  {% endif %}
-  {% endcomment %}
-  <main class="main-content" id="MainContent">
-    {%- if request.path contains 'loop_subscriptions/bundle' -%}
-    {% render 'loop_loader' %}
-    {%- endif -%}
+    {%- section 'header' -%}
+    {% comment %}
+      {% if page.handle contains 'sale-offer' %}
+      {% render 'countdown-timer' %}
+      {% endif %}
+    {% endcomment %}
+    <main class="main-content" id="MainContent">
+      {%- if request.path contains 'loop_subscriptions/bundle' -%}
+        {% render 'loop_loader' %}
+      {%- endif -%}
 
-    {{ content_for_layout }}
-  </main>
-  {%- section 'new-footer' -%}
+      {{ content_for_layout }}
+    </main>
+    {%- section 'new-footer' -%}
 
-  {%- section 'footer-promotions' -%}
-  {% comment %}
-  <div id="PageContainer" class="page-container">
-    <div class="transition-body">
-    </div>
-  </div>
-  {% endcomment %}
+    {%- section 'footer-promotions' -%}
+    {% comment %}
+      <div id="PageContainer" class="page-container">
+        <div class="transition-body">
+        </div>
+      </div>
+    {% endcomment %}
 
-  {%- section 'newsletter-popup' -%}
+    {%- section 'newsletter-popup' -%}
 
-  {%- liquid
-  render 'video-modal'
-  render 'photoswipe-template'
-  render 'tool-tip'
-  -%}
+    {%- liquid
+      render 'video-modal'
+      render 'photoswipe-template'
+      render 'tool-tip'
+    -%}
 
-  {{ shop.metafields.loox.global_html_body }}
+    {{ shop.metafields.loox.global_html_body }}
 
-  <!-- Begin Shopify-Afterpay JavaScript Snippet (v1.0.12) -->
-  <script type="text/javascript">
-    // Editable fields (remove "//" from the start of each line to activate):
-    var afterpay_min = 0.04;  // As per your Afterpay contract.
-    var afterpay_max = 2000.00;  // As per your Afterpay contract.
+    <!-- Begin Shopify-Afterpay JavaScript Snippet (v1.0.12) -->
+    <script type="text/javascript">
+      // Editable fields (remove "//" from the start of each line to activate):
+      var afterpay_min = 0.04;  // As per your Afterpay contract.
+      var afterpay_max = 2000.00;  // As per your Afterpay contract.
 
-    var afterpay_product_selector = '.page-content--product .after-pay';  // The selector used to identify the price on the Product pages.
-    var afterpay_product_css = { 'margin': '15px 0', 'font-size': '14px' };  // The CSS styling of the Afterpay assets on the Product pages.
-    // var afterpay_logo_theme = 'black';  // The Afterpay logo colour. Can be 'colour' (default), 'black' or 'white'.
-    var afterpay_modal_open_icon = true;	 // If enabled, an "ⓘ" icon is displayed next to the Afterpay logo in place of the "More info" text.
-    // var afterpay_cbt_enabled = true;  // As per your Afterpay contract. Enable to true to display Cross Border Trade artwork (for AU/NZ).
+      var afterpay_product_selector = '.page-content--product .after-pay';  // The selector used to identify the price on the Product pages.
+      var afterpay_product_css = { 'margin': '15px 0', 'font-size': '14px' };  // The CSS styling of the Afterpay assets on the Product pages.
+      // var afterpay_logo_theme = 'black';  // The Afterpay logo colour. Can be 'colour' (default), 'black' or 'white'.
+      var afterpay_modal_open_icon = true;	 // If enabled, an "ⓘ" icon is displayed next to the Afterpay logo in place of the "More info" text.
+      // var afterpay_cbt_enabled = true;  // As per your Afterpay contract. Enable to true to display Cross Border Trade artwork (for AU/NZ).
 
-    var afterpay_variable_price_fallback_selector = '.product-price-selector';  // The selector used to identify the price on the Product pages if the Afterpay assets are disappearing after page-load or price is incorrect when a variant is selected.
-    // var afterpay_variable_price_fallback_method = "interval";  // Ensures the instalment price updates when the price changes. Can be "mutation" (default) or "interval".
+      var afterpay_variable_price_fallback_selector = '.product-price-selector';  // The selector used to identify the price on the Product pages if the Afterpay assets are disappearing after page-load or price is incorrect when a variant is selected.
+      // var afterpay_variable_price_fallback_method = "interval";  // Ensures the instalment price updates when the price changes. Can be "mutation" (default) or "interval".
 
-    var afterpay_cart_integration_enabled = true;  // Enables/disables the Cart page display. Can be true or false (default).
-    // var afterpay_cart_static_selector = '.cart-subtotal-selector';  // The selector used to identify the price on the Cart page.
-    var afterpay_cart_static_css = { 'margin': '15px 0' };  // The CSS styling of the Afterpay assets on the Cart page.
-    // var afterpay_cart_static_logo_theme = 'black';  // The Afterpay logo colour. Can be 'colour' (default), 'black' or 'white'.
+      var afterpay_cart_integration_enabled = true;  // Enables/disables the Cart page display. Can be true or false (default).
+      // var afterpay_cart_static_selector = '.cart-subtotal-selector';  // The selector used to identify the price on the Cart page.
+      var afterpay_cart_static_css = { 'margin': '15px 0' };  // The CSS styling of the Afterpay assets on the Cart page.
+      // var afterpay_cart_static_logo_theme = 'black';  // The Afterpay logo colour. Can be 'colour' (default), 'black' or 'white'.
 
-    // var afterpay_variable_subtotal_fallback_selector = '.cart-subtotal-selector';  // The selector used to identify the price on the Cart page if the Afterpay assets are disappearing after page-load.
-    // var afterpay_variable_subtotal_fallback_method = "interval";  // Ensures the instalment price updates when the price changes. Can be "mutation" (default) or "interval".
+      // var afterpay_variable_subtotal_fallback_selector = '.cart-subtotal-selector';  // The selector used to identify the price on the Cart page if the Afterpay assets are disappearing after page-load.
+      // var afterpay_variable_subtotal_fallback_method = "interval";  // Ensures the instalment price updates when the price changes. Can be "mutation" (default) or "interval".
 
-    var afterpay_footer_logo_enabled = true;  // Enables/disables the footer payment icon. Can be true (default) or false.
-    // var afterpay_footer_logo_container = '.payment-icons';  // The selector used to identify the payment icons in the footer.
-    // var afterpay_footer_logo_format = 'logo';  // The Afterpay payment icon style. Can be 'icon' (default), 'stacked' or 'logo'.
-    // var afterpay_footer_logo_theme = 'black';  // The Afterpay payment icon colour. Can be 'colour' (default), 'black' or 'white'.
-    // var afterpay_footer_logo_background = 'transparent';  // The Afterpay payment icon border style. Can be 'border' (default) or 'transparent'.
-    // var afterpay_footer_logo_css = {'width': 'auto', 'height': 'auto', 'vertical-align': 'baseline'};  // The CSS styling of the Afterpay payment icon in the footer.
+      var afterpay_footer_logo_enabled = true;  // Enables/disables the footer payment icon. Can be true (default) or false.
+      // var afterpay_footer_logo_container = '.payment-icons';  // The selector used to identify the payment icons in the footer.
+      // var afterpay_footer_logo_format = 'logo';  // The Afterpay payment icon style. Can be 'icon' (default), 'stacked' or 'logo'.
+      // var afterpay_footer_logo_theme = 'black';  // The Afterpay payment icon colour. Can be 'colour' (default), 'black' or 'white'.
+      // var afterpay_footer_logo_background = 'transparent';  // The Afterpay payment icon border style. Can be 'border' (default) or 'transparent'.
+      // var afterpay_footer_logo_css = {'width': 'auto', 'height': 'auto', 'vertical-align': 'baseline'};  // The CSS styling of the Afterpay payment icon in the footer.
 
-    // Non-editable fields:
-    var afterpay_shop_currency = {{ shop.currency | json }};
-    var afterpay_cart_currency = {{ cart.currency.iso_code | json }};
-    var afterpay_shop_money_format = {{ shop.money_format | json }};
-    var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
-    var afterpay_theme_name = {{ theme.name | json }};
-    var afterpay_product = {{ product | json }};
-    var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
-    var afterpay_cart_total_price = {{ cart.total_price | json }};
-    var afterpay_js_snippet_version = '1.0.12';
-  </script>
-  <script type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script>
-  <!-- End Shopify-Afterpay JavaScript Snippet (v1.0.12) -->
+      // Non-editable fields:
+      var afterpay_shop_currency = {{ shop.currency | json }};
+      var afterpay_cart_currency = {{ cart.currency.iso_code | json }};
+      var afterpay_shop_money_format = {{ shop.money_format | json }};
+      var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
+      var afterpay_theme_name = {{ theme.name | json }};
+      var afterpay_product = {{ product | json }};
+      var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
+      var afterpay_cart_total_price = {{ cart.total_price | json }};
+      var afterpay_js_snippet_version = '1.0.12';
+    </script>
+    <script type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script>
+    <!-- End Shopify-Afterpay JavaScript Snippet (v1.0.12) -->
 
-  {% comment %}
-  <script src="{{ 'try-with-nok.js' | asset_url }}" async="async"></script>
-  {% render "try-with-nok-modal" %}
-  {% endcomment %}
+    {% comment %}
+      <script src="{{ 'try-with-nok.js' | asset_url }}" async="async"></script>
+      {% render "try-with-nok-modal" %}
+    {% endcomment %}
 
-  {% if page.handle contains 'contact-us' %}
-  <!-- Gorgias Chat Widget Start -->
-  <script id="gorgias-chat-widget-install-v2"
-    src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=15222"></script>
-  <!-- Gorgias Chat Widget End -->
-  {% endif %}
+    {% if page.handle contains 'contact-us' %}
+      <!-- Gorgias Chat Widget Start -->
+      <script
+        id="gorgias-chat-widget-install-v2"
+        src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=15222"
+      ></script>
+      <!-- Gorgias Chat Widget End -->
+    {% endif %}
 
-  <script async type="text/javascript" src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=LuhztW"></script>
+    <script async type="text/javascript" src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=LuhztW"></script>
 
-  {% include 'smile-initializer' %}
+    {% include 'smile-initializer' %}
 
-  <script>
-    (function () {
-      var s = document.createElement('script');
-      var h = document.querySelector('head') || document.body;
-      s.src = 'https://acsbapp.com/apps/app/dist/js/app.js';
-      s.async = true;
-      s.onload = function () {
-        acsbJS.init({
-          statementLink: '',
-          footerHtml: '',
-          hideMobile: false,
-          hideTrigger: false,
-          disableBgProcess: false,
-          language: 'en',
-          position: 'left',
-          leadColor: '#146ff8',
-          triggerColor: '#146ff8',
-          triggerRadius: '50%',
-          triggerPositionX: 'left',
-          triggerPositionY: 'bottom',
-          triggerIcon: 'people',
-          triggerSize: 'medium',
-          triggerOffsetX: 15,
-          triggerOffsetY: 100,
-          mobile: {
-            triggerSize: 'small',
+    <script>
+      (function () {
+        var s = document.createElement('script');
+        var h = document.querySelector('head') || document.body;
+        s.src = 'https://acsbapp.com/apps/app/dist/js/app.js';
+        s.async = true;
+        s.onload = function () {
+          acsbJS.init({
+            statementLink: '',
+            footerHtml: '',
+            hideMobile: false,
+            hideTrigger: false,
+            disableBgProcess: false,
+            language: 'en',
+            position: 'left',
+            leadColor: '#146ff8',
+            triggerColor: '#146ff8',
+            triggerRadius: '50%',
             triggerPositionX: 'left',
             triggerPositionY: 'bottom',
+            triggerIcon: 'people',
+            triggerSize: 'medium',
             triggerOffsetX: 15,
             triggerOffsetY: 100,
-            triggerRadius: '50%',
-          },
-        });
-      };
-      h.appendChild(s);
-    })();
-  </script>
-
-  {{ shop.metafields.loox.global_html_body }}
-  {% render 'oneclickupsellapp-theme', oneclickupsellapp: oneclickupsellapp %}
-  {% assign oneclickupsellapp = true %}
-
-  <!-- Global Owl Carousel Dots Accessibility Patch -->
-  <style>
-    /* Accessibility: Carousel active slide pagination dots visual indicator */
-    .owl-dots .owl-dot.active span {
-      transform: scale(1.3) !important;
-      box-shadow: 0 0 0 2px currentColor !important;
-    }
-
-    .owl-autoplay-btn {
-      background: transparent;
-      border: 1px solid currentColor;
-      border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      color: inherit;
-      padding: 0;
-      vertical-align: middle;
-      margin-left: 10px;
-      transition: all 0.2s ease;
-      opacity: 0.7;
-    }
-    
-    .owl-autoplay-btn:hover {
-      opacity: 1;
-      transform: scale(1.1);
-    }
-    
-    .owl-autoplay-btn:focus-visible {
-      outline: 2px solid #004DF5;
-      outline-offset: 2px;
-    }
-    
-    .owl-dots + .owl-autoplay-btn {
-      margin-top: 10px;
-      display: block;
-      margin-inline: auto;
-    }
-  </style>
-
-  <script>
-    (function() {
-      // Global patch for autoplay carousels
-      if (typeof jQuery !== 'undefined' && jQuery.fn && jQuery.fn.owlCarousel) {
-        var originalOwl = jQuery.fn.owlCarousel;
-        jQuery.fn.owlCarousel = function(options) {
-          options = options || {};
-          if (options.autoplay === true) {
-            var $carousel = this;
-            $carousel.on('initialized.owl.carousel', function(event) {
-              setTimeout(function() {
-                var $dots = $carousel.find('.owl-dots');
-                var $nav = $carousel.find('.owl-nav');
-                var $btn = $('<button type="button" class="owl-autoplay-btn" aria-label="Pause slideshow" aria-pressed="false">' +
-                  '<svg class="pause-icon" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.5" y="0.5" width="2" height="9" fill="currentColor"/><rect x="6.5" y="0.5" width="2" height="9" fill="currentColor"/></svg>' +
-                  '<svg class="play-icon" style="display:none;" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 1L8.5 5L2.5 9V1Z" fill="currentColor"/></svg>' +
-                  '</button>');
-                
-                if ($dots.length > 0) {
-                  $dots.after($btn);
-                } else if ($nav.length > 0) {
-                  $nav.append($btn);
-                } else {
-                  $carousel.append($btn);
-                }
-                
-                $btn.on('click', function() {
-                  var isPaused = $btn.attr('aria-pressed') === 'true';
-                  if (isPaused) {
-                    $carousel.trigger('play.owl.autoplay');
-                    $btn.attr('aria-pressed', 'false');
-                    $btn.attr('aria-label', 'Pause slideshow');
-                    $btn.find('.pause-icon').show();
-                    $btn.find('.play-icon').hide();
-                  } else {
-                    $carousel.trigger('stop.owl.autoplay');
-                    $btn.attr('aria-pressed', 'true');
-                    $btn.attr('aria-label', 'Play slideshow');
-                    $btn.find('.pause-icon').hide();
-                    $btn.find('.play-icon').show();
-                  }
-                });
-              }, 300);
-            });
-          }
-          return originalOwl.apply(this, arguments);
+            mobile: {
+              triggerSize: 'small',
+              triggerPositionX: 'left',
+              triggerPositionY: 'bottom',
+              triggerOffsetX: 15,
+              triggerOffsetY: 100,
+              triggerRadius: '50%',
+            },
+          });
         };
+        h.appendChild(s);
+      })();
+    </script>
+
+    {{ shop.metafields.loox.global_html_body }}
+    {% render 'oneclickupsellapp-theme', oneclickupsellapp: oneclickupsellapp %}
+    {% assign oneclickupsellapp = true %}
+
+    <!-- Global Owl Carousel Dots Accessibility Patch -->
+    <style>
+      /* Accessibility: Carousel active slide pagination dots visual indicator */
+      .owl-dots .owl-dot.active span {
+        transform: scale(1.3) !important;
+        box-shadow: 0 0 0 2px currentColor !important;
       }
 
-      // Create global visually-hidden live announcer for carousels
-      let announcer = document.getElementById('carousel-live-announcer');
-      if (!announcer) {
-        announcer = document.createElement('div');
-        announcer.id = 'carousel-live-announcer';
-        announcer.className = 'visually-hidden';
-        announcer.setAttribute('aria-live', 'polite');
-        announcer.setAttribute('aria-atomic', 'true');
-        announcer.style.position = 'absolute';
-        announcer.style.width = '1px';
-        announcer.style.height = '1px';
-        announcer.style.padding = '0';
-        announcer.style.margin = '-1px';
-        announcer.style.overflow = 'hidden';
-        announcer.style.clip = 'rect(0, 0, 0, 0)';
-        announcer.style.border = '0';
-        document.body.appendChild(announcer);
+      .owl-autoplay-btn {
+        background: transparent;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: inherit;
+        padding: 0;
+        vertical-align: middle;
+        margin-left: 10px;
+        transition: all 0.2s ease;
+        opacity: 0.7;
       }
 
-      function announceSlideChange(message) {
-        if (announcer) {
-          announcer.textContent = '';
-          setTimeout(() => {
-            announcer.textContent = message;
-          }, 50);
-        }
+      .owl-autoplay-btn:hover {
+        opacity: 1;
+        transform: scale(1.1);
       }
 
-      function updateOwlDots(dotsContainer) {
-        if (!dotsContainer) return;
-        const dots = dotsContainer.querySelectorAll('.owl-dot');
-        let activeIdx = -1;
+      .owl-autoplay-btn:focus-visible {
+        outline: 2px solid var(--new-blue);
+        outline-offset: 2px;
+      }
 
-        dots.forEach((dot, index) => {
-          const slideNum = index + 1;
-          const labelText = 'Go to slide ' + slideNum;
-          if (dot.getAttribute('aria-label') !== labelText) {
-            dot.setAttribute('aria-label', labelText);
-          }
-          
-          const isActive = dot.classList.contains('active');
-          if (isActive) {
-            activeIdx = index;
-            if (dot.getAttribute('aria-current') !== 'true') {
-              dot.setAttribute('aria-current', 'true');
-            }
-          } else {
-            if (dot.hasAttribute('aria-current')) {
-              dot.removeAttribute('aria-current');
-            }
-          }
-        });
+      .owl-dots + .owl-autoplay-btn {
+        margin-top: 10px;
+        display: block;
+        margin-inline: auto;
+      }
+    </style>
 
-        // Trigger slide announcement to screen readers
-        if (activeIdx !== -1 && dots.length > 0) {
-          const slideNum = activeIdx + 1;
-          const totalSlides = dots.length;
-          const lastAnnounced = dotsContainer.getAttribute('data-last-announced');
-          
-          if (lastAnnounced !== String(slideNum)) {
-            dotsContainer.setAttribute('data-last-announced', slideNum);
-            const carousel = dotsContainer.closest('.owl-carousel');
-            let title = '';
-            if (carousel) {
-              title = carousel.getAttribute('aria-label') || carousel.getAttribute('title');
-              if (!title) {
-                const section = carousel.closest('section, .shopify-section, .new-offer_main');
-                if (section) {
-                  const heading = section.querySelector('h1, h2, h3');
-                  if (heading) {
-                    title = heading.textContent.trim();
+ <script>
+      (function () {
+        // Global patch for autoplay carousels
+        if (typeof jQuery !== 'undefined' && jQuery.fn && jQuery.fn.owlCarousel) {
+          var originalOwl = jQuery.fn.owlCarousel;
+          jQuery.fn.owlCarousel = function (options) {
+            options = options || {};
+            if (options.autoplay === true) {
+              var $carousel = this;
+              $carousel.on('initialized.owl.carousel', function (event) {
+                setTimeout(function () {
+                  var $dots = $carousel.find('.owl-dots');
+                  var $nav = $carousel.find('.owl-nav');
+                  var $btn = $(
+                    '<button type="button" class="owl-autoplay-btn" aria-label="Pause slideshow" aria-pressed="false">' +
+                      '<svg class="pause-icon" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1.5" y="0.5" width="2" height="9" fill="currentColor"/><rect x="6.5" y="0.5" width="2" height="9" fill="currentColor"/></svg>' +
+                      '<svg class="play-icon" style="display:none;" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 1L8.5 5L2.5 9V1Z" fill="currentColor"/></svg>' +
+                      '</button>'
+                  );
+
+                  if ($dots.length > 0) {
+                    $dots.after($btn);
+                  } else if ($nav.length > 0) {
+                    $nav.append($btn);
+                  } else {
+                    $carousel.append($btn);
                   }
-                }
-              }
+
+                  $btn.on('click', function () {
+                    var isPaused = $btn.attr('aria-pressed') === 'true';
+                    if (isPaused) {
+                      $carousel.trigger('play.owl.autoplay');
+                      $btn.attr('aria-pressed', 'false');
+                      $btn.attr('aria-label', 'Pause slideshow');
+                      $btn.find('.pause-icon').show();
+                      $btn.find('.play-icon').hide();
+                    } else {
+                      $carousel.trigger('stop.owl.autoplay');
+                      $btn.attr('aria-pressed', 'true');
+                      $btn.attr('aria-label', 'Play slideshow');
+                      $btn.find('.pause-icon').hide();
+                      $btn.find('.play-icon').show();
+                    }
+                  });
+                }, 300);
+              });
             }
-            title = title || 'Carousel';
-            if (title.length > 50) {
-              title = title.substring(0, 47) + '...';
-            }
-            announceSlideChange(title + ': Slide ' + slideNum + ' of ' + totalSlides);
+            return originalOwl.apply(this, arguments);
+          };
+        }
+
+        // Create global visually-hidden live announcer for carousels
+        let announcer = document.getElementById('carousel-live-announcer');
+        if (!announcer) {
+          announcer = document.createElement('div');
+          announcer.id = 'carousel-live-announcer';
+          announcer.className = 'visually-hidden';
+          announcer.setAttribute('aria-live', 'polite');
+          announcer.setAttribute('aria-atomic', 'true');
+          announcer.style.position = 'absolute';
+          announcer.style.width = '1px';
+          announcer.style.height = '1px';
+          announcer.style.padding = '0';
+          announcer.style.margin = '-1px';
+          announcer.style.overflow = 'hidden';
+          announcer.style.clip = 'rect(0, 0, 0, 0)';
+          announcer.style.border = '0';
+          document.body.appendChild(announcer);
+        }
+
+        function announceSlideChange(message) {
+          if (announcer) {
+            announcer.textContent = '';
+            setTimeout(() => {
+              announcer.textContent = message;
+            }, 50);
           }
         }
-      }
 
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.type === 'childList') {
-            mutation.addedNodes.forEach((node) => {
-              if (node.nodeType === 1) {
-                if (node.classList.contains('owl-dots')) {
-                  updateOwlDots(node);
-                } else {
-                  node.querySelectorAll('.owl-dots').forEach(updateOwlDots);
-                }
-              }
-            });
-          } else if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-            const target = mutation.target;
-            if (target.classList.contains('owl-dot')) {
-              updateOwlDots(target.closest('.owl-dots'));
+        function updateOwlDots(dotsContainer) {
+          if (!dotsContainer) return;
+          const dots = dotsContainer.querySelectorAll('.owl-dot');
+          let activeIdx = -1;
+
+          dots.forEach((dot, index) => {
+            const slideNum = index + 1;
+            const labelText = 'Go to slide ' + slideNum;
+            if (dot.getAttribute('aria-label') !== labelText) {
+              dot.setAttribute('aria-label', labelText);
             }
-          }
-        });
-      });
 
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ['class']
-      });
+            const isActive = dot.classList.contains('active');
+            if (isActive) {
+              activeIdx = index;
+              if (dot.getAttribute('aria-current') !== 'true') {
+                dot.setAttribute('aria-current', 'true');
+              }
+            } else {
+              if (dot.hasAttribute('aria-current')) {
+                dot.removeAttribute('aria-current');
+              }
+            }
+          });
 
-      // Event delegation for sliders without dots (prev/next click)
-      document.addEventListener('click', function(event) {
-        const trigger = event.target.closest('.owl-prev, .owl-next');
-        if (trigger) {
-          const carousel = trigger.closest('.owl-carousel');
-          if (carousel && !carousel.querySelector('.owl-dots')) {
-            setTimeout(() => {
-              const items = Array.from(carousel.querySelectorAll('.owl-item'));
-              const activeItems = items.filter(item => item.classList.contains('active'));
-              const nonClonedItems = items.filter(item => !item.classList.contains('cloned'));
-              const total = nonClonedItems.length || items.length;
-              if (activeItems.length > 0) {
-                const index = items.indexOf(activeItems[0]);
-                const slideNum = (index % total) + 1;
-                let title = carousel.getAttribute('aria-label') || carousel.getAttribute('title');
+          // Trigger slide announcement to screen readers
+          if (activeIdx !== -1 && dots.length > 0) {
+            const slideNum = activeIdx + 1;
+            const totalSlides = dots.length;
+            const lastAnnounced = dotsContainer.getAttribute('data-last-announced');
+
+            if (lastAnnounced !== String(slideNum)) {
+              dotsContainer.setAttribute('data-last-announced', slideNum);
+              const carousel = dotsContainer.closest('.owl-carousel');
+              let title = '';
+              if (carousel) {
+                title = carousel.getAttribute('aria-label') || carousel.getAttribute('title');
                 if (!title) {
                   const section = carousel.closest('section, .shopify-section, .new-offer_main');
                   if (section) {
@@ -1130,21 +1092,219 @@
                     }
                   }
                 }
-                title = title || 'Carousel';
-                if (title.length > 50) {
-                  title = title.substring(0, 47) + '...';
-                }
-                announceSlideChange(title + ': Slide ' + slideNum + ' of ' + total);
               }
-            }, 300);
+              title = title || 'Carousel';
+              if (title.length > 50) {
+                title = title.substring(0, 47) + '...';
+              }
+              announceSlideChange(title + ': Slide ' + slideNum + ' of ' + totalSlides);
+            }
           }
         }
-      });
 
-      // Run once for static elements
-      document.querySelectorAll('.owl-dots').forEach(updateOwlDots);
-    })();
-  </script>
-</body>
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'childList') {
+              mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === 1) {
+                  if (node.classList.contains('owl-dots')) {
+                    updateOwlDots(node);
+                  } else {
+                    node.querySelectorAll('.owl-dots').forEach(updateOwlDots);
+                  }
+                }
+              });
+            } else if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              const target = mutation.target;
+              if (target.classList.contains('owl-dot')) {
+                updateOwlDots(target.closest('.owl-dots'));
+              }
+            }
+          });
+        });
 
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['class'],
+        });
+
+        // Event delegation for sliders without dots (prev/next click)
+        document.addEventListener('click', function (event) {
+          const trigger = event.target.closest('.owl-prev, .owl-next');
+          if (trigger) {
+            const carousel = trigger.closest('.owl-carousel');
+            if (carousel && !carousel.querySelector('.owl-dots')) {
+              setTimeout(() => {
+                const items = Array.from(carousel.querySelectorAll('.owl-item'));
+                const activeItems = items.filter((item) => item.classList.contains('active'));
+                const nonClonedItems = items.filter((item) => !item.classList.contains('cloned'));
+                const total = nonClonedItems.length || items.length;
+                if (activeItems.length > 0) {
+                  const index = items.indexOf(activeItems[0]);
+                  const slideNum = (index % total) + 1;
+                  let title = carousel.getAttribute('aria-label') || carousel.getAttribute('title');
+                  if (!title) {
+                    const section = carousel.closest('section, .shopify-section, .new-offer_main');
+                    if (section) {
+                      const heading = section.querySelector('h1, h2, h3');
+                      if (heading) {
+                        title = heading.textContent.trim();
+                      }
+                    }
+                  }
+                  title = title || 'Carousel';
+                  if (title.length > 50) {
+                    title = title.substring(0, 47) + '...';
+                  }
+                  announceSlideChange(title + ': Slide ' + slideNum + ' of ' + total);
+                }
+              }, 300);
+            }
+          }
+        });
+
+        // Run once for static elements
+        document.querySelectorAll('.owl-dots').forEach(updateOwlDots);
+      })();
+
+      // Accessibility fixes for Loop Subscriptions page (/a/loop_subscriptions/)
+      (function() {
+        if (!window.location.pathname.includes('/a/loop_subscriptions')) return;
+
+        function fixLoopPageAccessibility() {
+          // ISSUE 2: Heading mark-up fix for "Request Subscription Login Link"
+          const paragraphs = document.querySelectorAll('p.loop-h2, div.loop-h2, span.loop-h2, .loop-h2');
+          paragraphs.forEach((el) => {
+            if (el.tagName !== 'H1' && el.textContent.trim().includes('Request Subscription Login Link')) {
+              const h1 = document.createElement('h1');
+              // Copy all attributes
+              Array.from(el.attributes).forEach((attr) => {
+                h1.setAttribute(attr.name, attr.value);
+              });
+              h1.innerHTML = el.innerHTML;
+              el.parentNode.replaceChild(h1, el);
+            }
+          });
+
+          // ISSUE 1: Live region, role="alert", aria-invalid, and aria-describedby for validation error messages
+          const errorElements = document.querySelectorAll('.loop-text-p1.text-danger, .loop-text-p1.mt-4.text-danger');
+          errorElements.forEach((errorEl, index) => {
+            if (!errorEl.id) {
+              errorEl.id = 'loop-error-msg-' + index;
+            }
+            if (!errorEl.getAttribute('role')) {
+              errorEl.setAttribute('role', 'alert');
+            }
+            if (!errorEl.getAttribute('aria-live')) {
+              errorEl.setAttribute('aria-live', 'assertive');
+            }
+
+            // Find nearest associated input form field if present
+            const container = errorEl.closest('form, div');
+            if (container) {
+              const input = container.querySelector('input[type="email"], input[name="email"], input');
+              if (input) {
+                input.setAttribute('aria-invalid', 'true');
+                const existingDescribedBy = input.getAttribute('aria-describedby') || '';
+                if (!existingDescribedBy.split(' ').includes(errorEl.id)) {
+                  input.setAttribute('aria-describedby', (existingDescribedBy + ' ' + errorEl.id).trim());
+                }
+              }
+            }
+          });
+
+          // Reset aria-invalid when inputs with previous error are cleared of error state
+          const inputs = document.querySelectorAll('input[type="email"], input[name="email"]');
+          inputs.forEach((input) => {
+            const container = input.closest('form, div');
+            if (container) {
+              const hasVisibleError = container.querySelector('.loop-text-p1.text-danger, .loop-text-p1.mt-4.text-danger');
+              if (!hasVisibleError && input.getAttribute('aria-invalid') === 'true') {
+                input.removeAttribute('aria-invalid');
+              }
+            }
+          });
+        }
+
+        // Run initially when DOM is loaded / ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', fixLoopPageAccessibility);
+        } else {
+          fixLoopPageAccessibility();
+        }
+
+        // Observe dynamic changes made by Loop Subscriptions app JS
+        const loopObserver = new MutationObserver(() => {
+          fixLoopPageAccessibility();
+        });
+
+        loopObserver.observe(document.body, {
+          childList: true,
+          subtree: true,
+          characterData: true
+        });
+      })();
+
+      // Accessibility fix: Announce Klaviyo form success messages to screen reader users
+      (function() {
+        function enhanceKlaviyoFormAccessibility() {
+          const formContainers = document.querySelectorAll('.klaviyo-form, [class*="klaviyo-form"], [data-testid="klaviyo-form"], form.kl-private-reset-css-Xuajs1');
+          
+          formContainers.forEach(container => {
+            if (!container.dataset.a11yObserved) {
+              container.dataset.a11yObserved = "true";
+              
+              if (!container.getAttribute('aria-live')) {
+                container.setAttribute('aria-live', 'polite');
+              }
+              if (!container.getAttribute('role')) {
+                container.setAttribute('role', 'status');
+              }
+
+              const observer = new MutationObserver(() => {
+                const successText = container.querySelector('.klaviyo-form-richtext, [data-testid="form-component"]');
+                const formInputs = container.querySelector('input, button[type="submit"]');
+
+                if (successText && !formInputs && !successText.dataset.a11yFocused) {
+                  successText.dataset.a11yFocused = "true";
+                  successText.setAttribute('tabindex', '-1');
+                  successText.setAttribute('role', 'status');
+                  successText.setAttribute('aria-live', 'polite');
+                  
+                  setTimeout(() => {
+                    successText.focus({ preventScroll: false });
+                  }, 150);
+                }
+              });
+
+              observer.observe(container, { childList: true, subtree: true });
+            }
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', enhanceKlaviyoFormAccessibility);
+        } else {
+          enhanceKlaviyoFormAccessibility();
+        }
+
+        window.addEventListener('klaviyoForms', function(e) {
+          enhanceKlaviyoFormAccessibility();
+          if (e.detail && (e.detail.type === 'submit' || e.detail.type === 'stepSubmit')) {
+            setTimeout(enhanceKlaviyoFormAccessibility, 300);
+          }
+        });
+
+        const bodyObserver = new MutationObserver(() => {
+          enhanceKlaviyoFormAccessibility();
+        });
+
+        if (document.body) {
+          bodyObserver.observe(document.body, { childList: true, subtree: true });
+        }
+      })();
+    </script>
+  </body>
 </html>

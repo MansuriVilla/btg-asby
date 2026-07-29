@@ -4,7 +4,7 @@
   margin: 0;
 }
   .hero_section {
-                background: linear-gradient(-180deg,#242632,#000 40%);
+                background: linear-gradient(-180deg,#242632,var(--new-black) 40%);
                 padding: 80px 0;
                 text-align: center;
                 color: #ffffff;
@@ -99,8 +99,8 @@
               }
 
 
-                   .featured-section_video-area { position: relative; {% comment %} padding-bottom: 50px; {% endcomment %} background: #000;}
-                    {% comment %} .featured-section_video-area::before { content: ''; position: absolute; bottom: 0px; background: #000; height: 50%; width: 100%; } {% endcomment %}
+                   .featured-section_video-area { position: relative; {% comment %} padding-bottom: 50px; {% endcomment %} background: var(--new-black);}
+                    {% comment %} .featured-section_video-area::before { content: ''; position: absolute; bottom: 0px; background: var(--new-black); height: 50%; width: 100%; } {% endcomment %}
                     .feature-section_video video { {% comment %} border-radius: 24px; {% endcomment %} width: 100%; }
                     .feature-section_video .feature-section_video-inner { position: relative; display: flex; justify-content: center; align-items: center; }
 
@@ -137,7 +137,7 @@
         .step-slide_cta {
          padding: clamp(8px,1.1vw,10px) clamp(12px,3vw,25px);
   background: #fff;
-  color: #000;
+  color: var(--new-black);
   border-radius: 50px;
   font-weight: 600;
   font-size: clamp(10px,1.2vw,14px);
@@ -188,7 +188,7 @@
           align-items: center;
           text-align: center;
           color: #fff;
-          background: #000;
+          background: var(--new-black);
           padding-block: clamp(50px,6vw,115px) 15px;
         }
 
@@ -364,7 +364,7 @@
               .howItWork__cardArea {display: grid; column-gap:20px; row-gap: clamp(50px, 4.2vw, 72px); grid-template-columns: repeat(auto-fill, minmax(clamp(min(100%, 270px), 50vw, 350px), 1fr)); }
               .howItWork__itemInner { position: relative; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: clamp(20px, 1.2vw, 30px); height: 100%; text-align:center;}
               .howItWork__number {
-      background: #004DF5;
+      background: var(--new-blue);
       border-radius: 50%;
       display: flex;
       justify-content: center;
@@ -491,7 +491,7 @@ justify-content: flex-start;
                   max-width:100%;
                 }
               }
-              main > section {background:#000;}
+              main > section {background:var(--new-black);}
 
               .content-floating__caption {
                 color: #fff;
@@ -748,7 +748,7 @@ justify-content: flex-start;
           }
 
 
-      .form_section{background:url("https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-topography-new.svg?v=1768554403") center center / cover no-repeat; background-color: #000; padding-block: clamp(60px,6vw,91px);}
+      .form_section{background:url("https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-topography-new.svg?v=1768554403") center center / cover no-repeat; background-color: var(--new-black); padding-block: clamp(60px,6vw,91px);}
       .form_section-container{max-width:1184px; width:100%; padding-inline:20px; margin-inline:auto;}
 
 
@@ -780,7 +780,7 @@ justify-content: flex-start;
     .shop_all-banner-content .content-cta__solid {
         background: #FFF;
         border: 2px solid #FFF;
-        color: #000;
+        color: var(--new-black);
         font-weight: 600;
     }
     .shop_all-banner-content .content-cta__solid:hover {background: transparent;

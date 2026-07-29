@@ -17,7 +17,7 @@
       {%- assign accent_brightness = section.settings.color_accent | color_extract: 'lightness' -%}
 
       {% if accent_brightness > 40 %}
-        color: #000 !important;
+        color: var(--new-black) !important;
       {% endif %}
     }
 
@@ -39,7 +39,7 @@
       top: 0;
       bottom: 0;
       z-index: 3;
-      background-color: #000;
+      background-color: var(--new-black);
       opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     }
   {% endif %}

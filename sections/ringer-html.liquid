@@ -325,15 +325,15 @@
 
   .btn__container{text-align: center;}
   .btn__container:not([class^="_No-space"]){ margin-bottom:clamp(20px, 2.2vw, 50px);}
-  .btn__bg { background: #CB0000; padding: 10px 70px; border-radius: 50px; color: #fff; font-weight: 900; letter-spacing: 3.2px; font-size: 16px; display: inline-flex; border:1px solid #fff0; }
-  .btn__bg:hover { background: #fff; color: #CB0000; }
-  .btn__bg.btnHas__backGround--white:hover { background: #fff; color: #CB0000; border-color:#CB0000; }
+  .btn__bg { background: var(--new-red); padding: 10px 70px; border-radius: 50px; color: #fff; font-weight: 900; letter-spacing: 3.2px; font-size: 16px; display: inline-flex; border:1px solid #fff0; }
+  .btn__bg:hover { background: #fff; color: var(--new-red); }
+  .btn__bg.btnHas__backGround--white:hover { background: #fff; color: var(--new-red); border-color:var(--new-red); }
 
   .craftedArea__Inner-container { text-align: center; padding: clamp(30px, 6vw, 60px) 15px; }
   .craftedArea__Inner-container .craftedArea__Decs { max-width: 704px; margin: 0 auto; line-height: 150%; width: 100%; }
   .craftedArea__Image--title img {max-width: clamp(400px,40vw, 693px); width: 100%;}
   
-  .dark_ringer--section{background:#000;}
+  .dark_ringer--section{background:var(--new-black);}
   .dark_ringer--section > * {color:#fff;}
 
 
@@ -369,7 +369,7 @@
 
   .blueTees__Ecosystem--Inner{display: flex; align-items: center; justify-content: center;padding-top: 40px;  column-gap: 40px;}
   .blueTees__Ecosystem--Left, .blueTees__Ecosystem--Right { flex: 50%; }
-  .blueTees__Ecosystem-Right__Title { max-width: 340px; width: 100%; line-height: 100%; font-weight: 900; -webkit-text-stroke-width: 0.5px; -webkit-text-stroke-color: #000; }
+  .blueTees__Ecosystem-Right__Title { max-width: 340px; width: 100%; line-height: 100%; font-weight: 900; -webkit-text-stroke-width: 0.5px; -webkit-text-stroke-color: var(--new-black); }
   .blueTees__Ecosystem--Right_Container { max-width: 570px; width: 100%; display: flex; flex-direction: column; row-gap: 24px; }
   .blueTees__Ecosystem--Right_Container img.sectionBanner__image {
   max-width: 185px;

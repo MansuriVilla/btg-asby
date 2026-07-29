@@ -85,7 +85,7 @@
             {%- assign accent_brightness = block.settings.color_accent | color_extract: 'lightness' -%}
 
             {% if accent_brightness > 60 %}
-              color: #000 !important;
+              color: var(--new-black) !important;
             {% endif %}
           }
 

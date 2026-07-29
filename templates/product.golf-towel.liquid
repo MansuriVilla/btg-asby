@@ -51,7 +51,7 @@
 {% comment %} .max3-product-page .product-single__meta .variant-wrapper.js:first-child .variant-input-wrap {justify-content: flex-start; width: 100%;} {% endcomment %}
 {% comment %} .max3-product-page .product-single__meta .variant-wrapper.js:first-child .variant-input-wrap label {border: inherit; width: 100%; border-radius: 30px; background: transparent; min-width: 126px; height: 35px; border: 2px solid #313131; display: flex; justify-content: center;} {% endcomment %}
 {% comment %} .max3-product-page .product-single__meta .variant-wrapper.js:first-child .variant-input-wrap label.active {background: #ffffff; border: none;} {% endcomment %}
-{% comment %} .max3-product-page .product-single__meta .variant-wrapper.js:first-child .variant-input-wrap label.active span {color: #000;} {% endcomment %}
+{% comment %} .max3-product-page .product-single__meta .variant-wrapper.js:first-child .variant-input-wrap label.active span {color: var(--new-black);} {% endcomment %}
 {% comment %} .max3-product-page .product-single__meta .variant-wrapper.js:first-child .variant-input-wrap label.active::before {display: none;} {% endcomment %}
 {% comment %} .max3-product-page .product-single__meta .variant-wrapper.js:first-child .variant-input label span {color: #fff; font-size: 10px; max-width: 56px; text-wrap: nowrap; width: 100%; overflow: hidden; justify-content: flex-start; border-radius: inherit; left: inherit; display: flex; align-items: center;} {% endcomment %}
 
@@ -63,20 +63,20 @@
   
 .max3-product-page .product-variant-type a label:hover{cursor: pointer;}
 .max3-product-page .product-variant-type .js-no-transition label{background: #252525; cursor: pointer; border:2px solid #fff;}
-.max3-product-page .product-variant-type .js-no-transition label span{display: flex;align-items: center;justify-content: center;flex-wrap: wrap;color: #0000; border: 4px solid #000; border-radius: 50%;}
+.max3-product-page .product-variant-type .js-no-transition label span{display: flex;align-items: center;justify-content: center;flex-wrap: wrap;color: #0000; border: 4px solid var(--new-black); border-radius: 50%;}
 .max3-product-page .product-single__meta .variant-input-wrap label img{ top: 0; z-index: 1; display: block;}
 .max3-product-page .product-single__meta .variant-input-wrap label { position: relative; height: 50px; width: 50px; border-radius: 50%; padding:0px; }
 .variant-wrapper.js .variant-input-wrap label span{border: transparent;}
   .max3-product-page .product-single__meta .variant-input-wrap label span{background: rgb(0, 0, 0,0); color: transparent;} 
 #ProductSelect-main-product-golf-towel-7153182408901-option-0 label span{padding: 0px !important; border: 0;}
   
- .towel-last-img-container {    background: #000; display: flex; justify-content: center; padding: clamp(30px, 8vw, 80px) 0px; align-items: center; }
+ .towel-last-img-container {    background: var(--new-black); display: flex; justify-content: center; padding: clamp(30px, 8vw, 80px) 0px; align-items: center; }
 .cleaning_img{    max-width: 62%;
     width: 100%; margin: 0 auto;}
 
   
 
-  border: 4px solid #000;
+  border: 4px solid var(--new-black);
 }
 
   content: '';
@@ -87,7 +87,7 @@
   
 .variant-wrapper.js .variant-input-wrap label:hover::before{display:none;}
 label.black img,label.white img{display:none !important;}
-label.black {background:#000 !important;}
+label.black {background:var(--new-black) !important;}
 label.white {background:#fff !important;}
 
 
@@ -124,11 +124,11 @@ label.white {background:#fff !important;}
 #shopify-section-as-seen-in-magnetic-towel .theme-block:last-child .single-img img{padding-top: 0px;}
 #shopify-section-change-the-way-magnetic-towel .enlarge-text p{padding: 30px 0px;}
 #shopify-section-change-the-way-magnetic-towel .theme-block:last-child .single-img img{max-width: 100%;}
-.magnetic-towel-page .theme-block .rte .btn{background: #004DF5;border-radius: 5px;font-weight: 900;font-size: 16px;line-height: 19px;letter-spacing: 0.2em;width: 270px;}
-.sale-on .magnetic-towel-page .theme-block .rte .btn{background: #CB0000;}
+.magnetic-towel-page .theme-block .rte .btn{background: var(--new-blue);border-radius: 5px;font-weight: 900;font-size: 16px;line-height: 19px;letter-spacing: 0.2em;width: 270px;}
+.sale-on .magnetic-towel-page .theme-block .rte .btn{background: var(--new-red);}
 #shopify-section-change-the-way-magnetic-towel .theme-block:nth-child(4){margin-bottom: 40px !important;}
 #shopify-section-change-the-way-magnetic-towel .theme-block:nth-child(2){padding-top: 0px;}
-.towel-productinfo-list{background: #000;padding: 0px 50px 60px 50px;}
+.towel-productinfo-list{background: var(--new-black);padding: 0px 50px 60px 50px;}
 .towel-productinfo-list .row{display: flex;flex-wrap: wrap;margin-right: -15px;margin-left: -15px;margin-bottom: 40px;}
 .towel-productinfo-list .towellist2{padding: 0px 15px;}
 .towel-productinfo-list .row .col-6{width: 50%;padding: 0px 20px;}
@@ -141,7 +141,7 @@ label.white {background:#fff !important;}
 .towellist2 .towel-product-info p{font-size: 14px;line-height: 16px;min-height: 80px;}
 .towel-product-block{border: 3px solid #fff;line-height: 0;border-radius: 13px;box-shadow: 0px 0px 12px 0px #FFF, 0px 2px 12px 2px rgba(255, 255, 255, 0.25);overflow: hidden;}
 .towel-productinfo-list .theme-block{text-align: center;}
-#shopify-section-change-the-way-magnetic-towel .btn:hover, .towel-productinfo-list .theme-block .rte .btn:hover{background: #fff !important;color:#000;border-color: #fff;}
+#shopify-section-change-the-way-magnetic-towel .btn:hover, .towel-productinfo-list .theme-block .rte .btn:hover{background: #fff !important;color:var(--new-black);border-color: #fff;}
 
 
 

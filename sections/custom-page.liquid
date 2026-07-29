@@ -4,13 +4,29 @@
     <div class="customize_game_left_text">
       <div class="logoimg">
        
-        
-        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-word-mark-logo.svg?v=1784629055" alt="hero hero" style="max-width: clamp(200px,24vw,420px);width: 100%;margin-bottom: 6px;">
- <div style="color:#000;background:#00d500;line-height:1;border-radius:3px;padding:5px 10px;display: inline-flex;margin-bottom: 3px;font-family: Blue Tees Subhead;font-size: 10px;text-transform: uppercase;">LIMITED TIME: 6 UNIT MINIMUM ORDER</div>
+          {% comment %} <picture>
+            <source
+              srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/hero-banner-top-logo-new.png?v=1782808751"
+              media="(min-width:861px)"
+            >
+            <source
+              srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/hero-banner-top-logo-new-mobile.png?v=1782808751"
+              media="(max-width:860px)"
+            >
+            <img
+              class="title_img"
+              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/hero-banner-top-logo-new.png?v=1782808751"
+              alt="Bluetees promotional banner on black background: 'LIMITED TIME: 6 UNIT MINIMUM ORDER' with '30 DAY TURNAROUND & FREE ARTWORK'."
+            >
+          </picture> {% endcomment %}
+
+          <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-word-mark-logo.svg?v=1784629055" alt="hero hero" style="max-width: clamp(200px,24vw,420px);width: 100%;margin-bottom: 6px;">
+ <div style="color:var(--new-black);background:#00d500;line-height:1;border-radius:3px;padding:5px 10px;display: inline-flex;margin-bottom: 3px;font-family: Blue Tees Subhead;font-size: 10px;text-transform: uppercase;">LIMITED TIME: 6 UNIT MINIMUM ORDER</div>
 
              <h1 class="section_heading--custom page_heading">
         30 DAY TURNAROUND <br> & FREE ARTWORK
       </h1>
+        
         
       </div>
       <div class="m_banner">
@@ -31,7 +47,7 @@
           loop
           muted
           playsinline
-          controls
+          
         ></video>
         <button
           type="button"
@@ -63,7 +79,7 @@
           loop
           muted
           playsinline
-          controls
+       
         ></video>
         <button
           type="button"
@@ -973,7 +989,7 @@
     </div>
     <button 
     id="slider-toggle" 
-    class="slider-toggle-btn"
+    class="slider-toggle-btn "
     aria-label="Pause slider animation"
     aria-pressed="false"
     aria-controls="slider-images-container"
@@ -989,6 +1005,8 @@
     height: clamp(50px, 4.5vw, 80px);
   }
 
+
+  
 .section_heading--custom{
       color: #fff;
     font-size: clamp(32px, 2.8vw, 50px);
@@ -998,6 +1016,8 @@
     justify-content: center;
     gap: 5px;
 }
+
+.customize_game_page_bg h3.product-name{padding:0;}
 
 .page_heading{font-size:clamp(22px, 2.8vw, 46px);}
            .pop-upbox { background: rgba(0, 0, 0, 0.5); bottom: 0; display: none; left: 0; position: fixed; right: 0; top: 0; z-index: 999999999; overflow: hidden; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
@@ -1010,7 +1030,7 @@
           @media (max-width: 540px) {
            .pop-upbox .popup-box { max-width: 90%; }
            }
-          .customize_game_top_bg { padding: 0px 11%; height: clamp(400px, 42vw, 800px); flex-direction: row-reverse;background: #000; /*background: url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/banner-desktop-img.png?v=1737122423) no-repeat center center / cover !important;*/ }
+          .customize_game_top_bg { padding: 0px 11%; height: clamp(400px, 42vw, 800px); flex-direction: row-reverse;background: var(--new-black); /*background: url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/banner-desktop-img.png?v=1737122423) no-repeat center center / cover !important;*/ }
           .customize_game_top_bg .customize_game_left_text .textimg{ display: none; }
           .customize_game_left_right .video_block{padding: 0px 40px;max-width: 815px;}
           .customize_game_top_bg .customize_game_left_right #video_block-icon{width: 55%;}
@@ -1023,10 +1043,10 @@
   justify-content: center; }
           .customize_game_top_bg .customize_game_left_text p { font-size: clamp(16px, 1vw, 20px); line-height: 150%; font-weight: normal; text-align: center; letter-spacing: 0.8px; padding: 12px 0 0 0; color: #fff; max-width: 480px; margin: 0 auto; }
           .customize_game_top_bg .customize_game_left_text .view_button { column-gap: 20px; }
-          .customize_game_top_bg .customize_game_left_text .view_button a { cursor: pointer; display: flex; align-items: center; background: #004DF5; border-radius: 50px; font-size: 18px; line-height: normal; padding: 11px 35px; text-transform: uppercase; font-weight: 900; letter-spacing: 4px; color: #fff; }
-          .customize_game_top_bg .customize_game_left_text .view_button a.no_bg { background: transparent; border: 2px solid #004DF5; }
+          .customize_game_top_bg .customize_game_left_text .view_button a { cursor: pointer; display: flex; align-items: center; background: var(--new-blue); border-radius: 50px; font-size: 18px; line-height: normal; padding: 11px 35px; text-transform: uppercase; font-weight: 900; letter-spacing: 4px; color: #fff; }
+          .customize_game_top_bg .customize_game_left_text .view_button a.no_bg { background: transparent; border: 2px solid var(--new-blue); }
           .customize_game_top_bg .customize_game_left_text .view_button a:hover,
-          .customize_game_top_bg .customize_game_left_text .view_button a.no_bg:hover { color: #004DF5; background: #fff; border-color: transparent; }
+          .customize_game_top_bg .customize_game_left_text .view_button a.no_bg:hover { color: var(--new-blue); background: #fff; border-color: transparent; }
           .customize_freeshopping_bg { background: #111; margin-bottom: 60px; }
           .customize_freeshopping_bg p { padding: 0; margin-top: 20px; color: #fff; opacity: 0.5; font-style: italic; font-size: 12px; }
           .slide_in-view__container { position: relative; }
@@ -1069,10 +1089,10 @@
   background: rgba(0, 0, 0, 0.85);
 }
 
-          .steps_bug { background: #004DF5; border-radius: 50px; height: 50px; width: 50px; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: 900; font-size: 18px; }
+          .steps_bug { background: var(--new-blue); border-radius: 50px; height: 50px; width: 50px; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: 900; font-size: 18px; }
           .paige_video-bottom { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; row-gap: clamp(33px, 5vw, 60px); }
           .title_img { max-width: 700px; width: 100%;}
-          .sub_title--text { padding: 0; color: #004DF5; margin-bottom: 15px; font-weight: 900; letter-spacing: 0.8px; }
+          .sub_title--text { padding: 0; color: var(--new-blue); margin-bottom: 15px; font-weight: 900; letter-spacing: 0.8px; }
           .section_decs { color: #fff; padding: 0; max-width: 640px; width: 100%; margin: 0 auto; letter-spacing: 0.8px; line-height: 150%; }
           .three_d-content .section_decs { max-width: 680px; margin-bottom: 40px; }
           .uv_content .section_decs { margin-bottom: 50px; }
@@ -1080,7 +1100,7 @@
           .tab_item { color: #fff; font-weight: 900; font-size: 20px; letter-spacing: 1.6px; }
           .tab_item:hover { color: #fff; }
           .tab_nav li.active::after,
-          .tab_nav li::after { content: ""; position: absolute; bottom: -10px; width: 157px; height: 7px; background: #004DF5; left: 50%; transform: translate(-50%, 0%); opacity: 1; }
+          .tab_nav li::after { content: ""; position: absolute; bottom: -10px; width: 157px; height: 7px; background: var(--new-blue); left: 50%; transform: translate(-50%, 0%); opacity: 1; }
           .tab_nav li:hover::after { opacity: 0.5; }
           .tab_nav li::after { opacity: 0; }
           .tab_nav li { position: relative; }
@@ -1097,16 +1117,16 @@
           .card-top picture { display: flex; }
           .card-bottom .winner_site-cta-dim { background: transparent; padding: 0; width: fit-content; display: block; color: #fff; opacity: 0.5; font-weight: 900; }
           .card-bottom .winner_site-cta-dim:hover { opacity: 1; }
-          .winner_site-cta--center { background: #004DF5; padding: 15px 0; letter-spacing: 1.6px; color: #fff; font-weight: 900; border-radius: 50px; max-width: 266px; width: 100%; display: inline-block; transition: 0.2s all linear; }
-          .winner_site-cta--center:hover { background: #fff; color: #004DF5; }
+          .winner_site-cta--center { background: var(--new-blue); padding: 15px 0; letter-spacing: 1.6px; color: #fff; font-weight: 900; border-radius: 50px; max-width: 266px; width: 100%; display: inline-block; transition: 0.2s all linear; }
+          .winner_site-cta--center:hover { background: #fff; color: var(--new-blue); }
           .tab_nav li { list-style: none; }
           .cards-container { display: none; }
           .cards-container.active { display: block; }
           .slide_in-view__row::after { left: 0; top: 0; z-index: 1; }
           .slide_in-view__row { position: relative; width: 100%; padding: 0 0 clamp(40px, 9vw, 80px); user-select: none; overflow: hidden; }
           .slide_in-view__row::after,
-          .slide_in-view__row::before { content: ""; position: absolute; height: 100%; width: 30%; background: linear-gradient(90deg, #000, #000, #000000b8, transparent); }
-          .slide_in-view__row::before { right: 0; top: 0; background: linear-gradient(-90deg, #000, #000, #000000b8, transparent); z-index: 1; }
+          .slide_in-view__row::before { content: ""; position: absolute; height: 100%; width: 30%; background: linear-gradient(90deg, var(--new-black), var(--new-black), #000000b8, transparent); }
+          .slide_in-view__row::before { right: 0; top: 0; background: linear-gradient(-90deg, var(--new-black), var(--new-black), #000000b8, transparent); z-index: 1; }
           .anchor_hover::after { bottom: 2px; }
           .quote_area-top { padding: clamp(14px, 4.9vw, 80px) 0; }
 
@@ -1115,8 +1135,8 @@
 
 
 
-          .new_bug {display: inline-flex; justify-content: center; align-items: center; text-transform: uppercase; background:red; border-radius: 4px; font-size: 12px; color: #000; padding: 5px 12px; font-weight: 600; }
-          .new_bug.new_bugGreen { background:#00D400; color:#000; }
+          .new_bug {display: inline-flex; justify-content: center; align-items: center; text-transform: uppercase; background:red; border-radius: 4px; font-size: 12px; color: var(--new-black); padding: 5px 12px; font-weight: 600; }
+          .new_bug.new_bugGreen { background:#00D400; color:var(--new-black); }
 
         .new_label {
           position: absolute;
@@ -1159,7 +1179,7 @@
            }
           @media only screen and (max-width: 860px) {
            .customize_game_top_bg .customize_game_left_text .m_banner { display: none; }
-          .customize_game_top_bg { background: #000 !important; height: 100%; padding: 40px 0px;}
+          .customize_game_top_bg { background: var(--new-black) !important; height: 100%; padding: 40px 0px;}
           .customize_game_top_bg .customize_game_left_text .view_button { justify-content: center; flex-direction: column; row-gap: clamp(15px, 3vw, 30px); align-items: center; }
           .customize_game_top_bg .customize_game_left_text .view_button a { justify-content: center; }
           .customize_game_top_bg .customize_game_left_text { max-width: 80%; width: 100%; height: 100%; align-content: flex-end; margin: 0 auto; }
@@ -1240,113 +1260,108 @@
         src="//js.hsforms.net/forms/embed/v2.js"
       ></script>
       <script>
-        hbspt.forms.create({
-          portalId: '7645267',
-          formId: '69feb0ff-964f-4812-a34d-18bfe4f5d980',
-          region: 'na1',
-          onFormReady: function($form) {
+    hbspt.forms.create({
+        portalId: '7645267',
+        formId: '69feb0ff-964f-4812-a34d-18bfe4f5d980',
+        region: 'na1',
+        onFormReady: function($form) {
             const form = $form[0] || $form;
             if (!form) return;
 
-            // 1. Add mandatory fields instruction note (Issue 137)
+            // 1. Required fields note
             const requiredNote = document.createElement('p');
             requiredNote.className = 'hs-a11y-required-note';
-            requiredNote.style.color = '#e02b2b';
+            requiredNote.style.color = '#F00000';
             requiredNote.style.fontSize = '14px';
             requiredNote.style.marginBottom = '15px';
             requiredNote.textContent = '* indicates required fields';
             form.insertBefore(requiredNote, form.firstChild);
 
-            // Add aria-required to all required inputs
-            form.querySelectorAll('.hs-form-required').forEach(indicator => {
-              const field = indicator.closest('.hs-form-field');
-              if (field) {
-                const input = field.querySelector('input, select, textarea');
-                if (input) {
-                  input.setAttribute('aria-required', 'true');
+            // === BORDER + ERROR STYLING FUNCTION ===
+            function updateFieldStyles() {
+                const fields = form.querySelectorAll('.hs-form-field');
+
+                fields.forEach(field => {
+                    const input = field.querySelector('input.hs-input, select.hs-input, textarea.hs-input');
+                    if (!input) return;
+
+                    const hasError = field.querySelector('.hs-error-msgs') || 
+                                     input.classList.contains('error') || 
+                                     input.classList.contains('invalid') ||
+                                     input.getAttribute('aria-invalid') === 'true';
+
+                    if (hasError) {
+                        // Error State - Red Border
+                        input.style.border = '1.4px solid #F00000';
+                        input.style.boxShadow = '0 0 0 3px rgba(240, 0, 0, 0.1)';
+                    } else {
+                        // Normal State - Black Border
+                        input.style.border = '1.4px solid #000000';
+                        input.style.boxShadow = 'none';
+                    }
+                });
+            }
+
+            // Apply initial styles
+            updateFieldStyles();
+
+            // 2. Submit Button Styling
+            function styleSubmitButton() {
+                const submitButton = form.querySelector('button.hs-button, input[type="submit"], .hs-submit .hs-button');
+                if (submitButton) {
+                    submitButton.style.backgroundColor = '#004df5';
+                    submitButton.style.borderColor = '#004df5';
+                    submitButton.style.color = '#ffffff';
+                    submitButton.style.fontWeight = '600';
+                    submitButton.style.borderRadius = '4px';
+
+                    submitButton.addEventListener('mouseenter', () => {
+                        submitButton.style.backgroundColor = '#0039cc';
+                    });
+                    submitButton.addEventListener('mouseleave', () => {
+                        submitButton.style.backgroundColor = '#004df5';
+                    });
                 }
-              }
+            }
+            styleSubmitButton();
+
+            // 3. Error Messages Color
+            const errorObserver = new MutationObserver(() => {
+                form.querySelectorAll('.hs-error-msgs').forEach(errorContainer => {
+                    errorContainer.style.color = '#F00000';
+
+                    const errorTexts = errorContainer.querySelectorAll('label, li, span, div');
+                    errorTexts.forEach(el => el.style.color = '#F00000');
+                });
+
+                // Update borders whenever errors appear/disappear
+                updateFieldStyles();
             });
 
-            // 2. Intercept submit and handle error focus (Issue 139)
-            form.addEventListener('submit', (e) => {
-              setTimeout(() => {
-                const firstErrorInput = form.querySelector('.invalid, .error, [aria-invalid="true"], .hs-input.error');
-                if (firstErrorInput) {
-                  firstErrorInput.focus();
-                } else {
-                  const firstErrorMsg = form.querySelector('.hs-error-msgs');
-                  if (firstErrorMsg) {
-                    const field = firstErrorMsg.closest('.hs-form-field');
-                    const input = field ? field.querySelector('input, select, textarea') : null;
-                    if (input) {
-                      input.focus();
+            errorObserver.observe(form, { childList: true, subtree: true });
+
+            // 4. Submit handler + error focus
+            form.addEventListener('submit', () => {
+                setTimeout(() => {
+                    updateFieldStyles();   // Update borders on submit
+                    const firstError = form.querySelector('.hs-error-msgs, [aria-invalid="true"]');
+                    if (firstError) {
+                        const field = firstError.closest('.hs-form-field');
+                        const input = field ? field.querySelector('input, select, textarea') : null;
+                        if (input) input.focus();
                     }
-                  }
-                }
-              }, 100);
+                }, 150);
             });
 
-            // 3. Fix list markup & ARIA role on error lists (Issues 141, 142)
-            const observer = new MutationObserver(() => {
-              form.querySelectorAll('.hs-error-msgs').forEach(errorContainer => {
-                const field = errorContainer.closest('.hs-form-field');
-                const input = field ? field.querySelector('input, select, textarea') : null;
-                const errorId = 'error-' + (input && input.id ? input.id : Math.random().toString(36).substr(2, 9));
-                
-                if (input) {
-                  input.setAttribute('aria-invalid', 'true');
-                  const currentDescribedBy = input.getAttribute('aria-describedby') || '';
-                  if (!currentDescribedBy.includes(errorId)) {
-                    input.setAttribute('aria-describedby', (currentDescribedBy + ' ' + errorId).trim());
-                  }
-                }
-
-                if (errorContainer.tagName.toLowerCase() === 'ul') {
-                  const items = errorContainer.querySelectorAll('li');
-                  
-                  if (items.length === 1) {
-                    const label = items[0].querySelector('label');
-                    if (label) {
-                      const errorDiv = document.createElement('div');
-                      errorDiv.className = errorContainer.className;
-                      errorDiv.id = errorId;
-                      errorDiv.setAttribute('role', 'alert');
-                      errorDiv.setAttribute('aria-live', 'assertive');
-                      
-                      const newLabel = document.createElement('label');
-                      newLabel.className = label.className;
-                      newLabel.innerHTML = label.innerHTML;
-                      errorDiv.appendChild(newLabel);
-                      
-                      errorContainer.parentNode.replaceChild(errorDiv, errorContainer);
-                    }
-                  } else if (items.length > 1) {
-                    errorContainer.id = errorId;
-                    if (errorContainer.getAttribute('role') === 'alert') {
-                      errorContainer.removeAttribute('role');
-                    }
-                    const inputWrapper = errorContainer.closest('.input') || errorContainer.parentNode;
-                    if (inputWrapper && !inputWrapper.querySelector('.hs-error-alert-wrapper')) {
-                      const alertWrapper = document.createElement('div');
-                      alertWrapper.className = 'hs-error-alert-wrapper';
-                      alertWrapper.setAttribute('role', 'alert');
-                      alertWrapper.setAttribute('aria-live', 'assertive');
-                      errorContainer.parentNode.insertBefore(alertWrapper, errorContainer);
-                      alertWrapper.appendChild(errorContainer);
-                    }
-                  }
-                }
-              });
+            // Final observer for dynamic changes
+            const mainObserver = new MutationObserver(() => {
+                updateFieldStyles();
+                styleSubmitButton();
             });
-
-            observer.observe(form, {
-              childList: true,
-              subtree: true
-            });
-          }
-        });
-      </script>
+            mainObserver.observe(form, { childList: true, subtree: true });
+        }
+    });
+</script>
     </div>
   </div>
 </div>

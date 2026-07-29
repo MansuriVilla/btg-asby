@@ -121,9 +121,18 @@
     {%- if section.settings.link != blank -%}
           <div class="theme-block">
             <div class="rte">
-              <a href="{{ section.settings.link }}" class="btn"> 
+               <a  {%if product.selected_or_first_available_variant.available %}
+                href="{{ section.settings.link  }}"
+                {%else %}
+                href="javascript:void(0);"
+              {%endif %}   class="btn {% unless product.selected_or_first_available_variant.available %} button_sold-out{%endunless %}">
+              {%if product.selected_or_first_available_variant.available %}
                 {{ section.settings.link_text }}
-              </a>
+                {%else %}
+                SOLD OUT
+              {%endif %}
+            </a>
+             
             </div>
           </div>
     {%- endif -%}

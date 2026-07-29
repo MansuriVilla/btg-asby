@@ -1,7 +1,7 @@
 {% assign prod_handle = false %}
 
 {% if product.handle contains 'extend'
-  or product.handle contains 'gift'
+  or product.handle contains 'gift' or product.handle contains 'hat'
 %}
   {% assign prod_handle = true %}
 {% endif %}
@@ -81,7 +81,7 @@
               <span>|</span>
 
               {% if app_upsell == 'one_year' %}
-                <span>GAME AI + LAUNCH App Pcakage</span>
+                <span>GAME AI + LAUNCH App Package</span>
               {% else %}
                 <span>GAME AI INTELLIGENCE PACKAGE</span>
               {% endif %}
@@ -127,11 +127,12 @@
     .box__left img { display: flex; max-width: clamp(30px,3vw,40px);     max-height: clamp(23px, 2vw, 30px); width: 100%; border-radius: 4px; }
     .box__left { display: flex; }
     .box__right p { padding: 0; }
+    .right_inner{ display: flex; flex-direction: column; gap: 4px; }
     .right__top p { font-size: clamp(8px,1vw,14px); font-weight: 700; display: flex; align-items: center; justify-content: flex-start; gap: 5px;  }
     .right__bottom span.has__popup { cursor:pointer; }
     .right__bottom span { display: flex; }
     .right__bottom p { font-size: clamp(10px,0.9vw,12px); display: flex; align-items: center; justify-content: flex-start; gap: 4px; }
-    .right__bottom .slash-out-price { color: #F00; text-decoration: line-through; }
+    .right__bottom .slash-out-price { color: var(--new-red); text-decoration: line-through; }
 
 
     @media only screen and (max-width:991px){

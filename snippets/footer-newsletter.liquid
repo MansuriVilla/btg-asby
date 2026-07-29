@@ -32,7 +32,7 @@
           <input type="hidden" name="contact[tags]" value="prospect,newsletter">
           <input type="hidden" name="contact[context]" value="footer">
           <div class="signup-form">
-            <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email-{{ block.id }}" class="footer-signup-input" autocorrect="off" autocapitalize="off" autocomplete="email" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}">
+            <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email-{{ block.id }}" class="footer-signup-input" autocorrect="off" autocapitalize="off" autocomplete="email" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}"" required>
             <button type="submit" class="signup-form-btn" name="commit" aria-label="{{ 'general.newsletter_form.submit' | t }}">
               <!--<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-email" viewBox="0 0 64 64"><path d="M63 52H1V12h62zM1 12l25.68 24h9.72L63 12M21.82 31.68L1.56 51.16m60.78.78L41.27 31.68"/></svg>--->
               <span>
@@ -40,6 +40,11 @@
               </span>
             </button>
           </div>
+            <div class="newsletter-client-error"
+     role="alert"
+     aria-live="assertive"
+     style="display:none;">
+</div>
         {%- endform -%}
 
         
@@ -47,3 +52,68 @@
     </div>
   </div>
 </div>
+
+<style>
+  .newsletter-client-error {
+  margin-top: 8px;
+}
+
+.footer-signup-input[aria-invalid="true"] {
+  border-color: #c00;
+}
+</style>
+
+<script>
+document.addEventListener(
+  "submit",
+  function (event) {
+    var form = event.target;
+
+    // Only validate the footer newsletter form
+    if (!form || form.id !== "newsletter-footer") {
+      return;
+    }
+
+    var emailInput = form.querySelector(
+      "input[name='contact[email]']"
+    );
+
+    var errorBox = form.querySelector(".newsletter-client-error");
+
+    if (!emailInput || !errorBox) {
+      return;
+    }
+
+    var email = emailInput.value.trim();
+
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+    emailInput.removeAttribute("aria-invalid");
+
+    // Blank email validation
+    if (email === "") {
+      event.preventDefault();
+      event.stopPropagation();
+
+      emailInput.setAttribute("aria-invalid", "true");
+      errorBox.textContent = "Email can't be blank.";
+      errorBox.style.display = "block";
+      emailInput.focus();
+
+      return;
+    }
+
+    // Invalid email format validation
+    if (!emailInput.validity.valid) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      emailInput.setAttribute("aria-invalid", "true");
+      errorBox.textContent = "Please enter a valid email address.";
+      errorBox.style.display = "block";
+      emailInput.focus();
+    }
+  },
+  true
+);
+</script>

@@ -27,7 +27,7 @@
     <div class="col-12 player-maker">
         <div
           class="new_home_player_box"
-          style="background:#000 url({{'new-home-player-maker-bg.png' | asset_url}}) no-repeat center center"
+          style="background:var(--new-black) url({{'new-home-player-maker-bg.png' | asset_url}}) no-repeat center center"
         >
           <div class="left">
               <div class="top-tag">
@@ -55,7 +55,7 @@
       <div class="col-12 player-plus">
         <div
           class="new_home_player_box"
-          style="background:#000 url({{'new-home-player-box-bg1.png' | asset_url}}) no-repeat center center"
+          style="background:var(--new-black) url({{'new-home-player-box-bg1.png' | asset_url}}) no-repeat center center"
         >
           <div class="left">
             {% render 'offer-bug' %}
@@ -82,7 +82,7 @@
 
       {% comment %}
       <div class="col-12 max3 ">
-        <div class="new_home_player_box max3-plus" style="background:#000 url({{'new-home-player-box-bg.png' | asset_url}}) no-repeat center center">
+        <div class="new_home_player_box max3-plus" style="background:var(--new-black) url({{'new-home-player-box-bg.png' | asset_url}}) no-repeat center center">
           <div class="left">
             {% render 'offer-bug' %}
             <div class="logo_max"><img src="{{'new-home-max3-plus-title.png' | asset_url}}" alt="hompage banner"></div>
@@ -105,7 +105,7 @@
       {% endcomment %}
 
        <div class="col-12 max3 ">
-        <div class="new_home_player_box max3-plus " style="background:#000 url({{'new-home-player-box-bg.png' | asset_url}}) no-repeat center center">
+        <div class="new_home_player_box max3-plus " style="background:var(--new-black) url({{'new-home-player-box-bg.png' | asset_url}}) no-repeat center center">
           <div class="left">
             <div class="logo_max"><img src="{{'4ultra-title-ap.png' | asset_url}}" alt="hompage banner"></div>
             <p>MAGNETIC OLED RANGEFINDER</p>
@@ -132,7 +132,7 @@
       <div class="col-6">
         <div
           class="ringer_2box_bg"
-          style="background:#000 url({{'ringer-bg.png' | asset_url}}) no-repeat center center / cover"
+          style="background:var(--new-black) url({{'ringer-bg.png' | asset_url}}) no-repeat center center / cover"
         >
           <div class="logo">
             {% render 'offer-bug' %}
@@ -154,7 +154,7 @@
         </div>
       </div>
       <div class="col-6">
-        <div class="ringer_2box_bg"  style="background:#000 url({{'ringer-bg.png' | asset_url}}) no-repeat center center / cover" /*style="background:#000 url({{'game-product.png' | asset_url}}) no-repeat center center / cover"*/>
+        <div class="ringer_2box_bg"  style="background:var(--new-black) url({{'ringer-bg.png' | asset_url}}) no-repeat center center / cover" /*style="background:var(--new-black) url({{'game-product.png' | asset_url}}) no-repeat center center / cover"*/>
           <div class="logo">
             <img src="{{'game-title.png' | asset_url}}" alt="game game">
           </div>
@@ -178,7 +178,7 @@
      
       
      <div class="col-6">
-        <div class="ringer_2box_bg" style="background:#000 url({{'ringer-bg.png' | asset_url}}) no-repeat center center / cover">
+        <div class="ringer_2box_bg" style="background:var(--new-black) url({{'ringer-bg.png' | asset_url}}) no-repeat center center / cover">
           <div class="logo">
             <img src="{{'new-home-player-go-title.png' | asset_url}}" alt="player-go">
           </div>
@@ -240,7 +240,7 @@
       
       
       <div class="col-6">
-        <div class="ringer_2box_bg" style="background:#000 url({{'ringer-bg.png' | asset_url}}) no-repeat center center / cover">
+        <div class="ringer_2box_bg" style="background:var(--new-black) url({{'ringer-bg.png' | asset_url}}) no-repeat center center / cover">
           <div class="logo pack-go-logo ">
             <img src="{{'pack-go-tile-img.png' | asset_url}}" alt="player-go">
           </div>
@@ -327,7 +327,7 @@
       <div class="col-12">
         <div
           class="ringer_2box_bg"
-          style="background:#000 url({{'bg-new-hm.png' | asset_url}}) no-repeat center center / cover"
+          style="background:var(--new-black) url({{'bg-new-hm.png' | asset_url}}) no-repeat center center / cover"
         >
           <div class="logo">
             <img src="{{'accessories-title.png' | asset_url}}" alt="accessories accessories">
@@ -572,19 +572,19 @@
   .slide_in-view__images .slide_in-view__image { opacity: 0; transform: translateX(0%); will-change: transform; }
 
   .new_home_section_bg{overflow: hidden;}
-  .top-tag small{background: #00D400;color: #000;font-size: 16px;font-weight: 600;padding: 2px 13px;border-radius: 2px;display: inline-block;margin-bottom: 5px;}
+  .top-tag small{background: #00D400;color: var(--new-black);font-size: 16px;font-weight: 600;padding: 2px 13px;border-radius: 2px;display: inline-block;margin-bottom: 5px;}
   .new_home_section_bg .video_banner_ctas{display: flex; justify-content: center; gap: clamp(12px, 2vw, 18px);}
   .new_home_section_bg .new_home_player_box .left p.lime-tees-theme, .new_home_section_bg .ringer_2box_bg p.lime-tees-theme{font-size: 12px !important; padding: 7px 10px !important; letter-spacing: 1px;}
   .new_home_section_bg .new_home_player_box .left p.lime-tees-theme span img, .new_home_section_bg .ringer_2box_bg p.lime-tees-theme span img{scale:1.6 !important; display: flex;}
-  .follow_us_bg.new_home_section_bg .learn_more_button a{background: #004DF5; color: #fff;}
-  .follow_us_bg.new_home_section_bg .learn_more_button a:hover{background: #fff; color: #000;}
+  .follow_us_bg.new_home_section_bg .learn_more_button a{background: var(--new-blue); color: #fff;}
+  .follow_us_bg.new_home_section_bg .learn_more_button a:hover{background: #fff; color: var(--new-black);}
   .follow_us_bg.new_home_section_bg .video_button{margin-top: 0;}
-  .radial-gradient-custom{background: radial-gradient(#272727,#000 200px) !important;}
+  .radial-gradient-custom{background: radial-gradient(#272727,var(--new-black) 200px) !important;}
   .no-visible{visibility: hidden;}
- .video-banner-button{padding:20px; background-color:#000; width: 100%;text-align: center;}
-  .video-banner-button a{border-radius: 5px;font-weight: 900;font-size: 16px;background: #CB0000;line-height: 17px;color: #fff;letter-spacing: 3px;width: 270px;}
-  .video-banner-button a:hover{background: #004DF5 !important;color: #fff;}
-  .new_home_top_banner {display:flex; flex-wrap:wrap; align-items:center; background:#000; width:100%; padding:0 25px;}
+ .video-banner-button{padding:20px; background-color:var(--new-black); width: 100%;text-align: center;}
+  .video-banner-button a{border-radius: 5px;font-weight: 900;font-size: 16px;background: var(--new-red);line-height: 17px;color: #fff;letter-spacing: 3px;width: 270px;}
+  .video-banner-button a:hover{background: var(--new-blue) !important;color: #fff;}
+  .new_home_top_banner {display:flex; flex-wrap:wrap; align-items:center; background:var(--new-black); width:100%; padding:0 25px;}
   .new_home_top_banner .left { width:50%; text-align:center;padding: 30px 0px;}
   .new_home_top_banner .left .title { max-width:671px; margin:0 auto;}
   .new_home_top_banner .left .title img{width: 620px;}
@@ -592,7 +592,7 @@
   .new_home_top_banner .logo_img { max-width: 320px; margin:0 auto; padding: 15px 0 0 0;}
   .new_home_top_banner .button { width:100%; text-align:center; margin:15px 0 0 0; display: flex; justify-content: center;}
   .new_home_top_banner .button a { width:215px; text-align:center; font-size:18px; letter-spacing:3px; font-weight:900; padding:10px 0; border-radius:5px; margin:0 15px; background:#fff;}
-  .new_home_top_banner .button a:hover { background:#004DF5; color:#fff;}
+  .new_home_top_banner .button a:hover { background:var(--new-blue); color:#fff;}
   .new_home_top_banner .right { width:50%;}
   .new_home_top_banner .right_img { width:100%;}
 
@@ -603,11 +603,11 @@
   .new_home_section_bg .col-12 {padding-right: 15px; padding-left: 15px; width:100%;}
   .new_home_section_bg .learn_more_button { width:100%; text-align:center;display: flex; justify-content: center;}
   .new_home_section_bg .learn_more_button a { width:200px; text-align:center; font-size:16px; letter-spacing:3px; font-weight:900; padding:10px 0; border-radius:5px; margin:0 15px; background:#fff;}
-  .new_home_section_bg .learn_more_button a:hover { background:#004DF5; color:#fff;}
+  .new_home_section_bg .learn_more_button a:hover { background:var(--new-blue); color:#fff;}
   .new_home_section_bg .video_button {  text-align:center; margin-top:20px;}
   .new_home_section_bg .video_button a {border-radius: 50px; background-color: rgb(49, 49, 49, 0.7); font-weight: 700; font-size: 10px; line-height: 22px; letter-spacing: 2px; color: #FFFFFF; padding:11px 0; display: flex; align-items: center; width: auto; max-width: 136px; justify-content: center; margin:0 auto;}
   .new_home_section_bg .video_button a img { width:17px !important; margin-right:7px;}
-  .new_home_section_bg .video_button a:hover { background-color:#004DF5;}
+  .new_home_section_bg .video_button a:hover { background-color:var(--new-blue);}
   /* .new_home_section_bg .col-6:last-child .video_button{visibility: hidden;} */
   /* .new_home_section_bg .col-6:nth-child(8) .productimg{visibility: hidden;} */
 
@@ -622,13 +622,13 @@
   .new_home_section_bg .new_home_player_box .phone_img { display:none;}
 
 
-  .new_home_section_bg .ringer_2box_bg { width:100%; background:#000; position:relative; border-radius:30px; margin-top:30px;padding: 30px;text-align: center;height: 700px;}
+  .new_home_section_bg .ringer_2box_bg { width:100%; background:var(--new-black); position:relative; border-radius:30px; margin-top:30px;padding: 30px;text-align: center;height: 700px;}
   .new_home_section_bg .ringer_2box_bg p{font-size: 16px;color: #fff;letter-spacing: 9px;font-weight: 700;padding: 5px 0 0 0;}
   .new_home_section_bg .ringer_2box_bg .ringer_button { position:absolute; bottom:30px; left:0; right:0; margin:0 auto;}
 
   .new_play_different_title_bg { width:100%; padding:60px 0 0 0; text-align:center;}
   .new_play_different_title_bg .icon_img { max-width:560px; margin:0 auto; padding:25px 0 0 0;}
-  .new_play_different_title_bg h6 { font-size:24px; color:#000; font-weight:900; font-style:italic; padding:60px 0 0 0; text-align:center;margin-bottom: 20px;}
+  .new_play_different_title_bg h6 { font-size:24px; color:var(--new-black); font-weight:900; font-style:italic; padding:60px 0 0 0; text-align:center;margin-bottom: 20px;}
   .new_play_different_title_bg .as_seen_logo_bg {display:flex; flex-wrap:wrap; align-items:center; justify-content: space-between; /*padding-bottom: 30px;*/}
   .new_play_different_title_bg .as_seen_logo_bg img { width:20%; margin:12px 0;}
 
@@ -669,7 +669,7 @@
 
   .video_banner_ctas a{color: #fff;
     padding: clamp(12px, 1.2vw, 17px) clamp(16px, 1.5vw, 19px);
-    background: #004DF5;
+    background: var(--new-blue);
     border-radius: 50px;
     width: 100%;
     max-width: 220px;
@@ -685,7 +685,7 @@
 }
   .video_banner_ctas .video_cta_stroke{background: transparent;
     border: 2px solid #fff;}
-.video_banner_ctas a:hover{color: #004DF5;background: #fff;border-color: #004DF5;}
+.video_banner_ctas a:hover{color: var(--new-blue);background: #fff;border-color: var(--new-blue);}
    @media screen and (min-width: 1440px){
     #shopify-section-template--16024729682117__bbb9ee3b-f13a-4ea7-9419-dae6ab9f26ab .background-media-text__video video{height: 100%;object-fit: cover;top: 0;/*object-position: center -60px;*/}
      
@@ -756,8 +756,8 @@
   .new_play_different_title_bg .icon_img { padding:15px 0px;}
   .new_home_section_bg .new_home_player_box .phone_img img{max-width: 500px;width: 100%;}
   .new_home_section_bg .ringer_2box_bg{overflow: hidden;}
-  .new_home_section_bg .new_home_player_box{overflow: hidden;background: #000 url({{'m-new-home-player-box-bg.png' | asset_url}}) no-repeat center center / cover !important;}
-  .new_home_section_bg .new_home_player_box.max3-plus{background: #000 !important;}
+  .new_home_section_bg .new_home_player_box{overflow: hidden;background: var(--new-black) url({{'m-new-home-player-box-bg.png' | asset_url}}) no-repeat center center / cover !important;}
+  .new_home_section_bg .new_home_player_box.max3-plus{background: var(--new-black) !important;}
   .new_home_video_section{padding: 30px 0px;}
   .new_home_video_section .col-6{width: 100%;}
   .new_home_video_section .videolist{height: 280px;}
@@ -767,7 +767,7 @@
   .new_home_section_bg .col-12.max3 .new_home_player_box{margin-top: 10px;}
   .new_home_section_bg .col-6:last-child .video_button{visibility: visible;}
   .ringer_2box_bg .learn_more_button{margin-top: 0px;}
-  /* .new_home_section_bg .col-6:nth-child(8) .ringer_2box_bg{background: #000 url(//www.blueteesgolf.com/cdn/shop/t/83/assets/accessories-product.png?) no-repeat center center / cover !important;} */
+  /* .new_home_section_bg .col-6:nth-child(8) .ringer_2box_bg{background: var(--new-black) url(//www.blueteesgolf.com/cdn/shop/t/83/assets/accessories-product.png?) no-repeat center center / cover !important;} */
     .new_home_section_bg .col-6 .ringer_2box_bg.radial-gradient-custom .productimg img{top: -15px !important;}
     .new_home_section_bg .row + .col-12 .ringer_2box_bg { height: 290px; }
     .new_home_section_bg .row + .col-12 .ringer_2box_bg .logo img{ max-width: 310px; width: 100%; }
@@ -775,7 +775,7 @@
     .new_home_section_bg .row + .col-12 .ringer_2box_bg .no-visible { visibility: hidden; display: none;}
     .new_home_section_bg .row + .col-12 { padding-right: 0px; padding-left: 0px;}
    .new_play_different_title_bg.homebanner_lay_different .icon_img{padding-bottom: 0;}
-  .new_home_section_bg .player-maker .new_home_player_box{background: #000 url(//blueteesgolf.com/cdn/shop/t/107/assets/new-home-player-maker-bg.png?v=67705255376610816011743505604) no-repeat center center !important;}
+  .new_home_section_bg .player-maker .new_home_player_box{background: var(--new-black) url(//blueteesgolf.com/cdn/shop/t/107/assets/new-home-player-maker-bg.png?v=67705255376610816011743505604) no-repeat center center !important;}
   }
 
   @media only screen and (min-width:220px) and (max-width:768px) {
@@ -973,7 +973,7 @@
     transform: translateY(-50%);
 }
 .pop-upbox .popup-box .pop-close { position:absolute;float:right; text-align:center; right:15px; top:-35px; }
-.pop-upbox .popup-box .pop-close a { text-decoration:none; font-size:0; color:#000;width: 35px;height: 35px;display: block; }
+.pop-upbox .popup-box .pop-close a { text-decoration:none; font-size:0; color:var(--new-black);width: 35px;height: 35px;display: block; }
 </style>
 
 
