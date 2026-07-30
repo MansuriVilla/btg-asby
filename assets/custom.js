@@ -673,7 +673,16 @@ document.addEventListener("DOMContentLoaded", function () {
             navLink.addEventListener("click", e => {
                 e.preventDefault();
                 megaMenu.classList.add("active");
-                animateColumns(megaMenu, true);
+                
+                // Ensure inner elements are fully visible on mobile when opened
+                const contentInner = megaMenu.querySelector(".site__megaMenu_content__inner");
+                if (contentInner) {
+                    gsap.killTweensOf(contentInner);
+                    gsap.set(contentInner, { opacity: 1, x: 0, y: 0 });
+                }
+                const items = megaMenu.querySelectorAll("li, .site_megaMenu_ul-inner");
+                gsap.killTweensOf(items);
+                gsap.set(items, { opacity: 1, x: 0, y: 0 });
             });
         });
 
@@ -682,7 +691,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 const megaMenu = this.closest(".site__megaMenu_container");
                 if (!megaMenu) return;
                 megaMenu.classList.remove("active");
-                animateColumns(megaMenu, false);
+                
+                // Reset inner elements opacity so next open is clean
+                const contentInner = megaMenu.querySelector(".site__megaMenu_content__inner");
+                if (contentInner) {
+                    gsap.set(contentInner, { opacity: 1, x: 0, y: 0 });
+                }
+                const items = megaMenu.querySelectorAll("li, .site_megaMenu_ul-inner");
+                gsap.set(items, { opacity: 1, x: 0, y: 0 });
             });
         });
     }
