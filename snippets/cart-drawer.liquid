@@ -15,14 +15,14 @@
             <img class="cart-icon" src="{{'cart-icon.png' | asset_url}}" alt="" aria-hidden="true">
           </h2>
          
-         {% if theme.role == 'unpublished' %}
+         
           <div class="drawer__clear-cart">
             <button type="button" class="clear-all-cart">
               Clear all
               {% comment %} <span><svg fill="var(--new-red)" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 458.5 458.5" xml:space="preserve" stroke="var(--new-red)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M382.078,57.069h-89.78C289.128,25.075,262.064,0,229.249,0S169.37,25.075,166.2,57.069H76.421 c-26.938,0-48.854,21.916-48.854,48.854c0,26.125,20.613,47.524,46.429,48.793V399.5c0,32.533,26.467,59,59,59h192.508 c32.533,0,59-26.467,59-59V154.717c25.816-1.269,46.429-22.668,46.429-48.793C430.933,78.985,409.017,57.069,382.078,57.069z M229.249,30c16.244,0,29.807,11.673,32.76,27.069h-65.52C199.442,41.673,213.005,30,229.249,30z M354.503,399.501 c0,15.991-13.009,29-29,29H132.995c-15.991,0-29-13.009-29-29V154.778c12.244,0,240.932,0,250.508,0V399.501z M382.078,124.778 c-3.127,0-302.998,0-305.657,0c-10.396,0-18.854-8.458-18.854-18.854S66.025,87.07,76.421,87.07h305.657 c10.396,0,18.854,8.458,18.854,18.854S392.475,124.778,382.078,124.778z"></path> <path d="M229.249,392.323c8.284,0,15-6.716,15-15V203.618c0-8.284-6.715-15-15-15c-8.284,0-15,6.716-15,15v173.705 C214.249,385.607,220.965,392.323,229.249,392.323z"></path> <path d="M306.671,392.323c8.284,0,15-6.716,15-15V203.618c0-8.284-6.716-15-15-15s-15,6.716-15,15v173.705 C291.671,385.607,298.387,392.323,306.671,392.323z"></path> <path d="M151.828,392.323c8.284,0,15-6.716,15-15V203.618c0-8.284-6.716-15-15-15c-8.284,0-15,6.716-15,15v173.705 C136.828,385.607,143.544,392.323,151.828,392.323z"></path> </g> </g> </g> </g></svg></span> {% endcomment %}
             </button>
           </div>
-          {%endif %}
+          
           <div class="drawer__close">
             <button type="button" class="drawer__close-button js-drawer-close" aria-label="{{ 'cart.general.close_cart' | t }}">
               <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64">
@@ -36,8 +36,8 @@
 
       {% assign limit = settings.limit | times: 100.0 %}
       {% assign diff_val = limit | minus: cart.total_price | money %}
-      {% comment %} <!--
-        div class="discount-amout" data-limit="{{ settings.limit | times: 100 }}" data-text="{{ settings.limit_text }}" data-success-text="{{ settings.reached_text }}">
+      {% comment %} 
+      <div class="discount-amout" data-limit="{{ settings.limit | times: 100 }}" data-text="{{ settings.limit_text }}" data-success-text="{{ settings.reached_text }}">
         <div class="ctm_offer_wall">
           <div class="ctm_offer_main_wrapper">
             <div class="offers" {% if cart.total_price >= limit %}style="display:none;"{% endif %}>{{ settings.limit_text | replace: '[amount]', diff_val | replace: '<span class=money>', '' | replace: '</span>', '' }}</div>
@@ -60,8 +60,8 @@
           </div>
 
         </div>
-            </div
-      --> {% endcomment %}
+            </div> 
+            {% endcomment %}
 
       <div class="drawer__inner">
         <div class="drawer__scrollable">
@@ -111,7 +111,7 @@
                   <div data-main-id data-prod-id="{{ upsell_prods.id }}">
                     {% render 'product-grid-item-cart-drower',
                       product: upsell_prods,
-                      new_class: 'grid__item grid-product small--one-whole medium-up--one-whole'
+                      new_class: 'grid__item grid-product small--one-whole medium-up--one-whole',     
                     %}
                   </div>
                 {% endfor %}
@@ -233,12 +233,16 @@
 
     .cart_drawer_header{display: flex; justify-content: space-between; align-items: center;}
   .cart_drawer_header .drawer__close {width: 100%; max-width: fit-content; }
- {% if theme.role == 'unpublished' %}
+
 .cart_drawer_header:has(.drawer__clear-cart) .h2.drawer__title{width:fit-content;}
 .cart_drawer_header:has(.drawer__clear-cart) .drawer__close{width:auto;}
 .cart_drawer_header:has(.drawer__clear-cart){display: flex;
   justify-content: space-between;
   align-items: center;}
+.drawer__contents.is-empty .drawer__clear-cart,
+#CartDrawer.is-empty .drawer__clear-cart {
+  display: none !important;
+}
 .drawer__clear-cart {
   display: flex;
   flex: 1;
@@ -258,12 +262,14 @@
   font-size: 12px;
   text-transform: uppercase;
   color: var(--new-red);
+  background: #F0000040;
+  padding: 5px 10px;
+  border-radius: 20px;
 }
 .drawer__clear-cart button:hover {
 text-decoration:underline;
 }
 
-{%endif %}
     
   .upshell-exclusive { border-radius: 10px; border: 1px solid var(--new-black); padding: 15px 20px; margin-top:50px; }
   .exclusive__inner { display: flex; justify-content: space-between; gap: 15px; }
@@ -397,7 +403,6 @@ color:#fff !important;
   }
 </style>
 
- {% if theme.role == 'unpublished' %}
           <script>
           
           document.addEventListener('click', async function (e) {
@@ -429,4 +434,3 @@ color:#fff !important;
   }
 });
 </script>
-{%endif %}

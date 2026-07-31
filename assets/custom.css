@@ -827,6 +827,12 @@ WHITEOUT PAGE
 
 
 /*New cart css */
+.cart__item.memberships-plan {
+    align-items: center;
+}
+.cart__item.memberships-plan .quantity-add {
+    display: none;
+}
 .drawer--right { width: 650px; right: -650px; }
 .drawer--right.drawer--is-open { transform: translate(-650px); }
 .drawer__fixed-header { padding: 0px; }
