@@ -1,4 +1,4 @@
-<div class="cart__item{% if product.product.handle contains 'membership' and product.final_price == 0 %} memberships-plan{% endif %}" data-id="{{ product.product.id }}" data-key="{{ product.key }}">
+<div class="cart__item{% if product.product.handle contains 'membership'%} memberships-plan{% endif %}" data-id="{{ product.product.id }}" data-key="{{ product.key }}">
   {%- assign img_url = product | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
   <div class="cart__image">
     {% comment %}
