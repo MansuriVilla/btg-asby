@@ -1039,7 +1039,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       resetBarsInstantly(progressBars);
 
-      if (!isPaused) {
+      if (isPaused) {
+        progressBars.forEach((bar) => {
+          bar.style.transition = "none";
+          bar.style.width = bar === activeBar ? "100%" : "0";
+        });
+      } else {
         progressBars.forEach((bar) => {
           bar.style.transition = bar === activeBar ? "width 5s linear" : "none";
           bar.style.width = bar === activeBar ? "100%" : "0";
@@ -1181,7 +1186,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const playIcon = pauseBtn.querySelector(".play-icon");
         if (isPaused) {
           clearTimeout(slideInterval);
-          resetBarsInstantly(progressBars);
+          startProgressBar();
           if (pauseIcon) pauseIcon.style.display = "none";
           if (playIcon) playIcon.style.display = "flex";
           pauseBtn.setAttribute("aria-label", "Play slideshow");

@@ -11,6 +11,10 @@
     {% endif %}
     <div class="product-cards__grid">
       {% for block in section.blocks %}
+        {%- assign prod = block.settings.product -%}
+        {%- if prod == blank or prod == empty or prod.title == blank -%}
+          {%- continue -%}
+        {%- endif -%}
         {%- assign card_loading = 'lazy' -%}
         {%- assign card_fetchpriority = 'auto' -%}
         {%- if forloop.first -%}

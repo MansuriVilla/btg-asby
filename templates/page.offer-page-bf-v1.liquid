@@ -854,8 +854,61 @@
               >
             </li>
           </ul>
+          <div class="ticker_action--button">
+            <button
+              type="button"
+              id="carousel-control-btn"
+              class="carousel-control-btn"
+              aria-label="Pause logo carousel"
+              aria-pressed="false"
+            >
+              <svg class="pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="1" width="3" height="12" fill="currentColor"/>
+                <rect x="9" y="1" width="3" height="12" fill="currentColor"/>
+              </svg>
+              <svg class="play-icon" style="display:none;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 1.5L12 7L3 12.5V1.5Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
+      <script>
+        (function() {
+          const container = document.querySelector('.featured-section_slider #container');
+          if (!container) return;
+          const list = container.querySelector('#list');
+          if (list) {
+            const listContent = Array.from(list.children);
+            listContent.forEach((item) => {
+              const duplicatedItem = item.cloneNode(true);
+              duplicatedItem.setAttribute('aria-hidden', true);
+              list.appendChild(duplicatedItem);
+            });
+          }
+
+          const controlBtn = container.querySelector('#carousel-control-btn');
+          if (controlBtn && container) {
+            controlBtn.addEventListener('click', function() {
+              const isPaused = container.classList.toggle('paused');
+              controlBtn.setAttribute('aria-pressed', isPaused);
+
+              const pauseIcon = controlBtn.querySelector('.pause-icon');
+              const playIcon = controlBtn.querySelector('.play-icon');
+
+              if (isPaused) {
+                controlBtn.setAttribute('aria-label', 'Play logo carousel');
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'block';
+              } else {
+                controlBtn.setAttribute('aria-label', 'Pause logo carousel');
+                pauseIcon.style.display = 'block';
+                playIcon.style.display = 'none';
+              }
+            });
+          }
+        })();
+      </script>
       <div class="featured-section_video-area">
         <div class="feature-section_video-title geore_gankas_box_bg-new">
           <h2 class="h2">HEAR WHAT THE <span> PROS </span> HAVE TO SAY.</h2>
@@ -1578,12 +1631,39 @@
             /* FEATURED SECTION CSS START */
             .featured-section_title { padding: 60px 0px; }
             .featured-section_title h2 { font-size: 55px; max-width: 850px; margin: 0 auto; padding: 20px 0 0; line-height: 92.7%; text-align: center;  }
-            .featured-section_slider #container { width: auto; }
-            .featured-section_slider ul { display: flex; gap: 10px; list-style: none; padding-bottom: 80px; align-items: center; opacity: 0.3; }
-            .featured-section_slider li { background: var(--light-blue); color: var(--text-color); padding: 10px 20px; border-radius: 7px; box-shadow: 2px 2px 2px var(--dark-blue-shadow), 2px 3px 3px var(--dark-blue-shadow), 2px 5px 5px var(--dark-blue-shadow), 2px 8px 8px var(--dark-blue-shadow); }
+            .featured-section_slider #container { width: auto; display: flex; flex-direction: column; }
+            .featured-section_slider .ticker_action--button { display: flex; justify-content: flex-end; padding: 20px; }
+            .featured-section_slider .carousel-control-btn {
+              background: transparent;
+              border: 1px solid #9B9DA3;
+              border-radius: 50%;
+              width: 28px;
+              height: 28px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: #9B9DA3;
+              cursor: pointer;
+              padding: 0;
+              transition: all 0.2s ease;
+            }
+            .featured-section_slider .carousel-control-btn:hover {
+              color: #fff;
+              background: #9B9DA3;
+            }
+            .featured-section_slider .carousel-control-btn:focus-visible {
+              outline: 2px solid var(--new-blue);
+              outline-offset: 2px;
+            }
+            .featured-section_slider #container[data-animated].paused #list {
+              animation-play-state: paused;
+            }
+            .featured-section_slider ul { display: flex; gap: 10px; list-style: none; align-items: center; opacity: 0.3; }
+            .featured-section_slider li { background: var(--light-blue); color: var(--text-color); padding: 10px 20px; border-radius: 7px; box-shadow: 2px 2px 2px var(--dark-blue-shadow), 2px 3px 3px var(--dark-blue-shadow), 2px 5px 5px var(--dark-blue-shadow), 2px 8px 8px var(--dark-blue-shadow); margin:0px;}
             .featured-section_slider li img { max-width: 200px; }
             .featured-section_slider #container[data-animated] { overflow: hidden; }
             .featured-section_slider #list { width: max-content; animation: scroll 80s linear infinite; }
+            .featured-section_slider .ticker_action--button{ padding-bottom: 80px;}
             @keyframes scroll {
              to { translate: calc(-50% - 5px); }
              }
