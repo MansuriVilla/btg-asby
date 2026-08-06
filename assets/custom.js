@@ -3665,3 +3665,55 @@ changeImageOnVarient();
     fixAppStoreLinks();
   });
 })();
+
+/* ===================================================
+   AJAX Cart Remove — no page redirect
+   Uses the same /cart/change.js + ajaxProduct:added
+   pattern that the theme's QtySelector uses.
+=================================================== */
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.cart__remove-btn');
+    if (!btn) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    var key = btn.getAttribute('data-key');
+    if (!key) return;
+
+    // Show spinner — hide text, block re-clicks
+    btn.classList.add('is-loading');
+
+    // Optimistically fade the row out while the request is in flight
+    var cartItem = btn.closest('.cart__item');
+    if (cartItem) {
+      cartItem.style.transition    = 'opacity 0.25s ease';
+      cartItem.style.opacity       = '0.4';
+      cartItem.style.pointerEvents = 'none';
+    }
+
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept':       'application/json'
+      },
+      body: JSON.stringify({ id: key, quantity: 0 })
+    })
+      .then(function (res) { return res.json(); })
+      .then(function () {
+        // Refresh the mini-cart drawer exactly as the theme's QtySelector does
+        document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+      })
+      .catch(function (err) {
+        console.error('Cart remove error:', err);
+        // Restore button and row if the request failed
+        btn.classList.remove('is-loading');
+        if (cartItem) {
+          cartItem.style.opacity       = '';
+          cartItem.style.pointerEvents = '';
+        }
+      });
+  });
+})();

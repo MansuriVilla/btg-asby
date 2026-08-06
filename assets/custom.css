@@ -532,7 +532,7 @@ WHITEOUT PAGE
 .as-seen-in { padding:60px 0; }
 .as-seen-in .index-section { margin:0; }
 .customize_game_page_bg { background: #000000; text-align:center; }
-.customize_game_page_bg h3 { font-style: italic; font-weight: 900; font-size: 86.5495px; line-height: 90px; letter-spacing: -0.02em; color:#fff; position:relative; padding-bottom:30px; }
+.customize_game_page_bg h3 {  font-weight: 900; font-size: 86.5495px; line-height: 90px; letter-spacing: -0.02em; color:#fff; position:relative; padding-bottom:30px; }
 .customize_game_page_bg h3:not(.customize_game_page_bg h3.product-name):before { content:''; position:absolute; left:0; bottom:10px; background:#fff; width:33px; height:8px; }
 .customize_game_top_bg { display: flex; flex-wrap: wrap; align-items: center; width:100%; padding:50px 5%; background:url(hero-banner-top-bg.png) left center no-repeat; background-size:cover; }
 .customize_game_top_bg .customize_game_left_text { width:40%; text-align:center; }
@@ -552,7 +552,7 @@ WHITEOUT PAGE
 .customize_our_clients_left { width:45%; }
 .customize_our_clients_left img { width:100%; }
 .customize_our_clients_right { width:45%; }
-.customize_our_clients_right h4 { font-style: italic; font-weight: 900; font-size: 79.6721px; line-height: 93px; letter-spacing: -0.02em; color:#fff; }
+.customize_our_clients_right h4 {  font-weight: 900; font-size: 79.6721px; line-height: 93px; letter-spacing: -0.02em; color:#fff; }
 .customize_our_clients_right p { font-weight: 300; font-size: 19.237px; line-height: 23px; letter-spacing: 0; color:#fff; padding:25px 0 0 0; }
 .customize_mix_and_match_bg { background:#000000; text-align:center; padding:50px 0; }
 .customize_mix_and_match_bg h3 { text-align:center; padding-bottom:30px; }
@@ -858,6 +858,75 @@ WHITEOUT PAGE
 .drawer .js-qty__adjust { background: var(--new-gray);  fill:#fff;}
 .drawer__footer.appear-animation.appear-delay-4 .cart__item-row small { font-size: 14px; font-weight: 400; opacity: 0.6; text-align: left; }
 .drawer__footer .cart__item-row { display: flex; margin-bottom: 10px; }
+
+/* ── Cart Remove Link ── */
+/* Override theme.css which hides the remove link inside the drawer */
+.drawer .cart__remove {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+/* Style the remove link consistently in both drawer and cart page */
+.cart__remove a,
+.drawer .cart__remove a {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888;
+  text-decoration: none;
+  border: none;
+  background: none;
+  padding: 0;
+  margin-top: 0;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.cart__remove a:hover,
+.drawer .cart__remove a:hover {
+  color: #c00;
+  text-decoration: none;
+}
+
+/* Spinning loader on the remove button */
+.cart__remove-btn {
+  position: relative;
+}
+
+.cart__remove-btn.is-loading {
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.cart__remove-btn.is-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border: 2px solid rgba(136, 136, 136, 0.3);
+  border-top-color: #888;
+  border-radius: 50%;
+  animation: cart-remove-spin 0.65s linear infinite;
+}
+
+@keyframes cart-remove-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Quantity + Remove sit on the same row */
+.quantity-add {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .cart__item-price-col { display: flex; flex-wrap: wrap; justify-content: end; align-content: start; }
 .cart__item-price-col small.cart__discount { margin-top: 5px; font-size: 12px; width: 100%; }
 .cart__item-price-col .cart__price--strikethrough { margin-right: 12px; opacity: 0.5; }
@@ -917,7 +986,7 @@ label.caddie-18-x-39 img.first-img { display:none !important; }
 .ctm_upsell_product .grid-product__title { letter-spacing: inherit !important; font-size: 16px !important; font-weight: 500; }
 .ctm_upsell_product_title { font-size: 14px; font-weight: 500; margin-bottom: 5px; }
 .ctm_upsell_product .grid-product__price { display: flex; font-size: 16px; font-weight: 500; }
-.ctm_upsell_product .grid-product__price--original { margin-right: 10px; }
+.ctm_upsell_product .grid-product__price--original { margin-right: 10px; font-size: 14px;color: #f00; }
 .ctm_upsell_product .grid-product__price--original span { font-weight: normal; opacity: 0.6; }
 
 
@@ -3549,7 +3618,7 @@ NEW BUTTONS CSS PDP
 .new-popup.modal-content .popup-modal-inner .popup-modal-right .popup-modal-ul { text-align: left; max-width: 320px; margin: 0 auto; width: 100%; }
 .new-popup.modal-content .popup-modal-inner .popup-modal-right .popup-modal-right_top .popup-right_icon { margin-bottom:14px; display:none; }
 .new-popup.modal-content .popup-modal-inner .popup-modal-right .lime-tees-theme { max-width: fit-content; margin: 0 auto 12px; }
-.new-popup.modal-content .popup-modal-inner .popup-modal-right .popup-modal-ul ul { margin-left:20px; margin-top: 20px; position: relative; }
+.new-popup.modal-content .popup-modal-inner .popup-modal-right .popup-modal-ul ul { margin-left:20px; margin-top: 20px; position: relative; line-height:1.6; }
 .new-popup.modal-content .popup-modal-inner .popup-modal-right .popup-modal-right_top h2 { font-weight: 900; font-size: clamp(18px,2vw,24px); line-height: clamp(18px,2vw,24px); margin-top: 5px; }
 .new-popup.modal-content .popup-modal-inner .popup-modal-right .popup-modal-ul ul li { font-size: 12px; list-style: none; position:relative; }
 .new-popup.modal-content .popup-modal-inner .popup-modal-right .popup-modal-ul ul li span { display: block; font-size: 10px; letter-spacing: 0; }

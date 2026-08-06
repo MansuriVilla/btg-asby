@@ -1,0 +1,412 @@
+{% comment %}
+  Custom Video with Content Section
+  UI matches design mockup with side-by-side content and video block preview (5s loop preview),
+  customizable background color & background image, direction flip option, logo, headings, text, and CTA button.
+{% endcomment %}
+
+{% liquid
+  assign bg_color = section.settings.bg_color
+  assign bg_image = section.settings.bg_image
+  assign layout_direction = section.settings.layout_direction
+  assign logo = section.settings.logo
+  assign logo_width = section.settings.logo_width | default: 220
+  assign heading = section.settings.heading
+  assign text_content = section.settings.text_content
+  assign disclaimer = section.settings.disclaimer
+  assign button_label = section.settings.button_label
+  assign button_link = section.settings.button_link
+  assign button_bg_color = section.settings.button_bg_color
+  assign button_text_color = section.settings.button_text_color
+  
+  assign video_url = section.settings.video_url
+  assign video_src = section.settings.video_src
+  assign play_text = section.settings.play_text
+  assign ripple_clr = section.settings.ripple_clr | default: '#ffffff60'
+  assign has_radius = section.settings.has_radius
+
+  if video_src != blank
+    assign final_video_url = video_src.sources[1].url | default: video_src.sources[0].url
+  else
+    assign final_video_url = video_url
+  endif
+%}
+
+<div
+  id="custom-video-content-{{ section.id }}"
+  class="custom-video-content-section"
+  style="
+    {% if bg_color != blank %}background-color: {{ bg_color }};{% endif %}
+    {% if bg_image != blank %}background-image: url('{{ bg_image | image_url: width: 2000 }}'); background-size: cover; background-position: center; background-repeat: no-repeat;{% endif %}
+  "
+>
+  <div class="new-page-width">
+    <div class="custom-video-content__inner {% if layout_direction == 'video_left' %}direction-reverse{% endif %}">
+      
+      {% comment %} Left / Content Side {% endcomment %}
+      <div class="custom-video-content__left">
+        <div class="custom-video-content__left-inner">
+          {% if logo != blank %}
+            <div class="custom-video-content__logo">
+              {{
+                logo
+                | image_url: width: 500
+                | image_tag:
+                  loading: 'lazy',
+                  width: logo_width,
+                  alt: logo.alt | default: heading | default: 'Logo'
+              }}
+            </div>
+          {% endif %}
+
+          {% if heading != blank %}
+            <h2 class="custom-video-content__heading">
+              {{ heading }}
+            </h2>
+          {% endif %}
+
+          {% if text_content != blank %}
+            <div class="custom-video-content__text">
+              {{ text_content }}
+            </div>
+          {% endif %}
+
+          {% if disclaimer != blank %}
+            <div class="custom-video-content__disclaimer">
+              {{ disclaimer }}
+            </div>
+          {% endif %}
+
+          {% if button_label != blank %}
+            <div class="custom-video-content__cta-wrapper">
+              <a
+                href="{{ button_link | default: '#' }}"
+                class="custom-video-content__cta-btn"
+                style="
+                  {% if button_bg_color != blank %}background-color: {{ button_bg_color }};{% endif %}
+                  {% if button_text_color != blank %}color: {{ button_text_color }};{% endif %}
+                "
+              >
+                {{ button_label }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% comment %} Right / Video Side (Exact video block structure from page.app-download-lp.liquid) {% endcomment %}
+      <div class="custom-video-content__right">
+        {% if final_video_url != blank %}
+          <div class="new_game-hero-right">
+            <div class="new_game-hero-right-content">
+              <div
+                class="video_block video-preview"
+                data-play-in-place="true"
+                data-video-url="{{ final_video_url }}"
+              >
+                <div class="loader" id="loader-{{ section.id }}"></div>
+                <video
+                  id="preview-video-{{ section.id }}"
+                  class="preview-video{% if has_radius %} radius__has{% endif %}"
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                ></video>
+                <div
+                  class="video_overlay-content play-button cta_pluse"
+                  style="--ripple-clr: {{ ripple_clr }}"
+                  id="play-button-{{ section.id }}"
+                >
+                  <img
+                    id="video_block-icon-desktop"
+                    class="touch-screen_logo"
+                    src="{{ 'white-play-icon.png' | asset_url }}"
+                    alt="white-play-icon"
+                  >
+                </div>
+                {% if play_text != blank %}
+                  <p class="play_icon-text play_button-text">{{ play_text }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .custom-video-content-section {
+    position: relative;
+    padding-block: clamp(40px, 6vw, 90px);
+    width: 100%;
+    overflow: hidden;
+    color: #ffffff;
+  }
+
+  .custom-video-content__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(30px, 5vw, 70px);
+    flex-direction: row;
+  }
+
+  .custom-video-content__inner.direction-reverse {
+    flex-direction: row-reverse;
+  }
+
+  .custom-video-content__left {
+    flex: 1 1 45%;
+    max-width: 550px;
+    width: 100%;
+  }
+
+  .custom-video-content__right {
+    flex: 1 1 50%;
+    width: 100%;
+  }
+
+  .custom-video-content__logo {
+    margin-bottom: 24px;
+  }
+
+  .custom-video-content__logo img {
+    height: auto;
+    display: block;
+    max-width: 100%;
+  }
+
+  .custom-video-content__heading {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #ffffff;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .custom-video-content__text {
+    font-size: clamp(14px, 1.5vw, 16px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 16px;
+  }
+
+  .custom-video-content__text p {
+    margin: 0 0 12px 0;
+  }
+
+  .custom-video-content__disclaimer {
+    font-size: clamp(13px, 1.3vw, 15px);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 24px;
+  }
+
+  .custom-video-content__cta-wrapper {
+    margin-top: 24px;
+  }
+
+  .custom-video-content__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    background-color: #0052ff;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 82, 255, 0.4);
+  }
+
+  .custom-video-content__cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 82, 255, 0.6);
+    opacity: 0.95;
+  }
+
+  .custom-video-content__video-container {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .custom-video-content__video-container .video_block {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media only screen and (max-width: 859px) {
+    .custom-video-content__inner,
+    .custom-video-content__inner.direction-reverse {
+      flex-direction: column-reverse;
+      gap: 32px;
+    }
+
+    .custom-video-content__left,
+    .custom-video-content__right {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+
+    .custom-video-content__left {
+      text-align: center;
+    }
+
+    .custom-video-content__logo img {
+      margin: 0 auto;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Video Content",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Layout Direction",
+      "options": [
+        {
+          "value": "content_left",
+          "label": "Content Left / Video Right"
+        },
+        {
+          "value": "video_left",
+          "label": "Video Left / Content Right"
+        }
+      ],
+      "default": "content_left"
+    },
+    {
+      "type": "header",
+      "content": "Background Settings"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#151821"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Max Width",
+      "default": 220
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BIG BREAK QUALIFIER"
+    },
+    {
+      "type": "richtext",
+      "id": "text_content",
+      "label": "Description",
+      "default": "<p>Blue Tees Golf is proud to partner with NBC Sports and the Big Break Qualifier, helping bring every challenge to life through custom broadcast graphics, visual storytelling, and innovative golf technology.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "disclaimer",
+      "label": "Secondary / Disclaimer Text",
+      "default": "<p>To celebrate the partnership, we are offering a special discount on our #1 selling newest product, the Rainmaker.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Button / CTA Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "UNLOCK SPECIAL OFFER"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#0052FF"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Video Block Settings"
+    },
+    {
+      "type": "video",
+      "id": "video_src",
+      "label": "Video (Shopify Hosted)"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video External MP4 URL",
+      "info": "Used if Shopify hosted video is not selected."
+    },
+    {
+      "type": "text",
+      "id": "play_text",
+      "label": "Text Under Play Button"
+    },
+    {
+      "type": "color",
+      "id": "ripple_clr",
+      "label": "Play Button Ripple Color",
+      "default": "#ffffff60"
+    },
+    {
+      "type": "checkbox",
+      "id": "has_radius",
+      "label": "Enable Border Radius on Video",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Video Content"
+    }
+  ]
+}
+{% endschema %}

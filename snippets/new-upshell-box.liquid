@@ -118,7 +118,7 @@
                       </dl>
                     </div>
                     <div class="rule_play-block">
-                  <div class="rule_block-left">
+                      <div class="rule_block-left">
                         <span>
                           <img
                             class="block_image"
@@ -135,7 +135,7 @@
                       </dl>
                     </div>
                     <div class="rule_play-block">
-                     <div class="rule_block-left">
+                      <div class="rule_block-left">
                         <span>
                           <img
                             class="block_image"
@@ -152,7 +152,7 @@
                       </dl>
                     </div>
                     <div class="rule_play-block">
-                     <div class="rule_block-left">
+                      <div class="rule_block-left">
                         <span>
                           <img
                             class="block_image"
@@ -169,7 +169,7 @@
                       </dl>
                     </div>
                     <div class="rule_play-block">
-                       <div class="rule_block-left">
+                      <div class="rule_block-left">
                         <img
                           class="block_image"
                           src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-post-app-icon.svg?v=1782823490"
@@ -190,6 +190,152 @@
           </div>
         </div>
       </div>
+
+      {% if product.template_suffix == 'product-new' %}
+        <div class="free-offer-info group2 offer_cap-pro">
+          <div id="soft-case-offer" class="offer-description-info accordion-content active">
+            <div class="accordion-content-details">
+              <div class="accordion-content_top">
+                <div class="checkbox-list">
+                  {% render 'offer-bug' %}
+                  {% comment %}
+                    <input type="checkbox" name="offer-checkbox" class="select-premium selectRV"
+                    id="playerplus-player-go-upshell" />
+                  {% endcomment %}
+                  <label for="playerplus-player-go-upshell" class="checkbox-title custom_heading"
+                    >UPGRADE TO THE PRO</label
+                  >
+                  <div class="offer-price custom_heading" style="align-items: flex-end;">
+                    {% comment %} <span class="price-compare">($129)</span> {% endcomment %}
+                    <span>+$50</span>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-content_bottom">
+                <div class="accordion-content_left">
+                  <div class="accordion-content_img-holder">
+                    <img
+                      class="product-atc_product-img"
+                      height="30"
+                      width="30"
+                      decoding="async"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE.png?v=1770286269"
+                      alt="PLAYER+ ADVANCED ANALYTICS"
+                    >
+                  </div>
+                </div>
+                <div class="accordion-content_right">
+                  <div class="offer-description">
+                    <h6>CAPTAIN PRO RANGEFINDER</h6>
+                    <p>
+                      Tour-level laser rangefinder featuring industry-leading electronics like an OLED display, 350yd
+                      Flag Lock, Auto-Depth Filter, and Find My Rangefinder.
+                      <a
+                        class="anchor_hover"
+                        href="/products/captain-pro-bluetooth-rangefinder"
+                        style="--hover-clr:#9E9E9E; margin: 0;"
+                        >LEARN MORE</a
+                      >
+                    </p>
+                  </div>
+                  <div class="cta_content">
+                    {% comment %} id="captainPro_upshell" data-id="45724258468037" {% endcomment %}
+                    <a class="content-cta content-cta__solid" href="/products/captain-pro-bluetooth-rangefinder">
+                      SHOP NOW
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% elsif product.template_suffix == 'player-pro' %}
+        {% assign case_product = all_products['player-hard-shell-carrying-case'] %}
+        {% if case_product == blank or case_product.selected_or_first_available_variant == blank %}
+          {% assign case_product = all_products['player-hard-shell-carrying-case'] %}
+        {% endif %}
+        <div
+          class="free-offer-info group2 offer_cap-pro"
+          style="border-radius: 16px;border-width: 1px;"
+        >
+          <div id="soft-case-offer" class="offer-description-info accordion-content active">
+            <div class="accordion-content-details">
+              <div class="accordion-content_top" style="line-height: 1;padding: 8px clamp(15px,2vw,32px);">
+                <div class="checkbox-list watch_list">
+                  {% render 'offer-bug' %}
+
+                  <input
+                    type="checkbox"
+                    name="offer-checkbox"
+                    class="select-premium selectRV"
+                    id="player-pro-hard-case-upsell"
+                    value="{{ case_product.selected_or_first_available_variant.id }}"
+                    data-variant-id="{{ case_product.selected_or_first_available_variant.id }}"
+                  />
+
+                  <label for="player-pro-hard-case-upsell" class="checkbox-title custom_heading">PLAYER PRO CARRYING CASE</label>
+                  <div class="offer-price " style="align-items: flex-end;">
+                    <span class="custom_heading" style="font-size: clamp(14px,1.2vw,16px);line-height: 1.5;"
+                      >+$19.99</span
+                    >
+                    <div class="price_discounted">
+                      <span class="price-compare" style="line-height: 1;">($39.98)</span>
+                      <span class="price_discount" style="color: #FF0000; line-height: 1;">50% off</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="accordion-content_bottom"
+                style="padding: clamp(16px, 1.3vw, 23px) clamp(15px, 1.9vw, 32px);"
+              >
+                <div class="accordion-content_left">
+                  <div class="accordion-content_img-holder">
+                    <a href="/products/player-hard-shell-carrying-case">
+                      <img
+                        class="product-atc_product-img"
+                        height="30"
+                        width="30"
+                        decoding="async"
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE_36c6dfc1-a56f-43e4-b2e0-f4ea29944e0c.png?v=1785917917"
+                        alt="Player Pro Hard Shell Case"
+                      >
+                    </a>
+                  </div>
+                </div>
+                <div class="accordion-content_right">
+                  <div class="offer-description" style="max-width: 310px;">
+                    {% comment %} <h6>WATCH CARRYING CASE</h6> {% endcomment %}
+                    <p style="gap: 10px;display: flex;flex-direction: column;justify-content: center;align-items: flex-start;text-wrap: inherit;-webkit-text-wrap-style: inherit;text-wrap-style: inherit;">
+                      The Player Pro Carrying Case is made from a premium leatherette material, molded shell for impact protection, and a comfortable padded handle.
+                      <a
+                        class="anchor_hover"
+                        href="/products/player-hard-shell-carrying-case"
+                        style="--hover-clr:#9E9E9E; margin: 0;"
+                        >LEARN MORE</a
+                      >
+                    </p>
+                  </div>
+                  <div class="cta_content" style="visiblity:hidden; opacity:0; pointer-events:none;">
+                    {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
+                    <a class="content-cta content-cta__solid" href="/products/player-hard-shell-carrying-case"> SHOP NOW </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>
+          .price_discounted {
+            display: flex;
+            gap: 5px;
+          }
+          .newupshell .offer_cap-pro .checkbox-list.watch_list .checkbox-title::before{display:block;}
+          .newupshell .checkbox-list.watch_list .checkbox-title{padding-left: 27px !important;}
+          .newupshell .offer-price{flex-direction: column;}
+          .free-offer-info.group2.offer_cap-pro.active { border-color: #fff; }
+        </style>
+      {% endif %}
     </div>
   </div>
   <div
@@ -308,6 +454,8 @@
       align-items: center;
       justify-content: center;
     }
+
+    
 
     .price-compare+span.discount_pricee {
       color: red;
@@ -796,6 +944,93 @@
             </div>
           </div>
         </div>
+      {% elsif product.template_suffix == 'play-maker-plus' %}
+        {% assign case_product = all_products['playmaker-watch-case-black'] %}
+        {% if case_product == blank or case_product.selected_or_first_available_variant == blank %}
+          {% assign case_product = all_products['watch-hard-shell-carrying-case'] %}
+        {% endif %}
+        <div
+          class="free-offer-info group2 offer_cap-pro"
+          style="border-radius: 16px;border-width: 1px;"
+        >
+          <div id="soft-case-offer" class="offer-description-info accordion-content active">
+            <div class="accordion-content-details">
+              <div class="accordion-content_top" style="line-height: 1;padding: 8px clamp(15px,2vw,32px);">
+                <div class="checkbox-list watch_list">
+                  {% render 'offer-bug' %}
+
+                  <input
+                    type="checkbox"
+                    name="offer-checkbox"
+                    class="select-premium selectRV"
+                    id="playmaker-hard-new-case"
+                    value="{{ case_product.selected_or_first_available_variant.id }}"
+                    data-variant-id="{{ case_product.selected_or_first_available_variant.id }}"
+                  />
+
+                  <label for="playmaker-hard-new-case" class="checkbox-title custom_heading">WATCH CARRYING CASE</label>
+                  <div class="offer-price " style="align-items: flex-end;">
+                    <span class="custom_heading" style="font-size: clamp(14px,1.2vw,16px);line-height: 1.5;"
+                      >+$14.99</span
+                    >
+                    <div class="price_discounted">
+                      <span class="price-compare" style="line-height: 1;">($29.98)</span>
+                      <span class="price_discount" style="color: #FF0000; line-height: 1;">50% off</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="accordion-content_bottom"
+                style="padding: clamp(16px, 1.3vw, 23px) clamp(15px, 1.9vw, 32px);"
+              >
+                <div class="accordion-content_left">
+                  <div class="accordion-content_img-holder">
+                    <a href="/products/playmaker-watch-case-black">
+                      <img
+                        class="product-atc_product-img"
+                        height="30"
+                        width="30"
+                        decoding="async"
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/playmaker-case-new-upsell-image.png?v=1782195914"
+                        alt="PLAYER+ ADVANCED ANALYTICS"
+                      >
+                    </a>
+                  </div>
+                </div>
+                <div class="accordion-content_right">
+                  <div class="offer-description" style="max-width: 310px;">
+                    {% comment %} <h6>WATCH CARRYING CASE</h6> {% endcomment %}
+                    <p style="gap: 10px;display: flex;flex-direction: column;justify-content: center;align-items: flex-start;text-wrap: inherit;-webkit-text-wrap-style: inherit;text-wrap-style: inherit;">
+                      Premium case with a suede microfiber lining ensures your watch stays well protected from impact,
+                      scratches, and the elements.
+                      <a
+                        class="anchor_hover"
+                        href="/products/playmaker-watch-case-black"
+                        style="--hover-clr:#9E9E9E; margin: 0;"
+                        >LEARN MORE</a
+                      >
+                    </p>
+                  </div>
+                  <div class="cta_content" style="visiblity:hidden; opacity:0; pointer-events:none;">
+                    {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
+                    <a class="content-cta content-cta__solid" href="/products/playmaker-watch-case-black"> SHOP NOW </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>
+          .price_discounted {
+            display: flex;
+            gap: 5px;
+          }
+          .newupshell .offer_cap-pro .checkbox-list.watch_list .checkbox-title::before{display:block;}
+          .newupshell .checkbox-list.watch_list .checkbox-title{padding-left: 27px !important;}
+          .newupshell .offer-price{flex-direction: column;}
+          .free-offer-info.group2.offer_cap-pro.active { border-color: #fff; }
+        </style>
       {% endif %}
     </div>
   </div>

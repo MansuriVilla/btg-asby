@@ -309,25 +309,118 @@
         return;
       }
 
+      e.preventDefault();
+      e.stopPropagation();
+
       const checkbox1mo       = $('#1month-membership-free');
       const checkbox6mo       = $('#6month-free-premium-product');
       const checkboxRainmaker = $('#rainmakerPreOrderUpsell');
+      const caseCheckbox      = $('#playmaker-hard-new-case, #player-pro-hard-case-upsell');
 
-      if (checkbox1mo.length && !checkbox1mo.is(':checked')) {
-        e.preventDefault(); e.stopPropagation();
-        openReminderPopup('#one_month_popup', form, atcButton);
-        return false;
-      }
-      if (checkbox6mo.length && !checkbox6mo.is(':checked')) {
-        e.preventDefault(); e.stopPropagation();
-        openReminderPopup('#six_month_popup', form, atcButton);
-        return false;
-      }
-      if (checkboxRainmaker.length && !checkboxRainmaker.is(':checked')) {
-        e.preventDefault(); e.stopPropagation();
-        openReminderPopup('#one_year_popup', form, atcButton);
-        return false;
-      }
+      const knownMembershipIds = [46056795209925, 46056776990917, 45793869299909];
+      const mainVariantId = form.find('input[name="id"]').val() || form.find('select[name="id"]').val();
+
+      atcButton.addClass('btn--loading');
+
+      $.getJSON('/cart.js?_=' + Date.now(), function(cart) {
+        let currentProductMembershipId = null;
+        if (checkbox1mo.length) {
+          currentProductMembershipId = 46056795209925;
+        } else if (checkbox6mo.length) {
+          currentProductMembershipId = 46056776990917;
+        } else if (checkboxRainmaker.length) {
+          currentProductMembershipId = 45793869299909;
+        }
+
+        let hasCurrentMembershipInCart = false;
+        if (cart && cart.items && cart.items.length && currentProductMembershipId) {
+          hasCurrentMembershipInCart = cart.items.some(function(item) {
+            return parseInt(item.variant_id) === parseInt(currentProductMembershipId);
+          });
+        }
+
+        const isMembershipCheckboxChecked = (checkbox1mo.length && checkbox1mo.is(':checked')) ||
+                                            (checkbox6mo.length && checkbox6mo.is(':checked')) ||
+                                            (checkboxRainmaker.length && checkboxRainmaker.is(':checked'));
+
+        if (hasCurrentMembershipInCart) {
+          if (isMembershipCheckboxChecked) {
+            // User explicitly checked the membership checkbox on page — trigger membership alert
+            let mId = null;
+            let mPlan = null;
+            if (checkbox1mo.is(':checked')) {
+              mId   = 46056795209925;
+              mPlan = 7328694469;
+            } else if (checkbox6mo.is(':checked')) {
+              mId   = 46056776990917;
+              mPlan = 7328661701;
+            } else if (checkboxRainmaker.is(':checked')) {
+              mId   = 45793869299909;
+              mPlan = 6775537861;
+            }
+
+            addToCartWithMembership(
+              mainVariantId,
+              mId,
+              mPlan,
+              function() { atcButton.removeClass('btn--loading'); },
+              function() { atcButton.removeClass('btn--loading'); }
+            );
+          } else {
+            // Unchecked on page & current membership already in cart — silently bypass popup and add main product (+ case)
+            addToCartWithMembership(
+              mainVariantId,
+              null,
+              null,
+              function() { atcButton.removeClass('btn--loading'); },
+              function() { atcButton.removeClass('btn--loading'); }
+            );
+          }
+          return;
+        }
+
+        if (checkbox1mo.length && !checkbox1mo.is(':checked')) {
+          atcButton.removeClass('btn--loading');
+          openReminderPopup('#one_month_popup', form, atcButton);
+          return;
+        }
+        if (checkbox6mo.length && !checkbox6mo.is(':checked')) {
+          atcButton.removeClass('btn--loading');
+          openReminderPopup('#six_month_popup', form, atcButton);
+          return;
+        }
+        if (checkboxRainmaker.length && !checkboxRainmaker.is(':checked')) {
+          atcButton.removeClass('btn--loading');
+          openReminderPopup('#one_year_popup', form, atcButton);
+          return;
+        }
+
+        let membershipId = null;
+        let membershipPlan = null;
+
+        if (checkbox1mo.is(':checked')) {
+          membershipId   = 46056795209925;
+          membershipPlan = 7328694469;
+        } else if (checkbox6mo.is(':checked')) {
+          membershipId   = 46056776990917;
+          membershipPlan = 7328661701;
+        } else if (checkboxRainmaker.is(':checked')) {
+          membershipId   = 45793869299909;
+          membershipPlan = 6775537861;
+        }
+
+        addToCartWithMembership(
+          mainVariantId,
+          membershipId,
+          membershipPlan,
+          function() { atcButton.removeClass('btn--loading'); },
+          function() { atcButton.removeClass('btn--loading'); }
+        );
+      }).fail(function() {
+        atcButton.removeClass('btn--loading');
+      });
+
+      return false;
     });
 
     function openReminderPopup(popupId, form, atcButton) {
@@ -384,32 +477,68 @@
           });
         }
 
-        console.log('Items being sent to cart:', JSON.stringify(items));
+        // Helper function to send items to cart
+        function sendCartRequest() {
+          console.log('Items being sent to cart:', JSON.stringify(items));
+          fetch('/cart/add.js', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ items: items })
+          })
+          .then(function(response) {
+            if (!response.ok) {
+              return response.json().then(function(err) {
+                console.error('Cart error response:', err);
+                throw new Error(err.description || 'Cart error');
+              });
+            }
+            return response.json();
+          })
+          .then(function(data) {
+            console.log('Successfully added to cart:', data);
+            if (onSuccess) onSuccess();
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+          })
+          .catch(function(error) {
+            console.error('Error adding products:', error);
+            alert('There was an issue adding to the cart: ' + error.message);
+            if (onError) onError();
+          });
+        }
 
-        fetch('/cart/add.js', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ items: items })
-        })
-        .then(function(response) {
-          if (!response.ok) {
-            return response.json().then(function(err) {
-              console.error('Cart error response:', err);
-              throw new Error(err.description || 'Cart error');
-            });
+        // Check if secondary upsell checkbox (playmaker or player-pro hard case) is checked
+        const checkedCaseCheckbox = $('#playmaker-hard-new-case, #player-pro-hard-case-upsell').filter(':checked');
+        if (checkedCaseCheckbox.length) {
+          let caseVariantId = checkedCaseCheckbox.val() || checkedCaseCheckbox.attr('data-variant-id');
+          if (caseVariantId && !isNaN(parseInt(caseVariantId))) {
+            items.push({ id: parseInt(caseVariantId), quantity: 1 });
+            sendCartRequest();
+          } else {
+            // Dynamically fetch product JSON if variant ID was not rendered in Liquid
+            const isPlayerProCase = checkedCaseCheckbox.attr('id') === 'player-pro-hard-case-upsell';
+            const primaryUrl = isPlayerProCase ? '/products/player-hard-shell-carrying-case.js' : '/products/playmaker-watch-case-black.js';
+            const fallbackUrl = isPlayerProCase ? '/products/player-hard-shell-carrying-case.js' : '/products/watch-hard-shell-carrying-case.js';
+
+            fetch(primaryUrl)
+              .then(function(res) {
+                if (res.ok) return res.json();
+                return fetch(fallbackUrl).then(function(r) { return r.json(); });
+              })
+              .then(function(pData) {
+                if (pData && pData.variants && pData.variants.length) {
+                  items.push({ id: parseInt(pData.variants[0].id), quantity: 1 });
+                }
+                sendCartRequest();
+              })
+              .catch(function(err) {
+                console.error('Error fetching case product json:', err);
+                sendCartRequest();
+              });
+            return;
           }
-          return response.json();
-        })
-        .then(function(data) {
-          console.log('Successfully added to cart:', data);
-          if (onSuccess) onSuccess();
-          document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
-        })
-        .catch(function(error) {
-          console.error('Error adding products:', error);
-          alert('There was an issue adding to the cart: ' + error.message);
-          if (onError) onError();
-        });
+        } else {
+          sendCartRequest();
+        }
       });
     }
 
@@ -489,12 +618,21 @@
 
       popup.fadeOut(200, function() {
         popup.css('display', 'none');
+
         if (form && atcButton) {
-          form.data('skip-popup', true);
-          atcButton.trigger('click');
-          setTimeout(function() {
-            form.data('skip-popup', false);
-          }, 500);
+          // Get main variant ID from the stored form
+          const mainVariantId = form.find('input[name="id"]').val() || form.find('select[name="id"]').val();
+
+          atcButton.addClass('btn--loading');
+
+          // Add main product (+ case if checked) but NO membership
+          addToCartWithMembership(
+            mainVariantId,
+            null,
+            null,
+            function() { atcButton.removeClass('btn--loading'); },
+            function() { atcButton.removeClass('btn--loading'); }
+          );
         }
       });
     }

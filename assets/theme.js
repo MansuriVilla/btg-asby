@@ -10869,6 +10869,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const variantId1 = btn.getAttribute('data-id');
       const variantId2 = btn.getAttribute('data-id-two');
+      const sellingPlanId = btn.getAttribute('data-selling-id'); // optional selling plan for variantId1
       let selector = btn.getAttribute('data-id-two-checked');
 
       if (!variantId1) {
@@ -10911,12 +10912,18 @@ document.addEventListener('DOMContentLoaded', function () {
         shouldAddSecondProduct = true; // no condition = always add (old behavior)
       }
 
+      // Build the main product payload — attach selling_plan if data-selling-id is set
+      const mainProductPayload = { id: variantId1, quantity: 1 };
+      if (sellingPlanId) {
+        mainProductPayload.selling_plan = parseInt(sellingPlanId);
+      }
+
       // ====================== ADD TO CART ======================
       // Add main product first
       fetch('/cart/add.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: variantId1, quantity: 1 }),
+        body: JSON.stringify(mainProductPayload),
       })
         .then((response) => {
           if (!response.ok) throw new Error('Failed to add main product');
