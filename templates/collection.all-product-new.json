@@ -1,1 +1,424 @@
-{"sections":{"collection-header":{"type":"collection-header","settings":{"enable":true,"collection_image_enable":true,"show_hero_v2":true,"custom_image":"shopify:\/\/shop_images\/Frame_1410105370_ae5d84be-4032-4e03-a39d-85881b1cd232.png","custom_image_mobile":"shopify:\/\/shop_images\/Home_page_dd792e7a-fc45-4a67-8513-682dd2ac3c9e.png","custom_title":"","custom_description":"","content_layout":true,"text_color":"#ffffff","parallax":false}},"main-collection":{"type":"main-collection","blocks":{"collection_description":{"type":"collection_description","disabled":true,"settings":{}},"subcollections":{"type":"subcollections","settings":{"subcollections_per_row":5}},"product_grid":{"type":"product_grid","settings":{"enable_collection_count":true,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["collection_description","subcollections","product_grid"],"disabled":true,"settings":{"enable_sidebar":false,"collapsed":false,"filter_style":"drawer","enable_color_swatches":true,"enable_sort":false}},"round_out_slider_section_7XPmid":{"type":"round-out-slider-section","name":"Round Out Game Slider","settings":{"heading":"","desc":"","main_cta_text":"","main_cta_link":"","bg_color":"rgba(0,0,0,0)","teesHeading":"BLUE TEES<br> ONLINE EXCLUSIVE","itemIconColor":"#1b2029","itemOneIcon":"shopify:\/\/shop_images\/truck-icon-new.svg","itemOneText":"FREE SHIPPING OVER $50","itemTwoIcon":"shopify:\/\/shop_images\/check-mark-icon-new.svg","itemTwoText":"extended two-year warranty","itemThreeIcon":"shopify:\/\/shop_images\/return-icon-new.svg","itemThreeText":"100 DAY RISK-FREE RETURNS","no_space_top":true}},"gps_collection_section_EiYcFC":{"type":"gps-collection-section","blocks":{"product_grid_xXRqrk":{"type":"product_grid","settings":{"enable_collection_count":true,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["product_grid_xXRqrk"],"name":"Collection GPS","settings":{"featured_collection":"rangefinders","collectionHeading":"","hide_title":false,"enable_sidebar":false,"collapsed":false,"filter_style":"sidebar","enable_color_swatches":false,"enable_sort":false,"accURL":""}},"gps_collection_section_BfRexB":{"type":"gps-collection-section","blocks":{"product_grid_tmyGRR":{"type":"product_grid","settings":{"enable_collection_count":true,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["product_grid_tmyGRR"],"name":"Collection GPS","settings":{"featured_collection":"gps-speakers","collectionHeading":"","hide_title":false,"enable_sidebar":false,"collapsed":false,"filter_style":"sidebar","enable_color_swatches":true,"enable_sort":false,"accURL":""}},"gps_collection_section_zXtq43":{"type":"gps-collection-section","blocks":{"video_zi3hif":{"type":"video","settings":{"video":"shopify:\/\/files\/videos\/rainmaker-pdp-must-watch-video_v1 (1080p).mp4","card_size":"small","selectIndex":"2","playText":"MORE ABOUT THE RAINMAKER"}},"product_grid_7cw8xi":{"type":"product_grid","settings":{"enable_collection_count":true,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["video_zi3hif","product_grid_7cw8xi"],"name":"Collection GPS","settings":{"featured_collection":"launch-monitors","collectionHeading":"","hide_title":false,"enable_sidebar":false,"collapsed":false,"filter_style":"sidebar","enable_color_swatches":false,"enable_sort":false,"accURL":""}},"gps_collection_section_NBjMa7":{"type":"gps-collection-section","blocks":{"product_grid_aPDMGg":{"type":"product_grid","settings":{"enable_collection_count":true,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["product_grid_aPDMGg"],"name":"Collection GPS","settings":{"featured_collection":"gps-devices","collectionHeading":"","hide_title":false,"enable_sidebar":false,"collapsed":false,"filter_style":"sidebar","enable_color_swatches":false,"enable_sort":false,"accURL":""}},"gps_collection_section_77hDJf":{"type":"gps-collection-section","blocks":{"product_grid_fJ9Tye":{"type":"product_grid","settings":{"enable_collection_count":true,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["product_grid_fJ9Tye"],"disabled":true,"name":"Collection GPS","settings":{"featured_collection":"gps-ready-bundles","collectionHeading":"","hide_title":false,"enable_sidebar":false,"collapsed":false,"filter_style":"sidebar","enable_color_swatches":false,"enable_sort":false,"accURL":""}},"image_with_text_new_KQT9AT":{"type":"image-with-text-new","disabled":true,"name":"Image With Text New","settings":{"containerTrue":false,"backgroundImage":"shopify:\/\/shop_images\/DSCF5028_edited_2_expanded_1.png","backgroundImageMobile":"shopify:\/\/shop_images\/DSCF5028_edited_2_expanded_1_1.png","contentLogo":"shopify:\/\/shop_images\/Group_1410105113.svg","contentQuote":"“I’M ALL ABOUT SMART GOLF, AND THE GAME APP HELPS ME PLAY BETTER EVERY TIME I’M OUT THERE.”","contentCaption":"Paige Spiranac - Golf Influencer","ctaText":"LEARN MORE","ctaUrl":"shopify:\/\/pages\/app-download-lp"}},"gps_collection_section_ienNVP":{"type":"gps-collection-section","blocks":{"product_grid_jp6pDz":{"type":"product_grid","settings":{"enable_collection_count":true,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["product_grid_jp6pDz"],"name":"Collection GPS","settings":{"featured_collection":"on-course-utility","collectionHeading":"ON-COURSE UTILITY","hide_title":false,"enable_sidebar":true,"collapsed":true,"filter_style":"sidebar","enable_color_swatches":false,"enable_sort":true,"accURL":""}},"gps_collection_section_zx4KXJ":{"type":"gps-collection-section","blocks":{"product_grid_cqMTV4":{"type":"product_grid","settings":{"enable_collection_count":true,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["product_grid_cqMTV4"],"name":"Collection GPS","settings":{"featured_collection":"carrying-cases","collectionHeading":"Carrying Cases","hide_title":false,"enable_sidebar":true,"collapsed":true,"filter_style":"sidebar","enable_color_swatches":false,"enable_sort":true,"accURL":""}},"image_with_text_new_CB3YEa":{"type":"image-with-text-new","disabled":true,"name":"Image With Text New","settings":{"containerTrue":false,"backgroundImage":"shopify:\/\/shop_images\/Player__Sean_Foley_2_1_2_expanded_2.png","backgroundImageMobile":"shopify:\/\/shop_images\/Player__Sean_Foley_2_1_2_expanded_1.png","contentLogo":"shopify:\/\/shop_images\/Group_26853.svg","contentQuote":"“THE PLAYER+ GIVES YOU ACCESS TO THE SAME DATA THE BEST PLAYERS IN THE WORLD USE.”","contentCaption":"Sean Foley - Tiger Woods’ Former Coach","ctaText":"SHOP PLAYER+","ctaUrl":"shopify:\/\/products\/player-gps-speaker"}},"gps_collection_section_7QaGFq":{"type":"gps-collection-section","blocks":{"product_grid_dXUwgP":{"type":"product_grid","settings":{"enable_collection_count":true,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["product_grid_dXUwgP"],"name":"Collection GPS","settings":{"featured_collection":"merch","collectionHeading":"HATS","hide_title":false,"enable_sidebar":true,"collapsed":true,"filter_style":"sidebar","enable_color_swatches":false,"enable_sort":true,"accURL":""}},"gps_collection_section_PzhLp6":{"type":"gps-collection-section","blocks":{"product_grid_FngH48":{"type":"product_grid","settings":{"enable_collection_count":true,"per_row":3,"rows_per_page":7,"mobile_flush_grid":false}}},"block_order":["product_grid_FngH48"],"name":"Collection GPS","settings":{"featured_collection":"gift-cards","collectionHeading":"","hide_title":false,"enable_sidebar":true,"collapsed":true,"filter_style":"sidebar","enable_color_swatches":false,"enable_sort":true,"accURL":""}},"gps_platform_section_WmrcGf":{"type":"gps-platform-section","name":"Game Product Section","settings":{"bg_color":"#1b2029","logo_icon":"shopify:\/\/shop_images\/Group_1410105173.png","logo_text":"","heading":"TAP INTO THE FULL <br> \u2028BLUE TEES ECOSYSTEM <br> WITH THE GAME AI APP","description":"<p>GAME is an AI-powered GPS App and intelligence engine that powers the full Blue Tees ecosystem  – turning your rounds, swings, and club data into smarter decisions on and off the course.<\/p>","app_store_image":"shopify:\/\/shop_images\/Group_22913.png","app_store_link":"https:\/\/apps.apple.com\/us\/app\/blue-tees-game-ai-golf-gps\/id6448720121","play_store_image":"shopify:\/\/shop_images\/Group_22912.png","play_store_link":"https:\/\/play.google.com\/store\/apps\/details?id=com.bluetees","cta_text":"LEARN MORE","cta_link":"shopify:\/\/pages\/app-download-lp","glow_image":"shopify:\/\/shop_images\/Frame_1410105366.png","product_image":"shopify:\/\/shop_images\/Frame_1171278071_f4db8066-903f-46d0-a9d4-20cdd72a2cb6.png"}}},"order":["collection-header","main-collection","round_out_slider_section_7XPmid","gps_collection_section_EiYcFC","gps_collection_section_BfRexB","gps_collection_section_zXtq43","gps_collection_section_NBjMa7","gps_collection_section_77hDJf","image_with_text_new_KQT9AT","gps_collection_section_ienNVP","gps_collection_section_zx4KXJ","image_with_text_new_CB3YEa","gps_collection_section_7QaGFq","gps_collection_section_PzhLp6","gps_platform_section_WmrcGf"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection-header": {
+      "type": "collection-header",
+      "settings": {
+        "enable": true,
+        "collection_image_enable": true,
+        "show_hero_v2": true,
+        "custom_image": "shopify://shop_images/Frame_1410105370_ae5d84be-4032-4e03-a39d-85881b1cd232.png",
+        "custom_image_mobile": "shopify://shop_images/Home_page_dd792e7a-fc45-4a67-8513-682dd2ac3c9e.png",
+        "custom_title": "",
+        "custom_description": "",
+        "content_layout": true,
+        "text_color": "#ffffff",
+        "parallax": false
+      }
+    },
+    "main-collection": {
+      "type": "main-collection",
+      "blocks": {
+        "collection_description": {
+          "type": "collection_description",
+          "disabled": true,
+          "settings": {}
+        },
+        "subcollections": {
+          "type": "subcollections",
+          "settings": {
+            "subcollections_per_row": 5
+          }
+        },
+        "product_grid": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "collection_description",
+        "subcollections",
+        "product_grid"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_sidebar": false,
+        "collapsed": false,
+        "filter_style": "drawer",
+        "enable_color_swatches": true,
+        "enable_sort": false
+      }
+    },
+    "round_out_slider_section_7XPmid": {
+      "type": "round-out-slider-section",
+      "name": "Round Out Game Slider",
+      "settings": {
+        "heading": "",
+        "desc": "",
+        "main_cta_text": "",
+        "main_cta_link": "",
+        "bg_color": "rgba(0,0,0,0)",
+        "teesHeading": "BLUE TEES<br> ONLINE EXCLUSIVE",
+        "itemIconColor": "#1b2029",
+        "itemOneIcon": "shopify://shop_images/truck-icon-new.svg",
+        "itemOneText": "FREE SHIPPING OVER $50",
+        "itemTwoIcon": "shopify://shop_images/check-mark-icon-new.svg",
+        "itemTwoText": "extended two-year warranty",
+        "itemThreeIcon": "shopify://shop_images/return-icon-new.svg",
+        "itemThreeText": "100 DAY RISK-FREE RETURNS",
+        "no_space_top": true
+      }
+    },
+    "gps_collection_section_EiYcFC": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "product_grid_xXRqrk": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "product_grid_xXRqrk"
+      ],
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "rangefinders",
+        "collectionHeading": "",
+        "hide_title": false,
+        "enable_sidebar": false,
+        "collapsed": false,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": false,
+        "accURL": ""
+      }
+    },
+    "gps_collection_section_BfRexB": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "product_grid_tmyGRR": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "product_grid_tmyGRR"
+      ],
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "gps-speakers",
+        "collectionHeading": "",
+        "hide_title": false,
+        "enable_sidebar": false,
+        "collapsed": false,
+        "filter_style": "sidebar",
+        "enable_color_swatches": true,
+        "enable_sort": false,
+        "accURL": ""
+      }
+    },
+    "gps_collection_section_zXtq43": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "video_zi3hif": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/rainmaker-pdp-must-watch-video_v1 (1080p).mp4",
+            "card_size": "small",
+            "selectIndex": "2",
+            "playText": "MORE ABOUT THE RAINMAKER"
+          }
+        },
+        "product_grid_7cw8xi": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "video_zi3hif",
+        "product_grid_7cw8xi"
+      ],
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "launch-monitors",
+        "collectionHeading": "",
+        "hide_title": false,
+        "enable_sidebar": false,
+        "collapsed": false,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": false,
+        "accURL": ""
+      }
+    },
+    "gps_collection_section_NBjMa7": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "product_grid_aPDMGg": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "product_grid_aPDMGg"
+      ],
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "gps-devices",
+        "collectionHeading": "",
+        "hide_title": false,
+        "enable_sidebar": false,
+        "collapsed": false,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": false,
+        "accURL": ""
+      }
+    },
+    "gps_collection_section_77hDJf": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "product_grid_fJ9Tye": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "product_grid_fJ9Tye"
+      ],
+      "disabled": true,
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "gps-ready-bundles",
+        "collectionHeading": "",
+        "hide_title": false,
+        "enable_sidebar": false,
+        "collapsed": false,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": false,
+        "accURL": ""
+      }
+    },
+    "image_with_text_new_KQT9AT": {
+      "type": "image-with-text-new",
+      "disabled": true,
+      "name": "Image With Text New",
+      "settings": {
+        "containerTrue": false,
+        "backgroundImage": "shopify://shop_images/DSCF5028_edited_2_expanded_1.png",
+        "backgroundImageMobile": "shopify://shop_images/DSCF5028_edited_2_expanded_1_1.png",
+        "contentLogo": "shopify://shop_images/Group_1410105113.svg",
+        "contentQuote": "“I’M ALL ABOUT SMART GOLF, AND THE GAME APP HELPS ME PLAY BETTER EVERY TIME I’M OUT THERE.”",
+        "contentCaption": "Paige Spiranac - Golf Influencer",
+        "ctaText": "LEARN MORE",
+        "ctaUrl": "shopify://pages/app-download-lp"
+      }
+    },
+    "gps_collection_section_ienNVP": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "product_grid_jp6pDz": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "product_grid_jp6pDz"
+      ],
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "on-course-utility",
+        "collectionHeading": "ON-COURSE UTILITY",
+        "hide_title": false,
+        "enable_sidebar": true,
+        "collapsed": true,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": true,
+        "accURL": ""
+      }
+    },
+    "gps_collection_section_zx4KXJ": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "product_grid_cqMTV4": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "product_grid_cqMTV4"
+      ],
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "carrying-cases",
+        "collectionHeading": "Carrying Cases",
+        "hide_title": false,
+        "enable_sidebar": true,
+        "collapsed": true,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": true,
+        "accURL": ""
+      }
+    },
+    "image_with_text_new_CB3YEa": {
+      "type": "image-with-text-new",
+      "disabled": true,
+      "name": "Image With Text New",
+      "settings": {
+        "containerTrue": false,
+        "backgroundImage": "shopify://shop_images/Player__Sean_Foley_2_1_2_expanded_2.png",
+        "backgroundImageMobile": "shopify://shop_images/Player__Sean_Foley_2_1_2_expanded_1.png",
+        "contentLogo": "shopify://shop_images/Group_26853.svg",
+        "contentQuote": "“THE PLAYER+ GIVES YOU ACCESS TO THE SAME DATA THE BEST PLAYERS IN THE WORLD USE.”",
+        "contentCaption": "Sean Foley - Tiger Woods’ Former Coach",
+        "ctaText": "SHOP PLAYER+",
+        "ctaUrl": "shopify://products/player-gps-speaker"
+      }
+    },
+    "gps_collection_section_7QaGFq": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "product_grid_dXUwgP": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "product_grid_dXUwgP"
+      ],
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "merch",
+        "collectionHeading": "HATS",
+        "hide_title": false,
+        "enable_sidebar": true,
+        "collapsed": true,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": true,
+        "accURL": ""
+      }
+    },
+    "gps_collection_section_PzhLp6": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "product_grid_FngH48": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "product_grid_FngH48"
+      ],
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "gift-cards",
+        "collectionHeading": "",
+        "hide_title": false,
+        "enable_sidebar": true,
+        "collapsed": true,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": true,
+        "accURL": ""
+      }
+    },
+    "gps_platform_section_WmrcGf": {
+      "type": "gps-platform-section",
+      "name": "Game Product Section",
+      "settings": {
+        "bg_color": "#1b2029",
+        "logo_icon": "shopify://shop_images/Group_1410105173.png",
+        "logo_text": "",
+        "heading": "TAP INTO THE FULL <br> BLUE TEES ECOSYSTEM <br> WITH THE GAME AI APP",
+        "description": "<p>GAME is an AI-powered GPS App and intelligence engine that powers the full Blue Tees ecosystem  – turning your rounds, swings, and club data into smarter decisions on and off the course.</p>",
+        "app_store_image": "shopify://shop_images/Group_22913.png",
+        "app_store_link": "https://apps.apple.com/us/app/blue-tees-game-ai-golf-gps/id6448720121",
+        "play_store_image": "shopify://shop_images/Group_22912.png",
+        "play_store_link": "https://play.google.com/store/apps/details?id=com.bluetees",
+        "cta_text": "LEARN MORE",
+        "cta_link": "shopify://pages/app-download-lp",
+        "glow_image": "shopify://shop_images/Frame_1410105366.png",
+        "product_image": "shopify://shop_images/Frame_1171278071_f4db8066-903f-46d0-a9d4-20cdd72a2cb6.png"
+      }
+    }
+  },
+  "order": [
+    "collection-header",
+    "main-collection",
+    "round_out_slider_section_7XPmid",
+    "gps_collection_section_EiYcFC",
+    "gps_collection_section_BfRexB",
+    "gps_collection_section_zXtq43",
+    "gps_collection_section_NBjMa7",
+    "gps_collection_section_77hDJf",
+    "image_with_text_new_KQT9AT",
+    "gps_collection_section_ienNVP",
+    "gps_collection_section_zx4KXJ",
+    "image_with_text_new_CB3YEa",
+    "gps_collection_section_7QaGFq",
+    "gps_collection_section_PzhLp6",
+    "gps_platform_section_WmrcGf"
+  ]
+}

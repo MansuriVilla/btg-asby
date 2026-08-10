@@ -1483,17 +1483,18 @@
       color: #fff;
     }
 
-
+    
     /* ===== PLANS SLIDER — MOBILE ONLY, DESKTOP GRID ===== */
-
+    
     /* ---------- DESKTOP (≥992px): 3-column grid, no slider ---------- */
     @media (min-width: 992px) {
+      
       .slide_right img.slide_image-large {
-        position: absolute;
-        width: 100%;
-        max-width: 539px;
-        bottom: 0;
-      }
+      position: absolute;
+      width: 100%;
+      max-width: clamp(300px, 35vw, 539px);
+      bottom: 0;
+    }
 
       /* Wrapper acts as a normal full-width container on desktop */
       .plans-slider-wrapper {
@@ -1535,16 +1536,26 @@
 
     /* ---------- MOBILE (<992px): one-card slider ---------- */
     @media (max-width: 991px) {
+
+      .slide_right img.slide_image-large {
+  position: absolute;
+  width: 100%;
+  max-width: clamp(230px, 40vw, 400px);
+  bottom: -24%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
       .plans-slider-wrapper {
         position: relative;
         width: 100%;
         max-width: 420px;
         margin: 0 auto;
-        padding: 20px 0 60px;
+        padding: 0px 0 60px;
       }
 
       .plans-slider-viewport {
-        overflow: hidden;
+        {% comment %} overflow: hidden; {% endcomment %}
         width: 100%;
       }
 
@@ -1564,7 +1575,7 @@
       /* Arrow Buttons */
       .plans-slider-arrow {
         position: absolute;
-        top: 50%;
+        top: 95%;
         transform: translateY(-60%);
         background: rgba(255,255,255,0.08);
         border: 1.5px solid rgba(255,255,255,0.2);
@@ -1597,6 +1608,7 @@
         display: flex;
         gap: 10px;
         align-items: center;
+        display: none;
       }
 
       .plans-dot {
@@ -1618,9 +1630,9 @@
 
     /* Very small screens — tuck arrows inside */
     @media (max-width: 480px) {
-      .plans-slider-prev { left: -8px; }
-      .plans-slider-next { right: -8px; }
-      .plans-slider-wrapper { padding-left: 28px; padding-right: 28px; }
+      .plans-slider-prev { left: 35%; }
+      .plans-slider-next { right: 35%; }
+      {% comment %} .plans-slider-wrapper { padding-left: 28px; padding-right: 28px; } {% endcomment %}
     }
 
     .membership-card {
@@ -1826,7 +1838,7 @@
     .comparison-table-container {
       width: 100% ;
       max-width: 1380px ;
-      margin: 30px auto 0 ;
+      margin: 0px auto 0 ;
       background: #000000 ;
       border-radius: 12px ;
       /* padding: clamp(20px, 3vw, 40px) clamp(15px, 4vw, 50px) ; */
@@ -3522,6 +3534,7 @@
 
     .play_slider .horizon-slide {
       background: var(--bg-clr);
+      overflow: hidden;
     }
 
     .play_area,
@@ -3569,6 +3582,7 @@
         font-weight: 900;
         min-width: max-content;
         color:#D5D5D5;
+        z-index: 2;
       }
     }
 
@@ -3586,11 +3600,15 @@
       }
 
       .slide_inner {
-        flex-wrap: wrap;
+        width: 100%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
+      }
+
+      .slide_left, .slide_right{
+        flex:inherit;
       }
 
       .nav-buttons {

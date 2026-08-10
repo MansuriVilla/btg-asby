@@ -78,13 +78,11 @@
     "limit_text": "[amount] AWAY FROM $50 GIFT CARD",
     "reached_text": "$50 GIFT CARD OFFER UNLOCKED! <span>You will receive email with $50 promo code after you complete your purchase.</span>",
     "upsell_product_list": [
+      "player-pro",
+      "rainmaker",
       "player-hard-shell-carrying-case",
       "player-soft-drawstring-carrying-case",
-      "player-gps-speaker",
-      "ringer",
-      "player-pack",
-      "series-3-max-golf-rangefinder-with-slope",
-      "magnetic-golf-speaker"
+      "ringer"
     ],
     "new_empty_cart_collection": [
       "rainmaker",

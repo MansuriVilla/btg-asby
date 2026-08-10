@@ -1759,6 +1759,20 @@ lazySizesConfig.expFactor = 4;
         // Append item markup
         this.products.innerHTML = '';
         this.products.append(items);
+
+
+        fetch(window.location.pathname)
+          .then(res => res.text())
+          .then(html => {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+
+            const newUpsell = doc.querySelector('.ctm_upsell_product');
+            const oldUpsell = document.querySelector('.ctm_upsell_product');
+
+            if (newUpsell && oldUpsell) {
+              oldUpsell.replaceWith(newUpsell);
+            }
+          });
   
         // Update subtotal
         this.subtotal.innerHTML = theme.Currency.formatMoney(subtotal, theme.settings.moneyFormat);
@@ -1789,12 +1803,12 @@ lazySizesConfig.expFactor = 4;
           }
 
           if(_speaker == 0){
-            $('.ctm_upsell_product_list > div[data-prod-id="7692896108741"]').hide();
-            $('.ctm_upsell_product_list > div[data-prod-id="7692897157317"]').hide();
+            //$('.ctm_upsell_product_list > div[data-prod-id="7692896108741"]').hide();
+            //$('.ctm_upsell_product_list > div[data-prod-id="7692897157317"]').hide();
             //$('.ctm_upsell_product_list').removeClass('speaker_in_cart');
           }else{
-           $('.ctm_upsell_product_list > div[data-prod-id="7692896108741"]').show();
-           $('.ctm_upsell_product_list > div[data-prod-id="7692897157317"]').show();
+           //$('.ctm_upsell_product_list > div[data-prod-id="7692896108741"]').show();
+           //$('.ctm_upsell_product_list > div[data-prod-id="7692897157317"]').show();
             //$('.ctm_upsell_product_list').addClass('speaker_in_cart');
           }
         })
@@ -9270,6 +9284,7 @@ lazySizesConfig.expFactor = 4;
            document.dispatchEvent(new CustomEvent('ajaxProduct:added', {
               detail: {}
             }));  
+            
          },
         error: function(err) {
           console.log(err)  
@@ -10855,6 +10870,110 @@ document.addEventListener("DOMContentLoaded", function () {
 // });
 
 
+// document.addEventListener('DOMContentLoaded', function () {
+//   const addToCartBtns = document.querySelectorAll('.cart_cta');
+
+//   if (addToCartBtns.length === 0) return;
+
+//   addToCartBtns.forEach((button) => {
+//     button.addEventListener('click', function (event) {
+//       event.preventDefault();
+
+//       const btn = this;
+//       btn.classList.add('btn--loading');
+
+//       const variantId1 = btn.getAttribute('data-id');
+//       const variantId2 = btn.getAttribute('data-id-two');
+//       let selector = btn.getAttribute('data-id-two-checked');
+
+//       if (!variantId1) {
+//         btn.classList.remove('btn--loading');
+//         return;
+//       }
+
+//       let shouldAddSecondProduct = false;
+
+//       if (variantId2 && selector) {
+//         let checkbox = null;
+
+//         // Try normal querySelector
+//         try {
+//           checkbox = document.querySelector(selector);
+//         } catch (e) {
+//           console.warn('Invalid selector tried:', selector);
+//         }
+
+//         // Strong fallback for classes/IDs starting with number
+//         if (!checkbox && selector) {
+//           const cleanSelector = selector.replace(/^[.#]/, ''); // remove . or #
+//           // Try escaped class
+//           try {
+//             checkbox = document.querySelector(`.${CSS.escape(cleanSelector)}`);
+//           } catch (e) {}
+          
+//           // Try attribute selector as last resort
+//           if (!checkbox) {
+//             checkbox = document.querySelector(`[class*="${cleanSelector}"]`);
+//           }
+//         }
+
+//         // Check if the radio/checkbox is actually selected
+//         if (checkbox && checkbox.checked) {
+//           shouldAddSecondProduct = true;
+//         }
+//       } 
+//       else if (variantId2) {
+//         shouldAddSecondProduct = true; // no condition = always add (old behavior)
+//       }
+
+//       // ====================== ADD TO CART ======================
+//       // Add main product first
+//       fetch('/cart/add.js', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ id: variantId1, quantity: 1 }),
+//       })
+//         .then((response) => {
+//           if (!response.ok) throw new Error('Failed to add main product');
+//           return response.json();
+//         })
+//         .then(() => {
+//           // Add second product ONLY if condition is truly met
+//           if (shouldAddSecondProduct && variantId2) {
+//             return fetch('/cart/add.js', {
+//               method: 'POST',
+//               headers: { 'Content-Type': 'application/json' },
+//               body: JSON.stringify({ id: variantId2, quantity: 1 }),
+//             }).then((response) => {
+//               if (!response.ok) throw new Error('Failed to add second product');
+//               return response.json();
+//             });
+//           }
+//         })
+//         .then(() => {
+//           btn.classList.remove('btn--loading');
+
+//           document.dispatchEvent(
+//             new CustomEvent('ajaxProduct:added', {
+//               detail: {
+//                 productId: variantId1,
+//                 secondProductId: shouldAddSecondProduct ? variantId2 : null
+//               }
+//             })
+//           );
+//         })
+//         .catch((error) => {
+//           btn.classList.remove('btn--loading');
+//           console.error('Cart add error:', error);
+//           alert('There was an issue adding the product to the cart. Please try again.');
+//         });
+//     });
+//   });
+// });
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
   const addToCartBtns = document.querySelectorAll('.cart_cta');
 
@@ -10962,6 +11081,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+
+
 
 
 

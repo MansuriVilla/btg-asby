@@ -117,14 +117,14 @@
         </button>
       </div>
 
-      <div class="cart__remove">
-        <button
-          type="button"
-          class="text-link cart__remove-btn"
-          data-key="{{ product.key }}"
-          aria-label="Remove {{ product.product.title | escape }} from cart"
-        >{{ 'cart.general.remove' | t }}</button>
-      </div>
+    </div>
+    <div class="cart__remove">
+      <button
+        type="button"
+        class="text-link cart__remove-btn"
+        data-key="{{ product.key }}"
+        aria-label="Remove {{ product.product.title | escape }} from cart"
+      >{{ 'cart.general.remove' | t }}</button>
     </div>
   </div>
   <div class="cart__item-sub">

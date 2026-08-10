@@ -1,14 +1,16 @@
-<div id="container" class="site_ticker-logo" data-animated>
+<div id="container" class="site_ticker-logo" {%if section.settings.bg_clr != blank %}style="background:{{ section.settings.bg_clr }}"{% endif %} data-animated>
+  {%if section.settings.tickerHeading != blank %}
   <div class="ticker-heading">
     <h2 class="ticker-heading__text">{{section.settings.tickerHeading}}</h2>
   </div>
+  {%endif %}
   <ul id="list">
     {% for block in section.blocks %}
       <li class="logo_item logo_item--{{ block.id }}">
         <img
           class="logo_image"
           src="{{block.settings.logo | image_url}}"
-          alt="{{block.settings.logo.alt}}"
+          alt="{{block.settings.logo.alt | default: forloop.index}}"
           height="100%"
           width="100%"
           loading="lazy"
@@ -38,7 +40,8 @@
 
 <style>
   .site_ticker-logo{display:flex; flex-direction: column; width:100%;}
-  .ticker_action--button{display:flex; justify-content: flex-end; padding:20px;}
+  .ticker_action--button{display:flex; justify-content: flex-end;     padding-inline: 20px;
+    padding-block: 0 20px;}
 .ticker-heading__text {
   padding: 0;
   font-size: clamp(16px,2vw,18px);
@@ -146,6 +149,11 @@
       "type": "text",
       "id": "tickerHeading",
       "label": "Section Heading"
+    },
+    {
+      "type": "color",
+      "id": "bg_clr",
+      "label": "Section Color"
     }
 
   ],

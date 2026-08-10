@@ -1,0 +1,36 @@
+{% if theme.role == 'unpublished' and request.path contains 'products' and settings.custom_debug_mode %}
+  {% assign current_variant = product.selected_or_first_available_variant %}
+
+  <p>
+    Variant: {{ current_variant.title -}}
+    <br>
+    Price: {{ current_variant.price | money -}}
+    <br>
+    Variant ID: {{ current_variant.id }}
+    <br>
+    Product Template: {{ product.template_suffix }}
+  </p>
+
+  {% assign selected_allocation = current_variant.selected_selling_plan_allocation %}
+
+  {% if selected_allocation %}
+    <p>
+      <strong>Selected Selling Plan:</strong> {{ selected_allocation.selling_plan.name -}}
+      <br>
+      Selling Plan ID: <code>{{ selected_allocation.selling_plan.id }}</code><br>
+      Price (adjusted): {{ selected_allocation.price | money -}}
+      <br>
+      Compare-at: {{ selected_allocation.compare_at_price | money }}
+    </p>
+  {% elsif current_variant.selling_plan_allocations.size > 0 %}
+    {% assign default_allocation = current_variant.selling_plan_allocations[0] %}
+    <p>
+      <strong>Default Selling Plan (no selection yet):</strong> {{ default_allocation.selling_plan.name -}}
+      <br>
+      Selling Plan ID: <code>{{ default_allocation.selling_plan_id }}</code><br>
+      Price: {{ default_allocation.price | money }}
+    </p>
+  {% else %}
+    <p>No selling plan selected or available (one-time purchase only).</p>
+  {% endif %}
+{% endif %}

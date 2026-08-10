@@ -1,9 +1,3 @@
-{% comment %}
-  Custom Video with Content Section
-  UI matches design mockup with side-by-side content and video block preview (5s loop preview),
-  customizable background color & background image, direction flip option, logo, headings, text, and CTA button.
-{% endcomment %}
-
 {% liquid
   assign bg_color = section.settings.bg_color
   assign bg_image = section.settings.bg_image
@@ -15,8 +9,6 @@
   assign disclaimer = section.settings.disclaimer
   assign button_label = section.settings.button_label
   assign button_link = section.settings.button_link
-  assign button_bg_color = section.settings.button_bg_color
-  assign button_text_color = section.settings.button_text_color
   
   assign video_url = section.settings.video_url
   assign video_src = section.settings.video_src
@@ -41,8 +33,7 @@
 >
   <div class="new-page-width">
     <div class="custom-video-content__inner {% if layout_direction == 'video_left' %}direction-reverse{% endif %}">
-      
-      {% comment %} Left / Content Side {% endcomment %}
+
       <div class="custom-video-content__left">
         <div class="custom-video-content__left-inner">
           {% if logo != blank %}
@@ -80,11 +71,8 @@
             <div class="custom-video-content__cta-wrapper">
               <a
                 href="{{ button_link | default: '#' }}"
-                class="custom-video-content__cta-btn"
-                style="
-                  {% if button_bg_color != blank %}background-color: {{ button_bg_color }};{% endif %}
-                  {% if button_text_color != blank %}color: {{ button_text_color }};{% endif %}
-                "
+                class="custom-video-content__cta-btn content-cta content-cta__solid"
+
               >
                 {{ button_label }}
               </a>
@@ -93,7 +81,7 @@
         </div>
       </div>
 
-      {% comment %} Right / Video Side (Exact video block structure from page.app-download-lp.liquid) {% endcomment %}
+
       <div class="custom-video-content__right">
         {% if final_video_url != blank %}
           <div class="new_game-hero-right">
@@ -138,6 +126,13 @@
 </div>
 
 <style>
+
+        #SiteHeader:not( .site-header.site-header--megamenu-active, #SiteHeader.site-header.fixed ) { background: transparent; }
+      #SiteHeader .site_header__border:not(.site-header.site-header--megamenu-active) { opacity: 0; }
+      #SiteHeader { position: fixed; width: 100%; }
+      #SiteHeader .site_header__border { opacity: 0; }
+      #SiteHeader.site-header.site-header--megamenu-active .site_header__border { opacity: 1; }
+         .radius__has{border-radius:15px;}
   .custom-video-content-section {
     position: relative;
     padding-block: clamp(40px, 6vw, 90px);
@@ -152,6 +147,8 @@
     justify-content: space-between;
     gap: clamp(30px, 5vw, 70px);
     flex-direction: row;
+    position: relative;
+    padding-block: clamp(60px, 5vw, 100px);
   }
 
   .custom-video-content__inner.direction-reverse {
@@ -210,28 +207,9 @@
     margin-top: 24px;
   }
 
-  .custom-video-content__cta-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 28px;
-    background-color: #0052ff;
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 82, 255, 0.4);
-  }
+ 
 
-  .custom-video-content__cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 82, 255, 0.6);
-    opacity: 0.95;
-  }
+ 
 
   .custom-video-content__video-container {
     position: relative;
@@ -246,9 +224,20 @@
     margin: 0;
     padding: 0;
   }
-
-  @media only screen and (max-width: 859px) {
-    .custom-video-content__inner,
+    @media only screen and (max-width:991px){
+      .section-left__price-wrap{
+        justify-content: center;
+      }
+      .custom-video-content__logo {
+  margin-bottom: 240px;
+}
+.custom-video-content__right {
+  position: absolute;
+  top: 53%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+}
+  .custom-video-content__inner,
     .custom-video-content__inner.direction-reverse {
       flex-direction: column-reverse;
       gap: 32px;
@@ -267,7 +256,9 @@
     .custom-video-content__logo img {
       margin: 0 auto;
     }
-  }
+    }
+
+ 
 </style>
 
 {% schema %}
@@ -357,18 +348,6 @@
       "type": "url",
       "id": "button_link",
       "label": "Button Link"
-    },
-    {
-      "type": "color",
-      "id": "button_bg_color",
-      "label": "Button Background Color",
-      "default": "#0052FF"
-    },
-    {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Button Text Color",
-      "default": "#FFFFFF"
     },
     {
       "type": "header",

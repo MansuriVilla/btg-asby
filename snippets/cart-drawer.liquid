@@ -104,7 +104,117 @@
           {% if settings.upsell_product_list != blank %}
             <div class="ctm_upsell_product">
               <div class="ctm_upsell_product_title">You may also like:</div>
+
+              {% assign has_player_pro = false %}
+              {% assign has_rainmaker = false %}
+
+              {% assign player_pro = all_products['player-pro'] %}
+              {% assign captain_pro = all_products['captain-pro'] %}
+
+              {% assign cart_handles = '' %}
+
+              {% for item in cart.items %}
+                {% assign cart_handles = cart_handles | append: item.product.handle | append: ',' %}
+
+                {% case item.product.handle %}
+                  {% when 'player-pro' %}
+                    {% assign has_player_pro = true %}
+                  {% when 'rainmaker' %}
+                    {% assign has_rainmaker = true %}
+                {% endcase %}
+              {% endfor %}
+
               <div class="ctm_upsell_product_list">
+
+              {% if has_player_pro %}
+
+                {% assign priority = 'player-hard-shell-carrying-case,rainmaker' | split: ',' %}
+
+                {% for handle in priority %}
+                  {% for product in settings.upsell_product_list %}
+                    {% if product.handle == handle %}
+                      {% unless cart_handles contains product.handle %}
+                        <div data-main-id data-prod-id="{{ product.id }}">
+                          {% render 'product-grid-item-cart-drower',
+                            product: product,
+                            new_class: 'grid__item grid-product small--one-whole medium-up--one-whole'
+                          %}
+                        </div>
+                      {% endunless %}
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+
+                {% for product in settings.upsell_product_list %}
+                  {% unless priority contains product.handle %}
+                    {% unless cart_handles contains product.handle %}
+                      <div data-main-id data-prod-id="{{ product.id }}">
+                        {% render 'product-grid-item-cart-drower',
+                          product: product,
+                          new_class: 'grid__item grid-product small--one-whole medium-up--one-whole'
+                        %}
+                      </div>
+                    {% endunless %}
+                  {% endunless %}
+                {% endfor %}
+
+              {% elsif has_rainmaker %}
+
+                {% unless cart_handles contains 'player-pro' %}
+                  <div data-main-id data-prod-id="{{ player_pro.id }}">
+                    {% render 'product-grid-item-cart-drower',
+                      product: player_pro,
+                      new_class: 'grid__item grid-product small--one-whole medium-up--one-whole'
+                    %}
+                  </div>
+                {% endunless %}
+
+                {% unless cart_handles contains 'captain-pro' %}
+                  <div data-main-id data-prod-id="{{ captain_pro.id }}">
+                    {% render 'product-grid-item-cart-drower',
+                      product: captain_pro,
+                      new_class: 'grid__item grid-product small--one-whole medium-up--one-whole'
+                    %}
+                  </div>
+                {% endunless %}
+
+                {% assign priority = 'series-3-max-golf-rangefinder-with-slope,player-hard-shell-carrying-case,player-soft-drawstring-carrying-case,ringer' | split: ',' %}
+
+                {% for handle in priority %}
+                  {% for product in settings.upsell_product_list %}
+                    {% if product.handle == handle %}
+                      {% unless cart_handles contains product.handle %}
+                        <div data-main-id data-prod-id="{{ product.id }}">
+                          {% render 'product-grid-item-cart-drower',
+                            product: product,
+                            new_class: 'grid__item grid-product small--one-whole medium-up--one-whole'
+                          %}
+                        </div>
+                      {% endunless %}
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+
+              {% else %}
+
+                {% for product in settings.upsell_product_list %}
+                  {% unless cart_handles contains product.handle %}
+                    <div data-main-id data-prod-id="{{ product.id }}">
+                      {% render 'product-grid-item-cart-drower',
+                        product: product,
+                        new_class: 'grid__item grid-product small--one-whole medium-up--one-whole'
+                      %}
+                    </div>
+                  {% endunless %}
+                {% endfor %}
+
+              {% endif %}
+
+              </div>
+              
+
+
+              {% comment %} <!--div class="ctm_upsell_product_list">
                 {% for upsell_prods in settings.upsell_product_list %}
                   <div data-main-id data-prod-id="{{ upsell_prods.id }}">
                     {% render 'product-grid-item-cart-drower',
@@ -113,7 +223,9 @@
                     %}
                   </div>
                 {% endfor %}
-              </div>
+              </div --> {% endcomment %}
+
+              
             </div>
           {% endif %}
 

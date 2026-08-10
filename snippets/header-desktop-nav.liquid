@@ -35,11 +35,13 @@
 {% assign carrying_case = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Cases_hover_state.png?v=1771476046' %}
 {% assign ringer = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Ringer_hover_state.png?v=1771476047' %}
 {% assign playmaker_plus = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Playmaker__hover_state.png?v=1771476047' %}
-{% assign rainmaker = 'https://cdn.shopify.com/s/files/1/0723/6727/6223/files/Rainmaker_hover_state.png?v=1781502132' %}
+{% assign rainmaker = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Rainmaker_hover_state_9969c592-8fbd-4489-8596-66863308f97d.png?v=1785994363' %}
 {% assign gift_cards = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/GC_hover_state_bb62512c-5b4e-4d31-afc2-a08f16556fd2.png?v=1772169794' %}
 {% assign hats = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Hat_hover_state.png?v=1771476046' %}
+
+{% comment %} COLLECTION LABELS {% endcomment %}
 {% assign rangefinder = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Rangefinders_hover_state.png?v=1771475917' %}
-{% assign gps_speakers = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/GPS_Speakers_hover_state_2.png?v=1781502517' %}
+{% assign gps_speakers = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/GPS_Speakers_hover_state_2_cdf95fae-089a-4405-97a5-4497f2af8060.png?v=1785994334' %}
 {% assign launch_monitor = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Launch_Monitors_hover_state.png?v=1771475917' %}
 {% assign handhelds_wearables = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Handhelds_Wearables_hover_state.png?v=1771475917' %}
 {% assign extras = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Extras_hover_state_US.png?v=1772169732' %}
@@ -259,14 +261,14 @@
                               open_in_new_tab: open_in_new_tab,
                               hover_effect: hover_effect
                             %} {% endcomment %}
-                            {% render 'header-nav-item',
+                            {% comment %} {% render 'header-nav-item',
                               item_title: 'Player GO',
                               item_url: '/products/magnetic-golf-speaker',
                               item_image_var: player_go,
                               item_image_var_mobile: player_go,
                               open_in_new_tab: open_in_new_tab,
                               hover_effect: hover_effect
-                            %}
+                            %} {% endcomment %}
                           </ul>
                         </div>
                       </div>
@@ -960,7 +962,7 @@
     .project-hover-reveal__img {
       width: 100%;
       height: 100%;
-      background-size: contain;
+      background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
       transition: all 0.5s ease;
