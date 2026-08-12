@@ -22,6 +22,7 @@
     {%- endfor -%}
     {%- assign category_array = categories | split: ',' -%}
 
+    
     {%- if category_array.size > 0 -%}
       <div class="product-comparison__tabs" role="tablist" aria-label="Feature categories">
         {%- for category in category_array -%}
@@ -43,6 +44,11 @@
       <div class="product-comparison__products">
         {%- assign products = section.blocks | where: 'type', 'product' -%}
         {%- for block in products -%}
+          {%- assign product_ref = all_products[block.settings.product_ref] -%}
+          {%- assign is_sold_out = block.settings.show_as_sold_out -%}
+          {%- if product_ref != blank and product_ref.selected_or_first_available_variant.available == false -%}
+            {%- assign is_sold_out = true -%}
+          {%- endif -%}
           <article class="product-comparison__product-card" {{ block.shopify_attributes }}>
             <figure class="product-comparison__product-image-wrapper">
               {%- if block.settings.product_image != blank -%}
@@ -60,47 +66,37 @@
             </figure>
             <h3 class="product-comparison__product-name">{{ block.settings.product_name }}</h3>
             {%- if block.settings.button_text != blank -%}
-              {%- if block.settings.product_ref != blank -%}
-                {%- assign product_ref = all_products[block.settings.product_ref] -%}
-                {%- if product_ref != blank -%}
-                  {%- assign current_variant = product_ref.selected_or_first_available_variant -%}
-                  <button
-                    type="button"
-                    class="content-cta content-cta__solid{% if block.settings.is_preorder %} product-comparison__product-cta--preorder{% endif %} js-add-to-cart-btn {% unless product.selected_or_first_available_variant.available %} sticky_sold-out--button button_sold-out{%endunless %}"
-                    data-id="{{ current_variant.id }}"
-                    aria-label="Add {{ block.settings.product_name }} to cart"
-                    {% if  product.template_suffix == 'new-s3-max'%}
-                      disabled
-                    {% endif %}
-                    {%unless product.selected_or_first_available_variant.available %}
-                      disabled
-                  {% endunless %}
-                  >
-                    {%- if product.selected_or_first_available_variant.available -%}
-                      {{ block.settings.button_text | upcase }}
-                      
-                    {%- else -%}
-                      SOLD OUT
-                    {%- endif -%}
-                  </button>
-                {%- else -%}
-                   <a
-                    href="{{ block.settings.button_link }}"
-                    {% if settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}
-                    class="content-cta content-cta__solid{% if block.settings.is_preorder %} product-comparison__product-cta--preorder{% endif %} "
-                  >
-                    {{ block.settings.product_name | default: block.settings.button_text | upcase }}
-                    
-                  </a>
-                {%- endif -%}
+              {%- if block.settings.product_ref != blank and product_ref != blank -%}
+                {%- assign current_variant = product_ref.selected_or_first_available_variant -%}
+                <button
+                  type="button"
+                  class="content-cta content-cta__solid{% if block.settings.is_preorder %} product-comparison__product-cta--preorder{% endif %} js-add-to-cart-btn{% if is_sold_out %} sticky_sold-out--button button_sold-out{% endif %}"
+                  data-id="{{ current_variant.id }}"
+                  aria-label="Add {{ block.settings.product_name }} to cart"
+                  {% if is_sold_out %}
+                    disabled
+                  {% endif %}
+                >
+                  {%- if is_sold_out -%}
+                    SOLD OUT
+                  {%- else -%}
+                    {{ block.settings.button_text | upcase }}
+                  {%- endif -%}
+                </button>
               {%- else -%}
                 <a
                   href="{{ block.settings.button_link }}"
-                   {% if settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}
-                  class="content-cta content-cta__solid{% if block.settings.is_preorder %} product-comparison__product-cta--preorder{% endif %}  {% unless product.selected_or_first_available_variant.available or product.template_suffix == 'new-s3-max' %} sticky_sold-out--button button_sold-out{%endunless %}"
+                  {% if settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}
+                  class="content-cta content-cta__solid{% if block.settings.is_preorder %} product-comparison__product-cta--preorder{% endif %}{% if is_sold_out %} sticky_sold-out--button button_sold-out{% endif %}"
+                  {% if is_sold_out %}
+                    style="pointer-events: none; opacity: 0.6;"
+                  {% endif %}
                 >
-                  {{ block.settings.button_text | upcase }}
-                  
+                  {%- if is_sold_out -%}
+                    SOLD OUT
+                  {%- else -%}
+                    {{ block.settings.button_text | upcase }}
+                  {%- endif -%}
                 </a>
               {%- endif -%}
             {%- endif -%}
@@ -351,6 +347,12 @@
           "type": "checkbox",
           "id": "is_preorder",
           "label": "Pre-order Style",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_as_sold_out",
+          "label": "Show as Sold Out",
           "default": false
         }
       ]

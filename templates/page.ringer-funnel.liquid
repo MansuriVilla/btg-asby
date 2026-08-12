@@ -2479,11 +2479,17 @@ document.addEventListener('DOMContentLoaded', function () {
       effect(targets, config) {
         buildTickers({
           targets: targets,
-          clone:
+                    clone:
             config.clone ||
             ((el) => {
-              let clone = el.children[0].cloneNode(true);
-              el.insertBefore(clone, el.children[0]);
+              const firstChild = el.children[0];
+              if (!firstChild) return null;
+              const clone = firstChild.cloneNode(true);
+              if (firstChild.parentNode === el) {
+                el.insertBefore(clone, firstChild);
+              } else {
+                el.appendChild(clone);
+              }
               return clone;
             }),
         });
