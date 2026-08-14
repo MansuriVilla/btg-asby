@@ -89,7 +89,7 @@
                   {% if settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}
                   class="content-cta content-cta__solid{% if block.settings.is_preorder %} product-comparison__product-cta--preorder{% endif %}{% if is_sold_out %} sticky_sold-out--button button_sold-out{% endif %}"
                   {% if is_sold_out %}
-                    style="pointer-events: none; opacity: 0.6;"
+                    style="pointer-events: none;"
                   {% endif %}
                 >
                   {%- if is_sold_out -%}

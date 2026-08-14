@@ -1,9 +1,12 @@
 :root{
-  --new-red: #F00000;
-  --new-gray: #767676;
-  --new-blue: #004df5;
-  --new-blue-dark: #0059FF;
-  --new-black: #000;
+  /* --new-red: #F00000; */
+  /* --new-gray: #767676; */
+      --new-red: #EE0000;
+    --new-gray: #757575;
+    --new-blue: #004df5;
+    --new-blue-dark: #0059FF;
+    --new-black: #000;
+
 }
 
 @font-face {
@@ -49,12 +52,15 @@
     font-weight: 900;
     font-display: swap;
 }
-:root { --site--red-clr:#CB0000; --site--highlight-clr:#CB0000; --site--blue-clr:var(--new-blue); }
+:root { 
+  --site--red-clr:#CB0000; --site--highlight-clr:#CB0000; --site--blue-clr:var(--new-blue); }
 
 
 body { font-family: 'Blue Tees Paragraph'; font-weight:300; margin:0; padding:0; overflow-x:hidden; color:var(--new-black); font-size:16px; letter-spacing: .025em; }
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .tab_area button, .product-block--tab button { font-family: 'Blue Tees Headline italic';}
-
+.template-article :is(h1, .h1) { font-size: clamp(32px, 2.4vw, 42px);line-height: 1; }
+.template-article :is(h2, .h2) { font-size: clamp(24px, 1.8vw,30px); line-height: 1; }
+.template-article :is(h3, .h3) { font-size: clamp(18px, 1.5vw, 22px); line-height: 1; }
 .money:not(.am-main_slider-container .money, .content-floating__price .money), .product__price{font-family: 'Blue Tees Subhead';}
 button:not(.tab_area button, .product-block--tab button){font-family: 'Blue Tees Subhead';}
 input, label, ::placeholder, select, label, option{font-family: 'Blue Tees Paragraph';}
@@ -290,6 +296,9 @@ ul.site__megaMenu_content__inner { display:flex; padding: clamp(20px, 2.2vw,40px
   .footer-col-list:has(.no-bullets li a:hover, .no-bullets li a:focus) .no-bullets li a { color: #ffffff50; }
 }
 
+a.footer_link.footer_link--rangefinders:focus {
+    outline-color: #1995EB !important;
+}
 .site_megaMenu__Title_hidden { visibility:hidden; user-select:none; -moz-user-select:none; }
 .latest_news-container:hover .latest_newsImage__a { scale:1.1; }
 .latest_news-container.site_megaMenu_flex { row-gap: clamp(12px, 1.2vw, 21px); }
@@ -5142,7 +5151,7 @@ NEW REGISTER PAGE START
 .difference-top__left { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
 .difference-top__left p { padding: 0; max-width: 524px; width: 100%; }
 .bt-difference__bottom { width: 100%; }
-.difference__subscription-box h3 { font-size: clamp(24px, 2.9vw, 48px); line-height: 1.2; max-width: clamp(170px, 39vw, 590px); text-align: center; }
+.difference__subscription-box .section_title { font-size: clamp(24px, 2.9vw, 48px); line-height: 1.2; max-width: clamp(170px, 39vw, 590px); text-align: center; }
 .difference__subscription-box .footer__item-padding { padding: 0; width: 100%; max-width: 680px; }
 .difference__subscription-box .signup-form-btn { background: #1C1C21; border-width: 2px; }
 .difference__subscription-box .signup-form-btn:hover { background: transparent; color: #1C1C21; border-color: #1C1C21; }
@@ -5151,7 +5160,7 @@ NEW REGISTER PAGE START
 @media only screen and (max-width:860px) {
   .show_on-mobile { display: inline-flex }
   .show_on-desktop { display: none; }
-  .difference__subscription-box h3 { max-width: 180px; }
+  .difference__subscription-box .section_title { max-width: 180px; }
   .bt-difference__container { padding-inline: 20px; }
   .left_heading .custom_heading.outline { max-width: clamp(150px, 17vw, 275px) !important; vertical-align: text-top !important; margin-top: -3px; }
   .bt-difference__top { flex-wrap: wrap; justify-content: center; align-items: center; text-align: center; }
@@ -6118,14 +6127,14 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--site--blue-clr, var(--new-blue)) !important;
+  outline: 2px solid var(--new-blue) !important;
   outline-offset: 2px !important;
 }
 
 /* Focus outlines for custom checkboxes/terms checkbox (A11Y-09) */
 .cart__terms-checkbox:focus-visible + label:before,
 .cart__terms-checkbox:focus + label:before {
-  outline: 2px solid var(--site--blue-clr, var(--new-blue)) !important;
+  outline: 2px solid var(--new-blue) !important;
   outline-offset: 2px !important;
   box-shadow: 0 0 0 2px #fff !important;
 }
@@ -6134,7 +6143,7 @@ a:focus-visible {
 .loop-subscription input[type="radio"]:focus-visible + label,
 .loop-widget input[type="radio"]:focus-visible + label,
 .loop-container input[type="radio"]:focus-visible + label {
-  outline: 2px solid var(--site--blue-clr, var(--new-blue)) !important;
+  outline: 2px solid var(--new-blue) !important;
   outline-offset: 2px !important;
 }
 

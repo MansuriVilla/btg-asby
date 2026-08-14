@@ -126,6 +126,25 @@
         id="pre-order-btn"
       {% endif %}
 
+      {%- liquid
+        assign cta_product_title = ""
+        if product != blank and product.title != blank
+          assign cta_product_title = product.title
+        elsif page != blank and page.title != blank
+          assign cta_product_title = page.title
+        endif
+
+        assign cta_label = section.settings.button_text
+        if cta_product_title != blank
+          if cta_label contains 'ADD' or cta_label contains 'Add' or cta_label contains 'add'
+            assign cta_label = cta_label | append: ' ' | append: cta_product_title | append: ' to cart'
+          else
+            assign cta_label = cta_label | append: ' - ' | append: cta_product_title
+          endif
+        endif
+      -%}
+      aria-label="{{ cta_label | escape }}"
+
       class="content-cta content-cta__solid{% if page.template_suffix contains 'rainmaker-qr-lp' or page.template_suffix contains 'rainmaker-event-qr-lp' %} add_1yr_membership_qr{% elsif request.path contains 'pages' and page.template_suffix contains 'qr-lp' %} add_6mos_membership_qr{% endif %}"
     >
       {% if request.path contains 'pages' or request.path contains 'products' and product.available %}

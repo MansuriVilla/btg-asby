@@ -427,7 +427,37 @@
       const popup = $(popupId);
       popup.data('active-form', form);
       popup.data('active-button', atcButton);
-      popup.css('display', 'flex').hide().fadeIn(300);
+      popup.css('display', 'flex').hide().fadeIn(300, function() {
+        popup.attr('tabindex', '-1').trigger('focus');
+        trapFocus(popup);
+      });
+    }
+
+    function trapFocus(popup) {
+      popup.off('keydown.trapFocus');
+      popup.on('keydown.trapFocus', function(e) {
+        if (e.key !== 'Tab') return;
+        const focusableSelectors = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+        const focusableElements = popup.find(focusableSelectors).filter(':visible');
+        if (!focusableElements.length) return;
+        const firstElement = focusableElements.first();
+        const lastElement = focusableElements.last();
+        if (e.shiftKey) { // Shift + Tab
+          if (document.activeElement === firstElement[0] || document.activeElement === popup[0]) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else { // Tab
+          if (document.activeElement === lastElement[0]) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      });
+    }
+
+    function untrapFocus(popup) {
+      popup.off('keydown.trapFocus');
     }
 
     function addToCartWithMembership(mainVariantId, membershipId, membershipPlan, onSuccess, onError) {
@@ -446,23 +476,23 @@
           });
         }
 
-        {% comment %} if (membershipExists) {
+        if (membershipExists) {
           alert('Membership is already in the cart');
+          // close the popup
+          var $popup = $('.upsell_popup--new:visible');
+          var atcButton = $popup.data('active-button');
+          untrapFocus($popup);
+          $popup.fadeOut(200, function() {
+            $popup.css('display', 'none');
+            $popup.removeData('active-form');
+            $popup.removeData('active-button');
+            if (atcButton) {
+              atcButton.trigger('focus');
+            }
+          });
           if (onError) onError();
           return;
-        } {% endcomment %}
-        if (membershipExists) {
-  alert('Membership is already in the cart');
-  // close the popup
-  var $popup = $('.upsell_popup--new:visible');
-  $popup.fadeOut(200, function() {
-    $popup.css('display', 'none');
-    $popup.removeData('active-form');
-    $popup.removeData('active-button');
-  });
-  if (onError) onError();
-  return;
-}
+        }
         const items = [];
 
         if (mainVariantId) {
@@ -591,10 +621,15 @@
         membershipPlan,
         function() {
           btn.removeClass('btn--loading');
+          const atcButton = popup.data('active-button');
+          untrapFocus(popup);
           popup.fadeOut(200, function() {
             popup.css('display', 'none');
             popup.removeData('active-form');
             popup.removeData('active-button');
+            if (atcButton) {
+              atcButton.trigger('focus');
+            }
           });
         },
         function() {
@@ -613,11 +648,15 @@
       const form      = popup.data('active-form');
       const atcButton = popup.data('active-button');
 
+      untrapFocus(popup);
       popup.removeData('active-form');
       popup.removeData('active-button');
 
       popup.fadeOut(200, function() {
         popup.css('display', 'none');
+        if (atcButton) {
+          atcButton.trigger('focus');
+        }
 
         if (form && atcButton) {
           // Get main variant ID from the stored form

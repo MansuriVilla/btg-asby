@@ -61,9 +61,23 @@
           </div>
         {% endunless %}
         <div class="section_hero--content-text">
-          <h1 class="section_hero--title">
+          {% comment %} render h2 if page already contain h1 {% endcomment %}
+              {%- assign has_h1 = false -%}
+              {%- if page.content contains '<h1' or page.content contains '<H1' or page.handle == 'careers' -%}
+                {%- assign has_h1 = true -%}
+              {%- endif -%}
+              {% if has_h1 %}
+                {% assign tag = 'h2' %}
+              {% else %}
+                {% assign tag = 'h1' %}
+              {% endif %}
+     
+              <{{tag}} class="section_hero--title">
+                {{ section.settings.custom_title }}
+              </{{tag}}>
+          {% comment %} <h1 class="section_hero--title">
             {{ section.settings.custom_title }}
-          </h1>
+          </h1> {% endcomment %}
           <div class="section_hero--description">
             {{ section.settings.custom_description }}
           </div>

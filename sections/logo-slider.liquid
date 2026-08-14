@@ -1,16 +1,16 @@
-<div id="container" class="site_ticker-logo" {%if section.settings.bg_clr != blank %}style="background:{{ section.settings.bg_clr }}"{% endif %} data-animated>
+<div id="container-{{ section.id }}" class="site_ticker-logo" {%if section.settings.bg_clr != blank %}style="background:{{ section.settings.bg_clr }}"{% endif %} data-animated>
   {%if section.settings.tickerHeading != blank %}
   <div class="ticker-heading">
     <h2 class="ticker-heading__text">{{section.settings.tickerHeading}}</h2>
   </div>
   {%endif %}
-  <ul id="list">
+  <ul id="list-{{ section.id }}">
     {% for block in section.blocks %}
       <li class="logo_item logo_item--{{ block.id }}">
         <img
           class="logo_image"
           src="{{block.settings.logo | image_url}}"
-          alt="{{block.settings.logo.alt | default: forloop.index}}"
+          alt="{{block.settings.logo.alt | default: 'Partner brand logo'}}"
           height="100%"
           width="100%"
           loading="lazy"
@@ -20,22 +20,22 @@
     {% endfor %}
   </ul>
  <div class="ticker_action--button">
-   <button
-      type="button"
-      id="carousel-control-btn"
-      class="carousel-control-btn"
-      aria-label="Pause logo carousel"
-      aria-pressed="false"
-    >
-      <svg class="pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="1" width="3" height="12" fill="currentColor"/>
-        <rect x="9" y="1" width="3" height="12" fill="currentColor"/>
-      </svg>
-      <svg class="play-icon" style="display:none;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 1.5L12 7L3 12.5V1.5Z" fill="currentColor"/>
-      </svg>
-    </button>
- </div>
+    <button
+       type="button"
+       id="carousel-control-btn-{{ section.id }}"
+       class="carousel-control-btn"
+       aria-label="Pause logo carousel"
+       aria-pressed="false"
+     >
+       <svg class="pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <rect x="2" y="1" width="3" height="12" fill="currentColor"/>
+         <rect x="9" y="1" width="3" height="12" fill="currentColor"/>
+       </svg>
+       <svg class="play-icon" style="display:none;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <path d="M3 1.5L12 7L3 12.5V1.5Z" fill="currentColor"/>
+       </svg>
+     </button>
+  </div>
 </div>
 
 <style>
@@ -78,7 +78,8 @@
 
 .carousel-control-btn:hover {
   color: #fff;
-  background: #9B9DA3;
+  background: #231F20;
+  border-color: #231F20;
 }
 
 .carousel-control-btn:focus-visible {
@@ -86,7 +87,7 @@
   outline-offset: 2px;
 }
 
-#container[data-animated].paused #list {
+#container-{{ section.id }}[data-animated].paused #list-{{ section.id }} {
   animation-play-state: paused;
 }
 
@@ -96,46 +97,69 @@
       opacity: 50%;
       margin: 0;
   }
-    #container[data-animated] { overflow: hidden; }
-    [data-animated] #list { width: max-content; animation: scroll 80s linear infinite; }
+    #container-{{ section.id }}[data-animated] { overflow: hidden; }
+    [data-animated] #list-{{ section.id }} { width: max-content; animation: scroll 80s linear infinite; }
     @keyframes scroll {
      to { translate: calc(-50% - 5px); }
      }
 </style>
 <script>
-    const list = document.querySelector('#list');
+  (function() {
+    const list = document.querySelector('#list-{{ section.id }}');
+    if (!list) return;
     const listContent = Array.from(list.children);
-   {% comment %} if (!list || list.length === 0) {
-    return;
-} {% endcomment %}
-  listContent.forEach((item) => {
-    const duplicatedItem = item.cloneNode(true);
-    duplicatedItem.setAttribute('aria-hidden', true);
-    list.appendChild(duplicatedItem);
-  });
 
-  const controlBtn = document.querySelector('#carousel-control-btn');
-  const container = document.querySelector('#container');
-  
-  if (controlBtn && container) {
-    controlBtn.addEventListener('click', function() {
-      const isPaused = container.classList.toggle('paused');
-      controlBtn.setAttribute('aria-pressed', isPaused);
-      
-      const pauseIcon = controlBtn.querySelector('.pause-icon');
-      const playIcon = controlBtn.querySelector('.play-icon');
-      
-      if (isPaused) {
-        controlBtn.setAttribute('aria-label', 'Play logo carousel');
-        pauseIcon.style.display = 'none';
-        playIcon.style.display = 'block';
-      } else {
-        controlBtn.setAttribute('aria-label', 'Pause logo carousel');
-        pauseIcon.style.display = 'block';
-        playIcon.style.display = 'none';
-      }
+    listContent.forEach((item) => {
+      const duplicatedItem = item.cloneNode(true);
+      duplicatedItem.setAttribute('aria-hidden', true);
+      list.appendChild(duplicatedItem);
     });
-  }
+
+    const controlBtn = document.querySelector('#carousel-control-btn-{{ section.id }}');
+    const container = document.querySelector('#container-{{ section.id }}');
+    
+    if (controlBtn && container) {
+      controlBtn.addEventListener('click', function() {
+        const isPaused = container.classList.toggle('paused');
+        controlBtn.setAttribute('aria-pressed', isPaused);
+        
+        const pauseIcon = controlBtn.querySelector('.pause-icon');
+        const playIcon = controlBtn.querySelector('.play-icon');
+        
+        if (isPaused) {
+          controlBtn.setAttribute('aria-label', 'Play logo carousel');
+          pauseIcon.style.display = 'none';
+          playIcon.style.display = 'block';
+        } else {
+          controlBtn.setAttribute('aria-label', 'Pause logo carousel');
+          pauseIcon.style.display = 'block';
+          playIcon.style.display = 'none';
+        }
+      });
+
+      // Hover to pause
+      container.addEventListener('mouseenter', function() {
+        container.classList.add('paused');
+      });
+      container.addEventListener('mouseleave', function() {
+        const isPressed = controlBtn.getAttribute('aria-pressed') === 'true';
+        if (!isPressed) {
+          container.classList.remove('paused');
+        }
+      });
+
+      // Keyboard focus to pause
+      container.addEventListener('focusin', function() {
+        container.classList.add('paused');
+      });
+      container.addEventListener('focusout', function() {
+        const isPressed = controlBtn.getAttribute('aria-pressed') === 'true';
+        if (!isPressed) {
+          container.classList.remove('paused');
+        }
+      });
+    }
+  })();
 </script>
 
 {% schema %}

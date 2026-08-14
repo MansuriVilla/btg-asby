@@ -1,4 +1,4 @@
-    <h1 class="section-header__title" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Customize Your Golf Gear – Blue Tees Golf</h1>
+    {% comment %} <h1 class="section-header__title" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Customize Your Golf Gear – Blue Tees Golf</h1> {% endcomment %}
 <div class="customize_game_page_bg">
   <div class="customize_game_top_bg">
     <div class="customize_game_left_text">
@@ -20,7 +20,7 @@
             >
           </picture> {% endcomment %}
 
-          <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-word-mark-logo.svg?v=1784629055" alt="hero hero" style="max-width: clamp(200px,24vw,420px);width: 100%;margin-bottom: 6px;">
+          <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-word-mark-logo.svg?v=1784629055" alt="Blue Tees Golf" style="max-width: clamp(200px,24vw,420px);width: 100%;margin-bottom: 6px;">
  <div style="color:var(--new-black);background:#00d500;line-height:1;border-radius:3px;padding:5px 10px;display: inline-flex;margin-bottom: 3px;font-family: Blue Tees Subhead;font-size: 10px;text-transform: uppercase;">LIMITED TIME: 6 UNIT MINIMUM ORDER</div>
 
              <h1 class="section_heading--custom page_heading">
@@ -101,7 +101,7 @@
 
 
   <div class="customize_freeshopping_bg">
-    <img src="{{'customs-icon-fff.svg' | asset_url}}" alt="Promotional banner showing three perks: 30 days turnaround, free artwork preparation & proof, and 12 units minimum order.">
+    <img src="{{'customs-icon-fff.svg' | asset_url}}" alt="">
     <p>*Additional $40 charge if logo has to be redrawn</p>
   </div>
 
@@ -1080,7 +1080,8 @@
 
 .carousel-control-btn:hover {
   color: #fff;
-  background: #9B9DA3;
+  background: #231F20;
+  border-color: #231F20;
 }
 
 .carousel-control-btn:focus-visible {
@@ -1091,7 +1092,7 @@
           .steps_bug { background: var(--new-blue); border-radius: 50px; height: 50px; width: 50px; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: 900; font-size: 18px; }
           .paige_video-bottom { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; row-gap: clamp(33px, 5vw, 60px); }
           .title_img { max-width: 700px; width: 100%;}
-          .sub_title--text { padding: 0; color: var(--new-blue); margin-bottom: 15px; font-weight: 900; letter-spacing: 0.8px; }
+          .sub_title--text { padding: 0; color: #2d6fff; margin-bottom: 15px; font-weight: 900; letter-spacing: 0.8px; }
           .section_decs { color: #fff; padding: 0; max-width: 640px; width: 100%; margin: 0 auto; letter-spacing: 0.8px; line-height: 150%; }
           .three_d-content .section_decs { max-width: 680px; margin-bottom: 40px; }
           .uv_content .section_decs { margin-bottom: 50px; }
@@ -1270,7 +1271,7 @@
             // 1. Required fields note
             const requiredNote = document.createElement('p');
             requiredNote.className = 'hs-a11y-required-note';
-            requiredNote.style.color = '#F00000';
+            requiredNote.style.color = 'rgb(225, 50, 0)';
             requiredNote.style.fontSize = '14px';
             requiredNote.style.marginBottom = '15px';
             requiredNote.textContent = '* indicates required fields';
@@ -1291,7 +1292,7 @@
 
                     if (hasError) {
                         // Error State - Red Border
-                        input.style.border = '1.4px solid #F00000';
+                        input.style.border = '1.4px solid rgb(225, 50, 0)';
                         input.style.boxShadow = '0 0 0 3px rgba(240, 0, 0, 0.1)';
                     } else {
                         // Normal State - Black Border
@@ -1324,13 +1325,28 @@
             }
             styleSubmitButton();
 
-            // 3. Error Messages Color
+            // 3. Error Messages Color + ARIA Alert Wrapper Fix
             const errorObserver = new MutationObserver(() => {
                 form.querySelectorAll('.hs-error-msgs').forEach(errorContainer => {
-                    errorContainer.style.color = '#F00000';
+                    // Fix validation error container role on UL element
+                    if (errorContainer.tagName === 'UL' && errorContainer.getAttribute('role') === 'alert') {
+                        errorContainer.removeAttribute('role');
+                        
+                        // Wrap the UL in a div with role="alert" for clean semantics
+                        if (!errorContainer.parentElement.classList.contains('hs-error-alert-wrapper')) {
+                            const wrapper = document.createElement('div');
+                            wrapper.className = 'hs-error-alert-wrapper';
+                            wrapper.setAttribute('role', 'alert');
+                            
+                            errorContainer.parentNode.insertBefore(wrapper, errorContainer);
+                            wrapper.appendChild(errorContainer);
+                        }
+                    }
+
+                    errorContainer.style.color = 'rgb(225, 50, 0)';
 
                     const errorTexts = errorContainer.querySelectorAll('label, li, span, div');
-                    errorTexts.forEach(el => el.style.color = '#F00000');
+                    errorTexts.forEach(el => el.style.color = 'rgb(225, 50, 0)');
                 });
 
                 // Update borders whenever errors appear/disappear
@@ -1609,6 +1625,30 @@
         },
       });
 
+      // Pause on hover
+      container.addEventListener('mouseenter', () => {
+        if (sliderTween && isPlaying) {
+          sliderTween.pause();
+        }
+      });
+      container.addEventListener('mouseleave', () => {
+        if (sliderTween && isPlaying) {
+          sliderTween.play();
+        }
+      });
+
+      // Pause on focusin / focusout for keyboard users
+      container.addEventListener('focusin', () => {
+        if (sliderTween && isPlaying) {
+          sliderTween.pause();
+        }
+      });
+      container.addEventListener('focusout', () => {
+        if (sliderTween && isPlaying) {
+          sliderTween.play();
+        }
+      });
+
   // Toggle Play/Pause
   function toggleSlider() {
     if (!sliderTween) return;
@@ -1685,9 +1725,6 @@ slideInView();
   var lastFocusedElement;
 
   function trapFocus(element) {
-    var focusableEls = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])');
-    var firstFocusableEl = focusableEls[0];  
-    var lastFocusableEl = focusableEls[focusableEls.length - 1];
     var KEYCODE_TAB = 9;
 
     $(element).off('keydown.trap').on('keydown.trap', function(e) {
@@ -1695,6 +1732,17 @@ slideInView();
       if (!isTabPressed) { 
         return; 
       }
+      
+      var focusableEls = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])');
+      var visibleFocusableEls = Array.prototype.filter.call(focusableEls, function(el) {
+        return el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0;
+      });
+
+      if (visibleFocusableEls.length === 0) return;
+
+      var firstFocusableEl = visibleFocusableEls[0];  
+      var lastFocusableEl = visibleFocusableEls[visibleFocusableEls.length - 1];
+
       if (e.shiftKey) /* shift + tab */ {
         if (document.activeElement === firstFocusableEl) {
           lastFocusableEl.focus();

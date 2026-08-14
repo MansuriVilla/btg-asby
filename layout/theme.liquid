@@ -298,9 +298,20 @@
       h1.visually-hidden.custom_h1_tag{display:none;}
     {% endstyle %}
 
-    {%- if request.path contains 'pages' and page.metafields.custom.seo_title_h1_tag != blank -%}
-      <h1 class="visually-hidden custom_h1_tag">{{ page.metafields.custom.seo_title_h1_tag }}</h1>
+    {%- capture captured_content -%}{{ content_for_layout }}{%- endcapture -%}
+    {%- assign has_h1 = false -%}
+    {%- if captured_content contains '<h1' or captured_content contains '<H1' -%}
+      {%- assign has_h1 = true -%}
     {%- endif -%}
+
+    {%- unless has_h1 -%}
+      {%- if request.path contains 'pages' and page.metafields.custom.seo_title_h1_tag != blank -%}
+        <h1 class="visually-hidden custom_h1_tag">{{ page.metafields.custom.seo_title_h1_tag }}</h1>
+      {%- endif -%}
+      {%- if request.path contains 'collections' and collection.metafields.custom.seo_title_h1 != blank -%}
+        <h1 class="visually-hidden custom_h1_tag">{{ collection.metafields.custom.seo_title_h1 }}</h1>
+      {%- endif -%}
+    {%- endunless -%}
 
     {%- if template.name == 'index' -%}
       <h1 class="visually-hidden custom_h1_tag">
@@ -308,9 +319,6 @@
       </h1>
     {%- endif -%}
 
-    {%- if request.path contains 'collections' and collection.metafields.custom.seo_title_h1 != blank -%}
-      <h1 class="visually-hidden custom_h1_tag">{{ collection.metafields.custom.seo_title_h1 }}</h1>
-    {%- endif -%}
 
     <script
       id="script_tag_id"
@@ -644,8 +652,8 @@
         predictiveSearch: {{ settings.predictive_search_enabled }},
         predictiveSearchType: {{ settings.search_type | json }},
         quickView: {{ settings.quick_shop_enable }},
-        themeName: 'Impulse',
-        themeVersion: "5.5.3"
+        themeName: 'Blueteesgolf',
+        themeVersion: "1.1"
       };
     </script>
 
@@ -760,7 +768,7 @@
         {% render 'loop_loader' %}
       {%- endif -%}
 
-      {{ content_for_layout }}
+      {{ captured_content }}
     </main>
     {%- section 'new-footer' -%}
 
@@ -931,13 +939,30 @@
 
     <script>
       (function () {
-        // Global patch for autoplay carousels
+        // Global patch for autoplay carousels and general accessibility tags
         if (typeof jQuery !== 'undefined' && jQuery.fn && jQuery.fn.owlCarousel) {
           var originalOwl = jQuery.fn.owlCarousel;
           jQuery.fn.owlCarousel = function (options) {
             options = options || {};
+            var $carousel = this;
+            $carousel.each(function () {
+              var $el = jQuery(this);
+              $el.attr('role', 'region');
+              $el.attr('aria-roledescription', 'carousel');
+              if (!$el.attr('aria-label') && !$el.attr('aria-labelledby')) {
+                var titleText = 'Image slider';
+                var section = $el.closest('section, .shopify-section, .new-offer_main');
+                if (section.length) {
+                  var heading = section.find('h1, h2, h3').first();
+                  if (heading.length) {
+                    titleText = heading.text().trim() + ' gallery';
+                  }
+                }
+                $el.attr('aria-label', titleText);
+              }
+            });
+
             if (options.autoplay === true) {
-              var $carousel = this;
               $carousel.on('initialized.owl.carousel', function (event) {
                 setTimeout(function () {
                   var $dots = $carousel.find('.owl-dots');
@@ -1097,38 +1122,120 @@
           const trigger = event.target.closest('.owl-prev, .owl-next');
           if (trigger) {
             const carousel = trigger.closest('.owl-carousel');
-            if (carousel && !carousel.querySelector('.owl-dots')) {
+            if (carousel) {
               setTimeout(() => {
+                // Update inert attribute on inactive slides
                 const items = Array.from(carousel.querySelectorAll('.owl-item'));
-                const activeItems = items.filter((item) => item.classList.contains('active'));
-                const nonClonedItems = items.filter((item) => !item.classList.contains('cloned'));
-                const total = nonClonedItems.length || items.length;
-                if (activeItems.length > 0) {
-                  const index = items.indexOf(activeItems[0]);
-                  const slideNum = (index % total) + 1;
-                  let title = carousel.getAttribute('aria-label') || carousel.getAttribute('title');
-                  if (!title) {
-                    const section = carousel.closest('section, .shopify-section, .new-offer_main');
-                    if (section) {
-                      const heading = section.querySelector('h1, h2, h3');
-                      if (heading) {
-                        title = heading.textContent.trim();
+                items.forEach((item) => {
+                  const isActive = item.classList.contains('active');
+                  if (isActive) {
+                    item.removeAttribute('inert');
+                    item.removeAttribute('aria-hidden');
+                    item.querySelectorAll('a, button, input, select, textarea, [tabindex]').forEach((focusable) => {
+                      if (focusable.dataset.prevTabindex !== undefined) {
+                        focusable.setAttribute('tabindex', focusable.dataset.prevTabindex);
+                      } else {
+                        focusable.removeAttribute('tabindex');
+                      }
+                    });
+                  } else {
+                    item.setAttribute('inert', 'true');
+                    item.setAttribute('aria-hidden', 'true');
+                    item.querySelectorAll('a, button, input, select, textarea, [tabindex]').forEach((focusable) => {
+                      if (!focusable.hasAttribute('data-prev-tabindex')) {
+                        focusable.setAttribute('data-prev-tabindex', focusable.getAttribute('tabindex') || '0');
+                      }
+                      focusable.setAttribute('tabindex', '-1');
+                    });
+                  }
+                });
+
+                if (!carousel.querySelector('.owl-dots')) {
+                  const activeItems = items.filter((item) => item.classList.contains('active'));
+                  const nonClonedItems = items.filter((item) => !item.classList.contains('cloned'));
+                  const total = nonClonedItems.length || items.length;
+                  if (activeItems.length > 0) {
+                    const index = items.indexOf(activeItems[0]);
+                    const slideNum = (index % total) + 1;
+                    let title = carousel.getAttribute('aria-label') || carousel.getAttribute('title');
+                    if (!title) {
+                      const section = carousel.closest('section, .shopify-section, .new-offer_main');
+                      if (section) {
+                        const heading = section.querySelector('h1, h2, h3');
+                        if (heading) {
+                          title = heading.textContent.trim();
+                        }
                       }
                     }
+                    title = title || 'Carousel';
+                    if (title.length > 50) {
+                      title = title.substring(0, 47) + '...';
+                    }
+                    announceSlideChange(title + ': Slide ' + slideNum + ' of ' + total);
                   }
-                  title = title || 'Carousel';
-                  if (title.length > 50) {
-                    title = title.substring(0, 47) + '...';
-                  }
-                  announceSlideChange(title + ': Slide ' + slideNum + ' of ' + total);
                 }
               }, 300);
             }
           }
         });
 
+        // Setup MutationObserver to watch class changes on owl-item for active/inactive state
+        const slideObserver = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              const target = mutation.target;
+              if (target.classList.contains('owl-item')) {
+                const isActive = target.classList.contains('active');
+                if (isActive) {
+                  target.removeAttribute('inert');
+                  target.removeAttribute('aria-hidden');
+                  target.querySelectorAll('a, button, input, select, textarea, [tabindex]').forEach((focusable) => {
+                    if (focusable.dataset.prevTabindex !== undefined) {
+                      focusable.setAttribute('tabindex', focusable.dataset.prevTabindex);
+                    } else {
+                      focusable.removeAttribute('tabindex');
+                    }
+                  });
+                } else {
+                  target.setAttribute('inert', 'true');
+                  target.setAttribute('aria-hidden', 'true');
+                  target.querySelectorAll('a, button, input, select, textarea, [tabindex]').forEach((focusable) => {
+                    if (!focusable.hasAttribute('data-prev-tabindex')) {
+                      focusable.setAttribute('data-prev-tabindex', focusable.getAttribute('tabindex') || '0');
+                    }
+                    focusable.setAttribute('tabindex', '-1');
+                  });
+                }
+              }
+            }
+          });
+        });
+
+        slideObserver.observe(document.body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['class'],
+        });
+
         // Run once for static elements
         document.querySelectorAll('.owl-dots').forEach(updateOwlDots);
+        document.querySelectorAll('.owl-carousel').forEach((carousel) => {
+          carousel.querySelectorAll('.owl-item').forEach((item) => {
+            const isActive = item.classList.contains('active');
+            if (isActive) {
+              item.removeAttribute('inert');
+              item.removeAttribute('aria-hidden');
+            } else {
+              item.setAttribute('inert', 'true');
+              item.setAttribute('aria-hidden', 'true');
+              item.querySelectorAll('a, button, input, select, textarea, [tabindex]').forEach((focusable) => {
+                focusable.setAttribute('data-prev-tabindex', focusable.getAttribute('tabindex') || '0');
+                focusable.setAttribute('tabindex', '-1');
+              });
+            }
+          });
+        });
       })();
 
       // Accessibility fixes for Loop Subscriptions page (/a/loop_subscriptions/)

@@ -531,6 +531,23 @@
         <div class="geore_gankas_box_bg-new new_box">
           <p style="padding: 0">READ A FEW OF OUR 2,000+ 5 STAR REVIEWS</p>
           <div class="custom-review-section">
+            <div class="ticker_action--button review-slider-controls" style="display:flex; justify-content: flex-end; padding-inline: 40px; margin-bottom: 10px;">
+              <button
+                type="button"
+                id="review-carousel-control-btn"
+                class="carousel-control-btn"
+                aria-label="Pause reviews carousel"
+                aria-pressed="false"
+              >
+                <svg class="pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="1" width="3" height="12" fill="currentColor"/>
+                  <rect x="9" y="1" width="3" height="12" fill="currentColor"/>
+                </svg>
+                <svg class="play-icon" style="display:none;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 1.5L12 7L3 12.5V1.5Z" fill="currentColor"/>
+                </svg>
+              </button>
+            </div>
             <div class="review-slider owl-carousel">
               <div class="item">
                 <div class="review-block">
@@ -760,7 +777,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-1.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: Golf Digest"
               >
             </li>
             <li>
@@ -769,7 +786,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-2.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: MyGolfSpy"
               >
             </li>
             <li>
@@ -778,7 +795,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-3.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: GOLF.com"
               >
             </li>
             <li>
@@ -787,7 +804,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-4.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: PGA Tour"
               >
             </li>
             <li>
@@ -796,7 +813,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-5.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: Golf Channel"
               >
             </li>
             <li>
@@ -805,7 +822,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-7.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: Wired"
               >
             </li>
             <li>
@@ -814,7 +831,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-8.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: Forbes"
               >
             </li>
             <li>
@@ -823,7 +840,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-9.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: Hypebeast"
               >
             </li>
             <li>
@@ -832,7 +849,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-10.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: Gear Patrol"
               >
             </li>
             <li>
@@ -841,7 +858,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-11.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: Golfweek"
               >
             </li>
             <li>
@@ -850,7 +867,7 @@
                 loading="lazy"
                 decoding="async"
                 src="{{'featured-slider-img-12.png' | asset_url}}"
-                alt="You Are Seeing logos In Which Blue Tees Golf Featured"
+                alt="Featured publication logo: Men's Journal"
               >
             </li>
           </ul>
@@ -904,6 +921,28 @@
                 controlBtn.setAttribute('aria-label', 'Pause logo carousel');
                 pauseIcon.style.display = 'block';
                 playIcon.style.display = 'none';
+              }
+            });
+
+            // Hover to pause
+            container.addEventListener('mouseenter', function() {
+              container.classList.add('paused');
+            });
+            container.addEventListener('mouseleave', function() {
+              const isPressed = controlBtn.getAttribute('aria-pressed') === 'true';
+              if (!isPressed) {
+                container.classList.remove('paused');
+              }
+            });
+
+            // Keyboard focus to pause
+            container.addEventListener('focusin', function() {
+              container.classList.add('paused');
+            });
+            container.addEventListener('focusout', function() {
+              const isPressed = controlBtn.getAttribute('aria-pressed') === 'true';
+              if (!isPressed) {
+                container.classList.remove('paused');
               }
             });
           }
@@ -1634,7 +1673,7 @@
             .featured-section_slider #container { width: auto; display: flex; flex-direction: column; }
             .featured-section_slider .ticker_action--button { display: flex; justify-content: flex-end;     padding-inline: 20px;
     padding-block: 0 20px; }
-            .featured-section_slider .carousel-control-btn {
+            .carousel-control-btn {
               background: transparent;
               border: 1px solid #9B9DA3;
               border-radius: 50%;
@@ -1648,11 +1687,12 @@
               padding: 0;
               transition: all 0.2s ease;
             }
-            .featured-section_slider .carousel-control-btn:hover {
+            .carousel-control-btn:hover {
               color: #fff;
-              background: #9B9DA3;
+              background: #231F20;
+              border-color: #231F20;
             }
-            .featured-section_slider .carousel-control-btn:focus-visible {
+            .carousel-control-btn:focus-visible {
               outline: 2px solid var(--new-blue);
               outline-offset: 2px;
             }
@@ -2053,9 +2093,11 @@
           items: 1,
         });
 
-        $(".review-slider").owlCarousel({
+        var owl = $(".review-slider").owlCarousel({
           loop: true,
           autoplay: true,
+          autoplayTimeout: 5000,
+          autoplayHoverPause: true,
           margin: 20,
           nav: true,
           dots: true,
@@ -2078,6 +2120,40 @@
               items: 4,
             },
           },
+        });
+
+        // Play/Pause button control
+        const reviewControlBtn = document.getElementById('review-carousel-control-btn');
+        if (reviewControlBtn) {
+          reviewControlBtn.addEventListener('click', function() {
+            const isPaused = reviewControlBtn.getAttribute('aria-pressed') === 'true';
+            const pauseIcon = reviewControlBtn.querySelector('.pause-icon');
+            const playIcon = reviewControlBtn.querySelector('.play-icon');
+            
+            if (isPaused) {
+              owl.trigger('play.owl.autoplay', [5000]);
+              reviewControlBtn.setAttribute('aria-pressed', 'false');
+              reviewControlBtn.setAttribute('aria-label', 'Pause reviews carousel');
+              pauseIcon.style.display = 'block';
+              playIcon.style.display = 'none';
+            } else {
+              owl.trigger('stop.owl.autoplay');
+              reviewControlBtn.setAttribute('aria-pressed', 'true');
+              reviewControlBtn.setAttribute('aria-label', 'Play reviews carousel');
+              pauseIcon.style.display = 'none';
+              playIcon.style.display = 'block';
+            }
+          });
+        }
+
+        // Pause on focusin / focusout for keyboard accessibility
+        $(".review-slider").on('focusin', function() {
+          owl.trigger('stop.owl.autoplay');
+        }).on('focusout', function() {
+          const isPaused = reviewControlBtn && reviewControlBtn.getAttribute('aria-pressed') === 'true';
+          if (!isPaused) {
+            owl.trigger('play.owl.autoplay', [5000]);
+          }
         });
         var lastActiveElement = null;
         $(".poptrigger").click(function () {

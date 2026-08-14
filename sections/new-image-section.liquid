@@ -1,4 +1,8 @@
 {% liquid
+  assign parent_title = product.title | default: collection.title | default: page.title | default: shop.name | escape
+  assign fallback_alt = parent_title | append: ' ' | append: section.index
+  assign image_alt = section.settings.sectionImage.alt | default: fallback_alt
+
   assign section_loading = 'lazy'
   assign section_fetchpriority = 'auto'
   if section.index == 1 or section.index == nil or section.settings.eager_load
@@ -16,6 +20,7 @@
       section.settings.sectionImage
       | image_url: width: 1800
       | image_tag:
+        alt: image_alt,
         loading: section_loading,
         fetchpriority: section_fetchpriority,
         widths: '400,600,800,1200,1600,1800,2400',
@@ -35,6 +40,7 @@
   .section-image picture img {
   width: 100%;
 }
+
 </style>
 
 {% schema %}

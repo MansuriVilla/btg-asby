@@ -1,11 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Impulse",
-    "theme_author": "Archetype Themes",
-    "theme_version": "5.5.3",
-    "theme_documentation_url": "https://archetypethemes.co/blogs/impulse",
-    "theme_support_url": "https://archetypethemes.co/pages/support#impulse"
+    "theme_name": "Blueteesgolf",
+    "theme_author": "Blueteesgolf Themes",
+    "theme_version": "1.1",
+    "theme_documentation_url": "https://blueteesgolf.com/",
+    "theme_support_url": "https://blueteesgolf.com/"
   },
   {
     "name": "t:settings_schema.colors.name",

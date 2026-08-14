@@ -1,15 +1,4 @@
-/*
-@license
-  Impulse by Archetype Themes (https://archetypethemes.co)
-  Access unminified JS in assets/theme.js
 
-  Use this event listener to run your own JS outside of this file.
-  Documentation - https://archetypethemes.co/blogs/impulse/javascript-events-for-developers
-
-  document.addEventListener('page:loaded', function() {
-    // Page has loaded and theme assets are ready
-  });
-*/
 
 window.theme = window.theme || {};
 window.Shopify = window.Shopify || {};
@@ -32,7 +21,7 @@ if (theme.config.isTouch) {
 }
 
 if (console && console.log) {
-  console.log('Impulse theme ('+theme.settings.themeVersion+') by ARCHΞTYPE | Learn more at https://archetypethemes.co');
+  console.log('Blueteesgolf theme ('+theme.settings.themeVersion+') by blueteesgolf | Learn more at blueteesgolf.com');
 }
 
 theme.recentlyViewed = {
@@ -1863,7 +1852,7 @@ lazySizesConfig.expFactor = 4;
         if (window.AOS) { AOS.refreshHard() }
 
         var liveRegion = document.getElementById('a11y-live-region');
-        if (liveRegion) {
+        if (liveRegion && !theme.preventGeneralAnnounce) {
           setTimeout(function() {
              var formattedSubtotal = theme.Currency.formatMoney(subtotal, theme.settings.moneyFormat).replace(/<\/?[^>]+(>|$)/g, "");
              liveRegion.textContent = 'Cart updated. Subtotal is now ' + formattedSubtotal;
@@ -2429,6 +2418,7 @@ lazySizesConfig.expFactor = 4;
   
         theme.a11y.trapFocus({
           container: this.drawer,
+          elementToFocus: this.drawer.querySelector('.drawer__title') || this.drawer,
           namespace: 'drawer_focus'
         });
   
@@ -4414,6 +4404,18 @@ lazySizesConfig.expFactor = 4;
           this.input.value = qty;
 
           if (this.options.isCart) {
+            // Save active element for focus restoration
+            var activeBtn = document.activeElement;
+            if (activeBtn && activeBtn.classList.contains('js-qty__adjust')) {
+               var inputEl = activeBtn.parentElement.querySelector('.js-qty__num');
+               if (inputEl) {
+                 theme.lastFocusedQtyBtn = {
+                   id: inputEl.id,
+                   action: activeBtn.classList.contains('js-qty__adjust--plus') ? 'plus' : 'minus'
+                 };
+               }
+            }
+
             var self = this;
             var lineKey = this.options.key;
             var hasFreeGift =
@@ -4434,6 +4436,38 @@ lazySizesConfig.expFactor = 4;
             })
               .then(res => res.json())
               .then(cart => {
+                // A11y announcement
+                var updatedItem = cart.items.find(item => item.key === lineKey || item.id == lineKey || item.variant_id == lineKey);
+                var actionText = 'updated';
+                if (theme.lastFocusedQtyBtn && theme.lastFocusedQtyBtn.action) {
+                  actionText = theme.lastFocusedQtyBtn.action === 'plus' ? 'increased' : 'decreased';
+                }
+                var productTitle = '';
+                var itemEl = self.wrapper.closest('.cart__item');
+                if (itemEl) {
+                  var titleEl = itemEl.querySelector('.cart__item-name');
+                  if (titleEl) productTitle = titleEl.textContent.trim();
+                }
+
+                var announcement = '';
+                var formattedSubtotal = theme.Currency.formatMoney(cart.total_price, theme.settings.moneyFormat).replace(/<\/?[^>]+(>|$)/g, "");
+                if (updatedItem) {
+                  announcement = (updatedItem.product_title || productTitle) + " quantity " + actionText + " to " + updatedItem.quantity + ". Subtotal is now " + formattedSubtotal + ".";
+                } else if (qty === 0) {
+                  announcement = (productTitle || "Item") + " removed from cart. Subtotal is now " + formattedSubtotal + ".";
+                }
+
+                if (announcement) {
+                  var liveRegion = document.getElementById('a11y-live-region');
+                  if (liveRegion) {
+                    theme.preventGeneralAnnounce = true;
+                    setTimeout(function() {
+                      liveRegion.textContent = announcement;
+                      theme.preventGeneralAnnounce = false;
+                    }, 150);
+                  }
+                }
+
                 // 2. If main product removed, also remove free variant
                 if (qty === 0 && hasFreeGift) {
                   return removeFreeGiftIfPresentByVariant(self.variantId);

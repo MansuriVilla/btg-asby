@@ -1,16 +1,12 @@
 {% assign prod_handle = false %}
 
-{% if product.handle contains 'extend'
-  or product.handle contains 'gift' or product.handle contains 'hat'
-%}
+{% if product.handle contains 'extend' or product.handle contains 'gift' or product.handle contains 'hat' %}
   {% assign prod_handle = true %}
 {% endif %}
 
 {% comment %} {% assign popup_map = 'magnetic-golf-towel:accessoriesPopUp,player-pack:bundlePopUp,series-3-max-golf-rangefinder-with-slope:rangfinderPopUp,playmaker-watch:playermakerplus,ringer:ringerPopUp,magnetic-golf-speaker:playergoPopUp,series-4-ultra-rangefinder:rangfinderPopUp,rangefinder-series-2-pro:rangfinderPopUp,magnetic-hub:accessoriesPopUp,divot-repair-tool:accessoriesPopUp,watch-hard-shell-carrying-case:accessoriesPopUp,player-soft-drawstring-carrying-case:accessoriesPopUp,ringer-hard-shell-carrying-case:accessoriesPopUp,series-3-max-rangefinder-hard-case:accessoriesPopUp,rangefinder-magnetic-strap:accessoriesPopUp,blue-tees-og-script-rope-hat:accessoriesPopUp,play-different-hat-by-melin:accessoriesPopUp,series-2-rangefinder-hard-case:accessoriesPopUp,player-hard-shell-carrying-case:accessoriesPopUp,rangefinder-hard-case-navyaccessoriesPopUp' %}{% endcomment %}
 {% unless prod_handle %}
-  {% assign popup_map = 'rainmaker:one_year_popup,player-pro:six_month_popup,captain-pro:six_month_popup,captain-air:six_month_popup'
-    | split: ','
-  %}
+  {% assign popup_map = 'rainmaker:one_year_popup,player-pro:six_month_popup,captain-pro:six_month_popup,captain-air:six_month_popup' | split: ',' %}
   {% assign default_popup = 'one_month_popup' %}
   {% assign selected_popup = default_popup %}
 
@@ -36,35 +32,24 @@
   <div class="bonus-upshell__box">
     <div class="box__inner">
       <div class="box__left">
-        {% if product.handle == 'player-gps-speaker' %}
-          <img
-            decoding="async"
-            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-icon-pp.png?v=1763451704"
-            alt="{{ product.title }} bonus membership"
-            width="40"
-            height="30"
-            loading="eager"
-          >
-        {% elsif product.template_suffix == 'rainmaker' %}
-          <img
-            decoding="async"
-            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-icon-pp_2.png?v=1770621990"
-            alt="{{ product.title }} bonus membership"
-            width="40"
-            height="30"
-            loading="eager"
-          >
-        {% else %}
-          <img
-            decoding="async"
-            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/IntelligenceTierSubscription_thumbnail.png?v=1779923805"
-            alt="{{ product.title }} bonus membership"
-            width="40"
-            height="30"
-            loading="eager"
-            style="background: #fff;"
-          >
-        {% endif %}
+        {% case product.template_suffix %}
+          {% when 'player-gps-speaker' %}
+            {% assign bonus_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-icon-pp.png?v=1763451704' %}
+          {% when 'rainmaker' %}
+            {% assign bonus_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-icon-pp_2.png?v=1770621990' %}
+          {% else %}
+            {% assign bonus_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/IntelligenceTierSubscription_thumbnail.png?v=1779923805' %}
+        {% endcase %}
+
+        <img
+          src="{{bonus_image}}"
+          alt="{{ product.title }} Bonus Membership"
+          width="40"
+          height="30"
+          loading="eager"
+          decoding="async"
+          style="background: #fff;"
+        >
       </div>
       <div class="box__right">
         <div class="right_inner">
@@ -98,7 +83,7 @@
                   <path d="M5.63921 7.95679H6.69966V4.77544H5.63921V7.95679ZM6.16944 3.71499C6.31967 3.71499 6.44568 3.66409 6.54749 3.56229C6.64929 3.46048 6.70001 3.33464 6.69966 3.18477C6.69931 3.03489 6.64841 2.90905 6.54696 2.80725C6.44551 2.70544 6.31967 2.65454 6.16944 2.65454C6.01921 2.65454 5.89336 2.70544 5.79192 2.80725C5.69047 2.90905 5.63956 3.03489 5.63921 3.18477C5.63886 3.33464 5.68976 3.46066 5.79192 3.56282C5.89407 3.66497 6.01991 3.7157 6.16944 3.71499ZM6.16944 10.6079C5.43596 10.6079 4.74667 10.4686 4.10156 10.1901C3.45645 9.91155 2.8953 9.53385 2.4181 9.05701C1.94089 8.58016 1.5632 8.019 1.28501 7.37354C1.00681 6.72808 0.867542 6.03879 0.867188 5.30567C0.866835 4.57254 1.00611 3.88325 1.28501 3.23779C1.5639 2.59233 1.9416 2.03117 2.4181 1.55433C2.89459 1.07748 3.45575 0.69978 4.10156 0.421235C4.74737 0.14269 5.43667 0.00341797 6.16944 0.00341797C6.90221 0.00341797 7.5915 0.14269 8.23731 0.421235C8.88313 0.69978 9.44428 1.07748 9.92078 1.55433C10.3973 2.03117 10.7751 2.59233 11.0544 3.23779C11.3336 3.88325 11.4727 4.57254 11.4717 5.30567C11.4706 6.03879 11.3314 6.72808 11.0539 7.37354C10.7764 8.019 10.3987 8.58016 9.92078 9.05701C9.44287 9.53385 8.88171 9.91173 8.23731 10.1906C7.59291 10.4695 6.90362 10.6086 6.16944 10.6079Z" fill="#717171"></path>
                 </svg>
               </span>
-              <span class="slash-out-price">
+              <span class="visually-hidden">Original price: 
                 {% if app_upsell == 'six_month' %}
                   $39.50
                 {% elsif app_upsell == 'one_year' %}
@@ -107,6 +92,16 @@
                   $6.50
                 {% endif %}
               </span>
+              <span class="slash-out-price" aria-hidden="true">
+                {% if app_upsell == 'six_month' %}
+                  $39.50
+                {% elsif app_upsell == 'one_year' %}
+                  $79.99
+                {% else %}
+                  $6.50
+                {% endif %}
+              </span>
+              <span class="visually-hidden">, Current price:</span>
               <b>FREE</b>
             </p>
           </div>

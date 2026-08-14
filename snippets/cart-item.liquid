@@ -23,7 +23,7 @@
         assign img_url = product.image | img_url: '400x'
       endif
     %}
-    <a href="{{ product.url }}" style="height: 0; padding-bottom: {{ 100 | divided_by: product.image.aspect_ratio }}%;">
+    <a href="{{ product.url }}" tabindex="-1" aria-hidden="true" style="height: 0; padding-bottom: {{ 100 | divided_by: product.image.aspect_ratio }}%;">
       <img
         class="lazyload"
         {% if img_url != blank %}
@@ -84,7 +84,7 @@
     </div>
     <div class="quantity-add">
       <div class="js-qty__wrapper">
-        <label for="cart_updates_{{ product.key }}" class="hidden-label">{{ 'cart.label.quantity' | t }}</label>
+        <label for="cart_updates_{{ product.key }}" class="cart__qty-label">Qty: <span class="visually-hidden">for {{ product.product.title | escape }}</span></label>
         <input
           type="text"
           id="cart_updates_{{ product.key }}"
@@ -94,6 +94,7 @@
           min="0"
           pattern="[0-9]*"
           data-id="{{ product.key }}"
+          aria-label="Quantity for {{ product.product.title | escape }}"
         >
         <button
           type="button"

@@ -486,9 +486,40 @@
             </div>
           </div>
         </div>
+        <button 
+          id="marquee-slider-toggle" 
+          class="slider-toggle-btn carousel-control-btn"
+          aria-label="Pause slider animation"
+          aria-pressed="false"
+          aria-controls="slider-images-container"
+        >
+          <svg class="pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="1" width="3" height="12" fill="currentColor"/>
+            <rect x="9" y="1" width="3" height="12" fill="currentColor"/>
+          </svg>
+          <svg class="play-icon" style="display:none;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 1.5L12 7L3 12.5V1.5Z" fill="currentColor"/>
+          </svg>
+        </button>
       </div>
-      <div class="horizon-slider_container slider2">
-        <div class="horizon-slider_track">
+      <div class="slider2-wrapper" style="position: relative; width: 100%;">
+        <button
+          type="button"
+          id="review-carousel-control-btn-slider2"
+          class="carousel-control-btn slider-toggle-btn"
+          aria-label="Pause reviews carousel"
+          aria-pressed="false"
+        >
+            <svg class="pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="1" width="3" height="12" fill="currentColor"/>
+              <rect x="9" y="1" width="3" height="12" fill="currentColor"/>
+            </svg>
+            <svg class="play-icon" style="display:none;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 1.5L12 7L3 12.5V1.5Z" fill="currentColor"/>
+            </svg>
+          </button>
+        <div class="horizon-slider_container slider2">
+          <div class="horizon-slider_track">
           <div class="horizon-slide">
             <div class="review_item">
               <div class="review_item-top">
@@ -612,6 +643,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       <div class="lp_glow-section">
@@ -2568,6 +2600,43 @@
       margin-bottom: 30px;
     }
 
+    .carousel-control-btn, .slider-toggle-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: transparent;
+      color: #9B9DA3;
+      border: 1px solid #9B9DA3;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .carousel-control-btn:hover, .slider-toggle-btn:hover,
+    .carousel-control-btn:focus, .slider-toggle-btn:focus {
+      background: #231F20;
+      border-color: #231F20;
+      color: #fff;
+    }
+    .carousel-control-btn:focus-visible, .slider-toggle-btn:focus-visible {
+      outline: 2px solid var(--new-blue);
+      outline-offset: 2px;
+    }
+    .carousel-control-btn.paused, .slider-toggle-btn.paused {
+      background: transparent;
+    }
+
+    @media only screen and (min-width: 992px) {
+      .slider2-wrapper {
+        display: none !important;
+      }
+    }
+
     #free-gift-card .new-popup.modal-content .popup-modal-inner .popup-modal-content {
       max-width: 910px;
       width: 100%;
@@ -3756,6 +3825,9 @@
         });
 
         let initSlides = false;
+        let sliderTween = null;
+        let isPlaying = true;
+        const toggleBtn = document.getElementById('marquee-slider-toggle');
 
         ScrollTrigger.create({
           trigger: container,
@@ -3779,7 +3851,7 @@
               ease: "power4.out",
             });
 
-            gsap.to(imagesContainer, {
+            sliderTween = gsap.to(imagesContainer, {
               x: -originalImagesWidth,
               ease: "none",
               duration: 80,
@@ -3787,6 +3859,63 @@
             });
           },
         });
+
+        const mainContainer = document.querySelector(".slide_in-view__container");
+        if (mainContainer) {
+          mainContainer.addEventListener('mouseenter', () => {
+            if (sliderTween && isPlaying) {
+              sliderTween.pause();
+            }
+          });
+          mainContainer.addEventListener('mouseleave', () => {
+            if (sliderTween && isPlaying) {
+              sliderTween.play();
+            }
+          });
+          mainContainer.addEventListener('focusin', () => {
+            if (sliderTween && isPlaying) {
+              sliderTween.pause();
+            }
+          });
+          mainContainer.addEventListener('focusout', () => {
+            if (sliderTween && isPlaying) {
+              sliderTween.play();
+            }
+          });
+        }
+
+        if (toggleBtn) {
+          function toggleSlider() {
+            if (!sliderTween) return;
+
+            if (isPlaying) {
+              sliderTween.pause();
+              toggleBtn.setAttribute('aria-label', 'Play slider animation');
+              toggleBtn.setAttribute('aria-pressed', 'true');
+              toggleBtn.querySelector('.pause-icon').style.display = 'none';
+              toggleBtn.querySelector('.play-icon').style.display = 'block';
+              toggleBtn.classList.add('paused');
+            } else {
+              sliderTween.play();
+              toggleBtn.setAttribute('aria-label', 'Pause slider animation');
+              toggleBtn.setAttribute('aria-pressed', 'false');
+              toggleBtn.querySelector('.pause-icon').style.display = 'block';
+              toggleBtn.querySelector('.play-icon').style.display = 'none';
+              toggleBtn.classList.remove('paused');
+            }
+
+            isPlaying = !isPlaying;
+          }
+
+          toggleBtn.addEventListener('click', toggleSlider);
+
+          toggleBtn.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Enter') {
+              e.preventDefault();
+              toggleSlider();
+            }
+          });
+        }
 
         ScrollTrigger.refresh();
       }
@@ -3919,6 +4048,64 @@
           responsive: { 0: { items: 1 } },
         },
       });
+
+      // Set up slider2 play/pause toggle button and keyboard focus listeners
+      setTimeout(() => {
+        const sliderEl2 = document.querySelector('.slider2');
+        if (sliderEl2) {
+          const wrapper2 = sliderEl2.closest('.slider2-wrapper') || sliderEl2;
+          const btn2 = wrapper2.querySelector('#review-carousel-control-btn-slider2');
+          
+          const instance = sliderEl2.HorizonSliderInstance;
+          if (instance && btn2) {
+            // Override initAutoplay to check our paused state
+            const originalInit = instance.initAutoplay;
+            instance.initAutoplay = function() {
+              if (btn2.getAttribute('aria-pressed') === 'true') {
+                return; // Do nothing if paused
+              }
+              if (originalInit) {
+                originalInit.apply(instance, arguments);
+              }
+            };
+
+            btn2.addEventListener('click', function() {
+              const isPaused = btn2.getAttribute('aria-pressed') === 'true';
+              const pauseIcon = btn2.querySelector('.pause-icon');
+              const playIcon = btn2.querySelector('.play-icon');
+              if (isPaused) {
+                btn2.setAttribute('aria-pressed', 'false');
+                btn2.setAttribute('aria-label', 'Pause reviews carousel');
+                pauseIcon.style.display = 'block';
+                playIcon.style.display = 'none';
+                instance.initAutoplay();
+              } else {
+                btn2.setAttribute('aria-pressed', 'true');
+                btn2.setAttribute('aria-label', 'Play reviews carousel');
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'block';
+                instance.stopAutoplay();
+              }
+            });
+
+            // Keyboard focus listener to pause autoplay
+            wrapper2.addEventListener('focusin', () => {
+              instance.stopAutoplay();
+            });
+            wrapper2.addEventListener('focusout', () => {
+              instance.initAutoplay();
+            });
+
+            // Mouse hover listener to pause autoplay
+            wrapper2.addEventListener('mouseenter', () => {
+              instance.stopAutoplay();
+            });
+            wrapper2.addEventListener('mouseleave', () => {
+              instance.initAutoplay();
+            });
+          }
+        }
+      }, 500);
 
       function setDynamicLinks() {
         const ctaLinks = document.querySelectorAll(".dynamic_link");

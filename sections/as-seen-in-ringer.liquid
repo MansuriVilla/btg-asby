@@ -5,8 +5,15 @@
     <div class="theme-block" {{ block.shopify_attributes }}>
       {%- case block.type -%}
         {%- when 'heading' -%}
-          <h2>{{ block.settings.title | escape }}</h2>
-          <h3>{{ block.settings.sub_title | escape }}</h3>
+          {% comment %} <h2>{{ block.settings.title | escape }}</h2> {% endcomment %}
+           <h2 class="section_heading--custom page_heading dark_heading" style="font-size: clamp(24px, 2.2vw, 38px);line-height: 1;letter-spacing: 0;">
+        
+{{ block.settings.title | escape }}
+    </h2>
+           <h3 class="section_heading--custom page_heading dark_heading" style="font-size: clamp(24px, 2.2vw, 38px);line-height: 1;letter-spacing: 0;">
+        
+{{ block.settings.sub_title | escape }}    </h3>
+       
 
         {%- when 'page' -%}
           <div class="rte">
@@ -43,7 +50,7 @@
                     </div>
                  </div>
               {%- endif -%}
-            <!--ul class="four-icon">
+            {% comment %} <!--ul class="four-icon">
               {%- if block.settings.icon_1 != blank -%}
                 <li class="single-icon"><img src="{{ block.settings.icon_1 | img_url: 'master' }}" alt="{{ block.settings.icon_1.alt | img_alt: 'master' }}"></li>
               {%- endif -%}
@@ -56,7 +63,7 @@
               {%- if block.settings.icon_4 != blank -%}
                 <li class="single-icon"><img src="{{ block.settings.icon_4 | img_url: 'master' }}" alt="{{ block.settings.icon_4.alt | img_alt: 'master' }}"></li>
               {%- endif -%}
-          </ul -->
+          </ul --> {% endcomment %}
           </div>
         {%- when 'text' -%}
           <div class="rte">

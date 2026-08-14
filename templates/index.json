@@ -1,1 +1,678 @@
-{"sections":{"16579402989e5a1548":{"type":"Home-static-slider","settings":{}},"row_features_fJjdcj":{"type":"row-features","blocks":{"feature_aAQg9h":{"type":"Feature","settings":{"featureIcon":"shopify:\/\/shop_images\/Frame_1171277599.svg","featureText":"FREE\u2028 SHIPPING"}},"feature_XNJRrA":{"type":"Feature","settings":{"featureIcon":"shopify:\/\/shop_images\/Frame_1171277600.svg","featureText":"100 DAY RETURNS"}},"feature_hJBUBB":{"type":"Feature","settings":{"featureIcon":"shopify:\/\/shop_images\/Frame_1171277601.svg","featureText":"SECURE \u2028CHECKOUT"}},"feature_VVLXAr":{"type":"Feature","settings":{"featureIcon":"shopify:\/\/shop_images\/Frame_1171277602.svg","featureText":"2-YEAR\u2028 WARRANTY"}}},"block_order":["feature_aAQg9h","feature_XNJRrA","feature_hJBUBB","feature_VVLXAr"],"disabled":true,"name":"Feature Items","settings":{"rowPadding":55,"rowBackground":"#ffffff"}},"new_product_card_layout_B8PVDA":{"type":"new-product-card-layout","blocks":{"product_AMmVHT":{"type":"Product","settings":{"product":"player-pro","featureImage":"shopify:\/\/shop_images\/Player_Pro_hover_state.png","featureImageMobile":"shopify:\/\/shop_images\/Player_Pro_hover_state.png","featureHoverImage":"shopify:\/\/shop_images\/Frame_1171277775.png","featureHoverImageMobile":"shopify:\/\/shop_images\/Frame_1171277775.png","prodName":"PLAYER PRO","label":false,"subText":"Golf GPS Speaker – Now Supercharged with AI","solidCtaText":"SHOP NOW","outlineCtaText":"LEARN MORE","learnMoreUrl":""}},"product_gQDL9J":{"type":"Product","settings":{"product":"rainmaker","featureImage":"shopify:\/\/shop_images\/Launch-Monitor0019-edited_2_0f620d79-80e9-4b24-8614-5bb7563a1eea.png","featureImageMobile":"shopify:\/\/shop_images\/Launch-Monitor0019-edited_2_0f620d79-80e9-4b24-8614-5bb7563a1eea.png","featureHoverImage":"shopify:\/\/shop_images\/Rainmaker_hero_option_3.png","featureHoverImageMobile":"shopify:\/\/shop_images\/Rainmaker_hero_option_3.png","prodName":"RAINMAKER","label":false,"subText":"Portable Launch Monitor & App","solidCtaText":"SHOP NOW","outlineCtaText":"LEARN MORE","learnMoreUrl":""}},"product_Dgyx9E":{"type":"Product","settings":{"product":"captain-pro","featureImage":"shopify:\/\/shop_images\/DSC08264_1_0121ce11-c95d-473e-ab4b-31a8e99d5625.png","featureImageMobile":"shopify:\/\/shop_images\/DSC08264_1_0121ce11-c95d-473e-ab4b-31a8e99d5625.png","featureHoverImage":"shopify:\/\/shop_images\/image_14.png","featureHoverImageMobile":"shopify:\/\/shop_images\/image_14.png","prodName":"CAPTAIN PRO","label":false,"subText":"Connected OLED GPS Rangefinder","solidCtaText":"SHOP NOW","outlineCtaText":"LEARN MORE","learnMoreUrl":""}},"product_g9C4HA":{"type":"Product","settings":{"product":"captain-air","featureImage":"shopify:\/\/shop_images\/Captain-Air-42_1_7cd63f97-859f-4ce9-90bb-01c7520874dc.png","featureImageMobile":"shopify:\/\/shop_images\/Captain-Air-42_1_7cd63f97-859f-4ce9-90bb-01c7520874dc.png","featureHoverImage":"shopify:\/\/shop_images\/CaptainAir_008_02.png","featureHoverImageMobile":"shopify:\/\/shop_images\/CaptainAir_008_02.png","prodName":"CAPTAIN AIR","label":false,"subText":"Connected GPS Rangefinder","solidCtaText":"SHOP NOW","outlineCtaText":"LEARN MORE","learnMoreUrl":""}},"product_6x6bwr":{"type":"Product","disabled":true,"settings":{"product":"player-gps-speaker","featureImage":"shopify:\/\/shop_images\/pp-image-hp.png","featureImageMobile":"shopify:\/\/shop_images\/pp-image-hp.png","featureHoverImage":"shopify:\/\/shop_images\/Player__With_UI_001_8293a178-c510-4892-8cc8-4c29ce679857.png","featureHoverImageMobile":"shopify:\/\/shop_images\/Player__With_UI_001_8293a178-c510-4892-8cc8-4c29ce679857.png","prodName":"PLAYER+","label":false,"subText":"Golf GPS Speaker – Now Supercharged with AI","solidCtaText":"SHOP NOW","outlineCtaText":"LEARN MORE","learnMoreUrl":"shopify:\/\/products\/player-gps-speaker"}},"product_DHJ4H9":{"type":"Product","settings":{"product":"series-3-max-golf-rangefinder-with-slope","featureImage":"shopify:\/\/shop_images\/dsc09223-1_2_1.png","featureImageMobile":"shopify:\/\/shop_images\/dsc09223-1_2_1.png","featureHoverImage":"shopify:\/\/shop_images\/S3Max__Navy_HERO_1_1.png","featureHoverImageMobile":"shopify:\/\/shop_images\/S3Max__Navy_HERO_1_1.png","prodName":"SERIES 3 MAX+","label":false,"subText":"Magnetic Laser Rangefinder","solidCtaText":"SHOP NOW","outlineCtaText":"LEARN MORE","learnMoreUrl":"shopify:\/\/products\/series-3-max-golf-rangefinder-with-slope"}},"product_ijjJdb":{"type":"Product","settings":{"product":"ringer","featureImage":"shopify:\/\/shop_images\/Ringer6_edited_1.png","featureImageMobile":"shopify:\/\/shop_images\/Ringer6_edited_1.png","featureHoverImage":"shopify:\/\/shop_images\/Ringer-Navy-HERO_2.png","featureHoverImageMobile":"shopify:\/\/shop_images\/Ringer-Navy-HERO_2.png","prodName":"RINGER 2.0","label":false,"subText":"Handheld GPS Device","solidCtaText":"SHOP NOW","outlineCtaText":"LEARN MORE","learnMoreUrl":"shopify:\/\/products\/ringer"}},"product_NphwGe":{"type":"Product","settings":{"product":"magnetic-golf-speaker","featureImage":"shopify:\/\/shop_images\/DSC09007-Enhanced-NR_edited_1.png","featureImageMobile":"shopify:\/\/shop_images\/DSC09007-Enhanced-NR_edited_1.png","featureHoverImage":"shopify:\/\/shop_images\/Group_1410105199.png","featureHoverImageMobile":"shopify:\/\/shop_images\/Group_1410105199.png","prodName":"PLAYER GO","label":false,"subText":"Compact Golf GPS Speaker – Now supercharged with AI","solidCtaText":"SHOP NOW","outlineCtaText":"LEARN MORE","learnMoreUrl":"shopify:\/\/products\/magnetic-golf-speaker"}},"product_Tc8FfP":{"type":"Product","settings":{"product":"playmaker-watch","featureImage":"shopify:\/\/shop_images\/DSC01578-Enhanced-NR_edited_2_1.png","featureImageMobile":"shopify:\/\/shop_images\/DSC01578-Enhanced-NR_edited_2_1.png","featureHoverImage":"shopify:\/\/shop_images\/PM__ACV_Non-Club-Assist_HERO_1.png","featureHoverImageMobile":"shopify:\/\/shop_images\/PM__ACV_Non-Club-Assist_HERO_1.png","prodName":"PLAYMAKER+","label":false,"subText":"Touchscreen GPS Golf Watch","solidCtaText":"SHOP NOW","outlineCtaText":"LEARN MORE","learnMoreUrl":"shopify:\/\/pages\/play-maker-plus-landing-page"}},"product_3PGAzB":{"type":"Product","settings":{"product":"series-4-ultra-rangefinder","featureImage":"shopify:\/\/shop_images\/6-Lifestyle_1_1.png","featureImageMobile":"shopify:\/\/shop_images\/6-Lifestyle_1_1.png","featureHoverImage":"shopify:\/\/shop_images\/S4-Ultra-HERO_1.png","featureHoverImageMobile":"shopify:\/\/shop_images\/S4-Ultra-HERO_1.png","prodName":"SERIES 4 ULTRA","label":false,"subText":"Magnetic OLED Rangefinder","solidCtaText":"SHOP NOW","outlineCtaText":"LEARN MORE","learnMoreUrl":"shopify:\/\/products\/series-4-ultra-rangefinder"}}},"block_order":["product_AMmVHT","product_gQDL9J","product_Dgyx9E","product_g9C4HA","product_6x6bwr","product_DHJ4H9","product_ijjJdb","product_NphwGe","product_Tc8FfP","product_3PGAzB"],"name":"Product Card","settings":{"backgroundColor":"#f3f4f7","productCardHeading":"built to perform. priced to play.","productCardDesc":"Every purchase includes free shipping, an extended two-year warranty, and a 100-day risk-free guarantee.","sectionCtaText":"","allProductURL":""}},"new_product_card_layout_7XqCbB":{"type":"new-product-card-layout","blocks":{"product_MP8WxU":{"type":"Product","settings":{"product":"","featureImage":"shopify:\/\/shop_images\/image_259.png","featureImageMobile":"shopify:\/\/shop_images\/image_259.png","prodName":"PLAYER PRO","label":true,"subText":"Magnetic GPS Golf Speaker","solidCtaText":"","outlineCtaText":"LEARN MORE","learnMoreUrl":"shopify:\/\/pages\/player-pro"}},"product_nLDjfp":{"type":"Product","settings":{"product":"","featureImage":"shopify:\/\/shop_images\/Launch-Monitor0019-edited_2.png","featureImageMobile":"shopify:\/\/shop_images\/Launch-Monitor0019-edited_2.png","prodName":"RAINMAKER","label":false,"subText":"Portable Launch Monitor & App","solidCtaText":"","outlineCtaText":"LEARN MORE","learnMoreUrl":"shopify:\/\/pages\/launch-monitor"}},"product_YQzUQN":{"type":"Product","settings":{"product":"","featureImage":"shopify:\/\/shop_images\/DSC08264_1.png","featureImageMobile":"shopify:\/\/shop_images\/DSC08264_1.png","prodName":"CAPTAIN PRO","label":false,"subText":"Magnetic OLED Bluetooth Rangefinder","solidCtaText":"","outlineCtaText":"LEARN MORE","learnMoreUrl":"shopify:\/\/pages\/captain-pro"}},"product_PzrTX3":{"type":"Product","settings":{"product":"","featureImage":"shopify:\/\/shop_images\/Captain-Air-42_1.png","featureImageMobile":"shopify:\/\/shop_images\/Captain-Air-42_1.png","prodName":"CAPTAIN AIR","label":false,"subText":"Magnetic Bluetooth Rangefinder","solidCtaText":"","outlineCtaText":"LEARN MORE","learnMoreUrl":"shopify:\/\/pages\/captain-air"}}},"block_order":["product_MP8WxU","product_nLDjfp","product_YQzUQN","product_PzrTX3"],"disabled":true,"name":"Product Card","settings":{"backgroundColor":"","productCardHeading":"COMING SOON","productCardDesc":"","sectionCtaText":"","allProductURL":""}},"round_out_slider_section_XjnTQb":{"type":"round-out-slider-section","blocks":{"product_card_Mm34QC":{"type":"product_card","settings":{"product":"magnetic-golf-towel","customTitle":"MAGTOWEL","cardTagline":"Magnetic Utility Towel","image":"shopify:\/\/shop_images\/20210413_BlueTees-3386-HiRes_9_1.png"}},"product_card_6RffbB":{"type":"product_card","settings":{"product":"divot-repair-tool","customTitle":"DIVOT TOOL","cardTagline":"6-in-1 Multifunctional Divot Tool","image":"shopify:\/\/shop_images\/EVN02832_1_2_1.png"}},"product_card_DY7ikR":{"type":"product_card","settings":{"product":"ringer-hard-shell-carrying-case","customTitle":"RINGER CASE","cardTagline":"Hard Shell with Zipper","image":"shopify:\/\/shop_images\/DSC05622-Enhanced-NR_1.png"}},"product_card_gYx6hJ":{"type":"product_card","settings":{"product":"player-hard-shell-carrying-case","customTitle":"PLAYER+ CASE","cardTagline":"Hard Shell with Zipper","image":"shopify:\/\/shop_images\/accessories_carousel_entry.png"}},"product_card_ry96Mz":{"type":"product_card","settings":{"product":"watch-hard-shell-carrying-case","customTitle":"WATCH CASE","cardTagline":"Hard Shell with Zipper","image":"shopify:\/\/shop_images\/accessories_carousel_entry-1.png"}}},"block_order":["product_card_Mm34QC","product_card_6RffbB","product_card_DY7ikR","product_card_gYx6hJ","product_card_ry96Mz"],"name":"Round Out Game Slider","settings":{"heading":"ROUND OUT<br>YOUR BAG","desc":"The finishing touches that make every round smoother — from course-ready utility to everyday protection.","main_cta_text":"SHOP ALL ACCESSORIES","main_cta_link":"shopify:\/\/collections\/accessories","bg_color":"#f3f4f7","teesHeading":"BLUE TEES<br> ONLINE EXCLUSIVE","itemIconColor":"#1b2029","itemOneIcon":"shopify:\/\/shop_images\/truck-icon-new.svg","itemOneText":"FREE SHIPPING OVER $50","itemTwoIcon":"shopify:\/\/shop_images\/check-mark-icon-new.svg","itemTwoText":"extended two-year warranty","itemThreeIcon":"shopify:\/\/shop_images\/return-icon-new.svg","itemThreeText":"100 DAY RISK-FREE RETURNS","no_space_top":false}},"all_in_one_section_QVFFeq":{"type":"all-in-one-section","blocks":{"feature_slide_yagkRD":{"type":"feature_slide","settings":{"image":"shopify:\/\/shop_images\/GAME_App_-_True_Distance.png","title":"TRUE DISTANCE™<br>ADJUSTED YARDAGES","description":"Access GPS data for over 42K courses & detailed insights for how holes are actually playing."}},"feature_slide_DBCVjm":{"type":"feature_slide","settings":{"image":"shopify:\/\/shop_images\/Frame_1171277598.png","title":"Smart<br>Shot Tracking","description":"Effortlessly track shots and sync your rounds’ data across other Blue Tees devices."}},"feature_slide_XVMFVr":{"type":"feature_slide","settings":{"image":"shopify:\/\/shop_images\/Frame_1171277777.png","title":"SCOUT AI™<br>CADDIE","description":"Get personalized club & swing recommendations based on your unique round data."}},"feature_slide_3WcPGP":{"type":"feature_slide","settings":{"image":"shopify:\/\/shop_images\/Frame_1171277932_529ce8f8-f81d-46d6-9a1a-c6cdbe364a93.png","title":"post game\u2028<br>analytics","description":"Visualize every round’s data so you can track, measure, and see progress over time."}},"feature_slide_N4txJE":{"type":"feature_slide","settings":{"image":"shopify:\/\/shop_images\/USGA_9df4aa42-220d-4440-9bc9-46d530761895.png","badge":"shopify:\/\/shop_images\/Frame_1171278072.png","title":"USGA<br>INTEGRATION","description":"Upload your scores directly to the USGA® to easily maintain your official Handicap Index™."}},"feature_slide_iWyR3e":{"type":"feature_slide","settings":{"image":"shopify:\/\/shop_images\/LEADERBOARDS.png","title":"LIVE<br>LEADERBOARDS","description":"Track scores while you play with friends or others across a variety of game formats."}}},"block_order":["feature_slide_yagkRD","feature_slide_DBCVjm","feature_slide_XVMFVr","feature_slide_3WcPGP","feature_slide_N4txJE","feature_slide_iWyR3e"],"name":"All-In-One Platform","settings":{"hero_logo":"shopify:\/\/shop_images\/Group_1410105173.svg","hero_heading":"<span class=\"custom_heading outline\">SMARTER ROUNDS.<\/span><br>LOWER SCORES.","hero_description":"<p>GAME is an AI-powered GPS App and intelligence engine that powers the full Blue Tees ecosystem  – turning your rounds, swings, and club data into smarter decisions on and off the course. <\/p>","tryCtaText":"TRY FOR FREE","tryCtaURL":"shopify:\/\/pages\/app-download-lp","app_store_btn":"shopify:\/\/shop_images\/Group_22913.png","app_store_url":"https:\/\/apps.apple.com\/us\/app\/blue-tees-game-ai-golf-gps\/id6448720121","play_store_btn":"shopify:\/\/shop_images\/Group_22912.png","play_store_url":"https:\/\/play.google.com\/store\/apps\/details?id=com.bluetees","hero_main_image":"shopify:\/\/shop_images\/Frame_1171278071_82a409eb-023e-42c6-904f-c28c6333be64.png","bg_color_top":"#1b2029"}},"built_section_slider_YtW7QM":{"type":"built-section-slider","blocks":{"slide_NBexLF":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/DSC03741-Enhanced-NR_1.png","title":"ON THE COURSE","description":"Precision where it matters most"}},"slide_FwqXFg":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/dsc01589-enhanced-nr_edited-1_1.png","title":"At the Range","description":"Dial it in before your next round"}},"slide_zXkFVr":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/DSC07574_1.png","title":"On the Road","description":"Built to travel, built to perform"}},"slide_M6a7dX":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/1_5.png","title":"Training at Home","description":"Progress doesn’t stop between rounds"}}},"block_order":["slide_NBexLF","slide_FwqXFg","slide_zXkFVr","slide_M6a7dX"],"disabled":true,"name":"Built For Play Slider","settings":{"heading":"BUILT FOR THE WAY<br>YOU PLAY","bg_color":"#ffffff"}},"bt_difference_section_RVQzwd":{"type":"bt-difference-section","name":"Subscription Box","settings":{"differenceHeading":"FOR GOLFERS WHO PLAY <span class=\"custom_heading outline\" style=\"display: inline-flex;max-width: clamp(100px,17vw,275px);\"><svg width=\"275\" height=\"33\" viewbox=\"0 0 275 33\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n<path d=\"M265.839 26.7671C265.839 25.5682 265.433 24.5497 264.621 23.7119C263.822 22.8742 262.668 22.4551 261.16 22.4551C259.652 22.4552 258.491 22.874 257.679 23.7119C256.88 24.5497 256.481 25.5683 256.481 26.7671C256.481 27.9659 256.88 28.9913 257.679 29.842C258.491 30.6928 259.652 31.1172 261.16 31.1173C262.668 31.1173 263.822 30.6984 264.621 29.8606C265.433 29.0227 265.839 27.9917 265.839 26.7671ZM267.296 26.7671C267.296 28.3454 266.759 29.7422 265.675 30.865L265.676 30.8662C264.525 32.0726 262.94 32.5744 261.16 32.5744C259.484 32.5743 257.984 32.1238 256.848 31.0666L256.625 30.8477L256.618 30.839C255.557 29.7101 255.023 28.3254 255.023 26.7671C255.023 25.2084 255.558 23.8255 256.625 22.7062L256.634 22.6976C257.794 21.5004 259.379 20.9981 261.16 20.998C262.94 20.998 264.525 21.4999 265.676 22.7062H265.675C266.753 23.8227 267.296 25.2049 267.296 26.7671Z\" fill=\"white\"><\/path>\n<path d=\"M258.49 1.10059L256.896 10.1821H246.744L242.876 32.1671H231.816L235.684 10.1821H225.527L227.15 1.10059H258.49ZM228.37 2.55644L227.268 8.72497H237.419L233.551 30.71H241.653L245.521 8.72497H255.672L256.755 2.55644H228.37Z\" fill=\"white\"><\/path>\n<path d=\"M206.015 1.10059L214.167 16.0302L216.806 1.10059H226.512L221.028 32.1671H211.045L202.832 17.5479L200.284 32.1671H190.574L196.057 1.10059H206.015ZM197.28 2.55644L192.311 30.71H199.06L201.902 14.4099C201.953 14.1006 201.998 13.7398 202.037 13.3276C202.075 12.9151 202.107 12.5408 202.133 12.2057H202.326C202.378 12.5279 202.488 13.0178 202.655 13.6751C202.823 14.3326 203.062 14.9517 203.371 15.5318L211.898 30.71H219.806L224.775 2.55644H218.028L215.165 18.7601C215.101 19.1468 215.05 19.5337 215.011 19.9204C214.972 20.307 214.933 20.6939 214.895 21.0806H214.702C214.65 20.7712 214.528 20.3328 214.334 19.7657C214.154 19.1986 213.953 18.7018 213.734 18.2765L205.15 2.55644H197.28Z\" fill=\"white\"><\/path>\n<path d=\"M194.323 1.10059L192.722 10.0856H176.425L176.065 12.1414H190.532L189.029 20.6229H174.568L174.095 23.3169H190.665L189.109 32.1671H161.805L167.288 1.10059H194.323ZM168.511 2.55644L163.541 30.71H187.885L188.929 24.774H172.358L173.345 19.1671H187.809L188.794 13.5972H174.331L175.201 8.62849H191.501L192.584 2.55644H168.511Z\" fill=\"white\"><\/path>\n<path d=\"M151.936 1.10059V2.55644H136.526L131.557 30.71H139.601L141.283 21.255H147.505L151.376 30.71H160.231L155.235 19.9278C156.028 19.5848 156.766 19.1774 157.447 18.702C159.61 17.1914 160.997 15.0637 161.608 12.3182L161.721 11.7604C162.262 8.7056 161.662 6.41079 159.922 4.87691C158.303 3.4268 155.862 2.65694 152.599 2.56634L151.936 2.55644V1.10059C155.697 1.10061 158.778 1.902 160.886 3.78471L161.091 3.97272C163.17 5.94579 163.733 8.75485 163.155 12.0152L163.154 12.0189C162.551 15.3773 160.934 18.0442 158.281 19.8969C157.918 20.1501 157.542 20.3838 157.154 20.6019L162.512 32.1671H150.398L146.526 22.7121H142.502L140.82 32.1671H129.82L135.304 1.10059H151.936ZM149.867 8.24134C151.388 8.24134 152.446 8.54462 153.039 9.15048C153.632 9.74344 153.805 10.7105 153.561 12.0511C153.341 13.2626 152.819 14.2034 151.995 14.8737C151.183 15.544 150.022 15.8793 148.514 15.8793V14.4222C149.827 14.4222 150.608 14.1291 151.067 13.7506L151.076 13.7432C151.588 13.3267 151.959 12.7177 152.127 11.7913V11.7888C152.314 10.7664 152.148 10.3675 152.047 10.2266L152.008 10.1808L151.997 10.1697C151.828 9.99731 151.282 9.69843 149.867 9.69843H144.708L143.871 14.4222H148.514V15.8793H142.133L143.487 8.24134H149.867Z\" fill=\"white\"><\/path>\n<path d=\"M133.569 1.10059L131.966 10.0856H115.67L115.311 12.1414H129.777L128.275 20.6229H113.813L113.34 23.3169H129.911L128.355 32.1671H101.051L106.534 1.10059H133.569ZM107.756 2.55644L102.787 30.71H127.131L128.175 24.774H111.604L112.59 19.1671H127.053L128.039 13.5972H113.577L114.447 8.62849H130.747L131.829 2.55644H107.756Z\" fill=\"white\"><\/path>\n<path d=\"M105.776 1.10059L104.174 10.0856H88.9005L88.3724 13.069H102.113L100.641 21.5704H86.872L85.0154 32.1671H74.0117L79.495 1.10059H105.776ZM80.7171 2.55644L75.7484 30.71H83.7921L85.6487 20.1146H99.4156L100.382 14.5261H86.6345L87.6785 8.62849H102.953L104.037 2.55644H80.7171Z\" fill=\"white\"><\/path>\n<path d=\"M78.7459 1.10059L77.1428 10.0856H61.8693L61.3411 13.069H75.0821L73.6114 21.5704H59.8407L57.9854 32.1671H46.9805L52.4637 1.10059H78.7459ZM53.6871 2.55644L48.7171 30.71H56.7608L58.6174 20.1146H72.3844L73.3516 14.5261H59.6033L60.6472 8.62849H75.9232L77.0055 2.55644H53.6871Z\" fill=\"white\"><\/path>\n<path d=\"M49.5085 1.10059L44.0252 32.1671H32.8867L38.3712 1.10059H49.5085ZM39.5933 2.55644L34.6234 30.71H42.8031L47.7718 2.55644H39.5933Z\" fill=\"white\"><\/path>\n<path d=\"M20.2991 1.10059V2.55644H6.70535L1.73664 30.71H15.3292C19.3174 30.71 22.8695 29.7014 25.9853 27.6845L26.6025 27.2677C29.8764 24.9732 31.9137 21.5571 32.7129 17.0198L32.886 16.1304C33.6603 11.7096 32.9043 8.37792 30.6175 6.13486L30.3924 5.92087C28.0963 3.81823 24.9955 2.70151 21.0908 2.57005L20.2991 2.55644V1.10059C24.833 1.10064 28.5853 2.29292 31.3733 4.84475L31.6454 5.10203C34.3891 7.79698 35.1438 11.6913 34.3221 16.3828L34.3196 16.3964L34.3159 16.41L34.1428 17.3006C33.2843 22.1415 31.0709 25.9133 27.4399 28.4588C23.9164 30.9378 19.862 32.1671 15.3292 32.1671H0L5.48328 1.10059H20.2991ZM18.7901 8.31926C20.9038 8.31926 22.5349 8.90546 23.6821 10.0782C24.8423 11.2512 25.1776 13.2436 24.6877 16.0537L24.4948 17.1558C23.992 19.9917 22.9346 22.0219 21.3233 23.2464L21.019 23.4691C19.4828 24.5453 17.7539 25.0832 15.8326 25.0833V23.6262C17.568 23.6261 19.0884 23.1154 20.4426 22.0862C21.6588 21.1616 22.5942 19.528 23.0599 16.901L23.2529 15.8014C23.6901 13.2918 23.3432 11.9335 22.7656 11.2347L22.6468 11.1036L22.6406 11.0974C21.8907 10.3307 20.781 9.84093 19.129 9.78254L18.7901 9.77636H14.8134L12.3841 23.6262H15.8326V25.0833H10.6499L13.5888 8.31926H18.7901Z\" fill=\"white\"><\/path>\n<path d=\"M264.066 5.12679C264.066 3.65687 264.586 2.43592 265.626 1.46394C266.67 0.487982 267.962 0 269.504 0C271.046 0 272.338 0.487982 273.382 1.46394C274.43 2.43592 274.953 3.65687 274.953 5.12679C274.953 6.58875 274.43 7.8097 273.382 8.78964C272.338 9.76561 271.046 10.2536 269.504 10.2536C267.962 10.2536 266.67 9.76561 265.626 8.78964C264.586 7.8097 264.066 6.58875 264.066 5.12679ZM265.315 5.12679C265.315 6.29795 265.718 7.27391 266.522 8.05468C267.327 8.83545 268.325 9.22584 269.516 9.22584C270.703 9.22584 271.697 8.83545 272.498 8.05468C273.302 7.27391 273.705 6.29795 273.705 5.12679C273.705 3.95564 273.302 2.98167 272.498 2.20488C271.697 1.42411 270.703 1.03372 269.516 1.03372C268.325 1.03372 267.327 1.42411 266.522 2.20488C265.718 2.98167 265.315 3.95564 265.315 5.12679ZM269.576 5.79005H268.626V7.95908H267.275V2.21683H269.546C270.358 2.21683 270.978 2.36223 271.404 2.65303C271.834 2.93984 272.049 3.384 272.049 3.98551C272.049 4.40777 271.934 4.75633 271.703 5.03119C271.476 5.30207 271.135 5.48929 270.681 5.59287C270.785 5.66059 270.862 5.72831 270.914 5.79603C270.97 5.85976 271.028 5.94342 271.087 6.04699L272.193 7.82165V7.95908H270.747L269.576 5.79005ZM269.54 3.28641H268.626V4.76828H269.617C269.948 4.76828 270.201 4.71251 270.376 4.60097C270.556 4.48943 270.645 4.30818 270.645 4.05722C270.645 3.78236 270.566 3.58517 270.406 3.46566C270.251 3.34616 269.962 3.28641 269.54 3.28641Z\" fill=\"white\"><\/path>\n<\/svg>\n<\/span>","differenceSubText":"Blue Tees was built to make high-quality golf technology more accessible — without sacrificing precision, performance, or design. We believe better data leads to better decisions, which is why we create intuitive, reliable tools designed to work together and grow with your game, so players can focus less on equipment and more on enjoying the game they love.","aboutUsText":"LEARN MORE ABOUT US","aboutUsURL":"shopify:\/\/pages\/about-us","floatingImage":"shopify:\/\/shop_images\/Group_1410105109.svg","differenceImage":"shopify:\/\/shop_images\/Frame_1171277788_1.png","subscriptionHeading":"","subscriptionSubText":"","differenceInputText":""}},"custom_video_block_MpHNGq":{"type":"custom-video-block","name":"Custom Video Block","settings":{"blockColor":"","ripple_clr":"#ffffff61","videoUrl":"https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/93c7dd6f9f5348f989f267d6f15472d4.mp4","videoHeading":"TRUSTED BY THE PROS","videoDescription":"From elite coaches to everyday golfers, Blue Tees delivers the confidence pros demand — and players rely on.","playText":"LEARN WHY FROM SEAN FOLEY \u2028PGA TOUR COACH","hasRadius":true}},"logo_slider_TTPDkW":{"type":"logo-slider","blocks":{"logo_slider_nfWGPT":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/Group_27156.png"}},"logo_slider_q9EEmz":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/Mask_group-3.png"}},"logo_slider_nMHq6T":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/Group_27155.png"}},"logo_slider_8RGbcq":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/image_74.png"}},"logo_slider_bNw7Ue":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/Group_27157.png"}},"logo_slider_yApqyr":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/Mask_group-2.png"}},"logo_slider_rQmVC4":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/Layer_6.png"}},"logo_slider_raTGyM":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/Logo_7efec96c-4a96-4422-bca7-d019b01636c9.png"}},"logo_slider_pdzxFY":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/image_75.png"}},"logo_slider_N9LtTa":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/Mask_group-1.png"}},"logo_slider_DLDbi3":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/Mask_group_b13fc159-1ac7-4e71-ba2d-4ff95a6fd5be.png"}},"logo_slider_rFb4fw":{"type":"Logo_Slider","settings":{"logo":"shopify:\/\/shop_images\/Layer_5.png"}}},"block_order":["logo_slider_nfWGPT","logo_slider_q9EEmz","logo_slider_nMHq6T","logo_slider_8RGbcq","logo_slider_bNw7Ue","logo_slider_yApqyr","logo_slider_rQmVC4","logo_slider_raTGyM","logo_slider_pdzxFY","logo_slider_N9LtTa","logo_slider_DLDbi3","logo_slider_rFb4fw"],"name":"Logo Slider New","settings":{"tickerHeading":"ALSO FEATURED BY"}},"bt_difference_section_NG39qR":{"type":"bt-difference-section","name":"Subscription Box","settings":{"differenceHeading":"","differenceSubText":"","aboutUsText":"","aboutUsURL":"","subscriptionHeading":"STAY IN THE LOOP","subscriptionSubText":"Get the latest on product drops, updates, and exclusive offers straight to your inbox.","differenceInputText":"No spam. Just pure golf tech goodness."}},"47a5acc1-f52d-471a-8480-f36b7e68051d":{"type":"Home","settings":{}}},"order":["16579402989e5a1548","row_features_fJjdcj","new_product_card_layout_B8PVDA","new_product_card_layout_7XqCbB","round_out_slider_section_XjnTQb","all_in_one_section_QVFFeq","built_section_slider_YtW7QM","bt_difference_section_RVQzwd","custom_video_block_MpHNGq","logo_slider_TTPDkW","bt_difference_section_NG39qR","47a5acc1-f52d-471a-8480-f36b7e68051d"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "16579402989e5a1548": {
+      "type": "Home-static-slider",
+      "settings": {}
+    },
+    "row_features_fJjdcj": {
+      "type": "row-features",
+      "blocks": {
+        "feature_aAQg9h": {
+          "type": "Feature",
+          "settings": {
+            "featureIcon": "shopify://shop_images/Frame_1171277599.svg",
+            "featureText": "FREE  SHIPPING"
+          }
+        },
+        "feature_XNJRrA": {
+          "type": "Feature",
+          "settings": {
+            "featureIcon": "shopify://shop_images/Frame_1171277600.svg",
+            "featureText": "100 DAY RETURNS"
+          }
+        },
+        "feature_hJBUBB": {
+          "type": "Feature",
+          "settings": {
+            "featureIcon": "shopify://shop_images/Frame_1171277601.svg",
+            "featureText": "SECURE  CHECKOUT"
+          }
+        },
+        "feature_VVLXAr": {
+          "type": "Feature",
+          "settings": {
+            "featureIcon": "shopify://shop_images/Frame_1171277602.svg",
+            "featureText": "2-YEAR  WARRANTY"
+          }
+        }
+      },
+      "block_order": [
+        "feature_aAQg9h",
+        "feature_XNJRrA",
+        "feature_hJBUBB",
+        "feature_VVLXAr"
+      ],
+      "disabled": true,
+      "name": "Feature Items",
+      "settings": {
+        "rowPadding": 55,
+        "rowBackground": "#ffffff"
+      }
+    },
+    "new_product_card_layout_B8PVDA": {
+      "type": "new-product-card-layout",
+      "blocks": {
+        "product_AMmVHT": {
+          "type": "Product",
+          "settings": {
+            "product": "player-pro",
+            "featureImage": "shopify://shop_images/Player_Pro_hover_state.png",
+            "featureImageMobile": "shopify://shop_images/Player_Pro_hover_state.png",
+            "featureHoverImage": "shopify://shop_images/Frame_1171277775.png",
+            "featureHoverImageMobile": "shopify://shop_images/Frame_1171277775.png",
+            "prodName": "PLAYER PRO",
+            "label": false,
+            "subText": "Golf GPS Speaker – Now Supercharged with AI",
+            "solidCtaText": "SHOP NOW",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": ""
+          }
+        },
+        "product_gQDL9J": {
+          "type": "Product",
+          "settings": {
+            "product": "rainmaker",
+            "featureImage": "shopify://shop_images/Launch-Monitor0019-edited_2_0f620d79-80e9-4b24-8614-5bb7563a1eea.png",
+            "featureImageMobile": "shopify://shop_images/Launch-Monitor0019-edited_2_0f620d79-80e9-4b24-8614-5bb7563a1eea.png",
+            "featureHoverImage": "shopify://shop_images/Rainmaker_PDP_1_1.png",
+            "featureHoverImageMobile": "shopify://shop_images/Rainmaker_PDP_1_1.png",
+            "prodName": "RAINMAKER",
+            "label": false,
+            "subText": "Portable Launch Monitor & App",
+            "solidCtaText": "SHOP NOW",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": ""
+          }
+        },
+        "product_Dgyx9E": {
+          "type": "Product",
+          "settings": {
+            "product": "captain-pro",
+            "featureImage": "shopify://shop_images/DSC08264_1_0121ce11-c95d-473e-ab4b-31a8e99d5625.png",
+            "featureImageMobile": "shopify://shop_images/DSC08264_1_0121ce11-c95d-473e-ab4b-31a8e99d5625.png",
+            "featureHoverImage": "shopify://shop_images/image_14.png",
+            "featureHoverImageMobile": "shopify://shop_images/image_14.png",
+            "prodName": "CAPTAIN PRO",
+            "label": false,
+            "subText": "Connected OLED GPS Rangefinder",
+            "solidCtaText": "SHOP NOW",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": ""
+          }
+        },
+        "product_g9C4HA": {
+          "type": "Product",
+          "settings": {
+            "product": "captain-air",
+            "featureImage": "shopify://shop_images/Captain-Air-42_1_7cd63f97-859f-4ce9-90bb-01c7520874dc.png",
+            "featureImageMobile": "shopify://shop_images/Captain-Air-42_1_7cd63f97-859f-4ce9-90bb-01c7520874dc.png",
+            "featureHoverImage": "shopify://shop_images/CaptainAir_008_02.png",
+            "featureHoverImageMobile": "shopify://shop_images/CaptainAir_008_02.png",
+            "prodName": "CAPTAIN AIR",
+            "label": false,
+            "subText": "Connected GPS Rangefinder",
+            "solidCtaText": "SHOP NOW",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": ""
+          }
+        },
+        "product_6x6bwr": {
+          "type": "Product",
+          "disabled": true,
+          "settings": {
+            "product": "player-gps-speaker",
+            "featureImage": "shopify://shop_images/pp-image-hp.png",
+            "featureImageMobile": "shopify://shop_images/pp-image-hp.png",
+            "featureHoverImage": "shopify://shop_images/Player__With_UI_001_8293a178-c510-4892-8cc8-4c29ce679857.png",
+            "featureHoverImageMobile": "shopify://shop_images/Player__With_UI_001_8293a178-c510-4892-8cc8-4c29ce679857.png",
+            "prodName": "PLAYER+",
+            "label": false,
+            "subText": "Golf GPS Speaker – Now Supercharged with AI",
+            "solidCtaText": "SHOP NOW",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": "shopify://products/player-gps-speaker"
+          }
+        },
+        "product_DHJ4H9": {
+          "type": "Product",
+          "settings": {
+            "product": "series-3-max-golf-rangefinder-with-slope",
+            "featureImage": "shopify://shop_images/dsc09223-1_2_1.png",
+            "featureImageMobile": "shopify://shop_images/dsc09223-1_2_1.png",
+            "featureHoverImage": "shopify://shop_images/S3Max__Navy_HERO_1_1.png",
+            "featureHoverImageMobile": "shopify://shop_images/S3Max__Navy_HERO_1_1.png",
+            "prodName": "SERIES 3 MAX+",
+            "label": false,
+            "subText": "Magnetic Laser Rangefinder",
+            "solidCtaText": "SHOP NOW",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": "shopify://products/series-3-max-golf-rangefinder-with-slope"
+          }
+        },
+        "product_ijjJdb": {
+          "type": "Product",
+          "settings": {
+            "product": "ringer",
+            "featureImage": "shopify://shop_images/Ringer6_edited_1.png",
+            "featureImageMobile": "shopify://shop_images/Ringer6_edited_1.png",
+            "featureHoverImage": "shopify://shop_images/Ringer-Navy-HERO_2.png",
+            "featureHoverImageMobile": "shopify://shop_images/Ringer-Navy-HERO_2.png",
+            "prodName": "RINGER 2.0",
+            "label": false,
+            "subText": "Handheld GPS Device",
+            "solidCtaText": "SHOP NOW",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": "shopify://products/ringer"
+          }
+        },
+        "product_NphwGe": {
+          "type": "Product",
+          "settings": {
+            "product": "magnetic-golf-speaker",
+            "featureImage": "shopify://shop_images/DSC09007-Enhanced-NR_edited_1.png",
+            "featureImageMobile": "shopify://shop_images/DSC09007-Enhanced-NR_edited_1.png",
+            "featureHoverImage": "shopify://shop_images/Group_1410105199.png",
+            "featureHoverImageMobile": "shopify://shop_images/Group_1410105199.png",
+            "prodName": "PLAYER GO",
+            "label": false,
+            "subText": "Compact Golf GPS Speaker – Now supercharged with AI",
+            "solidCtaText": "SHOP NOW",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": "shopify://products/magnetic-golf-speaker"
+          }
+        },
+        "product_Tc8FfP": {
+          "type": "Product",
+          "settings": {
+            "product": "playmaker-watch",
+            "featureImage": "shopify://shop_images/DSC01578-Enhanced-NR_edited_2_1.png",
+            "featureImageMobile": "shopify://shop_images/DSC01578-Enhanced-NR_edited_2_1.png",
+            "featureHoverImage": "shopify://shop_images/PM__ACV_Non-Club-Assist_HERO_1.png",
+            "featureHoverImageMobile": "shopify://shop_images/PM__ACV_Non-Club-Assist_HERO_1.png",
+            "prodName": "PLAYMAKER+",
+            "label": false,
+            "subText": "Touchscreen GPS Golf Watch",
+            "solidCtaText": "SHOP NOW",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": "shopify://pages/play-maker-plus-landing-page"
+          }
+        },
+        "product_3PGAzB": {
+          "type": "Product",
+          "settings": {
+            "product": "series-4-ultra-rangefinder",
+            "featureImage": "shopify://shop_images/6-Lifestyle_1_1.png",
+            "featureImageMobile": "shopify://shop_images/6-Lifestyle_1_1.png",
+            "featureHoverImage": "shopify://shop_images/S4-Ultra-HERO_1.png",
+            "featureHoverImageMobile": "shopify://shop_images/S4-Ultra-HERO_1.png",
+            "prodName": "SERIES 4 ULTRA",
+            "label": false,
+            "subText": "Magnetic OLED Rangefinder",
+            "solidCtaText": "SHOP NOW",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": "shopify://products/series-4-ultra-rangefinder"
+          }
+        }
+      },
+      "block_order": [
+        "product_AMmVHT",
+        "product_gQDL9J",
+        "product_Dgyx9E",
+        "product_g9C4HA",
+        "product_6x6bwr",
+        "product_DHJ4H9",
+        "product_ijjJdb",
+        "product_NphwGe",
+        "product_Tc8FfP",
+        "product_3PGAzB"
+      ],
+      "name": "Product Card",
+      "settings": {
+        "backgroundColor": "#f3f4f7",
+        "productCardHeading": "built to perform. priced to play.",
+        "productCardDesc": "Every purchase includes free shipping, an extended two-year warranty, and a 100-day risk-free guarantee.",
+        "sectionCtaText": "",
+        "allProductURL": ""
+      }
+    },
+    "new_product_card_layout_7XqCbB": {
+      "type": "new-product-card-layout",
+      "blocks": {
+        "product_MP8WxU": {
+          "type": "Product",
+          "settings": {
+            "product": "",
+            "featureImage": "shopify://shop_images/image_259.png",
+            "featureImageMobile": "shopify://shop_images/image_259.png",
+            "prodName": "PLAYER PRO",
+            "label": true,
+            "subText": "Magnetic GPS Golf Speaker",
+            "solidCtaText": "",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": "shopify://pages/player-pro"
+          }
+        },
+        "product_nLDjfp": {
+          "type": "Product",
+          "settings": {
+            "product": "",
+            "featureImage": "shopify://shop_images/Launch-Monitor0019-edited_2.png",
+            "featureImageMobile": "shopify://shop_images/Launch-Monitor0019-edited_2.png",
+            "prodName": "RAINMAKER",
+            "label": false,
+            "subText": "Portable Launch Monitor & App",
+            "solidCtaText": "",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": "shopify://pages/launch-monitor"
+          }
+        },
+        "product_YQzUQN": {
+          "type": "Product",
+          "settings": {
+            "product": "",
+            "featureImage": "shopify://shop_images/DSC08264_1.png",
+            "featureImageMobile": "shopify://shop_images/DSC08264_1.png",
+            "prodName": "CAPTAIN PRO",
+            "label": false,
+            "subText": "Magnetic OLED Bluetooth Rangefinder",
+            "solidCtaText": "",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": "shopify://pages/captain-pro"
+          }
+        },
+        "product_PzrTX3": {
+          "type": "Product",
+          "settings": {
+            "product": "",
+            "featureImage": "shopify://shop_images/Captain-Air-42_1.png",
+            "featureImageMobile": "shopify://shop_images/Captain-Air-42_1.png",
+            "prodName": "CAPTAIN AIR",
+            "label": false,
+            "subText": "Magnetic Bluetooth Rangefinder",
+            "solidCtaText": "",
+            "outlineCtaText": "LEARN MORE",
+            "learnMoreUrl": "shopify://pages/captain-air"
+          }
+        }
+      },
+      "block_order": [
+        "product_MP8WxU",
+        "product_nLDjfp",
+        "product_YQzUQN",
+        "product_PzrTX3"
+      ],
+      "disabled": true,
+      "name": "Product Card",
+      "settings": {
+        "backgroundColor": "",
+        "productCardHeading": "COMING SOON",
+        "productCardDesc": "",
+        "sectionCtaText": "",
+        "allProductURL": ""
+      }
+    },
+    "round_out_slider_section_XjnTQb": {
+      "type": "round-out-slider-section",
+      "blocks": {
+        "product_card_Mm34QC": {
+          "type": "product_card",
+          "settings": {
+            "product": "magnetic-golf-towel",
+            "customTitle": "MAGTOWEL",
+            "cardTagline": "Magnetic Utility Towel",
+            "image": "shopify://shop_images/20210413_BlueTees-3386-HiRes_9_1.png"
+          }
+        },
+        "product_card_6RffbB": {
+          "type": "product_card",
+          "settings": {
+            "product": "divot-repair-tool",
+            "customTitle": "DIVOT TOOL",
+            "cardTagline": "6-in-1 Multifunctional Divot Tool",
+            "image": "shopify://shop_images/EVN02832_1_2_1.png"
+          }
+        },
+        "product_card_DY7ikR": {
+          "type": "product_card",
+          "settings": {
+            "product": "ringer-hard-shell-carrying-case",
+            "customTitle": "RINGER CASE",
+            "cardTagline": "Hard Shell with Zipper",
+            "image": "shopify://shop_images/DSC05622-Enhanced-NR_1.png"
+          }
+        },
+        "product_card_gYx6hJ": {
+          "type": "product_card",
+          "settings": {
+            "product": "player-hard-shell-carrying-case",
+            "customTitle": "PLAYER+ CASE",
+            "cardTagline": "Hard Shell with Zipper",
+            "image": "shopify://shop_images/accessories_carousel_entry.png"
+          }
+        },
+        "product_card_ry96Mz": {
+          "type": "product_card",
+          "settings": {
+            "product": "watch-hard-shell-carrying-case",
+            "customTitle": "WATCH CASE",
+            "cardTagline": "Hard Shell with Zipper",
+            "image": "shopify://shop_images/accessories_carousel_entry-1.png"
+          }
+        }
+      },
+      "block_order": [
+        "product_card_Mm34QC",
+        "product_card_6RffbB",
+        "product_card_DY7ikR",
+        "product_card_gYx6hJ",
+        "product_card_ry96Mz"
+      ],
+      "name": "Round Out Game Slider",
+      "settings": {
+        "heading": "ROUND OUT<br>YOUR BAG",
+        "desc": "The finishing touches that make every round smoother — from course-ready utility to everyday protection.",
+        "main_cta_text": "SHOP ALL ACCESSORIES",
+        "main_cta_link": "shopify://collections/accessories",
+        "bg_color": "#f3f4f7",
+        "teesHeading": "BLUE TEES<br> ONLINE EXCLUSIVE",
+        "itemIconColor": "#1b2029",
+        "itemOneIcon": "shopify://shop_images/truck-icon-new.svg",
+        "itemOneText": "FREE SHIPPING OVER $50",
+        "itemTwoIcon": "shopify://shop_images/check-mark-icon-new.svg",
+        "itemTwoText": "extended two-year warranty",
+        "itemThreeIcon": "shopify://shop_images/return-icon-new.svg",
+        "itemThreeText": "100 DAY RISK-FREE RETURNS",
+        "no_space_top": false
+      }
+    },
+    "all_in_one_section_QVFFeq": {
+      "type": "all-in-one-section",
+      "blocks": {
+        "feature_slide_yagkRD": {
+          "type": "feature_slide",
+          "settings": {
+            "image": "shopify://shop_images/GAME_App_-_True_Distance.png",
+            "title": "TRUE DISTANCE™<br>ADJUSTED YARDAGES",
+            "description": "Access GPS data for over 42K courses & detailed insights for how holes are actually playing."
+          }
+        },
+        "feature_slide_DBCVjm": {
+          "type": "feature_slide",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1171277598.png",
+            "title": "Smart<br>Shot Tracking",
+            "description": "Effortlessly track shots and sync your rounds’ data across other Blue Tees devices."
+          }
+        },
+        "feature_slide_XVMFVr": {
+          "type": "feature_slide",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1171277777.png",
+            "title": "SCOUT AI™<br>CADDIE",
+            "description": "Get personalized club & swing recommendations based on your unique round data."
+          }
+        },
+        "feature_slide_3WcPGP": {
+          "type": "feature_slide",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1171277932_529ce8f8-f81d-46d6-9a1a-c6cdbe364a93.png",
+            "title": "post game <br>analytics",
+            "description": "Visualize every round’s data so you can track, measure, and see progress over time."
+          }
+        },
+        "feature_slide_N4txJE": {
+          "type": "feature_slide",
+          "settings": {
+            "image": "shopify://shop_images/USGA_9df4aa42-220d-4440-9bc9-46d530761895.png",
+            "badge": "shopify://shop_images/Frame_1171278072.png",
+            "title": "USGA<br>INTEGRATION",
+            "description": "Upload your scores directly to the USGA® to easily maintain your official Handicap Index™."
+          }
+        },
+        "feature_slide_iWyR3e": {
+          "type": "feature_slide",
+          "settings": {
+            "image": "shopify://shop_images/LEADERBOARDS.png",
+            "title": "LIVE<br>LEADERBOARDS",
+            "description": "Track scores while you play with friends or others across a variety of game formats."
+          }
+        }
+      },
+      "block_order": [
+        "feature_slide_yagkRD",
+        "feature_slide_DBCVjm",
+        "feature_slide_XVMFVr",
+        "feature_slide_3WcPGP",
+        "feature_slide_N4txJE",
+        "feature_slide_iWyR3e"
+      ],
+      "name": "All-In-One Platform",
+      "settings": {
+        "hero_logo": "shopify://shop_images/Group_1410105173.svg",
+        "hero_heading": "<span class=\"custom_heading outline\">SMARTER ROUNDS.</span><br>LOWER SCORES.",
+        "hero_description": "<p>GAME is an AI-powered GPS App and intelligence engine that powers the full Blue Tees ecosystem  – turning your rounds, swings, and club data into smarter decisions on and off the course. </p>",
+        "tryCtaText": "TRY FOR FREE",
+        "tryCtaURL": "shopify://pages/app-download-lp",
+        "app_store_btn": "shopify://shop_images/Group_22913.png",
+        "app_store_url": "https://apps.apple.com/us/app/blue-tees-game-ai-golf-gps/id6448720121",
+        "play_store_btn": "shopify://shop_images/Group_22912.png",
+        "play_store_url": "https://play.google.com/store/apps/details?id=com.bluetees",
+        "hero_main_image": "shopify://shop_images/Frame_1171278071_82a409eb-023e-42c6-904f-c28c6333be64.png",
+        "bg_color_top": "#1b2029"
+      }
+    },
+    "built_section_slider_YtW7QM": {
+      "type": "built-section-slider",
+      "blocks": {
+        "slide_NBexLF": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC03741-Enhanced-NR_1.png",
+            "title": "ON THE COURSE",
+            "description": "Precision where it matters most"
+          }
+        },
+        "slide_FwqXFg": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/dsc01589-enhanced-nr_edited-1_1.png",
+            "title": "At the Range",
+            "description": "Dial it in before your next round"
+          }
+        },
+        "slide_zXkFVr": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC07574_1.png",
+            "title": "On the Road",
+            "description": "Built to travel, built to perform"
+          }
+        },
+        "slide_M6a7dX": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/1_5.png",
+            "title": "Training at Home",
+            "description": "Progress doesn’t stop between rounds"
+          }
+        }
+      },
+      "block_order": [
+        "slide_NBexLF",
+        "slide_FwqXFg",
+        "slide_zXkFVr",
+        "slide_M6a7dX"
+      ],
+      "disabled": true,
+      "name": "Built For Play Slider",
+      "settings": {
+        "heading": "BUILT FOR THE WAY<br>YOU PLAY",
+        "bg_color": "#ffffff"
+      }
+    },
+    "bt_difference_section_RVQzwd": {
+      "type": "bt-difference-section",
+      "name": "Subscription Box",
+      "settings": {
+        "differenceHeading": "FOR GOLFERS WHO PLAY <span class=\"custom_heading outline\" style=\"display: inline-flex;max-width: clamp(100px,17vw,275px);\"><svg width=\"275\" height=\"33\" viewbox=\"0 0 275 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M265.839 26.7671C265.839 25.5682 265.433 24.5497 264.621 23.7119C263.822 22.8742 262.668 22.4551 261.16 22.4551C259.652 22.4552 258.491 22.874 257.679 23.7119C256.88 24.5497 256.481 25.5683 256.481 26.7671C256.481 27.9659 256.88 28.9913 257.679 29.842C258.491 30.6928 259.652 31.1172 261.16 31.1173C262.668 31.1173 263.822 30.6984 264.621 29.8606C265.433 29.0227 265.839 27.9917 265.839 26.7671ZM267.296 26.7671C267.296 28.3454 266.759 29.7422 265.675 30.865L265.676 30.8662C264.525 32.0726 262.94 32.5744 261.16 32.5744C259.484 32.5743 257.984 32.1238 256.848 31.0666L256.625 30.8477L256.618 30.839C255.557 29.7101 255.023 28.3254 255.023 26.7671C255.023 25.2084 255.558 23.8255 256.625 22.7062L256.634 22.6976C257.794 21.5004 259.379 20.9981 261.16 20.998C262.94 20.998 264.525 21.4999 265.676 22.7062H265.675C266.753 23.8227 267.296 25.2049 267.296 26.7671Z\" fill=\"white\"></path>\n<path d=\"M258.49 1.10059L256.896 10.1821H246.744L242.876 32.1671H231.816L235.684 10.1821H225.527L227.15 1.10059H258.49ZM228.37 2.55644L227.268 8.72497H237.419L233.551 30.71H241.653L245.521 8.72497H255.672L256.755 2.55644H228.37Z\" fill=\"white\"></path>\n<path d=\"M206.015 1.10059L214.167 16.0302L216.806 1.10059H226.512L221.028 32.1671H211.045L202.832 17.5479L200.284 32.1671H190.574L196.057 1.10059H206.015ZM197.28 2.55644L192.311 30.71H199.06L201.902 14.4099C201.953 14.1006 201.998 13.7398 202.037 13.3276C202.075 12.9151 202.107 12.5408 202.133 12.2057H202.326C202.378 12.5279 202.488 13.0178 202.655 13.6751C202.823 14.3326 203.062 14.9517 203.371 15.5318L211.898 30.71H219.806L224.775 2.55644H218.028L215.165 18.7601C215.101 19.1468 215.05 19.5337 215.011 19.9204C214.972 20.307 214.933 20.6939 214.895 21.0806H214.702C214.65 20.7712 214.528 20.3328 214.334 19.7657C214.154 19.1986 213.953 18.7018 213.734 18.2765L205.15 2.55644H197.28Z\" fill=\"white\"></path>\n<path d=\"M194.323 1.10059L192.722 10.0856H176.425L176.065 12.1414H190.532L189.029 20.6229H174.568L174.095 23.3169H190.665L189.109 32.1671H161.805L167.288 1.10059H194.323ZM168.511 2.55644L163.541 30.71H187.885L188.929 24.774H172.358L173.345 19.1671H187.809L188.794 13.5972H174.331L175.201 8.62849H191.501L192.584 2.55644H168.511Z\" fill=\"white\"></path>\n<path d=\"M151.936 1.10059V2.55644H136.526L131.557 30.71H139.601L141.283 21.255H147.505L151.376 30.71H160.231L155.235 19.9278C156.028 19.5848 156.766 19.1774 157.447 18.702C159.61 17.1914 160.997 15.0637 161.608 12.3182L161.721 11.7604C162.262 8.7056 161.662 6.41079 159.922 4.87691C158.303 3.4268 155.862 2.65694 152.599 2.56634L151.936 2.55644V1.10059C155.697 1.10061 158.778 1.902 160.886 3.78471L161.091 3.97272C163.17 5.94579 163.733 8.75485 163.155 12.0152L163.154 12.0189C162.551 15.3773 160.934 18.0442 158.281 19.8969C157.918 20.1501 157.542 20.3838 157.154 20.6019L162.512 32.1671H150.398L146.526 22.7121H142.502L140.82 32.1671H129.82L135.304 1.10059H151.936ZM149.867 8.24134C151.388 8.24134 152.446 8.54462 153.039 9.15048C153.632 9.74344 153.805 10.7105 153.561 12.0511C153.341 13.2626 152.819 14.2034 151.995 14.8737C151.183 15.544 150.022 15.8793 148.514 15.8793V14.4222C149.827 14.4222 150.608 14.1291 151.067 13.7506L151.076 13.7432C151.588 13.3267 151.959 12.7177 152.127 11.7913V11.7888C152.314 10.7664 152.148 10.3675 152.047 10.2266L152.008 10.1808L151.997 10.1697C151.828 9.99731 151.282 9.69843 149.867 9.69843H144.708L143.871 14.4222H148.514V15.8793H142.133L143.487 8.24134H149.867Z\" fill=\"white\"></path>\n<path d=\"M133.569 1.10059L131.966 10.0856H115.67L115.311 12.1414H129.777L128.275 20.6229H113.813L113.34 23.3169H129.911L128.355 32.1671H101.051L106.534 1.10059H133.569ZM107.756 2.55644L102.787 30.71H127.131L128.175 24.774H111.604L112.59 19.1671H127.053L128.039 13.5972H113.577L114.447 8.62849H130.747L131.829 2.55644H107.756Z\" fill=\"white\"></path>\n<path d=\"M105.776 1.10059L104.174 10.0856H88.9005L88.3724 13.069H102.113L100.641 21.5704H86.872L85.0154 32.1671H74.0117L79.495 1.10059H105.776ZM80.7171 2.55644L75.7484 30.71H83.7921L85.6487 20.1146H99.4156L100.382 14.5261H86.6345L87.6785 8.62849H102.953L104.037 2.55644H80.7171Z\" fill=\"white\"></path>\n<path d=\"M78.7459 1.10059L77.1428 10.0856H61.8693L61.3411 13.069H75.0821L73.6114 21.5704H59.8407L57.9854 32.1671H46.9805L52.4637 1.10059H78.7459ZM53.6871 2.55644L48.7171 30.71H56.7608L58.6174 20.1146H72.3844L73.3516 14.5261H59.6033L60.6472 8.62849H75.9232L77.0055 2.55644H53.6871Z\" fill=\"white\"></path>\n<path d=\"M49.5085 1.10059L44.0252 32.1671H32.8867L38.3712 1.10059H49.5085ZM39.5933 2.55644L34.6234 30.71H42.8031L47.7718 2.55644H39.5933Z\" fill=\"white\"></path>\n<path d=\"M20.2991 1.10059V2.55644H6.70535L1.73664 30.71H15.3292C19.3174 30.71 22.8695 29.7014 25.9853 27.6845L26.6025 27.2677C29.8764 24.9732 31.9137 21.5571 32.7129 17.0198L32.886 16.1304C33.6603 11.7096 32.9043 8.37792 30.6175 6.13486L30.3924 5.92087C28.0963 3.81823 24.9955 2.70151 21.0908 2.57005L20.2991 2.55644V1.10059C24.833 1.10064 28.5853 2.29292 31.3733 4.84475L31.6454 5.10203C34.3891 7.79698 35.1438 11.6913 34.3221 16.3828L34.3196 16.3964L34.3159 16.41L34.1428 17.3006C33.2843 22.1415 31.0709 25.9133 27.4399 28.4588C23.9164 30.9378 19.862 32.1671 15.3292 32.1671H0L5.48328 1.10059H20.2991ZM18.7901 8.31926C20.9038 8.31926 22.5349 8.90546 23.6821 10.0782C24.8423 11.2512 25.1776 13.2436 24.6877 16.0537L24.4948 17.1558C23.992 19.9917 22.9346 22.0219 21.3233 23.2464L21.019 23.4691C19.4828 24.5453 17.7539 25.0832 15.8326 25.0833V23.6262C17.568 23.6261 19.0884 23.1154 20.4426 22.0862C21.6588 21.1616 22.5942 19.528 23.0599 16.901L23.2529 15.8014C23.6901 13.2918 23.3432 11.9335 22.7656 11.2347L22.6468 11.1036L22.6406 11.0974C21.8907 10.3307 20.781 9.84093 19.129 9.78254L18.7901 9.77636H14.8134L12.3841 23.6262H15.8326V25.0833H10.6499L13.5888 8.31926H18.7901Z\" fill=\"white\"></path>\n<path d=\"M264.066 5.12679C264.066 3.65687 264.586 2.43592 265.626 1.46394C266.67 0.487982 267.962 0 269.504 0C271.046 0 272.338 0.487982 273.382 1.46394C274.43 2.43592 274.953 3.65687 274.953 5.12679C274.953 6.58875 274.43 7.8097 273.382 8.78964C272.338 9.76561 271.046 10.2536 269.504 10.2536C267.962 10.2536 266.67 9.76561 265.626 8.78964C264.586 7.8097 264.066 6.58875 264.066 5.12679ZM265.315 5.12679C265.315 6.29795 265.718 7.27391 266.522 8.05468C267.327 8.83545 268.325 9.22584 269.516 9.22584C270.703 9.22584 271.697 8.83545 272.498 8.05468C273.302 7.27391 273.705 6.29795 273.705 5.12679C273.705 3.95564 273.302 2.98167 272.498 2.20488C271.697 1.42411 270.703 1.03372 269.516 1.03372C268.325 1.03372 267.327 1.42411 266.522 2.20488C265.718 2.98167 265.315 3.95564 265.315 5.12679ZM269.576 5.79005H268.626V7.95908H267.275V2.21683H269.546C270.358 2.21683 270.978 2.36223 271.404 2.65303C271.834 2.93984 272.049 3.384 272.049 3.98551C272.049 4.40777 271.934 4.75633 271.703 5.03119C271.476 5.30207 271.135 5.48929 270.681 5.59287C270.785 5.66059 270.862 5.72831 270.914 5.79603C270.97 5.85976 271.028 5.94342 271.087 6.04699L272.193 7.82165V7.95908H270.747L269.576 5.79005ZM269.54 3.28641H268.626V4.76828H269.617C269.948 4.76828 270.201 4.71251 270.376 4.60097C270.556 4.48943 270.645 4.30818 270.645 4.05722C270.645 3.78236 270.566 3.58517 270.406 3.46566C270.251 3.34616 269.962 3.28641 269.54 3.28641Z\" fill=\"white\"></path>\n</svg>\n</span>",
+        "differenceSubText": "Blue Tees was built to make high-quality golf technology more accessible — without sacrificing precision, performance, or design. We believe better data leads to better decisions, which is why we create intuitive, reliable tools designed to work together and grow with your game, so players can focus less on equipment and more on enjoying the game they love.",
+        "aboutUsText": "LEARN MORE ABOUT US",
+        "aboutUsURL": "shopify://pages/about-us",
+        "floatingImage": "shopify://shop_images/Group_1410105109.svg",
+        "differenceImage": "shopify://shop_images/Frame_1171277788_1.png",
+        "subscriptionHeading": "",
+        "subscriptionSubText": "",
+        "differenceInputText": ""
+      }
+    },
+    "custom_video_block_MpHNGq": {
+      "type": "custom-video-block",
+      "name": "Custom Video Block",
+      "settings": {
+        "blockColor": "",
+        "ripple_clr": "#ffffff61",
+        "videoUrl": "https://cdn.shopify.com/videos/c/o/v/93c7dd6f9f5348f989f267d6f15472d4.mp4",
+        "videoHeading": "TRUSTED BY THE PROS",
+        "videoDescription": "From elite coaches to everyday golfers, Blue Tees delivers the confidence pros demand — and players rely on.",
+        "playText": "LEARN WHY FROM SEAN FOLEY  PGA TOUR COACH",
+        "hasRadius": true
+      }
+    },
+    "logo_slider_TTPDkW": {
+      "type": "logo-slider",
+      "blocks": {
+        "logo_slider_nfWGPT": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/Group_27156.png"
+          }
+        },
+        "logo_slider_q9EEmz": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/Mask_group-3.png"
+          }
+        },
+        "logo_slider_nMHq6T": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/Group_27155.png"
+          }
+        },
+        "logo_slider_8RGbcq": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/image_74.png"
+          }
+        },
+        "logo_slider_bNw7Ue": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/Group_27157.png"
+          }
+        },
+        "logo_slider_yApqyr": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/Mask_group-2.png"
+          }
+        },
+        "logo_slider_rQmVC4": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/Layer_6.png"
+          }
+        },
+        "logo_slider_raTGyM": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/Logo_7efec96c-4a96-4422-bca7-d019b01636c9.png"
+          }
+        },
+        "logo_slider_pdzxFY": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/image_75.png"
+          }
+        },
+        "logo_slider_N9LtTa": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/Mask_group-1.png"
+          }
+        },
+        "logo_slider_DLDbi3": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/Mask_group_b13fc159-1ac7-4e71-ba2d-4ff95a6fd5be.png"
+          }
+        },
+        "logo_slider_rFb4fw": {
+          "type": "Logo_Slider",
+          "settings": {
+            "logo": "shopify://shop_images/Layer_5.png"
+          }
+        }
+      },
+      "block_order": [
+        "logo_slider_nfWGPT",
+        "logo_slider_q9EEmz",
+        "logo_slider_nMHq6T",
+        "logo_slider_8RGbcq",
+        "logo_slider_bNw7Ue",
+        "logo_slider_yApqyr",
+        "logo_slider_rQmVC4",
+        "logo_slider_raTGyM",
+        "logo_slider_pdzxFY",
+        "logo_slider_N9LtTa",
+        "logo_slider_DLDbi3",
+        "logo_slider_rFb4fw"
+      ],
+      "name": "Logo Slider New",
+      "settings": {
+        "tickerHeading": "ALSO FEATURED BY",
+        "bg_clr": ""
+      }
+    },
+    "bt_difference_section_NG39qR": {
+      "type": "bt-difference-section",
+      "name": "Subscription Box",
+      "settings": {
+        "differenceHeading": "",
+        "differenceSubText": "",
+        "aboutUsText": "",
+        "aboutUsURL": "",
+        "subscriptionHeading": "STAY IN THE LOOP",
+        "subscriptionSubText": "Get the latest on product drops, updates, and exclusive offers straight to your inbox.",
+        "differenceInputText": "No spam. Just pure golf tech goodness."
+      }
+    },
+    "47a5acc1-f52d-471a-8480-f36b7e68051d": {
+      "type": "Home",
+      "settings": {}
+    }
+  },
+  "order": [
+    "16579402989e5a1548",
+    "row_features_fJjdcj",
+    "new_product_card_layout_B8PVDA",
+    "new_product_card_layout_7XqCbB",
+    "round_out_slider_section_XjnTQb",
+    "all_in_one_section_QVFFeq",
+    "built_section_slider_YtW7QM",
+    "bt_difference_section_RVQzwd",
+    "custom_video_block_MpHNGq",
+    "logo_slider_TTPDkW",
+    "bt_difference_section_NG39qR",
+    "47a5acc1-f52d-471a-8480-f36b7e68051d"
+  ]
+}

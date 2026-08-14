@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "advanced-content": {
@@ -216,7 +225,7 @@
         },
         "video_url": {
           "label": "Enlace al vídeo de fondo",
-          "info": "Es compatible con YouTube, .MP4 y Vimeo. No todas las funciones son compatibles con Vimeo. [Saber más](https://archetypethemes.co/blogs/impulse/how-do-i-add-background-videos)"
+          "info": "Es compatible con YouTube, .MP4 y Vimeo. No todas las funciones son compatibles con Vimeo. [Saber más](https://blueteesgolf.com/)"
         },
         "color_border": {
           "label": "Color del vídeo",
@@ -816,7 +825,7 @@
         },
         "mega_menu_images": {
           "label": "Mostrar imágenes del mega menú",
-          "info": "[Cómo crear un megamenú](https://archetypethemes.co/blogs/impulse/how-do-i-create-a-mega-menu)"
+          "info": "[Cómo crear un megamenú](https://blueteesgolf.com/)"
         },
         "main_menu_alignment": {
           "label": "Diseño de la cabecera",
@@ -972,7 +981,7 @@
         },
         "video_url": {
           "label": "Enlace al vídeo de fondo",
-          "info": "Es compatible con YouTube, .MP4 y Vimeo. No todas las funciones son compatibles con Vimeo. [Saber más](https://archetypethemes.co/blogs/impulse/how-do-i-add-background-videos)"
+          "info": "Es compatible con YouTube, .MP4 y Vimeo. No todas las funciones son compatibles con Vimeo. [Saber más](https://blueteesgolf.com/)"
         },
         "overlay_opacity": {
           "label": "Protección del texto",
@@ -1148,7 +1157,7 @@
         },
         "enable_color_swatches": {
           "label": "Activar las muestras de color",
-          "info": "[Ver instrucciones de configuración](https://archetypethemes.co/blogs/impulse/how-do-i-set-up-color-swatches)"
+          "info": "[Ver instrucciones de configuración](https://blueteesgolf.com/)"
         },
         "enable_sort": {
           "label": "Mostrar opciones de clasificación"
@@ -1294,7 +1303,7 @@
         },
         "enable_color_swatches": {
           "label": "Activar las muestras de color",
-          "info": "[Ver instrucciones de configuración](https://archetypethemes.co/blogs/impulse/how-do-i-set-up-color-swatches)"
+          "info": "[Ver instrucciones de configuración](https://blueteesgolf.com/)"
         },
         "per_row": {
           "label": "Productos por fila"
@@ -3312,7 +3321,7 @@
         },
         "color_swatches": {
           "label": "Activar las muestras de color",
-          "info": "Es necesario que el tipo esté configurado como 'Botones'. [Aprende a configurar las muestras](https://archetypethemes.co/blogs/impulse/how-do-i-set-up-color-swatches)"
+          "info": "Es necesario que el tipo esté configurado como 'Botones'. [Aprende a configurar las muestras](https://blueteesgolf.com/)"
         }
       }
     },

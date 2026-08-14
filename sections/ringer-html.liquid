@@ -1,10 +1,9 @@
 <div class="rigner__top--videoArea">
   <div class="videoArea__Title">
-    <picture class="videoArea__Image">
-      <source srcset="{{ 'Group 24722.png' | asset_url }}" media="(min-width:769px)">
-      <source srcset="{{ 'Group 24722.png' | asset_url }}" media="(max-width:768px)">
-      <img src="{{ 'Group 24722.png' | asset_url }}" alt="">
-    </picture>
+    <h2 class="section_heading--custom page_heading">
+      <span>GAME-CHANGING</span>
+      <span class="custom_heading outline">INSIGHTS</span>
+    </h2>
   </div>
   <video class="video_ringer--screen" autoplay playsinline muted loop>
 
@@ -161,11 +160,12 @@
 
   <div class="craftedArea__main">
     <div class="craftedArea__Inner-container">
-      <picture class="craftedArea__Image--title">
-        <source srcset="{{ 'crafted-title-img.png' | asset_url }}" media="(min-width:769px)">
-        <source srcset="{{ 'crafted-title-img-mobile.png' | asset_url }}" media="(max-width:768px)">
-        <img src="{{ 'crafted-title-img.png' | asset_url }}" alt="">
-      </picture>
+      <h2 class="section_heading--custom page_heading dark_heading">
+        
+
+      <span>PRECISELY CRAFTED</span>
+      <span class="custom_heading outline">COMPACTLY DESIGNED.</span>
+    </h2>
       <p class="craftedArea__Decs">This GPS golf device combines expert engineering with a sleek, compact design to deliver top-tier performance on the course. Its precision craftsmanship ensures accuracy and durability, while its small size makes it easy to carry and use without any hassle. Perfect for golfers seeking reliable technology in a portable, high-performance package.</p>
     </div>
   </div>
@@ -251,11 +251,12 @@
           </picture>
         </div>
         <div class="seamLess__Title--image">
-          <picture class="Title__Images">
-            <source srcset="{{ 'title-img-desktop.png' | asset_url }}" media="(min-width:769px)">
-            <source srcset="{{ 'title-img-desktop-rr.png' | asset_url }}" media="(max-width:768px)">
-            <img src="{{ 'title-img-desktop.png' | asset_url }}" alt="">
-          </picture>
+           <h2 class="section_heading--custom page_heading dark_heading" style="font-size: clamp(24px, 2.2vw, 38px);">
+        
+
+      <span>SEAMLESS CONNECTIVITY</span>
+      <span class="custom_heading outline">WITH GAME APP AND OTHER BULE TEES DEVICES</span>
+    </h2>
         </div>
         <div class="seamLess__pra-container">
           <p class="seamLess__Desc">The Ringer pairs effortlessly with the GAME app, offering advanced analytics and 3D round replays. It syncs your data for a detailed view of your performance and trends. Compatible with Player+ and Player GO devices, it creates a cohesive ecosystem for golfers. Whether using Player GO’s GPS speaker or Player+ for live leaderboards and AI-powered club recommendations, the Ringer integrates seamlessly to enhance your golf experience.</p>
@@ -320,9 +321,19 @@
 
   
   .rigner__top--videoArea { text-align: center; }
-  .videoArea__Title picture img { max-width: 39%; width: 100%; padding-top: 60px; }
+  /* .videoArea__Title picture img { max-width: 39%; width: 100%; padding-top: 60px; } */
   .video_ringer--screen{max-width: 80%; margin: 0 auto; width: 100%;}
-
+  .videoArea__Title { padding-top: 60px; }
+  .section_heading--custom.page_heading, .dark_heading {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  line-height: 1;
+  font-size: clamp(32px, 3vw, 52px);
+  width: fit-content;
+  margin-inline:auto;
+}
+.dark_heading{color:#fff;}
   .btn__container{text-align: center;}
   .btn__container:not([class^="_No-space"]){ margin-bottom:clamp(20px, 2.2vw, 50px);}
   .btn__bg { background: var(--new-red); padding: 10px 70px; border-radius: 50px; color: #fff; font-weight: 900; letter-spacing: 3.2px; font-size: 16px; display: inline-flex; border:1px solid #fff0; }

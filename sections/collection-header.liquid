@@ -49,11 +49,22 @@
                 </picture>
               </div>
               <div class="section_hero--content-text">
-                {% if section.settings.content_layout == true %}<div class="new-page-width">{% endif %}
-                <h1 class="section_hero--title">
-                  {{ collection.title }}
-                </h1>
-                <div class="section_hero--description">
+
+              {% comment %} render h2 if page already contain h1 {% endcomment %}
+              {%- assign has_h1 = false -%}
+              {%- if collection.description contains '<h1' or collection.description contains '<H1' -%}
+                {%- assign has_h1 = true -%}
+              {%- endif -%}
+              {% if has_h1 %}
+                {% assign tag = 'h2' %}
+              {% else %}
+                {% assign tag = 'h1' %}
+              {% endif %}
+              {% if section.settings.content_layout == true %}<div class="new-page-width">{% endif %}
+              <{{tag}} class="section_hero--title">
+                {{ collection.title }}
+              </{{tag}}>
+              <div class="section_hero--description">
                   {{ collection.description }}
                 </div>
                 {% if section.settings.content_layout == true %}</div>{% endif %}
