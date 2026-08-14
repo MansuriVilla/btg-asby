@@ -98,6 +98,8 @@
         {% assign compare_price = block.settings.compare_price %}
         {% assign regular_price = block.settings.regular_price %}
         {% assign price_note = block.settings.price_note %}
+        {% assign promo_text = block.settings.promo_text %}
+        {% assign promo_code = block.settings.promo_code %}
 
         {% if top_label != blank %}
           <div class="section-left__badge">
@@ -118,6 +120,20 @@
             {% endif %}
             {% if price_note != blank %}
               <span class="price-note">{{ price_note }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if promo_text != blank or promo_code != blank %}
+          <div class="section-left__promo-wrap">
+            {% if promo_text != blank %}
+              <span class="promo-text">{{ promo_text }}</span>
+            {% endif %}
+            {% if promo_code != blank %}
+              <span class="promo-code-wrap">
+                <strong class="promo-code">{{ promo_code }}</strong> at Checkout
+                <button type="button" class="promo-copy-btn" onclick="copyPromoCode('{{ promo_code }}', this)">Copy Code</button>
+              </span>
             {% endif %}
           </div>
         {% endif %}
@@ -297,9 +313,51 @@
   max-width: 260px;
   line-height: 1.5;
     }
+
+    .section-left__promo-wrap {
+      font-size: 13px;
+      color: #FFFFFF;
+      margin-block: 8px 12px;
+      line-height: 1.4;
+    }
+    .section-left__promo-wrap .promo-text {
+      color: var(--new-gray, #A1A3A9);
+      margin-right: 4px;
+    }
+    .section-left__promo-wrap .promo-code {
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    .section-left__promo-wrap .promo-copy-btn {
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 0;
+      margin-left: 4px;
+      transition: opacity 0.2s;
+    }
+    .section-left__promo-wrap .promo-copy-btn:hover {
+      opacity: 0.8;
+    }
 </style>
 
 <script>
+  function copyPromoCode(code, btn) {
+    if (!code) return;
+    navigator.clipboard.writeText(code).then(function() {
+      var origText = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function() {
+        btn.textContent = origText;
+      }, 2000);
+    }).catch(function(err) {
+      console.error("Failed to copy promo code: ", err);
+    });
+  }
+
   function getOS() {
         const ua = navigator.userAgent.toLowerCase();
         const platform = navigator.platform.toLowerCase();
@@ -376,15 +434,14 @@ async function buyNow(button) {
     });
 
     if (response.ok) {
-      window.location.href = "/discount/BIGBREAK50RM?redirect=/checkout";
+      document.dispatchEvent(new CustomEvent("ajaxProduct:added", { detail: {} }));
     } else {
       throw new Error("Unable to add products.");
     }
 
   } catch (error) {
     alert(error.message);
-
-    // Remove loading class if request fails
+  } finally {
     button.classList.remove("btn--loading");
     button.style.pointerEvents = "auto";
   }
@@ -512,6 +569,22 @@ async function buyNow(button) {
           "id": "price_note",
           "label": "Price Subtext / Note",
           "info": "e.g. INCLUDES 1 YR GAME INTELLIGENCE MEMBERSHIP ($79 VALUE)"
+        },
+        {
+          "type": "header",
+          "content": "Promo / Coupon Code"
+        },
+        {
+          "type": "text",
+          "id": "promo_text",
+          "label": "Promo Line Prefix Text",
+          "info": "e.g. Use Code"
+        },
+        {
+          "type": "text",
+          "id": "promo_code",
+          "label": "Promo Code",
+          "info": "e.g. BIGBREAK50RM"
         },
         {
           "type": "checkbox",

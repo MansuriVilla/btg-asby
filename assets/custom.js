@@ -3693,6 +3693,65 @@ changeImageOnVarient();
       cartItem.style.pointerEvents = 'none';
     }
 
+    var FREE_GIFTS_BY_VARIANT = {
+      42266534052037: "42279859028165",
+      42266534019269: "42279859028165",
+
+      44599654088901: "42279859028165",
+
+      42373188452549: "42279859028165",
+      42373188485317: "42279859028165",
+
+      44119278551237: "42279859028165",
+      44119278584005: "42279859028165",
+
+      45724258697413: "45793869299909",
+      45724258468037: "46056776990917",
+      45724250669253: "46056776990917",
+      45724259942597: "46056776990917",
+
+      42817543536837: "46056795209925",
+      46039346413765: "46056795209925",
+      41354208280773: "46056795209925",
+      41354207166661: "46056795209925",
+      42924526043333: "46056795209925",
+      42924529811653: "46056795209925",
+      45110734618821: "46056795209925",
+      42935689937093: "46056795209925",
+      45859460120773: "46056795209925",
+    };
+
+    function removeFreeGiftIfPresentByVariant(qualifyingVariantId) {
+      var freeVariantId = FREE_GIFTS_BY_VARIANT[String(qualifyingVariantId)];
+      if (!freeVariantId) return Promise.resolve();
+
+      return fetch("/cart.js", { headers: { Accept: "application/json" } })
+        .then((res) => res.json())
+        .then((cart) => {
+          var freeItem = cart.items.find(
+            (item) => String(item.variant_id) === String(freeVariantId)
+          );
+
+          if (!freeItem) return;
+
+          return fetch("/cart/change.js", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              id: freeItem.key,
+              quantity: 0,
+            }),
+          });
+        })
+        .catch((err) => console.error("Error removing free gift:", err));
+    }
+
+    var variantId = key.split(":")[0];
+    var hasFreeGift = variantId && FREE_GIFTS_BY_VARIANT.hasOwnProperty(String(variantId));
+
     fetch('/cart/change.js', {
       method: 'POST',
       headers: {
@@ -3702,6 +3761,11 @@ changeImageOnVarient();
       body: JSON.stringify({ id: key, quantity: 0 })
     })
       .then(function (res) { return res.json(); })
+      .then(function () {
+        if (hasFreeGift) {
+          return removeFreeGiftIfPresentByVariant(variantId);
+        }
+      })
       .then(function () {
         // Refresh the mini-cart drawer exactly as the theme's QtySelector does
         document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
