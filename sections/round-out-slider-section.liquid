@@ -29,11 +29,21 @@
 
       {% if section.blocks.size > 1 %}
         <div class="round-right">
-          <div class="horizon-slider_container round-slider">
+          <div
+            class="horizon-slider_container round-slider"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="{{ section.settings.heading | escape | default: 'Product Recommendations Carousel' }}"
+          >
             <div class="horizon-slider_track">
               {% for block in section.blocks %}
                 {% assign product = block.settings.product %}
-                <div class="horizon-slide">
+                <div
+                  class="horizon-slide"
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label="Slide {{ forloop.index }} of {{ forloop.length }}: {{ block.settings.customTitle | default: product.title | escape }}"
+                >
                   <div class="round-card">
                     {% assign card_image = block.settings.image | default: product.featured_image %}
                     {% assign card_alt = card_image.alt | default: block.settings.customTitle | default: product.title | default: 'Product Image' %}
@@ -102,7 +112,7 @@
               <div class="item_left" style="--icon-bg:{{ section.settings.itemIconColor }}">
                 <img
                   src="{{ section.settings.itemOneIcon | image_url }}"
-                  alt="{{ section.settings.itemOneText }}"
+                  alt=""
                   height="100%"
                   width="100%"
                   decoding="async"
@@ -120,7 +130,7 @@
               <div class="item_left" style="--icon-bg:{{ section.settings.itemIconColor }}">
                 <img
                   src="{{ section.settings.itemTwoIcon | image_url }}"
-                  alt="{{ section.settings.itemTwoText }}"
+                  alt=""
                   height="100%"
                   width="100%"
                   decoding="async"
@@ -138,10 +148,11 @@
               <div class="item_left" style="--icon-bg:{{ section.settings.itemIconColor }}">
                 <img
                   src="{{ section.settings.itemThreeIcon | image_url }}"
-                  alt="{{ section.settings.itemThreeText }}"
+                  alt=""
                   height="100%"
                   width="100%"
                   decoding="async"
+                  
                 >
               </div>
             {% endif %}

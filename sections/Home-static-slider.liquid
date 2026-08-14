@@ -9,7 +9,13 @@
   or template.name == 'page'
   and template.suffix == 'offer-page-bf-v2'
 %}
-  <div class="am-main_slider-container" id="snow_init">
+  <div
+    class="am-main_slider-container"
+    id="snow_init"
+    role="region"
+    aria-roledescription="carousel"
+    aria-label="Promotional banner carousel"
+  >
     <div class="am-main_slider-img">
       <div
         class="am-slide_item two_col-banner "
@@ -1080,7 +1086,13 @@
             }
   </style>
 {% else %}
-  <div class="am-main_slider-container" id="bannerHome">
+  <div
+    class="am-main_slider-container"
+    id="bannerHome"
+    role="region"
+    aria-roledescription="carousel"
+    aria-label="Promotional banner carousel"
+  >
     <div class="am-main_slider-img">
       <div
         class="am-slide_item two_col-banner fireworks two_col-banner--image-bottom"

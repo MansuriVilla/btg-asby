@@ -663,37 +663,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Close expanded mega menu on Escape key press and return focus to trigger
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" || e.keyCode === 27) {
-            if (activeNavHeaderItem) {
-                const triggerButton = activeNavHeaderItem.querySelector(".item_has--dropdown");
-                const megaMenu = activeNavHeaderItem.querySelector(".site__megaMenu_container");
-                if (megaMenu) {
-                    gsap.killTweensOf(megaMenu);
-                    gsap.to(megaMenu, { 
-                        height: 0, 
-                        duration: 0.28, 
-                        ease: "power2.inOut",
-                        onComplete: () => {
-                            megaMenu.classList.remove("site_megaMenu__Active");
-                        }
-                    });
-                    animateColumns(megaMenu, false);
-                }
-                
-                triggerButton?.classList.remove("site_megaMenu__Active");
-                triggerButton?.setAttribute("aria-expanded", "false");
-                toggleMenu(false);
-                
-                triggerButton?.focus();
-
-                activeNavHeaderItem = null;
-                activeNavContainer = null;
-            }
-        }
-    });
-
     // ─── Mobile mega menu open ──────────────────────────────────────────────────────
     if (isMobile()) {
         megaMenus.forEach(megaMenu => {

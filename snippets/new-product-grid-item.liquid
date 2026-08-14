@@ -112,13 +112,32 @@
 
       assign preview_image = product.featured_media.preview_image
       assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
+
+      if product.price_varies
+        assign product_price_text = product.price_min | money
+      else
+        assign product_price_text = product.price | money
+      endif
+
+      assign product_status_text = ''
+      unless product.available or product.template_suffix == 'new-s3-max'
+        assign product_status_text = 'products.product.sold_out' | t
+      endunless
+
+      assign aria_product_label = 'View ' | append: product.title
+      if product_status_text != blank
+        assign aria_product_label = aria_product_label | append: ', ' | append: product_status_text
+      endif
+      if product_price_text != blank
+        assign aria_product_label = aria_product_label | append: ', ' | append: product_price_text
+      endif
     -%}
 
     <a
       href="{{ product.url }}"
       data-shop-now-link
       class="grid-product__link"
-      aria-label="View {{ product.title | escape }}"
+      aria-label="{{ aria_product_label | escape }}"
       {% if settings.open_new_tab %}
         target="_blank" rel="noopener noreferrer"
       {% endif %}
@@ -419,6 +438,15 @@
             </fieldset>
           {%- endif -%}
 
+          {%- liquid
+            assign shop_product_label = 'Shop ' | append: product.title
+            if product_status_text != blank
+              assign shop_product_label = shop_product_label | append: ', ' | append: product_status_text
+            endif
+            if product_price_text != blank
+              assign shop_product_label = shop_product_label | append: ', ' | append: product_price_text
+            endif
+          -%}
           <a
             href="{{ product.url }}"
             class="content-cta content-cta__solid item-cta__button {% unless v.available or product.template_suffix == 'new-s3-max' %}product-sold_cta{% endunless %}"
@@ -428,7 +456,7 @@
             data-shop-now-link
             tabindex="-1"
             aria-hidden="true"
-            aria-label="{% if v.available or product.template_suffix == 'new-s3-max' %}Shop {{ product.title | escape }}{% else %}{{ product.title | escape }} - Sold Out{% endif %}"
+            aria-label="{{ shop_product_label | escape }}"
           >
             {% if v.available or product.template_suffix == 'new-s3-max'%}
               SHOP NOW

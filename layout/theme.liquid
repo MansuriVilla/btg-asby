@@ -1089,6 +1089,38 @@
           }
         }
 
+        function updateOwlNav(navContainer) {
+          if (!navContainer) return;
+          const prevBtn = navContainer.querySelector('.owl-prev');
+          const nextBtn = navContainer.querySelector('.owl-next');
+          
+          if (prevBtn) {
+            if (prevBtn.getAttribute('role') === 'presentation') {
+              prevBtn.removeAttribute('role');
+            }
+            if (!prevBtn.hasAttribute('aria-label') || prevBtn.getAttribute('aria-label') === 'Previous') {
+              prevBtn.setAttribute('aria-label', 'Previous slide');
+            }
+            prevBtn.querySelectorAll('img').forEach((img) => {
+              img.setAttribute('alt', '');
+              img.setAttribute('aria-hidden', 'true');
+            });
+          }
+
+          if (nextBtn) {
+            if (nextBtn.getAttribute('role') === 'presentation') {
+              nextBtn.removeAttribute('role');
+            }
+            if (!nextBtn.hasAttribute('aria-label') || nextBtn.getAttribute('aria-label') === 'Next') {
+              nextBtn.setAttribute('aria-label', 'Next slide');
+            }
+            nextBtn.querySelectorAll('img').forEach((img) => {
+              img.setAttribute('alt', '');
+              img.setAttribute('aria-hidden', 'true');
+            });
+          }
+        }
+
         const observer = new MutationObserver((mutations) => {
           mutations.forEach((mutation) => {
             if (mutation.type === 'childList') {
@@ -1099,12 +1131,20 @@
                   } else {
                     node.querySelectorAll('.owl-dots').forEach(updateOwlDots);
                   }
+                  if (node.classList.contains('owl-nav')) {
+                    updateOwlNav(node);
+                  } else {
+                    node.querySelectorAll('.owl-nav').forEach(updateOwlNav);
+                  }
                 }
               });
             } else if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
               const target = mutation.target;
               if (target.classList.contains('owl-dot')) {
                 updateOwlDots(target.closest('.owl-dots'));
+              }
+              if (target.classList.contains('owl-prev') || target.classList.contains('owl-next')) {
+                updateOwlNav(target.closest('.owl-nav'));
               }
             }
           });

@@ -1,1 +1,36 @@
-.gitignore
+# Ignore media and binary assets (images, videos, documents)
+assets/*.jpg
+assets/*.jpeg
+assets/*.png
+assets/*.gif
+assets/*.webp
+assets/*.svg
+assets/*.mp4
+assets/*.mov
+assets/*.avi
+assets/*.zip
+assets/*.pdf
+assets/*.ico
+
+# Old or backup files
+*.bak
+*.backup
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Development files
+node_modules/*
+.git/*
+.github/*
+.vscode/*
+.idea/*
+.temps/*
+
+# Config files you don't want to push
+# config/*.json
+
+# Very large JS bundles (if any)
+# assets/*.min.js
+# assets/bundle-*.js

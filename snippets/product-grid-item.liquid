@@ -81,9 +81,28 @@
 
       assign preview_image = product.featured_media.preview_image
       assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
+
+      if product.price_varies
+        assign product_price_text = product.price_min | money
+      else
+        assign product_price_text = product.price | money
+      endif
+
+      assign product_status_text = ''
+      unless product.available
+        assign product_status_text = 'products.product.sold_out' | t
+      endunless
+
+      assign aria_product_label = 'View ' | append: product.title
+      if product_status_text != blank
+        assign aria_product_label = aria_product_label | append: ', ' | append: product_status_text
+      endif
+      if product_price_text != blank
+        assign aria_product_label = aria_product_label | append: ', ' | append: product_price_text
+      endif
     -%}
 
-    <a href="{{ product.url | within: collection }}" class="grid-product__link" aria-label="View {{ product.title | escape }}">
+    <a href="{{ product.url | within: collection }}" class="grid-product__link" aria-label="{{ aria_product_label | escape }}">
       <div class="grid-product__image-mask">
         {%- if quick_shop_enable -%}
           <div class="quick-product__btn quick-product__btn--not-ready js-modal-open-quick-modal-{{ product.id }} small--hide">
@@ -231,7 +250,16 @@
     {% form "product" , product %}
        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"> 
        <input type="hidden" name="quantity" value="1">
-       <a href="{{ product.url | within: collection }}" class="bottom-add-to-cart" {%- if on_sale -%}id="product_on_sale" {%- endif -%} tabindex="-1" aria-hidden="true" aria-label="Shop {{ product.title | escape }}">SHOP NOW</a>
+       {%- liquid
+         assign shop_product_label = 'Shop ' | append: product.title
+         if product_status_text != blank
+           assign shop_product_label = shop_product_label | append: ', ' | append: product_status_text
+         endif
+         if product_price_text != blank
+           assign shop_product_label = shop_product_label | append: ', ' | append: product_price_text
+         endif
+       -%}
+       <a href="{{ product.url | within: collection }}" class="bottom-add-to-cart" {%- if on_sale -%}id="product_on_sale" {%- endif -%} tabindex="-1" aria-hidden="true" aria-label="{{ shop_product_label | escape }}">SHOP NOW</a>
     {% endform %}
   </div>
   {%- if settings.enable_swatches -%}

@@ -1673,29 +1673,7 @@
             .featured-section_slider #container { width: auto; display: flex; flex-direction: column; }
             .featured-section_slider .ticker_action--button { display: flex; justify-content: flex-end;     padding-inline: 20px;
     padding-block: 0 20px; }
-            .carousel-control-btn {
-              background: transparent;
-              border: 1px solid #9B9DA3;
-              border-radius: 50%;
-              width: 28px;
-              height: 28px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              color: #9B9DA3;
-              cursor: pointer;
-              padding: 0;
-              transition: all 0.2s ease;
-            }
-            .carousel-control-btn:hover {
-              color: #fff;
-              background: #231F20;
-              border-color: #231F20;
-            }
-            .carousel-control-btn:focus-visible {
-              outline: 2px solid var(--new-blue);
-              outline-offset: 2px;
-            }
+           
             .featured-section_slider #container[data-animated].paused #list {
               animation-play-state: paused;
             }
@@ -2101,9 +2079,10 @@
           margin: 20,
           nav: true,
           dots: true,
+          navElement: 'button type="button"',
           navText: [
-            "<img src='{{'left-ic.png' | asset_url}}'>",
-            "<img src='{{'right-ic.png' | asset_url}}'>",
+            "<span class='visually-hidden'>Previous slide</span><img src='{{'left-ic.png' | asset_url}}' alt='' aria-hidden='true'>",
+            "<span class='visually-hidden'>Next slide</span><img src='{{'right-ic.png' | asset_url}}' alt='' aria-hidden='true'>",
           ],
           mouseDrag: true,
           responsive: {

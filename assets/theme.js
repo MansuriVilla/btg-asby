@@ -1,5 +1,3 @@
-
-
 window.theme = window.theme || {};
 window.Shopify = window.Shopify || {};
 
@@ -1748,20 +1746,6 @@ lazySizesConfig.expFactor = 4;
         // Append item markup
         this.products.innerHTML = '';
         this.products.append(items);
-
-
-        fetch(window.location.pathname)
-          .then(res => res.text())
-          .then(html => {
-            const doc = new DOMParser().parseFromString(html, 'text/html');
-
-            const newUpsell = doc.querySelector('.ctm_upsell_product');
-            const oldUpsell = document.querySelector('.ctm_upsell_product');
-
-            if (newUpsell && oldUpsell) {
-              oldUpsell.replaceWith(newUpsell);
-            }
-          });
   
         // Update subtotal
         this.subtotal.innerHTML = theme.Currency.formatMoney(subtotal, theme.settings.moneyFormat);
@@ -1792,12 +1776,12 @@ lazySizesConfig.expFactor = 4;
           }
 
           if(_speaker == 0){
-            //$('.ctm_upsell_product_list > div[data-prod-id="7692896108741"]').hide();
-            //$('.ctm_upsell_product_list > div[data-prod-id="7692897157317"]').hide();
+            $('.ctm_upsell_product_list > div[data-prod-id="7692896108741"]').hide();
+            $('.ctm_upsell_product_list > div[data-prod-id="7692897157317"]').hide();
             //$('.ctm_upsell_product_list').removeClass('speaker_in_cart');
           }else{
-           //$('.ctm_upsell_product_list > div[data-prod-id="7692896108741"]').show();
-           //$('.ctm_upsell_product_list > div[data-prod-id="7692897157317"]').show();
+           $('.ctm_upsell_product_list > div[data-prod-id="7692896108741"]').show();
+           $('.ctm_upsell_product_list > div[data-prod-id="7692897157317"]').show();
             //$('.ctm_upsell_product_list').addClass('speaker_in_cart');
           }
         })
@@ -1852,7 +1836,7 @@ lazySizesConfig.expFactor = 4;
         if (window.AOS) { AOS.refreshHard() }
 
         var liveRegion = document.getElementById('a11y-live-region');
-        if (liveRegion && !theme.preventGeneralAnnounce) {
+        if (liveRegion) {
           setTimeout(function() {
              var formattedSubtotal = theme.Currency.formatMoney(subtotal, theme.settings.moneyFormat).replace(/<\/?[^>]+(>|$)/g, "");
              liveRegion.textContent = 'Cart updated. Subtotal is now ' + formattedSubtotal;
@@ -2418,7 +2402,6 @@ lazySizesConfig.expFactor = 4;
   
         theme.a11y.trapFocus({
           container: this.drawer,
-          elementToFocus: this.drawer.querySelector('.drawer__title') || this.drawer,
           namespace: 'drawer_focus'
         });
   
@@ -4404,18 +4387,6 @@ lazySizesConfig.expFactor = 4;
           this.input.value = qty;
 
           if (this.options.isCart) {
-            // Save active element for focus restoration
-            var activeBtn = document.activeElement;
-            if (activeBtn && activeBtn.classList.contains('js-qty__adjust')) {
-               var inputEl = activeBtn.parentElement.querySelector('.js-qty__num');
-               if (inputEl) {
-                 theme.lastFocusedQtyBtn = {
-                   id: inputEl.id,
-                   action: activeBtn.classList.contains('js-qty__adjust--plus') ? 'plus' : 'minus'
-                 };
-               }
-            }
-
             var self = this;
             var lineKey = this.options.key;
             var hasFreeGift =
@@ -4436,38 +4407,6 @@ lazySizesConfig.expFactor = 4;
             })
               .then(res => res.json())
               .then(cart => {
-                // A11y announcement
-                var updatedItem = cart.items.find(item => item.key === lineKey || item.id == lineKey || item.variant_id == lineKey);
-                var actionText = 'updated';
-                if (theme.lastFocusedQtyBtn && theme.lastFocusedQtyBtn.action) {
-                  actionText = theme.lastFocusedQtyBtn.action === 'plus' ? 'increased' : 'decreased';
-                }
-                var productTitle = '';
-                var itemEl = self.wrapper.closest('.cart__item');
-                if (itemEl) {
-                  var titleEl = itemEl.querySelector('.cart__item-name');
-                  if (titleEl) productTitle = titleEl.textContent.trim();
-                }
-
-                var announcement = '';
-                var formattedSubtotal = theme.Currency.formatMoney(cart.total_price, theme.settings.moneyFormat).replace(/<\/?[^>]+(>|$)/g, "");
-                if (updatedItem) {
-                  announcement = (updatedItem.product_title || productTitle) + " quantity " + actionText + " to " + updatedItem.quantity + ". Subtotal is now " + formattedSubtotal + ".";
-                } else if (qty === 0) {
-                  announcement = (productTitle || "Item") + " removed from cart. Subtotal is now " + formattedSubtotal + ".";
-                }
-
-                if (announcement) {
-                  var liveRegion = document.getElementById('a11y-live-region');
-                  if (liveRegion) {
-                    theme.preventGeneralAnnounce = true;
-                    setTimeout(function() {
-                      liveRegion.textContent = announcement;
-                      theme.preventGeneralAnnounce = false;
-                    }, 150);
-                  }
-                }
-
                 // 2. If main product removed, also remove free variant
                 if (qty === 0 && hasFreeGift) {
                   return removeFreeGiftIfPresentByVariant(self.variantId);
@@ -9318,7 +9257,6 @@ lazySizesConfig.expFactor = 4;
            document.dispatchEvent(new CustomEvent('ajaxProduct:added', {
               detail: {}
             }));  
-            
          },
         error: function(err) {
           console.log(err)  
@@ -10904,110 +10842,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // });
 
 
-// document.addEventListener('DOMContentLoaded', function () {
-//   const addToCartBtns = document.querySelectorAll('.cart_cta');
-
-//   if (addToCartBtns.length === 0) return;
-
-//   addToCartBtns.forEach((button) => {
-//     button.addEventListener('click', function (event) {
-//       event.preventDefault();
-
-//       const btn = this;
-//       btn.classList.add('btn--loading');
-
-//       const variantId1 = btn.getAttribute('data-id');
-//       const variantId2 = btn.getAttribute('data-id-two');
-//       let selector = btn.getAttribute('data-id-two-checked');
-
-//       if (!variantId1) {
-//         btn.classList.remove('btn--loading');
-//         return;
-//       }
-
-//       let shouldAddSecondProduct = false;
-
-//       if (variantId2 && selector) {
-//         let checkbox = null;
-
-//         // Try normal querySelector
-//         try {
-//           checkbox = document.querySelector(selector);
-//         } catch (e) {
-//           console.warn('Invalid selector tried:', selector);
-//         }
-
-//         // Strong fallback for classes/IDs starting with number
-//         if (!checkbox && selector) {
-//           const cleanSelector = selector.replace(/^[.#]/, ''); // remove . or #
-//           // Try escaped class
-//           try {
-//             checkbox = document.querySelector(`.${CSS.escape(cleanSelector)}`);
-//           } catch (e) {}
-          
-//           // Try attribute selector as last resort
-//           if (!checkbox) {
-//             checkbox = document.querySelector(`[class*="${cleanSelector}"]`);
-//           }
-//         }
-
-//         // Check if the radio/checkbox is actually selected
-//         if (checkbox && checkbox.checked) {
-//           shouldAddSecondProduct = true;
-//         }
-//       } 
-//       else if (variantId2) {
-//         shouldAddSecondProduct = true; // no condition = always add (old behavior)
-//       }
-
-//       // ====================== ADD TO CART ======================
-//       // Add main product first
-//       fetch('/cart/add.js', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ id: variantId1, quantity: 1 }),
-//       })
-//         .then((response) => {
-//           if (!response.ok) throw new Error('Failed to add main product');
-//           return response.json();
-//         })
-//         .then(() => {
-//           // Add second product ONLY if condition is truly met
-//           if (shouldAddSecondProduct && variantId2) {
-//             return fetch('/cart/add.js', {
-//               method: 'POST',
-//               headers: { 'Content-Type': 'application/json' },
-//               body: JSON.stringify({ id: variantId2, quantity: 1 }),
-//             }).then((response) => {
-//               if (!response.ok) throw new Error('Failed to add second product');
-//               return response.json();
-//             });
-//           }
-//         })
-//         .then(() => {
-//           btn.classList.remove('btn--loading');
-
-//           document.dispatchEvent(
-//             new CustomEvent('ajaxProduct:added', {
-//               detail: {
-//                 productId: variantId1,
-//                 secondProductId: shouldAddSecondProduct ? variantId2 : null
-//               }
-//             })
-//           );
-//         })
-//         .catch((error) => {
-//           btn.classList.remove('btn--loading');
-//           console.error('Cart add error:', error);
-//           alert('There was an issue adding the product to the cart. Please try again.');
-//         });
-//     });
-//   });
-// });
-
-
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const addToCartBtns = document.querySelectorAll('.cart_cta');
 
@@ -11022,7 +10856,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const variantId1 = btn.getAttribute('data-id');
       const variantId2 = btn.getAttribute('data-id-two');
-      const sellingPlanId = btn.getAttribute('data-selling-id'); // optional selling plan for variantId1
       let selector = btn.getAttribute('data-id-two-checked');
 
       if (!variantId1) {
@@ -11065,18 +10898,12 @@ document.addEventListener('DOMContentLoaded', function () {
         shouldAddSecondProduct = true; // no condition = always add (old behavior)
       }
 
-      // Build the main product payload — attach selling_plan if data-selling-id is set
-      const mainProductPayload = { id: variantId1, quantity: 1 };
-      if (sellingPlanId) {
-        mainProductPayload.selling_plan = parseInt(sellingPlanId);
-      }
-
       // ====================== ADD TO CART ======================
       // Add main product first
       fetch('/cart/add.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(mainProductPayload),
+        body: JSON.stringify({ id: variantId1, quantity: 1 }),
       })
         .then((response) => {
           if (!response.ok) throw new Error('Failed to add main product');
@@ -11115,9 +10942,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-
-
-
 
 
 

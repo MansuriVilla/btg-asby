@@ -545,7 +545,7 @@
                   <div class="site_megaMenu_left-inner">
                     <ul class="site_megaMenu_left-ul">
                       <li class="site_megaMenu_ul-inner">
-                        <span class="site_megaMenu__item site_megaMenu__Title">QUICK LINKS</span>
+                        <h2 class="site_megaMenu__item site_megaMenu__Title">QUICK LINKS</h2>
                         <ul class="site__megaMenu_left-top">
                           {% render 'header-nav-item',
                             item_title: 'GAME AI GPS Golf App',
@@ -583,7 +583,7 @@
                       </li>
                       <li class="site_planText_Link-wrap" style="display:contents">
                       <div class="site_planText_Link">
-                        <span class="site_megaMenu__item site_megaMenu__Title">DOWNLOAD THE GAME APP:</span>
+                        <h2 class="site_megaMenu__item site_megaMenu__Title">DOWNLOAD THE GAME APP:</h2>
                         <div class="site_store-icons">
                           <a
                             href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
@@ -647,7 +647,7 @@
                     </div>
                   </div>
                   <div class="site_planText_Link mobile-menu-bottom-image">
-                    <span class="site_megaMenu__item site_megaMenu__Title">DOWNLOAD THE GAME APP:</span>
+                    <h2 class="site_megaMenu__item site_megaMenu__Title">DOWNLOAD THE GAME APP:</h2>
                     <div class="site_store-icons">
                       <a
                         href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
@@ -686,7 +686,7 @@
                   <div class="site_megaMenu_left-inner">
                     <ul class="site_megaMenu_left-ul">
                       <li class="site_megaMenu_ul-inner">
-                        <span class="site_megaMenu__item site_megaMenu__Title">INSIDE BLUE TEES</span>
+                        <h2 class="site_megaMenu__item site_megaMenu__Title">INSIDE BLUE TEES</h2>
                         <ul class="site__megaMenu_left-top">
                           {% render 'header-nav-item',
                             item_title: 'About Us',
@@ -712,14 +712,14 @@
                       </li>
                       <li class="site_planText_Link-wrap" style="display:contents">
                       <div class="site_planText_Link">
-                        <span class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</span>
+                        <h2 class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</h2>
                         {% render 'site-social-icon-new', icon_theme: 'dark' %}
                       </div>
                       </li>
                     </ul>
                     <ul class="site_megaMenu_left-ul">
                       <li class="site_megaMenu_ul-inner">
-                        <span class="site_megaMenu__item site_megaMenu__Title">PARTNERS</span>
+                        <h2 class="site_megaMenu__item site_megaMenu__Title">PARTNERS</h2>
                         <ul class="site__megaMenu_left-top">
                           {% render 'header-nav-item',
                             item_title: 'Custom Branding Program',
@@ -758,7 +758,7 @@
                       </li>
                       <li class="site_planText_Link-wrap" style="display:contents">
                       <div class="site_planText_Link mobile-menu-bottom-image desktop-text">
-                        <span class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</span>
+                        <h2 class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</h2>
                         {% render 'site-social-icon-new', icon_theme: 'dark' %}
                       </div>
                       </li>
@@ -766,7 +766,7 @@
                   </div>
                 </li>
                 <li class="site__megaMenu_right">
-                  <span class="site_megaMenu__Title"> LATEST NEWS </span>
+                  <h2 class="site_megaMenu__Title"> LATEST NEWS </h2>
                   <div class="latest_news-container site_megaMenu_flex">
                     {% assign blog_handles = 'news,press-release,game-app' | split: ',' %}
 
@@ -817,13 +817,14 @@
                       <div class="site_planText_Link">  
                         <a
                           href="{{ latest_article.url }}"
+                          aria-label="Read more about {{ latest_article.title | strip_html | escape }}"
                           {% if open_in_new_tab %}
                             target="_blank" rel="noopener noreferrer"
                           {% endif %}
                         >
-                          <span class="blog_anchor-text" aria-label="Read more about {{ latest_article.title }}">Read More</span>
+                          <span class="blog_anchor-text">Read More</span>
                           <span class="site_arrow">
-                            <img src="{{ 'menu-arrow-icons-s.svg' | asset_url }}" alt="arrow icon">
+                            <img src="{{ 'menu-arrow-icons-s.svg' | asset_url }}" alt="" aria-hidden="true">
                           </span>
                         </a>
                       </div>
@@ -832,7 +833,7 @@
                     {% endif %}
                   </div>
                   <div class="site_planText_Link mobile-menu-bottom-image mobile-text">
-                    <span class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</span>
+                    <h2 class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</h2>
                     {% render 'site-social-icon-new', icon_theme: 'dark' %}
                   </div>
                 </li>
