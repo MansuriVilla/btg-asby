@@ -259,8 +259,8 @@
                       </div>
                       
         <div class="max3-pro-icons">
-                      <img class="desktop" src="{{'d-max3-pro-icons.png' | asset_url}}" alt="">
-                      <img class="mobile" src="{{'max3-pro-icons.png' | asset_url}}" alt="">
+                      <img class="desktop" src="{{'d-max3-pro-icons.png' | asset_url}}" alt="Series 2 Pro+ key features: Slope switch, Pulse vibration, and Ultra-clear HD optics">
+                      <img class="mobile" src="{{'max3-pro-icons.png' | asset_url}}" alt="Series 2 Pro+ key features: Slope switch, Pulse vibration, and Ultra-clear HD optics">
                     </div>
                   
 
@@ -611,7 +611,7 @@
                     <div class="product-block product-block--tab" {{ block.shopify_attributes }}>
                       {% assign tab_id = block.id | append: product.id %}
                       {% capture tab_content %}
-                              {{ block.settings.content }}<p class="playdifferentlable"><img src="{{ 'play-different-lable.png' | asset_url }}}" alt=""></p>
+                              {{ block.settings.content }}<p class="playdifferentlable"><img src="{{ 'play-different-lable.png' | asset_url }}}" alt="Play Different"></p>
                               {{ block.settings.page.content }}
                             {% endcapture %}
 
@@ -640,7 +640,7 @@
                       {%- when 'tab' -%}
                         {% assign tab_id = block.id | append: product.id %}
                         <div id="Product-content-desktop-{{ tab_id }}" class="tab-content">
-                          {{ block.settings.content }}<p class="playdifferentlable"><img src="{{ 'play-different-lable.png' | asset_url }}}" alt=""></p>
+                          {{ block.settings.content }}<p class="playdifferentlable"><img src="{{ 'play-different-lable.png' | asset_url }}}" alt="Play Different"></p>
                           {{ block.settings.page.content }}
                         </div>
                     {%- endcase -%}

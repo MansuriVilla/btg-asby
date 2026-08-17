@@ -112,7 +112,7 @@
               <div class="item_left" style="--icon-bg:{{ section.settings.itemIconColor }}">
                 <img
                   src="{{ section.settings.itemOneIcon | image_url }}"
-                  alt=""
+                  alt="{{ section.settings.itemOneIcon.alt | default: section.settings.itemOneText | escape }}"
                   height="100%"
                   width="100%"
                   decoding="async"
@@ -130,7 +130,7 @@
               <div class="item_left" style="--icon-bg:{{ section.settings.itemIconColor }}">
                 <img
                   src="{{ section.settings.itemTwoIcon | image_url }}"
-                  alt=""
+                  alt="{{ section.settings.itemTwoIcon.alt | default: section.settings.itemTwoText | escape }}"
                   height="100%"
                   width="100%"
                   decoding="async"
@@ -148,7 +148,7 @@
               <div class="item_left" style="--icon-bg:{{ section.settings.itemIconColor }}">
                 <img
                   src="{{ section.settings.itemThreeIcon | image_url }}"
-                  alt=""
+                  alt="{{ section.settings.itemThreeIcon.alt | default: section.settings.itemThreeText | escape }}"
                   height="100%"
                   width="100%"
                   decoding="async"

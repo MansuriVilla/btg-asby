@@ -663,6 +663,37 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // Close expanded mega menu on Escape key press and return focus to trigger
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" || e.keyCode === 27) {
+            if (activeNavHeaderItem) {
+                const triggerButton = activeNavHeaderItem.querySelector(".item_has--dropdown");
+                const megaMenu = activeNavHeaderItem.querySelector(".site__megaMenu_container");
+                if (megaMenu) {
+                    gsap.killTweensOf(megaMenu);
+                    gsap.to(megaMenu, { 
+                        height: 0, 
+                        duration: 0.28, 
+                        ease: "power2.inOut",
+                        onComplete: () => {
+                            megaMenu.classList.remove("site_megaMenu__Active");
+                        }
+                    });
+                    animateColumns(megaMenu, false);
+                }
+                
+                triggerButton?.classList.remove("site_megaMenu__Active");
+                triggerButton?.setAttribute("aria-expanded", "false");
+                toggleMenu(false);
+                
+                triggerButton?.focus();
+
+                activeNavHeaderItem = null;
+                activeNavContainer = null;
+            }
+        }
+    });
+
     // ─── Mobile mega menu open ──────────────────────────────────────────────────────
     if (isMobile()) {
         megaMenus.forEach(megaMenu => {
@@ -870,6 +901,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentSlide = 0;
     let slideInterval;
     let isTransitioning = false;
+    let userInteracted = false;
 
     // Assign unique IDs to slides
     function assignSlideIDs() {
@@ -923,6 +955,8 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       excludedSlides.forEach((element) => {
         element.style.display = "none";
+        element.setAttribute("aria-hidden", "true");
+        element.setAttribute("inert", "");
       });
     }
 
@@ -972,6 +1006,27 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Configure ARIA attributes on slides & container
+    function setupCarouselSemantics() {
+      const allContainers = document.querySelectorAll(".am-main_slider-container");
+      allContainers.forEach((container) => {
+        container.setAttribute("role", "region");
+        container.setAttribute("aria-roledescription", "carousel");
+        if (!container.getAttribute("aria-label")) {
+          container.setAttribute("aria-label", "Promotional banner carousel");
+        }
+      });
+
+      const sorted = getSortedSlides();
+      const totalSlides = sorted.length;
+      sorted.forEach((slide, idx) => {
+        slide.setAttribute("role", "group");
+        slide.setAttribute("aria-roledescription", "slide");
+        const slideTitle = slide.querySelector("h3, h2, .bottom__title")?.textContent.replace(/\s+/g, ' ').trim() || `Slide ${idx + 1}`;
+        slide.setAttribute("aria-label", `Slide ${idx + 1} of ${totalSlides}: ${slideTitle}`);
+      });
+    }
+
     // Set initial active slide
     const sortedSlides = getSortedSlides();
     if (sortedSlides.length > 0) {
@@ -1013,7 +1068,6 @@ document.addEventListener("DOMContentLoaded", function () {
       sliderContainer.appendChild(liveRegion);
 
       // Pause slide rotation when keyboard focus enters the slideshow (A11Y requirement)
-      // Pause slide rotation when keyboard focus enters the slideshow (A11Y requirement)
       sliderContainer.addEventListener("focusin", (e) => {
         // Ignore if focus is on the navigation controls themselves
         if (e.target.closest('.am-slider-play-pause, .am_slide--previous, .am_slide--next')) return;
@@ -1021,13 +1075,31 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!isPaused) {
           isPaused = true;
           clearTimeout(slideInterval);
+          syncAllCarouselVideos();
           if (pauseBtn) {
             const pauseIcon = pauseBtn.querySelector(".pause-icon");
             const playIcon = pauseBtn.querySelector(".play-icon");
             if (pauseIcon) pauseIcon.style.display = "none";
             if (playIcon) playIcon.style.display = "flex";
-            pauseBtn.setAttribute("aria-label", "Play slideshow");
+            pauseBtn.setAttribute("aria-label", "Play slideshow and video");
           }
+        }
+      });
+    }
+
+    // Synchronize auto-playing video elements with carousel play/pause state
+    function syncAllCarouselVideos() {
+      const activeSlide = document.querySelector(".am-main_slider-img .am-slide_item.active");
+      const allCarouselVideos = document.querySelectorAll(".am-main_slider-container video");
+      
+      allCarouselVideos.forEach((vid) => {
+        const isInsideActive = activeSlide && activeSlide.contains(vid);
+        if (isPaused) {
+          vid.pause();
+        } else if (isInsideActive) {
+          vid.play().catch(() => {});
+        } else {
+          vid.pause();
         }
       });
     }
@@ -1055,6 +1127,7 @@ document.addEventListener("DOMContentLoaded", function () {
       clearTimeout(slideInterval);
       if (!isPaused) {
         slideInterval = setTimeout(() => {
+          userInteracted = false;
           nextSlide();
         }, 5000);
       }
@@ -1066,6 +1139,13 @@ document.addEventListener("DOMContentLoaded", function () {
       isTransitioning = true;
       clearTimeout(slideInterval);
 
+      const sorted = getSortedSlides();
+      const totalSlides = sorted.length;
+      const currentSlidePosition = sorted.findIndex(
+        (s) => parseInt(s.getAttribute("data-slide-index") || "9999", 10) === slideIndex
+      );
+      const positionText = currentSlidePosition !== -1 ? `Slide ${currentSlidePosition + 1} of ${totalSlides}` : "";
+
       images.forEach((img) => {
         const imgIndex = parseInt(
           img.getAttribute("data-slide-index") || "9999",
@@ -1075,6 +1155,32 @@ document.addEventListener("DOMContentLoaded", function () {
         const isActive = imgIndex === slideIndex && !isExcluded;
         img.classList.toggle("active", isActive);
         img.setAttribute("aria-hidden", isActive ? "false" : "true");
+        
+        // Remove inactive slides from sequential keyboard navigation order (Issue 2)
+        if (isActive) {
+          img.removeAttribute("inert");
+          img.querySelectorAll("a, button, input, select, textarea, [tabindex]").forEach((el) => {
+            if (el.dataset.prevTabindex !== undefined) {
+              if (el.dataset.prevTabindex === "null") {
+                el.removeAttribute("tabindex");
+              } else {
+                el.setAttribute("tabindex", el.dataset.prevTabindex);
+              }
+              delete el.dataset.prevTabindex;
+            } else {
+              el.removeAttribute("tabindex");
+            }
+          });
+        } else {
+          img.setAttribute("inert", "");
+          img.querySelectorAll("a, button, input, select, textarea, [tabindex]").forEach((el) => {
+            if (el.dataset.prevTabindex === undefined) {
+              el.dataset.prevTabindex = el.hasAttribute("tabindex") ? el.getAttribute("tabindex") : "null";
+            }
+            el.setAttribute("tabindex", "-1");
+          });
+        }
+
         if (isExcluded) {
           img.style.display = "none";
         }
@@ -1094,15 +1200,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      // Announce slide change to assistive technologies
+      // Announce slide change to assistive technologies ONLY on user interaction or when focused inside
       const activeText = Array.from(texts).find(
         (txt) => parseInt(txt.getAttribute("data-slide-index") || "9999", 10) === slideIndex
       );
-      if (liveRegion && activeText) {
-        const titleText = activeText.querySelector(".slider_text")?.textContent.trim() || "slide";
-        liveRegion.textContent = `Showing slide: ${titleText}`;
+      const isFocusedInSlider = sliderContainer && sliderContainer.contains(document.activeElement);
+      if (liveRegion && activeText && (userInteracted || isFocusedInSlider)) {
+        const titleText = activeText.querySelector(".slider_text")?.textContent.replace(/\s+/g, ' ').trim() || "slide";
+        liveRegion.textContent = `${positionText ? positionText + ': ' : ''}${titleText}`;
       }
 
+      syncAllCarouselVideos();
       startProgressBar();
       currentSlide = slideIndex;
 
@@ -1150,7 +1258,7 @@ document.addEventListener("DOMContentLoaded", function () {
       pauseBtn = document.createElement("button");
       pauseBtn.className = "am-slider-play-pause";
       pauseBtn.setAttribute("type", "button");
-      pauseBtn.setAttribute("aria-label", "Pause slideshow");
+      pauseBtn.setAttribute("aria-label", "Pause slideshow and video");
       pauseBtn.style.cssText = `
         background: rgba(0,0,0,0.65);
         border: 2px solid #fff;
@@ -1188,14 +1296,16 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isPaused) {
           clearTimeout(slideInterval);
           startProgressBar();
+          syncAllCarouselVideos();
           if (pauseIcon) pauseIcon.style.display = "none";
           if (playIcon) playIcon.style.display = "flex";
-          pauseBtn.setAttribute("aria-label", "Play slideshow");
+          pauseBtn.setAttribute("aria-label", "Play slideshow and video");
         } else {
           if (pauseIcon) pauseIcon.style.display = "flex";
           if (playIcon) playIcon.style.display = "none";
-          pauseBtn.setAttribute("aria-label", "Pause slideshow");
+          pauseBtn.setAttribute("aria-label", "Pause slideshow and video");
           startProgressBar();
+          syncAllCarouselVideos();
         }
       });
 
@@ -1224,7 +1334,10 @@ document.addEventListener("DOMContentLoaded", function () {
       prevArrow.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M9.98862 19.1867L3.3245 12.5226C3.25565 12.4538 3.20104 12.3722 3.16377 12.2823C3.12651 12.1924 3.10733 12.096 3.10733 11.9987C3.10733 11.9014 3.12651 11.8051 3.16377 11.7152C3.20104 11.6253 3.25565 11.5436 3.3245 11.4749L9.98862 4.81074C10.1276 4.6718 10.316 4.59375 10.5125 4.59375C10.709 4.59375 10.8974 4.6718 11.0364 4.81074C11.1753 4.94968 11.2534 5.13813 11.2534 5.33462C11.2534 5.53111 11.1753 5.71955 11.0364 5.85849L5.63565 11.2583L20.1384 11.2583C20.3348 11.2583 20.5232 11.3363 20.662 11.4752C20.8009 11.614 20.8789 11.8024 20.8789 11.9987C20.8789 12.1951 20.8009 12.3835 20.662 12.5223C20.5232 12.6612 20.3348 12.7392 20.1384 12.7392L5.63565 12.7392L11.0364 18.139C11.1753 18.2779 11.2534 18.4664 11.2534 18.6629C11.2534 18.8594 11.1753 19.0478 11.0364 19.1867C10.8974 19.3257 10.709 19.4037 10.5125 19.4037C10.316 19.4037 10.1276 19.3257 9.98862 19.1867Z" fill="currentColor"></path>
 					</svg>`;
-      prevArrow.addEventListener("click", prevSlide);
+      prevArrow.addEventListener("click", () => {
+        userInteracted = true;
+        prevSlide();
+      });
 
       // 3. Create Next Arrow Button
       const nextArrow = document.createElement("button");
@@ -1250,7 +1363,10 @@ document.addEventListener("DOMContentLoaded", function () {
       nextArrow.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M14.0133 4.80545L20.6775 11.4696C20.7463 11.5383 20.8009 11.62 20.8382 11.7099C20.8754 11.7998 20.8946 11.8961 20.8946 11.9934C20.8946 12.0908 20.8754 12.1871 20.8382 12.277C20.8009 12.3669 20.7463 12.4486 20.6775 12.5173L14.0133 19.1814C13.8744 19.3204 13.686 19.3984 13.4895 19.3984C13.293 19.3984 13.1045 19.3204 12.9656 19.1814C12.8266 19.0425 12.7486 18.8541 12.7486 18.6576C12.7486 18.4611 12.8266 18.2726 12.9656 18.1337L18.3663 12.7339L3.8635 12.7339C3.66712 12.7339 3.47879 12.6559 3.33992 12.517C3.20106 12.3782 3.12305 12.1898 3.12305 11.9934C3.12305 11.7971 3.20106 11.6087 3.33992 11.4699C3.47879 11.331 3.66712 11.253 3.8635 11.253L18.3663 11.253L12.9656 5.8532C12.8266 5.71426 12.7486 5.52581 12.7486 5.32932C12.7486 5.13283 12.8266 4.94439 12.9656 4.80545C13.1045 4.66651 13.293 4.58845 13.4895 4.58845C13.686 4.58845 13.8744 4.66651 14.0133 4.80545Z" fill="currentColor"></path>
 					</svg>`;
-      nextArrow.addEventListener("click", nextSlide);
+      nextArrow.addEventListener("click", () => {
+        userInteracted = true;
+        nextSlide();
+      });
 
       // Create controls wrapper
       const controlsWrapper = document.createElement("div");
@@ -1276,16 +1392,18 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialize the slider
     function initializeSlider() {
       hideExcludedSlides();
+      setupCarouselSemantics();
       
       // Make text indicators accessible controls (Issue requirement)
       texts.forEach((text) => {
         text.setAttribute("tabindex", "0");
         text.setAttribute("role", "button");
-        const titleText = text.querySelector(".slider_text")?.textContent.trim() || "slide";
+        const titleText = text.querySelector(".slider_text")?.textContent.replace(/\s+/g, ' ').trim() || "slide";
         text.setAttribute("aria-label", `Show slide: ${titleText}`);
 
         // Click trigger
         text.addEventListener("click", () => {
+          userInteracted = true;
           const slideIndex = parseInt(text.getAttribute("data-slide-index") || "0", 10);
           if (getSortedSlides().some(slide => parseInt(slide.getAttribute("data-slide-index"), 10) === slideIndex)) {
             showSlide(slideIndex);
@@ -1296,6 +1414,7 @@ document.addEventListener("DOMContentLoaded", function () {
         text.addEventListener("keydown", (e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
+            userInteracted = true;
             text.click();
           }
         });

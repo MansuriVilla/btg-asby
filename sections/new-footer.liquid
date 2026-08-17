@@ -46,7 +46,7 @@
             class="sectionBanner__image"
             decoding="async"
             src="{{ 'btg-full-footer-logo-funnel.png' | asset_url }}"
-            alt=""
+            alt="Blue Tees Golf"
           >
         </picture>
         <div class="site_footer-nav">
@@ -1486,16 +1486,60 @@
                     nav_text: 'Shipping, Returns &amp; Exchanges',
                     nav_link: '/pages/refund-policy'
                   %}
-                  {% render 'footer-nav-item', nav_text: 'Privacy Policy', nav_link: '/pages/privacy-policy' %}
                   {% render 'footer-nav-item',
-                    nav_text: 'GAME Subscription Management',
-                    nav_link: 'https://blueteesgolf.com/a/loop_subscriptions/customer'
+                    nav_text: 'Two-Year Warranty',
+                    nav_link: '/pages/warranty'
                   %}
                   {% render 'footer-nav-item',
-                    nav_text: 'App Terms of Service',
-                    nav_link: '/pages/app-terms-of-service'
+                  nav_text: 'GAME Subscription Management',
+                  nav_link: 'https://blueteesgolf.com/a/loop_subscriptions/customer'
                   %}
-                  {% render 'footer-nav-item', nav_text: 'Terms & Conditions', nav_link: '/pages/terms-conditions' %}
+                  
+                  
+                  
+                  {% comment %} <li><a href="javascript:void(0)" class="termly-display-preferences">Consent Preferences</a></li> {% endcomment %}
+                  </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 footer-item">
+          <div class="footer-title small--hide">
+            <h2>LEGAL</h2>
+            </div>
+            <button
+            type="button"
+            class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+            aria-controls="Footer-4d616e27-9e55-4a57-ac37-438114856f31"
+            >
+            <span>LEGAL</span>
+            <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+                </svg>
+                </span>
+                </button>
+                <div id="Footer-4d616e27-9e55-4a57-ac37-438114856f31" class="collapsible-content collapsible-content--small">
+                  <div class="collapsible-content__inner">
+                    <div class="footmenu-list">
+                      <ul class="no-bullets">
+                        {% render 'footer-nav-item', nav_text: 'Terms & Conditions', nav_link: '/pages/terms-conditions' %}
+                        
+                        {% render 'footer-nav-item',
+                        nav_text: 'GAME Subscription Terms',
+                        nav_link: '/pages/game-subscription-terms'
+                        %}
+                        {% render 'footer-nav-item',
+                        nav_text: 'App Terms of Service',
+                        nav_link: '/pages/app-terms-of-service'
+                        %}
+                        {% render 'footer-nav-item',
+                        nav_text: 'POST GAME Terms of Service',
+                        nav_link: '/pages/post-game-terms'
+                        %}
+                        {% render 'footer-nav-item', nav_text: 'Privacy Policy', nav_link: '/pages/privacy-policy' %}
+                        {% render 'footer-nav-item', nav_text: 'Cookie Policy', nav_link: '/pages/cookie-policy' %}
+                        {% render 'footer-nav-item', nav_text: 'Your Privacy Choices', nav_link: '/pages/your-privacy-choices' %}
 
                   {% comment %} <li><a href="javascript:void(0)" class="termly-display-preferences">Consent Preferences</a></li> {% endcomment %}
                 </ul>
@@ -1634,6 +1678,8 @@
 
           row-gap: 20px;
         }
+        .site-footer a:focus-visible {
+    outline: 2px solid #5b8ffb !important;}
 
               .termly-styles-root-f9c495{    background: #00000070;
                 backdrop-filter: blur(10px);}

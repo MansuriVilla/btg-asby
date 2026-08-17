@@ -462,7 +462,20 @@
                         {%- endunless -%}
                       </div>
                     {% endif %}
-                    <div class="after-pay"></div>
+                    <div class="prod_options">
+                      <div class="after-pay"></div>
+                      <div class="options_extend-protection">
+                        <span class="anchor_holder">
+                          <a
+                            href="/pages/extend-protection-plan"
+                            class="anchor_hover"
+                            style="--hover-clr:var(--new-gray);"
+                          >
+                            <span class="anchor_holder"> Extend Protection Plans </span>
+                          </a>
+                        </span>
+                      </div>
+                    </div>
                   {%- when 'buy_buttons' -%}
                     {% if hide_upsell %}
                       {% unless product.handle contains 'hat' %}

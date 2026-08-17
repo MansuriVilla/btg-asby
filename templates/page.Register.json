@@ -33,7 +33,7 @@
         "liquid_FxnnHh": {
           "type": "liquid",
           "settings": {
-            "code": "<h2 class=\"register-title\">\nREGISTER <br>\nYOUR PRODUCTS\n</h2>\n<p class=\"register-p\">TO ACTIVATE YOUR\n2 YEAR WARRANTY</p>\n<div class=\"custom-button-main\">\n                    <div class=\"custom-button\">\n                      \n                      <a onclick=\"var _klOnsite = window._klOnsite || []; _klOnsite.push(['openForm', 'Sa2zcc']);\"  class=\"btn btn--full add-to-cart\" ><span data-add-to-cart-text=\"\" data-default-text=\"ADD TO CART\">REGISTER NOW</span></a>\n                   \n                    </div>\n                  </div>",
+            "code": "<h1 class=\"register-title\">\nREGISTER <br>\nYOUR PRODUCTS\n</h1>\n<p class=\"register-p\">TO ACTIVATE YOUR\n2 YEAR WARRANTY</p>\n<div class=\"custom-button-main\">\n                    <div class=\"custom-button\">\n                      \n                     <button type=\"button\" onclick=\"var _klOnsite = window._klOnsite || []; _klOnsite.push(['openForm', 'Sa2zcc']);\" class=\"add-to-cart content-cta content-cta__solid\">\n  <span data-add-to-cart-text=\"\" data-default-text=\"ADD TO CART\">REGISTER NOW</span>\n</button>\n                   \n                    </div>\n                  </div>",
             "width": "50%",
             "alignment": "center"
           }
@@ -48,12 +48,18 @@
           }
         }
       },
-      "block_order": ["liquid_FxnnHh", "image_BL6VGb"],
+      "block_order": [
+        "liquid_FxnnHh",
+        "image_BL6VGb"
+      ],
       "settings": {
         "full_width": false,
         "space_around": true
       }
     }
   },
-  "order": ["main", "advanced_content_LPNiP4"]
+  "order": [
+    "main",
+    "advanced_content_LPNiP4"
+  ]
 }
