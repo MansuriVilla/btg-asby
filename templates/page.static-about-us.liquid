@@ -184,7 +184,7 @@
         <div id="milestones-carousel-status" aria-live="polite" role="status" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;"></div>
         <div class="horizon-slider_container milestones_slider" role="region" aria-roledescription="carousel" aria-label="Milestones timeline gallery">
           <div class="horizon-slider_track">
-            <div class="horizon-slide">
+            <div class="horizon-slide" id="milestone-slide-0" role="tabpanel" aria-labelledby="milestone-tab-0">
               <div class="milestones_slide-inner">
                 <div class="milestones_slide-left">
                   <img
@@ -209,7 +209,7 @@
                 <span class="in-year">2021</span>
               </div>
             </div>
-            <div class="horizon-slide">
+            <div class="horizon-slide" id="milestone-slide-1" role="tabpanel" aria-labelledby="milestone-tab-1">
               <div class="milestones_slide-inner">
                 <div class="milestones_slide-left">
                   <img
@@ -234,7 +234,7 @@
                 <span class="in-year">2021</span>
               </div>
             </div>
-            <div class="horizon-slide">
+            <div class="horizon-slide" id="milestone-slide-2" role="tabpanel" aria-labelledby="milestone-tab-2">
               <div class="milestones_slide-inner">
                 <div class="milestones_slide-left">
                   <img
@@ -258,7 +258,7 @@
                 <span class="in-year">2022</span>
               </div>
             </div>
-            <div class="horizon-slide">
+            <div class="horizon-slide" id="milestone-slide-3" role="tabpanel" aria-labelledby="milestone-tab-3">
               <div class="milestones_slide-inner">
                 <div class="milestones_slide-left">
                   <img
@@ -281,7 +281,7 @@
                 <span class="in-year">2022</span>
               </div>
             </div>
-            <div class="horizon-slide">
+            <div class="horizon-slide" id="milestone-slide-4" role="tabpanel" aria-labelledby="milestone-tab-4">
               <div class="milestones_slide-inner">
                 <div class="milestones_slide-left">
                   <img
@@ -305,7 +305,7 @@
                 <span class="in-year">2023</span>
               </div>
             </div>
-            <div class="horizon-slide">
+            <div class="horizon-slide" id="milestone-slide-5" role="tabpanel" aria-labelledby="milestone-tab-5">
               <div class="milestones_slide-inner">
                 <div class="milestones_slide-left">
                   <img
@@ -329,7 +329,7 @@
                 <span class="in-year">2023</span>
               </div>
             </div>
-            <div class="horizon-slide">
+            <div class="horizon-slide" id="milestone-slide-6" role="tabpanel" aria-labelledby="milestone-tab-6">
               <div class="milestones_slide-inner">
                 <div class="milestones_slide-left">
                   <img
@@ -353,7 +353,7 @@
                 <span class="in-year">2024</span>
               </div>
             </div>
-            <div class="horizon-slide">
+            <div class="horizon-slide" id="milestone-slide-7" role="tabpanel" aria-labelledby="milestone-tab-7">
               <div class="milestones_slide-inner">
                 <div class="milestones_slide-left">
                   <img
@@ -377,7 +377,7 @@
                 <span class="in-year">2024</span>
               </div>
             </div>
-            <div class="horizon-slide">
+            <div class="horizon-slide" id="milestone-slide-8" role="tabpanel" aria-labelledby="milestone-tab-8">
               <div class="milestones_slide-inner">
                 <div class="milestones_slide-left">
                   <img
@@ -405,28 +405,36 @@
           </div>
         </div>
         <div class="timeline-navigation--holder">
-          <div class="timeline-navigation">
-            <button type="button" class="timeline-item active" data-target-slide="0" aria-current="step" aria-label="Milestone: 2021, The First Laser">
+          <div class="timeline-navigation" role="tablist" aria-label="Milestones timeline navigation">
+            <button type="button" class="timeline-item active" role="tab" id="milestone-tab-0" aria-controls="milestone-slide-0" data-target-slide="0" aria-selected="true" aria-current="step" aria-label="Milestone 1 of 9: 2021, The First Laser">
               <span class="timeline-year">2021</span>
               <span class="timeline-text">THE FIRST LASER</span>
             </button>
-            <button type="button" class="timeline-item" data-target-slide="1" aria-label="Milestone: 2021, Dick's Sporting Goods Partnership"></button>
-            <button type="button" class="timeline-item" data-target-slide="2" aria-label="Milestone: 2022, PGA Show Debut">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-1" aria-controls="milestone-slide-1" data-target-slide="1" aria-selected="false" aria-label="Milestone 2 of 9: 2021, DSG Partnership Accelerates Distribution">
+              <span class="visually-hidden">2021 - DSG PARTNERSHIP</span>
+            </button>
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-2" aria-controls="milestone-slide-2" data-target-slide="2" aria-selected="false" aria-label="Milestone 3 of 9: 2022, PGA Show Debut">
               <span class="timeline-year">2022</span>
               <span class="timeline-text">PGA SHOW DEBUT</span>
             </button>
-            <button type="button" class="timeline-item" data-target-slide="3" aria-label="Milestone: 2022, Series 3 Max wins product innovation award"></button>
-            <button type="button" class="timeline-item" data-target-slide="4" aria-label="Milestone: 2023, Player+ drops the mic">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-3" aria-controls="milestone-slide-3" data-target-slide="3" aria-selected="false" aria-label="Milestone 4 of 9: 2022, Series 3 Max Wins ING Product Innovation Award">
+              <span class="visually-hidden">2022 - SERIES 3 MAX WINS</span>
+            </button>
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-4" aria-controls="milestone-slide-4" data-target-slide="4" aria-selected="false" aria-label="Milestone 5 of 9: 2023, Player+ Drops The Mic">
               <span class="timeline-year">2023</span>
               <span class="timeline-text">PLAYER+ DROPS THE MIC</span>
             </button>
-            <button type="button" class="timeline-item" data-target-slide="5" aria-label="Milestone: 2023, TaylorMade Stealth 2 launch partnership"></button>
-            <button type="button" class="timeline-item" data-target-slide="6" aria-label="Milestone: 2024, Game ecosystem takes flight">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-5" aria-controls="milestone-slide-5" data-target-slide="5" aria-selected="false" aria-label="Milestone 6 of 9: 2023, TaylorMade Stealth 2 Launch Partnership">
+              <span class="visually-hidden">2023 - TAYLORMADE STEALTH 2</span>
+            </button>
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-6" aria-controls="milestone-slide-6" data-target-slide="6" aria-selected="false" aria-label="Milestone 7 of 9: 2024, Game Eco-System Takes Flight">
               <span class="timeline-year">2024</span>
               <span class="timeline-text">GAME ECO-SYSTEM TAKES FLIGHT</span>
             </button>
-            <button type="button" class="timeline-item" data-target-slide="7" aria-label="Milestone: 2024, Travis Mathew collab"></button>
-            <button type="button" class="timeline-item" data-target-slide="8" aria-label="Milestone: 2025, Elevating retail">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-7" aria-controls="milestone-slide-7" data-target-slide="7" aria-selected="false" aria-label="Milestone 8 of 9: 2024, Travis Mathew X Blue Tees Global Collab">
+              <span class="visually-hidden">2024 - TRAVIS MATHEW COLLAB</span>
+            </button>
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-8" aria-controls="milestone-slide-8" data-target-slide="8" aria-selected="false" aria-label="Milestone 9 of 9: 2025, Elevate Program Launches">
               <span class="timeline-year">2025</span>
               <span class="timeline-text">ELEVATING RETAIL</span>
             </button>
@@ -1206,6 +1214,8 @@ document.addEventListener("DOMContentLoaded", () => {
       timelineItems.forEach((item, index) => {
         const isActive = index === activeIndex;
         item.classList.toggle("active", isActive);
+        item.setAttribute("aria-selected", isActive ? "true" : "false");
+        item.setAttribute("tabindex", isActive ? "0" : "-1");
         if (isActive) {
           item.setAttribute("aria-current", "step");
         } else {
@@ -1227,7 +1237,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    timelineItems.forEach((item) => {
+    timelineItems.forEach((item, itemIdx) => {
       const handleActivation = () => {
         const targetSlideIndex = parseInt(item.dataset.targetSlide);
         updateTimelineActiveState(targetSlideIndex, true);
@@ -1264,6 +1274,24 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === " " || e.key === "Enter") {
           e.preventDefault();
           handleActivation();
+        } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          e.preventDefault();
+          const nextIdx = (itemIdx + 1) % timelineItems.length;
+          timelineItems[nextIdx].focus();
+          timelineItems[nextIdx].click();
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          e.preventDefault();
+          const prevIdx = (itemIdx - 1 + timelineItems.length) % timelineItems.length;
+          timelineItems[prevIdx].focus();
+          timelineItems[prevIdx].click();
+        } else if (e.key === "Home") {
+          e.preventDefault();
+          timelineItems[0].focus();
+          timelineItems[0].click();
+        } else if (e.key === "End") {
+          e.preventDefault();
+          timelineItems[timelineItems.length - 1].focus();
+          timelineItems[timelineItems.length - 1].click();
         }
       });
     });

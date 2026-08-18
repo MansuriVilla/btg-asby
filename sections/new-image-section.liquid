@@ -1,7 +1,7 @@
 {% liquid
   assign parent_title = product.title | default: collection.title | default: page.title | default: shop.name | escape
-  assign fallback_alt = parent_title | append: ' ' | append: section.index
-  assign image_alt = section.settings.sectionImage.alt | default: fallback_alt
+  assign fallback_alt = parent_title | append: ' showcase image'
+  assign image_alt = section.settings.image_alt | default: section.settings.sectionImage.alt | default: fallback_alt
 
   assign section_loading = 'lazy'
   assign section_fetchpriority = 'auto'
@@ -46,7 +46,7 @@
 {% schema %}
 {
   "name": "Section Image",
-"tag": "section",
+  "tag": "section",
   "settings": [
     {
       "type": "image_picker",
@@ -57,6 +57,12 @@
       "type": "image_picker",
       "id": "sectionImageMobile",
       "label": "Select Image For Mobile"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alternative Text (Accessibility)",
+      "info": "Describe the purpose or information conveyed by the image."
     },
     {
       "type": "checkbox",

@@ -165,67 +165,74 @@ lazySizesConfig.expFactor = 4;
   theme.a11y = {
     trapFocus: function(options) {
       var eventsName = {
-        focusin: options.namespace ? 'focusin.' + options.namespace : 'focusin',
-        focusout: options.namespace
-          ? 'focusout.' + options.namespace
-          : 'focusout',
         keydown: options.namespace
           ? 'keydown.' + options.namespace
           : 'keydown.handleFocus'
       };
-  
-      // Get every possible visible focusable element
-      var focusableEls = options.container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex^="-"])');
-      var elArray = [].slice.call(focusableEls);
-      var focusableElements = elArray.filter(el => el.offsetParent !== null);
-  
-      var firstFocusable = focusableElements[0];
-      var lastFocusable = focusableElements[focusableElements.length - 1];
-  
-      if (!options.elementToFocus) {
-        options.elementToFocus = options.container;
-      }
-  
-      options.container.setAttribute('tabindex', '-1');
-      options.elementToFocus.focus();
-  
-      document.documentElement.off('focusin');
-      document.documentElement.on(eventsName.focusout, function() {
-        document.documentElement.off(eventsName.keydown);
-      });
-  
-      document.documentElement.on(eventsName.focusin, function(evt) {
-        if (evt.target !== lastFocusable && evt.target !== firstFocusable) return;
-  
-        document.documentElement.on(eventsName.keydown, function(evt) {
-          _manageFocus(evt);
+
+      function getVisibleFocusable(container) {
+        var focusableEls = container.querySelectorAll('button:not([disabled]), [href]:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex^="-"]):not([disabled])');
+        var elArray = [].slice.call(focusableEls);
+        return elArray.filter(function(el) {
+          return (el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0) &&
+            window.getComputedStyle(el).visibility !== 'hidden' &&
+            window.getComputedStyle(el).display !== 'none';
         });
-      });
-  
-      function _manageFocus(evt) {
-        if (evt.keyCode !== 9) return;
-        /**
-         * On the first focusable element and tab backward,
-         * focus the last element
-         */
-        if (evt.target === firstFocusable && evt.shiftKey) {
-          evt.preventDefault();
-          lastFocusable.focus();
-        } else if (evt.target === lastFocusable && !evt.shiftKey) {
-          evt.preventDefault();
-          firstFocusable.focus();
+      }
+
+      if (options.elementToFocus) {
+        options.elementToFocus.focus();
+      } else {
+        var initialElements = getVisibleFocusable(options.container);
+        if (initialElements.length > 0) {
+          initialElements[0].focus();
+        } else {
+          options.container.setAttribute('tabindex', '-1');
+          options.container.focus();
         }
       }
+
+      document.documentElement.off(eventsName.keydown);
+      document.documentElement.on(eventsName.keydown, function(evt) {
+        if (evt.keyCode !== 9 && evt.key !== 'Tab') return;
+
+        var focusableElements = getVisibleFocusable(options.container);
+        if (focusableElements.length === 0) {
+          evt.preventDefault();
+          return;
+        }
+
+        var firstFocusable = focusableElements[0];
+        var lastFocusable = focusableElements[focusableElements.length - 1];
+
+        if (!options.container.contains(document.activeElement)) {
+          evt.preventDefault();
+          firstFocusable.focus();
+          return;
+        }
+
+        if (evt.shiftKey) {
+          if (document.activeElement === firstFocusable) {
+            evt.preventDefault();
+            lastFocusable.focus();
+          }
+        } else {
+          if (document.activeElement === lastFocusable) {
+            evt.preventDefault();
+            firstFocusable.focus();
+          }
+        }
+      });
     },
     removeTrapFocus: function(options) {
       var eventName = options.namespace
-        ? 'focusin.' + options.namespace
-        : 'focusin';
-  
+        ? 'keydown.' + options.namespace
+        : 'keydown.handleFocus';
+
       if (options.container) {
         options.container.removeAttribute('tabindex');
       }
-  
+
       document.documentElement.off(eventName);
     },
   
@@ -1851,19 +1858,11 @@ lazySizesConfig.expFactor = 4;
   
         if (window.AOS) { AOS.refreshHard() }
 
-        var liveRegion = document.getElementById('a11y-live-region');
-        if (liveRegion && !theme.preventGeneralAnnounce) {
-          setTimeout(function() {
-             var formattedSubtotal = theme.Currency.formatMoney(subtotal, theme.settings.moneyFormat).replace(/<\/?[^>]+(>|$)/g, "");
-             liveRegion.textContent = 'Cart updated. Subtotal is now ' + formattedSubtotal;
-          }, 100);
-        }
-  
         if (Shopify && Shopify.StorefrontExpressButtons) {
           Shopify.StorefrontExpressButtons.initialize();
         }
       },
-  
+
       updateCartDiscounts: function(markup) {
         if (!this.discounts) {
           return;
@@ -1871,7 +1870,7 @@ lazySizesConfig.expFactor = 4;
         this.discounts.innerHTML = '';
         this.discounts.append(markup);
       },
-  
+
       /*============================================================================
         Quantity handling
       ==============================================================================*/
@@ -1883,16 +1882,16 @@ lazySizesConfig.expFactor = 4;
           });
         });
       },
-  
+
       quantityChanged: function(evt) {
         var key = evt.detail[0];
         var qty = evt.detail[1];
         var el = evt.detail[2];
-  
-        if (!key || !qty) {
+
+        if (!key || qty === undefined || qty === null) {
           return;
         }
-  
+
         // Disable qty selector so multiple clicks can't happen while loading
         if (el) {
           el.classList.add('is-loading');
@@ -1909,7 +1908,17 @@ lazySizesConfig.expFactor = 4;
              };
            }
         }
-  
+
+        // Find existing item name from DOM before updating
+        var existingItemEl = this.products.querySelector('[data-key="' + key + '"]');
+        var itemTitle = 'Item';
+        if (existingItemEl) {
+          var titleEl = existingItemEl.querySelector('.cart__item-name');
+          if (titleEl && titleEl.textContent) {
+            itemTitle = titleEl.textContent.trim();
+          }
+        }
+
         theme.cart.changeItem(key, qty)
           .then(function(cart) {
             if (cart.item_count > 0) {
@@ -1917,28 +1926,32 @@ lazySizesConfig.expFactor = 4;
             } else {
               this.wrapper.classList.add('is-empty');
             }
-  
+
             this.buildCart();
-  
-            // A11y: Announce the quantity change
+
+            // A11y: Announce the change to screen readers
             var updatedItem = cart.items.find(function(item) { return item.key === key || item.id == key; });
+            var formattedSubtotal = theme.Currency.formatMoney(cart.total_price, theme.settings.moneyFormat).replace(/<\/?[^>]+(>|$)/g, "");
             var announcement = '';
+
             if (updatedItem) {
               var actionText = 'updated';
               if (theme.lastFocusedQtyBtn && theme.lastFocusedQtyBtn.action) {
                 actionText = theme.lastFocusedQtyBtn.action === 'plus' ? 'increased' : 'decreased';
               }
-              announcement = updatedItem.product_title + " quantity " + actionText + " to " + updatedItem.quantity + ".";
+              announcement = (updatedItem.product_title || itemTitle) + " quantity " + actionText + " to " + updatedItem.quantity + ". Subtotal is now " + formattedSubtotal;
             } else if (parseInt(qty, 10) === 0) {
-              announcement = "Item removed from cart.";
+              announcement = itemTitle + " removed from cart. Subtotal is now " + formattedSubtotal;
+            } else {
+              announcement = "Cart updated. Subtotal is now " + formattedSubtotal;
             }
-            if (announcement) {
-              var liveRegion = document.getElementById('a11y-live-region');
-              if (liveRegion) {
-                 setTimeout(function() {
-                   liveRegion.textContent = announcement;
-                 }, 200);
-              }
+
+            var liveRegion = document.getElementById('a11y-live-region');
+            if (liveRegion) {
+              liveRegion.textContent = '';
+              setTimeout(function() {
+                liveRegion.textContent = announcement;
+              }, 150);
             }
 
             document.dispatchEvent(new CustomEvent('cart:updated', {
@@ -2444,29 +2457,37 @@ lazySizesConfig.expFactor = 4;
   
         // deselect any focused form elements
         document.activeElement.blur();
-  
+
+        if (this.activeSource) {
+          if (this.activeSource.getAttribute('aria-expanded')) {
+            this.activeSource.setAttribute('aria-expanded', 'false');
+          }
+          var sourceToFocus = this.activeSource;
+          window.setTimeout(function() {
+            if (sourceToFocus && typeof sourceToFocus.focus === 'function') {
+              sourceToFocus.focus();
+            }
+          }, 200);
+        }
+
         theme.utils.prepareTransition(this.drawer, function() {
           this.drawer.classList.remove(this.config.activeDrawer);
         }.bind(this));
-  
+
         document.documentElement.classList.remove(this.config.openClass);
         document.documentElement.classList.add(this.config.closingClass);
-  
+
         window.setTimeout(function() {
           document.documentElement.classList.remove(this.config.closingClass);
-          if (this.activeSource && this.activeSource.getAttribute('aria-expanded')) {
-            this.activeSource.setAttribute('aria-expanded', 'false');
-            this.activeSource.focus();
-          }
         }.bind(this), 500);
-  
+
         this.isOpen = false;
-  
+
         theme.a11y.removeTrapFocus({
           container: this.drawer,
           namespace: 'drawer_focus'
         });
-  
+
         this.unbindEvents();
       },
   

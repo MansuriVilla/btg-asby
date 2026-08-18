@@ -116,16 +116,8 @@
               </div>
               <div class="exclusive-section_item-bottom">
                 <div class="exclusive-section_offer-tag">
-                  <div class="exclusive-section_offer-tag-holder">
-                    <svg
-                      width="156"
-                      height="21"
-                      viewBox="0 0 156 21"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M0 0H155.779L136.872 21H0V0Z" fill="#0661EB" />
-                    </svg>
+                    <div class="exclusive-section_offer-tag-holder deal-badge" >
+                
                     {% comment %} <p>{% render 'sale-name' %}</p> {% endcomment %}
 
                     <p style="display: flex;gap: 5px;align-items: center;">
@@ -276,16 +268,8 @@
               </div>
               <div class="exclusive-section_item-bottom">
                 <div class="exclusive-section_offer-tag">
-                  <div class="exclusive-section_offer-tag-holder">
-                    <svg
-                      width="156"
-                      height="21"
-                      viewBox="0 0 156 21"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M0 0H155.779L136.872 21H0V0Z" fill="var(--new-red)" />
-                    </svg>
+                  <div class="exclusive-section_offer-tag-holder deal-badge" style="--bg-color: var(--new-red);">
+                    
                     {% comment %} <p>{% render 'sale-name' %}</p> {% endcomment %}
                     <p>#1 NEW RELEASE</p>
                   </div>
@@ -440,16 +424,8 @@
                 <div
                   class="exclusive-section_offer-tag"
                 >
-                  <div class="exclusive-section_offer-tag-holder">
-                    <svg
-                      width="156"
-                      height="21"
-                      viewBox="0 0 156 21"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M0 0H155.779L136.872 21H0V0Z" fill="var(--new-red)" />
-                    </svg>
+                  <div class="exclusive-section_offer-tag-holder deal-badge" style="--bg-color: var(--new-red);">
+                    
                     {% comment %} <p>{% render 'sale-name' %}</p> {% endcomment %}
                     <p>#1 SELLING LASER</p>
                   </div>
@@ -1426,6 +1402,38 @@
 {% endcomment %}
 
 <style>
+  /* Custom Angled Deal Badge with Inline --bg-color Support */
+  .deal-badge {
+    --badge-bg: var(--bg-color, var(--new-blue, #0062ff));
+    gap: 6px;
+    background-color: var(--badge-bg);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 11px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 6px 20px 6px 8px;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+    width: fit-content;
+    white-space: nowrap;
+  }
+  .deal-badge__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .deal-badge__icon img,
+  .deal-badge__icon svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+  }
+  .deal-badge__text {
+    display: inline-block;
+    line-height: 1;
+  }
+
           .exclusive-section_title.geore_gankas_box_bg-new img {
         max-width: clamp(35px,3.6vw,50px);
       }
@@ -1493,7 +1501,7 @@
               .free-shiping-note { opacity: 0.5; letter-spacing: 2.48px; margin-top: 14px; font-size: 10px; }
               .exclusive-section_offer-tag { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
               .exclusive-section_offer-tag-holder { position: relative; display: flex; justify-content: flex-start; align-items: center; }
-              .exclusive-section_offer-tag p { padding-top: 2px; position: absolute; color: #fff; font-size: 12px; line-height: 12px; left: 6px; font-weight: 900; text-transform: uppercase; }
+              .exclusive-section_offer-tag p { padding-top: 2px;/*  position: absolute; */ color: #fff; font-size: 12px; line-height: 12px; left: 6px; font-weight: 900; text-transform: uppercase; }
               .clock-builder-output { color: var(--new-black); font-weight: 500; opacity: 0.8; font-size: 12px; line-height: 1; }
               .clock-builder-output.no { display: none; }
               .pop-upbox { background: rgba(0, 0, 0, 0.65); bottom: 0; display: none; left: 0; position: fixed; right: 0; top: 0; z-index: 999999999; overflow: hidden; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }

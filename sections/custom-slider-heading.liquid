@@ -11,7 +11,7 @@
             srcset="{{ section.settings.customHeadingImageMobile | img_url: 'master' }}"
             media="(max-width:{{ section.settings.gridImageMobileBp}}px)"
           >
-          <img decoding="async" src="{{ section.settings.customHeadingImage | img_url: 'master' }}" alt="{{ section.settings.customHeadingImage.alt | default: product.title | default: 'Blue Tees Golf' | escape }}">
+          <img decoding="async" src="{{ section.settings.customHeadingImage | img_url: 'master' }}" alt="">
         </picture>
       </div>
     </div>
@@ -27,7 +27,7 @@
           srcset="{{ section.settings.customHeadingMockupMobile | img_url: 'master' }}"
           media="(max-width:{{ section.settings.CustomImageBpMobile}}px)"
         >
-        <img decoding="async" src="{{ section.settings.customHeadingMockup | img_url: 'master' }}" alt="{{ section.settings.customHeadingMockup.alt | default: product.title | default: 'Product mockup' | escape }}">
+        <img decoding="async" src="{{ section.settings.customHeadingMockup | img_url: 'master' }}" alt="">
       </picture>
     </div>
   {% endif %}

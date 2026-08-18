@@ -288,7 +288,7 @@
             From precise GPS distances to advanced shot tracking, the PlayMaker+ ensures every swing is backed by data
             to improve your game.
           </p>
-          <select id="mobileSectionDropdown">
+          <select id="mobileSectionDropdown" aria-label="Select a feature">
             <option value="mobile-section1">Advanced Course View</option>
             <option value="mobile-section2">Front/Center/Back Distances</option>
             <option value="mobile-section3">Green Compass</option>
@@ -298,6 +298,7 @@
             <option value="mobile-section7">Real-Time Weather</option>
             <option value="mobile-section8">Activity Tracking</option>
           </select>
+          <div id="mobileLiveRegion" aria-live="polite" class="visually-hidden" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0);"></div>
         </div>
 
         <div class="new_design-row" id="mobile-section1">
@@ -638,49 +639,49 @@
                   class="screen"
                   id="watch-img-section1"
                   src="{{ 'watch-screen-1.png' | asset_url }}"
-                  alt="Frame"
+                  alt="PlayMaker+ Advanced Course View Screen"
                 >
                 <img
                   class="screen"
                   id="watch-img-section2"
                   src="{{ 'watch-screen-2.png' | asset_url }}"
-                  alt="Frame"
+                  alt="PlayMaker+ Front Center Back Distances Screen"
                 >
                 <img
                   class="screen"
                   id="watch-img-section3"
                   src="{{ 'watch-screen-3.png' | asset_url }}"
-                  alt="Frame"
+                  alt="PlayMaker+ Green Compass Screen"
                 >
                 <img
                   class="screen"
                   id="watch-img-section4"
                   src="{{ 'watch-screen-4.png' | asset_url }}"
-                  alt="Frame"
+                  alt="PlayMaker+ Advanced Shot Tracking Screen"
                 >
                 <img
                   class="screen"
                   id="watch-img-section5"
                   src="{{ 'watch-screen-5.png' | asset_url }}"
-                  alt="Frame"
+                  alt="PlayMaker+ Dynamic Hazard Distances Screen"
                 >
                 <img
                   class="screen"
                   id="watch-img-section6"
                   src="{{ 'watch-screen-6.png' | asset_url }}"
-                  alt="Frame"
+                  alt="PlayMaker+ Scorekeeping Screen"
                 >
                 <img
                   class="screen"
                   id="watch-img-section7"
                   src="{{ 'watch-screen-7.png' | asset_url }}"
-                  alt="Frame"
+                  alt="PlayMaker+ Real-Time Weather Screen"
                 >
                 <img
                   class="screen"
                   id="watch-img-section8"
                   src="{{ 'watch-screen-8.png' | asset_url }}"
-                  alt="Frame"
+                  alt="PlayMaker+ Activity Tracking Screen"
                 >
               </div>
             </div>
@@ -1328,6 +1329,12 @@
             block: 'center',
           });
 
+          const liveRegion = document.getElementById('mobileLiveRegion');
+          if (liveRegion) {
+            const selectedText = event.target.options[event.target.selectedIndex].text;
+            liveRegion.textContent = `Showing feature: ${selectedText}`;
+          }
+
           setTimeout(() => {
             document.getElementById('mobileSectionDropdown').value = sectionId;
           }, 500);
@@ -1350,6 +1357,11 @@
         const mDropdown = document.getElementById('mobileSectionDropdown');
         if (mDropdown && currentSection && mDropdown.value !== currentSection) {
           mDropdown.value = currentSection;
+          const liveRegion = document.getElementById('mobileLiveRegion');
+          if (liveRegion && mDropdown.selectedIndex >= 0) {
+            const selectedText = mDropdown.options[mDropdown.selectedIndex].text;
+            liveRegion.textContent = `Showing feature: ${selectedText}`;
+          }
         }
       });
     }
@@ -1546,30 +1558,36 @@
         });
 
         function goToFeature(idx) {
-          if (!tl.scrollTrigger) return;
-          const st = tl.scrollTrigger;
+          if (idx < 1 || idx > texts.length) return;
+
+          // Direct timeline seek so visual updates (text, watch screen, background) apply immediately
           const labelTime = tl.labels[`feature${idx}_start`];
-          if (labelTime === undefined) return;
-          // Offset by entrance duration so we land when item is fully visible (opacity 1)
-          const targetTime = labelTime + config.duration;
-          const progress = targetTime / tl.duration();
-          const scrollPos = Math.round(st.start + (st.end - st.start) * Math.min(progress, 1));
-          
-          // Instantly jump to the target scroll position
-          window.scrollTo({ top: scrollPos });
-          
-          // Poll until scrollY reaches target, then force update
-          let attempts = 0;
-          const waitForScroll = () => {
-            attempts++;
-            if (Math.abs(window.scrollY - scrollPos) < 5 || attempts > 20) {
-              ScrollTrigger.update();
-              tl.scrollTrigger.update();
-            } else {
-              requestAnimationFrame(waitForScroll);
+          if (labelTime !== undefined) {
+            const targetTime = labelTime + config.duration;
+            tl.time(targetTime);
+          }
+
+          // Update active states
+          if (dropdown) dropdown.value = `section${idx}`;
+          currentActiveFeature = idx;
+          if (prevBtn) prevBtn.disabled = idx === 1;
+          if (nextBtn) nextBtn.disabled = idx === texts.length;
+
+          // Announce to assistive technologies
+          if (dropdown && liveRegion && dropdown.selectedIndex >= 0) {
+            liveRegion.textContent = `Showing feature: ${dropdown.options[dropdown.selectedIndex].text}`;
+          }
+
+          // Also scroll the viewport into position if ScrollTrigger is attached
+          if (tl.scrollTrigger) {
+            const st = tl.scrollTrigger;
+            if (labelTime !== undefined) {
+              const targetTime = labelTime + config.duration;
+              const progress = targetTime / tl.duration();
+              const scrollPos = Math.round(st.start + (st.end - st.start) * Math.min(progress, 1));
+              window.scrollTo({ top: scrollPos, behavior: 'smooth' });
             }
-          };
-          requestAnimationFrame(waitForScroll);
+          }
         }
 
         if (prevBtn) {

@@ -1,5 +1,5 @@
 {%- if settings.cart_type == 'drawer' -%}
-  <div id="CartDrawer" class="drawer drawer--right" role="dialog" aria-modal="true" aria-labelledby="CartDrawerTitle">
+  <div id="CartDrawer" class="drawer drawer--right" role="dialog" aria-modal="true" aria-labelledby="CartDrawerTitle" aria-label="{{ 'cart.general.title' | t }}">
     <form
       id="CartDrawerForm"
       action="{{ routes.cart_url }}"
@@ -75,7 +75,7 @@
             <div class="upshell-exclusive">
               <div class="exclusive__inner">
                 <div class="exclusive__left">
-                  <img src="{{ 'hard-case-image-cart.png' | asset_url }}" alt="Ringer Hardshell Carrying case">
+                  <img src="{{ 'hard-case-image-cart.png' | asset_url }}" alt="">
                 </div>
                 <div class="exclusive__center">
                   <span>EXCLUSIVE OFFER</span>
@@ -259,7 +259,7 @@
           <div class="cart__checkout-wrapper">
             <div class="cart__item-sub cart__item-row">
               <div class="ajaxcart__subtotal">{{ 'cart.general.subtotal' | t }}</div>
-              <div data-subtotal aria-live="polite">{{ cart.total_price | money }}</div>
+              <div data-subtotal>{{ cart.total_price | money }}</div>
             </div>
 
             <div class="cart__item-row text-center">
@@ -534,7 +534,7 @@ color:#fff !important;
       }
     });
 
-    document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+    document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { action: 'cleared' } }));
 
   } catch (error) {
     console.error('Error clearing cart:', error);

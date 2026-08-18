@@ -290,6 +290,7 @@
       "settings": {
         "sectionImage": "shopify://shop_images/Frame_1410105277546.png",
         "sectionImageMobile": "shopify://shop_images/Frame_141010530545.png",
+        "image_alt": "Rainmaker Portable Launch Monitor - Pro-level data, radar precision, and standalone practice modes.",
         "eager_load": false
       }
     },

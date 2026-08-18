@@ -7,7 +7,7 @@
         <picture>
           <source srcset="{{ section.settings.headingImage | img_url: 'master' }}" media="(min-width:861px)">
           <source srcset="{{ section.settings.headingImageMobile | img_url: 'master' }}" media="(max-width:860px)">
-          <img decoding="async" src="{{ section.settings.headingImage | img_url: 'master' }}" alt="{{ section.settings.headingImage.alt | default: product.title | default: 'Blue Tees Golf' | escape }}">
+          <img decoding="async" src="{{ section.settings.headingImage | img_url: 'master' }}" alt="">
         </picture>
       {% endif %}
     </div>
@@ -47,7 +47,7 @@
                 <picture>
                   <source srcset="{{ block.settings.CardMockup | img_url: 'master' }}" media="(min-width:861px)">
                   <source srcset="{{ block.settings.CardMockupMobile | img_url: 'master' }}" media="(max-width:860px)">
-                  <img decoding="async" src="{{ block.settings.CardMockup | img_url: 'master' }}" alt="{{ block.settings.CardMockup.alt | default: block.settings.Product_heading | default: 'Product mockup' | escape }}">
+                  <img decoding="async" src="{{ block.settings.CardMockup | img_url: 'master' }}" alt="">
                 </picture>
               {% endif %}
             </div>
@@ -58,7 +58,7 @@
                   <img
                     class="content_img-mockup"
                     src="{{block.settings.Prouct_title | img_url: 'master'}}"
-                    alt="{{ block.settings.Prouct_title.alt | default: block.settings.Product_heading | default: 'Product Title' | escape }}"
+                    alt=""
                     decoding="async"
                   >
                 {% endif %}

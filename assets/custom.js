@@ -3485,7 +3485,7 @@ changeImageOnVarient();
     // 2. Escape key modal close handler (A11Y-04)
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        const closeSelectors = ['.closePop', '.closePop img', '[class*="close-modal"]', '[class*="modal__close"]', '.pop-close', '.pop-close a', '[class*="pop-close"]'];
+        const closeSelectors = ['.js-drawer-close', '.closePop', '.closePop img', '[class*="close-modal"]', '[class*="modal__close"]', '.pop-close', '.pop-close a', '[class*="pop-close"]'];
         closeSelectors.forEach(selector => {
           document.querySelectorAll(selector).forEach(btn => {
             if (btn.offsetWidth > 0 || btn.offsetHeight > 0) {
@@ -3533,22 +3533,15 @@ changeImageOnVarient();
       }
     };
     document.addEventListener('ajaxProduct:added', (e) => {
-      if (e.detail && (e.detail.product?.title || e.detail.title)) {
+      if (e.detail && e.detail.action === 'removed') {
+        let itemName = e.detail.title || 'Item';
+        let subtotalStr = e.detail.subtotal ? `. Subtotal is now ${e.detail.subtotal}` : '';
+        announceToLive(`${itemName} removed from cart${subtotalStr}`);
+      } else if (e.detail && e.detail.action === 'cleared') {
+        announceToLive('Cart cleared. Your cart is empty.');
+      } else if (e.detail && (e.detail.product?.title || e.detail.title)) {
         let itemName = e.detail.product?.title || e.detail.title;
         announceToLive(`${itemName} added to cart`);
-      } else {
-        fetch(window.Shopify.routes ? window.Shopify.routes.root + 'cart.js' : '/cart.js')
-          .then(response => response.json())
-          .then(cart => {
-            let itemName = 'Item';
-            if (cart.items && cart.items.length > 0) {
-              itemName = cart.items[0].product_title || cart.items[0].title || 'Item';
-            }
-            announceToLive(`${itemName} added to cart`);
-          })
-          .catch(() => {
-            announceToLive('Item added to cart');
-          });
       }
     });
 
@@ -3873,6 +3866,15 @@ changeImageOnVarient();
     var variantId = key.split(":")[0];
     var hasFreeGift = variantId && FREE_GIFTS_BY_VARIANT.hasOwnProperty(String(variantId));
 
+    // Get item name for accessibility announcement
+    var itemTitle = 'Item';
+    if (cartItem) {
+      var titleLink = cartItem.querySelector('.cart__item-name');
+      if (titleLink && titleLink.textContent) {
+        itemTitle = titleLink.textContent.trim();
+      }
+    }
+
     fetch('/cart/change.js', {
       method: 'POST',
       headers: {
@@ -3882,14 +3884,25 @@ changeImageOnVarient();
       body: JSON.stringify({ id: key, quantity: 0 })
     })
       .then(function (res) { return res.json(); })
-      .then(function () {
+      .then(function (cart) {
         if (hasFreeGift) {
-          return removeFreeGiftIfPresentByVariant(variantId);
+          return removeFreeGiftIfPresentByVariant(variantId).then(function() { return cart; });
         }
+        return cart;
       })
-      .then(function () {
-        // Refresh the mini-cart drawer exactly as the theme's QtySelector does
-        document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+      .then(function (cart) {
+        var formattedSubtotal = '';
+        if (cart && cart.total_price !== undefined && window.theme && window.theme.Currency) {
+          formattedSubtotal = theme.Currency.formatMoney(cart.total_price, theme.settings.moneyFormat).replace(/<\/?[^>]+(>|$)/g, "");
+        }
+        // Refresh the mini-cart drawer with announcement details
+        document.dispatchEvent(new CustomEvent('ajaxProduct:added', {
+          detail: {
+            action: 'removed',
+            title: itemTitle,
+            subtotal: formattedSubtotal
+          }
+        }));
       })
       .catch(function (err) {
         console.error('Cart remove error:', err);

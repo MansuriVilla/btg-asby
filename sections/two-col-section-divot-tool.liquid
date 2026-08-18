@@ -15,7 +15,7 @@
             <picture>
               <source srcset="{{ block.settings.twoColumn__Image-desktop | img_url:'master' }}" media="(min-width:769px)">
               <source srcset="{{ block.settings.twoColumn__Image-mobile| img_url:'master' }}" media="(max-width:768px)">
-              <img class="scaling_image-img" src="{{ block.settings.twoColumn__Image-desktop  | img_url:'master' }} " alt="{{ block.settings.twoColumn__Image-desktop.alt | default: block.settings.twoColumn__Ttile | escape }}">
+              <img class="scaling_image-img" src="{{ block.settings.twoColumn__Image-desktop  | img_url:'master' }} " alt="">
             </picture>
           </div>
         </div>

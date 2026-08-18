@@ -37,7 +37,7 @@
       </div>
       <div
         class="video_block m_banner video-preview"
-        data-play-in-place="true" data-video-url="https://cdn.shopify.com/videos/c/o/v/a7076c30d83b4a36bb57f7920e982093.mp4"
+        data-play-in-place="true" data-video-url="https://cdn.shopify.com/videos/c/o/v/82a2298190184e62a5fcb3d63c0ea04b.mp4"
       >
         <div class="loader" id="loader-2"></div>
         <video
@@ -70,7 +70,7 @@
       </div>
     </div>
     <div class="customize_game_left_right">
-      <div class="video_block video-preview" data-play-in-place="true" data-video-url="https://cdn.shopify.com/videos/c/o/v/a7076c30d83b4a36bb57f7920e982093.mp4" >
+      <div class="video_block video-preview" data-play-in-place="true" data-video-url="https://cdn.shopify.com/videos/c/o/v/82a2298190184e62a5fcb3d63c0ea04b.mp4" >
         <div class="loader" id="loader-1"></div>
         <video
           id="preview-video-1"
@@ -892,12 +892,12 @@
           higher-quality images and text than most other printing methods. Its precision, accuracy, and durability
           ensures your mark will make a lasting impression.
         </p>
-        <img src="{{ 'mockup-dmmy.png' | asset_url }}" alt="text">
+        <img src="{{ 'mockup-dmmy.png' | asset_url }}" alt="UV Direct Printing process showing high-quality, durable ink cured with ultraviolet light on a material surface">
       </div>
     </div>
   </div>
 
-  <div class="slide_in-view__container">
+  <div class="slide_in-view__container" role="region" aria-roledescription="carousel" aria-label="Custom branded gear client showcase">
     <div class="slide_in-view__row">
       <div class="slide_in-view__images">
         <picture class="picture_cloning">
@@ -912,7 +912,7 @@
           <img
             class="text-item slide_in-view__image"
             src="{{ 'custom-slider-img--1.png' | asset_url }}"
-            alt="Client Logo 2"
+            alt="Two golfers walking along course path with handheld Blue Tees speaker"
             decoding="async"
                         loading="lazy"
           >
@@ -929,7 +929,7 @@
           <img
             class="text-item slide_in-view__image"
             src="{{ 'custom-slider-img--2.png' | asset_url }}"
-            alt="Client Logo 3"
+            alt="Custom navy waffle golf towel with embroidered Adidas and Blue Tees Golf logos"
             decoding="async"
                         loading="lazy"
           >
@@ -946,7 +946,7 @@
           <img
             class="text-item slide_in-view__image"
             src="{{ 'custom-slider-img--3.png' | asset_url }}"
-            alt="Client Logo 4"
+            alt="Custom camo magnetic golf speaker featuring white TravisMathew branding"
             decoding="async"
                         loading="lazy"
           >
@@ -963,7 +963,7 @@
           <img
             class="text-item slide_in-view__image"
             src="{{ 'custom-slider-img--4.png' | asset_url }}"
-            alt="Client Logo 5"
+            alt="Pebble Beach Golf Links 1919 custom gift box set with speaker, case, and divot tool"
             decoding="async"
                         loading="lazy"
           >
@@ -980,7 +980,7 @@
           <img
             class="text-item slide_in-view__image"
             src="{{ 'custom-slider-img--5.png' | asset_url }}"
-            alt="Client Logo 6"
+            alt="Female golfer in cart using magnetic GPS speaker with Team TaylorMade branding"
             decoding="async"
                         loading="lazy"
           >
@@ -1698,82 +1698,103 @@ slideInView();
 </script>
 
 <script type="text/javascript">
-  var lastFocusedElement;
+  var lastFocusedElement = null;
 
-  function trapFocus(element) {
-    var KEYCODE_TAB = 9;
-
-    $(element).off('keydown.trap').on('keydown.trap', function(e) {
-      var isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
-      if (!isTabPressed) { 
-        return; 
-      }
-      
-      var focusableEls = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])');
-      var visibleFocusableEls = Array.prototype.filter.call(focusableEls, function(el) {
-        return el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0;
-      });
-
-      if (visibleFocusableEls.length === 0) return;
-
-      var firstFocusableEl = visibleFocusableEls[0];  
-      var lastFocusableEl = visibleFocusableEls[visibleFocusableEls.length - 1];
-
-      if (e.shiftKey) /* shift + tab */ {
-        if (document.activeElement === firstFocusableEl) {
-          lastFocusableEl.focus();
-          e.preventDefault();
-        }
-      } else /* tab */ {
-        if (document.activeElement === lastFocusableEl) {
-          firstFocusableEl.focus();
-          e.preventDefault();
-        }
-      }
+  function getModalFocusableElements(modal) {
+    if (!modal) return [];
+    var selectors = 'button, [href], input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])';
+    var all = modal.querySelectorAll(selectors);
+    return Array.prototype.filter.call(all, function(el) {
+      return !el.disabled &&
+             el.getAttribute('aria-hidden') !== 'true' &&
+             (el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0) &&
+             window.getComputedStyle(el).visibility !== 'hidden' &&
+             window.getComputedStyle(el).display !== 'none';
     });
   }
 
+  function handleModalGlobalKeydown(e) {
+    var modal = document.getElementById('contact-us');
+    if (!modal || window.getComputedStyle(modal).display === 'none') return;
+
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      e.preventDefault();
+      closeModal();
+      return;
+    }
+
+    if (e.key === 'Tab' || e.keyCode === 9) {
+      var focusables = getModalFocusableElements(modal);
+      if (focusables.length === 0) {
+        e.preventDefault();
+        return;
+      }
+
+      var firstEl = focusables[0];
+      var lastEl = focusables[focusables.length - 1];
+      var activeEl = document.activeElement;
+
+      // If focus is currently outside the modal, force it into the modal
+      if (!modal.contains(activeEl)) {
+        e.preventDefault();
+        firstEl.focus();
+        return;
+      }
+
+      if (e.shiftKey) {
+        // Shift + Tab: if on first element, wrap to last element
+        if (activeEl === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        }
+      } else {
+        // Tab: if on last element, wrap to first element
+        if (activeEl === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
+        }
+      }
+    }
+  }
+
   function closeModal() {
-    $('.pop-upbox').fadeOut(function () {
-      if (lastFocusedElement) {
+    $('.pop-upbox').fadeOut(200, function () {
+      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
         lastFocusedElement.focus();
       }
     });
     var video1 = $('#video1').get(0);
-    if(video1) video1.pause();
-    $(document).off('keydown.modal');
+    if (video1 && typeof video1.pause === 'function') video1.pause();
+    window.removeEventListener('keydown', handleModalGlobalKeydown, true);
   }
 
-  $('.poptrigger').click(function (e) {
+  $(document).on('click', '.poptrigger', function (e) {
     e.preventDefault();
-    lastFocusedElement = document.activeElement;
+    lastFocusedElement = this;
     var popID = $(this).attr('data-rel');
-    var $modal = $('#' + popID);
-    
-    $modal.fadeIn(function() {
-      // Focus first interactive element or the dialog itself
-      var $focusable = $modal.find('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])').filter(':visible');
-      if ($focusable.length) {
-        $focusable.first().focus();
+    var modal = document.getElementById(popID);
+    if (!modal) return false;
+
+    $(modal).fadeIn(200, function() {
+      // Focus first input inside the form, or the close button
+      var firstInput = modal.querySelector('input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled])');
+      if (firstInput) {
+        firstInput.focus();
       } else {
-        $modal.attr('tabindex', '-1').focus();
+        var focusables = getModalFocusableElements(modal);
+        if (focusables.length) focusables[0].focus();
       }
     });
 
-    var video = $modal.find('#video1').get(0);
+    var video = $(modal).find('#video1').get(0);
     if (video && typeof video.play === 'function') {
       video.play();
     }
-    
-    trapFocus($modal[0]);
-    
-    // Add Esc key listener
-    $(document).off('keydown.modal').on('keydown.modal', function(e) {
-      if (e.key === 'Escape' || e.keyCode === 27) {
-        closeModal();
-      }
-    });
-    
+
+    // Attach keydown listener to window with capture phase
+    window.removeEventListener('keydown', handleModalGlobalKeydown, true);
+    window.addEventListener('keydown', handleModalGlobalKeydown, true);
+
     return false;
   });
 
@@ -1784,7 +1805,7 @@ slideInView();
   });
 
   $(document).on('click', function (event) {
-    if ($(event.target).has('.popup-box').length) {
+    if ($(event.target).is('.pop-upbox')) {
       closeModal();
     }
   });

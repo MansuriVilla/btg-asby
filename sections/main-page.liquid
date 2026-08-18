@@ -63,7 +63,7 @@
         <div class="section_hero--content-text">
           {% comment %} render h2 if page already contain h1 {% endcomment %}
               {%- assign has_h1 = false -%}
-              {%- if page.content contains '<h1' or page.content contains '<H1' or page.handle == 'careers' -%}
+              {%- if page.content contains '<h1' or page.content contains '<H1' -%}
                 {%- assign has_h1 = true -%}
               {%- endif -%}
               {% if has_h1 %}
