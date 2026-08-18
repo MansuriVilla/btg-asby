@@ -1,119 +1,270 @@
-<div class="footer__item-padding">
-  {%- if block.settings.show_footer_title -%}
-    <p class="h4 footer__title small--hide">{{ block.settings.title }}</p>
-    <button type="button" class="h4 footer__title collapsible-trigger collapsible-trigger-btn medium-up--hide" aria-controls="Footer-{{ block.id }}">
-      {{ block.settings.title }}
-      {%- render 'collapsible-icons' -%}
-    </button>
-  {%- endif -%}
-  <div
-    {% if block.settings.show_footer_title %}
-      id="Footer-{{ block.id }}" class="collapsible-content collapsible-content--small"
-    {% endif %}>
-    <div class="collapsible-content__inner">
-      <div class="footer__collapsible{% unless block.settings.show_footer_title %} footer_collapsible--disabled{% endunless %}">
-        {%- if block.settings.text -%}
-          {{ block.settings.text }}
-        {%- endif -%}
-        
-        {%- form 'customer', id: 'newsletter-footer' -%}
-          {%- if form.posted_successfully? -%}
-            <div class="note note--success" role="status" aria-live="polite">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
-          {%- endif -%}
-          {%- if form.context == 'footer' -%}
-            {%- if form.errors -%}
-              <div class="note note--error" role="alert" aria-live="assertive">
-                {{ form.errors | default_errors }}
-              </div>
-            {%- endif -%}
-          {%- endif -%}
+{%- form 'customer',
+  id: 'newsletter-footer-first',
+  class: 'contact-form newsletter-accessible-form'
+-%}
 
-          <label for="Email-{{ block.id }}" class="hidden-label">{{ 'general.newsletter_form.newsletter_email' | t }}</label>
-          <input type="hidden" name="contact[tags]" value="prospect,newsletter">
-          <input type="hidden" name="contact[context]" value="footer">
-          <div class="signup-form">
-            <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email-{{ block.id }}" class="footer-signup-input" autocorrect="off" autocapitalize="off" autocomplete="email" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}"" required>
-            <button type="submit" class="signup-form-btn" name="commit" aria-label="{{ 'general.newsletter_form.submit' | t }}">
-              <!--<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-email" viewBox="0 0 64 64"><path d="M63 52H1V12h62zM1 12l25.68 24h9.72L63 12M21.82 31.68L1.56 51.16m60.78.78L41.27 31.68"/></svg>--->
-              <span>
-                {{ 'general.newsletter_form.submit' | t }}
-              </span>
-            </button>
-          </div>
-            <div class="newsletter-client-error"
-     role="alert"
-     aria-live="assertive"
-     style="display:none;">
-</div>
-        {%- endform -%}
-
-        
-      </div>
+  {%- if form.posted_successfully? -%}
+    <div
+      class="note note--success"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      {{ 'general.newsletter_form.newsletter_confirmation' | t }}
     </div>
+  {%- endif -%}
+
+
+  {%- if form.context == 'footer' and form.errors -%}
+    <div
+      class="note note--error"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      {{ form.errors | default_errors }}
+    </div>
+  {%- endif -%}
+
+
+  <label
+    for="Email-first"
+    class="hidden-label"
+  >
+    {{ 'general.newsletter_form.newsletter_email' | t }}
+  </label>
+
+
+  <input
+    type="hidden"
+    name="contact[tags]"
+    value="prospect,newsletter"
+  >
+
+  <input
+    type="hidden"
+    name="contact[context]"
+    value="footer"
+  >
+
+
+  <div class="signup-form">
+
+    <input
+      type="email"
+      value="{% if customer %}{{ customer.email | escape }}{% endif %}"
+      placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
+      name="contact[email]"
+      id="Email-first"
+      class="footer-signup-input"
+      autocorrect="off"
+      autocapitalize="off"
+      autocomplete="email"
+      aria-describedby="newsletter-error-first"
+      required
+    >
+
+
+    <button
+      type="submit"
+      class="signup-form-btn"
+      name="commit"
+      aria-label="{{ 'general.newsletter_form.submit' | t }}"
+    >
+      <span>
+        {{ 'general.newsletter_form.submit' | t }}
+      </span>
+    </button>
+
   </div>
-</div>
+
+
+  <div
+    id="newsletter-error-first"
+    class="newsletter-client-error"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    hidden
+  ></div>
+
+
+{%- endform -%}
+
 
 <style>
   .newsletter-client-error {
-  margin-top: 8px;
-}
+    margin-top: 8px;
+  }
 
-.footer-signup-input[aria-invalid="true"] {
-  border-color: #c00;
-}
+  .newsletter-client-error[hidden] {
+    display: none;
+  }
 </style>
 
+
 <script>
-document.addEventListener(
-  "submit",
-  function (event) {
+(function () {
+
+  document.addEventListener('submit', function (event) {
+
     var form = event.target;
 
-    // Only validate the footer newsletter form
-    if (!form || form.id !== "newsletter-footer") {
+    // Only validate newsletter forms
+    if (
+      !form ||
+      !form.classList.contains('newsletter-accessible-form')
+    ) {
       return;
     }
 
-    var emailInput = form.querySelector(
-      "input[name='contact[email]']"
+    var email = form.querySelector(
+      'input[name="contact[email]"]'
     );
 
-    var errorBox = form.querySelector(".newsletter-client-error");
+    var error = form.querySelector(
+      '.newsletter-client-error'
+    );
 
-    if (!emailInput || !errorBox) {
+    if (!email || !error) {
       return;
     }
 
-    var email = emailInput.value.trim();
+    var emailValue = email.value.trim();
 
-    errorBox.style.display = "none";
-    errorBox.textContent = "";
-    emailInput.removeAttribute("aria-invalid");
 
-    // Blank email validation
-    if (email === "") {
+    // -----------------------------
+    // EMPTY EMAIL
+    // -----------------------------
+
+    if (emailValue === '') {
+
       event.preventDefault();
       event.stopPropagation();
+      event.stopImmediatePropagation();
 
-      emailInput.setAttribute("aria-invalid", "true");
-      errorBox.textContent = "Email can't be blank.";
-      errorBox.style.display = "block";
-      emailInput.focus();
+      email.setAttribute(
+        'aria-invalid',
+        'true'
+      );
 
+      // Reset error so screen readers
+      // announce it again if necessary
+      error.hidden = true;
+      error.textContent = '';
+
+      requestAnimationFrame(function () {
+
+        error.textContent = "Email can't be blank.";
+        error.hidden = false;
+
+        email.focus();
+
+      });
+
+      return false;
+    }
+
+
+    // -----------------------------
+    // INVALID EMAIL FORMAT
+    // -----------------------------
+
+    if (!email.validity.valid) {
+
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+
+      email.setAttribute(
+        'aria-invalid',
+        'true'
+      );
+
+      error.hidden = true;
+      error.textContent = '';
+
+      requestAnimationFrame(function () {
+
+        error.textContent =
+          'Please enter a valid email address.';
+
+        error.hidden = false;
+
+        email.focus();
+
+      });
+
+      return false;
+    }
+
+
+    // -----------------------------
+    // VALID EMAIL
+    // -----------------------------
+
+    email.removeAttribute(
+      'aria-invalid'
+    );
+
+    error.textContent = '';
+    error.hidden = true;
+
+    // Do NOT preventDefault here.
+    // Allow Shopify to submit valid email.
+
+  }, true);
+
+
+
+  // ---------------------------------
+  // CLEAR ERROR WHEN USER FIXES EMAIL
+  // ---------------------------------
+
+  document.addEventListener('input', function (event) {
+
+    var email = event.target;
+
+    if (
+      !email.matches(
+        '.newsletter-accessible-form input[name="contact[email]"]'
+      )
+    ) {
       return;
     }
 
-    // Invalid email format validation
-    if (!emailInput.validity.valid) {
-      event.preventDefault();
-      event.stopPropagation();
+    var form = email.closest(
+      '.newsletter-accessible-form'
+    );
 
-      emailInput.setAttribute("aria-invalid", "true");
-      errorBox.textContent = "Please enter a valid email address.";
-      errorBox.style.display = "block";
-      emailInput.focus();
+    if (!form) {
+      return;
     }
-  },
-  true
-);
+
+    var error = form.querySelector(
+      '.newsletter-client-error'
+    );
+
+    if (!error) {
+      return;
+    }
+
+
+    if (
+      email.value.trim() !== '' &&
+      email.validity.valid
+    ) {
+
+      email.removeAttribute(
+        'aria-invalid'
+      );
+
+      error.textContent = '';
+      error.hidden = true;
+
+    }
+
+  });
+
+})();
 </script>
