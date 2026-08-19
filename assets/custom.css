@@ -2033,15 +2033,7 @@ button#volumeToggle { position: absolute; bottom: clamp(5px, 2vw, 20px); right: 
 
 @media only screen and (min-width:220px) and (max-width:768px) {
   .menu label.menu-toggle { right: -40px; top: 25px; }
-  .site-footer .grid__item { border:none; }
-  .site-footer .h4.collapsible-trigger { font-size:20px;  margin:0; font-weight: 700; color:#fff; text-align:left;   font-family: 'Blue Tees Headline Italic'; }
-  .site-footer .no-bullets.site-footer__linklist li { text-align:left; }
-  .footer__item--1494301487049 { width:100% !important; margin-bottom:0 !important; }
-  .footer__item--d9da3bdc-d5bd-47ce-9589-434c668a87ab { width:100% !important; border:none !important; margin-bottom:0 !important; }
-  .footer__item--5e7c7403-c2cd-4875-a6bb-07b0a1ff8144 { width:100% !important; }
-  .footer__item--143b601b-dbaf-4a7f-968c-b124026283e3 { width:100% !important; }
-  .site-footer .social-heading { margin:30px 0 0 0; padding:30px 0 0 0; text-align:left; }
-  .site-footer .no-bullets.footer__social { text-align:left; margin-top:20px; }
+ 
   #shopify-section-icon-with-text-series-2-with-slope .grid__item { width:50%; }
   #shopify-section-icon-with-text-series-2  .grid__item { width:50%; }
   #shopify-section-icon-with-text .grid__item { width:50%; }

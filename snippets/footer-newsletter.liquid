@@ -1,96 +1,102 @@
 {%- form 'customer',
-  id: 'newsletter-footer-first',
+  id: 'newsletter-footer-second',
   class: 'contact-form newsletter-accessible-form'
 -%}
 
-  {%- if form.posted_successfully? -%}
-    <div
-      class="note note--success"
-      role="status"
-      aria-live="polite"
-      aria-atomic="true"
+  <div id="newsletter-second">
+
+    {%- if form.posted_successfully? -%}
+      <div
+        class="note note--success"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {{ 'general.newsletter_form.newsletter_confirmation' | t }}
+      </div>
+    {%- endif -%}
+
+    {%- if form.errors -%}
+      <div
+        class="note note--error"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        {{ form.errors | default_errors }}
+      </div>
+    {%- endif -%}
+
+    <label
+      for="Email-second"
+      class="hidden-label"
     >
-      {{ 'general.newsletter_form.newsletter_confirmation' | t }}
+      {{ 'general.newsletter_form.newsletter_email' | t }}
+    </label>
+
+    <input
+      type="hidden"
+      name="contact[tags]"
+      value="prospect,newsletter"
+    >
+
+    <input
+      type="hidden"
+      name="contact[context]"
+      value="footer"
+    >
+
+    <div class="signup-form">
+
+      <input
+        type="email"
+        value="{% if customer %}{{ customer.email | escape }}{% endif %}"
+        placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
+        name="contact[email]"
+        id="Email-second"
+        class="footer-signup-input"
+        autocorrect="off"
+        autocapitalize="off"
+        autocomplete="email"
+        aria-describedby="newsletter-error-second"
+        required
+      >
+
+      <button
+        type="submit"
+        class="signup-form-btn"
+        name="commit"
+        aria-label="{{ 'general.newsletter_form.submit' | t }}"
+      >
+        <span>SUBSCRIBE</span>
+      </button>
+
     </div>
-  {%- endif -%}
 
-
-  {%- if form.context == 'footer' and form.errors -%}
     <div
-      class="note note--error"
+      id="newsletter-error-second"
+      class="newsletter-client-error"
       role="alert"
       aria-live="assertive"
       aria-atomic="true"
-    >
-      {{ form.errors | default_errors }}
-    </div>
-  {%- endif -%}
-
-
-  <label
-    for="Email-first"
-    class="hidden-label"
-  >
-    {{ 'general.newsletter_form.newsletter_email' | t }}
-  </label>
-
-
-  <input
-    type="hidden"
-    name="contact[tags]"
-    value="prospect,newsletter"
-  >
-
-  <input
-    type="hidden"
-    name="contact[context]"
-    value="footer"
-  >
-
-
-  <div class="signup-form">
-
-    <input
-      type="email"
-      value="{% if customer %}{{ customer.email | escape }}{% endif %}"
-      placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
-      name="contact[email]"
-      id="Email-first"
-      class="footer-signup-input"
-      autocorrect="off"
-      autocapitalize="off"
-      autocomplete="email"
-      aria-describedby="newsletter-error-first"
-      required
-    >
-
-
-    <button
-      type="submit"
-      class="signup-form-btn"
-      name="commit"
-      aria-label="{{ 'general.newsletter_form.submit' | t }}"
-    >
-      <span>
-        {{ 'general.newsletter_form.submit' | t }}
-      </span>
-    </button>
+      hidden
+    ></div>
 
   </div>
 
-
-  <div
-    id="newsletter-error-first"
-    class="newsletter-client-error"
-    role="alert"
-    aria-live="assertive"
-    aria-atomic="true"
-    hidden
-  ></div>
-
-
 {%- endform -%}
 
+
+
+<style>
+  .newsletter-form-message {
+    margin-top: 8px;
+  }
+
+  .newsletter-form-message[hidden] {
+    display: none;
+  }
+</style>
 
 <style>
   .newsletter-client-error {
@@ -102,169 +108,287 @@
   }
 </style>
 
-
 <script>
 (function () {
 
-  document.addEventListener('submit', function (event) {
+  /*
+   * Handles BOTH newsletter forms:
+   *
+   * .newsletter-accessible-form
+   *
+   * Empty email   -> No refresh
+   * Invalid email -> No refresh
+   * Valid email   -> Shopify + hCaptcha normal submission
+   */
 
-    var form = event.target;
+  document.addEventListener(
+    'submit',
+    function (event) {
 
-    // Only validate newsletter forms
-    if (
-      !form ||
-      !form.classList.contains('newsletter-accessible-form')
-    ) {
-      return;
-    }
+      var form = event.target;
 
-    var email = form.querySelector(
-      'input[name="contact[email]"]'
-    );
-
-    var error = form.querySelector(
-      '.newsletter-client-error'
-    );
-
-    if (!email || !error) {
-      return;
-    }
-
-    var emailValue = email.value.trim();
+      if (
+        !form ||
+        !form.classList.contains(
+          'newsletter-accessible-form'
+        )
+      ) {
+        return;
+      }
 
 
-    // -----------------------------
-    // EMPTY EMAIL
-    // -----------------------------
-
-    if (emailValue === '') {
-
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-
-      email.setAttribute(
-        'aria-invalid',
-        'true'
+      var email = form.querySelector(
+        'input[name="contact[email]"]'
       );
 
-      // Reset error so screen readers
-      // announce it again if necessary
-      error.hidden = true;
-      error.textContent = '';
-
-      requestAnimationFrame(function () {
-
-        error.textContent = "Email can't be blank.";
-        error.hidden = false;
-
-        email.focus();
-
-      });
-
-      return false;
-    }
-
-
-    // -----------------------------
-    // INVALID EMAIL FORMAT
-    // -----------------------------
-
-    if (!email.validity.valid) {
-
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-
-      email.setAttribute(
-        'aria-invalid',
-        'true'
+      var error = form.querySelector(
+        '.newsletter-client-error'
       );
 
-      error.hidden = true;
-      error.textContent = '';
 
-      requestAnimationFrame(function () {
-
-        error.textContent =
-          'Please enter a valid email address.';
-
-        error.hidden = false;
-
-        email.focus();
-
-      });
-
-      return false;
-    }
+      if (!email || !error) {
+        return;
+      }
 
 
-    // -----------------------------
-    // VALID EMAIL
-    // -----------------------------
-
-    email.removeAttribute(
-      'aria-invalid'
-    );
-
-    error.textContent = '';
-    error.hidden = true;
-
-    // Do NOT preventDefault here.
-    // Allow Shopify to submit valid email.
-
-  }, true);
+      var emailValue = email.value.trim();
 
 
+      /* =====================================
+         EMPTY EMAIL
+         ===================================== */
 
-  // ---------------------------------
-  // CLEAR ERROR WHEN USER FIXES EMAIL
-  // ---------------------------------
+      if (emailValue === '') {
 
-  document.addEventListener('input', function (event) {
-
-    var email = event.target;
-
-    if (
-      !email.matches(
-        '.newsletter-accessible-form input[name="contact[email]"]'
-      )
-    ) {
-      return;
-    }
-
-    var form = email.closest(
-      '.newsletter-accessible-form'
-    );
-
-    if (!form) {
-      return;
-    }
-
-    var error = form.querySelector(
-      '.newsletter-client-error'
-    );
-
-    if (!error) {
-      return;
-    }
+        /*
+         * Stop Shopify/hCaptcha submission.
+         * No page refresh.
+         */
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
 
 
-    if (
-      email.value.trim() !== '' &&
-      email.validity.valid
-    ) {
+        email.setAttribute(
+          'aria-invalid',
+          'true'
+        );
+
+
+        /*
+         * Reset first so screen readers can
+         * announce repeated errors.
+         */
+        error.hidden = true;
+        error.textContent = '';
+
+
+        requestAnimationFrame(function () {
+
+          error.textContent =
+            "Email can't be blank.";
+
+          error.hidden = false;
+
+          email.focus();
+
+        });
+
+
+        return;
+      }
+
+
+
+      /* =====================================
+         INVALID EMAIL FORMAT
+         ===================================== */
+
+      if (!email.validity.valid) {
+
+        /*
+         * Stop Shopify/hCaptcha submission.
+         * No page refresh.
+         */
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+
+
+        email.setAttribute(
+          'aria-invalid',
+          'true'
+        );
+
+
+        error.hidden = true;
+        error.textContent = '';
+
+
+        requestAnimationFrame(function () {
+
+          error.textContent =
+            'Please enter a valid email address.';
+
+          error.hidden = false;
+
+          email.focus();
+
+        });
+
+
+        return;
+      }
+
+
+
+      /* =====================================
+         VALID EMAIL
+         ===================================== */
+
+      /*
+       * Email is valid.
+       *
+       * Remove validation error state.
+       */
 
       email.removeAttribute(
         'aria-invalid'
       );
 
+
       error.textContent = '';
       error.hidden = true;
 
-    }
 
-  });
+      /*
+       * IMPORTANT:
+       *
+       * DO NOT:
+       *
+       * event.preventDefault()
+       * fetch()
+       * form.submit()
+       *
+       * here.
+       *
+       * Allow Shopify's normal customer form
+       * and hCaptcha handling to continue.
+       */
+
+    },
+    true
+  );
+
+
+
+  /* =====================================
+     CLEAR ERROR WHILE USER TYPES
+     ===================================== */
+
+  document.addEventListener(
+    'input',
+    function (event) {
+
+      var email = event.target;
+
+
+      if (
+        !email.matches(
+          '.newsletter-accessible-form input[name="contact[email]"]'
+        )
+      ) {
+        return;
+      }
+
+
+      var form = email.closest(
+        '.newsletter-accessible-form'
+      );
+
+
+      if (!form) {
+        return;
+      }
+
+
+      var error = form.querySelector(
+        '.newsletter-client-error'
+      );
+
+
+      if (!error) {
+        return;
+      }
+
+
+      /*
+       * Once email becomes valid,
+       * remove previous error.
+       */
+
+      if (
+        email.value.trim() !== '' &&
+        email.validity.valid
+      ) {
+
+        email.removeAttribute(
+          'aria-invalid'
+        );
+
+
+        error.textContent = '';
+        error.hidden = true;
+
+      }
+
+    }
+  );
 
 })();
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  var hash = window.location.hash;
+
+  var firstForm = document.getElementById(
+    'newsletter-footer-first'
+  );
+
+  var secondForm = document.getElementById(
+    'newsletter-footer-second'
+  );
+
+
+  if (hash === '#newsletter-first') {
+
+    if (secondForm) {
+      var secondSuccess =
+        secondForm.querySelector('.note--success');
+
+      if (secondSuccess) {
+        secondSuccess.hidden = true;
+      }
+    }
+
+  }
+
+
+  if (hash === '#newsletter-second') {
+
+    if (firstForm) {
+      var firstSuccess =
+        firstForm.querySelector('.note--success');
+
+      if (firstSuccess) {
+        firstSuccess.hidden = true;
+      }
+    }
+
+  }
+
+});
 </script>
