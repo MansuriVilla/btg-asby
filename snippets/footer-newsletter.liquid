@@ -1,394 +1,268 @@
-{%- form 'customer',
-  id: 'newsletter-footer-second',
-  class: 'contact-form newsletter-accessible-form'
--%}
 
-  <div id="newsletter-second">
+<div class="newsletter-signup">
+  <form class="klaviyo-newsletter-form" novalidate>
 
-    {%- if form.posted_successfully? -%}
-      <div
-        class="note note--success"
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        {{ 'general.newsletter_form.newsletter_confirmation' | t }}
-      </div>
-    {%- endif -%}
-
-    {%- if form.errors -%}
-      <div
-        class="note note--error"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        {{ form.errors | default_errors }}
-      </div>
-    {%- endif -%}
-
-    <label
-      for="Email-second"
-      class="hidden-label"
-    >
-      {{ 'general.newsletter_form.newsletter_email' | t }}
+    <label class="hidden-label">
+      Email address
     </label>
 
     <input
-      type="hidden"
-      name="contact[tags]"
-      value="prospect,newsletter"
+      type="email"
+      class="klaviyo-email"
+      name="email"
+      placeholder="Enter your email"
+      autocomplete="email"
+      required
+      aria-required="true"
     >
 
-    <input
-      type="hidden"
-      name="contact[context]"
-      value="footer"
-    >
-
-    <div class="signup-form">
-
-      <input
-        type="email"
-        value="{% if customer %}{{ customer.email | escape }}{% endif %}"
-        placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
-        name="contact[email]"
-        id="Email-second"
-        class="footer-signup-input"
-        autocorrect="off"
-        autocapitalize="off"
-        autocomplete="email"
-        aria-describedby="newsletter-error-second"
-        required
-      >
-
-      <button
-        type="submit"
-        class="signup-form-btn"
-        name="commit"
-        aria-label="{{ 'general.newsletter_form.submit' | t }}"
-      >
-        <span>SUBSCRIBE</span>
-      </button>
-
-    </div>
+    <button type="submit" class="klaviyo-submit">
+      Subscribe
+    </button>
 
     <div
-      id="newsletter-error-second"
-      class="newsletter-client-error"
-      role="alert"
-      aria-live="assertive"
+      class="klaviyo-message"
+      aria-live="polite"
       aria-atomic="true"
-      hidden
     ></div>
 
-  </div>
-
-{%- endform -%}
-
-
-
-<style>
-  .newsletter-form-message {
-    margin-top: 8px;
-  }
-
-  .newsletter-form-message[hidden] {
-    display: none;
-  }
-</style>
-
-<style>
-  .newsletter-client-error {
-    margin-top: 8px;
-  }
-
-  .newsletter-client-error[hidden] {
-    display: none;
-  }
-</style>
-
-<script>
-(function () {
-
-  /*
-   * Handles BOTH newsletter forms:
-   *
-   * .newsletter-accessible-form
-   *
-   * Empty email   -> No refresh
-   * Invalid email -> No refresh
-   * Valid email   -> Shopify + hCaptcha normal submission
-   */
-
-  document.addEventListener(
-    'submit',
-    function (event) {
-
-      var form = event.target;
-
-      if (
-        !form ||
-        !form.classList.contains(
-          'newsletter-accessible-form'
-        )
-      ) {
-        return;
-      }
-
-
-      var email = form.querySelector(
-        'input[name="contact[email]"]'
-      );
-
-      var error = form.querySelector(
-        '.newsletter-client-error'
-      );
-
-
-      if (!email || !error) {
-        return;
-      }
-
-
-      var emailValue = email.value.trim();
-
-
-      /* =====================================
-         EMPTY EMAIL
-         ===================================== */
-
-      if (emailValue === '') {
-
-        /*
-         * Stop Shopify/hCaptcha submission.
-         * No page refresh.
-         */
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-
-
-        email.setAttribute(
-          'aria-invalid',
-          'true'
-        );
-
-
-        /*
-         * Reset first so screen readers can
-         * announce repeated errors.
-         */
-        error.hidden = true;
-        error.textContent = '';
-
-
-        requestAnimationFrame(function () {
-
-          error.textContent =
-            "Email can't be blank.";
-
-          error.hidden = false;
-
-          email.focus();
-
-        });
-
-
-        return;
-      }
-
-
-
-      /* =====================================
-         INVALID EMAIL FORMAT
-         ===================================== */
-
-      if (!email.validity.valid) {
-
-        /*
-         * Stop Shopify/hCaptcha submission.
-         * No page refresh.
-         */
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-
-
-        email.setAttribute(
-          'aria-invalid',
-          'true'
-        );
-
-
-        error.hidden = true;
-        error.textContent = '';
-
-
-        requestAnimationFrame(function () {
-
-          error.textContent =
-            'Please enter a valid email address.';
-
-          error.hidden = false;
-
-          email.focus();
-
-        });
-
-
-        return;
-      }
-
-
-
-      /* =====================================
-         VALID EMAIL
-         ===================================== */
-
-      /*
-       * Email is valid.
-       *
-       * Remove validation error state.
-       */
-
-      email.removeAttribute(
-        'aria-invalid'
-      );
-
-
-      error.textContent = '';
-      error.hidden = true;
-
-
-      /*
-       * IMPORTANT:
-       *
-       * DO NOT:
-       *
-       * event.preventDefault()
-       * fetch()
-       * form.submit()
-       *
-       * here.
-       *
-       * Allow Shopify's normal customer form
-       * and hCaptcha handling to continue.
-       */
-
-    },
-    true
-  );
-
-
-
-  /* =====================================
-     CLEAR ERROR WHILE USER TYPES
-     ===================================== */
-
-  document.addEventListener(
-    'input',
-    function (event) {
-
-      var email = event.target;
-
-
-      if (
-        !email.matches(
-          '.newsletter-accessible-form input[name="contact[email]"]'
-        )
-      ) {
-        return;
-      }
-
-
-      var form = email.closest(
-        '.newsletter-accessible-form'
-      );
-
-
-      if (!form) {
-        return;
-      }
-
-
-      var error = form.querySelector(
-        '.newsletter-client-error'
-      );
-
-
-      if (!error) {
-        return;
-      }
-
-
-      /*
-       * Once email becomes valid,
-       * remove previous error.
-       */
-
-      if (
-        email.value.trim() !== '' &&
-        email.validity.valid
-      ) {
-
-        email.removeAttribute(
-          'aria-invalid'
-        );
-
-
-        error.textContent = '';
-        error.hidden = true;
-
-      }
-
-    }
-  );
-
-})();
-</script>
+  </form>
+</div>
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
 
-  var hash = window.location.hash;
+  const KLAVIYO_COMPANY_ID = "LuhztW";
+  const KLAVIYO_LIST_ID = "N4w9n8";
 
-  var firstForm = document.getElementById(
-    'newsletter-footer-first'
-  );
+  async function subscribeToKlaviyo(email) {
 
-  var secondForm = document.getElementById(
-    'newsletter-footer-second'
-  );
+    const response = await fetch(
+      `https://a.klaviyo.com/client/subscriptions?company_id=${KLAVIYO_COMPANY_ID}`,
+      {
+        method: "POST",
 
+        headers: {
+          "Content-Type": "application/vnd.api+json",
+          "revision": "2025-07-15"
+        },
 
-  if (hash === '#newsletter-first') {
+        body: JSON.stringify({
+          data: {
+            type: "subscription",
 
-    if (secondForm) {
-      var secondSuccess =
-        secondForm.querySelector('.note--success');
+            attributes: {
+              profile: {
+                data: {
+                  type: "profile",
 
-      if (secondSuccess) {
-        secondSuccess.hidden = true;
+                  attributes: {
+                    email: email,
+
+                    subscriptions: {
+                      email: {
+                        marketing: {
+                          consent: "SUBSCRIBED"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+
+            relationships: {
+              list: {
+                data: {
+                  type: "list",
+                  id: KLAVIYO_LIST_ID
+                }
+              }
+            }
+          }
+        })
       }
+    );
+
+
+    if (response.status !== 202) {
+
+      let errorDetails = "";
+
+      try {
+        errorDetails = await response.text();
+      } catch (error) {}
+
+      console.error(
+        "Klaviyo subscription failed:",
+        response.status,
+        errorDetails
+      );
+
+      throw new Error("Klaviyo subscription failed");
     }
 
+    return true;
   }
 
 
-  if (hash === '#newsletter-second') {
+  const forms = document.querySelectorAll(
+    ".klaviyo-newsletter-form"
+  );
 
-    if (firstForm) {
-      var firstSuccess =
-        firstForm.querySelector('.note--success');
 
-      if (firstSuccess) {
-        firstSuccess.hidden = true;
-      }
+  forms.forEach(function (form, index) {
+
+    const emailInput = form.querySelector(
+      ".klaviyo-email"
+    );
+
+    const submitButton = form.querySelector(
+      ".klaviyo-submit"
+    );
+
+    const message = form.querySelector(
+      ".klaviyo-message"
+    );
+
+
+    const emailId = "klaviyo-email-" + index;
+    const messageId = "klaviyo-message-" + index;
+
+    emailInput.id = emailId;
+    message.id = messageId;
+
+    emailInput.setAttribute(
+      "aria-describedby",
+      messageId
+    );
+
+    const label = form.querySelector("label");
+
+    if (label) {
+      label.setAttribute("for", emailId);
     }
 
-  }
+
+    form.addEventListener(
+      "submit",
+      async function (event) {
+
+        event.preventDefault();
+
+
+        message.textContent = "";
+        message.removeAttribute("role");
+
+        emailInput.removeAttribute(
+          "aria-invalid"
+        );
+
+
+        const email = emailInput.value.trim();
+
+        if (!email) {
+
+          emailInput.setAttribute(
+            "aria-invalid",
+            "true"
+          );
+
+          message.setAttribute(
+            "role",
+            "alert"
+          );
+
+          message.textContent =
+            "Please enter your email address.";
+
+          emailInput.focus();
+
+          return;
+        }
+
+
+        if (!emailInput.validity.valid) {
+
+          emailInput.setAttribute(
+            "aria-invalid",
+            "true"
+          );
+
+          message.setAttribute(
+            "role",
+            "alert"
+          );
+
+          message.textContent =
+            "Please enter a valid email address.";
+
+          emailInput.focus();
+
+          return;
+        }
+
+
+        emailInput.removeAttribute(
+          "aria-invalid"
+        );
+
+        submitButton.disabled = true;
+
+        const originalButtonText =
+          submitButton.textContent;
+
+        submitButton.textContent =
+          "Subscribing...";
+
+
+        try {
+
+          await subscribeToKlaviyo(email);
+
+
+          message.setAttribute(
+            "role",
+            "status"
+          );
+
+          message.textContent =
+            "Thanks for subscribing!";
+
+          form.reset();
+
+
+        } catch (error) {
+
+
+          console.error(error);
+
+          emailInput.setAttribute(
+            "aria-invalid",
+            "true"
+          );
+
+          message.setAttribute(
+            "role",
+            "alert"
+          );
+
+          message.textContent =
+            "Unable to subscribe right now. Please try again.";
+
+        } finally {
+
+          submitButton.disabled = false;
+
+          submitButton.textContent =
+            originalButtonText;
+        }
+
+      }
+    );
+
+  });
 
 });
 </script>

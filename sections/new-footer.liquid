@@ -1675,6 +1675,76 @@
   </div>
 
   <style>
+
+    .newsletter-signup .klaviyo-newsletter-form {
+  background: white;
+  border-radius: 50px;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  display: flex;
+  
+padding: 8px 8px 8px 18px; 
+}
+    .newsletter-signup #klaviyo-message-0, .newsletter-signup #klaviyo-message-1 {
+  position: absolute;
+  bottom: -13px;
+  color:#fff;
+}
+
+.newsletter-signup .klaviyo-message[role="alert"],
+.newsletter-signup #klaviyo-message-0[role="alert"],
+.newsletter-signup #klaviyo-message-1[role="alert"] {
+  color: var(--new-red) !important;
+  background: #fff;
+  padding: 5px 12px;
+  border-radius: 50px;
+}
+.newsletter-signup .klaviyo-message[role="status"],
+.newsletter-signup #klaviyo-message-0[role="status"],
+.newsletter-signup #klaviyo-message-1[role="status"] {
+  color: var(--new-blue) !important;
+  background: #fff;
+  padding: 5px 12px;
+  border-radius: 50px;
+}
+
+.newsletter-signup {
+  position: relative;
+  padding-bottom: 22px;
+  width: fit-content;
+}
+
+.klaviyo-submit {
+  min-width: max-content;
+  background: var(--new-blue);
+  border: 2px solid var(--new-blue);
+}
+
+.klaviyo-submit {
+  font-family: Blue Tees Subhead;
+  line-height: 22.4px;
+  display: inline-flex;
+  padding: 10px 20px;
+  border-radius: 50px;
+  color: #fff;
+  font-size: clamp(12px,.8vw,14px);
+  transition: .4s ease all;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+    .site-footer {
+    background: radial-gradient(120% 120% at 10% 20%, #272933 0%, #161617 100%), #171717;
+    padding: 60px 0;
+    padding-bottom: 30px !important;
+}
+.newsletter-signup .klaviyo-email {
+  background: transparent;
+  border: none;
+  color: var(--new-black);
+  padding: 0;
+}
                 .footer-logo img {
                   max-width: clamp(200px,17vw,250px);
                   width: 100%;

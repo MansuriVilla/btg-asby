@@ -464,7 +464,7 @@
                     {% endif %}
                     <div class="prod_options">
                       <div class="after-pay"></div>
-                      <div class="options_extend-protection">
+                      {% comment %} <div class="options_extend-protection">
                         <span class="anchor_holder">
                           <a
                             href="/pages/extend-protection-plan"
@@ -474,7 +474,7 @@
                             <span class="anchor_holder"> Extend Protection Plans </span>
                           </a>
                         </span>
-                      </div>
+                      </div> {% endcomment %}
                     </div>
                   {%- when 'buy_buttons' -%}
                     {% if hide_upsell %}

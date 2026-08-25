@@ -233,15 +233,32 @@
         {% else %}
           {% assign video_url = video_src.sources[1].url | default: video_src.sources[0].url %}
           
-          <video
-            id="ddd"
-            class="preview-videod"
-            autoplay
-            loop
-            muted
-            playsinline
-            src="{{ video_url }}"
-          ></video>
+          <div class="two-layout__video-wrapper">
+            <video
+              id="video-{{ block.id }}"
+              class="preview-videod two-layout__video"
+              autoplay
+              loop
+              muted
+              playsinline
+              src="{{ video_url }}"
+            ></video>
+            <button
+              type="button"
+              class="two-layout__video-toggle"
+              aria-label="Pause video"
+              aria-pressed="false"
+              onclick="toggleTwoLayoutVideo(this, event)"
+            >
+              <svg class="pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2" y="1" width="3" height="12" rx="1" fill="currentColor"/>
+                <rect x="9" y="1" width="3" height="12" rx="1" fill="currentColor"/>
+              </svg>
+              <svg class="play-icon" style="display:none;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M3.5 1.5L12 7L3.5 12.5V1.5Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
         {% endif %}
       </div>
     </div>
@@ -382,6 +399,65 @@
     max-width: 170px;
 }
 }
+
+.two-layout__video-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.two-layout__video-wrapper video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.two-layout__video-toggle {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0;
+  pointer-events: auto;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.two-layout__video-toggle svg {
+  pointer-events: none;
+}
+.two-layout__video-toggle:hover {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: #ffffff;
+  color: #ffffff;
+  transform: scale(1.08);
+}
+.two-layout__video-toggle:focus-visible {
+  outline: 2px solid #004DF5;
+  outline-offset: 2px;
+}
+@media only screen and (max-width: 768px) {
+  .two-layout__video-toggle {
+    bottom: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+  }
+}
 </style>
 
 <script>
@@ -436,6 +512,83 @@
         // Reload the video so it picks the new sources
         video.load();
     }
+
+  function toggleTwoLayoutVideo(btn, e) {
+    if (e) e.stopPropagation();
+    const wrapper = btn.closest('.two-layout__video-wrapper');
+    if (!wrapper) return;
+    const video = wrapper.querySelector('video');
+    if (!video) return;
+
+    const pauseIcon = btn.querySelector('.pause-icon');
+    const playIcon = btn.querySelector('.play-icon');
+
+    if (video.paused) {
+      var playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(function(err) { console.log('Video play error:', err); });
+      }
+      if (pauseIcon) pauseIcon.style.display = 'block';
+      if (playIcon) playIcon.style.display = 'none';
+      btn.setAttribute('aria-label', 'Pause video');
+      btn.setAttribute('aria-pressed', 'false');
+      btn.classList.remove('paused');
+    } else {
+      video.pause();
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      if (playIcon) playIcon.style.display = 'block';
+      btn.setAttribute('aria-label', 'Play video');
+      btn.setAttribute('aria-pressed', 'true');
+      btn.classList.add('paused');
+    }
+  }
+
+  function initTwoLayoutVideoControls() {
+    const videoWrappers = document.querySelectorAll('.two-layout__video-wrapper');
+    videoWrappers.forEach(function(wrapper) {
+      const video = wrapper.querySelector('video');
+      const toggleBtn = wrapper.querySelector('.two-layout__video-toggle');
+      if (!video || !toggleBtn) return;
+
+      const pauseIcon = toggleBtn.querySelector('.pause-icon');
+      const playIcon = toggleBtn.querySelector('.play-icon');
+
+      function updateButtonState(isPaused) {
+        if (isPaused) {
+          if (pauseIcon) pauseIcon.style.display = 'none';
+          if (playIcon) playIcon.style.display = 'block';
+          toggleBtn.setAttribute('aria-label', 'Play video');
+          toggleBtn.setAttribute('aria-pressed', 'true');
+          toggleBtn.classList.add('paused');
+        } else {
+          if (pauseIcon) pauseIcon.style.display = 'block';
+          if (playIcon) playIcon.style.display = 'none';
+          toggleBtn.setAttribute('aria-label', 'Pause video');
+          toggleBtn.setAttribute('aria-pressed', 'false');
+          toggleBtn.classList.remove('paused');
+        }
+      }
+
+      video.addEventListener('play', function() {
+        updateButtonState(false);
+      });
+
+      video.addEventListener('pause', function() {
+        updateButtonState(true);
+      });
+
+      video.addEventListener('click', function() {
+        toggleTwoLayoutVideo(toggleBtn);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTwoLayoutVideoControls);
+  } else {
+    initTwoLayoutVideoControls();
+  }
+  document.addEventListener('shopify:section:load', initTwoLayoutVideoControls);
 </script>
 
 

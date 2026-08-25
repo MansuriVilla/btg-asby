@@ -2248,374 +2248,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   parallexHero();
 
-  // /*----------------------------
-  //   VIDEO PREVIEW LOGIC  
-  // ----------------*/
-
-  // function handleVideoPreview() {
-  //   const videoPreviews = document.querySelectorAll(".video-preview");
-  //   const specialCase =   window.location.pathname === "/pages/careers";
-  //   const startTime = specialCase ? 11 : 0;
-  //   const endTime = specialCase ? 16 : 5;
-
-
-  //   const videoInstances = [];
-
-  //   videoPreviews.forEach((preview, index) => {
-  //     // ────────────────────────────────────────────────
-  //     // Core elements
-  //     const previewVideo     = preview.querySelector(".preview-video");
-  //     const playButtonContent = preview.querySelector(".video_overlay-content, .video_overlay-holder");
-  //     const loader           = preview.querySelector("[id*='loader-'], .loader, .video-loader");
-
-  //     if (!previewVideo || !playButtonContent) {
-  //       console.warn(`Video block ${index + 1} missing core elements`);
-  //       return;
-  //     }
-
-  //     // Make play button keyboard focusable and accessible (Issue 30)
-  //     if (playButtonContent.tagName !== "BUTTON" && playButtonContent.tagName !== "A") {
-  //       playButtonContent.setAttribute("role", "button");
-  //       playButtonContent.setAttribute("tabindex", "0");
-  //       if (!playButtonContent.getAttribute("aria-label")) {
-  //         playButtonContent.setAttribute("aria-label", "Play video");
-  //       }
-  //       playButtonContent.addEventListener("keydown", e => {
-  //         if (e.key === "Enter" || e.key === " ") {
-  //           e.preventDefault();
-  //           playButtonContent.click();
-  //         }
-  //       });
-  //     }
-
-  //     const hideLoader = () => {
-  //       if (loader) loader.style.display = "none";
-  //       preview.classList.add("dialog-video__loading");
-  //     };
-
-  //     // ────────────────────────────────────────────────
-  //     // Popup elements (only relevant in popup mode)
-  //     const videoPopup   = document.getElementById("[id*='dialog-video__']");
-  //     const popupContent = document.getElementById("[id*='dialog-content__']");
-  //     const fullVideo    = document.getElementById("[id*='dialog-full__video-']");
-  //     const closeButton  = document.getElementById("[id*='dialog-close__btn-']");
-
-  //     const hasPopupElements = videoPopup && popupContent && fullVideo && closeButton;
-
-  //     // Playback mode decision
-  //     const playInPlaceAttr = preview.dataset.playInPlace;
-  //     let playInPlace = playInPlaceAttr === "true" ? true :
-  //                       playInPlaceAttr === "false" ? false :
-  //                       !hasPopupElements;
-
-  //     if (playInPlaceAttr === "false" && !hasPopupElements) {
-  //       console.warn(`Block ${index + 1} forced popup but no popup elements → fallback to in-place`);
-  //       playInPlace = true;
-  //     }
-
-  //     // ────────────────────────────────────────────────
-  //     // Video source & type detection
-  //     const videoUrl = preview.dataset.videoUrl || previewVideo.src || "";
-  //     const isVimeo  = videoUrl.includes("vimeo.com") || videoUrl.includes("player.vimeo.com");
-  //     const isIframe = previewVideo.tagName === "IFRAME" || isVimeo;
-
-  //     if (!isIframe) {
-  //       previewVideo.src = videoUrl;
-  //       if (!playInPlace && fullVideo) fullVideo.src = videoUrl;
-  //     }
-
-  //     // ────────────────────────────────────────────────
-  //     let vimeoPlayer   = null;
-  //     let isPreviewMode = true;
-  //     let isPlayingFull = false;
-
-  //     const videoInstance = {
-  //       index,
-  //       previewVideo,
-  //       playButtonContent,
-  //       isIframe,
-  //       isVimeo,
-  //       vimeoPlayer: null,
-  //       playInPlace,
-  //       stopFullPlayback: () => {
-  //         if (!isPlayingFull) return;
-
-  //         if (isVimeo && vimeoPlayer) {
-  //           vimeoPlayer.pause();
-  //           vimeoPlayer.setCurrentTime(startTime);
-  //           vimeoPlayer.setLoop(true);
-  //           vimeoPlayer.play().catch(() => {});
-  //         } else {
-  //           previewVideo.pause();
-  //           previewVideo.currentTime = startTime;
-  //           previewVideo.loop = true;
-  //           previewVideo.muted = true;
-  //           previewVideo.play().catch(() => {});
-  //         }
-
-  //         playButtonContent.style.opacity = "1";
-  //         playButtonContent.style.pointerEvents = "auto";
-  //         isPreviewMode = true;
-  //         isPlayingFull = false;
-  //       }
-  //     };
-  //     videoInstances.push(videoInstance);
-
-  //     // ────────────────────────────────────────────────
-  //     // Reliable loader hiding
-  //     const safeHideLoader = () => {
-  //       hideLoader();
-  //       // console.log(`Loader hidden - block ${index + 1}`);
-  //     };
-
-  //     if (isVimeo) {
-  //       try {
-  //         vimeoPlayer = new Vimeo.Player(previewVideo);
-  //         videoInstance.vimeoPlayer = vimeoPlayer;
-
-  //         vimeoPlayer.on("playing", safeHideLoader);
-  //         vimeoPlayer.on("play", safeHideLoader);
-
-  //         vimeoPlayer.on("loaded", () => {
-  //           vimeoPlayer.setCurrentTime(startTime).then(() => {
-  //             vimeoPlayer.play().catch(err => {
-  //               console.log(`Vimeo autoplay blocked ${index + 1}:`, err);
-  //               safeHideLoader();
-  //             });
-  //           });
-  //         });
-
-  //         vimeoPlayer.on("timeupdate", data => {
-  //           if (isPreviewMode && data.seconds >= endTime) {
-  //             vimeoPlayer.setCurrentTime(startTime);
-  //           }
-  //         });
-
-  //         vimeoPlayer.on("error", err => {
-  //           console.error(`Vimeo error ${index + 1}:`, err);
-  //           safeHideLoader();
-  //         });
-
-  //         setTimeout(safeHideLoader, 6000);
-
-  //       } catch (err) {
-  //         console.error(`Vimeo init failed ${index + 1}:`, err);
-  //         safeHideLoader();
-  //       }
-  //     } else {
-  //       // HTML5 <video>
-  //       previewVideo.addEventListener("loadedmetadata", () => {
-  //         previewVideo.currentTime = startTime;
-  //         previewVideo.muted = true;
-  //         previewVideo.loop = true;
-  //         previewVideo.play().catch(err => {
-  //           console.log(`HTML5 autoplay blocked ${index + 1}:`, err);
-  //           safeHideLoader();
-  //         });
-  //         safeHideLoader();
-  //       });
-
-  //       previewVideo.addEventListener("canplay", safeHideLoader);
-  //       previewVideo.addEventListener("timeupdate", () => {
-  //         if (isPreviewMode && previewVideo.currentTime >= endTime) {
-  //           previewVideo.currentTime = startTime;
-  //         }
-  //       });
-
-  //       previewVideo.addEventListener("error", () => {
-  //         console.error(`HTML5 error ${index + 1}`);
-  //         safeHideLoader();
-  //       });
-
-  //       setTimeout(safeHideLoader, 6000);
-  //     }
-
-  //     // ────────────────────────────────────────────────
-  //     // Play button → start full playback
-  //     playButtonContent.addEventListener("click", e => {
-  //       e.stopPropagation();
-
-  //       // Stop other in-place videos
-  //       videoInstances.forEach(inst => {
-  //         if (inst.index !== index && inst.playInPlace) {
-  //           inst.stopFullPlayback();
-  //         }
-  //       });
-
-  //       isPreviewMode = false;
-  //       isPlayingFull = true;
-  //       playButtonContent.style.opacity = "0";
-  //       playButtonContent.style.pointerEvents = "none";
-
-  //       if (playInPlace) {
-  //         // In-place full playback
-  //         if (isVimeo && vimeoPlayer) {
-  //           vimeoPlayer.setCurrentTime(0)
-  //             .then(() => {
-  //               vimeoPlayer.setLoop(false);
-  //               vimeoPlayer.play();
-  //             })
-  //             .catch(err => {
-  //               console.error(`Vimeo full play error ${index + 1}:`, err);
-  //               playButtonContent.style.opacity = "1";
-  //               playButtonContent.style.pointerEvents = "auto";
-  //               isPreviewMode = true;
-  //               isPlayingFull = false;
-  //             });
-
-  //           vimeoPlayer.off("ended"); // clean previous listeners
-  //           vimeoPlayer.on("ended", () => {
-  //             playButtonContent.style.opacity = "1";
-  //             playButtonContent.style.pointerEvents = "auto";
-  //             isPreviewMode = true;
-  //             isPlayingFull = false;
-  //             vimeoPlayer.setCurrentTime(startTime);
-  //             vimeoPlayer.setLoop(true);
-  //             vimeoPlayer.play();
-  //           });
-  //         } else {
-  //           // HTML5 full
-  //           previewVideo.currentTime = 0;
-  //           previewVideo.loop = false;
-  //           previewVideo.muted = false;
-
-  //           previewVideo.play().catch(err => {
-  //             console.error(`HTML5 full play error ${index + 1}:`, err);
-  //             playButtonContent.style.opacity = "1";
-  //             playButtonContent.style.pointerEvents = "auto";
-  //             isPreviewMode = true;
-  //             isPlayingFull = false;
-  //             previewVideo.muted = true;
-  //           });
-
-  //           const onEnd = () => {
-  //             playButtonContent.style.opacity = "1";
-  //             playButtonContent.style.pointerEvents = "auto";
-  //             isPreviewMode = true;
-  //             isPlayingFull = false;
-  //             previewVideo.currentTime = startTime;
-  //             previewVideo.loop = true;
-  //             previewVideo.muted = true;
-  //             previewVideo.play().catch(() => {});
-  //             previewVideo.removeEventListener("ended", onEnd);
-  //           };
-  //           previewVideo.addEventListener("ended", onEnd);
-  //         }
-  //       } else if (hasPopupElements) {
-  //         // Popup mode
-  //         if (isVimeo && vimeoPlayer) vimeoPlayer.pause();
-
-  //         document.body.classList.add("dialog-box__open");
-
-  //         gsap.to(videoPopup, {
-  //           opacity: 1,
-  //           duration: 0.2,
-  //           ease: "power2.out",
-  //           onStart: () => {
-  //             videoPopup.style.display = "flex";
-  //             videoPopup.style.pointerEvents = "auto";
-  //           }
-  //         });
-
-  //         gsap.to(popupContent, {
-  //           opacity: 1,
-  //           duration: 0.5,
-  //           delay: 0.2,
-  //           ease: "power2.out",
-  //           onComplete: () => {
-  //             if (isVimeo) {
-  //               new Vimeo.Player(fullVideo).play();
-  //             } else {
-  //               fullVideo.play();
-  //             }
-  //           }
-  //         });
-  //       }
-  //     });
-
-  //     // ────────────────────────────────────────────────
-  //     // NEW: Click anywhere on preview area to exit full playback (playInPlace only)
-  //     if (playInPlace) {
-  //       const exitFullOnClick = e => {
-  //         // Ignore clicks on the play button overlay
-  //         if (playButtonContent.contains(e.target)) return;
-
-  //         if (isPlayingFull) {
-  //           e.preventDefault();
-  //           e.stopPropagation();
-
-  //           if (isVimeo && vimeoPlayer) {
-  //             vimeoPlayer.pause();
-  //             vimeoPlayer.setCurrentTime(startTime);
-  //             vimeoPlayer.setLoop(true);
-  //             vimeoPlayer.play().catch(() => {});
-  //           } else {
-  //             previewVideo.pause();
-  //             previewVideo.currentTime = startTime;
-  //             previewVideo.loop = true;
-  //             previewVideo.muted = true;
-  //             previewVideo.play().catch(() => {});
-  //           }
-
-  //           playButtonContent.style.opacity = "1";
-  //           playButtonContent.style.pointerEvents = "auto";
-  //           isPreviewMode = true;
-  //           isPlayingFull = false;
-  //         }
-  //       };
-
-  //       preview.addEventListener("click", exitFullOnClick);
-  //       // Optional: more precise → only on video/iframe
-  //       // previewVideo.addEventListener("click", exitFullOnClick);
-  //     }
-
-  //     // ────────────────────────────────────────────────
-  //     // Popup close (only popup mode)
-  //     if (!playInPlace && closeButton) {
-  //       closeButton.addEventListener("click", () => {
-  //         gsap.to(popupContent, {
-  //           opacity: 0,
-  //           duration: 0.5,
-  //           ease: "power2.in",
-  //           onStart: () => {
-  //             if (isVimeo) {
-  //               const fp = new Vimeo.Player(fullVideo);
-  //               fp.pause();
-  //               if (fullVideo.dataset.videoBehavior === "restart") fp.setCurrentTime(0);
-  //             } else {
-  //               fullVideo.pause();
-  //               if (fullVideo.dataset.videoBehavior === "restart") fullVideo.currentTime = 0;
-  //             }
-  //           }
-  //         });
-
-  //         gsap.to(videoPopup, {
-  //           opacity: 0,
-  //           duration: 0.2,
-  //           delay: 0.5,
-  //           ease: "power2.in",
-  //           onComplete: () => {
-  //             videoPopup.style.display = "none";
-  //             videoPopup.style.pointerEvents = "none";
-  //             document.body.classList.remove("dialog-box__open");
-
-  //             if (isVimeo && vimeoPlayer) vimeoPlayer.play().catch(() => {});
-  //             else previewVideo.play().catch(() => {});
-  //           }
-  //         });
-  //       });
-
-  //       document.addEventListener("keydown", e => {
-  //         if (e.key === "Escape" && videoPopup.style.display !== "none") {
-  //           closeButton.click();
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
-
-  // handleVideoPreview();
-
     /*----------------------------
     VIDEO PREVIEW LOGIC  
   ----------------*/
@@ -2624,7 +2256,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const videoPreviews = document.querySelectorAll(".video-preview");
     const specialCase = window.location.pathname === "/pages/careers";
     const startTime = specialCase ? 11 : 0;
-    const endTime = specialCase ? 16 : 5;
+    // const endTime = specialCase ? 16 : 5; // [Disabled for now] 5-second preview cutoff
 
     const videoInstances = [];
 
@@ -2701,8 +2333,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const isIframe = previewVideo.tagName === "IFRAME" || isVimeo;
 
       if (!isIframe) {
-        previewVideo.src = videoUrl;
-        if (!playInPlace && fullVideo) fullVideo.src = videoUrl;
+        previewVideo.preload = "metadata";
+        if (videoUrl && previewVideo.src !== videoUrl && !previewVideo.currentSrc) {
+          previewVideo.src = videoUrl;
+        }
+        if (!playInPlace && fullVideo && !fullVideo.src) {
+          fullVideo.preload = "metadata";
+          fullVideo.src = videoUrl;
+        }
       }
 
       // ────────────────────────────────────────────────
@@ -2723,16 +2361,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
           if (isVimeo && vimeoPlayer) {
             vimeoPlayer.pause();
-            vimeoPlayer.setCurrentTime(startTime);
-            vimeoPlayer.setLoop(true);
-            vimeoPlayer.play().catch(() => {});
+            if (startTime > 0) vimeoPlayer.setCurrentTime(startTime);
           } else {
             previewVideo.removeAttribute("controls");
             previewVideo.pause();
-            previewVideo.currentTime = startTime;
-            previewVideo.loop = true;
-            previewVideo.muted = true;
-            previewVideo.play().catch(() => {});
+            if (startTime > 0) previewVideo.currentTime = startTime;
           }
 
           playButtonContent.style.opacity = "1";
@@ -2758,17 +2391,14 @@ document.addEventListener("DOMContentLoaded", function () {
           vimeoPlayer.on("play", safeHideLoader);
 
           vimeoPlayer.on("loaded", () => {
-            vimeoPlayer.setCurrentTime(startTime).then(() => {
-              vimeoPlayer.play().catch((err) => {
-                console.log(`Vimeo autoplay blocked ${index + 1}:`, err);
+            if (startTime > 0) {
+              vimeoPlayer.setCurrentTime(startTime).then(() => {
+                vimeoPlayer.pause();
                 safeHideLoader();
               });
-            });
-          });
-
-          vimeoPlayer.on("timeupdate", (data) => {
-            if (isPreviewMode && data.seconds >= endTime) {
-              vimeoPlayer.setCurrentTime(startTime);
+            } else {
+              vimeoPlayer.pause();
+              safeHideLoader();
             }
           });
 
@@ -2783,27 +2413,19 @@ document.addEventListener("DOMContentLoaded", function () {
           safeHideLoader();
         }
       } else {
-        // HTML5 <video>
-        previewVideo.addEventListener("loadedmetadata", () => {
-          previewVideo.currentTime = startTime;
-          previewVideo.muted = true;
-          previewVideo.loop = true;
-          previewVideo.play().catch((err) => {
-            console.log(`HTML5 autoplay blocked ${index + 1}:`, err);
-            safeHideLoader();
-          });
+        // HTML5 <video> - keep paused safely without aborting network stream
+        previewVideo.removeAttribute("autoplay");
+        previewVideo.muted = true;
+
+        if (previewVideo.readyState >= 1) {
           safeHideLoader();
-        });
+        } else {
+          previewVideo.addEventListener("loadedmetadata", safeHideLoader, { once: true });
+          previewVideo.addEventListener("canplay", safeHideLoader, { once: true });
+        }
 
-        previewVideo.addEventListener("canplay", safeHideLoader);
-        previewVideo.addEventListener("timeupdate", () => {
-          if (isPreviewMode && previewVideo.currentTime >= endTime) {
-            previewVideo.currentTime = startTime;
-          }
-        });
-
-        previewVideo.addEventListener("error", () => {
-          console.error(`HTML5 error ${index + 1}`);
+        previewVideo.addEventListener("error", (e) => {
+          console.warn(`HTML5 video block ${index + 1} notice:`, e);
           safeHideLoader();
         });
 
@@ -2830,48 +2452,39 @@ document.addEventListener("DOMContentLoaded", function () {
         if (playInPlace) {
           // In-place full playback
           if (isVimeo && vimeoPlayer) {
-            vimeoPlayer
-              .setCurrentTime(0)
-              .then(() => {
-                vimeoPlayer.setLoop(false);
-                vimeoPlayer.play();
-              })
-              .catch((err) => {
-                console.error(`Vimeo full play error ${index + 1}:`, err);
-                playButtonContent.style.opacity = "1";
-                playButtonContent.style.pointerEvents = "auto";
-                isPreviewMode = true;
-                isPlayingFull = false;
-              });
+            vimeoPlayer.setCurrentTime(0).catch(() => {});
+            vimeoPlayer.setLoop(false).catch(() => {});
+            vimeoPlayer.setVolume(1).catch(() => {});
+            vimeoPlayer.play().catch((err) => {
+              console.warn("Vimeo play retry muted:", err);
+              vimeoPlayer.setVolume(0).catch(() => {});
+              vimeoPlayer.play().catch(() => {});
+            });
 
-            vimeoPlayer.off("ended"); // clean previous listeners
+            vimeoPlayer.off("ended");
             vimeoPlayer.on("ended", () => {
               playButtonContent.style.opacity = "1";
               playButtonContent.style.pointerEvents = "auto";
               isPreviewMode = true;
               isPlayingFull = false;
-              vimeoPlayer.setCurrentTime(startTime);
-              vimeoPlayer.setLoop(true);
-              vimeoPlayer.play();
+              vimeoPlayer.setCurrentTime(startTime).catch(() => {});
+              vimeoPlayer.pause().catch(() => {});
             });
           } else {
             // HTML5 full - enable video controls without download option
             previewVideo.setAttribute("controls", "true");
             previewVideo.setAttribute("controlsList", "nodownload");
-            previewVideo.currentTime = 0;
             previewVideo.loop = false;
             previewVideo.muted = false;
 
-            previewVideo.play().catch((err) => {
-              console.error(`HTML5 full play error ${index + 1}:`, err);
-              previewVideo.removeAttribute("controls");
-              previewVideo.removeAttribute("controlsList");
-              playButtonContent.style.opacity = "1";
-              playButtonContent.style.pointerEvents = "auto";
-              isPreviewMode = true;
-              isPlayingFull = false;
-              previewVideo.muted = true;
-            });
+            const playPromise = previewVideo.play();
+            if (playPromise !== undefined) {
+              playPromise.catch((err) => {
+                console.warn("Retrying with muted playback:", err);
+                previewVideo.muted = true;
+                previewVideo.play().catch(() => {});
+              });
+            }
 
             const onEnd = () => {
               previewVideo.removeAttribute("controls");
@@ -2881,9 +2494,7 @@ document.addEventListener("DOMContentLoaded", function () {
               isPreviewMode = true;
               isPlayingFull = false;
               previewVideo.currentTime = startTime;
-              previewVideo.loop = true;
-              previewVideo.muted = true;
-              previewVideo.play().catch(() => {});
+              previewVideo.pause();
               previewVideo.removeEventListener("ended", onEnd);
             };
             previewVideo.addEventListener("ended", onEnd);
@@ -2923,42 +2534,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       // ────────────────────────────────────────────────
-      // Exit full playback on click (playInPlace only)
-      if (playInPlace) {
-        const exitFullOnClick = (e) => {
-          // Ignore clicks on the play button overlay
-          if (playButtonContent.contains(e.target)) return;
-
-          if (isPlayingFull) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (isVimeo && vimeoPlayer) {
-              vimeoPlayer.pause();
-              vimeoPlayer.setCurrentTime(startTime);
-              vimeoPlayer.setLoop(true);
-              vimeoPlayer.play().catch(() => {});
-            } else {
-              previewVideo.removeAttribute("controls");
-              previewVideo.removeAttribute("controlsList");
-              previewVideo.pause();
-              previewVideo.currentTime = startTime;
-              previewVideo.loop = true;
-              previewVideo.muted = true;
-              previewVideo.play().catch(() => {});
-            }
-
-            playButtonContent.style.opacity = "1";
-            playButtonContent.style.pointerEvents = "auto";
-            isPreviewMode = true;
-            isPlayingFull = false;
-          }
-        };
-
-        preview.addEventListener("click", exitFullOnClick);
-      }
-
-      // ────────────────────────────────────────────────
       // Popup close (only popup mode)
       if (!playInPlace && closeButton) {
         closeButton.addEventListener("click", () => {
@@ -2991,8 +2566,8 @@ document.addEventListener("DOMContentLoaded", function () {
               videoPopup.style.pointerEvents = "none";
               document.body.classList.remove("dialog-box__open");
 
-              if (isVimeo && vimeoPlayer) vimeoPlayer.play().catch(() => {});
-              else previewVideo.play().catch(() => {});
+              if (isVimeo && vimeoPlayer) vimeoPlayer.pause();
+              else previewVideo.pause();
             },
           });
         });
@@ -3621,83 +3196,58 @@ changeImageOnVarient();
       });
     };
 
-    // Track triggering element and move focus to popup close button (Issue 135)
-    document.addEventListener('click', (e) => {
-      const trigger = e.target.closest('.poptrigger');
-      if (trigger) {
-        lastActiveElement = trigger;
-        const popID = trigger.getAttribute('data-rel');
-        const popup = document.getElementById(popID);
-        if (popup) {
-          setTimeout(() => {
-            popup.setAttribute('tabindex', '-1');
-            const closeBtn = popup.querySelector('.closePop');
-            if (closeBtn) {
-              closeBtn.focus();
-            } else {
-              popup.focus();
-            }
-          }, 300);
-        }
-      }
-
-      // Handle restoring focus when Close button is clicked
-      const closeBtn = e.target.closest('.closePop, #fade');
-      if (closeBtn) {
-        if (lastActiveElement) {
-          setTimeout(() => {
-            lastActiveElement.focus();
-            lastActiveElement = null;
-          }, 100);
-        }
-      }
-    });
-
-    // Keyboard Dialog Manager: Escape to close and Tab Focus Trap (Issue 135)
+    // Popup keyboard: Escape to close & Tab/Shift+Tab focus trap (Issues 135, 143, 144)
     document.addEventListener('keydown', (e) => {
-      const openPopup = Array.from(document.querySelectorAll('.pop-upbox')).find(
-        popup => popup.offsetWidth > 0 || popup.offsetHeight > 0
+      const openPopup = Array.from(document.querySelectorAll('.pop-upbox, .upsell_popup--new, [role="dialog"][aria-modal="true"]')).find(
+        popup => (popup.offsetWidth > 0 || popup.offsetHeight > 0) && window.getComputedStyle(popup).display !== 'none'
       );
       if (!openPopup) return;
 
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' || e.keyCode === 27) {
         e.preventDefault();
-        const closeBtn = openPopup.querySelector('.closePop');
+        const closeBtn = openPopup.querySelector('.closePop, .pop-close button, .pop-close a, .close, [aria-label*="Close"]');
         if (closeBtn) {
           closeBtn.click();
+        } else if (window.jQuery) {
+          window.jQuery(openPopup).fadeOut(200);
         } else {
-          if (window.jQuery) {
-            window.jQuery(openPopup).fadeOut();
-          } else {
-            openPopup.style.display = 'none';
-          }
-          if (lastActiveElement) {
-            lastActiveElement.focus();
-            lastActiveElement = null;
-          }
+          openPopup.style.display = 'none';
         }
         return;
       }
 
-      if (e.key === 'Tab') {
-        // Query elements inside the popup that are focusable
-        const focusableElements = openPopup.querySelectorAll(
-          'a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
-        );
-        if (focusableElements.length === 0) return;
+      if (e.key === 'Tab' || e.keyCode === 9) {
+        const focusableEls = openPopup.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"]), iframe');
+        const visibleFocusables = Array.from(focusableEls).filter(el => {
+          return el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement;
+        });
 
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
+        if (visibleFocusables.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const firstFocusable = visibleFocusables[0];
+        const lastFocusable = visibleFocusables[visibleFocusables.length - 1];
+
+        if (!openPopup.contains(document.activeElement)) {
+          e.preventDefault();
+          e.stopPropagation();
+          firstFocusable.focus();
+          return;
+        }
 
         if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
-            lastElement.focus();
+          if (document.activeElement === firstFocusable) {
             e.preventDefault();
+            e.stopPropagation();
+            lastFocusable.focus();
           }
         } else {
-          if (document.activeElement === lastElement) {
-            firstElement.focus();
+          if (document.activeElement === lastFocusable) {
             e.preventDefault();
+            e.stopPropagation();
+            firstFocusable.focus();
           }
         }
       }

@@ -1,89 +1,29 @@
-{%- form 'customer',
-  id: 'newsletter-footer-first',
-  class: 'contact-form newsletter-accessible-form'
--%}
+<div class="newsletter-signup">
+  <form class="klaviyo-newsletter-form" novalidate>
 
-  <div id="newsletter-first">
-
-    {%- if form.posted_successfully? -%}
-      <div
-        class="note note--success"
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        {{ 'general.newsletter_form.newsletter_confirmation' | t }}
-      </div>
-    {%- endif -%}
-
-    {%- if form.errors -%}
-      <div
-        class="note note--error"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        {{ form.errors | default_errors }}
-      </div>
-    {%- endif -%}
-
-    <label
-      for="Email-first"
-      class="hidden-label"
-    >
-      {{ 'general.newsletter_form.newsletter_email' | t }}
+    <label class="hidden-label">
+      Email address
     </label>
 
     <input
-      type="hidden"
-      name="contact[tags]"
-      value="prospect,newsletter"
+      type="email"
+      class="klaviyo-email"
+      name="email"
+      placeholder="Enter your email"
+      autocomplete="email"
+      required
+      aria-required="true"
     >
 
-    <input
-      type="hidden"
-      name="contact[context]"
-      value="footer"
-    >
-
-    <div class="signup-form">
-
-      <input
-        type="email"
-        value="{% if customer %}{{ customer.email | escape }}{% endif %}"
-        placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
-        name="contact[email]"
-        id="Email-first"
-        class="footer-signup-input"
-        autocorrect="off"
-        autocapitalize="off"
-        autocomplete="email"
-        aria-describedby="newsletter-error-first"
-        required
-      >
-
-      <button
-        type="submit"
-        class="signup-form-btn"
-        name="commit"
-        aria-label="{{ 'general.newsletter_form.submit' | t }}"
-      >
-        <span>
-          {{ 'general.newsletter_form.submit' | t }}
-        </span>
-      </button>
-
-    </div>
+    <button type="submit" class="klaviyo-submit">
+      Subscribe
+    </button>
 
     <div
-      id="newsletter-error-first"
-      class="newsletter-client-error"
-      role="alert"
-      aria-live="assertive"
+      class="klaviyo-message"
+      aria-live="polite"
       aria-atomic="true"
-      hidden
     ></div>
 
-  </div>
-
-{%- endform -%}
+  </form>
+</div>

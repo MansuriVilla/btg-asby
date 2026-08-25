@@ -2058,6 +2058,21 @@ Try risk-free and redeem
                 class="pricing_cta download_app feature__cta free-gift-card-membership"
                 >TRY FOR FREE</a
               >
+              <button 
+                id="features-slider-toggle" 
+                class="features-carousel-control-btn"
+                type="button"
+                aria-label="Pause features autoplay"
+                aria-pressed="false"
+              >
+                <svg class="pause-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="2" y="1" width="3" height="12" rx="1" fill="currentColor"/>
+                  <rect x="9" y="1" width="3" height="12" rx="1" fill="currentColor"/>
+                </svg>
+                <svg class="play-icon" style="display:none;" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M3.5 1.5L12 7L3.5 12.5V1.5Z" fill="currentColor"/>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -2068,7 +2083,7 @@ Try risk-free and redeem
 
   <div class="white_area has_radius sliders_init">
     <div class="slider_area">
-      <div class="sliders-title-area">
+      <div class="sliders-title-area">    
         <div class="play_area-top">
           <div class="play_top-inner">
             <div class="play_top-left">
@@ -2152,7 +2167,8 @@ Try risk-free and redeem
                   </div>
                 </div>
               </div>
-              <div class="horizon-slide" style="--bg-clr: #b0b0b0">
+              {% comment %} b0b0b0 {% endcomment %}
+              <div class="horizon-slide" style="--bg-clr: #6a6a6a">
                 <div class="slide_inner">
                   <div class="slide_left">
                     <h4>
@@ -2174,7 +2190,8 @@ Try risk-free and redeem
                   </div>
                 </div>
               </div>
-              <div class="horizon-slide" style="--bg-clr: #aca398">
+              {% comment %} aca398 {% endcomment %}
+              <div class="horizon-slide" style="--bg-clr: #786c5f">
                 <div class="slide_inner">
                   <div class="slide_left">
                     <h4>GAME MODES</h4>
@@ -2278,8 +2295,9 @@ Try risk-free and redeem
                     />
                   </div>
                 </div>
-              </div>
-              <div class="horizon-slide" style="--bg-clr: #608cc9">
+              </div> 
+              {% comment %} 608cc9 {% endcomment %}
+              <div class="horizon-slide" style="--bg-clr: #49658b">
                 <div class="slide_inner">
                   <div class="slide_left">
                     <h4>
@@ -2311,7 +2329,7 @@ Try risk-free and redeem
         <div class="play_area-bottom">
           <div class="horizon-slider_container play_slider">
             <div class="horizon-slider_track">
-              <div class="horizon-slide" style="--bg-clr: #989898">
+              <div class="horizon-slide" style="--bg-clr: var(--new-gray);">
                 <div class="slide_inner">
                   <div class="slide_left">
                     <h4>
@@ -2328,7 +2346,7 @@ Try risk-free and redeem
                     <a
                       href="https://postgame.blueteesgolf.com/"
                       class="anchor_hover login_to-dashboard"
-                      style="--hover-clr: #000"
+                      style="--hover-clr: #fff"
                       >LOG IN TO POST GAME DASHBOARD</a
                     >
                   </div>
@@ -2342,8 +2360,8 @@ Try risk-free and redeem
                   </div>
                 </div>
               </div>
-
-              <div class="horizon-slide" style="--bg-clr: #aca398">
+                {% comment %} #aca398 {% endcomment %}
+              <div class="horizon-slide" style="--bg-clr: #786c5f;">
                 <div class="slide_inner">
                   <div class="slide_left">
                     <h4>
@@ -2360,7 +2378,7 @@ Try risk-free and redeem
                     <a
                       href="https://postgame.blueteesgolf.com/"
                       class="anchor_hover login_to-dashboard"
-                      style="--hover-clr: #000"
+                      style="--hover-clr: #fff"
                       >LOG IN TO POST GAME DASHBOARD</a
                     >
                   </div>
@@ -2374,8 +2392,8 @@ Try risk-free and redeem
                   </div>
                 </div>
               </div>
-
-              <div class="horizon-slide" style="--bg-clr: #8799a4">
+              {% comment %} 8799a4 {% endcomment %}
+              <div class="horizon-slide" style="--bg-clr: #54626B;">
                 <div class="slide_inner">
                   <div class="slide_left">
                     <h4>
@@ -2393,7 +2411,7 @@ Try risk-free and redeem
                     <a
                       href="https://postgame.blueteesgolf.com/"
                       class="anchor_hover login_to-dashboard"
-                      style="--hover-clr: #000"
+                      style="--hover-clr: #fff"
                       >LOG IN TO POST GAME DASHBOARD</a
                     >
                   </div>
@@ -3608,6 +3626,34 @@ Try risk-free and redeem
   .features__right p { padding: 0; font-size: clamp(14px, 2vw, 16px); line-height: clamp(18px, 2vw, 24px); }
   .get-paid__inner.top-features__inner { gap: 50px; align-items: center; }
   .pricing_cta.download_app.feature__cta { padding: 18px 77px; line-height: 1; }
+  .feature_cta { display: flex; align-items: center; gap: 16px; }
+  .features-carousel-control-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .features-carousel-control-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: #ffffff;
+    color: #ffffff;
+    transform: scale(1.06);
+  }
+  .features-carousel-control-btn:focus-visible {
+    outline: 2px solid #004DF5;
+    outline-offset: 2px;
+  }
   .top-features__left { background: radial-gradient(50% 50% at 50% 50%, rgba(87, 87, 87, 0.6) 0%, rgba(0, 0, 0, 0) 100%); position: relative; aspect-ratio: 5.7/6; height: 100%; width: clamp(350px, 50vw, 600px); }
   .get-paid__left { width: 100%; max-width: 645px; }
   .carousel-progress-container { display: none; width: 100%; height: 4px; background-color: #404040; }
@@ -3625,6 +3671,9 @@ Try risk-free and redeem
     .mark_words { display: flex; justify-content: center; margin-top: 5px; }
     .none_sm { display: none; }
     .carousel-progress-container { display: block; max-width: 90%; margin-inline: auto; }
+    .feature_cta { justify-content: center; align-items: center; gap: 12px; margin-top: 10px; }
+    .pricing_cta.download_app.feature__cta { padding: 16px clamp(24px, 5vw, 60px); }
+    .features-carousel-control-btn { width: 44px; height: 44px; }
     .get-paid__innner-top { align-items: center; padding: clamp(20px, 5vw, 70px) 20px; }
     .list__text { font-size: 14px; padding-right: 30px; }
     .cta_dark { font-size: 12px; }
@@ -3957,7 +4006,7 @@ Try risk-free and redeem
   .slider-title:not(.slider-title.section_in-view) { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; color: #fff; }
 
   @media only screen and (min-width: 992px) {
-    .login_to-dashboard { position: absolute; bottom: 65px; font-weight: 900; min-width: max-content; }
+    .login_to-dashboard { position: absolute; bottom: 65px; font-weight: 900; min-width: max-content; color: #fff !important; }
   }
 
   @media only screen and (max-width: 991px) {
@@ -4447,10 +4496,12 @@ Try risk-free and redeem
 
       const featureItems = document.querySelectorAll(".features_item");
       const featureMockups = document.querySelectorAll(".feature__mockup");
+      const toggleBtn = document.getElementById("features-slider-toggle");
       let autoplayInterval = null;
       const AUTOPLAY_INTERVAL = 5000; // 5 seconds
       let progressBar = null;
       let isCarouselActive = false;
+      let isPausedByUser = false;
     
       const isMobile = () => window.matchMedia("(max-width: 991px)").matches;
     
@@ -4461,155 +4512,213 @@ Try risk-free and redeem
         progressBar.className = "carousel-progress-bar";
         progressBarContainer.appendChild(progressBar);
         const featuresItems = document.querySelector(".top-features__items");
-        featuresItems.parentElement.insertBefore(
-          progressBarContainer,
-          featuresItems.nextSibling
-        );
+        if (featuresItems && featuresItems.parentElement) {
+          featuresItems.parentElement.insertBefore(
+            progressBarContainer,
+            featuresItems.nextSibling
+          );
+        }
         return progressBar;
-    }
-  
-    function resetProgressBar() {
-      if (progressBar) {
-        progressBar.style.animation = "none";
-        progressBar.offsetHeight; // Trigger reflow
-        progressBar.style.animation = "progress 5s linear forwards";
       }
-    }
   
-    function centerActiveItem() {
-      if (isMobile()) {
-        const activeItem = document.querySelector(".features_item.active");
-        if (activeItem) {
-          const container = document.querySelector(".top-features__items");
-          const containerWidth = container.offsetWidth;
-          const itemWidth = activeItem.offsetWidth;
-          const itemOffset = activeItem.offsetLeft;
-          const scrollPosition = itemOffset - containerWidth / 2 + itemWidth / 2;
-          container.scrollTo({
-            left: scrollPosition,
-            behavior: "smooth",
-          });
+      function resetProgressBar() {
+        if (progressBar) {
+          progressBar.style.animation = "none";
+          progressBar.offsetHeight; // Trigger reflow
+          progressBar.style.animation = "progress 5s linear forwards";
+          if (isPausedByUser) {
+            progressBar.style.animationPlayState = "paused";
+          }
         }
       }
-    }
   
-    function setActiveFeature(index) {
-      // Remove active classes
-      featureItems.forEach((i) => i.classList.remove("active"));
-      featureMockups.forEach((m) => m.classList.remove("active"));
-  
-      // Set new active item
-      const newItem = featureItems[index];
-      newItem.classList.add("active");
-  
-      // Set corresponding mockup
-      const featureId = newItem.getAttribute("data-feature");
-      const correspondingMockup = document.querySelector(
-        `.feature__mockup[data-feature="${featureId}"]`
-      );
-      if (correspondingMockup) {
-        correspondingMockup.classList.add("active");
-      }
-  
-      // Update progress bar and centering for mobile
-      if (isMobile()) {
-        resetProgressBar();
-        centerActiveItem();
-      }
-    }
-  
-    function switchToNextFeature(currentIndex) {
-      const nextIndex = (currentIndex + 1) % featureItems.length;
-      setActiveFeature(nextIndex);
-      return nextIndex;
-    }
-  
-    function stopAutoplay() {
-      if (autoplayInterval) {
-        clearInterval(autoplayInterval);
-        autoplayInterval = null;
-      }
-      if (progressBar) {
-        progressBar.style.animationPlayState = "paused";
-      }
-    }
-
-    function startAutoplay() {
-      if (autoplayInterval) {
-        clearInterval(autoplayInterval);
-      }
-      if (progressBar) {
-        progressBar.style.animationPlayState = "running";
-      }
-      let currentIndex =
-        Array.from(featureItems).findIndex((item) =>
-          item.classList.contains("active")
-        ) || 0;
-      autoplayInterval = setInterval(() => {
-        currentIndex = switchToNextFeature(currentIndex);
-      }, AUTOPLAY_INTERVAL);
-    }
-  
-    function initializeCarousel() {
-      isCarouselActive = isMobile();
-      if (isCarouselActive && !progressBar) {
-        progressBar = createProgressBar();
-        resetProgressBar();
-        centerActiveItem();
-      } else if (!isCarouselActive && progressBar) {
-        progressBar.parentElement.style.display = "none";
-      }
-  
-      // Set up click handlers
-      featureItems.forEach((item, index) => {
-        item.addEventListener("click", () => {
-          setActiveFeature(index);
-          startAutoplay(); // Restart autoplay immediately on click
-        });
-      });
-
-      // Pause on hover over top features section
-      const topFeaturesSection = document.querySelector(".top-features__section");
-      if (topFeaturesSection) {
-        topFeaturesSection.addEventListener("mouseenter", () => {
-          stopAutoplay();
-        });
-        topFeaturesSection.addEventListener("mouseleave", () => {
-          startAutoplay();
-        });
-      }
-  
-      // Start autoplay
-      startAutoplay();
-  
-      // Handle window resize
-      window.addEventListener("resize", () => {
-        const nowMobile = isMobile();
-        if (nowMobile && !isCarouselActive) {
-          isCarouselActive = true;
-          if (!progressBar) {
-            progressBar = createProgressBar();
+      function centerActiveItem() {
+        if (isMobile()) {
+          const activeItem = document.querySelector(".features_item.active");
+          if (activeItem) {
+            const container = document.querySelector(".top-features__items");
+            if (container) {
+              const containerWidth = container.offsetWidth;
+              const itemWidth = activeItem.offsetWidth;
+              const itemOffset = activeItem.offsetLeft;
+              const scrollPosition = itemOffset - containerWidth / 2 + itemWidth / 2;
+              container.scrollTo({
+                left: scrollPosition,
+                behavior: "smooth",
+              });
+            }
           }
-          progressBar.parentElement.style.display = "block";
+        }
+      }
+  
+      function setActiveFeature(index) {
+        // Remove active classes
+        featureItems.forEach((i) => i.classList.remove("active"));
+        featureMockups.forEach((m) => m.classList.remove("active"));
+    
+        // Set new active item
+        const newItem = featureItems[index];
+        if (newItem) {
+          newItem.classList.add("active");
+    
+          // Set corresponding mockup
+          const featureId = newItem.getAttribute("data-feature");
+          const correspondingMockup = document.querySelector(
+            `.feature__mockup[data-feature="${featureId}"]`
+          );
+          if (correspondingMockup) {
+            correspondingMockup.classList.add("active");
+          }
+        }
+    
+        // Update progress bar and centering for mobile
+        if (isMobile()) {
           resetProgressBar();
           centerActiveItem();
-          startAutoplay();
-        } else if (!nowMobile && isCarouselActive) {
-          isCarouselActive = false;
-          if (autoplayInterval) {
-            clearInterval(autoplayInterval);
-          }
-          if (progressBar) {
-            progressBar.parentElement.style.display = "none";
-          }
-          startAutoplay(); // Restart for desktop behavior
         }
-      });
-    }
+      }
   
-    initializeCarousel();
-  }
-  featuresItemsFn();
+      function switchToNextFeature(currentIndex) {
+        const nextIndex = (currentIndex + 1) % featureItems.length;
+        setActiveFeature(nextIndex);
+        return nextIndex;
+      }
+  
+      function stopAutoplay() {
+        if (autoplayInterval) {
+          clearInterval(autoplayInterval);
+          autoplayInterval = null;
+        }
+        if (progressBar) {
+          progressBar.style.animationPlayState = "paused";
+        }
+      }
+
+      function startAutoplay() {
+        if (isPausedByUser) return;
+        if (autoplayInterval) {
+          clearInterval(autoplayInterval);
+        }
+        if (progressBar) {
+          progressBar.style.animationPlayState = "running";
+        }
+        let currentIndex =
+          Array.from(featureItems).findIndex((item) =>
+            item.classList.contains("active")
+          );
+        if (currentIndex === -1) currentIndex = 0;
+
+        autoplayInterval = setInterval(() => {
+          currentIndex = switchToNextFeature(currentIndex);
+        }, AUTOPLAY_INTERVAL);
+      }
+
+      function updateToggleButtonUI(isPaused) {
+        if (!toggleBtn) return;
+        const pauseIcon = toggleBtn.querySelector(".pause-icon");
+        const playIcon = toggleBtn.querySelector(".play-icon");
+        if (isPaused) {
+          if (pauseIcon) pauseIcon.style.display = "none";
+          if (playIcon) playIcon.style.display = "block";
+          toggleBtn.setAttribute("aria-label", "Play features autoplay");
+          toggleBtn.setAttribute("aria-pressed", "true");
+          toggleBtn.classList.add("paused");
+        } else {
+          if (pauseIcon) pauseIcon.style.display = "block";
+          if (playIcon) playIcon.style.display = "none";
+          toggleBtn.setAttribute("aria-label", "Pause features autoplay");
+          toggleBtn.setAttribute("aria-pressed", "false");
+          toggleBtn.classList.remove("paused");
+        }
+      }
+  
+      function initializeCarousel() {
+        isCarouselActive = isMobile();
+        if (isCarouselActive && !progressBar) {
+          progressBar = createProgressBar();
+          resetProgressBar();
+          centerActiveItem();
+        } else if (!isCarouselActive && progressBar) {
+          progressBar.parentElement.style.display = "none";
+        }
+    
+        // Set up click handlers on feature items
+        featureItems.forEach((item, index) => {
+          item.addEventListener("click", () => {
+            setActiveFeature(index);
+            if (!isPausedByUser) {
+              startAutoplay(); // Restart autoplay timer from selected item
+            }
+          });
+        });
+
+        // Set up toggle button handler
+        window.toggleFeaturesAutoplay = function(btn, e) {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          if (isPausedByUser) {
+            // Resume / Play
+            isPausedByUser = false;
+            updateToggleButtonUI(false);
+            resetProgressBar();
+            startAutoplay();
+          } else {
+            // Pause
+            isPausedByUser = true;
+            updateToggleButtonUI(true);
+            stopAutoplay();
+          }
+        };
+
+        if (toggleBtn) {
+          toggleBtn.addEventListener("click", (e) => {
+            window.toggleFeaturesAutoplay(toggleBtn, e);
+          });
+          toggleBtn.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              window.toggleFeaturesAutoplay(toggleBtn, e);
+            }
+          });
+        }
+    
+        // Start autoplay
+        startAutoplay();
+    
+        // Handle window resize
+        window.addEventListener("resize", () => {
+          const nowMobile = isMobile();
+          if (nowMobile && !isCarouselActive) {
+            isCarouselActive = true;
+            if (!progressBar) {
+              progressBar = createProgressBar();
+            }
+            progressBar.parentElement.style.display = "block";
+            resetProgressBar();
+            centerActiveItem();
+            if (!isPausedByUser) {
+              startAutoplay();
+            }
+          } else if (!nowMobile && isCarouselActive) {
+            isCarouselActive = false;
+            if (autoplayInterval) {
+              clearInterval(autoplayInterval);
+            }
+            if (progressBar) {
+              progressBar.parentElement.style.display = "none";
+            }
+            if (!isPausedByUser) {
+              startAutoplay(); // Restart for desktop behavior
+            }
+          }
+        });
+      }
+    
+      initializeCarousel();
+    }
+    featuresItemsFn();
   });
 
 

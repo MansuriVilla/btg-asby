@@ -1215,7 +1215,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const isActive = index === activeIndex;
         item.classList.toggle("active", isActive);
         item.setAttribute("aria-selected", isActive ? "true" : "false");
-        item.setAttribute("tabindex", isActive ? "0" : "-1");
+        item.setAttribute("aria-pressed", isActive ? "true" : "false");
+        item.setAttribute("tabindex", "0");
         if (isActive) {
           item.setAttribute("aria-current", "step");
         } else {
@@ -1260,7 +1261,11 @@ document.addEventListener("DOMContentLoaded", () => {
               const scrollPosition =
                 scrollTrigger.start +
                 progress * (scrollTrigger.end - scrollTrigger.start);
-              gsap.to(window, { scrollTo: scrollPosition, duration: 1 });
+              if (typeof lenis !== "undefined" && lenis && typeof lenis.scrollTo === "function") {
+                lenis.scrollTo(scrollPosition);
+              } else {
+                window.scrollTo({ top: scrollPosition, behavior: "smooth" });
+              }
             }
           }
         } else {
