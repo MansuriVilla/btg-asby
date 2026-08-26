@@ -248,14 +248,14 @@
     <div class="playmaker_plusSection__video has_section" id="construction">
       <div class="video-container__area">
         <div class="videoContainer_Inner">
-          <div class="video">
+          <div class="video" style="position: relative;">
             <video
               id="video_pdp"
               loop
               muted
               playsinline
-              autoplay
               webkit-playsinline
+              style="cursor: pointer;"
             >
               <source
                 src="https://cdn.shopify.com/videos/c/o/v/7fc02f70482a4fde86541cd9e749ed0c.mp4"
@@ -276,6 +276,31 @@
 
               Your browser does not support the video tag.
             </video>
+
+            <div class="video_overlay-holder" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9; pointer-events: none;">
+              <button
+                type="button"
+                class="play-pause-overlay-btn"
+                id="play-pause-btn-pdp"
+                style="--ripple-clr: rgba(255, 255, 255, 0.38); pointer-events: auto;"
+                aria-label="Play video"
+              >
+                <img
+                  class="touch-screen_logo play-icon"
+                  src="{{ 'white-play-icon.png' | asset_url }}"
+                  alt="Play Icon"
+                >
+                <svg class="pause-icon" width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none; filter: drop-shadow(0px 4px 15px #22222295); z-index: 2;">
+                  <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5" fill="none"/>
+                  <path d="M9 8h2v8H9V8zm4 0h2v8h-2V8z" fill="white"/>
+                </svg>
+              </button>
+            </div>
+
+            <button id="volumeToggle-pdp" class="volume-btn volume-btn-pdp">  
+              <span class="mute-icon"> <img class="touch-screen_logo" src="{{'mute-icon.png' | asset_url}}" alt="mute icon" /> </span>
+              <span class="unmute-icon" style="display: none;"> <img class="touch-screen_logo" src="{{'unmute-icon.png' | asset_url}}" alt="unmute icon" /> </span>
+            </button>
           </div>
         </div>
       </div>
@@ -632,7 +657,8 @@
               <img
                 class="device-frame"
                 src="{{ 'frame-2.png' | asset_url }}"
-                alt="Frame"
+                alt=""
+                aria-hidden="true"
               >
               <div class="screens-container">
                 <img
@@ -690,49 +716,65 @@
                 class="feature-bg"
                 id="golf-ground-img-section1"
                 src=" {{ 'course-view-pmp-desktop-new.png' | asset_url }} "
-                alt="Course View"
+                alt=""
+                loading="lazy"
+                decoding="async"
               >
               <img
                 class="feature-bg"
                 id="golf-ground-img-section2"
                 src=" {{ 'fcb-pmp-desktop-new.png' | asset_url }} "
-                alt="Front Center Back"
+                alt=""
+                loading="lazy"
+                decoding="async"
               >
               <img
                 class="feature-bg"
                 id="golf-ground-img-section3"
                 src=" {{ 'green-compass-pmp-desktop-new.png' | asset_url }} "
-                alt="Green Compass"
+                alt=""
+                loading="lazy"
+                decoding="async"
               >
               <img
                 class="feature-bg"
                 id="golf-ground-img-section4"
                 src=" {{ 'shot-tracking-pmp-desktop-new.png' | asset_url }} "
-                alt="Shot Tracking"
+                alt=""
+                loading="lazy"
+                decoding="async"
               >
               <img
                 class="feature-bg"
                 id="golf-ground-img-section5"
                 src=" {{ 'dynamic-pmp-desktop-new.png' | asset_url }} "
-                alt="Dynamic Hazard"
+                alt=""
+                loading="lazy"
+                decoding="async"
               >
               <img
                 class="feature-bg"
                 id="golf-ground-img-section6"
                 src=" {{ 'scroek-pmp-desktop-new.png' | asset_url }} "
-                alt="Scorekeeping"
+                alt=""
+                loading="lazy"
+                decoding="async"
               >
               <img
                 class="feature-bg"
                 id="golf-ground-img-section7"
                 src=" {{ 'rtw-pmp-desktop-new.png' | asset_url }} "
-                alt="Real-Time Weather"
+                alt=""
+                loading="lazy"
+                decoding="async"
               >
               <img
                 class="feature-bg"
                 id="golf-ground-img-section8"
                 src=" {{ 'acitivty-t-pmp-desktop-new.png' | asset_url }} "
-                alt="Activity Tracking"
+                alt=""
+                loading="lazy"
+                decoding="async"
               >
             </div>
           </div>
@@ -770,7 +812,7 @@
               autoplay
               muted
               playsinline
-              preload="auto"
+              preload="none"
             >
               <source
                 src="https://cdn.shopify.com/videos/c/o/v/ca074c40c4d44c70b4fc3060b3270870.mp4"
@@ -831,7 +873,7 @@
               srcset="{{ 'protect-playmaker.png' | asset_url }}"
               media="(max-width:820px)"
             >
-            <img src="{{ 'protect-playmaker.png' | asset_url }}" alt="">
+            <img src="{{ 'protect-playmaker.png' | asset_url }}" alt="" loading="lazy" decoding="async">
           </picture>
         </div>
       </div>
@@ -847,7 +889,7 @@
             autoplay
             muted
             playsinline
-            preload="auto"
+            preload="none"
           >
             <source
               src="https://cdn.shopify.com/videos/c/o/v/83845a2df7c44d58836f70976f38a859.webm"
@@ -971,7 +1013,7 @@
     <div class="page-width">
       <div class="playSmarter-Inner">
         <div class="playSmarter_img">
-          <img src="{{ 'play-smarter-img.png' | asset_url }}" atl="">
+          <img src="{{ 'play-smarter-img.png' | asset_url }}" atl="" loading="lazy" decoding="async">
         </div>
         <div class="playSmarter_content">
           <h3>DON’T JUST PLAY – PLAY SMARTER.</h3>
@@ -1035,7 +1077,7 @@
   .compareArea__Title { text-align: center; color: var(--new-black); max-width: 590px; width: 100%; margin: 0 auto;  }
   .compare__imageArea img { max-width: 1130px; margin: 0 auto; width: 100%; }
   .playmaker_header-inner { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
-  .playmaker_header-custom { padding: clamp(15px, 4vw, 29px) 0; position: sticky; top: 0; background-color: var(--new-black); color: #fff; z-index: 5; transition: 0.3s all ease-in-out; }
+  .playmaker_header-custom { padding: clamp(15px, 4vw, 29px) 0; position: sticky; top: 0; background-color: var(--new-black); color: #fff; z-index: 10; transition: 0.3s all ease-in-out; }
   .playmaker_header-custom.header--hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
   .playmaker_links-parent { display: flex; gap: 20px; color: #fff; margin: 0; }
   .playmaker_links { margin: 0; list-style: none; }
@@ -1125,15 +1167,15 @@
   .stacking_section-innner__l { display: flex; /* min-height: 100vh; */ align-items: center; justify-content: center; }
   .stacking_section-inner { height: 85vh; display: flex; justify-content: center; flex-direction: column; }
   .stacking_left,
-  .stacking_right { flex: 30%; position: relative; height: 100%; display: flex; align-items: center; }
-  .stacking_center { flex: 35%; position: relative; width: 300px; height: clamp(300px, 50vw, 600px); display: flex; justify-content: center; align-items: center; }
+  .stacking_right { flex: 30%; position: relative; height: 100%; display: flex; align-items: center; pointer-events: none; }
+  .stacking_center { flex: 35%; position: relative; width: 300px; height: clamp(300px, 50vw, 600px); display: flex; justify-content: center; align-items: center; pointer-events: none; }
   .device-frame { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; z-index: 5; max-width: clamp(290px, 40vw, 400px); margin: 0 auto; }
   .screen,
-  .screens-container { position: absolute; z-index: 2; }
-  .feature-bg { position: absolute; width: 100%; max-width: clamp(400px, 50vw, 600px); border-radius: clamp(15px, 2.6vw, 30px); overflow: hidden; opacity: 0; }
-  .feature { position: absolute; width: 100%; opacity: 0; }
+  .screens-container { position: absolute; z-index: 2; pointer-events: none; }
+  .feature-bg { position: absolute; width: 100%; max-width: clamp(400px, 50vw, 600px); border-radius: clamp(15px, 2.6vw, 30px); overflow: hidden; opacity: 0; pointer-events: none; }
+  .feature { position: absolute; width: 100%; opacity: 0; pointer-events: none; }
   .feature h3 { font-size: clamp(22px, 2.5vw, 30px); line-height: clamp(25px, 3.5vw, 40px); }
-  .screen { max-width: clamp(90px, 11vw, 130px); }
+  .screen { max-width: clamp(90px, 11vw, 130px); pointer-events: none; }
 
   @media only screen and (min-width: 821px) {
    .new_design-feature-section { display: none; }
@@ -1258,11 +1300,148 @@
     .playmaker_header-right { flex: 20%; }
   .playmaker_header-left img { max-width: clamp(170px, 22vw, 300px); }
   .menu_select { font-size: 14px !important; }
-   }
+  .play-pause-overlay-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    /* z-index: 10; */
+    width: clamp(50px, 8vw, 118px);
+    height: clamp(50px, 8vw, 118px);
+    transition: opacity 0.3s ease;
+  }
+  .play-pause-overlay-btn img,
+  .play-pause-overlay-btn svg {
+    max-width: clamp(50px, 8vw, 118px);
+    height: auto;
+    filter: drop-shadow(0px 4px 15px #22222295);
+    z-index: 2;
+  }
+  .play-pause-overlay-btn::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--ripple-clr, rgba(255, 255, 255, 0.38));
+    border-radius: 50%;
+    animation: pulse-border 1200ms ease-out infinite;
+    pointer-events: none;
+  }
+  .volume-btn-hidden {
+    display: none !important;
+  }
+  .video .volume-btn-pdp {
+    position: absolute;
+    bottom: clamp(5px, 2vw, 20px);
+    right: clamp(5px, 2vw, 20px);
+    max-width: clamp(40px, 6vw, 65px);
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .video .volume-btn-pdp img {
+    max-width: 100%;
+    height: auto;
+  }
+  #desktopSectionDropdown:focus,
+  #desktopSectionDropdown:focus-visible,
+  #mobileSectionDropdown:focus,
+  #mobileSectionDropdown:focus-visible,
+  #desktopPrevBtn:focus,
+  #desktopPrevBtn:focus-visible,
+  #desktopNextBtn:focus,
+  #desktopNextBtn:focus-visible {
+    outline: 2px solid var(--new-blue) !important;
+    outline-offset: 2px !important;
+  }
+              }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    function pdpVideoControl() {
+      const video = document.getElementById("video_pdp");
+      const playPauseBtn = document.getElementById("play-pause-btn-pdp");
+      const volumeBtn = document.getElementById("volumeToggle-pdp");
+      if (!video) return;
+
+      video.pause();
+
+      if (volumeBtn) {
+        volumeBtn.classList.add("volume-btn-hidden");
+      }
+
+      const handlePlay = () => {
+        video.play();
+        video.muted = false;
+        if (playPauseBtn) {
+          playPauseBtn.style.opacity = "0";
+          playPauseBtn.style.pointerEvents = "none";
+          playPauseBtn.setAttribute("tabindex", "-1");
+        }
+        if (volumeBtn) volumeBtn.classList.remove("volume-btn-hidden");
+        const muteIcon = volumeBtn ? volumeBtn.querySelector(".mute-icon") : null;
+        const unmuteIcon = volumeBtn ? volumeBtn.querySelector(".unmute-icon") : null;
+        if (muteIcon) muteIcon.style.display = "none";
+        if (unmuteIcon) unmuteIcon.style.display = "block";
+      };
+
+      const handlePause = () => {
+        video.pause();
+        if (playPauseBtn) {
+          playPauseBtn.style.opacity = "1";
+          playPauseBtn.style.pointerEvents = "auto";
+          playPauseBtn.setAttribute("tabindex", "0");
+        }
+        if (volumeBtn) volumeBtn.classList.add("volume-btn-hidden");
+      };
+
+      if (playPauseBtn) {
+        playPauseBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (video.paused) {
+            handlePlay();
+          } else {
+            handlePause();
+          }
+        });
+      }
+
+      video.addEventListener("click", () => {
+        if (!video.paused) {
+          handlePause();
+        }
+      });
+
+      if (volumeBtn) {
+        const muteIcon = volumeBtn.querySelector(".mute-icon");
+        const unmuteIcon = volumeBtn.querySelector(".unmute-icon");
+        volumeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          video.muted = !video.muted;
+          if (video.muted) {
+            if (muteIcon) muteIcon.style.display = "block";
+            if (unmuteIcon) unmuteIcon.style.display = "none";
+          } else {
+            if (muteIcon) muteIcon.style.display = "none";
+            if (unmuteIcon) unmuteIcon.style.display = "block";
+          }
+        });
+      }
+    }
+    pdpVideoControl();
+
     // Playing Bento Grid Videos On Hover And Autoplaying Them From 820px
     function videoPlayOnHover() {
       const videos = document.querySelectorAll('.videoPlays__Hover');
@@ -1500,17 +1679,20 @@
           return;
         }
 
-        gsap.set([texts[0], screens[0], bgs[0]], { opacity: 1, x: 0, y: 0 });
+        gsap.set([texts[0], screens[0], bgs[0]], { opacity: 1, x: 0, y: 0, pointerEvents: 'auto' });
         gsap.set([...texts.slice(1)], {
           opacity: 0,
+          pointerEvents: 'none',
           [config.feature.axis]: config.feature.distance,
         });
         gsap.set([...screens.slice(1)], {
           opacity: 0,
+          pointerEvents: 'none',
           [config.screen.axis]: config.screen.axis === 'x' ? config.screen.distance : -config.screen.distance,
         });
         gsap.set([...bgs.slice(1)], {
           opacity: 0,
+          pointerEvents: 'none',
           [config.featureBg.axis]: config.featureBg.distance,
         });
 
@@ -1587,12 +1769,7 @@
         function goToFeature(idx) {
           if (idx < 1 || idx > texts.length) return;
 
-          // Direct timeline seek so visual updates (text, watch screen, background) apply immediately
           const labelTime = tl.labels[`feature${idx}_start`];
-          if (labelTime !== undefined) {
-            const targetTime = labelTime + config.duration;
-            tl.time(targetTime);
-          }
 
           // Update active states
           if (dropdown) dropdown.value = `section${idx}`;
@@ -1653,20 +1830,23 @@
             ease: config.easeOut,
           };
 
-          const textAnim = { ...animProps, [config.feature.axis]: 0 };
-          const screenAnim = { ...animProps, [config.screen.axis]: 0 };
-          const bgAnim = { ...animProps, [config.featureBg.axis]: 0 };
+          const textAnim = { ...animProps, [config.feature.axis]: 0, pointerEvents: 'auto' };
+          const screenAnim = { ...animProps, [config.screen.axis]: 0, pointerEvents: 'auto' };
+          const bgAnim = { ...animProps, [config.featureBg.axis]: 0, pointerEvents: 'auto' };
           const textExit = {
             ...exitProps,
             [config.feature.axis]: -config.feature.distance,
+            pointerEvents: 'none'
           };
           const screenExit = {
             ...exitProps,
             [config.screen.axis]: config.screen.axis === 'x' ? -config.screen.distance : config.screen.distance,
+            pointerEvents: 'none'
           };
           const bgExit = {
             ...exitProps,
             [config.featureBg.axis]: -config.featureBg.distance,
+            pointerEvents: 'none'
           };
 
           // Add label at the start of the feature's entrance animation

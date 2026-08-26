@@ -406,35 +406,35 @@
         </div>
         <div class="timeline-navigation--holder">
           <div class="timeline-navigation" role="tablist" aria-label="Milestones timeline navigation">
-            <button type="button" class="timeline-item active" role="tab" id="milestone-tab-0" aria-controls="milestone-slide-0" data-target-slide="0" aria-selected="true" aria-current="step" aria-label="Milestone 1 of 9: 2021, The First Laser">
+            <button type="button" class="timeline-item active" role="tab" id="milestone-tab-0" aria-controls="milestone-slide-0" data-target-slide="0" aria-selected="true" aria-current="step" aria-label="Milestone 1 of 9: 2021, The First Laser" tabindex="0">
               <span class="timeline-year">2021</span>
               <span class="timeline-text">THE FIRST LASER</span>
             </button>
-            <button type="button" class="timeline-item" role="tab" id="milestone-tab-1" aria-controls="milestone-slide-1" data-target-slide="1" aria-selected="false" aria-label="Milestone 2 of 9: 2021, DSG Partnership Accelerates Distribution">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-1" aria-controls="milestone-slide-1" data-target-slide="1" aria-selected="false" aria-label="Milestone 2 of 9: 2021, DSG Partnership Accelerates Distribution" tabindex="-1">
               <span class="visually-hidden">2021 - DSG PARTNERSHIP</span>
             </button>
-            <button type="button" class="timeline-item" role="tab" id="milestone-tab-2" aria-controls="milestone-slide-2" data-target-slide="2" aria-selected="false" aria-label="Milestone 3 of 9: 2022, PGA Show Debut">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-2" aria-controls="milestone-slide-2" data-target-slide="2" aria-selected="false" aria-label="Milestone 3 of 9: 2022, PGA Show Debut" tabindex="-1">
               <span class="timeline-year">2022</span>
               <span class="timeline-text">PGA SHOW DEBUT</span>
             </button>
-            <button type="button" class="timeline-item" role="tab" id="milestone-tab-3" aria-controls="milestone-slide-3" data-target-slide="3" aria-selected="false" aria-label="Milestone 4 of 9: 2022, Series 3 Max Wins ING Product Innovation Award">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-3" aria-controls="milestone-slide-3" data-target-slide="3" aria-selected="false" aria-label="Milestone 4 of 9: 2022, Series 3 Max Wins ING Product Innovation Award" tabindex="-1">
               <span class="visually-hidden">2022 - SERIES 3 MAX WINS</span>
             </button>
-            <button type="button" class="timeline-item" role="tab" id="milestone-tab-4" aria-controls="milestone-slide-4" data-target-slide="4" aria-selected="false" aria-label="Milestone 5 of 9: 2023, Player+ Drops The Mic">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-4" aria-controls="milestone-slide-4" data-target-slide="4" aria-selected="false" aria-label="Milestone 5 of 9: 2023, Player+ Drops The Mic" tabindex="-1">
               <span class="timeline-year">2023</span>
               <span class="timeline-text">PLAYER+ DROPS THE MIC</span>
             </button>
-            <button type="button" class="timeline-item" role="tab" id="milestone-tab-5" aria-controls="milestone-slide-5" data-target-slide="5" aria-selected="false" aria-label="Milestone 6 of 9: 2023, TaylorMade Stealth 2 Launch Partnership">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-5" aria-controls="milestone-slide-5" data-target-slide="5" aria-selected="false" aria-label="Milestone 6 of 9: 2023, TaylorMade Stealth 2 Launch Partnership" tabindex="-1">
               <span class="visually-hidden">2023 - TAYLORMADE STEALTH 2</span>
             </button>
-            <button type="button" class="timeline-item" role="tab" id="milestone-tab-6" aria-controls="milestone-slide-6" data-target-slide="6" aria-selected="false" aria-label="Milestone 7 of 9: 2024, Game Eco-System Takes Flight">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-6" aria-controls="milestone-slide-6" data-target-slide="6" aria-selected="false" aria-label="Milestone 7 of 9: 2024, Game Eco-System Takes Flight" tabindex="-1">
               <span class="timeline-year">2024</span>
               <span class="timeline-text">GAME ECO-SYSTEM TAKES FLIGHT</span>
             </button>
-            <button type="button" class="timeline-item" role="tab" id="milestone-tab-7" aria-controls="milestone-slide-7" data-target-slide="7" aria-selected="false" aria-label="Milestone 8 of 9: 2024, Travis Mathew X Blue Tees Global Collab">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-7" aria-controls="milestone-slide-7" data-target-slide="7" aria-selected="false" aria-label="Milestone 8 of 9: 2024, Travis Mathew X Blue Tees Global Collab" tabindex="-1">
               <span class="visually-hidden">2024 - TRAVIS MATHEW COLLAB</span>
             </button>
-            <button type="button" class="timeline-item" role="tab" id="milestone-tab-8" aria-controls="milestone-slide-8" data-target-slide="8" aria-selected="false" aria-label="Milestone 9 of 9: 2025, Elevate Program Launches">
+            <button type="button" class="timeline-item" role="tab" id="milestone-tab-8" aria-controls="milestone-slide-8" data-target-slide="8" aria-selected="false" aria-label="Milestone 9 of 9: 2025, Elevate Program Launches" tabindex="-1">
               <span class="timeline-year">2025</span>
               <span class="timeline-text">ELEVATING RETAIL</span>
             </button>
@@ -1216,7 +1216,7 @@ document.addEventListener("DOMContentLoaded", () => {
         item.classList.toggle("active", isActive);
         item.setAttribute("aria-selected", isActive ? "true" : "false");
         item.setAttribute("aria-pressed", isActive ? "true" : "false");
-        item.setAttribute("tabindex", "0");
+        item.setAttribute("tabindex", isActive ? "0" : "-1");
         if (isActive) {
           item.setAttribute("aria-current", "step");
         } else {
@@ -1225,16 +1225,17 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const activeItem = timelineItems[activeIndex];
-      if (
-        shouldScroll &&
-        activeItem &&
-        typeof activeItem.scrollIntoView === "function"
-      ) {
-        activeItem.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center",
-        });
+      if (shouldScroll && activeItem) {
+        const container = document.querySelector(".timeline-navigation");
+        if (container) {
+          const activeOffsetLeft = activeItem.offsetLeft;
+          const activeWidth = activeItem.offsetWidth;
+          const containerWidth = container.offsetWidth;
+          container.scrollTo({
+            left: activeOffsetLeft - (containerWidth / 2) + (activeWidth / 2),
+            behavior: "smooth"
+          });
+        }
       }
     }
 
@@ -1378,7 +1379,8 @@ document.addEventListener("DOMContentLoaded", () => {
         ScrollTrigger.create({
           id: "milestonesTrigger",
           trigger: ".milestones_movement",
-          start: "top 20%",
+          start: () => window.innerWidth <= 1280 ? "top 0%" : "top 20%",
+          
           end: () => {
             const sectionHeight = document.querySelector(
               ".milestones_movement"

@@ -2810,12 +2810,6 @@ function videoScalingAnimation() {
           scrub: 0.2,
           markers: false,
           invalidateOnRefresh: true,
-          onEnter: function () {
-            if (video && !video.hasAttribute("autoplay")) {
-              video.setAttribute("autoplay", "true");
-            }
-            video.play();
-          },
         },
       });
 

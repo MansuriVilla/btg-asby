@@ -1,27 +1,7 @@
-{% comment %} <div class="video_scale_animation-main" {% if disable_animation %}data-is-disable="true"{% endif %}>
+<div class="video_scale_animation-main" {% if disable_animation %}data-is-disable="true"{% endif %}>
   <div class="bg-video video_scale_animation">
     <div class="has_video_scale">
-      <video id="myVideo" loop muted playsinline>
-        <source src="{{ video_url }}" media="(min-width: 769px)" type="video/mp4">
-        <source src="{{ mobile_video_url | default: video_url }}" media="(max-width: 768px)" type="video/mp4">
-        <source src="{{ video_url_webm }}" type="video/webm">
-        Your browser does not support the video tag.
-      </video>
-      <button id="volumeToggle" class="volume-btn">  
-        <span class="mute-icon"> <img class="touch-screen_logo" src="{{'mute-icon.png' | asset_url}}" alt="mute icon" /> </span>
-        <span class="unmute-icon" style="display: none;"> <img class="touch-screen_logo" src="{{'unmute-icon.png' | asset_url}}" alt="unmute icon" /> </span>
-      </button>
-    </div>
-  </div>
-</div>
- {% endcomment %}
-
-
-
- <div class="video_scale_animation-main" {% if disable_animation %}data-is-disable="true"{% endif %}>
-  <div class="bg-video video_scale_animation">
-    <div class="has_video_scale">
-      <video id="myVideo" loop muted playsinline poster="{{ video_poster }}">
+      <video id="myVideo" loop muted playsinline poster="{{ video_poster }}" style="cursor: pointer;">
         <source src="{{ video_url }}" media="(min-width: 769px)" type="video/mp4">
         <source src="{{ mobile_video_url | default: video_url }}" media="(max-width: 768px)" type="video/mp4">
         <source src="{{ video_url_webm }}" type="video/webm">
@@ -30,6 +10,26 @@
       <div class="loader" style="display: none;">
         {% comment %} <div class="spinner"></div> {% endcomment %}
       </div>
+
+      <div class="video_overlay-holder" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9; pointer-events: none;">
+        <button
+          type="button"
+          class="play-pause-overlay-btn"
+          style="--ripple-clr: rgba(255, 255, 255, 0.38); pointer-events: auto;"
+          aria-label="Play video"
+        >
+          <img
+            class="touch-screen_logo play-icon"
+            src="{{ 'white-play-icon.png' | asset_url }}"
+            alt="Play Icon"
+          >
+          <svg class="pause-icon" width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none; filter: drop-shadow(0px 4px 15px #22222295); z-index: 2;">
+            <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5" fill="none"/>
+            <path d="M9 8h2v8H9V8zm4 0h2v8h-2V8z" fill="white"/>
+          </svg>
+        </button>
+      </div>
+
       <button id="volumeToggle" class="volume-btn">  
         <span class="mute-icon"> <img class="touch-screen_logo" src="{{'mute-icon.png' | asset_url}}" alt="mute icon" /> </span>
         <span class="unmute-icon" style="display: none;"> <img class="touch-screen_logo" src="{{'unmute-icon.png' | asset_url}}" alt="unmute icon" /> </span>
@@ -37,3 +37,125 @@
     </div>
   </div>
 </div>
+
+<style>
+  .play-pause-overlay-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 10;
+    width: clamp(50px, 8vw, 118px);
+    height: clamp(50px, 8vw, 118px);
+    transition: opacity 0.3s ease;
+  }
+  .play-pause-overlay-btn img,
+  .play-pause-overlay-btn svg {
+    max-width: clamp(50px, 8vw, 118px);
+    height: auto;
+    filter: drop-shadow(0px 4px 15px #22222295);
+    z-index: 2;
+  }
+  .play-pause-overlay-btn::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--ripple-clr, rgba(255, 255, 255, 0.38));
+    border-radius: 50%;
+    animation: pulse-border 1200ms ease-out infinite;
+    pointer-events: none;
+  }
+  .volume-btn-hidden {
+    display: none !important;
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const containers = document.querySelectorAll(".video_scale_animation-main");
+  containers.forEach((container) => {
+    if (container.dataset.initialized === "true") return;
+    container.dataset.initialized = "true";
+
+    const video = container.querySelector("video");
+    const volumeBtn = container.querySelector(".volume-btn");
+    const playPauseBtn = container.querySelector(".play-pause-overlay-btn");
+    const muteIcon = container.querySelector(".mute-icon");
+    const unmuteIcon = container.querySelector(".unmute-icon");
+
+    if (!video) return;
+
+    // Explicitly start video paused
+    video.pause();
+
+    if (volumeBtn) {
+      volumeBtn.classList.add("volume-btn-hidden");
+    }
+
+    const handlePlay = () => {
+      video.play();
+      video.muted = false;
+      if (playPauseBtn) {
+        playPauseBtn.style.opacity = "0";
+        playPauseBtn.style.pointerEvents = "none";
+        playPauseBtn.setAttribute("tabindex", "-1");
+      }
+      if (volumeBtn) volumeBtn.classList.remove("volume-btn-hidden");
+      if (muteIcon) muteIcon.style.display = "none";
+      if (unmuteIcon) unmuteIcon.style.display = "block";
+    };
+
+    const handlePause = () => {
+      video.pause();
+      if (playPauseBtn) {
+        playPauseBtn.style.opacity = "1";
+        playPauseBtn.style.pointerEvents = "auto";
+        playPauseBtn.setAttribute("tabindex", "0");
+      }
+      if (volumeBtn) volumeBtn.classList.add("volume-btn-hidden");
+    };
+
+    if (playPauseBtn) {
+      playPauseBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (video.paused) {
+          handlePlay();
+        } else {
+          handlePause();
+        }
+      });
+    }
+
+    // Pause video when clicking anywhere on it
+    video.addEventListener("click", () => {
+      if (!video.paused) {
+        handlePause();
+      }
+    });
+
+    if (volumeBtn) {
+      volumeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        video.muted = !video.muted;
+        if (video.muted) {
+          if (muteIcon) muteIcon.style.display = "block";
+          if (unmuteIcon) unmuteIcon.style.display = "none";
+        } else {
+          if (muteIcon) muteIcon.style.display = "none";
+          if (unmuteIcon) unmuteIcon.style.display = "block";
+        }
+      });
+    }
+  });
+});
+</script>

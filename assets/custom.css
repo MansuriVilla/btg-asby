@@ -300,7 +300,8 @@ ul.site__megaMenu_content__inner { display:flex; padding: clamp(20px, 2.2vw,40px
 }
 
 @media (hover: hover) {
-  .footer-col-list:has(.no-bullets li a:hover, .no-bullets li a:focus) .no-bullets li a { color: #ffffff50; }
+  .footer-col-list:has(.no-bullets li a:hover, .no-bullets li a:focus) .no-bullets li a { color: #969696; }
+  .footer-col-list .no-bullets li a:focus { outline: 2px solid #5b8ffb !important; }
 }
 
 a.footer_link.footer_link--rangefinders:focus {
