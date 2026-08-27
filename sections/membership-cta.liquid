@@ -12,7 +12,7 @@
 
     {% if section.settings.button_label != blank %}
       {% comment %} <a {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}href="javascript:void(0);"{% else %}href="{{ section.settings.button_link }}"{% endif %} class="content-cta content-cta__solid {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %} add_6mos_membership_qr{% endif %}"> {% endcomment %}
-      <a {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}href="javascript:void(0);"{% else %}href="{{ section.settings.button_link }}"{% endif %} class="content-cta content-cta__solid {% if page.template_suffix contains 'rainmaker-qr-lp' or page.template_suffix contains 'rainmaker-event-qr-lp' %} add_1yr_membership_qr{% elsif request.path contains 'pages' and page.template_suffix contains 'qr-lp' %} add_6mos_membership_qr{% endif %}">
+      <a {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}href="javascript:void(0);"{% else %}href="{{ section.settings.button_link }}"{% endif %} class="content-cta content-cta__solid {% if page.template_suffix contains 'rainmaker-qr-lp' or page.template_suffix contains 'rainmaker-event-qr-lp' or page.template_suffix contains 'on-us' %} add_1yr_membership_qr{% elsif request.path contains 'pages' and page.template_suffix contains 'qr-lp' %} add_6mos_membership_qr{% endif %}">
         {{ section.settings.button_label }}
       </a>
     {% endif %}

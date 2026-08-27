@@ -121,11 +121,11 @@
       }
     </script>
 
-    {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' %}
+    {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' or page.template_suffix contains 'on-us' %}
       {% style %}
         header,footer{display:none !important;}
         {%if page.template_suffix == 'towel-qr-lp' or page.template_suffix == 'divot-tool-qr-lp' or page.template_suffix ==
-        'rainmaker-qr-lp' or page.template_suffix == 'rainmaker-event-qr-lp'%}
+        'rainmaker-qr-lp' or page.template_suffix == 'rainmaker-event-qr-lp' or page.template_suffix contains 'on-us'%}
         main{background:url(https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278048_2.png?v=1774348073) top
         center / cover no-repeat var(--new-black) !important;}
         {% else %}

@@ -51,6 +51,7 @@
           assign block_fetchpriority = 'high'
         endif
       endif
+
       assign custom_page = false
       case page.template_suffix
       when 'big-break'
@@ -141,8 +142,9 @@
           </div>
         {% endif %}
 <div class="section_ctas">
+  {% comment %} and  cta_link == blank  {% endcomment %}
         {% if cta_text != blank and cta_enable %}
-          <a onclick="buyNow(this);" href="{{ cta_link | default: 'javascript:void(0);' }}" class="section-left__cta content-cta content-cta__solid{% if page.template_suffix contains 'rainmaker-event-qr-lp' and  cta_link == blank %} add_1yr_membership_qr{%endif%}">
+          <a {%if custom_page %} onclick="buyNow(this);" {%endif %} href="{{ cta_link | default: 'javascript:void(0);' }}" class="section-left__cta content-cta content-cta__solid{% if page.template_suffix contains 'rainmaker-event-qr-lp'  or page.template_suffix contains 'on-us'%} add_1yr_membership_qr{%endif%}">
             {{ cta_text }}
           </a>
         {% endif %}
@@ -590,7 +592,7 @@
   }
   document.addEventListener('shopify:section:load', initTwoLayoutVideoControls);
 </script>
-
+{%if custom_page %}
 
 <script>
 async function buyNow(button) {
@@ -640,7 +642,7 @@ async function buyNow(button) {
   }
 }
 </script>
-
+{%endif %}
 {% schema %}
 {
   "name": "Two Layout Section New",

@@ -10617,6 +10617,7 @@ $(document).on('click', '#membership-game-lp-1yr-hero', function (e) {
     });
 
 
+
     // RAINMAKER MEMBERSHIP QR LP
 
      $(document).on('click', '.add_1yr_membership_qr', function (e) {

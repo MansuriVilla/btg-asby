@@ -277,7 +277,7 @@
               Your browser does not support the video tag.
             </video>
 
-            <div class="video_overlay-holder" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9; pointer-events: none;">
+            <div class="video_overlay-holder" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;">
               <button
                 type="button"
                 class="play-pause-overlay-btn"
@@ -1077,7 +1077,7 @@
   .compareArea__Title { text-align: center; color: var(--new-black); max-width: 590px; width: 100%; margin: 0 auto;  }
   .compare__imageArea img { max-width: 1130px; margin: 0 auto; width: 100%; }
   .playmaker_header-inner { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
-  .playmaker_header-custom { padding: clamp(15px, 4vw, 29px) 0; position: sticky; top: 0; background-color: var(--new-black); color: #fff; z-index: 10; transition: 0.3s all ease-in-out; }
+  .playmaker_header-custom { padding: clamp(15px, 4vw, 29px) 0; position: sticky; top: 0; background-color: var(--new-black); color: #fff; z-index: 2; transition: 0.3s all ease-in-out; }
   .playmaker_header-custom.header--hidden { transform: translateY(-100%); opacity: 0; pointer-events: none; }
   .playmaker_links-parent { display: flex; gap: 20px; color: #fff; margin: 0; }
   .playmaker_links { margin: 0; list-style: none; }
@@ -1300,42 +1300,9 @@
     .playmaker_header-right { flex: 20%; }
   .playmaker_header-left img { max-width: clamp(170px, 22vw, 300px); }
   .menu_select { font-size: 14px !important; }
-  .play-pause-overlay-btn {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    /* z-index: 10; */
-    width: clamp(50px, 8vw, 118px);
-    height: clamp(50px, 8vw, 118px);
-    transition: opacity 0.3s ease;
-  }
-  .play-pause-overlay-btn img,
-  .play-pause-overlay-btn svg {
-    max-width: clamp(50px, 8vw, 118px);
-    height: auto;
-    filter: drop-shadow(0px 4px 15px #22222295);
-    z-index: 2;
-  }
-  .play-pause-overlay-btn::after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: var(--ripple-clr, rgba(255, 255, 255, 0.38));
-    border-radius: 50%;
-    animation: pulse-border 1200ms ease-out infinite;
-    pointer-events: none;
-  }
+   }
+  
+ 
   .volume-btn-hidden {
     display: none !important;
   }
@@ -1365,7 +1332,7 @@
     outline: 2px solid var(--new-blue) !important;
     outline-offset: 2px !important;
   }
-              }
+             
 </style>
 
 <script>

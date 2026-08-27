@@ -19,7 +19,7 @@
           <div class="step-cta">
             {% if block.settings.cta_type == 'button' %}
               {% if block.settings.button_label != blank %}
-                <a href="{{ block.settings.button_link }}" class="content-cta content-cta__solid{% if request.path contains 'pages' and  page.template_suffix contains 'rainmaker-qr-lp' or page.template_suffix contains 'rainmaker-event-qr-lp' %} rainmakerPreOrderUpsell_lp{%elsif page.template_suffix contains 'qr-lp'%} add_6mos_membership_qr{% endif %}">{{ block.settings.button_label }}</a>
+                <a href="{{ block.settings.button_link }}" class="content-cta content-cta__solid{% if request.path contains 'pages' and  page.template_suffix contains 'rainmaker-qr-lp' or page.template_suffix contains 'rainmaker-event-qr-lp' or page.template_suffix contains 'on-us' %} rainmakerPreOrderUpsell_lp{%elsif page.template_suffix contains 'qr-lp'%} add_6mos_membership_qr{% endif %}">{{ block.settings.button_label }}</a>
               {% endif %}
             {% elsif block.settings.cta_type == 'stores' %}
               <div class="store-badges">
