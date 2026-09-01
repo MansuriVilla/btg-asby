@@ -286,7 +286,7 @@
         class="site-header site_header_has_effect{% if settings.type_navigation_style == 'heading' %} site-header--heading-style{% endif %}  header_on-{% if collection.handle %}{{ collection.handle }}{% elsif product.handle %}{{ product.handle }}{% elsif template == 'index' %}home{% elsif template contains 'page' %}{{ page.handle }}{% else %}default{% endif %}"
         data-sticky="{{ sticky_header }}"
         data-overlay="{{ overlay_header }}"
-        style="backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); "
+        
       >
         <div
           class="blueTees_tipsArea"
@@ -313,11 +313,8 @@
                   <span class="arrow__text" style="display:flex;">
                     <p>
                       {% comment %} {%- render 'sale-name'-%}. {% endcomment %}
-                       100 DAY RETURNS & FREE SHIPPING.
-                      {% comment %} <span class="desktop-texta"
-                        >SPRING SALE.</span
-                      > {% endcomment %}
-                      {% comment %} <span class="mobile-text">OUR NEW 2026 PRODUCT LINEUP</span> {% endcomment %}
+                       LABOR DAY SALE.
+                     
                       <span
                         class="top__bar-anhor-hover anchor_hover"
                         style="color:#FFFFFF; --hover-clr:#fff; line-height: 1.4;"

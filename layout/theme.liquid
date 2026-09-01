@@ -692,6 +692,8 @@
 
     <script type="text/javascript" id="loop-subscription-script" src="{{ 'loop-widget.js' | asset_url }}"></script>
     {{ 'custom.css' | asset_url | stylesheet_tag }}
+    {{ 'animation.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'animation.js' | asset_url }}" defer="defer"></script>
 
     {% comment %} <!-- Meta Pixel Code --> {% endcomment %}
     <script>
@@ -744,6 +746,8 @@
       data-disable-animations="true"
     {% endif %}
   >
+    {% render 'pdp-preloader' %}
+
     <div
       id="a11y-live-region"
       aria-live="polite"
@@ -751,6 +755,14 @@
       style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;"
     ></div>
 
+      {%if page.handle contains 'grass-league-summer-grind' %}
+        <style>
+          body{
+                background: #171923;
+    min-height: 100vh;
+          }
+        </style>
+      {% endif %}
     {% render 'custom-debugger' %}
 
     <a class="in-page-link visually-hidden skip-link" href="#MainContent">
@@ -763,7 +775,7 @@
       {% render 'countdown-timer' %}
       {% endif %}
     {% endcomment %}
-    <main class="main-content" id="MainContent">
+    <main class="main-content main_animation" id="MainContent">
       {%- if request.path contains 'loop_subscriptions/bundle' -%}
         {% render 'loop_loader' %}
       {%- endif -%}
@@ -852,7 +864,7 @@
 
     {% include 'smile-initializer' %}
 
-    <script>
+    {% comment %} <script>
       (function () {
         var s = document.createElement('script');
         var h = document.querySelector('head') || document.body;
@@ -888,7 +900,7 @@
         };
         h.appendChild(s);
       })();
-    </script>
+    </script> {% endcomment %}
 
     {{ shop.metafields.loox.global_html_body }}
     {% render 'oneclickupsellapp-theme', oneclickupsellapp: oneclickupsellapp %}
@@ -926,14 +938,28 @@
       }
 
       .owl-autoplay-btn:focus-visible {
-        outline: 2px solid var(--new-blue);
+        outline: 2px solid #004DF5;
         outline-offset: 2px;
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9);
       }
 
       .owl-dots + .owl-autoplay-btn {
         margin-top: 10px;
         display: block;
         margin-inline: auto;
+      }
+
+      /* Global universal high-contrast focus indicator (WCAG AAA compliant on all backgrounds) */
+      :focus-visible {
+        outline: 3px solid #0055FF !important;
+        outline-offset: 3px !important;
+        box-shadow: 0 0 0 5px #FFFFFF, 0 0 0 7px #000000, 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+      }
+
+      .site_store-icons a:focus-visible,
+      .game-app:focus-visible,
+      .game_linkArea_store a:focus-visible {
+        border-radius: 6px;
       }
     </style>
 

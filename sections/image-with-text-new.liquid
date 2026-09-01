@@ -45,8 +45,34 @@
       {% endif %}
       {% if sale_page %}
         <div class="content-floating__price custom_heading">
+          <div class="floating_price--area" style="display:flex;gap: clamp(12px,2vw, 20px);">
           <p class="floating-price__actual">{{ all_products.rainmaker.price | money }}</p>
 
+
+             <p class="price__compare ">
+                            <span class="price__compare--price  custom_heading">
+                              {{- all_products['rainmaker'].compare_at_price_max | money }}
+                              <svg
+                                width="403"
+                                height="9"
+                                viewBox="0 0 403 9"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M201.497 8.43298V4.21649H0C21.221 6.36282 118.858 8.43298 201.497 8.43298Z" fill="var(--new-sale-red)"></path> <path d="M201.503 8.43698V4.22049H403C381.779 6.36682 284.142 8.43698 201.503 8.43698Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H402.994C381.773 2.07016 284.136 0 201.497 0Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H0C21.221 2.07016 118.857 0 201.497 0Z" fill="var(--new-sale-red)"></path>
+                              </svg>
+                            </span>
+                            <span class="price__compare--save">
+                              <span class="save_textd">SAVE</span>
+                              {{
+                                all_products['rainmaker'].compare_at_price_max
+                                | minus: all_products['rainmaker'].price
+                                | money
+                              }}
+                            </span>
+                          </p>
+
+                        </div>     
           <p class="floating-price__compare">
             <span style="color: #2A2E41;background:#CDFF07;line-height:1;border-radius: 2.96px;padding:5px 10px;display: inline-flex;letter-spacing: 1.48px;font-family: Blue Tees Subhead;font-size: clamp(10px,0.3vw,12px);text-transform: uppercase;"
               >1 YEAR SIMULATION INCLUDED</span

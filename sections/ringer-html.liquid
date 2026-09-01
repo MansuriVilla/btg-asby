@@ -5,15 +5,33 @@
       <span class="custom_heading outline">INSIGHTS</span>
     </h2>
   </div>
-  <video class="video_ringer--screen" autoplay playsinline muted loop>
-
+  <div class="video_ringer_wrapper" style="position: relative; max-width: 80%; margin: 0 auto; width: 100%;">
+    <video class="video_ringer--screen" id="ringer_video_pdp" loop muted playsinline style="max-width: 100%; margin: 0 auto; width: 100%; display: block; cursor: pointer;">
       <source src="https://cdn.shopify.com/videos/c/o/v/0fca515419e743d4a7ed6047598c316c.mp4" media="(min-width: 769px)" type="video/mp4">
-      
       <source src="https://cdn.shopify.com/videos/c/o/v/c74a0ee9882a493e902380203aaabde7.mp4" media="(max-width: 768px)" type="video/mp4">
-      
       Your browser does not support the video tag.
-    
-  </video>
+    </video>
+
+    <div class="video_overlay-holder" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 2;">
+      <button
+        type="button"
+        class="play-pause-overlay-btn"
+        id="ringer-play-pause-btn"
+        style="--ripple-clr: rgba(255, 255, 255, 0.38); pointer-events: auto;"
+        aria-label="Play video"
+      >
+        <img
+          class="touch-screen_logo play-icon"
+          src="{{ 'white-play-icon.png' | asset_url }}"
+          alt="Play Icon"
+        >
+        <svg class="pause-icon" width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none; filter: drop-shadow(0px 4px 15px #22222295); z-index: 2;">
+          <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5" fill="none"/>
+          <path d="M9 8h2v8H9V8zm4 0h2v8h-2V8z" fill="white"/>
+        </svg>
+      </button>
+    </div>
+  </div>
 
 </div>
 
@@ -271,11 +289,33 @@
 <div class="blueTees__Ecosystem--main">
   <div class="blueTees__Ecosystem--Inner page-width">
     <div class="blueTees__Ecosystem--Left">
-      <picture class="blueTees__Ecosystem--Mockup">
-        <source srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/apple-watch-mockup-ani-compress.gif?v=1780996226" media="(min-width:769px)">
-        <source srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/apple-watch-mockup-ani-compress.gif?v=1780996226" media="(max-width:768px)">
-        <img class="blueTees__Ecosystem--Mockupimg video-is__inView" src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/apple-watch-mockup-ani-compress.gif?v=1780996226" alt="">
-      </picture>
+      <div class="gif-player-wrapper" id="ringer-gif-wrapper" style="position: relative; display: inline-block; width: 100%; max-width: clamp(400px, 40vw, 700px); margin: 0 auto;">
+        <picture class="blueTees__Ecosystem--Mockup" style="display: block;">
+          <source srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/apple-watch-mockup-ani-compress.gif?v=1780996226" media="(min-width:769px)">
+          <source srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/apple-watch-mockup-ani-compress.gif?v=1780996226" media="(max-width:768px)">
+          <img id="ringer-gif-img" class="blueTees__Ecosystem--Mockupimg video-is__inView" src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/apple-watch-mockup-ani-compress.gif?v=1780996226" alt="" style="cursor: pointer; display: block; width: 100%;">
+        </picture>
+        <canvas id="ringer-gif-canvas" style="display: none; width: 100%; height: auto; position: absolute; top: 0; left: 0; cursor: pointer; pointer-events: auto;"></canvas>
+        <div class="video_overlay-holder" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 2;">
+          <button
+            type="button"
+            class="play-pause-overlay-btn"
+            id="ringer-gif-play-pause-btn"
+            style="--ripple-clr: rgba(255, 255, 255, 0.38); pointer-events: auto;"
+            aria-label="Play GIF"
+          >
+            <img
+              class="touch-screen_logo play-icon"
+              src="{{ 'white-play-icon.png' | asset_url }}"
+              alt="Play Icon"
+            >
+            <svg class="pause-icon" width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none; filter: drop-shadow(0px 4px 15px #22222295); z-index: 2;">
+              <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5" fill="none"/>
+              <path d="M9 8h2v8H9V8zm4 0h2v8h-2V8z" fill="white"/>
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
     <div class="blueTees__Ecosystem--Right">
       <div class="blueTees__Ecosystem--Right_Container">
@@ -433,8 +473,52 @@
   .twoColumn__ForegroundImage { max-width: clamp(140px, 10vw, 280px); bottom: -40px; }
   .twoColumn__TextArea--Container{margin-top: 10%;}
 
-  .twoClumn__Right--imageContainer{border-radius: 8px;}
-}
+  .play-pause-overlay-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 0;
+    width: clamp(50px, 8vw, 118px);
+    height: clamp(50px, 8vw, 118px);
+    transition: opacity 0.3s ease;
+  }
+  .play-pause-overlay-btn img,
+  .play-pause-overlay-btn svg {
+    max-width: clamp(50px, 8vw, 118px);
+    height: auto;
+    filter: drop-shadow(0px 4px 15px #22222295);
+    z-index: 2;
+  }
+  .play-pause-overlay-btn::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--ripple-clr, rgba(255, 255, 255, 0.38));
+    border-radius: 50%;
+    animation: pulse-border 1200ms ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pulse-border {
+    0% {
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.6);
+      opacity: 0;
+    }
+  }
 </style>
 
 
@@ -527,6 +611,124 @@ function scalingImageEffect() {
   }
 }
 scalingImageEffect();
+
+  function ringerVideoControl() {
+    const video = document.getElementById("ringer_video_pdp");
+    const playPauseBtn = document.getElementById("ringer-play-pause-btn");
+    if (!video) return;
+
+    video.pause();
+
+    const handlePlay = () => {
+      video.play();
+      if (playPauseBtn) {
+        playPauseBtn.style.opacity = "0";
+        playPauseBtn.style.pointerEvents = "none";
+        playPauseBtn.setAttribute("tabindex", "-1");
+      }
+    };
+
+    const handlePause = () => {
+      video.pause();
+      if (playPauseBtn) {
+        playPauseBtn.style.opacity = "1";
+        playPauseBtn.style.pointerEvents = "auto";
+        playPauseBtn.setAttribute("tabindex", "0");
+      }
+    };
+
+    if (playPauseBtn) {
+      playPauseBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (video.paused) {
+          handlePlay();
+        } else {
+          handlePause();
+        }
+      });
+    }
+
+    video.addEventListener("click", () => {
+      if (!video.paused) {
+        handlePause();
+      }
+    });
+  }
+  ringerVideoControl();
+
+  function ringerGifControl() {
+    const gifImg = document.getElementById("ringer-gif-img");
+    const canvas = document.getElementById("ringer-gif-canvas");
+    const playPauseBtn = document.getElementById("ringer-gif-play-pause-btn");
+    const wrapper = document.getElementById("ringer-gif-wrapper");
+    if (!gifImg || !canvas || !playPauseBtn) return;
+
+    let isPlaying = false;
+    const originalSrc = gifImg.src;
+
+    function freezeGif() {
+      try {
+        canvas.width = gifImg.naturalWidth || gifImg.clientWidth;
+        canvas.height = gifImg.naturalHeight || gifImg.clientHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(gifImg, 0, 0, canvas.width, canvas.height);
+        canvas.style.display = 'block';
+        gifImg.style.visibility = 'hidden';
+      } catch (e) {
+        canvas.style.display = 'none';
+        gifImg.style.visibility = 'visible';
+      }
+      isPlaying = false;
+      playPauseBtn.style.opacity = '1';
+      playPauseBtn.style.pointerEvents = 'auto';
+      playPauseBtn.setAttribute('tabindex', '0');
+    }
+
+    function playGif() {
+      canvas.style.display = 'none';
+      gifImg.style.visibility = 'visible';
+      // Restart GIF cycle
+      const url = new URL(originalSrc, window.location.href);
+      url.searchParams.set('t', Date.now());
+      gifImg.src = url.toString();
+
+      isPlaying = true;
+      playPauseBtn.style.opacity = '0';
+      playPauseBtn.style.pointerEvents = 'none';
+      playPauseBtn.setAttribute('tabindex', '-1');
+    }
+
+    function handleToggle() {
+      if (isPlaying) {
+        freezeGif();
+      } else {
+        playGif();
+      }
+    }
+
+    if (gifImg.complete) {
+      freezeGif();
+    } else {
+      gifImg.addEventListener('load', function onFirstLoad() {
+        freezeGif();
+        gifImg.removeEventListener('load', onFirstLoad);
+      });
+    }
+
+    playPauseBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      handleToggle();
+    });
+
+    if (wrapper) {
+      wrapper.addEventListener('click', function() {
+        if (isPlaying) {
+          freezeGif();
+        }
+      });
+    }
+  }
+  ringerGifControl();
 });
 </script>
 <script>

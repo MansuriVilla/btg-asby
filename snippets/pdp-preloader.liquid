@@ -1,0 +1,194 @@
+{% if template.name == 'product' and product != blank %}
+  <style>
+    .pdp-preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #080808;
+      background-image: url('https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105702564165465.svg?v=1788268239');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 9999999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      box-sizing: border-box;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .pdp-preloader.is-hidden {
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .pdp-preloader__content {
+      text-align: center;
+      max-width: 1100px;
+      perspective: 1200px;
+    }
+
+    .pdp-preloader__title {
+      font-size: clamp(2.25rem, 6vw, 5.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin: 0;
+      text-transform: uppercase;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.15em 0.35em;
+    }
+
+    .pdp-preloader__mask {
+      display: inline-block;
+      vertical-align: top;
+      padding: 0.1em 0;
+    }
+
+    .pdp-preloader__char {
+      --bg-progress: 0;
+      --color-final: #ffffff;
+      display: inline-block;
+      opacity: 0;
+      color: transparent !important;
+      background: linear-gradient(
+        90deg,
+        var(--color-final, #ffffff) 0%,
+        var(--color-final, #ffffff) 30%,
+        #0016cb 45%,
+        #2a2a2a 55%,
+        #2a2a2a 100%
+      );
+      background-size: 350% 100%;
+      background-position-x: calc((100 - var(--bg-progress, 0)) * 1%) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      will-change: opacity, background-position-x;
+    }
+  </style>
+
+  <div id="pdpPreloader" class="pdp-preloader" aria-hidden="false">
+    <div class="pdp-preloader__content">
+      <h1 class="pdp-preloader__title custom_heading">
+        {% assign title_words = product.handle | replace: '-', ' ' | split: ' ' %}
+        {% for word in title_words %}
+          <span class="pdp-preloader__mask"><span class="pdp-preloader__char">{{ word | escape }}</span></span>
+        {% endfor %}
+      </h1>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      let isWindowLoaded = false;
+      let isIntroFinished = false;
+      let isExiting = false;
+      const preloader = document.getElementById('pdpPreloader');
+      const textSpans = document.querySelectorAll('.pdp-preloader__char');
+
+      function hideLoader() {
+        if (!preloader || isExiting || preloader.classList.contains('is-hidden')) return;
+        isExiting = true;
+
+        if (typeof gsap !== 'undefined') {
+          const tl = gsap.timeline({
+            onComplete: function () {
+              preloader.classList.add('is-hidden');
+              preloader.style.display = 'none';
+            }
+          });
+
+          tl.to(textSpans, {
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.02,
+            ease: 'power2.in'
+          })
+          .to(preloader, {
+            opacity: 0,
+            duration: 0.6,
+            ease: 'power3.inOut'
+          }, '-=0.2');
+        } else {
+          preloader.style.transition = 'opacity 0.6s ease';
+          preloader.style.opacity = '0';
+          setTimeout(function () {
+            preloader.classList.add('is-hidden');
+            preloader.style.display = 'none';
+          }, 600);
+        }
+      }
+
+      function checkAndFinish() {
+        if (isWindowLoaded && isIntroFinished) {
+          hideLoader();
+        }
+      }
+
+      function runAnimation() {
+        if (typeof gsap !== 'undefined') {
+          const tl = gsap.timeline({
+            onComplete: function () {
+              isIntroFinished = true;
+              checkAndFinish();
+            }
+          });
+
+          tl.to(textSpans, {
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power2.out',
+            stagger: 0.04
+          })
+          .to(textSpans, {
+            '--bg-progress': 100,
+            duration: 0.9,
+            stagger: 0.08,
+            ease: 'power2.out'
+          }, '-=0.4');
+
+        } else {
+          textSpans.forEach(function (span, i) {
+            setTimeout(function () {
+              span.style.transition = 'opacity 0.6s ease';
+              span.style.opacity = '1';
+              span.style.setProperty('--bg-progress', '100');
+            }, i * 60);
+          });
+          setTimeout(function () {
+            isIntroFinished = true;
+            checkAndFinish();
+          }, textSpans.length * 60 + 800);
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runAnimation);
+      } else {
+        runAnimation();
+      }
+
+      if (document.readyState === 'complete') {
+        isWindowLoaded = true;
+        checkAndFinish();
+      } else {
+        window.addEventListener('load', function () {
+          isWindowLoaded = true;
+          checkAndFinish();
+        });
+      }
+
+      setTimeout(function () {
+        isWindowLoaded = true;
+        isIntroFinished = true;
+        hideLoader();
+      }, 6000);
+    })();
+  </script>
+{% endif %}

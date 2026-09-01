@@ -1,32 +1,38 @@
-{% liquid 
+{% liquid
   assign mobile_image_center = false
-  
+
   if section.settings.mobile_image_center
-  assign mobile_image_center = true
+    assign mobile_image_center = true
   endif
 
-
+  assign text_diraction = section.settings.content_style
 %}
-
-
 
 {% if section.settings.formBlock contains 'class="hs-form-frame"' %}
   <script src="https://js.hsforms.net/forms/embed/7645267.js" defer></script>
 {% endif %}
 
-<div class="form_section form_section-{{ section.id }}  {%if section.settings.layout_style == 'split_right'%} layout-{{ section.settings.layout_style }}{%endif %}" id="lpContactForm">
+<div
+  class="form_section form_section-{{ section.id }}  {%if section.settings.layout_style == 'split_right'%} layout-{{ section.settings.layout_style }}{%endif %}"
+  id="lpContactForm"
+>
   {%- if section.settings.image_desktop != blank -%}
     <div class="form_section-image-bg">
       <picture>
         {%- if section.settings.image_mobile != blank -%}
           <source media="(max-width: 992px)" srcset="{{ section.settings.image_mobile | image_url: width: 800 }}">
         {%- endif -%}
-        <img src="{{ section.settings.image_desktop | image_url: width: 2000 }}" alt="{{ section.settings.image_desktop.alt | escape }}" class="form_section-bg-img" loading="lazy">
+        <img
+          src="{{ section.settings.image_desktop | image_url: width: 2000 }}"
+          alt="{{ section.settings.image_desktop.alt | escape }}"
+          class="form_section-bg-img"
+          loading="lazy"
+        >
       </picture>
     </div>
   {%- endif -%}
 
-  <div class="{%if section.settings.layout_style == 'split_right'%} new-page-width{%else%} form_section-container{%endif %}">
+  <div class="{%if section.settings.layout_style == 'split_right' or section.settings.layout_style == 'background'%} new-page-width{%else%} form_section-container{%endif %}">
     <div class="form_section-grid-container">
       {%- if section.settings.layout_style != 'background' and section.settings.image_desktop != blank -%}
         <div class="form_section-side-image">
@@ -34,15 +40,25 @@
             {%- if section.settings.image_mobile != blank -%}
               <source media="(max-width: 992px)" srcset="{{ section.settings.image_mobile | image_url: width: 800 }}">
             {%- endif -%}
-            <img src="{{ section.settings.image_desktop | image_url: width: 1200 }}" alt="{{ section.settings.image_desktop.alt | escape }}" class="form_section-col-img" loading="lazy">
+            <img
+              src="{{ section.settings.image_desktop | image_url: width: 1200 }}"
+              alt="{{ section.settings.image_desktop.alt | escape }}"
+              class="form_section-col-img"
+              loading="lazy"
+            >
           </picture>
         </div>
       {%- endif -%}
 
-      <div class="form_section-form-content">
+      <div class="form_section-form-content" data-mobile-text-settings="{{text_diraction}}">
         {%- if section.settings.logo_image != blank -%}
           <div class="form_section-logo-wrapper">
-            <img src="{{ section.settings.logo_image | image_url: width: 300 }}" alt="{{ section.settings.logo_image.alt | escape }}" class="form_section-logo" loading="lazy">
+            <img
+              src="{{ section.settings.logo_image | image_url: width: 300 }}"
+              alt="{{ section.settings.logo_image.alt | escape }}"
+              class="form_section-logo"
+              loading="lazy"
+            >
           </div>
         {%- endif -%}
         {%- if section.settings.tag_line != blank -%}
@@ -74,246 +90,315 @@
 </div>
 
 <style>
-  {% if section.settings.formBlock contains 'class="hs-form-frame"' %}
-    .hs-form-frame{background: #fff; border-radius: 20px;}
-  {% endif %}
-    .form_section {
-      position: relative;
-      {% if section.settings.image_desktop == blank %}
-        background: url("https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-topography-new.svg?v=1768554403") center center / cover no-repeat;
+      {% if section.settings.formBlock contains 'class="hs-form-frame"' %}
+        .hs-form-frame{background: #fff; border-radius: 20px;}
       {% endif %}
-      background-color: {{ section.settings.sectionBackgroundClr }};
-      padding-block: clamp(60px, 6vw, 91px);
-      overflow: hidden;
-    }
+        .form_section {
+          position: relative;
+          {% if section.settings.image_desktop == blank %}
+            background: url("https://cdn.shopify.com/s/files/1/0057/8958/1381/files/btg-topography-new.svg?v=1768554403") center center / cover no-repeat;
+          {% endif %}
+          background-color: {{ section.settings.sectionBackgroundClr }};
+          padding-block: clamp(60px, 6vw, 91px);
+          overflow: hidden;
+        }
 
-    /* Background Image Style */
-    .form_section-image-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-    }
+        /* Background Image Style */
+        .form_section-image-bg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          pointer-events: none;
+        }
 
-    .form_section-bg-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
+        .form_section-bg-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          display: block;
+        }
 
-    .layout-background .form_section-image-bg {
-      display: block;
-    }
+        .layout-background .form_section-image-bg {
+          display: block;
+        }
 
-    .layout-split_left .form_section-image-bg,
-    .layout-split_right .form_section-image-bg {
-      display: none;
-    }
+        .layout-split_left .form_section-image-bg,
+        .layout-split_right .form_section-image-bg {
+          display: none;
+        }
 
-    .form_section-container {
-      position: relative;
-      z-index: 2;
-      max-width: 1184px;
-      width: 100%;
-      padding-inline: 20px;
-      margin-inline: auto;
-    }
+        .form_section-container {
+          position: relative;
+          z-index: 2;
+          max-width: 1184px;
+          width: 100%;
+          padding-inline: 20px;
+          margin-inline: auto;
+        }
 
-    /* Grid Layouts */
-    .form_section-grid-container {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
+        /* Grid Layouts */
+        .form_section-grid-container {
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+          {% if section.settings.layout_style == 'background' %}
+            position:relative;
+            z-index:1;
+          {% endif %}
+        } 
+        {% if section.settings.layout_style == 'background' and page.handle contains 'grass' %}
+          .form_section-form-content {
+            margin-top: clamp(60px,4vw,70px);
+          }
 
-    .layout-background .form_section-grid-container {
-      align-items: center;
-    }
+          .form-wrapper{
+            max-width: clamp(400px, 43vw, 780px);
+            width:100%;
+            margin-top: 50px;
+          }
 
-    .layout-background .form_section-form-content {
-      width: 100%;
-      max-width: 650px;
-    }
+        {% endif %}
 
-    @media (min-width: 992px) {
-      .layout-split_left .form_section-grid-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-        gap: 50px;
-      }
-      .layout-split_right .form_section-grid-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-        gap: 50px;
-      }
-         .layout-split_right .form_section-side-image {
-        order: 2;
-        position: absolute;
-        right: 0;
-        max-width: 1480px;
-    }
-      .layout-split_right .form_section-form-content {
-        order: 1;
-            z-index: 9;
-      }
-    }
+        .layout-background .form_section-grid-container {
+          align-items: center;
+        }
 
-    .form_section-side-image {
-      width: 100%;
-    }
+        .layout-background .form_section-form-content {
+          width: 100%;
+          max-width: 650px;
+        }
 
-    .form_section-col-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 16px;
-      object-fit: contain;
-    }
+        @media (min-width: 992px) {
+          .layout-split_left .form_section-grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 50px;
+          }
+          .layout-split_right .form_section-grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 50px;
+          }
+             .layout-split_right .form_section-side-image {
+            order: 2;
+            position: absolute;
+            right: 0;
+            max-width: 1480px;
+        }
+          .layout-split_right .form_section-form-content {
+            order: 1;
+                z-index: 9;
+          }
+        }
 
-    .form_section-logo-wrapper {
-      margin-bottom: 25px;
-    }
+        .form_section-side-image {
+          width: 100%;
+        }
 
-    .form_section-logo {
-      max-height: 50px;
-      width: auto;
-      object-fit: contain;
-      display: block;
-    }
+        .form_section-col-img {
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 16px;
+          object-fit: contain;
+        }
 
-    .form_section-heading {
-      font-size: clamp(38px, 3.5vw, 62px);
-      font-weight: 900;
-      line-height: 1.1;
-      color: #ffffff;
-      text-transform: uppercase;
-      margin: 0 0 15px 0;
-      letter-spacing: -0.02em;
-      {% comment %} font-style: italic; {% endcomment %}
-    }
+        .form_section-logo-wrapper {
+          margin-bottom: 25px;
+        }
 
-    .form_section-tag_line-wrapper .tag_line {
-  color: #9B9DA3;
-  font-weight: 900;
-  letter-spacing: 2.4px;
-  line-height: 120%;
-  padding: 0;
-  margin-bottom: 10px;
-  font-size: clamp(16px,1.5vw,24px);
-}
+        .form_section-logo {
+          max-height: 50px;
+          width: auto;
+          object-fit: contain;
+          display: block;
+        }
 
-    .form_section-subheading {
-      font-size: clamp(14px, 1.5vw, 16px);
-      line-height: 1.5;
-      {% comment %} color: #b0b5c1; {% endcomment %}
-      color: #fff;
-      margin: 0 0 30px 0;
-      max-width: clamp(250px,32vw,550px);
-    }
+        .form_section-heading {
+          font-size: clamp(38px, 3.5vw, 62px);
+          font-weight: 900;
+          line-height: 1.1;
+          color: #ffffff;
+          text-transform: uppercase;
+          margin: 0 0 15px 0;
+          letter-spacing: -0.02em;
+          {% comment %} font-style: italic; {% endcomment %}
+        }
 
-    {% if section.settings.formNote != blank %}
-      .form_section-note {
-        position: relative;
-        z-index: 2;
-        padding: 0;
-        color: #9B9DA3;
-        max-width: 630px;
-        text-align: center;
-        margin-inline: auto;
-        margin-block: clamp(20px, 2.9vw, 50px) 0;
-      }
-    {% endif %}
-
-    .form-wrapper {
-      position: relative;
-      min-height: 400px;
-      overflow: hidden;
-    }
-
-    .form-loader {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.04);
-      z-index: 10;
-      transition: opacity 0.4s ease;
-    }
-
-    .form-loader .spinner {
-      width: 48px;
-      height: 48px;
-      border: 5px solid var(--new-black);
-      border-top: 5px solid #fff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 16px;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .form-loader p {
-      margin: 0;
-      font-size: 1.1rem;
+        .form_section-tag_line-wrapper .tag_line {
       color: #9B9DA3;
+      font-weight: 900;
+      letter-spacing: 2.4px;
+      line-height: 120%;
+      padding: 0;
+      margin-bottom: 10px;
+      font-size: clamp(16px,1.5vw,24px);
     }
 
-    .form-wrapper.loaded .form-loader {
-      display: none !important;
+        .form_section-subheading {
+          font-size: clamp(14px, 1.5vw, 16px);
+          line-height: 1.5;
+          {% comment %} color: #b0b5c1; {% endcomment %}
+          color: #fff;
+          margin: 0 0 30px 0;
+          max-width: clamp(250px,32vw,550px);
+        }
+
+        {% if section.settings.formNote != blank %}
+          .form_section-note {
+            position: relative;
+            z-index: 2;
+            padding: 0;
+            color: #9B9DA3;
+            max-width: 630px;
+            text-align: center;
+            margin-inline: auto;
+            margin-block: clamp(20px, 2.9vw, 50px) 0;
+          }
+        {% endif %}
+
+        .form-wrapper {
+          position: relative;
+          min-height: 400px;
+          overflow: hidden;
+        }
+
+        .form-loader {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: rgba(0, 0, 0, 0.04);
+          z-index: 10;
+          transition: opacity 0.4s ease;
+        }
+
+        .form-loader .spinner {
+          width: 48px;
+          height: 48px;
+          border: 5px solid var(--new-black);
+          border-top: 5px solid #fff;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        .form-loader p {
+          margin: 0;
+          font-size: 1.1rem;
+          color: #9B9DA3;
+        }
+
+        .form-wrapper.loaded .form-loader {
+          display: none !important;
+        }
+
+        @media only screen and (max-width: 991px){
+
+              {% if section.settings.layout_style == 'background' %}
+                .header_content :is(img){max-width: 200px;}
+
+          .form_section-bg-img{
+            height: 75%;
+  object-fit: contain;
+  object-position: top;
+          }
+          .form_section-subheading{
+            margin: 240px 0 0px 0;
+          }
+        {% endif %}
+
+          .layout-split_right .form_section-form-content {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
     }
 
-    @media only screen and (max-width: 991px){
-      .layout-split_right .form_section-form-content {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
+    .layout-split_right .form_section-heading {margin: 0 0 360px 0;}
+    .layout-split_right.form_section{padding-block: 10px clamp(60px, 6vw, 91px);}
+    .layout-split_right .form_section-side-image{position: absolute;
+      {%if mobile_image_center %}
+        top: 53%;
+        {%else %}
+          top: 24%;
+          {%endif %}
+          left: 50%;
+          transform: translate(-50%, -50%);}
 
-.layout-split_right .form_section-heading {margin: 0 0 360px 0;}
-.layout-split_right.form_section{padding-block: 10px clamp(60px, 6vw, 91px);}
-.layout-split_right .form_section-side-image{position: absolute;
-  {%if mobile_image_center %}
-    top: 53%;
-    {%else %}
-      top: 24%;
-      {%endif %}
-      left: 50%;
-      transform: translate(-50%, -50%);}
-    }
-    @media only screen and (max-width: 380px){
-      .layout-split_right .form_section-side-image{
-  {%if mobile_image_center %}
-  top: 49%;
-  {%else %}
-    top: 24%;
-    {%endif %}
-}
-    }
-    @media only screen and (max-width: 320px){
-      .layout-split_right .form_section-side-image{
-  {%if mobile_image_center %}
-  top: 45%;
-  {%else %}
-    top: 24%;
-    {%endif %}
-}
-    }
 
+          {%if text_diraction == "content_center" %}
+            .form_section-form-content[data-mobile-text-settings="content_center"] {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  {% elsif text_diraction == "content_right" %}
+    .form_section-form-content[data-mobile-text-settings="content_right"] {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  {%endif %}
+        }
+        @media only screen and (max-width: 520px){
+        
+              {% if section.settings.layout_style == 'background' %}
+                .form_section-heading{
+                  font-size: clamp(28px, 3.5vw, 62px);
+                  margin-top: 15px;
+                }
+
+          .form_section-bg-img{
+            height: 65%;
+  object-fit: contain;
+  object-position: top;
+          }
+          .form_section-subheading{
+            margin: 330px 0 0px 0;
+          }
+        {% endif %}
+        }
+        @media only screen and (max-width: 380px){
+          .layout-split_right .form_section-side-image{
+      {%if mobile_image_center %}
+      top: 49%;
+      {%else %}
+        top: 24%;
+        {%endif %}
+
+
+
+    }
+        }
+        @media only screen and (max-width: 320px){
+          .layout-split_right .form_section-side-image{
+      {%if mobile_image_center %}
+      top: 45%;
+      {%else %}
+        top: 24%;
+        {%endif %}
+    }
+        }
 </style>
 
 <script>
@@ -365,6 +450,10 @@
   "tag": "section",
   "settings": [
     {
+      "type": "header",
+      "content": "Layout settings"
+    },
+    {
       "type": "select",
       "id": "layout_style",
       "label": "Layout Style",
@@ -381,8 +470,11 @@
           "value": "split_right",
           "label": "Image Right, Form Left"
         }
-      ],
-      
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Background Settings"
     },
     {
       "type": "image_picker",
@@ -404,7 +496,30 @@
       "id": "mobile_image_center",
       "label": "Center Image in mobile"
     },
-    
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "select",
+      "id": "content_style",
+      "label": "Content Style",
+      "info": "Text diraction for mobile view.",
+      "options": [
+        {
+          "value": "content_left",
+          "label": "Left"
+        },
+        {
+          "value": "content_center",
+          "label": "Center"
+        },
+        {
+          "value": "content_right",
+          "label": "Right"
+        }
+      ]
+    },
     {
       "type": "textarea",
       "id": "tag_line",
@@ -413,18 +528,25 @@
     {
       "type": "textarea",
       "id": "heading",
-      "label": "Heading",
+      "label": "Heading"
     },
     {
       "type": "textarea",
       "id": "subheading",
-      "label": "Subheading",
-      
+      "label": "Subheading"
+    },
+    {
+      "type": "header",
+      "content": "Form settings"
     },
     {
       "type": "liquid",
       "id": "formBlock",
       "label": "Paste Embed Code For Form."
+    },
+    {
+      "type": "header",
+      "content": "Extras settings"
     },
     {
       "type": "text",

@@ -1308,303 +1308,946 @@
     /* product add to cart css end */
   </style>
 
-  <div class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
-    <div class="new-page-width">
-      <div class="footer-col-list">
-        <div class="col-4 footer-item">
-          <div class="footer-title small--hide">
-            <h2>PRODUCTS</h2>
-          </div>
-          <button
-            type="button"
-            class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
-            aria-controls="Footer-1494301487049"
-          >
-            <span>PRODUCTS</span>
-            <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
-              <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
-                <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
-              </svg>
-            </span>
-          </button>
-          <div id="Footer-1494301487049" class="collapsible-content collapsible-content--small">
-            <div class="collapsible-content__inner">
-              <div class="footmenu-list">
-                <ul class="no-bullets">
-                  {% render 'footer-nav-item', nav_text: 'Rangefinders', nav_link: '/collections/rangefinders' %}
-                  {% render 'footer-nav-item', nav_text: 'GPS Speakers', nav_link: '/collections/gps-speakers' %}
-                  {% render 'footer-nav-item', nav_text: 'Launch Monitors', nav_link: '/collections/launch-monitors' %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'GPS Handhelds & Wearables',
-                    nav_link: '/collections/gps-devices'
-                  %}
-                  {% render 'footer-nav-item', nav_text: 'Accessories', nav_link: '/collections/accessories' %}
-                  {% render 'footer-nav-item', nav_text: 'Hats', nav_link: '/products/play-different-hat-by-melin' %}
-                  {% render 'footer-nav-item', nav_text: 'Gift Cards', nav_link: '/pages/gift-card' %}
-                  {% render 'footer-nav-item', nav_text: 'All Products', nav_link: '/collections/all-products' %}
+  {% if theme.role == 'main' %}
+    <div class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
+      <div class="new-page-width">
+        <div class="footer-col-list">
+          <div class="col-4 footer-item">
+            <div class="footer-title small--hide">
+              <h2>PRODUCTS</h2>
+            </div>
+            <button
+              type="button"
+              class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+              aria-controls="Footer-1494301487049"
+            >
+              <span>PRODUCTS</span>
+              <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                  <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+                </svg>
+              </span>
+            </button>
+            <div id="Footer-1494301487049" class="collapsible-content collapsible-content--small">
+              <div class="collapsible-content__inner">
+                <div class="footmenu-list">
+                  <ul class="no-bullets">
+                    {% render 'footer-nav-item', nav_text: 'Rangefinders', nav_link: '/collections/rangefinders' %}
+                    {% render 'footer-nav-item', nav_text: 'GPS Speakers', nav_link: '/collections/gps-speakers' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'Launch Monitors',
+                      nav_link: '/collections/launch-monitors'
+                    %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'GPS Handhelds & Wearables',
+                      nav_link: '/collections/gps-devices'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Accessories', nav_link: '/collections/accessories' %}
+                    {% render 'footer-nav-item', nav_text: 'Hats', nav_link: '/products/play-different-hat-by-melin' %}
+                    {% render 'footer-nav-item', nav_text: 'Gift Cards', nav_link: '/pages/gift-card' %}
+                    {% render 'footer-nav-item', nav_text: 'All Products', nav_link: '/collections/all-products' %}
 
-                  {% comment %}
-                    <li>
-                      <a
-                        href="{{ collections['gps-ready-bundles'].url }}"
-                        {% if settings.open_new_tab %}
-                          target="_blank" rel="noopener noreferrer"
-                        {% endif %}
-                        >Bundle Packs</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="{{ collections['merch'].url }}"
-                        {% if settings.open_new_tab %}
-                          target="_blank" rel="noopener noreferrer"
-                        {% endif %}
-                        >Merch</a
-                      >
-                    </li>
-                  {% endcomment %}
-                </ul>
+                    {% comment %}
+                      <li>
+                        <a
+                          href="{{ collections['gps-ready-bundles'].url }}"
+                          {% if settings.open_new_tab %}
+                            target="_blank" rel="noopener noreferrer"
+                          {% endif %}
+                          >Bundle Packs</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="{{ collections['merch'].url }}"
+                          {% if settings.open_new_tab %}
+                            target="_blank" rel="noopener noreferrer"
+                          {% endif %}
+                          >Merch</a
+                        >
+                      </li>
+                    {% endcomment %}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-4 footer-item">
-          <div class="footer-title small--hide">
-            <h2>APPS</h2>
-          </div>
-          <button
-            type="button"
-            class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
-            aria-controls="Footer-1494301487040"
-          >
-            <span>APPS</span>
-            <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
-              <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
-                <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
-              </svg>
-            </span>
-          </button>
-          <div id="Footer-1494301487040" class="collapsible-content collapsible-content--small">
-            <div class="collapsible-content__inner">
-              <div class="footmenu-list">
-                <ul class="no-bullets">
-                  {% render 'footer-nav-item', nav_text: 'GAME GPS Golf App', nav_link: '/pages/app-download-lp' %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'POST GAME Login',
-                    nav_link: 'https://postgame.blueteesgolf.com'
-                  %}
-                  {% render 'footer-nav-item', nav_text: 'Release Notes', nav_link: '/blogs/game-app' %}
+          <div class="col-4 footer-item">
+            <div class="footer-title small--hide">
+              <h2>APPS</h2>
+            </div>
+            <button
+              type="button"
+              class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+              aria-controls="Footer-1494301487040"
+            >
+              <span>APPS</span>
+              <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                  <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+                </svg>
+              </span>
+            </button>
+            <div id="Footer-1494301487040" class="collapsible-content collapsible-content--small">
+              <div class="collapsible-content__inner">
+                <div class="footmenu-list">
+                  <ul class="no-bullets">
+                    {% render 'footer-nav-item', nav_text: 'GAME GPS Golf App', nav_link: '/pages/app-download-lp' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'POST GAME Login',
+                      nav_link: 'https://postgame.blueteesgolf.com'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Release Notes', nav_link: '/blogs/game-app' %}
 
-                  {% comment %}
-                    <li>
-                      <a
-                        href="/pages/membership"
-                        {% if settings.open_new_tab %}
-                          target="_blank" rel="noopener noreferrer"
-                        {% endif %}
-                        >Become a Member</a
-                      >
-                    </li>
-                  {% endcomment %}
-                </ul>
+                    {% comment %}
+                      <li>
+                        <a
+                          href="/pages/membership"
+                          {% if settings.open_new_tab %}
+                            target="_blank" rel="noopener noreferrer"
+                          {% endif %}
+                          >Become a Member</a
+                        >
+                      </li>
+                    {% endcomment %}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-4 footer-item">
-          <div class="footer-title small--hide">
-            <h2>COMMUNITY</h2>
-          </div>
-          <button
-            type="button"
-            class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
-            aria-controls="Footer-5e7c7403-c2cd-4875-a6bb-07b0a1ff8144"
-          >
-            <span>COMMUNITY</span>
-            <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
-              <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
-                <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
-              </svg>
-            </span>
-          </button>
-          <div id="Footer-5e7c7403-c2cd-4875-a6bb-07b0a1ff8144" class="collapsible-content collapsible-content--small">
-            <div class="collapsible-content__inner">
-              <div class="footmenu-list">
-                <ul class="no-bullets">
-                  {% render 'footer-nav-item', nav_text: 'About Us', nav_link: '/pages/about-us' %}
-                  {% render 'footer-nav-item', nav_text: 'Custom Branding Program', nav_link: '/pages/customs' %}
-                  {% render 'footer-nav-item', nav_text: 'News', nav_link: '/blogs/news' %}
-                  {% render 'footer-nav-item', nav_text: 'Press & Media', nav_link: '/blogs/press-release' %}
-                  {% render 'footer-nav-item', nav_text: 'Ambassador Program', nav_link: '/pages/brand-ambassador' %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'Military Discounts',
-                    nav_link: '/pages/govx-id-military-discount'
-                  %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'Become a Retailer or Distributor',
-                    nav_link: '/pages/become-an-authorized-retailer'
-                  %}
-                  {% render 'footer-nav-item', nav_text: 'School Programs', nav_link: '/pages/school-programs' %}
-                  {% render 'footer-nav-item', nav_text: 'Careers', nav_link: '/pages/careers' %}
+          <div class="col-4 footer-item">
+            <div class="footer-title small--hide">
+              <h2>COMMUNITY</h2>
+            </div>
+            <button
+              type="button"
+              class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+              aria-controls="Footer-5e7c7403-c2cd-4875-a6bb-07b0a1ff8144"
+            >
+              <span>COMMUNITY</span>
+              <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                  <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+                </svg>
+              </span>
+            </button>
+            <div
+              id="Footer-5e7c7403-c2cd-4875-a6bb-07b0a1ff8144"
+              class="collapsible-content collapsible-content--small"
+            >
+              <div class="collapsible-content__inner">
+                <div class="footmenu-list">
+                  <ul class="no-bullets">
+                    {% render 'footer-nav-item', nav_text: 'About Us', nav_link: '/pages/about-us' %}
+                    {% render 'footer-nav-item', nav_text: 'Custom Branding Program', nav_link: '/pages/customs' %}
+                    {% render 'footer-nav-item', nav_text: 'News', nav_link: '/blogs/news' %}
+                    {% render 'footer-nav-item', nav_text: 'Press & Media', nav_link: '/blogs/press-release' %}
+                    {% render 'footer-nav-item', nav_text: 'Ambassador Program', nav_link: '/pages/brand-ambassador' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'Military Discounts',
+                      nav_link: '/pages/govx-id-military-discount'
+                    %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'Become a Retailer or Distributor',
+                      nav_link: '/pages/become-an-authorized-retailer'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'School Programs', nav_link: '/pages/school-programs' %}
+                    {% render 'footer-nav-item', nav_text: 'Careers', nav_link: '/pages/careers' %}
 
-                  {% comment %}
-                    <!--
-                      <li><a href="/pages/contact-us">Sponsorship</a></li>
-                      <li><a href="/pages/customs">2024 Product Catalog</a></li>
-                    -->
-                  {% endcomment %}
-                </ul>
+                    {% comment %}
+                      <!--
+                        <li><a href="/pages/contact-us">Sponsorship</a></li>
+                        <li><a href="/pages/customs">2024 Product Catalog</a></li>
+                      -->
+                    {% endcomment %}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-4 footer-item">
-          <div class="footer-title small--hide">
-            <h2>SUPPORT</h2>
-          </div>
-          <button
-            type="button"
-            class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
-            aria-controls="Footer-d9da3bdc-d5bd-47ce-9589-434c668a87ab"
-          >
-            <span>SUPPORT</span>
-            <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
-              <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
-                <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
-              </svg>
-            </span>
-          </button>
-          <div id="Footer-d9da3bdc-d5bd-47ce-9589-434c668a87ab" class="collapsible-content collapsible-content--small">
-            <div class="collapsible-content__inner">
-              <div class="footmenu-list">
-                <ul class="no-bullets">
-                  {% render 'footer-nav-item', nav_text: 'Product Manuals', nav_link: '/pages/new-product-manual' %}
-                  {% render 'footer-nav-item', nav_text: "FAQ's", nav_link: 'https://blueteesgolf.gorgias.help/en-US' %}
-                  {% render 'footer-nav-item', nav_text: 'Product Registration', nav_link: '/pages/register' %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'International Customers',
-                    nav_link: '/pages/international-customers'
-                  %}
-                  {% render 'footer-nav-item', nav_text: 'Customer Support', nav_link: '/pages/contact-us' %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'Shipping, Returns &amp; Exchanges',
-                    nav_link: '/pages/refund-policy'
-                  %}
-                  {% render 'footer-nav-item', nav_text: 'Two-Year Warranty', nav_link: '/pages/warranty' %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'GAME Subscription Management',
-                    nav_link: 'https://blueteesgolf.com/a/loop_subscriptions/customer'
-                  %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'Accessibility',
-                    nav_link: '/pages/accessibility'
-                  %}
+          <div class="col-4 footer-item">
+            <div class="footer-title small--hide">
+              <h2>SUPPORT</h2>
+            </div>
+            <button
+              type="button"
+              class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+              aria-controls="Footer-d9da3bdc-d5bd-47ce-9589-434c668a87ab"
+            >
+              <span>SUPPORT</span>
+              <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                  <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+                </svg>
+              </span>
+            </button>
+            <div
+              id="Footer-d9da3bdc-d5bd-47ce-9589-434c668a87ab"
+              class="collapsible-content collapsible-content--small"
+            >
+              <div class="collapsible-content__inner">
+                <div class="footmenu-list">
+                  <ul class="no-bullets">
+                    {% render 'footer-nav-item', nav_text: 'Product Manuals', nav_link: '/pages/new-product-manual' %}
+                    {% render 'footer-nav-item',
+                      nav_text: "FAQ's",
+                      nav_link: 'https://blueteesgolf.gorgias.help/en-US'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Product Registration', nav_link: '/pages/register' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'International Customers',
+                      nav_link: '/pages/international-customers'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Customer Support', nav_link: '/pages/contact-us' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'Shipping, Returns &amp; Exchanges',
+                      nav_link: '/pages/refund-policy'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Privacy Policy', nav_link: '/pages/privacy-policy' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'GAME Subscription Management',
+                      nav_link: 'https://blueteesgolf.com/a/loop_subscriptions/customer'
+                    %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'App Terms of Service',
+                      nav_link: '/pages/app-terms-of-service'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Terms & Conditions', nav_link: '/pages/terms-conditions' %}
+                    {% render 'footer-nav-item', nav_text: 'Accessibility', nav_link: '/pages/accessibility' %}
 
-                  {% comment %} <li><a href="javascript:void(0)" class="termly-display-preferences">Consent Preferences</a></li> {% endcomment %}
-                </ul>
+                    {% comment %} <li><a href="javascript:void(0)" class="termly-display-preferences">Consent Preferences</a></li> {% endcomment %}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-4 footer-item">
-          <div class="footer-title small--hide">
-            <h2>LEGAL</h2>
-          </div>
-          <button
-            type="button"
-            class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
-            aria-controls="Footer-4d616e27-9e55-4a57-ac37-438114856f31"
-          >
-            <span>LEGAL</span>
-            <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
-              <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
-                <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
-              </svg>
-            </span>
-          </button>
-          <div id="Footer-4d616e27-9e55-4a57-ac37-438114856f31" class="collapsible-content collapsible-content--small">
-            <div class="collapsible-content__inner">
-              <div class="footmenu-list">
-                <ul class="no-bullets">
-                  {% render 'footer-nav-item', nav_text: 'Terms & Conditions', nav_link: '/pages/terms-conditions' %}
 
-                  {% render 'footer-nav-item',
-                    nav_text: 'GAME Subscription Terms',
-                    nav_link: '/pages/game-subscription-terms'
-                  %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'App Terms of Service',
-                    nav_link: '/pages/app-terms-of-service'
-                  %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'POST GAME Terms of Service',
-                    nav_link: '/pages/post-game-terms'
-                  %}
-                  {% render 'footer-nav-item', nav_text: 'Privacy Policy', nav_link: '/pages/privacy-policy' %}
-                  {% render 'footer-nav-item', nav_text: 'Cookie Policy', nav_link: '/pages/cookie-policy' %}
-                  {% render 'footer-nav-item',
-                    nav_text: 'Your Privacy Choices',
-                    nav_link: '/pages/your-privacy-choices'
-                  %}
-
-                  {% comment %} <li><a href="javascript:void(0)" class="termly-display-preferences">Consent Preferences</a></li> {% endcomment %}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-4 footer-item mobile-view mobile-text-footer">
-          {% comment %}
+          <div class="col-4 footer-item mobile-view">
             <div class="footer-title">
               <h2>FOLLOW US</h2>
             </div>
-          {% endcomment %}
 
-          <div class="footer_desktop-icons ">
             {% render 'site-social-icon-new' %}
+            <div class="footer_appbutton">
+              <h2 class="appbutton_title">DOWNLOAD the official blue tees golf game™ APP</h2>
+              <div class="appbutton">
+                <a
+                  href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
+                  aria-label="Download Blue Tees Golf Game App on the Apple App Store"
+                  {% if settings.open_new_tab %}
+                    target="_blank" rel="noopener noreferrer"
+                  {% endif %}
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer_app_img.png"
+                    alt="Download on the Apple App Store"
+                ></a>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.bluetees"
+                  aria-label="Download Blue Tees Golf Game App on the Google Play Store"
+                  {% if settings.open_new_tab %}
+                    target="_blank" rel="noopener noreferrer"
+                  {% endif %}
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer-googlepay-img.png"
+                    alt="Get it on Google Play"
+                ></a>
+              </div>
+            </div>
           </div>
-          <div class="footer_appbutton">
-            <h2 class="appbutton_title">DOWNLOAD the official blue tees golf game™ APP</h2>
-            <div class="appbutton">
-              <a
-                href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
-                aria-label="Download Blue Tees Golf Game App on the Apple App Store"
-                {% if settings.open_new_tab %}
-                  target="_blank" rel="noopener noreferrer"
-                {% endif %}
-                ><img
-                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer_app_img.png"
-                  alt="Download on the Apple App Store"
-              ></a>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.bluetees"
-                aria-label="Download Blue Tees Golf Game App on the Google Play Store"
-                {% if settings.open_new_tab %}
-                  target="_blank" rel="noopener noreferrer"
-                {% endif %}
-                ><img
-                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer-googlepay-img.png"
-                  alt="Get it on Google Play"
-              ></a>
+          <div class="col-4 footer-item">
+            <div class="footer-contact-info">
+              <div class="footer-title">
+                <h2>
+                  GET THE LATEST <br>
+                  DEALS, DROPS, & more.
+                </h2>
+                <p>
+                  Join our mailing list to get additional savings and stay in the loop on all of the latest from Blue
+                  Tees.
+                </p>
+              </div>
+
+              <div class="signup-email-form">
+                {% render 'footer-newsletter' %}
+              </div>
+              <div class="footer_appbutton">
+                <h2 class="appbutton_title">DOWNLOAD the official blue tees golf game™ APP</h2>
+                <div class="appbutton">
+                  <a
+                    href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
+                    aria-label="Download Blue Tees Golf Game App on the Apple App Store"
+                    {% if settings.open_new_tab %}
+                      target="_blank" rel="noopener noreferrer"
+                    {% endif %}
+                    ><img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer_app_img.png"
+                      alt="Download on the Apple App Store"
+                  ></a>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.bluetees"
+                    aria-label="Download Blue Tees Golf Game App on the Google Play Store"
+                    {% if settings.open_new_tab %}
+                      target="_blank" rel="noopener noreferrer"
+                    {% endif %}
+                    ><img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer-googlepay-img.png"
+                      alt="Get it on Google Play"
+                  ></a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-4 footer-item">
-          <div class="footer-contact-info">
-            <div class="footer-title">
-              <h2>
-                GET THE LATEST <br>
-                DEALS, DROPS, & more.
-              </h2>
-              <p>
-                Join our mailing list to get additional savings and stay in the loop on all of the latest from Blue
-                Tees.
-              </p>
+        <div class="footer-copyright">
+          <div class="footercopyinfo-list footer-col-list">
+            <div class="footer-item">
+              <div class="footer-logo">
+                <picture>
+                  <source
+                    srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
+                    media="(min-width:769px)"
+                  >
+                  <source
+                    srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
+                    media="(max-width:768px)"
+                  >
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
+                    alt="Play Different"
+                  >
+                </picture>
+              </div>
+            </div>
+            <div class="footer-item">
+              <div class="copyright-text">
+                <p>©2026 Blue Tees Golf. All Rights Reserved</p>
+              </div>
             </div>
 
-            <div class="signup-email-form">
-              {% render 'footer-newsletter' %}
+            <div class="col-2 footer-item" style="display:none;">
+              <div class="language-seclector-form">
+                {%- render 'multi-selectors',
+                  locale_selector: locale_selector,
+                  currency_selector: currency_selector,
+                  show_currency_flags: section.settings.show_currency_flags,
+                  location: 'footer'
+                -%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+          .site-footer .page-width{max-width:1240px;}
+          .site-footer .grid { margin:0 0 0 -60px; }
+          .site-footer .grid__item { padding-left: 60px; }
+          {% comment %} .site-footer { background: radial-gradient(120% 120% at 10% 20%, #272933 0%, #161617 100%), #171717; padding: 60px 0; padding-bottom:30px !important; } {% endcomment %}
+          .site-footer .footer__logo { max-width:257px; margin:0 auto; padding-bottom: 45px; }
+          .site-footer .footer__logo img { max-height:inherit; }
+          .site-footer .footer__item--1494292487693 .footer__item-padding { display: flex; justify-content: space-between; border-bottom:1px solid #707070; border-top:1px solid #707070; padding:20px 0; position:relative; }
+          .site-footer .footer__item-padding p.h4 { font-style: italic; position:relative; font-family: 'Roboto Condensed' !important; font-weight: 700; font-size: 28px; line-height: 30px; color: #fff; text-transform: uppercase; }
+          .site-footer #Footer-1494292487693 { width:65%; }
+          .site-footer .footer__collapsible p { position:absolute; left:0; top:35px; font-style: normal; font-weight: 500; font-size: 16px; line-height: 20px; color: #A1A3A9; }
+          .site-footer .footer__collapsible p a { color: #A1A3A9; }
+          .site-footer .footer__collapsible p a:hover { color:#fff; }
+          .site-footer .footer__item--1494292487693 { width:100%; position:relative; }
+          .site-footer .footer__newsletter { display: flex; position:inherit; width:100%; max-width:100%; }
+          .site-footer .footer__newsletter .footer__newsletter-input { text-align: left; font-size:16px; color:#fff; border:none; border-bottom:1px solid #fff; background:none; color: #A1A3A9; max-width:480px; }
+          .site-footer .footer__newsletter .footer__newsletter-btn { position:absolute; font-size: 26px !important; margin-left:60px; right:120px; }
+          .site-footer .footer__newsletter .footer__newsletter-btn .footer__newsletter-btn-label { display:inline !important; font-size: 26px !important; line-height: 30px; border-radius:30px; color:#FFF; font-family: 'Roboto Condensed' !important; font-style: italic; font-weight: 700 !important; background:var(--new-blue) !important; padding: 12px 65px 12px 65px !important; }
+          .site-footer .footer__newsletter .footer__newsletter-btn .footer__newsletter-btn-label:hover { background:#fff !important; color:var(--new-blue) !important; }
+          .site-footer .footer__newsletter .footer__newsletter-btn .icon { display:none; }
+          .site-footer .grid__item { position:relative; border-right:1px solid #9f9f9f; }
+          .site-footer .grid__item:last-child { border-right:none; }
+          .site-footer .grid__item.footer__item--1494292487693 { border-right:none; margin-bottom:30px; }
+          .site-footer .grid__item.footer__item--5647560c-61dc-4861-9c01-6eff4c2a18c8 { border-right:none; }
+          .site-footer .grid__item p.h4 { font-style: italic; font-family: 'Roboto Condensed' !important; margin:0; font-weight: 700; font-size: 28px; line-height: 1; color: #fff; margin-bottom: 24px; text-transform: uppercase; }
+          .site-footer .site-footer__linklist a { font-weight: 400; font-size: 18px; line-height: 21px; color: #A1A3A9; margin-top:20px; padding:0; }
+          .site-footer .site-footer__linklist a:hover { color:#fff; }
+          .site-footer .social-heading { font-family: 'Roboto Condensed' !important; font-style: italic; font-weight: 700; font-size: 28px; line-height: 1; color: #fff; margin-bottom: 24px; text-transform: uppercase; border-top:1px solid #9f9f9f; padding:60px 0 0 0; margin: 100px 0 24px 0; }
+          .site-footer .footer__social li { margin:0 30px 15px 0; }
+          .site-footer .no-bullets.footer__social a { color:#fff; }
+          .site-footer .footer__item-padding { padding-right:0; position:relative; }
+          .site-footer .payment-icons.footer__section { display:none; }
+          .site-footer  .page-width { position:relative; }
+          .site-footer  .footer__section { position:absolute; top:0; right:0; }
+          .site-footer  .footer__section .disclosure-list { bottom:auto; }
+          .site-footer  .footer__section .disclosure-list__label { font-weight: 400; font-size: 24px; line-height: 28px; color: #A1A3A9; }
+          .site-footer  .footer__small-text { font-style: normal; font-weight: 400; font-size: 18px; line-height: 21px; color: #A1A3A9; padding-top: 30px; }
+          .site-footer .bottom-menu ul { display: flex; flex-wrap: wrap; justify-content: center; }
+          .site-footer .bottom-menu ul li { margin:15px 0 0 0; border-right: 1px solid #9f9f9f; }
+          .site-footer .bottom-menu ul li:last-child { border:none; }
+          .site-footer .bottom-menu ul li a { font-weight: 400; font-size: 16px; line-height: 19px; color: #A1A3A9; padding: 3px 12px; margin:0; }
+                      .footer-logo img {
+                        max-width: clamp(200px,17vw,250px);
+                        width: 100%;
+                        display: flex;
+                      }
+
+
+                      .footer_appbutton .appbutton a {
+                    {% comment %} padding: 8px; {% endcomment %}
+                    border: 1px solid #fff;
+                    background: var(--new-black);
+                  }
+
+                  .footer-solical-links {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(clamp(18px, 5vw, 30px), 1fr));
+
+                    row-gap: 20px;
+                  }
+
+
+                   .newsletter-signup .klaviyo-newsletter-form {
+        background: white;
+        border-radius: 50px;
+        overflow: hidden;
+        flex-wrap: nowrap;
+        display: flex;
+
+      padding: 8px 8px 8px 18px;
+      }
+          .newsletter-signup #klaviyo-message-0, .newsletter-signup #klaviyo-message-1 {
+        position: absolute;
+        bottom: -13px;
+        color:#fff;
+      }
+
+      .newsletter-signup .klaviyo-message[role="alert"],
+      .newsletter-signup #klaviyo-message-0[role="alert"],
+      .newsletter-signup #klaviyo-message-1[role="alert"] {
+        color: var(--new-red) !important;
+        background: #fff;
+        padding: 5px 12px;
+        border-radius: 50px;
+      }
+      .newsletter-signup .klaviyo-message[role="status"],
+      .newsletter-signup #klaviyo-message-0[role="status"],
+      .newsletter-signup #klaviyo-message-1[role="status"] {
+        color: var(--new-blue) !important;
+        background: #fff;
+        padding: 5px 12px;
+        border-radius: 50px;
+      }
+
+      .newsletter-signup {
+        position: relative;
+        padding-bottom: 22px;
+        width: fit-content;
+      }
+
+      .klaviyo-submit {
+        min-width: max-content;
+        background: var(--new-blue);
+        border: 2px solid var(--new-blue);
+      }
+
+      .klaviyo-submit {
+        font-family: Blue Tees Subhead;
+        line-height: 22.4px;
+        display: inline-flex;
+        padding: 10px 20px;
+        border-radius: 50px;
+        color: #fff;
+        font-size: clamp(12px,.8vw,14px);
+        transition: .4s ease all;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        text-transform: uppercase;
+      }
+          .site-footer {
+          background: radial-gradient(120% 120% at 10% 20%, #272933 0%, #161617 100%), #171717;
+          padding: 60px 0;
+          padding-bottom: 30px !important;
+      }
+      .newsletter-signup .klaviyo-email {
+        background: transparent;
+        border: none;
+        color: var(--new-black);
+        padding: 0;
+      }
+
+                        .termly-styles-root-f9c495{    background: #00000070;
+                          backdrop-filter: blur(10px);}
+
+                        #shopify-section-new-footer .site-footer #CurrencyList-footer{min-height:0px;}
+
+                        /* footer new design css */
+                        .no-bullets{margin: 0;}
+                        .footer-m-logo{display: none;}
+                        .footer-title h2{color: #fff;font-size: 21px;line-height: 25px;margin-bottom: 22px;}
+                        .footer-col-list{display: flex;gap: 30px; padding-bottom: 62px;border-bottom: 1px solid rgb(95, 95, 95);}
+                        .footer-col-list a{color: #fff;font-size: 13px;line-height: 15px;letter-spacing: 0.3px;display: block;}
+                        .no-bullets li a:hover, .no-bullets li a:focus{color: #fff !important;}
+                        .footer-col-list .col-4.footer-item{flex: 30%;}
+                        .footer-col-list .col-4.footer-item:last-child{flex: 55%;}
+                        /* .footmenu-list ul{padding-right: 15px;} */
+                        .footmenu-list ul li{margin-top: 15px;margin-bottom: 0px;}
+                        .footer-contact-info .footer-title p{padding: 0;font-size: 14px;color: #fff;margin-bottom: 25px;line-height: 24px;}
+                        .signup-form{position: relative;display: flex;height: 54px;background: #fff;padding: 2px;border-radius: 50px;}
+                        .signup-form input{border: 0px;color: var(--new-black);width: 100%;border-radius: 50px;padding-left: 20px;}
+                        .signup-form input::placeholder{color: var(--new-gray); opacity:1; font-size: clamp(18px,1.5vw,22px);}
+                        .signup-form-btn{color: #fff;width: 154px;min-width:fit-content;background: var(--new-blue);border-radius: 50px;padding: 8px 15px;font-size: 13px;font-weight: 900;letter-spacing: 10%; border: 1px solid transparent; transition: all 0.3s ease;}
+                        .signup-form-btn:hover { background: transparent; border-color: var(--new-blue); color: var(--new-blue); }
+                        .footer-solical-links a{display: inline-block;}
+                        .footer-solical-links a:last-child{margin: 0;}
+                        .footer-solical-links a img{max-height: 15px;}
+                        .footer-emailconatct a{font-weight: 500;display: block;}
+                        .footercopyinfo-list{align-items: center;padding-top: 30px;padding-bottom: 0px;border: 0px;justify-content: space-between;}
+                        .footer-policy-links ul{display: flex;flex-wrap: wrap;}
+                        .footer-policy-links ul li{margin: 0px;padding: 0px 10px;border-right: 1px solid rgba(255,255,255,0.7);margin: 6px 0px;}
+                        .footer-policy-links ul li a{font-weight: 500;color: rgba(255,255,255,0.7);}
+                        .footer-policy-links ul li:last-child{border: 0px;padding-right: 0px;}
+                        .copyright-text p{color: #A1A3A9;font-weight: 400;font-size: 13px;padding: 0;line-height: 16px;}
+                        .multi-selectors{color: rgb(159, 159, 159);justify-content: end;}
+                        .multi-selectors__item{margin: 0px;}
+                        .language-seclector-form .disclosure-list__option:focus .disclosure-list__label, .language-seclector-form .disclosure-list__option:hover .disclosure-list__label{color: var(--new-black);}
+                        /* footer new design css */
+
+                        .footer_appbutton{margin-top: 22px;}
+                        .footer_appbutton .appbutton_title{padding: 0px;text-transform: uppercase;font-weight: 900;margin-bottom: 15px;color:#fff;letter-spacing: 0; font-size: clamp(16px,1.2vw,16px); max-width: 360px;
+                    line-height: 1;}
+                        .footer_appbutton a{display: flex; background: var(--new-black); overflow: hidden; border-radius: 7px;}
+                        .footer_appbutton .appbutton{display: flex;gap: 8px;}
+                        .mobile-view .footer_appbutton{display: none;}
+
+                        @media only screen and (min-width:220px) and (max-width:1300px) {
+                        /* footer new design css */
+                        .footer-title h2{font-size: 20px;margin-bottom: 20px;line-height: 21px;}
+                        /* .footer-col-list a, .copyright-text p{font-size: 16px;line-height: 16px;} */
+                        .footer-policy-links ul li a, .copyright-text p{font-size: 15px;}
+                        /* footer new design css */
+
+                          .site-footer .footer__newsletter .footer__newsletter-btn { right:70px; }
+            .site-footer .footer__newsletter .footer__newsletter-btn .footer__newsletter-btn-label { padding:12px 40px !important; }
+            .site-footer .site-footer__linklist a { font-size:16px; margin-top:15px; }
+            .site-footer .grid__item p.h4 { font-size:24px; margin:0 0 15px 0; }
+            .site-footer .social-heading { font-size:24px; }
+            .site-footer .footer__small-text { font-size:16px; }
+                        }
+
+                        @media only screen and (min-width:220px) and (max-width:1190px){
+
+                   .site-footer .grid { margin:0 0 0 -20px; }
+            .site-footer .grid__item { padding-left: 20px; }
+            .site-footer .footer__newsletter .footer__newsletter-btn .footer__newsletter-btn-label { font-size:20px !important; }
+            .site-footer .footer__newsletter .footer__newsletter-btn { right:0; }
+            .site-footer .footer__newsletter .footer__newsletter-input { max-width:400px; }
+
+
+                        }
+                        @media only screen and (min-width:220px) and (max-width:1199px){
+
+                          /* footer new design css */
+                          .footercopyinfo-list .footer-item:nth-child(2){order: 4;text-align: right;}
+                          .footercopyinfo-list .footer-item:nth-child(3){order: 3;}
+                          .footercopyinfo-list .footer-item:nth-child(4){order: 2;text-align: right;}
+                          /* footer new design css */
+
+
+                        }
+
+                        @media only screen and (min-width:220px) and (max-width:1080px){
+          .site-footer .footer__collapsible p { max-width:300px; }
+            .site-footer .grid__item p.h4 { font-size:22px; margin:0 0 10px 0; }
+            .site-footer .social-heading { font-size:22px; }
+            .site-footer .site-footer__linklist a { font-size:14px; margin-top: 10px; }
+            .site-footer .footer__collapsible p { font-size:14px; }
+
+
+                        }
+
+                        @media only screen and (min-width:220px) and (max-width:991px) {
+
+                        /* footer new design css */
+                        .footer-col-list{padding-bottom: 0px;flex-wrap: wrap;}
+                        .footer-col-list .col-4.footer-item{width: 50%;margin-bottom: 30px;}
+                        .footercopyinfo-list .footer-item:nth-child(2),
+                        .footercopyinfo-list .footer-item:nth-child(3){margin-bottom: 0px;}
+                        .footer-policy-links ul li{padding: 0px 5px;}
+                        .footmenu-list ul li{margin-top: 10px;}
+                        .footer_appbutton a img{max-width: 175px;width: 100%;}
+                         .footer-col-list .col-4.footer-item:last-child{flex: 65%;}
+                        /* footer new design css */
+
+                          .site-footer .footer__logo { max-width: 150px; margin: 0 auto; padding-bottom: 10px; }
+            .site-footer { padding:40px 0; }
+            .site-footer .footer__section { margin:10px 0 0 0; }
+            .site-footer .footer__item--1494292487693 .footer__item-padding { display: inherit; text-align:center; }
+            .site-footer .footer__collapsible p { position:inherit; max-width:100%; padding:0; }
+            .site-footer #Footer-1494292487693 { width:100%; }
+            .site-footer .footer__newsletter .footer__newsletter-input { max-width:80%; }
+            .site-footer .footer__newsletter { position:relative; margin-top:15px; }
+            .site-footer .grid__item.footer__item--1494292487693 { margin-bottom:10px; }
+            .footer__item--1494301487049 { width:50% !important; margin-bottom:30px !important; }
+            .footer__item--d9da3bdc-d5bd-47ce-9589-434c668a87ab { width:50% !important; border:none !important; margin-bottom:30px !important; }
+            .footer__item--5e7c7403-c2cd-4875-a6bb-07b0a1ff8144 { width:50% !important; }
+            .footer__item--143b601b-dbaf-4a7f-968c-b124026283e3 { width:50% !important; }
+
+
+                        }
+
+                        @media only screen and (min-width:220px) and (max-width:860px) {
+                          .new_home_section_bg .learn_more_button a {width:200px;margin: 0 10px;}
+                        .new_home_section_bg .video_button a { line-height:18px;}
+                        .new_home_section_bg .ringer_2box_bg {height: auto;}
+                        /*.new_home_top_banner .button a {width: 424px; font-size:35px; letter-spacing: 5px;}*/
+                        /*.new_home_section_bg .new_home_player_box { margin-top:10px;}*/
+
+
+                        }
+
+                        @media only screen and (min-width:220px) and (max-width:768px) {
+                            .site-footer .grid__item { border:none; }
+            .site-footer .h4.collapsible-trigger { font-size:20px;  margin:0; font-weight: 700; color:#fff; text-align:left;   font-family: 'Blue Tees Headline Italic'; }
+            .site-footer .no-bullets.site-footer__linklist li { text-align:left; }
+            .footer__item--1494301487049 { width:100% !important; margin-bottom:0 !important; }
+            .footer__item--d9da3bdc-d5bd-47ce-9589-434c668a87ab { width:100% !important; border:none !important; margin-bottom:0 !important; }
+            .footer__item--5e7c7403-c2cd-4875-a6bb-07b0a1ff8144 { width:100% !important; }
+            .footer__item--143b601b-dbaf-4a7f-968c-b124026283e3 { width:100% !important; }
+              .footer_appbutton .appbutton_title{      margin-inline: auto;}
+
+                  .footer-solical-links{width: 100%; margin-inline: auto;
+                    max-width: 350px; grid-template-columns: repeat(7, 1fr);}
+
+                        /* footer new design css */
+                        .site-footer .page-width{max-width: 580px;}
+                        .footer-m-logo{display: block;margin-bottom: 30px;}
+                        .footer-m-logo img{max-width: 210px;}
+                        .footer-col-list{border: 0px;flex-direction: column;}
+                        .footer-col-list .col-4.footer-item{width: 100%;margin-bottom: 0px;}
+                        .footer-col-list .col-4.footer-item:last-child{order: -1;}
+                        .site-footer .h4.collapsible-trigger{font-style: normal;padding: 0;}
+                        .footer-title h2{margin-bottom: 30px;}
+                        .footmenu-list ul{padding: 10px 0px 20px 20px;text-align: left;}
+                        .footer-contact-info .footer-title h2{margin-bottom: 20px;font-size: 23px;line-height: 24px; max-width: 300px;
+                          margin-left: auto;
+                          margin-right: auto;}
+                        .signup-form, .footer-followus{margin-bottom: 45px;}
+                        {% comment %} /* .signup-form{flex-direction: column;} */
+                        /* .signup-form input{border-radius: 10px;border: 1px solid rgb(95, 95, 95);text-align: center;} */
+                        /* .signup-form-btn{width: 100%;border-radius: 10px;margin-top: 20px;} */ {% endcomment %}
+                        .footer_appbutton .appbutton{justify-content: center;}
+                        .footer-solical-links a img{max-height: 23px;}
+                        .footer-emailconatct{margin-bottom: 30px;}
+                        .footer-contact-info .footer-title p{color: #A1A3A9; line-height: 18px; max-width: 260px; margin-left: auto; margin-right: auto;}
+                        .footmenu-list ul li:first-child{margin-top: 0px;}
+                        .footer-col-list .footer-item:nth-child(1) .footer-title h2,
+                        .footer-col-list .footer-item:nth-child(2) .footer-title h2,
+                        .footer-col-list .footer-item:nth-child(3) .footer-title h2, .footer-col-list .footer-item:nth-child(4) .footer-title h2{padding: 20px 10px 15px;margin: 0;border-top: 1px solid rgb(95, 95, 95, 0.6);}
+                        .footer-col-list .footer-item:nth-child(3) .footer-title h2, .footer-col-list .footer-item:nth-child(4) .footer-title h2{border-bottom: 1px solid rgb(95, 95, 95, 0.6);}
+                        .footer-col-list .footer-item:nth-child(4){margin-bottom: 35px;}
+                        .footercopyinfo-list .footer-item{width: 100%;}
+                        .footercopyinfo-list .footer-item:nth-child(4){order: 2;text-align: center;margin: 0px;padding-bottom: 15px;}
+                        .footercopyinfo-list .footer-item:nth-child(2){order: 4;text-align: center;padding-top: 20px;margin: 0;}
+                        .footercopyinfo-list .footer-item:nth-child(3){order: 4;margin: 0px;}
+                        .footer-policy-links ul{justify-content: center;}
+                        .footer-title .collapsible-trigger__icon{background: transparent;width: 33px;height: 33px;text-align: center;margin: 0 auto;padding: 10px 9px;border-radius: 50%;}
+                        .footer-title .collapsible-trigger__icon .icon{width: 15px;height: 15px;}
+                        .footer-title .collapsible-trigger__icon .icon path{fill: #fff !important;stroke: #1a1b1e !important;}
+                        .footer-policy-links ul li{padding: 0px 12px;}
+                        .copyright-text p{font-weight: 400;}
+                        .footer-policy-links ul li a{font-weight: 300;}
+                        .footercopyinfo-list{padding-top: 40px;gap: 0;}
+                        .signup-email-form .footer_collapsible--disabled{padding: 0;}
+                        .multi-selectors{justify-content: center;}
+                        /* footer new design css */
+
+                        .mobile-view .footer-title{display: none;}
+                        .footer-contact-info .footer_appbutton{display: none;}
+                        .mobile-view .footer_appbutton{display: block;}
+                        .footer-col-list{gap: 0;}
+                        .footer-logo{display: flex;
+                        justify-content: center;}
+                        }
+
+                        }
+
+
+                        @media only screen and (min-width:220px) and (max-width:575px) {
+                        .signup-form{height: 36px;}
+                        .signup-form input{font-size: 14px !important;padding-left: 15px;}
+                        .signup-form-btn{font-size: 11px;width: 130px;}
+                        .footer_appbutton a img{max-width: 124px;}
+                        .footer-contact-info .footer-title p{line-height: 18px;}
+                        .footer-col-list .footer-item:nth-child(1) .footer-title h2, .footer-col-list .footer-item:nth-child(2) .footer-title h2, .footer-col-list .footer-item:nth-child(3) .footer-title h2{font-size: 16px;padding: 12px 0px;}
+                        .footer_appbutton .appbutton_title{font-size: 14px;max-width: 224px;margin: 0 auto 15px;line-height: 18px;}
+                        .copyright-text p{font-size: 12px;}
+                        .footer-col-list a{font-size: 14px;}
+                        }
+    </style>
+  {% else %}
+    <div class="site-footer footer_animation" data-section-id="{{ section.id }}" data-section-type="footer-section">
+      <div class="new-page-width">
+        <div class="footer-col-list">
+          <div class="col-4 footer-item">
+            <div class="footer-title small--hide">
+              <h2>PRODUCTS</h2>
+            </div>
+            <button
+              type="button"
+              class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+              aria-controls="Footer-1494301487049"
+            >
+              <span>PRODUCTS</span>
+              <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                  <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+                </svg>
+              </span>
+            </button>
+            <div id="Footer-1494301487049" class="collapsible-content collapsible-content--small">
+              <div class="collapsible-content__inner">
+                <div class="footmenu-list">
+                  <ul class="no-bullets">
+                    {% render 'footer-nav-item', nav_text: 'Rangefinders', nav_link: '/collections/rangefinders' %}
+                    {% render 'footer-nav-item', nav_text: 'GPS Speakers', nav_link: '/collections/gps-speakers' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'Launch Monitors',
+                      nav_link: '/collections/launch-monitors'
+                    %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'GPS Handhelds & Wearables',
+                      nav_link: '/collections/gps-devices'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Accessories', nav_link: '/collections/accessories' %}
+                    {% render 'footer-nav-item', nav_text: 'Hats', nav_link: '/products/play-different-hat-by-melin' %}
+                    {% render 'footer-nav-item', nav_text: 'Gift Cards', nav_link: '/pages/gift-card' %}
+                    {% render 'footer-nav-item', nav_text: 'All Products', nav_link: '/collections/all-products' %}
+
+                    {% comment %}
+                      <li>
+                        <a
+                          href="{{ collections['gps-ready-bundles'].url }}"
+                          {% if settings.open_new_tab %}
+                            target="_blank" rel="noopener noreferrer"
+                          {% endif %}
+                          >Bundle Packs</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="{{ collections['merch'].url }}"
+                          {% if settings.open_new_tab %}
+                            target="_blank" rel="noopener noreferrer"
+                          {% endif %}
+                          >Merch</a
+                        >
+                      </li>
+                    {% endcomment %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 footer-item">
+            <div class="footer-title small--hide">
+              <h2>APPS</h2>
+            </div>
+            <button
+              type="button"
+              class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+              aria-controls="Footer-1494301487040"
+            >
+              <span>APPS</span>
+              <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                  <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+                </svg>
+              </span>
+            </button>
+            <div id="Footer-1494301487040" class="collapsible-content collapsible-content--small">
+              <div class="collapsible-content__inner">
+                <div class="footmenu-list">
+                  <ul class="no-bullets">
+                    {% render 'footer-nav-item', nav_text: 'GAME GPS Golf App', nav_link: '/pages/app-download-lp' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'POST GAME Login',
+                      nav_link: 'https://postgame.blueteesgolf.com'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Release Notes', nav_link: '/blogs/game-app' %}
+
+                    {% comment %}
+                      <li>
+                        <a
+                          href="/pages/membership"
+                          {% if settings.open_new_tab %}
+                            target="_blank" rel="noopener noreferrer"
+                          {% endif %}
+                          >Become a Member</a
+                        >
+                      </li>
+                    {% endcomment %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 footer-item">
+            <div class="footer-title small--hide">
+              <h2>COMMUNITY</h2>
+            </div>
+            <button
+              type="button"
+              class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+              aria-controls="Footer-5e7c7403-c2cd-4875-a6bb-07b0a1ff8144"
+            >
+              <span>COMMUNITY</span>
+              <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                  <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+                </svg>
+              </span>
+            </button>
+            <div
+              id="Footer-5e7c7403-c2cd-4875-a6bb-07b0a1ff8144"
+              class="collapsible-content collapsible-content--small"
+            >
+              <div class="collapsible-content__inner">
+                <div class="footmenu-list">
+                  <ul class="no-bullets">
+                    {% render 'footer-nav-item', nav_text: 'About Us', nav_link: '/pages/about-us' %}
+                    {% render 'footer-nav-item', nav_text: 'Custom Branding Program', nav_link: '/pages/customs' %}
+                    {% render 'footer-nav-item', nav_text: 'News', nav_link: '/blogs/news' %}
+                    {% render 'footer-nav-item', nav_text: 'Press & Media', nav_link: '/blogs/press-release' %}
+                    {% render 'footer-nav-item', nav_text: 'Ambassador Program', nav_link: '/pages/brand-ambassador' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'Military Discounts',
+                      nav_link: '/pages/govx-id-military-discount'
+                    %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'Become a Retailer or Distributor',
+                      nav_link: '/pages/become-an-authorized-retailer'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'School Programs', nav_link: '/pages/school-programs' %}
+                    {% render 'footer-nav-item', nav_text: 'Careers', nav_link: '/pages/careers' %}
+
+                    {% comment %}
+                      <!--
+                        <li><a href="/pages/contact-us">Sponsorship</a></li>
+                        <li><a href="/pages/customs">2024 Product Catalog</a></li>
+                      -->
+                    {% endcomment %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 footer-item">
+            <div class="footer-title small--hide">
+              <h2>SUPPORT</h2>
+            </div>
+            <button
+              type="button"
+              class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+              aria-controls="Footer-d9da3bdc-d5bd-47ce-9589-434c668a87ab"
+            >
+              <span>SUPPORT</span>
+              <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                  <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+                </svg>
+              </span>
+            </button>
+            <div
+              id="Footer-d9da3bdc-d5bd-47ce-9589-434c668a87ab"
+              class="collapsible-content collapsible-content--small"
+            >
+              <div class="collapsible-content__inner">
+                <div class="footmenu-list">
+                  <ul class="no-bullets">
+                    {% render 'footer-nav-item', nav_text: 'Product Manuals', nav_link: '/pages/new-product-manual' %}
+                    {% render 'footer-nav-item',
+                      nav_text: "FAQ's",
+                      nav_link: 'https://blueteesgolf.gorgias.help/en-US'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Product Registration', nav_link: '/pages/register' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'International Customers',
+                      nav_link: '/pages/international-customers'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Customer Support', nav_link: '/pages/contact-us' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'Shipping, Returns &amp; Exchanges',
+                      nav_link: '/pages/refund-policy'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Two-Year Warranty', nav_link: '/pages/warranty' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'GAME Subscription Management',
+                      nav_link: 'https://blueteesgolf.com/a/loop_subscriptions/customer'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Accessibility', nav_link: '/pages/accessibility' %}
+
+                    {% comment %} <li><a href="javascript:void(0)" class="termly-display-preferences">Consent Preferences</a></li> {% endcomment %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 footer-item">
+            <div class="footer-title small--hide">
+              <h2>LEGAL</h2>
+            </div>
+            <button
+              type="button"
+              class="h4 footer-title custom_heading collapsible-trigger collapsible-trigger-btn medium-up--hide"
+              aria-controls="Footer-4d616e27-9e55-4a57-ac37-438114856f31"
+            >
+              <span>LEGAL</span>
+              <span class="collapsible-trigger__icon collapsible-trigger__icon--open" role="presentation">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="none" class="icon icon--wide icon-chevron-down">
+                  <path d="M10.181 10.3698C9.26319 11.323 7.73724 11.323 6.81942 10.3698L1.15398 4.48611C0.370348 3.67229 0.370574 2.38447 1.1545 1.57092C1.98115 0.713024 3.35498 0.713388 4.18118 1.57172L8.50022 6.05872L12.8192 1.57172C13.6454 0.713389 15.0193 0.713024 15.8459 1.57092C16.6299 2.38447 16.6301 3.67229 15.8464 4.48611L10.181 10.3698Z" fill="white"></path>
+                </svg>
+              </span>
+            </button>
+            <div
+              id="Footer-4d616e27-9e55-4a57-ac37-438114856f31"
+              class="collapsible-content collapsible-content--small"
+            >
+              <div class="collapsible-content__inner">
+                <div class="footmenu-list">
+                  <ul class="no-bullets">
+                    {% render 'footer-nav-item', nav_text: 'Terms & Conditions', nav_link: '/pages/terms-conditions' %}
+
+                    {% render 'footer-nav-item',
+                      nav_text: 'GAME Subscription Terms',
+                      nav_link: '/pages/game-subscription-terms'
+                    %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'App Terms of Service',
+                      nav_link: '/pages/app-terms-of-service'
+                    %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'POST GAME Terms of Service',
+                      nav_link: '/pages/post-game-terms'
+                    %}
+                    {% render 'footer-nav-item', nav_text: 'Privacy Policy', nav_link: '/pages/privacy-policy' %}
+                    {% render 'footer-nav-item', nav_text: 'Cookie Policy', nav_link: '/pages/cookie-policy' %}
+                    {% render 'footer-nav-item',
+                      nav_text: 'Your Privacy Choices',
+                      nav_link: '/pages/your-privacy-choices'
+                    %}
+
+                    {% comment %} <li><a href="javascript:void(0)" class="termly-display-preferences">Consent Preferences</a></li> {% endcomment %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-4 footer-item mobile-view mobile-text-footer">
+            {% comment %}
+              <div class="footer-title">
+                <h2>FOLLOW US</h2>
+              </div>
+            {% endcomment %}
+
+            <div class="footer_desktop-icons ">
+              {% render 'site-social-icon-new' %}
             </div>
             <div class="footer_appbutton">
               <h2 class="appbutton_title">DOWNLOAD the official blue tees golf game™ APP</h2>
@@ -1631,325 +2274,372 @@
                 ></a>
               </div>
             </div>
-            <div class="footer_desktop-icons desktop-text-footer">
-              {% render 'site-social-icon-new' %}
+          </div>
+          <div class="col-4 footer-item">
+            <div class="footer-contact-info">
+              <div class="footer-title">
+                <h2>
+                  GET THE LATEST <br>
+                  DEALS, DROPS, & more.
+                </h2>
+                <p>
+                  Join our mailing list to get additional savings and stay in the loop on all of the latest from Blue
+                  Tees.
+                </p>
+              </div>
+
+              <div class="signup-email-form">
+                {% render 'footer-newsletter' %}
+              </div>
+              <div class="footer_appbutton">
+                <h2 class="appbutton_title">DOWNLOAD the official blue tees golf game™ APP</h2>
+                <div class="appbutton">
+                  <a
+                    href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
+                    aria-label="Download Blue Tees Golf Game App on the Apple App Store"
+                    {% if settings.open_new_tab %}
+                      target="_blank" rel="noopener noreferrer"
+                    {% endif %}
+                    ><img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer_app_img.png"
+                      alt="Download on the Apple App Store"
+                  ></a>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.bluetees"
+                    aria-label="Download Blue Tees Golf Game App on the Google Play Store"
+                    {% if settings.open_new_tab %}
+                      target="_blank" rel="noopener noreferrer"
+                    {% endif %}
+                    ><img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/footer-googlepay-img.png"
+                      alt="Get it on Google Play"
+                  ></a>
+                </div>
+              </div>
+              <div class="footer_desktop-icons desktop-text-footer">
+                {% render 'site-social-icon-new' %}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="footercopyinfo-list footer-col-list">
-          <div class="footer-item">
-            <div class="footer-logo">
-              <picture>
-                <source
-                  srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
-                  media="(min-width:769px)"
-                >
-                <source
-                  srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
-                  media="(max-width:768px)"
-                >
-                <img
-                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
-                  alt="Play Different"
-                >
-              </picture>
+        <div class="footer-copyright">
+          <div class="footercopyinfo-list footer-col-list">
+            <div class="footer-item">
+              <div class="footer-logo">
+                <picture>
+                  <source
+                    srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
+                    media="(min-width:769px)"
+                  >
+                  <source
+                    srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
+                    media="(max-width:768px)"
+                  >
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/pd-text-logo.svg?v=1768553431"
+                    alt="Play Different"
+                  >
+                </picture>
+              </div>
             </div>
-          </div>
-          <div class="footer-item">
-            <div class="copyright-text">
-              <p>©2026 Blue Tees Golf. All Rights Reserved</p>
+            <div class="footer-item">
+              <div class="copyright-text">
+                <p>©2026 Blue Tees Golf. All Rights Reserved</p>
+              </div>
             </div>
-          </div>
 
-          <div class="col-2 footer-item" style="display:none;">
-            <div class="language-seclector-form">
-              {%- render 'multi-selectors',
-                locale_selector: locale_selector,
-                currency_selector: currency_selector,
-                show_currency_flags: section.settings.show_currency_flags,
-                location: 'footer'
-              -%}
+            <div class="col-2 footer-item" style="display:none;">
+              <div class="language-seclector-form">
+                {%- render 'multi-selectors',
+                  locale_selector: locale_selector,
+                  currency_selector: currency_selector,
+                  show_currency_flags: section.settings.show_currency_flags,
+                  location: 'footer'
+                -%}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <style>
-
-    .newsletter-signup .klaviyo-newsletter-form {
-  background: white;
-  border-radius: 50px;
-  overflow: hidden;
-  flex-wrap: nowrap;
-  display: flex;
-  
-padding: 8px 8px 8px 18px; 
-}
-    .newsletter-signup #klaviyo-message-0, .newsletter-signup #klaviyo-message-1 {
-  position: absolute;
-  bottom: -13px;
-  color:#fff;
-}
-
-.newsletter-signup .klaviyo-message[role="alert"],
-.newsletter-signup #klaviyo-message-0[role="alert"],
-.newsletter-signup #klaviyo-message-1[role="alert"] {
-  color: var(--new-red) !important;
-  background: #fff;
-  padding: 5px 12px;
-  border-radius: 50px;
-}
-.newsletter-signup .klaviyo-message[role="status"],
-.newsletter-signup #klaviyo-message-0[role="status"],
-.newsletter-signup #klaviyo-message-1[role="status"] {
-  color: var(--new-blue) !important;
-  background: #fff;
-  padding: 5px 12px;
-  border-radius: 50px;
-}
-
-.newsletter-signup {
-  position: relative;
-  padding-bottom: 22px;
-  width: fit-content;
-}
-
-.klaviyo-submit {
-  min-width: max-content;
-  background: var(--new-blue);
-  border: 2px solid var(--new-blue);
-}
-
-.klaviyo-submit {
-  font-family: Blue Tees Subhead;
-  line-height: 22.4px;
-  display: inline-flex;
-  padding: 10px 20px;
-  border-radius: 50px;
-  color: #fff;
-  font-size: clamp(12px,.8vw,14px);
-  transition: .4s ease all;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  text-transform: uppercase;
-}
-    .site-footer {
-    background: radial-gradient(120% 120% at 10% 20%, #272933 0%, #161617 100%), #171717;
-    padding: 60px 0;
-    padding-bottom: 30px !important;
-}
-.newsletter-signup .klaviyo-email {
-  background: transparent;
-  border: none;
-  color: var(--new-black);
-  padding: 0;
-}
-                .footer-logo img {
-                  max-width: clamp(200px,17vw,250px);
-                  width: 100%;
-                  display: flex;
-                }
+    <style>
+      
 
 
-                .footer_appbutton .appbutton a {
-              {% comment %} padding: 8px; {% endcomment %}
-              border: 1px solid #fff;
-              background: var(--new-black);
-            }
+.newsletter-signup .klaviyo-newsletter-form {
+        background: white;
+        border-radius: 50px;
+        overflow: hidden;
+        flex-wrap: nowrap;
+        display: flex;
 
-            .footer-solical-links {
-              display: grid;
-              grid-template-columns: repeat(auto-fill, minmax(clamp(18px, 5vw, 30px), 1fr));
+      padding: 8px 8px 8px 18px;
+      }
+          .newsletter-signup #klaviyo-message-0, .newsletter-signup #klaviyo-message-1 {
+        position: absolute;
+        bottom: -13px;
+        color:#fff;
+      }
 
-              row-gap: 20px;
-              column-gap: 10px;
-            }
-            .site-footer  .mobile-text-footer{display:none;}
-            .site-footer .desktop-text-footer{display:block;}
-            .footer_desktop-icons.desktop-text-footer {
-        margin-top: 20px;
-    }
-    .site-footer a:focus-visible {
-        outline: 2px solid #5b8ffb !important;}
-                  .termly-styles-root-f9c495{    background: #00000070;
-                    backdrop-filter: blur(10px);}
+      .newsletter-signup .klaviyo-message[role="alert"],
+      .newsletter-signup #klaviyo-message-0[role="alert"],
+      .newsletter-signup #klaviyo-message-1[role="alert"] {
+        color: var(--new-red) !important;
+        background: #fff;
+        padding: 5px 12px;
+        border-radius: 50px;
+      }
+      .newsletter-signup .klaviyo-message[role="status"],
+      .newsletter-signup #klaviyo-message-0[role="status"],
+      .newsletter-signup #klaviyo-message-1[role="status"] {
+        color: var(--new-blue) !important;
+        background: #fff;
+        padding: 5px 12px;
+        border-radius: 50px;
+      }
 
-                  #shopify-section-new-footer .site-footer #CurrencyList-footer{min-height:0px;}
+      .newsletter-signup {
+        position: relative;
+        padding-bottom: 22px;
+        width: fit-content;
+      }
 
-                  /* footer new design css */
-                  .no-bullets{margin: 0;}
-                  .footer-m-logo{display: none;}
-                  .footer-title h2{color: #fff;font-size: 21px;line-height: 25px;margin-bottom: 22px;}
-                  .footer-col-list{display: flex;gap: 30px; padding-bottom: 62px;border-bottom: 1px solid rgb(95, 95, 95);}
-                  .footer-col-list a{color: #fff;font-size: 13px;line-height: 15px;letter-spacing: 0.3px;display: block;}
-                  .no-bullets li a:hover, .no-bullets li a:focus{color: #fff !important;}
-                  .footer-col-list .col-4.footer-item{flex: 30%;}
-                  .footer-col-list .col-4.footer-item:last-child{flex: 55%;}
-                  /* .footmenu-list ul{padding-right: 15px;} */
-                  .footmenu-list ul li{margin-top: 15px;margin-bottom: 0px;}
-                  .footer-contact-info .footer-title p{padding: 0;font-size: 14px;color: #fff;margin-bottom: 25px;line-height: 24px;}
-                  .signup-form{position: relative;display: flex;height: 54px;background: #fff;padding: 2px;border-radius: 50px;}
-                  .signup-form input{border: 0px;color: var(--new-black);width: 100%;border-radius: 50px;padding-left: 20px;}
-                  .signup-form input::placeholder{color: var(--new-gray); opacity:1; font-size: clamp(18px,1.5vw,22px);}
-                  .signup-form-btn{color: #fff;width: 154px;min-width:fit-content;background: var(--new-blue);border-radius: 50px;padding: 8px 15px;font-size: 13px;font-weight: 900;letter-spacing: 10%; border: 1px solid transparent; transition: all 0.3s ease;}
-                  .signup-form-btn:hover { background: transparent; border-color: var(--new-blue); color: var(--new-blue); }
-                  .footer-solical-links a{display: flex;}
-                  .footer-solical-links a:last-child{margin: 0;}
-                  .footer-solical-links a img{max-height: 20px;
-        display: flex;}
-                  .footer-emailconatct a{font-weight: 500;display: block;}
-                  .footercopyinfo-list{align-items: center;padding-top: 30px;padding-bottom: 0px;border: 0px;justify-content: space-between;}
-                  .footer-policy-links ul{display: flex;flex-wrap: wrap;}
-                  .footer-policy-links ul li{margin: 0px;padding: 0px 10px;border-right: 1px solid rgba(255,255,255,0.7);margin: 6px 0px;}
-                  .footer-policy-links ul li a{font-weight: 500;color: rgba(255,255,255,0.7);}
-                  .footer-policy-links ul li:last-child{border: 0px;padding-right: 0px;}
-                  .copyright-text p{color: #A1A3A9;font-weight: 400;font-size: 13px;padding: 0;line-height: 16px;}
-                  .multi-selectors{color: rgb(159, 159, 159);justify-content: end;}
-                  .multi-selectors__item{margin: 0px;}
-                  .language-seclector-form .disclosure-list__option:focus .disclosure-list__label, .language-seclector-form .disclosure-list__option:hover .disclosure-list__label{color: var(--new-black);}
-                  /* footer new design css */
+      .klaviyo-submit {
+        min-width: max-content;
+        background: var(--new-blue);
+        border: 2px solid var(--new-blue);
+      }
 
-                  .footer_appbutton{margin-top: 22px;}
-                  .footer_appbutton .appbutton_title{padding: 0px;text-transform: uppercase;font-weight: 900;margin-bottom: 15px;color:#fff;letter-spacing: 0; font-size: clamp(16px,1.2vw,16px); max-width: 360px;
-              line-height: 1;}
-                  .footer_appbutton a{display: flex; background: var(--new-black); overflow: hidden; border-radius: 7px;}
-                  .footer_appbutton .appbutton{display: flex;gap: 8px;}
-                  .mobile-view .footer_appbutton{display: none;}
+      .klaviyo-submit {
+        font-family: Blue Tees Subhead;
+        line-height: 22.4px;
+        display: inline-flex;
+        padding: 10px 20px;
+        border-radius: 50px;
+        color: #fff;
+        font-size: clamp(12px,.8vw,14px);
+        transition: .4s ease all;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        text-transform: uppercase;
+      }
+          .site-footer {
+          background: radial-gradient(120% 120% at 10% 20%, #272933 0%, #161617 100%), #171717;
+          padding: 60px 0;
+          padding-bottom: 30px !important;
+      }
+      .newsletter-signup .klaviyo-email {
+        background: transparent;
+        border: none;
+        color: var(--new-black);
+        padding: 0;
+      }
+                      .footer-logo img {
+                        max-width: clamp(200px,17vw,250px);
+                        width: 100%;
+                        display: flex;
+                      }
 
-                  @media only screen and (max-width:1300px) {
-                  /* footer new design css */
-                  .footer-title h2{font-size: 20px;margin-bottom: 20px;line-height: 21px;}
-                  /* .footer-col-list a, .copyright-text p{font-size: 16px;line-height: 16px;} */
-                  .footer-policy-links ul li a, .copyright-text p{font-size: 15px;}
-                  /* footer new design css */
+
+                      .footer_appbutton .appbutton a {
+                    {% comment %} padding: 8px; {% endcomment %}
+                    border: 1px solid #fff;
+                    background: var(--new-black);
                   }
 
-                  @media only screen and (max-width:1199px){
+                  .footer-solical-links {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(clamp(18px, 5vw, 30px), 1fr));
 
-                   /* footer new design css */
-                  .footercopyinfo-list .footer-item:nth-child(2){order: 4;text-align: right;}
-                  .footercopyinfo-list .footer-item:nth-child(3){order: 3;}
-                  .footercopyinfo-list .footer-item:nth-child(4){order: 2;text-align: right;}
-                  /* footer new design css */
+                    row-gap: 20px;
+                    column-gap: 10px;
                   }
+                  .site-footer  .mobile-text-footer{display:none;}
+                  .site-footer .desktop-text-footer{display:block;}
+                  .footer_desktop-icons.desktop-text-footer {
+              margin-top: 20px;
+          }
+          .site-footer a:focus-visible {
+              outline: 2px solid #5b8ffb !important;}
+                        .termly-styles-root-f9c495{    background: #00000070;
+                          backdrop-filter: blur(10px);}
 
-                  @media only screen and (max-width:991px) {
+                        #shopify-section-new-footer .site-footer #CurrencyList-footer{min-height:0px;}
 
-                  /* footer new design css */
-                  .footer-col-list{padding-bottom: 0px;flex-wrap: wrap;}
-                  .footer-col-list .col-4.footer-item{width: 50%;margin-bottom: 30px;}
-                  .footercopyinfo-list .footer-item:nth-child(2),
-                  .footercopyinfo-list .footer-item:nth-child(3){margin-bottom: 0px;}
-                  .footer-policy-links ul li{padding: 0px 5px;}
-                  .footmenu-list ul li{margin-top: 10px;}
-                  .footer_appbutton a img{max-width: 175px;width: 100%;}
-                   .footer-col-list .col-4.footer-item:last-child{flex: 65%;}
-                  /* footer new design css */
-                  .footer_desktop-icons.mobile-text-footer .footer-followus {
-        margin-bottom: 0;
-    }
+                        /* footer new design css */
+                        .no-bullets{margin: 0;}
+                        .footer-m-logo{display: none;}
+                        .footer-title h2{color: #fff;font-size: 21px;line-height: 25px;margin-bottom: 22px;}
+                        .footer-col-list{display: flex;gap: 30px; padding-bottom: 62px;border-bottom: 1px solid rgb(95, 95, 95);}
+                        .footer-col-list a{color: #fff;font-size: 13px;line-height: 15px;letter-spacing: 0.3px;display: block;}
+                        .no-bullets li a:hover, .no-bullets li a:focus{color: #fff !important;}
+                        .footer-col-list .col-4.footer-item{flex: 30%;}
+                        .footer-col-list .col-4.footer-item:last-child{flex: 55%;}
+                        /* .footmenu-list ul{padding-right: 15px;} */
+                        .footmenu-list ul li{margin-top: 15px;margin-bottom: 0px;}
+                        .footer-contact-info .footer-title p{padding: 0;font-size: 14px;color: #fff;margin-bottom: 25px;line-height: 24px;}
+                        .signup-form{position: relative;display: flex;height: 54px;background: #fff;padding: 2px;border-radius: 50px;}
+                        .signup-form input{border: 0px;color: var(--new-black);width: 100%;border-radius: 50px;padding-left: 20px;}
+                        .signup-form input::placeholder{color: var(--new-gray); opacity:1; font-size: clamp(18px,1.5vw,22px);}
+                        .signup-form-btn{color: #fff;width: 154px;min-width:fit-content;background: var(--new-blue);border-radius: 50px;padding: 8px 15px;font-size: 13px;font-weight: 900;letter-spacing: 10%; border: 1px solid transparent; transition: all 0.3s ease;}
+                        .signup-form-btn:hover { background: transparent; border-color: var(--new-blue); color: var(--new-blue); }
+                        .footer-solical-links a{display: flex;}
+                        .footer-solical-links a:last-child{margin: 0;}
+                        .footer-solical-links a img{max-height: 20px;
+              display: flex;}
+                        .footer-emailconatct a{font-weight: 500;display: block;}
+                        .footercopyinfo-list{align-items: center;padding-top: 30px;padding-bottom: 0px;border: 0px;justify-content: space-between;}
+                        .footer-policy-links ul{display: flex;flex-wrap: wrap;}
+                        .footer-policy-links ul li{margin: 0px;padding: 0px 10px;border-right: 1px solid rgba(255,255,255,0.7);margin: 6px 0px;}
+                        .footer-policy-links ul li a{font-weight: 500;color: rgba(255,255,255,0.7);}
+                        .footer-policy-links ul li:last-child{border: 0px;padding-right: 0px;}
+                        .copyright-text p{color: #A1A3A9;font-weight: 400;font-size: 13px;padding: 0;line-height: 16px;}
+                        .multi-selectors{color: rgb(159, 159, 159);justify-content: end;}
+                        .multi-selectors__item{margin: 0px;}
+                        .language-seclector-form .disclosure-list__option:focus .disclosure-list__label, .language-seclector-form .disclosure-list__option:hover .disclosure-list__label{color: var(--new-black);}
+                        /* footer new design css */
 
+                        .footer_appbutton{margin-top: 22px;}
+                        .footer_appbutton .appbutton_title{padding: 0px;text-transform: uppercase;font-weight: 900;margin-bottom: 15px;color:#fff;letter-spacing: 0; font-size: clamp(16px,1.2vw,16px); max-width: 360px;
+                    line-height: 1;}
+                        .footer_appbutton a{display: flex; background: var(--new-black); overflow: hidden; border-radius: 7px;}
+                        .footer_appbutton .appbutton{display: flex;gap: 8px;}
+                        .mobile-view .footer_appbutton{display: none;}
 
-                  }
+                        @media only screen and (max-width:1300px) {
+                        /* footer new design css */
+                        .footer-title h2{font-size: 20px;margin-bottom: 20px;line-height: 21px;}
+                        /* .footer-col-list a, .copyright-text p{font-size: 16px;line-height: 16px;} */
+                        .footer-policy-links ul li a, .copyright-text p{font-size: 15px;}
+                        /* footer new design css */
+                        }
 
-                  @media only screen and (max-width:860px) {
-                    .new_home_section_bg .learn_more_button a {width:200px;margin: 0 10px;}
-                  .new_home_section_bg .video_button a { line-height:18px;}
-                  .new_home_section_bg .ringer_2box_bg {height: auto;}
-                  /*.new_home_top_banner .button a {width: 424px; font-size:35px; letter-spacing: 5px;}*/
-                  /*.new_home_section_bg .new_home_player_box { margin-top:10px;}*/
+                        @media only screen and (max-width:1199px){
 
+                         /* footer new design css */
+                        .footercopyinfo-list .footer-item:nth-child(2){order: 4;text-align: right;}
+                        .footercopyinfo-list .footer-item:nth-child(3){order: 3;}
+                        .footercopyinfo-list .footer-item:nth-child(4){order: 2;text-align: right;}
+                        /* footer new design css */
+                        }
 
-                  }
+                        @media only screen and (max-width:991px) {
 
-                  @media only screen and (max-width:768px) {
-                     .site-footer .grid__item { border:none; }
-      .site-footer .h4.collapsible-trigger { font-size:20px;  margin:0; font-weight: 700; color:#fff; text-align:left;   font-family: 'Blue Tees Headline Italic'; }
-      .site-footer .no-bullets.site-footer__linklist li { text-align:left; }
-      .footer__item--1494301487049 { width:100% !important; margin-bottom:0 !important; }
-      .footer__item--d9da3bdc-d5bd-47ce-9589-434c668a87ab { width:100% !important; border:none !important; margin-bottom:0 !important; }
-      .footer__item--5e7c7403-c2cd-4875-a6bb-07b0a1ff8144 { width:100% !important; }
-      .footer__item--143b601b-dbaf-4a7f-968c-b124026283e3 { width:100% !important; }
-      .site-footer .social-heading { margin:30px 0 0 0; padding:30px 0 0 0; text-align:left; }
-      .site-footer .no-bullets.footer__social { text-align:left; margin-top:20px; }
-                    .site-footer  .mobile-text-footer{display:block;}
-     .site-footer .desktop-text-footer{display:none;}
-        .footer_appbutton .appbutton_title{      margin-inline: auto;}
-
-            .footer-solical-links{width: 100%; margin-inline: auto;
-              max-width: 350px; grid-template-columns: repeat(7, 1fr);     }
-
-                  /* footer new design css */
-                  .site-footer .page-width{max-width: 580px;}
-                  .footer-m-logo{display: block;margin-bottom: 30px;}
-                  .footer-m-logo img{max-width: 210px;}
-                  .footer-col-list{border: 0px;flex-direction: column;}
-                  .footer-col-list .col-4.footer-item{width: 100%;margin-bottom: 0px;}
-                  .footer-col-list .col-4.footer-item:last-child{order: -1;}
-                  .site-footer .h4.collapsible-trigger{font-style: normal;padding: 0;}
-                  .footer-title h2{margin-bottom: 30px;}
-                  .footmenu-list ul{padding: 10px 0px 20px 20px;text-align: left;}
-                  .footer-contact-info .footer-title h2{margin-bottom: 20px;font-size: 23px;line-height: 24px; max-width: 300px;
-                    margin-left: auto;
-                    margin-right: auto;}
-                  .signup-form{margin-bottom: 45px;}
-                  /* .signup-form{flex-direction: column;} */
-                  /* .signup-form input{border-radius: 10px;border: 1px solid rgb(95, 95, 95);text-align: center;} */
-                  /* .signup-form-btn{width: 100%;border-radius: 10px;margin-top: 20px;} */
-                  .footer_appbutton .appbutton{justify-content: center;}
-                  .footer-solical-links a img{max-height: 16px;}
-                  .footer-emailconatct{margin-bottom: 30px;}
-                  .footer-contact-info .footer-title p{color: #A1A3A9; line-height: 18px; max-width: 260px; margin-left: auto; margin-right: auto;}
-                  .footmenu-list ul li:first-child{margin-top: 0px;}
-                  .footer-col-list .footer-item:nth-child(1) .footer-title h2,
-                  .footer-col-list .footer-item:nth-child(2) .footer-title h2,
-                  .footer-col-list .footer-item:nth-child(3) .footer-title h2, .footer-col-list .footer-item:nth-child(4) .footer-title h2{padding: 20px 10px 15px;margin: 0;border-top: 1px solid rgb(95, 95, 95, 0.6);}
-                  .footer-col-list .footer-item:nth-child(3) .footer-title h2, .footer-col-list .footer-item:nth-child(4) .footer-title h2{border-bottom: 1px solid rgb(95, 95, 95, 0.6);}
-                  .footer-col-list .footer-item:nth-child(5){margin-bottom: 35px;}
-                  .footercopyinfo-list .footer-item{width: 100%;}
-                  .footercopyinfo-list .footer-item:nth-child(4){order: 2;text-align: center;margin: 0px;padding-bottom: 15px;}
-                  .footercopyinfo-list .footer-item:nth-child(2){order: 4;text-align: center;padding-top: 20px;margin: 0;}
-                  .footercopyinfo-list .footer-item:nth-child(3){order: 4;margin: 0px;}
-                  .footer-policy-links ul{justify-content: center;}
-                  .footer-title .collapsible-trigger__icon{background: transparent;width: 33px;height: 33px;text-align: center;margin: 0 auto;padding: 10px 9px;border-radius: 50%;}
-                  .footer-title .collapsible-trigger__icon .icon{width: 15px;height: 15px;}
-                  .footer-title .collapsible-trigger__icon .icon path{fill: #fff !important;stroke: #1b1c1f !important;}
-                  .footer-policy-links ul li{padding: 0px 12px;}
-                  .copyright-text p{font-weight: 400;}
-                  .footer-policy-links ul li a{font-weight: 300;}
-                  .footercopyinfo-list{padding-top: 40px;gap: 0;}
-                  .signup-email-form .footer_collapsible--disabled{padding: 0;}
-                  .multi-selectors{justify-content: center;}
-                  /* footer new design css */
-
-                  .mobile-view .footer-title{display: none;}
-                  .footer-contact-info .footer_appbutton{display: none;}
-                  .mobile-view .footer_appbutton{display: block;}
-                  .footer-col-list{gap: 0;}
-                  .footer-logo{display: flex;
-                  justify-content: center;}
-                  }
-
-                  }
+                        /* footer new design css */
+                        .footer-col-list{padding-bottom: 0px;flex-wrap: wrap;}
+                        .footer-col-list .col-4.footer-item{width: 50%;margin-bottom: 30px;}
+                        .footercopyinfo-list .footer-item:nth-child(2),
+                        .footercopyinfo-list .footer-item:nth-child(3){margin-bottom: 0px;}
+                        .footer-policy-links ul li{padding: 0px 5px;}
+                        .footmenu-list ul li{margin-top: 10px;}
+                        .footer_appbutton a img{max-width: 175px;width: 100%;}
+                         .footer-col-list .col-4.footer-item:last-child{flex: 65%;}
+                        /* footer new design css */
+                        .footer_desktop-icons.mobile-text-footer .footer-followus {
+              margin-bottom: 0;
+          }
 
 
-                  @media only screen and (max-width:575px) {
-                  .signup-form{height: 36px;}
-                  .signup-form input{font-size: 14px !important;padding-left: 15px;}
-                  .signup-form-btn{font-size: 11px;width: 130px;}
-                  .footer_appbutton a img{max-width: 124px;}
-                  .footer-contact-info .footer-title p{line-height: 18px;}
-                  .footer-col-list .footer-item:nth-child(1) .footer-title h2, .footer-col-list .footer-item:nth-child(2) .footer-title h2, .footer-col-list .footer-item:nth-child(3) .footer-title h2{font-size: 16px;padding: 12px 0px;}
-                  .footer_appbutton .appbutton_title{font-size: 14px;max-width: 224px;margin: 0 auto 15px;line-height: 18px;}
-                  .copyright-text p{font-size: 12px;}
-                  .footer-col-list a{font-size: 14px;}
-                  }
-  </style>
+                        }
+
+                        @media only screen and (max-width:860px) {
+                          .new_home_section_bg .learn_more_button a {width:200px;margin: 0 10px;}
+                        .new_home_section_bg .video_button a { line-height:18px;}
+                        .new_home_section_bg .ringer_2box_bg {height: auto;}
+                        /*.new_home_top_banner .button a {width: 424px; font-size:35px; letter-spacing: 5px;}*/
+                        /*.new_home_section_bg .new_home_player_box { margin-top:10px;}*/
+
+
+                        }
+
+                        @media only screen and (max-width:768px) {
+                          .newsletter-signup{      width: 100%;}
+                        .newsletter-signup .klaviyo-newsletter-form{    justify-content: space-between;}
+                           .site-footer .grid__item { border:none; }
+            .site-footer .h4.collapsible-trigger { font-size:20px;  margin:0; font-weight: 700; color:#fff; text-align:left;   font-family: 'Blue Tees Headline Italic'; }
+            .site-footer .no-bullets.site-footer__linklist li { text-align:left; }
+            .footer__item--1494301487049 { width:100% !important; margin-bottom:0 !important; }
+            .footer__item--d9da3bdc-d5bd-47ce-9589-434c668a87ab { width:100% !important; border:none !important; margin-bottom:0 !important; }
+            .footer__item--5e7c7403-c2cd-4875-a6bb-07b0a1ff8144 { width:100% !important; }
+            .footer__item--143b601b-dbaf-4a7f-968c-b124026283e3 { width:100% !important; }
+            .site-footer .social-heading { margin:30px 0 0 0; padding:30px 0 0 0; text-align:left; }
+            .site-footer .no-bullets.footer__social { text-align:left; margin-top:20px; }
+                          .site-footer  .mobile-text-footer{display:block;}
+           .site-footer .desktop-text-footer{display:none;}
+              .footer_appbutton .appbutton_title{      margin-inline: auto;}
+
+                  .footer-solical-links{width: 100%; margin-inline: auto;
+                    max-width: 350px; grid-template-columns: repeat(7, 1fr);     }
+
+                        /* footer new design css */
+                        .site-footer .page-width{max-width: 580px;}
+                        .footer-m-logo{display: block;margin-bottom: 30px;}
+                        .footer-m-logo img{max-width: 210px;}
+                        .footer-col-list{border: 0px;flex-direction: column;}
+                        .footer-col-list .col-4.footer-item{width: 100%;margin-bottom: 0px;}
+                        .footer-col-list .col-4.footer-item:last-child{order: -1;}
+                        .site-footer .h4.collapsible-trigger{font-style: normal;padding: 0;}
+                        .footer-title h2{margin-bottom: 30px;}
+                        .footmenu-list ul{padding: 10px 0px 20px 20px;text-align: left;}
+                        .footer-contact-info .footer-title h2{margin-bottom: 20px;font-size: 23px;line-height: 24px; max-width: 300px;
+                          margin-left: auto;
+                          margin-right: auto;}
+                        .signup-form{margin-bottom: 45px;}
+                        /* .signup-form{flex-direction: column;} */
+                        /* .signup-form input{border-radius: 10px;border: 1px solid rgb(95, 95, 95);text-align: center;} */
+                        /* .signup-form-btn{width: 100%;border-radius: 10px;margin-top: 20px;} */
+                        .footer_appbutton .appbutton{justify-content: center;}
+                        .footer-solical-links a img{max-height: 16px;}
+                        .footer-emailconatct{margin-bottom: 30px;}
+                        .footer-contact-info .footer-title p{color: #A1A3A9; line-height: 18px; max-width: 260px; margin-left: auto; margin-right: auto;}
+                        .footmenu-list ul li:first-child{margin-top: 0px;}
+                        .footer-col-list .footer-item:nth-child(1) .footer-title h2,
+                        .footer-col-list .footer-item:nth-child(2) .footer-title h2,
+                        .footer-col-list .footer-item:nth-child(3) .footer-title h2, .footer-col-list .footer-item:nth-child(4) .footer-title h2{padding: 20px 10px 15px;margin: 0;border-top: 1px solid rgb(95, 95, 95, 0.6);}
+                        .footer-col-list .footer-item:nth-child(3) .footer-title h2, .footer-col-list .footer-item:nth-child(4) .footer-title h2{border-bottom: 1px solid rgb(95, 95, 95, 0.6);}
+                        .footer-col-list .footer-item:nth-child(5){margin-bottom: 35px;}
+                        .footercopyinfo-list .footer-item{width: 100%;}
+                        .footercopyinfo-list .footer-item:nth-child(4){order: 2;text-align: center;margin: 0px;padding-bottom: 15px;}
+                        .footercopyinfo-list .footer-item:nth-child(2){order: 4;text-align: center;padding-top: 20px;margin: 0;}
+                        .footercopyinfo-list .footer-item:nth-child(3){order: 4;margin: 0px;}
+                        .footer-policy-links ul{justify-content: center;}
+                        .footer-title .collapsible-trigger__icon{background: transparent;width: 33px;height: 33px;text-align: center;margin: 0 auto;padding: 10px 9px;border-radius: 50%;}
+                        .footer-title .collapsible-trigger__icon .icon{width: 15px;height: 15px;}
+                        .footer-title .collapsible-trigger__icon .icon path{fill: #fff !important;stroke: #1b1c1f !important;}
+                        .footer-policy-links ul li{padding: 0px 12px;}
+                        .copyright-text p{font-weight: 400;}
+                        .footer-policy-links ul li a{font-weight: 300;}
+                        .footercopyinfo-list{padding-top: 40px;gap: 0;}
+                        .signup-email-form .footer_collapsible--disabled{padding: 0;}
+                        .multi-selectors{justify-content: center;}
+                        /* footer new design css */
+
+                        .mobile-view .footer-title{display: none;}
+                        .footer-contact-info .footer_appbutton{display: none;}
+                        .mobile-view .footer_appbutton{display: block;}
+                        .footer-col-list{gap: 0;}
+                        .footer-logo{display: flex;
+                        justify-content: center;}
+                        }
+
+                        }
+
+
+                        @media only screen and (max-width:575px) {
+                        .signup-form{height: 36px;}
+                        .signup-form input{font-size: 14px !important;padding-left: 15px;}
+                        .signup-form-btn{font-size: 11px;width: 130px;}
+                        .footer_appbutton a img{max-width: 124px;}
+                        .footer-contact-info .footer-title p{line-height: 18px;}
+                        .footer-col-list .footer-item:nth-child(1) .footer-title h2, .footer-col-list .footer-item:nth-child(2) .footer-title h2, .footer-col-list .footer-item:nth-child(3) .footer-title h2{font-size: 16px;padding: 12px 0px;}
+                        .footer_appbutton .appbutton_title{font-size: 14px;max-width: 224px;margin: 0 auto 15px;line-height: 18px;}
+                        .copyright-text p{font-size: 12px;}
+                        .footer-col-list a{font-size: 14px;}
+                        }
+    </style>
+  {% endif %}
 {% endif %}
 
 {% schema %}

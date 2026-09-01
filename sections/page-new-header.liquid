@@ -3,14 +3,15 @@
   assign header_logo = section.settings.header_logo
   assign background_color = section.settings.color_bg
   assign section_padding = section.settings.section_padding
+  assign overlap_header = section.settings.overlap_header
 %}
 
 <div class="header_new-page header_new--{{ class }}">
   <div class="header_new-inner">
     <div class="new-page-width">
-        <div class="header_content">
-            {{ header_logo | image_url: width: 330 | image_tag: alt: 'Header Logo' }}
-        </div>
+      <div class="header_content">
+        {{ header_logo | image_url: width: 330 | image_tag: alt: 'Header Logo' }}
+      </div>
     </div>
   </div>
 </div>
@@ -18,7 +19,14 @@
   header{display:none;}
   .header_new-inner{ background-color:{{ background_color }}; padding-block: {{ section_padding }}px;}
   .header_content{display:flex; justify-content:center; align-items:center;}
-  .header_content :is(img){display:flex; width: 100%; max-width: clamp(200px,21vw,330px); height: auto;}
+  .header_content :is(img){display:flex; width: 100%; max-width: {{ section.settings.image_width }}px; height: auto;}
+  {%if overlap_header %}
+    .header_new-page {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+}
+    {%endif %}
 {% endstyle %}
 {% schema %}
 {
@@ -30,22 +38,37 @@
       "label": "Select Header Logo"
     },
     {
-        "type": "header",
-        "content": "Extras"
+      "type": "range",
+      "id": "image_width",
+      "label": "Adjust Width",
+      "min": 70,
+      "max": 600,
+      "step": 10,
+      "default": 330
     },
     {
-        "type": "color",
-        "id": "color_bg",
-        "label": "Background Color",
-        "alpha": true
+      "type": "header",
+      "content": "Extras"
     },
     {
-        "type": "range",
-        "id": "section_padding",
-        "label": "Adjust Padding",
-        "min": 20,
-        "max": 100,
-        "default": 30
+      "type": "checkbox",
+      "id": "overlap_header",
+      "label": "Floating Header"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background Color",
+      "alpha": true
+    },
+    
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Adjust Padding",
+      "min": 20,
+      "max": 100,
+      "default": 30
     }
   ],
   "presets": [
