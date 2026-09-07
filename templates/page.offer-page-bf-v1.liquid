@@ -133,7 +133,7 @@
                   <p>
                     Portable launch monitor delivering instant swing data, ball speed, carry distance and shot
                     analytics. Includes 1-year free AI package
-                    <span style="color:#FF0000;">($79.99 Value)</span>
+                    <span style="color:#E90000;">($79.99 Value)</span>
                   </p>
                 </div>
                 <div class="exclusive-section_slider-item-rate">
@@ -284,7 +284,7 @@
                   <p>
                     Bluetooth connectivity and next-gen simplicity in a streamlined OLED rangefinder. Includes 6-months
                     free AI package
-                    <span style="color:var(--new-red);">($39.50 Value)</span>
+                    <span style="color:var(--new-red-lighter);">($39.50 Value)</span>
                   </p>
                 </div>
                 <div class="exclusive-section_slider-item-rate">
@@ -424,7 +424,7 @@
                   <h3 class="exclusive-section_product-title">PLAYER PRO GPS SPEAKER</h3>
                   <p>
                     Louder 360° sound, color touchscreen, real-time yardages, hazards & AI club suggestions. Includes
-                    6-months free AI package <span style="color:var(--new-red);">($39.50 Value)</span>
+                    6-months free AI package <span style="color:var(--new-red-lighter);">($39.50 Value)</span>
                   </p>
                 </div>
                 <div class="exclusive-section_slider-item-rate ">
@@ -1468,7 +1468,7 @@
 
               .save__price {
             font-weight: 700;
-            color: var(--new-red);
+            color: var(--new-red-lighter);
             font-size: 16px;
             line-height: 1;
           }
@@ -1641,7 +1641,7 @@
 
               .exclusive-section_slider-inner .owl-dots .owl-dot.active span { background: #090909; }
               .exclusive-section_slider-inner .exclusive-section_slider-item { max-width: 30%; width: 100%; }
-              .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate { display: flex; gap: 7px; margin-top: 10px; align-items: baseline; flex-wrap:wrap; }
+              .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate { display: flex; gap: 7px; margin-top: 10px; align-items: baseline; }
               .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate p { padding: 0px; font-weight: 900;  font-size: 24px; }
               .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-rate * { font-family: 'Blue Tees Subhead Italic' !important; }
               .exclusive-section_slider-inner .exclusive-section_slider-item .exclusive-section_slider-item-cta { text-align: center; }
@@ -2200,43 +2200,43 @@
       });
 
       $(document).on("click", ".closePop, #fade", function () {
-        $(".pop-upbox").fadeOut(function () {
-          if (lastActiveElement) {
-            lastActiveElement.focus();
-            lastActiveElement = null;
-          }
-        });
+        var $modal = $(this).closest(".pop-upbox");
+        if (!$modal.length) $modal = $(".pop-upbox:visible");
+        $modal.hide();
+        if (lastActiveElement) {
+          lastActiveElement.focus();
+          lastActiveElement = null;
+        }
         var video1 = $("#video1").get(0);
         var video2 = $("#video2").get(0);
         var video3 = $("#video3").get(0);
-        video1.pause();
-        video2.pause();
-        video3.pause();
+        if (video1) video1.pause();
+        if (video2) video2.pause();
+        if (video3) video3.pause();
         return false;
       });
 
       $(document).on("click", function (event) {
-        if ($(event.target).has(".popup-box").length) {
-          $(".pop-upbox").fadeOut(function () {
-            if (lastActiveElement) {
-              lastActiveElement.focus();
-              lastActiveElement = null;
-            }
-          });
+        if ($(event.target).has(".popup-box").length && $(event.target).hasClass("pop-upbox")) {
+          $(event.target).hide();
+          if (lastActiveElement) {
+            lastActiveElement.focus();
+            lastActiveElement = null;
+          }
 
           var video1 = $("#video1").get(0);
           var video2 = $("#video2").get(0);
           var video3 = $("#video3").get(0);
-          video1.pause();
-          video2.pause();
-          video3.pause();
+          if (video1) video1.pause();
+          if (video2) video2.pause();
+          if (video3) video3.pause();
         }
       });
 
       $(document).on("keydown", function (e) {
         if (e.key === "Escape" || e.keyCode === 27) {
           if ($(".pop-upbox:visible").length > 0) {
-            $(".closePop:visible").click();
+            $(".closePop:visible").first().click();
           }
         }
       });

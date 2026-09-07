@@ -21,6 +21,14 @@
       <div class="product-manuals-list {{ item_size }}">
         {% for block in section.blocks %}
           {% if block.settings.product %}
+            {%- assign img_alt = block.settings.manual_text | default: block.settings.product.title | default: 'Product manual image' -%}
+            {%- if forloop.index <= 2 -%}
+              {%- assign img_loading = 'eager' -%}
+              {%- assign img_fetchpriority = 'high' -%}
+            {%- else -%}
+              {%- assign img_loading = 'lazy' -%}
+              {%- assign img_fetchpriority = 'auto' -%}
+            {%- endif -%}
             <div class="manual-list__item manual-{{ item_size }}" {{ block.shopify_attributes }}>
               <div class="product-manuals-info">
                 {% if block.settings.manual_cardImage != blank and block.settings.has_custom_image == true %}
@@ -28,22 +36,22 @@
                     block.settings.manual_cardImage
                     | image_url: width: 400
                     | image_tag:
-                      loading: 'eager',
-                      fetchpriority: 'high',
+                      loading: img_loading,
+                      fetchpriority: img_fetchpriority,
                       widths: '400,600,800,1200,1600,2000',
                       sizes: '(max-width: 860px) 100vw, 50vw',
-                      alt: block.settings.product.title
+                      alt: img_alt
                   }}
                 {% else %}
                   {{
                     block.settings.product.featured_image
                     | image_url: width: 400
                     | image_tag:
-                      loading: 'eager',
-                      fetchpriority: 'high',
+                      loading: img_loading,
+                      fetchpriority: img_fetchpriority,
                       widths: '400,600,800,1200,1600,2000',
                       sizes: '(max-width: 860px) 100vw, 50vw',
-                      alt: block.settings.product.title
+                      alt: img_alt
                   }}
                 {% endif %}
               </div>

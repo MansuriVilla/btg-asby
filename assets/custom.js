@@ -402,6 +402,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function toggleBodyScroll(state) {
+        // Disabled to prevent header/page jump on hover
+        /*
         const isAnyHeaderActive = Array.from(siteHeaders).some(header =>
             header.classList.contains("active")
         );
@@ -416,6 +418,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.style.overflow = "";
             // document.body.style.paddingRight = "";
         }
+        */
     }
 
     function animateToAutoHeight(element) {
@@ -3189,63 +3192,6 @@ changeImageOnVarient();
         }
       });
     };
-
-    // Popup keyboard: Escape to close & Tab/Shift+Tab focus trap (Issues 135, 143, 144)
-    document.addEventListener('keydown', (e) => {
-      const openPopup = Array.from(document.querySelectorAll('.pop-upbox, .upsell_popup--new, [role="dialog"][aria-modal="true"]')).find(
-        popup => (popup.offsetWidth > 0 || popup.offsetHeight > 0) && window.getComputedStyle(popup).display !== 'none'
-      );
-      if (!openPopup) return;
-
-      if (e.key === 'Escape' || e.keyCode === 27) {
-        e.preventDefault();
-        const closeBtn = openPopup.querySelector('.closePop, .pop-close button, .pop-close a, .close, [aria-label*="Close"]');
-        if (closeBtn) {
-          closeBtn.click();
-        } else if (window.jQuery) {
-          window.jQuery(openPopup).fadeOut(200);
-        } else {
-          openPopup.style.display = 'none';
-        }
-        return;
-      }
-
-      if (e.key === 'Tab' || e.keyCode === 9) {
-        const focusableEls = openPopup.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"]), iframe');
-        const visibleFocusables = Array.from(focusableEls).filter(el => {
-          return el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement;
-        });
-
-        if (visibleFocusables.length === 0) {
-          e.preventDefault();
-          return;
-        }
-
-        const firstFocusable = visibleFocusables[0];
-        const lastFocusable = visibleFocusables[visibleFocusables.length - 1];
-
-        if (!openPopup.contains(document.activeElement)) {
-          e.preventDefault();
-          e.stopPropagation();
-          firstFocusable.focus();
-          return;
-        }
-
-        if (e.shiftKey) {
-          if (document.activeElement === firstFocusable) {
-            e.preventDefault();
-            e.stopPropagation();
-            lastFocusable.focus();
-          }
-        } else {
-          if (document.activeElement === lastFocusable) {
-            e.preventDefault();
-            e.stopPropagation();
-            firstFocusable.focus();
-          }
-        }
-      }
-    });
 
     // 6. Generic CTA accessible naming (A11Y-01)
     const fixGenericCTAs = () => {

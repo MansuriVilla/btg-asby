@@ -408,6 +408,7 @@
                       id="quick_add_color_{{ product.id }}_{{ variant.id }}"
                       name="quick_add_color_{{ product.id }}"
                       value="{{ variant.id }}"
+                      aria-label="{{ color_value | escape }}"
                       {% if variant.id == product.selected_or_first_available_variant.id %}
                         checked
                       {% endif %}
@@ -420,8 +421,9 @@
                         style="background-image: url('{{ img_url }}'); background-size: cover; background-position: center;"
                       {% endif %}
                       for="quick_add_color_{{ product.id }}_{{ variant.id }}"
+                      aria-label="{{ color_value | escape }}"
                     >
-                      <span class="variant-title sr-only">{{ variant.title }}</span>
+                      <span class="variant-title sr-only">{{ color_value }}</span>
                     </label>
                     {% comment %} <span class="">{{ variant.title }}</span>   {% endcomment %}
                   </div>

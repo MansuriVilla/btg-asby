@@ -120,7 +120,7 @@
           <li
             class="site_header-link"
             style="border-bottom: 0px;">
-            <span class="cta_pluse-pdp cta_pluse" style="--ripple-clr: #CB000080">
+            <span class="cta_pluse-pdp cta_pluse" style="--ripple-clr: var(--new-red)80">
               <a
                 href="/products/{{ special_link }}"
                 class="nav_link nav_offer--link special__link "
@@ -809,9 +809,9 @@
                         </a>
                       </div>
                       <div class="latest_news_title">
-                        <h4>
+                        <h3 class="news_title">
                           <a href="{{ latest_article.url }}">{{ latest_article.title }}</a>
-                        </h4>
+                        </h3>
                       </div>
                       <div class="latest_news_meta">{{ latest_article.excerpt | truncate: 150 }}</div>
                       <div class="site_planText_Link">  

@@ -1079,7 +1079,7 @@
           .customize_game_top_bg .customize_game_left_text .view_button a:hover,
           .customize_game_top_bg .customize_game_left_text .view_button a.no_bg:hover { color: var(--new-blue); background: #fff; border-color: transparent; }
           .customize_freeshopping_bg { background: #111; margin-bottom: 60px; }
-          .customize_freeshopping_bg p { padding: 0; margin-top: 20px; color: var(--new-gray); font-size: 12px; }
+          .customize_freeshopping_bg p { padding: 0; margin-top: 20px; color: #7f7f7f; font-size: 14px; font-weight:600; }
           .slide_in-view__container { position: relative; overflow: hidden; width: 100%; }
           .slide_in-view__container .slide_in-view__row .slide_in-view__images { white-space: nowrap; display: flex; align-items: center; will-change: transform; }
           .slide_in-view__container .slide_in-view__row .slide_in-view__images img { display: inline-flex; height: 100%; max-width: clamp(135px, 18vw, 320px); object-fit: scale-down; margin-right: clamp(15px, 3vw, 35px); overflow: hidden; }
@@ -1277,6 +1277,23 @@
                     border: 1.4px solid #000000 !important;
                     box-shadow: none !important;
                 }
+                .hs-form input:focus-visible, .hs-form select:focus-visible, .hs-form textarea:focus-visible,
+                .hs-form input:focus, .hs-form select:focus, .hs-form textarea:focus {
+                    outline: 2px solid #004df5 !important;
+                    outline-offset: 2px !important;
+                }
+                .hs-form input[type="checkbox"], .hs-form input[type="radio"] {
+                    width: 18px !important;
+                    height: 18px !important;
+                    cursor: pointer !important;
+                    accent-color: #004df5 !important;
+                }
+                .hs-form input[type="checkbox"]:focus-visible, .hs-form input[type="checkbox"]:focus,
+                .hs-form input[type="radio"]:focus-visible, .hs-form input[type="radio"]:focus {
+                    outline: 2px solid #004df5 !important;
+                    outline-offset: 2px !important;
+                    box-shadow: 0 0 0 3px rgba(0, 77, 245, 0.3) !important;
+                }
                 .hs-form input.hs-input.error, .hs-form input.hs-input.invalid,
                 .hs-form select.hs-input.error, .hs-form select.hs-input.invalid,
                 .hs-form textarea.hs-input.error, .hs-form textarea.hs-input.invalid,
@@ -1295,15 +1312,47 @@
                     border-radius: 4px !important;
                     transition: background-color 0.2s ease !important;
                 }
+                .hs-form .hs-button:focus-visible, .hs-form input[type="submit"]:focus-visible {
+                    outline: 2px solid #000000 !important;
+                    outline-offset: 2px !important;
+                }
                 .hs-form .hs-button:hover, .hs-form input[type="submit"]:hover {
                     background-color: #0039cc !important;
                 }
             `;
             form.appendChild(style);
 
-            // 3. Focus on first error on submit
+            // 3. Convert single error message <ul>/<li> markup into simple text element
+            const fixErrorListMarkup = () => {
+                const errorUlList = form.querySelectorAll('ul.hs-error-msgs');
+                errorUlList.forEach((ul) => {
+                    if (ul.dataset.a11yFixed) return;
+                    ul.dataset.a11yFixed = 'true';
+                    
+                    const items = ul.querySelectorAll('li');
+                    if (items.length === 1) {
+                        ul.setAttribute('role', 'none');
+                        const li = items[0];
+                        li.setAttribute('role', 'none');
+                        const label = li.querySelector('label, span') || li;
+                        label.setAttribute('role', 'alert');
+                        label.setAttribute('aria-live', 'assertive');
+                    } else if (items.length > 1) {
+                        ul.setAttribute('role', 'alert');
+                        ul.setAttribute('aria-live', 'assertive');
+                    }
+                });
+            };
+
+            const formObserver = new MutationObserver(() => {
+                fixErrorListMarkup();
+            });
+            formObserver.observe(form, { childList: true, subtree: true });
+
+            // 4. Focus on first error on submit
             form.addEventListener('submit', function() {
                 setTimeout(function() {
+                    fixErrorListMarkup();
                     const firstError = form.querySelector('.hs-error-msgs, .error, .invalid, [aria-invalid="true"]');
                     if (firstError) {
                         const field = firstError.closest('.hs-form-field');

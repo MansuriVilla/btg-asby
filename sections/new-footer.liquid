@@ -1237,7 +1237,7 @@
     .product-atc_main .product-atc_inner .product-atc-offer_rate p{padding: 5px 7px;  font-weight: 900; line-height: normal;}
     .product-atc_main .product-atc_inner .product-atc_offer  { position: relative; display: flex; justify-content: flex-start; }
     .product-atc_main .product-atc_inner .product-atc_offer svg { position: absolute; z-index: -1; bottom: 0; }
-    .product-atc_main .product-atc_inner .product-atc_discount-rate p { color: #A1A3A9; text-decoration: line-through; font-size: 12px; }
+    .product-atc_main .product-atc_inner .product-atc_discount-rate p { color: var(--new-red); text-decoration: line-through; font-size: 12px; }
 
     .button_preorder.btn_pre-order { border-color: transparent !important; background:var(--new-blue-dark) !important;}
 
@@ -1981,7 +1981,7 @@
                         }
     </style>
   {% else %}
-    <div class="site-footer footer_animation" data-section-id="{{ section.id }}" data-section-type="footer-section">
+    <div class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
       <div class="new-page-width">
         <div class="footer-col-list">
           <div class="col-4 footer-item">
@@ -2364,10 +2364,7 @@
     </div>
 
     <style>
-      
-
-
-.newsletter-signup .klaviyo-newsletter-form {
+          .newsletter-signup .klaviyo-newsletter-form {
         background: white;
         border-radius: 50px;
         overflow: hidden;
