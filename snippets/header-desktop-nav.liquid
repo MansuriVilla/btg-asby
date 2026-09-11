@@ -120,7 +120,7 @@
           <li
             class="site_header-link"
             style="border-bottom: 0px;">
-            <span class="cta_pluse-pdp cta_pluse" style="--ripple-clr: #CB000080">
+            <span class="cta_pluse-pdp cta_pluse" style="--ripple-clr: var(--new-red)80">
               <a
                 href="/products/{{ special_link }}"
                 class="nav_link nav_offer--link special__link "
@@ -365,14 +365,14 @@
                               open_in_new_tab: open_in_new_tab,
                               hover_effect: hover_effect
                             %}
-                            {% render 'header-nav-item',
+                            {% comment %} {% render 'header-nav-item',
                               item_title: 'PlayMaker+',
                               item_url: '/products/playmaker-watch',
                               item_image_var: playmaker_plus,
                               item_image_var_mobile: playmaker_plus,
                               open_in_new_tab: open_in_new_tab,
                               hover_effect: hover_effect
-                            %}
+                            %} {% endcomment %}
                           </ul>
                         </div>
                       </div>
@@ -592,7 +592,7 @@
                             {% endif %}
                             ><img
                               class="store_ico"
-                              src="{{ 'app_store-ico-header.svg' | asset_url }}"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/app_store-ico-header_1.png?v=1785996105"
                               alt="Download on the App Store – Blue Tees Game app"
                           ></a>
                           <a
@@ -602,7 +602,7 @@
                             {% endif %}
                             ><img
                               class="store_ico"
-                              src="{{ 'play_store-ico-header.svg' | asset_url }}"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/play_store-ico-header_1.png?v=1785996104"
                               alt="Get it on Google Play – Blue Tees Game app"
                           ></a>
                         </div>
@@ -809,9 +809,9 @@
                         </a>
                       </div>
                       <div class="latest_news_title">
-                        <h4>
+                        <h3 class="news_title">
                           <a href="{{ latest_article.url }}">{{ latest_article.title }}</a>
-                        </h4>
+                        </h3>
                       </div>
                       <div class="latest_news_meta">{{ latest_article.excerpt | truncate: 150 }}</div>
                       <div class="site_planText_Link">  
@@ -859,7 +859,7 @@
             style="{%  if product.handle == 'speaker-bundle' or product.handle == 'gps-offer' or product.handle == 'laser-offer'  or product.handle == 'player-gps-speaker-bundle-v2' or product.handle == 'ringer-gps-handheld-bundle-v2' or product.handle == 'series-4-ultra-bundle-v2' %} display:none; {% endif %}"
           >
             <img
-              src="{{ 'profile-icon-neew-header.svg' | asset_url }}"
+              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/profile-icon-neew-header_bc0e5235-b760-41a2-bc12-e9279a3dac2f.svg?v=1789107116"
               alt=""
               aria-hidden="true"
             >
@@ -876,7 +876,7 @@
       style="{%  if product.handle == 'speaker-bundle' or product.handle == 'gps-offer' or product.handle == 'laser-offer'  or product.handle == 'player-gps-speaker-bundle-v2' or product.handle == 'ringer-gps-handheld-bundle-v2' or product.handle == 'series-4-ultra-bundle-v2' %} display:none; {% endif %}"
     >
       <img
-        src="{{ 'profile-icon-neew-header.svg' | asset_url }}"
+        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/profile-icon-neew-header_bc0e5235-b760-41a2-bc12-e9279a3dac2f.svg?v=1789107116"
         alt=""
         aria-hidden="true"
       >

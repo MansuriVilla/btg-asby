@@ -8,6 +8,14 @@
   if has_overlay
     assign has_overlay = true
   endif
+
+  assign image_alt = title | replace: '<br>', ' ' | replace: '<br />', ' ' | strip_html | escape
+  assign block_loading = 'lazy'
+  assign block_fetchpriority = 'auto'
+  if section.index == 1 or section.index == nil or section.settings.eager_load
+    assign block_loading = 'eager'
+    assign block_fetchpriority = 'high'
+  endif
 %}
 
 <div class="floating_content--section">
@@ -29,11 +37,11 @@
             | image_url: width: 1920
             | image_tag:
               class: 'content_background--image',
-              loading: 'eager',
-              fetchpriority: 'high',
+              loading: block_loading,
+              fetchpriority: block_fetchpriority,
               widths: '400,600,800,1200,1600,2000',
               sizes: '(max-width: 860px) 100vw, 50vw',
-              alt: title
+              alt: image_alt
           }}
         </picture>
       </div>
@@ -76,6 +84,12 @@
       "type": "checkbox",
       "id": "has_overlay",
       "label": "Enable Overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "eager_load",
+      "label": "Eager Load First Image (Above the fold)",
+      "default": false
     }
   ],
   "presets": [

@@ -256,14 +256,14 @@ transition: transform .3s ease-out}
             gap: 15px;
 }
  
- 
+{% comment %}  
           .playmaker_header-custom{padding: clamp(15px, 4vw, 29px) 0; position: sticky;
   top: 0;
                                    background-color: var(--new-black); 
   color: #fff;
-                                   z-index: 5;
+                                   z-index: 2;
   transition:
-.3s all linear;}
+.3s all linear;} {% endcomment %}
  
  
 .playmaker_links-parent {
@@ -280,9 +280,9 @@ transition: transform .3s ease-out}
   list-style:
 none;
 }
-          .playmaker_link:hover{color: #9B9DA3; text-decoration: underline; }
+          .playmaker_link:hover{color: var(--new-gray); text-decoration: underline; }
           .playmaker_link {
-  color: #9B9DA3;
+  color: var(--new-gray);
               transition: color 0.3s ease-in-out;
             font-size: clamp(13px, 1.6vw, 16px);
 }

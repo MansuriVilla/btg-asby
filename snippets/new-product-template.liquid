@@ -462,9 +462,10 @@
                         {%- endunless -%}
                       </div>
                     {% endif %}
-                    <div class="prod_options">
+                    <div class="prod_options fdsf">
                       <div class="after-pay"></div>
-                      <div class="options_extend-protection">
+                      {%if theme.role == 'unpublished' or theme.role == 'development'%}
+                       <div class="options_extend-protection">
                         <span class="anchor_holder">
                           <a
                             href="/pages/extend-protection-plan"
@@ -474,7 +475,8 @@
                             <span class="anchor_holder"> Extend Protection Plans </span>
                           </a>
                         </span>
-                      </div>
+                      </div> 
+                      {% endif %}
                     </div>
                   {%- when 'buy_buttons' -%}
                     {% if hide_upsell %}
@@ -812,7 +814,7 @@
 </div>
 
 <style>
-  .product__price.product__price--compare.compare__price-funnle{display:block !important; color: #636363; font-size: 20px; text-decoration-color: var(--new-red); font-weight: normal; }
+  .product__price.product__price--compare.compare__price-funnle{display:block !important; color: var(--new-gray); font-size: 20px; text-decoration-color: var(--new-red); font-weight: normal; }
   #course-count, .course-count-short{display: inline !important; font-size: inherit !important;}
 </style>
 
