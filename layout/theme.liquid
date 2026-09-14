@@ -500,18 +500,24 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-720010703"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag('js', new Date());
-
-      gtag('config', 'AW-720010703');
     </script>
 
-    <script>
+    <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
+      gtag('js', new Date());
+      gtag('config', 'AW-720010703');
+
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-720010703';
+      document.head.appendChild(s);
+    </script>
+
+    <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
       var head = document.head;
       var script = document.createElement('script');
       script.type = 'text/javascript';
@@ -551,7 +557,7 @@
     {% endcomment %}
 
     {% comment %} <!-- Hotjar Tracking Code for https://www.blueteesgolf.com/ --> {% endcomment %}
-    <script>
+    <script type="text/plain" data-btg-category="analytics" data-consentmo-category="analytics">
       (function (h, o, t, j, a, r) {
         h.hj =
           h.hj ||
@@ -567,7 +573,7 @@
       })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     </script>
 
-    <script>
+    <script type="text/plain" data-btg-category="analytics" data-consentmo-category="analytics">
       (function (c, l, a, r, i, t, y) {
         c[a] =
           c[a] ||
@@ -584,7 +590,7 @@
 
     {% comment %} <!-- Third Party Tracking Goaffpro --> {% endcomment %}
 
-    <script>
+    <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
       (function (w, d, t, r, u) {
         var f, n, i;
         (w[u] = w[u] || []),
@@ -690,6 +696,7 @@
     {{ 'HorizonSlider.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'HorizonSlider.min.js.js' | asset_url }}" defer></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
+    <script src="{{ 'privacy-compliance.js' | asset_url }}" defer></script>
     <script src="{{ 'uuid.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'register-data.js' | asset_url }}" defer="defer"></script>
 
@@ -712,7 +719,7 @@
     {{ 'custom.css' | asset_url | stylesheet_tag }}
 
     {% comment %} <!-- Meta Pixel Code --> {% endcomment %}
-    <script>
+    <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
       !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
         n = f.fbq = function () {
