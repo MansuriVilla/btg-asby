@@ -148,6 +148,12 @@
                     </span>
                     {% comment %} <small id="new-tag">NEW</small>  {% endcomment %}
                   {% endif %}
+                  {% if product.template_suffix == 's4-ultra' %}
+                    <div class="top-tag">
+                <small id="new-tag">NEW</small> 
+                OUR MOST ADVANCED LASER EVER
+              </div>
+                  {% endif %}
                   <h1 class="h1 product-single__title {% if product.title contains "Series 3 Max" %}editonlythis{% endif %}">
                     {{ product.title }}
                   </h1>
@@ -462,9 +468,10 @@
                         {%- endunless -%}
                       </div>
                     {% endif %}
-                    <div class="prod_options">
+                    <div class="prod_options fdsf">
                       <div class="after-pay"></div>
-                      {% comment %} <div class="options_extend-protection">
+                      
+                       <div class="options_extend-protection">
                         <span class="anchor_holder">
                           <a
                             href="/pages/extend-protection-plan"
@@ -474,7 +481,8 @@
                             <span class="anchor_holder"> Extend Protection Plans </span>
                           </a>
                         </span>
-                      </div> {% endcomment %}
+                      </div> 
+                 
                     </div>
                   {%- when 'buy_buttons' -%}
                     {% if hide_upsell %}

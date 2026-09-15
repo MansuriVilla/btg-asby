@@ -332,6 +332,9 @@
           currentProductMembershipId = 45793869299909;
         }
 
+        var subMgr = window.BTGSubscriptionManager;
+        var existingSubs = subMgr ? subMgr.getCartSubscriptions(cart) : [];
+
         let hasCurrentMembershipInCart = false;
         if (cart && cart.items && cart.items.length && currentProductMembershipId) {
           hasCurrentMembershipInCart = cart.items.some(function(item) {
@@ -339,61 +342,54 @@
           });
         }
 
-        const isMembershipCheckboxChecked = (checkbox1mo.length && checkbox1mo.is(':checked')) ||
-                                            (checkbox6mo.length && checkbox6mo.is(':checked')) ||
-                                            (checkboxRainmaker.length && checkboxRainmaker.is(':checked'));
+        var targetRank = (currentProductMembershipId && subMgr) ? subMgr.getSubscriptionRank(currentProductMembershipId) : 0;
+        var hasLongerOrEqualMembershipInCart = hasCurrentMembershipInCart || existingSubs.some(function(item) {
+          return subMgr && subMgr.getSubscriptionRank(item) >= targetRank;
+        });
 
-        if (hasCurrentMembershipInCart) {
-          if (isMembershipCheckboxChecked) {
-            // User explicitly checked the membership checkbox on page — trigger membership alert
-            let mId = null;
-            let mPlan = null;
-            if (checkbox1mo.is(':checked')) {
-              mId   = 46056795209925;
-              mPlan = 7328694469;
-            } else if (checkbox6mo.is(':checked')) {
-              mId   = 46056776990917;
-              mPlan = 7328661701;
-            } else if (checkboxRainmaker.is(':checked')) {
-              mId   = 45793869299909;
-              mPlan = 6775537861;
-            }
+        let mId = null;
+        let mPlan = null;
+        if (checkbox1mo.is(':checked')) {
+          mId   = 46056795209925;
+          mPlan = 7328694469;
+        } else if (checkbox6mo.is(':checked')) {
+          mId   = 46056776990917;
+          mPlan = 7328661701;
+        } else if (checkboxRainmaker.is(':checked')) {
+          mId   = 45793869299909;
+          mPlan = 6775537861;
+        }
 
-            addToCartWithMembership(
-              mainVariantId,
-              mId,
-              mPlan,
-              function() { atcButton.removeClass('btn--loading'); },
-              function() { atcButton.removeClass('btn--loading'); }
-            );
-          } else {
-            // Unchecked on page & current membership already in cart — silently bypass popup and add main product (+ case)
-            addToCartWithMembership(
-              mainVariantId,
-              null,
-              null,
-              function() { atcButton.removeClass('btn--loading'); },
-              function() { atcButton.removeClass('btn--loading'); }
-            );
+        const isMembershipCheckboxChecked = !!mId;
+
+        // If user unchecked membership AND cart doesn't have an equal or longer membership -> show reminder popup
+        if (!isMembershipCheckboxChecked && !hasLongerOrEqualMembershipInCart) {
+          if (checkbox1mo.length) {
+            atcButton.removeClass('btn--loading');
+            openReminderPopup('#one_month_popup', form, atcButton);
+            return;
           }
-          return;
+          if (checkbox6mo.length) {
+            atcButton.removeClass('btn--loading');
+            openReminderPopup('#six_month_popup', form, atcButton);
+            return;
+          }
+          if (checkboxRainmaker.length) {
+            atcButton.removeClass('btn--loading');
+            openReminderPopup('#one_year_popup', form, atcButton);
+            return;
+          }
         }
 
-        if (checkbox1mo.length && !checkbox1mo.is(':checked')) {
-          atcButton.removeClass('btn--loading');
-          openReminderPopup('#one_month_popup', form, atcButton);
-          return;
-        }
-        if (checkbox6mo.length && !checkbox6mo.is(':checked')) {
-          atcButton.removeClass('btn--loading');
-          openReminderPopup('#six_month_popup', form, atcButton);
-          return;
-        }
-        if (checkboxRainmaker.length && !checkboxRainmaker.is(':checked')) {
-          atcButton.removeClass('btn--loading');
-          openReminderPopup('#one_year_popup', form, atcButton);
-          return;
-        }
+        // Always proceed to addToCartWithMembership to enforce alerts and deduplication
+        addToCartWithMembership(
+          mainVariantId,
+          mId,
+          mPlan,
+          function() { atcButton.removeClass('btn--loading'); },
+          function() { atcButton.removeClass('btn--loading'); }
+        );
+        return;
 
         let membershipId = null;
         let membershipPlan = null;
@@ -468,47 +464,60 @@
       console.log('membershipPlan:', membershipPlan);
 
       $.getJSON('/cart.js?_=' + Date.now(), function(cart) {
+        var subMgr = window.BTGSubscriptionManager;
+        var existingSubs = subMgr ? subMgr.getCartSubscriptions(cart) : [];
 
-        let membershipExists = false;
+        var targetRank = (membershipId && subMgr) ? subMgr.getSubscriptionRank(membershipId, membershipPlan) : 0;
+        var longerSub = membershipId && existingSubs.find(function(item) {
+          return subMgr && subMgr.getSubscriptionRank(item) > targetRank;
+        });
+
+        // 1. Longest subscription wins: if cart already has a strictly longer subscription, don't add lesser
+        if (longerSub) {
+          alert('A higher-tier membership is already in the cart.');
+          console.log('Preserving longer subscription in cart:', longerSub);
+          membershipId = null;
+          membershipPlan = null;
+        }
+
+        // 2. Prevent duplicates: if cart already has this exact membership variant, don't add another
+        var sameSubExists = membershipId && existingSubs.some(function(item) {
+          return parseInt(item.variant_id || item.id) === parseInt(membershipId);
+        });
+        if (sameSubExists) {
+          alert('Membership is already in the cart.');
+          console.log('Membership already exists in cart, skipping duplicate add');
+          membershipId = null;
+          membershipPlan = null;
+        }
+
+        // 3. Hierarchy override: remove any lesser subscriptions in cart before adding longer one
+        var keysToRemove = [];
         if (membershipId) {
-          membershipExists = cart.items.some(function(item) {
-            return parseInt(item.variant_id) === parseInt(membershipId);
-          });
+          keysToRemove = existingSubs.filter(function(item) {
+            return subMgr && subMgr.getSubscriptionRank(item) < targetRank;
+          }).map(function(item) { return item.key; });
         }
 
-        if (membershipExists) {
-          alert('Membership is already in the cart');
-          // close the popup
-          var $popup = $('.upsell_popup--new:visible');
-          var atcButton = $popup.data('active-button');
-          untrapFocus($popup);
-          $popup.fadeOut(200, function() {
-            $popup.css('display', 'none');
-            $popup.removeData('active-form');
-            $popup.removeData('active-button');
-            if (atcButton) {
-              atcButton.trigger('focus');
-            }
-          });
-          if (onError) onError();
-          return;
-        }
-        const items = [];
+        var removePromise = (keysToRemove.length && subMgr) ? subMgr.removeLineItems(keysToRemove) : Promise.resolve();
 
-        if (mainVariantId) {
-          items.push({ id: parseInt(mainVariantId), quantity: 1 });
-        }
+        removePromise.then(function() {
+          const items = [];
 
-        if (membershipId) {
-          items.push({
-            id:           parseInt(membershipId),
-            quantity:     1,
-            selling_plan: parseInt(membershipPlan)
-          });
-        }
+          if (mainVariantId) {
+            items.push({ id: parseInt(mainVariantId), quantity: 1 });
+          }
 
-        // Helper function to send items to cart
-        function sendCartRequest() {
+          if (membershipId) {
+            items.push({
+              id:           parseInt(membershipId),
+              quantity:     1,
+              selling_plan: parseInt(membershipPlan)
+            });
+          }
+
+          // Helper function to send items to cart
+          function sendCartRequest() {
           console.log('Items being sent to cart:', JSON.stringify(items));
           fetch('/cart/add.js', {
             method:  'POST',
@@ -569,6 +578,9 @@
         } else {
           sendCartRequest();
         }
+      });
+      }).fail(function() {
+        if (onError) onError();
       });
     }
 

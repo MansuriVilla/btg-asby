@@ -110,12 +110,23 @@
       {{ section.settings.custom_button_code }}
     </div>
   {% elsif section.settings.button_text != blank %}
+    {%- liquid
+      assign is_qr_page = false
+      if request.path contains 'qr' or page.template_suffix contains 'qr' or page.handle contains 'qr'
+        assign is_qr_page = true
+      endif
+
+      assign is_rainmaker_qr = false
+      if is_qr_page and page.template_suffix contains 'rainmaker' or page.handle contains 'rainmaker' or request.path contains 'rainmaker' or page.template_suffix contains 'on-us'
+        assign is_rainmaker_qr = true
+      endif
+    -%}
     <a
       {% if request.path contains 'products' %}
         href="javascript:void(0);"
         data-variant-id="{{ product.selected_or_first_available_variant.id }}"
       {% else %}
-        {% if request.path contains 'pages' and page.template_suffix contains 'qr-lp' -%}
+        {% if is_qr_page -%}
           href="javascript:void(0);"
         {%- else -%}
           href="{{section.settings.button_link}}"
@@ -145,7 +156,7 @@
       -%}
       aria-label="{{ cta_label | escape }}"
 
-      class="content-cta content-cta__solid{% if page.template_suffix contains 'rainmaker-qr-lp' or page.template_suffix contains 'rainmaker-event-qr-lp' %} add_1yr_membership_qr{% elsif request.path contains 'pages' and page.template_suffix contains 'qr-lp' %} add_6mos_membership_qr{% endif %}"
+      class="content-cta content-cta__solid{% if is_rainmaker_qr %} add_1yr_membership_qr{% elsif is_qr_page %} add_6mos_membership_qr{% endif %}"
     >
       {% if request.path contains 'pages' or request.path contains 'products' and product.available %}
         {{ section.settings.button_text }}

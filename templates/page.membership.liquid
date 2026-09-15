@@ -613,9 +613,8 @@ font-size: 30px;}
                         const existingItem = cart.items.find(item => item.id === limitProductId);
                         if (existingItem && existingItem.quantity >= 1) {
                             // If the product is already in the cart, show an alert
-                            
+                            alert("Membership is already in the cart.");
                             button.classList.remove('btn--loading');
-                            
                         } else {
                             // Proceed to add the item to the cart
                             return fetch('/cart/add.js', {
@@ -674,12 +673,11 @@ font-size: 30px;}
                     .then(response => response.json())
                     .then(cart => {
                         // Check if the limit product is already in the cart
-                        const existingItem = cart.items.find(item => item.id === limitProductId);
+                        const existingItem = cart.items.find(item => item.id === limitProductId || item.id === 44746786341061);
                         if (existingItem && existingItem.quantity >= 1) {
                             // If the product is already in the cart, show an alert
-                            
+                            alert("Membership is already in the cart.");
                             button.classList.remove('btn--loading');
-                            
                         } else {
                             // Proceed to add the item to the cart
                             return fetch('/cart/add.js', {

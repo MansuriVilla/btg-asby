@@ -4317,9 +4317,35 @@ lazySizesConfig.expFactor = 4;
         var freeVariantId = FREE_GIFTS_BY_VARIANT[String(qualifyingVariantId)];
         if (!freeVariantId) return;
 
-        return fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+        return fetch('/cart.js?_=' + Date.now(), { headers: { 'Accept': 'application/json' } })
           .then(res => res.json())
           .then(cart => {
+            // Check if any other qualifying item for this free gift is still in cart
+            var subMgr = window.BTGSubscriptionManager;
+            var freeRank = subMgr ? subMgr.getSubscriptionRank(freeVariantId) : 0;
+
+            var hasRemainingQualifyingItem = cart.items.some(function(item) {
+              if (item.quantity <= 0) return false;
+              var vIdStr = String(item.variant_id || item.id);
+              if (vIdStr === String(qualifyingVariantId)) return false;
+
+              var giftIdForThisItem = FREE_GIFTS_BY_VARIANT[vIdStr];
+              if (!giftIdForThisItem) return false;
+
+              if (String(giftIdForThisItem) === String(freeVariantId)) return true;
+
+              if (subMgr && freeRank > 0) {
+                var giftRank = subMgr.getSubscriptionRank(giftIdForThisItem);
+                if (giftRank >= freeRank) return true;
+              }
+
+              return false;
+            });
+
+            if (hasRemainingQualifyingItem) {
+              return;
+            }
+
             var freeItem = cart.items.find(
               item => String(item.variant_id) === String(freeVariantId)
             );
@@ -10197,6 +10223,188 @@ $(document).on('click', '#membership-game-lp-3yr', function (e) {
 */
 
 
+    // BTG Central Subscription Manager & Duration Hierarchy
+    window.BTG_MEMBERSHIP_RANKS = {
+        // Rank 4: 3 Year
+        42402147008709: { rank: 4, duration: '3yr', title: '3-Year Membership' },
+        44746786341061: { rank: 4, duration: '3yr', title: '3-Year Membership' },
+        // Rank 3: 1 Year (Free / Rainmaker)
+        45793869299909: { rank: 3, duration: '1yr', title: '1-Year Free Membership' },
+        // Rank 3: 1 Year (Paid)
+        42402135900357: { rank: 3, duration: '1yr', title: '1-Year Membership' },
+        // Rank 2: 6 Month (Free)
+        46056776990917: { rank: 2, duration: '6mo', title: '6-Month Free Membership' },
+        // Rank 1: 1 Month (Free)
+        46056795209925: { rank: 1, duration: '1mo', title: '1-Month Free Membership' }
+    };
+
+    window.BTG_SELLING_PLAN_RANKS = {
+        2895216837: { rank: 4, duration: '3yr' },
+        5823856837: { rank: 4, duration: '3yr' },
+        6775537861: { rank: 3, duration: '1yr' },
+        2885255365: { rank: 3, duration: '1yr' },
+        7328661701: { rank: 2, duration: '6mo' },
+        7328694469: { rank: 1, duration: '1mo' }
+    };
+
+    window.BTGSubscriptionManager = {
+        getSubscriptionRank: function (itemOrId, sellingPlanId) {
+            var vId = parseInt(typeof itemOrId === 'object' && itemOrId !== null ? (itemOrId.variant_id || itemOrId.id) : itemOrId);
+            var spId = sellingPlanId || (itemOrId && itemOrId.selling_plan_allocation && itemOrId.selling_plan_allocation.selling_plan ? itemOrId.selling_plan_allocation.selling_plan.id : null);
+            spId = spId ? parseInt(spId) : null;
+
+            if (window.BTG_MEMBERSHIP_RANKS[vId]) {
+                return window.BTG_MEMBERSHIP_RANKS[vId].rank;
+            }
+            if (spId && window.BTG_SELLING_PLAN_RANKS[spId]) {
+                return window.BTG_SELLING_PLAN_RANKS[spId].rank;
+            }
+
+            var str = '';
+            if (typeof itemOrId === 'object' && itemOrId !== null) {
+                str = ((itemOrId.title || '') + ' ' + (itemOrId.selling_plan_allocation && itemOrId.selling_plan_allocation.selling_plan ? itemOrId.selling_plan_allocation.selling_plan.name : '')).toLowerCase();
+            }
+            if (str.indexOf('3 year') !== -1 || str.indexOf('3-year') !== -1 || str.indexOf('36 month') !== -1) return 4;
+            if (str.indexOf('1 year') !== -1 || str.indexOf('1-year') !== -1 || str.indexOf('12 month') !== -1 || str.indexOf('annual') !== -1) return 3;
+            if (str.indexOf('6 month') !== -1 || str.indexOf('6-month') !== -1) return 2;
+            if (str.indexOf('1 month') !== -1 || str.indexOf('1-month') !== -1 || str.indexOf('monthly') !== -1) return 1;
+
+            return 1;
+        },
+
+        isSubscriptionItem: function (item) {
+            if (!item) return false;
+            var vId = parseInt(item.variant_id || item.id);
+            var spId = item.selling_plan_allocation && item.selling_plan_allocation.selling_plan ? parseInt(item.selling_plan_allocation.selling_plan.id) : null;
+            return !!(
+                item.selling_plan_allocation != null ||
+                window.BTG_MEMBERSHIP_RANKS[vId] != null ||
+                (spId && window.BTG_SELLING_PLAN_RANKS[spId] != null) ||
+                (item.properties && (item.properties.subscription_id || item.properties._is_subscription))
+            );
+        },
+
+        getCartSubscriptions: function (cart) {
+            if (!cart || !Array.isArray(cart.items)) return [];
+            var self = this;
+            return cart.items.filter(function (item) {
+                return self.isSubscriptionItem(item);
+            });
+        },
+
+        removeLineItems: function (keys) {
+            if (!keys || !keys.length) return Promise.resolve();
+            var updates = {};
+            keys.forEach(function (k) {
+                updates[k] = 0;
+            });
+            return fetch('/cart/update.js', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ updates: updates })
+            }).then(function (res) {
+                return res.json();
+            });
+        },
+
+        addQRLandingSubscription: function (targetVariantId, targetSellingPlanId, $btn) {
+            var self = this;
+            targetVariantId = parseInt(targetVariantId);
+            targetSellingPlanId = targetSellingPlanId ? parseInt(targetSellingPlanId) : null;
+            var targetRank = self.getSubscriptionRank(targetVariantId, targetSellingPlanId);
+
+            var $allBtns = $('.add_6mos_membership_qr, .add_1yr_membership_qr, .rainmakerPreOrderUpsell_lp');
+            if ($btn && $btn.length) {
+                $allBtns = $allBtns.add($btn);
+            }
+            $allBtns.addClass('btn--loading');
+
+            return fetch('/cart.js?_=' + Date.now())
+                .then(function (res) { return res.json(); })
+                .then(function (cart) {
+                    var tSuffix = (window.theme && window.theme.settings && window.theme.settings.pageTemplateSuffix) || '';
+                    var pathname = window.location.pathname || '';
+                    var isCheckoutTemplate = (
+                        tSuffix === "towel-qr-lp" ||
+          tSuffix === "divot-tool-qr-lp" ||
+          tSuffix === "rainmaker-qr-lp" ||
+          tSuffix === "rainmaker-event-qr-lp" ||
+          tSuffix.indexOf("on-us") !== -1 ||
+          pathname.indexOf("campaign-towel-qr") !== -1 ||
+          pathname.indexOf("campaign-player-pro-qr") !== -1 ||
+          pathname.indexOf("campaign-captain-pro-qr") !== -1 ||
+          pathname.indexOf("campaign-captain-air-qr") !== -1 ||
+          pathname.indexOf("campaign-divot-tool-qr") !== -1 ||
+          pathname.indexOf("rainmaker-qr-lp") !== -1 ||
+          pathname.indexOf("rainmaker-event-qr-lp") !== -1 ||
+          pathname.indexOf("on-us") !== -1
+                    );
+
+                    var subs = self.getCartSubscriptions(cart);
+
+                    // Case 1: Same subscription already in cart
+                    var sameSub = subs.find(function (item) {
+                        return parseInt(item.variant_id || item.id) === targetVariantId;
+                    });
+                    if (sameSub) {
+                        alert("Membership is already in the cart.");
+                        $allBtns.removeClass('btn--loading');
+                        if (isCheckoutTemplate) {
+                            window.location.href = '/checkout';
+                        }
+                        return;
+                    }
+
+                    // Case 2: Cart has a longer/higher-tier subscription
+                    var longerSub = subs.find(function (item) {
+                        return self.getSubscriptionRank(item) > targetRank;
+                    });
+                    if (longerSub) {
+                        alert("A higher-tier membership is already in the cart.");
+                        $allBtns.removeClass('btn--loading');
+                        if (isCheckoutTemplate) {
+                            window.location.href = '/checkout';
+                        }
+                        return;
+                    }
+
+                    // Case 3: Cart has a shorter/lesser subscription -> remove them first
+                    var lesserSubs = subs.filter(function (item) {
+                        return self.getSubscriptionRank(item) <= targetRank;
+                    });
+                    var keysToRemove = lesserSubs.map(function (item) { return item.key; });
+
+                    return self.removeLineItems(keysToRemove).then(function () {
+                        var bodyData = {
+                            id: targetVariantId,
+                            quantity: 1
+                        };
+                        if (targetSellingPlanId) {
+                            bodyData.selling_plan = targetSellingPlanId;
+                        }
+                        return fetch('/cart/add.js', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                            body: JSON.stringify(bodyData)
+                        }).then(function (res) {
+                            return res.json();
+                        }).then(function (data) {
+                            $allBtns.removeClass('btn--loading');
+                            if (isCheckoutTemplate) {
+                                window.location.href = '/checkout';
+                            } else {
+                                document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: data } }));
+                            }
+                        });
+                    });
+                })
+                .catch(function (err) {
+                    console.error('Error in addQRLandingSubscription:', err);
+                    $allBtns.removeClass('btn--loading');
+                });
+        }
+    };
+
 //app-download-lp page bottom both button
 $(document).on('click', '#membership-game-lp-1yr', function (e) {
     e.preventDefault();
@@ -10269,94 +10477,62 @@ $(document).on('click', '#membership-game-lp-1yr', function (e) {
 
 
 $(document).on('click', '#membership-game-lp-3yr', function (e) {
-    e.preventDefault();
-    $(this).addClass('btn--loading');
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.stopImmediatePropagation) {
+            e.stopImmediatePropagation();
+        }
+    }
+    var $btn = $(this);
+    $btn.addClass('btn--loading');
 
-    var formParams = {
-        'id': 44746786341061,
-        'selling_plan':5823856837,
-        'quantity': 1
-    };
+    var targetId = 44746786341061;
+    var targetPlan = 5823856837;
 
-    $.getJSON('/cart.js', function(cart) {
-        // Check if conflicting item is already in the cart
-        var existingItem = cart.items.find(item => item.id === 42402135900357);
+    $.getJSON('/cart.js?_=' + Date.now(), function(cart) {
+        var subMgr = window.BTGSubscriptionManager;
+        var subs = subMgr ? subMgr.getCartSubscriptions(cart) : [];
+
+        var existingItem = (cart.items || []).find(function(item) {
+            var vId = parseInt(item.variant_id || item.id);
+            return vId === targetId || vId === 42402147008709 || (subMgr && subMgr.getSubscriptionRank(item) === 4);
+        });
 
         if (existingItem) {
-            alert("A similar item was found in your cart. We’ve removed it and added this one for you.");
-            // Remove the existing item first
-            $.ajax({
-                url: '/cart/change.js',
-                type: 'POST',
-                data: {
-                    id: existingItem.key, // use line item key instead of product ID
-                    quantity: 0
-                },
-                dataType: 'json',
-                success: function() {
-                    // After removing, add the new item
-                    $.ajax({
-                        url: '/cart/add.js',
-                        type: 'POST',
-                        data: formParams,
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#membership-game-lp-3yr').removeClass('btn--loading');
-                            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
-                        },
-                        error: function(err) {
-                            console.log(err);
-                            $('#membership-game-lp-3yr').removeClass('btn--loading');
-                        }
-                    });
-                },
-                error: function(err) {
-                    console.log(err);
-                    $('#membership-game-lp-3yr').removeClass('btn--loading');
-                }
-            });
-        } else {
-            // If item does not exist, just add the new one
+            alert("Membership is already in the cart.");
+            $btn.removeClass('btn--loading');
+            return;
+        }
+
+        // 3-Year is top tier (rank 4). Remove any lower-tier memberships (1yr, 6mo, 1mo)
+        var keysToRemove = subs.map(function(item) { return item.key; });
+        var cleanPromise = (keysToRemove.length && subMgr) ? subMgr.removeLineItems(keysToRemove) : Promise.resolve();
+
+        cleanPromise.then(function() {
             $.ajax({
                 url: '/cart/add.js',
                 type: 'POST',
-                data: formParams,
+                data: {
+                    id: targetId,
+                    selling_plan: targetPlan,
+                    quantity: 1
+                },
                 dataType: 'json',
                 success: function(data) {
-                    $('#membership-game-lp-3yr').removeClass('btn--loading');
+                    $btn.removeClass('btn--loading');
                     document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
                 },
                 error: function(err) {
                     console.log(err);
-                    $('#membership-game-lp-3yr').removeClass('btn--loading');
+                    $btn.removeClass('btn--loading');
                 }
             });
-        }
+        });
     });
 
     return false;
 });
-
-
-
-/*
-$(function() {
-  $('a[href*=#]:not([href=#])').click(function() {
-    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-      if (target.length) {
-        $('html,body').animate({
-          scrollTop: target.offset().top
-        }, 1000);
-        return false;
-      }
-    }
-  });
-});
-*/
-
-
 
 $(document).on('click', '#membership-game-lp-1yr-hero', function (e) {
         e.preventDefault();
@@ -10397,42 +10573,61 @@ $(document).on('click', '#membership-game-lp-1yr-hero', function (e) {
 
 
     $(document).on('click', '.free-gift-card-membership', function (e) {
-        e.preventDefault();
-        $(this).addClass('btn--loading');
-    
-        var formParams = {
-          // 'id':45130609230021,
-          'id':46056795209925,
-          // 'selling_plan':4304666821,
-          // 'selling_plan':4092100805,
-          'selling_plan':7328694469,
-        };
-    
-        $.getJSON('/cart.js', function(cart) {
-            // Check if items are already in the cart
-            var existingItem = cart.items.find(item => item.id === 45130609230021);
-    
-            if (existingItem) {
-                // If item exists, update quantity
-                alert("Membership product is already in the cart.");
-                $('.free-gift-card-membership').removeClass('btn--loading');
-            } else {
-                // If item does not exist, add new items
-                $.ajax({
-                    url: '/cart/add',
-                    type: 'POST',
-                    data: formParams,
-                    success: function(data) {
-                        $('.free-gift-card-membership').removeClass('btn--loading');
-                      
-                        //document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
-                        window.location.href = '/checkout';
-                    },
-                    error: function(err) {
-                        console.log(err);
-                    }
-                });
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.stopImmediatePropagation) {
+                e.stopImmediatePropagation();
             }
+        }
+        var $btn = $(this);
+        $btn.addClass('btn--loading');
+    
+        var targetId = 46056795209925;
+        var targetPlan = 7328694469;
+    
+        $.getJSON('/cart.js?_=' + Date.now(), function(cart) {
+            var subMgr = window.BTGSubscriptionManager;
+            var subs = subMgr ? subMgr.getCartSubscriptions(cart) : [];
+
+            var existingItem = subs.find(function(item) {
+                var vId = parseInt(item.variant_id || item.id);
+                return vId === targetId || vId === 45130609230021;
+            });
+
+            var targetRank = subMgr ? subMgr.getSubscriptionRank(targetId, targetPlan) : 1;
+            var longerSub = subs.find(function(item) {
+                return subMgr && subMgr.getSubscriptionRank(item) > targetRank;
+            });
+
+            if (existingItem) {
+                alert("Membership is already in the cart.");
+                $btn.removeClass('btn--loading');
+                return;
+            }
+
+            if (longerSub) {
+                alert("A higher-tier membership is already in the cart.");
+                $btn.removeClass('btn--loading');
+                return;
+            }
+
+            $.ajax({
+                url: '/cart/add',
+                type: 'POST',
+                data: {
+                    id: targetId,
+                    selling_plan: targetPlan
+                },
+                success: function(data) {
+                    $btn.removeClass('btn--loading');
+                    document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+                },
+                error: function(err) {
+                    console.log(err);
+                    $btn.removeClass('btn--loading');
+                }
+            });
         });
         return false;
     });
@@ -10553,102 +10748,17 @@ $(document).on('click', '#membership-game-lp-1yr-hero', function (e) {
     });*/
 
 
+
+
     $(document).on('click', '.add_6mos_membership_qr', function (e) {
         e.preventDefault();
-        $(this).addClass('btn--loading');
-    
-        var formParams = {
-          'id':46056776990917,
-          'selling_plan':7328661701,
-        };
-    
-        $.getJSON('/cart.js', function(cart) {
-
-                // If item does not exist, add new items
-                $.ajax({
-                    url: '/cart/add',
-                    type: 'POST',
-                    data: formParams,
-                    success: function(data) {
-                        $('.add_6mos_membership_qr').removeClass('btn--loading');
-                        $('.add_6mos_membership_qr').text("Redirecting to checkout".toUpperCase());
-                      
-                        //document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
-                        window.location.href = '/checkout';
-                    },
-                    error: function(err) {
-                        console.log(err);
-                    }
-                });
-            
-        });
-        return false;
-    });
-    $(document).on('click', '.rainmakerPreOrderUpsell_lp', function (e) {
-        e.preventDefault();
-        $(this).addClass('btn--loading');
-    
-        var formParams = {
-          'id': 45793869299909,
-                    'selling_plan':6775537861,
-        };
-    
-        $.getJSON('/cart.js', function(cart) {
-
-                // If item does not exist, add new items
-                $.ajax({
-                    url: '/cart/add',
-                    type: 'POST',
-                    data: formParams,
-                    success: function(data) {
-                        $('.rainmakerPreOrderUpsell_lp').removeClass('btn--loading');
-                        $('.rainmakerPreOrderUpsell_lp').text("Redirecting to checkout".toUpperCase());
-                      
-                        //document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
-                        window.location.href = '/checkout';
-                    },
-                    error: function(err) {
-                        console.log(err);
-                    }
-                });
-            
-        });
+        window.BTGSubscriptionManager.addQRLandingSubscription(46056776990917, 7328661701, $(this));
         return false;
     });
 
-
-
-    // RAINMAKER MEMBERSHIP QR LP
-
-     $(document).on('click', '.add_1yr_membership_qr', function (e) {
+    $(document).on('click', '.rainmakerPreOrderUpsell_lp, .add_1yr_membership_qr', function (e) {
         e.preventDefault();
-        $(this).addClass('btn--loading');
-    
-        var formParams = {
-          'id':45793869299909,
-          'selling_plan':6775537861,
-        };
-    
-        $.getJSON('/cart.js', function(cart) {
-
-                // If item does not exist, add new items
-                $.ajax({
-                    url: '/cart/add',
-                    type: 'POST',
-                    data: formParams,
-                    success: function(data) {
-                        $('.add_1yr_membership_qr').removeClass('btn--loading');
-                        $('.add_1yr_membership_qr').text("Redirecting to checkout".toUpperCase());
-                      
-                        //document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
-                        window.location.href = '/checkout';
-                    },
-                    error: function(err) {
-                        console.log(err);
-                    }
-                });
-            
-        });
+        window.BTGSubscriptionManager.addQRLandingSubscription(45793869299909, 6775537861, $(this));
         return false;
     });
 
@@ -11087,53 +11197,106 @@ document.addEventListener('DOMContentLoaded', function () {
         shouldAddSecondProduct = true; // no condition = always add (old behavior)
       }
 
-      // Build the main product payload — attach selling_plan if data-selling-id is set
-      const mainProductPayload = { id: variantId1, quantity: 1 };
-      if (sellingPlanId) {
-        mainProductPayload.selling_plan = parseInt(sellingPlanId);
+      // Check subscription conflict before adding
+      var subMgr = window.BTGSubscriptionManager;
+      if (subMgr) {
+        var targetVId = parseInt(variantId1);
+        var targetPlan = sellingPlanId ? parseInt(sellingPlanId) : null;
+        var isSub = subMgr.isSubscriptionItem({ variant_id: targetVId, selling_plan_allocation: targetPlan ? { selling_plan: { id: targetPlan } } : null });
+        
+        if (isSub) {
+          fetch('/cart.js?_=' + Date.now())
+            .then(function(res) { return res.json(); })
+            .then(function(cart) {
+              var subs = subMgr.getCartSubscriptions(cart);
+              var existingItem = subs.find(function(item) {
+                return parseInt(item.variant_id || item.id) === targetVId;
+              });
+              var targetRank = subMgr.getSubscriptionRank(targetVId, targetPlan);
+              var longerSub = subs.find(function(item) {
+                return subMgr.getSubscriptionRank(item) > targetRank;
+              });
+
+              if (existingItem) {
+                alert("Membership is already in the cart.");
+                btn.classList.remove('btn--loading');
+                return;
+              }
+              if (longerSub) {
+                alert("A higher-tier membership is already in the cart.");
+                btn.classList.remove('btn--loading');
+                return;
+              }
+
+              // Remove lesser subscriptions before adding
+              var lesserKeys = subs.filter(function(item) {
+                return subMgr.getSubscriptionRank(item) < targetRank;
+              }).map(function(item) { return item.key; });
+
+              var cleanupPromise = lesserKeys.length ? subMgr.removeLineItems(lesserKeys) : Promise.resolve();
+              cleanupPromise.then(function() {
+                proceedWithAddToCart();
+              });
+            })
+            .catch(function(err) {
+              console.error(err);
+              proceedWithAddToCart();
+            });
+          return;
+        }
       }
+
+      proceedWithAddToCart();
+
+      function proceedWithAddToCart() {
+        // Build the main product payload — attach selling_plan if data-selling-id is set
+        const mainProductPayload = { id: variantId1, quantity: 1 };
+        if (sellingPlanId) {
+          mainProductPayload.selling_plan = parseInt(sellingPlanId);
+        }
 
       // ====================== ADD TO CART ======================
       // Add main product first
-      fetch('/cart/add.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(mainProductPayload),
-      })
-        .then((response) => {
-          if (!response.ok) throw new Error('Failed to add main product');
-          return response.json();
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(mainProductPayload),
         })
-        .then(() => {
-          // Add second product ONLY if condition is truly met
-          if (shouldAddSecondProduct && variantId2) {
-            return fetch('/cart/add.js', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ id: variantId2, quantity: 1 }),
-            }).then((response) => {
-              if (!response.ok) throw new Error('Failed to add second product');
-              return response.json();
-            });
-          }
-        })
-        .then(() => {
-          btn.classList.remove('btn--loading');
+          .then((response) => {
+            if (!response.ok) throw new Error('Failed to add main product');
+            return response.json();
+          })
+          .then(() => {
+            // Add second product ONLY if condition is truly met
+            if (shouldAddSecondProduct && variantId2) {
+              return fetch('/cart/add.js', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: variantId2, quantity: 1 }),
+              }).then((response) => {
+                if (!response.ok) throw new Error('Failed to add second product');
+                return response.json();
+              });
+            }
+          })
+          .then(() => {
+            btn.classList.remove('btn--loading');
 
-          document.dispatchEvent(
-            new CustomEvent('ajaxProduct:added', {
-              detail: {
-                productId: variantId1,
-                secondProductId: shouldAddSecondProduct ? variantId2 : null
-              }
-            })
-          );
-        })
-        .catch((error) => {
-          btn.classList.remove('btn--loading');
-          console.error('Cart add error:', error);
-          alert('There was an issue adding the product to the cart. Please try again.');
-        });
+            document.dispatchEvent(
+              new CustomEvent('ajaxProduct:added', {
+                detail: {
+                  productId: variantId1,
+                  secondProductId: shouldAddSecondProduct ? variantId2 : null
+                }
+              })
+            );
+          })
+          .catch((error) => {
+            btn.classList.remove('btn--loading');
+            console.error('Cart add error:', error);
+            alert('There was an issue adding the product to the cart. Please try again.');
+          });
+      }
     });
   });
 });

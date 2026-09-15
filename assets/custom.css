@@ -7,6 +7,7 @@
     --new-red-lighter: #E00000;
     --new-gray: #757575;
     --new-gray-dark: #909090;
+    --new-gray-darker: #505050;
     --new-blue: #004df5;
     --new-blue-dark: #0059FF;
     --new-black: #000;
@@ -3783,6 +3784,7 @@ PDP Above The Fold Styles Start
   .save__label { color: var(--new-red); }
 
   [class*="new-product__layout--"] .page-width { max-width: 1700px; width: 100%; padding-inline: 40px; margin-inline: auto; }
+
   @media only screen and (max-width:991px) {
     [class*="new-product__layout--"] .product-single__meta .product__price, .max3-product-page [id^="shopify-section-main-"] .product-single__meta .product__price { flex-wrap: wrap; justify-content: center; flex-direction: initial; }
     [class*="new-product__layout--"] .product-single__meta .product__offer-bug, .max3-product-page [id^="shopify-section-main-"] .product-single__meta .product__price.price-main .product__offer-bug { flex: 100%; justify-content: center; }
@@ -3790,7 +3792,12 @@ PDP Above The Fold Styles Start
     [class*="new-product__layout--"] .product-single__meta .collapsible-trigger-btn--borders { border-top: 0.76px solid #fff; border-bottom: 0.76px solid #fff; }
     [class*="new-product__layout--"] .product-single__meta .product-block.product-block--tab { margin-bottom:0px; }
     [class*="new-product__layout--"] .product-single__meta .collapsible-trigger-btn--borders { padding-bottom:15px; }
+
+    .options_extend-protection{justify-content: center; margin-block: 15px;}
+    .prod_options{ flex-wrap: wrap; justify-content: center; align-items: center; }
   }
+
+
 
 
 
@@ -3950,7 +3957,7 @@ max-width: 1700px;
   @media only screen and (max-width:991){
     .row_items{ justify-content: center; }
     .row_items-item { max-width: clamp(60px,15vw,100px); }
-    
+
   }
 
 /*-----------------------
@@ -5189,7 +5196,7 @@ NEW REGISTER PAGE START
 .section__cta { border: 2px solid #fff0; }
 
 .product-card__product-name { --productText: clamp(24px, 2.3vw, 42px); font-size: var(--productText); line-height: calc(var(--productText) + 6px); color: #1B2029; }
-.product-card__subtext { padding: 0; font-size: clamp(14px,1vw,18px); line-height: 150%; color: var(--new-gray); max-width: clamp(300px, 30vw, 511px); width: 100%; }
+.product-card__subtext { padding: 0; font-size: clamp(14px,1vw,18px); line-height: 150%; color: var(--new-gray-darker); max-width: clamp(300px, 30vw, 511px); width: 100%; }
 .product-card:hover :is(.product-card__product-name, .product-card__subtext) { color: #fff; }
 .product-card__heading-text { font-size: clamp(20px, 4.3vw, 42px); line-height: 1; max-width: 70%; width: 100%; }
 .product-content__left { position: relative; }
@@ -5307,7 +5314,7 @@ NEW REGISTER PAGE START
 .round-card-title { font-size: clamp(20px, 2.5vw, 28px); font-weight: 900; text-transform: uppercase; line-height: 1; margin-bottom: 4px; }
 .round-card-subtitle { font-size: 14px; opacity: 0.9; margin-bottom: 20px; display: block; padding: 0;}
 .round-card-buttons { justify-content: flex-start; }
-.round-description { max-width: 345px; width: 100%; padding: 0; color: var(--new-gray); margin-bottom: 21px; }
+.round-description { max-width: 345px; width: 100%; padding: 0; color: var(--new-gray-darker); margin-bottom: 21px; }
 .card-btn-outline { background-color: transparent; color: #fff; border: 1px solid #fff; }
 .card-btn-outline:hover { background-color: #fff; color: var(--new-black); }
 .horizon-slider_container.round-slider .horizon-nav { margin-top: 24px; display: flex; justify-content: flex-end; gap: 12px; padding-right: 0;}
