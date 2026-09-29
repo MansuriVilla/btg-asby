@@ -1,4 +1,8 @@
- <div class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
+{%- assign enable_footer_anim = true -%}
+{%- if settings.enable_sticky_footer_animation == false or settings.disable_animations == true -%}
+  {%- assign enable_footer_anim = false -%}
+{%- endif -%}
+ <div class="site-footer{% if enable_footer_anim %} footer_animation{% endif %}" data-section-id="{{ section.id }}" data-section-type="footer-section">
       <div class="new-page-width">
         <div class="footer-col-list">
           <div class="col-4 footer-item">

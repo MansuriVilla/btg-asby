@@ -9615,6 +9615,61 @@ $(document).on('click','#bottom-only-watch',function(e) {
 
 
 
+// $(document).on('click', '#playmaker-watch', function (e) {
+//     e.preventDefault();
+//     var $btn = $(this);
+//     $btn.addClass('btn--loading');
+
+//     // First, check the cart contents
+//     $.getJSON('/cart.js', function (cart) {
+        
+//         var itemExists = cart.items.some(item => item.id === 42279859028165 || item.id === 44528451059909);
+//         var formParams;
+
+//         if (itemExists) {
+//             // If item 42279859028165 is already in the cart, increase quantity of 44599654088901
+//             //var existingItem = cart.items.find(item => item.id === 44599654088901);
+//             //var newQuantity = existingItem ? existingItem.quantity + 1 : 1;
+
+//             formParams = {
+//                 'id': 44599654088901,
+//                 'quantity': 1
+//             };
+//         } else {
+//             // If item 42279859028165 is not in the cart, add both items
+//             formParams = {
+//                 'items': [{
+//                     'id': 44599654088901,
+//                     'quantity': 1
+//                 }, {
+//                     'id': 42279859028165,
+//                     'quantity': 1,
+//                     'selling_plan': 2791211205
+//                 }]
+//             };
+//         }
+
+//         $.ajax({
+//             url: "/cart/add",
+//             type: "post",
+//             data: JSON.stringify(formParams),
+//             contentType: "application/json",
+//             success: function () {
+//                 $btn.removeClass('btn--loading');
+//                 document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+//             },
+//             error: function (err) {
+//                 console.log(err);
+//                 alert("Error adding item. Please check your cart.");
+//                 $btn.removeClass('btn--loading');
+//             }
+//         });
+//     });
+
+//     return false;
+// });
+
+
 $(document).on('click', '#playmaker-watch', function (e) {
     e.preventDefault();
     var $btn = $(this);
@@ -9627,19 +9682,17 @@ $(document).on('click', '#playmaker-watch', function (e) {
         var formParams;
 
         if (itemExists) {
-            // If item 42279859028165 is already in the cart, increase quantity of 44599654088901
-            //var existingItem = cart.items.find(item => item.id === 44599654088901);
-            //var newQuantity = existingItem ? existingItem.quantity + 1 : 1;
-
+            // If item is already in the cart, only add 44599654088901
             formParams = {
-                'id': 44599654088901,
+                'id': 44594032378053,
                 'quantity': 1
             };
         } else {
-            // If item 42279859028165 is not in the cart, add both items
+            // Playmaker+ is sold out → only add the available product
+            alert("Playmaker+ is sold out. We've added only the available item to your cart.");
             formParams = {
                 'items': [{
-                    'id': 44599654088901,
+                    'id': 44594032378053,
                     'quantity': 1
                 }, {
                     'id': 42279859028165,
@@ -9647,6 +9700,8 @@ $(document).on('click', '#playmaker-watch', function (e) {
                     'selling_plan': 2791211205
                 }]
             };
+
+            // Show alert
         }
 
         $.ajax({
@@ -9668,8 +9723,6 @@ $(document).on('click', '#playmaker-watch', function (e) {
 
     return false;
 });
-
-
 
 
 

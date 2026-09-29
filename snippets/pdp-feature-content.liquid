@@ -1,0 +1,454 @@
+{%- comment -%}
+  Per-product feature grid, rendered inside the "tab" product block (see
+  sections/new-main-product.liquid). Content is not metafield driven -
+  add a {% when %} for each product handle that needs its own feature list,
+  each one just a list of {% render 'feature-item' %} calls.
+{%- endcomment -%}
+
+<div class="pdp-feature-content{% if product.template_suffix == 'new-playmaker-case' %} pdp-feature-content--2col{% endif %}">
+  {%- case product.template_suffix -%}
+
+    {%- when 'player-pro' -%}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Front, Center, Back',
+        subtitle: 'GPS Distances'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-10.svg?v=1790233765',
+        title: 'Heavy-Duty',
+        subtitle: 'Magnetic Strip'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-11.svg?v=1790233765',
+        title: 'On Device',
+        subtitle: 'Scoring'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1.svg?v=1790233765',
+        title: 'Full Color',
+        subtitle: 'Touch Screen'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-4.svg?v=1790233765',
+        title: 'Auracast™ Pairing with',
+        subtitle: 'Unlimited Devices'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-8.svg?v=1790233765',
+        title: 'Dynamic Hazards',
+        subtitle: ''
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-2.svg?v=1790233765',
+        title: 'Shot Distance',
+        subtitle: 'Tracking'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7.svg?v=1790233765',
+        title: 'IP67 Waterproof',
+        subtitle: 'for any condition'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-9.svg?v=1790233765',
+        title: 'Clock with Built',
+        subtitle: 'in Round Timer'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3.svg?v=1790233765',
+        title: 'True 360° Studio-Quality',
+        subtitle: 'Audio with Dynamic Volume'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-6.svg?v=1790233765',
+        title: 'USB-C Power Bank for',
+        subtitle: 'Quick Device Charging'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-5.svg?v=1790233764',
+        title: 'AI Powered',
+        subtitle: 'Club Suggestions'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-14.svg?v=1790233765',
+        title: 'Dynamic',
+        subtitle: 'Hole View'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-12.svg?v=1790233765',
+        title: 'Green',
+        subtitle: 'Heat Maps'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-13.svg?v=1790233765',
+        title: 'True Distance™',
+        subtitle: 'Environmental Yardage Adjustments'
+      %}
+
+    {%- when 'captain-pro' -%}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Front, Center, Back',
+        subtitle: 'GPS Distances'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_14101052022.svg?v=1790236394',
+        title: 'Vibrant Brightness Control',
+        subtitle: 'for all Conditions'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7.svg?v=1790233765',
+        title: 'IP67 Dust+',
+        subtitle: 'Waterproof'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202_fc6d1358-e9b6-40da-b329-9a8e88ca6979.svg?v=1790236360',
+        title: '"Find My"',
+        subtitle: 'Rangefinder'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-4_5722fb49-a183-44ff-ad7a-f05b4ead3792.svg?v=1790236359',
+        title: 'Shot Tracking for',
+        subtitle: 'Post Game Round Analysis'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202654.svg?v=1790236478',
+        title: 'Rechargeable',
+        subtitle: 'USB-C Battery'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1_fd8a86c4-d567-4b73-8ee5-cc7f9900c2e6.svg?v=1790236361',
+        title: 'Flag Lock',
+        subtitle: 'W/ Vibration'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-5_b49dc684-fc33-42ab-b346-28c2c2ed465c.svg?v=1790236361',
+        title: '1200-Yard',
+        subtitle: 'Range'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7_57f2793f-7441-4102-9469-5f1e1f330946.svg?v=1790236361',
+        title: 'Bluetooth Connected with',
+        subtitle: 'GAME App Compatibility'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-2_aabfc52a-5da4-4a0a-9cbd-deba32a94157.svg?v=1790236360',
+        title: 'Multi-Color',
+        subtitle: 'OLED Display'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-6_02d3beaf-b82f-40a2-ba9b-328fe38e44c4.svg?v=1790236360',
+        title: 'Tour-Ready',
+        subtitle: 'Slope Button'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3_42d25a48-1c0f-4807-a018-c9a8a5eb9fa8.svg?v=1790236359',
+        title: '7X Magnification',
+        subtitle: ''
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-10.svg?v=1790233765',
+        title: 'Heavy-Duty',
+        subtitle: 'Magnetic Strip'
+      %}
+
+    {%- when 'product-new' -%}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Front, Center, Back',
+        subtitle: 'GPS Distances'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202_8ded7b08-a194-4866-b3b6-a7aa4f7f2b15.svg?v=1790237494',
+        title: '6X Magnification',
+        subtitle: ''
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-10.svg?v=1790233765',
+        title: 'Heavy-Duty',
+        subtitle: 'Magnetic Strip'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202_fc6d1358-e9b6-40da-b329-9a8e88ca6979.svg?v=1790236360',
+        title: '"Find My"',
+        subtitle: 'Rangefinder'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_14101052022.svg?v=1790236394',
+        title: 'Vibrant Brightness Control',
+        subtitle: 'for all Conditions'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7.svg?v=1790233765',
+        title: 'IP65 Dust+',
+        subtitle: 'Waterproof'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1_fd8a86c4-d567-4b73-8ee5-cc7f9900c2e6.svg?v=1790236361',
+        title: 'Flag Lock',
+        subtitle: 'W/ Vibration'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1_fde7d68f-b626-424f-9bae-b6d8f6bea9b9.svg?v=1790237494',
+        title: '1000-Yard',
+        subtitle: 'Range'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202654.svg?v=1790236478',
+        title: 'Rechargeable',
+        subtitle: 'USB-C Battery'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-2_7edce75d-9a31-4d59-91ba-4a99f3de407e.svg?v=1790237494',
+        title: 'Red/Black',
+        subtitle: 'HD Display'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3_0dac9162-beab-4dc5-bb78-e87902a2f4ea.svg?v=1790237494',
+        title: 'Tour-Ready',
+        subtitle: 'Slope Button'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7_57f2793f-7441-4102-9469-5f1e1f330946.svg?v=1790236361',
+        title: 'Bluetooth Connected with',
+        subtitle: 'GAME App Compatibility'
+      %}
+
+    {%- when 'new-s3-max' -%}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105272.svg?v=1790238427',
+        title: 'Crystal Clear',
+        subtitle: 'Display'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105273.svg?v=1790238428',
+        title: 'Magnetic',
+        subtitle: 'Strip'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Vector.svg?v=1790238427',
+        title: 'Slope',
+        subtitle: 'Switch'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group.svg?v=1790238428',
+        title: 'Red / Black',
+        subtitle: 'Control'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105276.svg?v=1790238428',
+        title: 'Active',
+        subtitle: 'Tracking'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105274.svg?v=1790238428',
+        title: 'Advanced',
+        subtitle: 'Flag Lock'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Vector-1.svg?v=1790238428',
+        title: 'Pulse',
+        subtitle: 'Vibration'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_24478.svg?v=1790238428',
+        title: '1000 Yard',
+        subtitle: 'Range'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group-1.svg?v=1790238428',
+        title: 'Waterproof',
+        subtitle: 'USB-C'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1410105275.svg?v=1790238428',
+        title: 'Water',
+        subtitle: 'Resistant'
+      %}
+
+    {%- when 'rainmaker' -%}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202_f9ca5646-fd73-40dd-bb84-0b5c1b874669.svg?v=1790239182',
+        title: '20+ Real-Time',
+        subtitle: 'Metrics'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-6_82db5712-e047-4bbd-83ad-6f97898cca4f.svg?v=1790239182',
+        title: 'Wide Angle',
+        subtitle: 'LCD Display'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7.svg?v=1790233765',
+        title: 'IPX4',
+        subtitle: 'Waterproof'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1_560b8011-d197-4e2b-8273-e60473ad3a22.svg?v=1790239182',
+        title: '3 Offline',
+        subtitle: 'Training Modes'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3_155fcf9b-6e8e-40ec-ad53-a2f1973344ef.svg?v=1790239182',
+        title: 'Personalized',
+        subtitle: 'Club Data'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-4_a85747c4-188e-49c4-bdbc-2ceed6ee2b82.svg?v=1790239182',
+        title: 'Adjustable Standing',
+        subtitle: 'Handle'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-2_1eb706b6-b4d4-4f54-9d8d-e766fa9713dd.svg?v=1790239182',
+        title: 'Multiplayer',
+        subtitle: 'Support'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202654.svg?v=1790236478',
+        title: '6+ Hour',
+        subtitle: 'Battery Life'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-5_f92884ad-fbd2-44a7-a216-683832f87e7e.svg?v=1790239182',
+        title: 'Storage Case',
+        subtitle: 'Included'
+      %}
+
+    {%- when 'ringer' -%}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011927.svg?v=1790240481',
+        title: 'Touch Screen',
+        subtitle: 'Display'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011928.svg?v=1790240479',
+        title: 'Built-In GPS',
+        subtitle: 'Distances'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011921.svg?v=1790240480',
+        title: 'Auto-Course',
+        subtitle: 'Recognition'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011926.svg?v=1790240480',
+        title: 'Advanced',
+        subtitle: 'Scoring'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011925.svg?v=1790240480',
+        title: 'Dynamic',
+        subtitle: 'Green View'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011925.svg?v=1790240480',
+        title: 'Hazard',
+        subtitle: 'Distances'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011924.svg?v=1790240480',
+        title: 'Shot',
+        subtitle: 'Tracking'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011923.svg?v=1790240480',
+        title: 'Magnetic',
+        subtitle: 'Strip'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group654.svg?v=1790240578',
+        title: '10+ Hours',
+        subtitle: 'Battery'
+      %}
+
+    {%- when 'golf-towel' -%}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011606.svg?v=1790245241',
+        title: 'Magnetic',
+        subtitle: 'Strip'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011608.svg?v=1790245241',
+        title: 'Scrub',
+        subtitle: 'Brush'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011607.svg?v=1790245239',
+        title: 'Groove',
+        subtitle: 'Cleaner'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_21ccd642-445e-473f-b9b2-bc7db8cc1623.svg?v=1790245241',
+        title: 'Mountaineer',
+        subtitle: 'Buckle'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group-1_20761de5-0799-4c5e-9c92-078b5f87a6b0.svg?v=1790245241',
+        title: 'Waffle',
+        subtitle: 'Pattern'
+      %}
+
+    {%- when 'divot-tool' -%}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Vector_eaeca613-0cef-45e7-b640-394b7207510c.svg?v=1790245458',
+        title: 'Divot',
+        subtitle: 'Repair'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Vector-2.svg?v=1790245457',
+        title: 'Bottle',
+        subtitle: 'Opener'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011884.svg?v=1790245458',
+        title: 'Ball',
+        subtitle: 'Marker'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Vector-1_7be616ba-cb04-4c14-8e7a-a3052f83fa36.svg?v=1790245458',
+        title: 'Club',
+        subtitle: 'Tee'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011885.svg?v=1790245458',
+        title: 'Groove',
+        subtitle: 'Cleaner'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000011886.svg?v=1790245458',
+        title: 'Putting',
+        subtitle: 'Alignment'
+      %}
+
+    {%- when 'new-playmaker-case' -%}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202_f26fa9e6-8764-42f4-8f33-04b9dde708cb.svg?v=1790253392',
+        title: 'Hard Shell',
+        subtitle: 'Protection'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-5_3455b83a-e6fd-4379-b6de-503d7ab0f140.svg?v=1790253390',
+        title: 'Custom-Fit',
+        subtitle: 'Interior'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1_5f18bdbc-f814-40a8-a3c0-348e0f18188f.svg?v=1790253392',
+        title: 'Compact, Travel-Ready',
+        subtitle: 'Design'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3_8d19acfe-11fc-45a2-89e2-ea4a880d5d07.svg?v=1790253392',
+        title: 'Scratch-Resistant',
+        subtitle: 'Lining'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-2_41774670-a388-4238-bc80-d99ff7d0d45c.svg?v=1790253392',
+        title: 'Smooth, Secure',
+        subtitle: 'Zipper Closure'
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-4_ea39a418-6c03-4465-98b3-5b5bc630f133.svg?v=1790253392',
+        title: 'Integrated',
+        subtitle: 'Carabiner Clip'
+      %}
+  {%- endcase -%}
+</div>

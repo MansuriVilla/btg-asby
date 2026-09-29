@@ -1,0 +1,19 @@
+{%- comment -%}
+  Renders a single icon + text feature item.
+  Usage:
+    {% render 'feature-item', icon: 'icon-gps-distance.svg', title: 'Front, Center, Back', subtitle: 'GPS Distances' %}
+{%- endcomment -%}
+
+<div class="pdp-feature-item">
+  {%- if icon != blank -%}
+    <span class="pdp-feature-item__icon">
+      <img src="{{ icon }}" alt="{{ title }} {{ subtitle }}" width="40" height="40" loading="lazy">
+    </span>
+  {%- endif -%}
+  <span class="pdp-feature-item__text">
+    {{ title }}
+    {%- if subtitle != blank -%}
+      <br>{{ subtitle }}
+    {%- endif -%}
+  </span>
+</div>

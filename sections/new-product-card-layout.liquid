@@ -146,7 +146,7 @@
             <div class="product-content__right">
               <div class="content-ctas">
                 {% if block.settings.solidCtaText != blank %}
-                  <a
+                 <a
                     class="content-cta content-cta__solid"
                     href="{{block.settings.product.url}}"
                     {% if settings.open_new_tab %}
@@ -173,9 +173,12 @@
     </div>
     {% if section.settings.sectionCtaText != blank %}
       <div class="product-cards__section-cta">
-        <a class="content-cta content-cta__solid section__cta" href="{{section.settings.allProductURL}}">
-          {{- section.settings.sectionCtaText -}}
-        </a>
+        {% render 'cta-button',
+          text: section.settings.sectionCtaText,
+          url: section.settings.allProductURL,
+          variant: 'solid',
+          class: 'section__cta'
+        %}
       </div>
     {% endif %}
   </div>

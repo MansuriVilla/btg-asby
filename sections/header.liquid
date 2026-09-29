@@ -201,12 +201,12 @@
   endif
 -%}
 
-{%- render 'drawer-menu',
+{% comment %} {%- render 'drawer-menu',
   section: section,
   main_menu: main_menu,
   toolbar_menu: toolbar_menu,
   logo_alignment: logo_alignment
--%}
+-%} {% endcomment %}
 
 {%- render 'cart-drawer' -%}
 
@@ -308,12 +308,12 @@
                 <a
                   class="top__bar-right--inner Arrow Arrow--right"
 
-                  href="/pages/deals"
+                  href="/products/rainmaker"
                 >
                   <span class="arrow__text" style="display:flex;">
                     <p>
                       {% comment %} {%- render 'sale-name'-%}. {% endcomment %}
-                       FALL SALE.
+                       IMPROVE ANYWHERE WITH RAINMAKER
                      
                       <span
                         class="top__bar-anhor-hover anchor_hover"

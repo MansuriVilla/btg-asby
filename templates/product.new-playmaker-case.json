@@ -56,11 +56,11 @@
             "cta_note_text": ""
           }
         },
-        "tab_L3gDDH": {
+        "tab_TtGJRM": {
           "type": "tab",
           "settings": {
             "title": "FEATURES",
-            "content": "<picture>\n          <source srcset=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ppro-f-icons-desktop00.png?v=1775216848\" media=\"(min-width:992px)\">\n          <source srcset=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ppro-f-icons-mobileFDD.png?v=1775216847\" media=\"(max-width:991px)\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/cp-f-icons-desktop.png?v=1772427364\" alt=\"Blue Tees Playmaker Watch Case features including Hard Shell Protection, Compact Travel-Ready Design, Smooth Secure Zipper Closure, Custom-Fit Interior, Scratch-Resistant Lining, and Integrated Carabiner Clip\" height=\"100%\" width=\"100%\">\n        </source></source></picture>",
+            "content": "{%render 'pdp-feature-content' %}",
             "page": ""
           }
         },
@@ -79,7 +79,7 @@
         "loox-rating",
         "variant_picker",
         "buy_buttons",
-        "tab_L3gDDH",
+        "tab_TtGJRM",
         "tab_43bUww"
       ],
       "settings": {
@@ -239,7 +239,8 @@
         "description": "High-quality zipper system ensures a secure seal while maintaining a clean, premium feel. Easy to open, reliable when closed.",
         "contentBackground": "shopify://shop_images/Frame_1410105396_1.png",
         "contentBackgroundMobile": "shopify://shop_images/Frame_1410105402_1.png",
-        "has_overlay": false
+        "has_overlay": false,
+        "eager_load": false
       }
     },
     "two_layout_lp_section_cVnWrY": {
@@ -328,7 +329,8 @@
         "description": "Soft interior lining helps prevent micro-scratches and surface wear, preserving the look and performance of your watch over time.",
         "contentBackground": "shopify://shop_images/Frame_1410105397_1.png",
         "contentBackgroundMobile": "shopify://shop_images/Frame_1410105403_1.png",
-        "has_overlay": false
+        "has_overlay": false,
+        "eager_load": false
       }
     },
     "loox-product-reviews-app-section": {

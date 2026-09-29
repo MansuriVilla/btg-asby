@@ -70,11 +70,11 @@
             "cta_note_text": ""
           }
         },
-        "tab_DkLFBn": {
+        "tab_pQtn7x": {
           "type": "tab",
           "settings": {
             "title": "FEATURES",
-            "content": "<picture>\n          <source srcset=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rmk-f-icons-desktop.png?v=1772427363\" media=\"(min-width:992px)\">\n          <source srcset=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rmk-f-icons-mobile.png?v=1772427363\" media=\"(max-width:991px)\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rmk-f-icons-desktop.png?v=1772427363\" alt=\"Blue Tees Rainmaker golf launch monitor features including 20+ Real-Time Metrics, 3 Offline Training Modes, Multiplayer Support, Wide Angle LCD Display, Personalized Club Data, 6+ Hour Battery Life, IPX4 Waterproof, Adjustable Standing Handle, and Storage Case Included\" height=\"100%\" width=\"100%\">\n        </source></source></picture>",
+            "content": "{%render 'pdp-feature-content' %}",
             "page": ""
           }
         },
@@ -102,7 +102,7 @@
         "loox-rating",
         "variant_picker",
         "buy_buttons",
-        "tab_DkLFBn",
+        "tab_pQtn7x",
         "tab_xH6FTH",
         "tab_akWX4b"
       ],

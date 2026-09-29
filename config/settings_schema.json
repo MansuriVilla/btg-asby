@@ -1129,7 +1129,7 @@
       {
         "type": "checkbox",
         "id": "open_new_tab",
-        "label": "Open Links In New Tab",
+        "label": "Open Links In New Tab"
       },
       {
         "type": "checkbox",
@@ -1141,6 +1141,38 @@
         "type": "checkbox",
         "id": "disable_animations",
         "label": "t:settings_schema.extras.settings.disable_animations.label"
+      },
+      {
+        "type": "header",
+        "content": "Animations & Motion"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_pdp_preloader",
+        "label": "Enable PDP Pre-loader Animation",
+        "default": true,
+        "info": "Shows product name reveal loader on PDP load"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sticky_footer_animation",
+        "label": "Enable Sticky Footer & Reveal Animation",
+        "default": true,
+        "info": "Fixed footer reveal and staggered column animation on scroll"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_collection_hero_reveal",
+        "label": "Enable Collection Hero Text Reveal",
+        "default": true,
+        "info": "Gradient wipe animation for collection title and description"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_button_hover_fill",
+        "label": "Enable Button Bottom-to-Top Hover Fill",
+        "default": true,
+        "info": "Continuous upward fill motion on CTA buttons"
       }
     ]
   }

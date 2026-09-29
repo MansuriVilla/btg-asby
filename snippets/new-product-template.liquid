@@ -344,9 +344,9 @@
                         </div>
                       {%- endif -%}
                     </div>
-                    {% if hide_upsell %}
+                    {% comment %} {% if hide_upsell %}
                       {% render 'bonus-pdp-upshell' %}
-                    {% endif %}
+                    {% endif %} {% endcomment %}
                     {% if product.metafields.custom.discount_code != blank %}
                       <div class="discount-code">
                         Use code: {{ product.metafields.custom.discount_code | metafield_tag }}

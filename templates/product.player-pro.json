@@ -70,11 +70,11 @@
             "cta_note_text": "FREE SHIPPING"
           }
         },
-        "tab_DkLFBn": {
+        "tab_yQEQB8": {
           "type": "tab",
           "settings": {
             "title": "FEATURES",
-            "content": "<picture>\n          <source srcset=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ppro-f-icons-desktop_10aac563-4168-47e1-9031-bf8ea7b6e982.png?v=1778141438\" media=\"(min-width:992px)\">\n          <source srcset=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ppro-f-icons-mobile-new_8f5959c4-892c-4f7d-bef5-4a60fe2ae2bf.png?v=1778141498\" media=\"(max-width:991px)\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ppro-f-icons-desktop_10aac563-4168-47e1-9031-bf8ea7b6e982.png?v=1778141438\" alt=\"Blue Tees Player Pro golf GPS speaker features including Front Center Back GPS Distances, Full Color Touch Screen, Shot Distance Tracking, True 360° Studio-Quality Audio with Dynamic Volume, Dynamic Hole View, Heavy-Duty Magnetic Strip, Auracast™ Pairing with Unlimited Devices, IP67 Waterproof, USB-C Power Bank, Green Heat Maps, On Device Scoring, Dynamic Hazards, Clock with Built-in Round Timer, AI Powered Club Suggestions, and True Distance™ Environmental Yardage Adjustments\" height=\"100%\" width=\"100%\">\n        </source></source></picture>",
+            "content": "{%render 'pdp-feature-content' %}",
             "page": ""
           }
         },
@@ -102,7 +102,7 @@
         "loox-rating",
         "variant_picker",
         "buy_buttons",
-        "tab_DkLFBn",
+        "tab_yQEQB8",
         "tab_xH6FTH",
         "tab_akWX4b"
       ],

@@ -18,196 +18,114 @@
       when 'product-new'
         assign popup_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/cap-air-desktop-popup-img.png?v=1782370194'
         assign popup_image_mobile = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/cap-air-mobile-popup-img.png?v=1782370194'
+        assign remove_upsell = true
 
       when 'captain-pro'
-        assign popup_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/cap-pro-desktop-popup.png?v=1782371141'
-        assign popup_image_mobile = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/cap-pro-mobile-popup.png?v=1782371141'
+        assign popup_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105556.png?v=1790150571'
+        assign popup_image_mobile = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105557.png?v=1790150571'
+        assign upsell_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105527_523bb6f6-c2b7-42d3-a7c8-539afb2fecb4.png?v=1790068515'
+        assign upsell_title = 'FCB Distance'
 
       when 'player-pro'
         assign popup_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/player-pro-desktop-popup.png?v=1782371277'
         assign popup_image_mobile = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/player-pro-mobile-popup.png?v=1782371276'
+        assign upsell_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105527.png?v=1790060650'
+        assign upsell_title = 'FCB & HAZARD DISTANCES'
     endcase
   %}
+  
+    <div class="subscriptionbox newupshell">
+      <div class="membershipplans">
+        {% unless remove_upsell %}
+        <div class="upsell_banner">
+          <div class="upsell_left">
+            <img
+              src="{{upsell_image}}"
+              alt="{{upsell_title}}"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
 
-  <div class="subscriptionbox newupshell">
-    <div class="membershipplans">
-      <div class="free-offer-info group1 supercharged_ai--upshell">
-        <div id="advanced-analytics-offer" class="offer-description-info accordion-content active">
-          <div class="accordion-content-details">
-            <div class="accordion-content_top">
-              <div class="checkbox-list">
-                {% render 'offer-bug' %}
-                <input
-                  type="checkbox"
-                  name="offer-checkbox"
-                  class="select-premium selectRV"
-                  id="6month-free-premium-product"
-                >
-                <label for="6month-free-premium-product" class="checkbox-title membership__name"
-                  >Supercharge <br>
-                  {{ product_name }} with AI
-                </label>
-                <div class="offer-price">
-                  <span class="visually-hidden">Original price:</span>
-                  <span class="price-compare" aria-hidden="true">($39.50)</span>
-                  <span class="visually-hidden">($39.50)</span>
-                  <span class="visually-hidden">Current price:</span>
-                  <span class="membership__duration">
-                    6 MONTH FREE
-                    <span style="display:none;">
-                      <a href="#" class="learn-more-link" data-target="six_month_popup">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          x="0px"
-                          y="0px"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 32 32"
-                        >
-                          <path id="info_icon"
-                            d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 15 10 L 15 12 L 17 12 L 17 10 Z M 15 14 L 15 22 L 17 22 L 17 14 Z">
-                          </path>
-                        </svg>
-                      </a>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-content_bottom">
-              <div class="accordion-content_left">
-                <div class="accordion-content_img-holder">
-                  <img
-                    class="product-atc_product-img"
-                    height="30"
-                    width="30"
-                    decoding="async"
-                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/upshell-ai-icon-pp.png?v=1763455070"
-                    alt="{{product_name | downcase | capitalize }} ADVANCED ANALYTICS"
-                  >
+          <div class="upsell_right">
+            <div class="upsell_title custom_heading">{{ upsell_title }}</div>
 
-                  <span class="anchor_holder">
-                    <a
-                      href="#"
-                      data-target="six_month_popup"
-                      class="learn-more-link anchor_hover"
-                      style="--hover-clr:#A8A8A8;"
-                      >Learn More</a
-                    >
-                  </span>
+            <div class="upsell_free_box">
+              <div class="upsell_free_content">
+                <div class="upsell_checkbox">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12.5L10 17.5L19 7" stroke="#0D0D0D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
                 </div>
+                <div class="upsell_free_text custom_heading">FREE FOR LIFE</div>
               </div>
-              <div class="accordion-content_right">
-                <div class="offer-description">
-                  <div class="rule_play-blocks">
-                    <div class="rule_play-block">
-                      <div class="rule_block-left">
-                        <span>
-                          <img
-                            class="block_image"
-                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/true-distance-app-icon.svg?v=1782823490"
-                            alt="True Distance image for {{ product_name | downcase }}"
-                            loading="eager"
-                            decoding="async"
-                          >
-                        </span>
-                      </div>
-                      <dl class="rule_block-right">
-                        <dt>TRUE DISTANCE™ TECHNOLOGY</dt>
-                        <dd>Real-time yardage adjusted for slope and wind.</dd>
-                      </dl>
-                    </div>
-                    <div class="rule_play-block">
-                      <div class="rule_block-left">
-                        <span>
-                          <img
-                            class="block_image"
-                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-club-app-icon.svg?v=1782823490"
-                            alt="AI club image for {{ product_name | downcase }}"
-                            loading="eager"
-                            decoding="async"
-                          >
-                        </span>
-                      </div>
-                      <dl class="rule_block-right">
-                        <dt>AI CLUB RECOMMENDATIONS</dt>
-                        <dd>AI suggests the ideal club for every shot.</dd>
-                      </dl>
-                    </div>
-                    <div class="rule_play-block">
-                      <div class="rule_block-left">
-                        <span>
-                          <img
-                            class="block_image"
-                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/caddie-app-icon.svg?v=1782823490"
-                            alt="AI caddie image for {{ product_name | downcase }}"
-                            loading="eager"
-                            decoding="async"
-                          >
-                        </span>
-                      </div>
-                      <dl class="rule_block-right">
-                        <dt>SCOUT AI CADDIE™</dt>
-                        <dd>Predictive gameplay intelligence for every hole.</dd>
-                      </dl>
-                    </div>
-                    <div class="rule_play-block">
-                      <div class="rule_block-left">
-                        <span>
-                          <img
-                            class="block_image"
-                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/adv-analytics-app-icon.svg?v=1782823490"
-                            alt="ADVANCED ANALYTICS round image for {{ product_name | downcase }}"
-                            loading="eager"
-                            decoding="async"
-                          >
-                        </span>
-                      </div>
-                      <dl class="rule_block-right">
-                        <dt>ADVANCED ANALYTICS</dt>
-                        <dd>Shot Dispersion, 3D Mapping, Live Leaderboards & More</dd>
-                      </dl>
-                    </div>
-                    <div class="rule_play-block">
-                      <div class="rule_block-left">
-                        <img
-                          class="block_image"
-                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-post-app-icon.svg?v=1782823490"
-                          alt="AI post round image for {{ product_name | downcase }}"
-                          loading="eager"
-                          decoding="async"
-                        >
-                      </div>
-                      <dl class="rule_block-right">
-                        <dt>AI POST ROUND</dt>
-                        <dd>Estimated strokes gained analysis & recommendations</dd>
-                      </dl>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="upsell_included">(INCLUDED W. PURCHASE)</div>
             </div>
+
+            <div class="upsell_sub_text">SUBSCRIPTION NOT REQUIRED</div>
           </div>
         </div>
-      </div>
-
-      {% if product.template_suffix == 'product-new' %}
-        <div class="free-offer-info group2 offer_cap-pro">
-          <div id="soft-case-offer" class="offer-description-info accordion-content active">
+        <div class="free-offer-info group1 supercharged_ai--upshell">
+          <div id="advanced-analytics-offer" class="offer-description-info accordion-content active">
             <div class="accordion-content-details">
               <div class="accordion-content_top">
                 <div class="checkbox-list">
                   {% render 'offer-bug' %}
                   {% comment %}
-                    <input type="checkbox" name="offer-checkbox" class="select-premium selectRV"
-                    id="playerplus-player-go-upshell" />
+                    <input
+                      type="checkbox"
+                      name="offer-checkbox"
+                      class="select-premium selectRV"
+                      id="6month-free-premium-product"
+                    >
                   {% endcomment %}
-                  <label for="playerplus-player-go-upshell" class="checkbox-title custom_heading"
-                    >UPGRADE TO THE PRO</label
-                  >
-                  <div class="offer-price custom_heading" style="align-items: flex-end;">
-                    {% comment %} <span class="price-compare">($129)</span> {% endcomment %}
-                    <span>+$50</span>
+                  {% comment %}
+                    <label for="6month-free-premium-product" class="checkbox-title membership__name"
+                      >Supercharge <br>
+                      {{ product_name }} with AI
+                    </label>
+                  {% endcomment %}
+                  <div class="checkbox-title membership__name">
+                    <span class="upsell_name custom_heading"
+                      >GAME APP INTELLIGENCE <br>
+                      MEMBERSHIP</span
+                    >
+                    <span class="upsell_note-text">more features. MORE performance.</span>
+                    </div>
+                  <div class="offer-price">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/upshell-ai-icon-pp_8fc265e3-a3e2-4c7a-9196-e62bbf524567.png?v=1790064121"
+                      alt="6 Months Free Trial Included with {{product_name}}"
+                      loading="lazy"
+                      decoding="async"
+                      height="69"
+                      width="228.56"
+                    >
+                    {% comment %}
+                      <span class="visually-hidden">Original price:</span>
+                      <span class="price-compare" aria-hidden="true">($39.50)</span>
+                      <span class="visually-hidden">($39.50)</span>
+                      <span class="visually-hidden">Current price:</span>
+                      <span class="membership__duration">
+                        6 MONTH FREE
+                        <span style="display:none;">
+                          <a href="#" class="learn-more-link" data-target="six_month_popup">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              x="0px"
+                              y="0px"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 32 32"
+                            >
+                              <path id="info_icon"
+                                d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 15 10 L 15 12 L 17 12 L 17 10 Z M 15 14 L 15 22 L 17 22 L 17 14 Z">
+                              </path>
+                            </svg>
+                          </a>
+                        </span>
+                      </span>
+                    {% endcomment %}
                   </div>
                 </div>
               </div>
@@ -219,227 +137,380 @@
                       height="30"
                       width="30"
                       decoding="async"
-                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE.png?v=1770286269"
-                      alt="Player Pro Rangefinder"
+                      loading="lazy"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/upshell-ai-icon-pp_6a18d65d-97f3-4be7-ad3a-f7ecce067ca4.png?v=1790064151"
+                      alt="{{product_name | downcase | capitalize }} ADVANCED ANALYTICS"
                     >
+
+                    <span class="anchor_holder">
+                      <a
+                        href="javascript:void(0);"
+                        data-target="six_month_popup"
+                        class="learn-more-link anchor_hover"
+                        style="--hover-clr:#A8A8A8;"
+                        >Learn More</a
+                      >
+                    </span>
                   </div>
                 </div>
                 <div class="accordion-content_right">
                   <div class="offer-description">
-                    <h6>CAPTAIN PRO RANGEFINDER</h6>
-                    <p>
-                      Tour-level laser rangefinder featuring industry-leading electronics like an OLED display, 350yd
-                      Flag Lock, Auto-Depth Filter, and Find My Rangefinder.
-                      <a
-                        class="anchor_hover"
-                        href="/products/captain-pro-bluetooth-rangefinder"
-                        style="--hover-clr:#9E9E9E; margin: 0;"
-                        >LEARN MORE</a
-                      >
-                    </p>
-                  </div>
-                  <div class="cta_content">
-                    {% comment %} id="captainPro_upshell" data-id="45724258468037" {% endcomment %}
-                    <a class="content-cta content-cta__solid" href="/products/captain-pro-bluetooth-rangefinder">
-                      SHOP NOW
-                    </a>
+                    <div class="rule_play-blocks">
+                      <div class="rule_play-block">
+                        <div class="rule_block-left">
+                          <span>
+                            <img
+                              class="block_image"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/true-distance-app-icon.svg?v=1782823490"
+                              alt="True Distance image for {{ product_name | downcase }}"
+                              loading="eager"
+                              decoding="async"
+                            >
+                          </span>
+                        </div>
+                        <dl class="rule_block-right">
+                          <dt>TRUE DISTANCE™ TECHNOLOGY</dt>
+                          <dd>Real-time yardage adjusted for slope and wind.</dd>
+                        </dl>
+                      </div>
+                      <div class="rule_play-block">
+                        <div class="rule_block-left">
+                          <span>
+                            <img
+                              class="block_image"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-club-app-icon.svg?v=1782823490"
+                              alt="AI club image for {{ product_name | downcase }}"
+                              loading="eager"
+                              decoding="async"
+                            >
+                          </span>
+                        </div>
+                        <dl class="rule_block-right">
+                          <dt>AI CLUB RECOMMENDATIONS</dt>
+                          <dd>AI suggests the ideal club for every shot.</dd>
+                        </dl>
+                      </div>
+                      <div class="rule_play-block">
+                        <div class="rule_block-left">
+                          <span>
+                            <img
+                              class="block_image"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/caddie-app-icon.svg?v=1782823490"
+                              alt="AI caddie image for {{ product_name | downcase }}"
+                              loading="eager"
+                              decoding="async"
+                            >
+                          </span>
+                        </div>
+                        <dl class="rule_block-right">
+                          <dt>SCOUT AI CADDIE™</dt>
+                          <dd>Predictive gameplay intelligence for every hole.</dd>
+                        </dl>
+                      </div>
+                      <div class="rule_play-block">
+                        <div class="rule_block-left">
+                          <span>
+                            <img
+                              class="block_image"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/green-heat-maps.svg?v=1790066717"
+                              alt="GREEN HEAT MAPS round image for {{ product_name | downcase }}"
+                              loading="eager"
+                              decoding="async"
+                            >
+                          </span>
+                        </div>
+                        <dl class="rule_block-right">
+                          <dt>GREEN HEAT MAPS</dt>
+                          <dd>Unlock green heat maps, start making more putts.</dd>
+                        </dl>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      {% elsif product.template_suffix == 'player-pro' %}
-        {% assign case_product = all_products['player-hard-shell-carrying-case'] %}
-        {% if case_product == blank or case_product.selected_or_first_available_variant == blank %}
-          {% assign case_product = all_products['player-hard-shell-carrying-case'] %}
-        {% endif %}
-        <div
-          class="free-offer-info group2 offer_cap-pro"
-          style="border-radius: 16px;border-width: 1px;"
-        >
-          <div id="soft-case-offer" class="offer-description-info accordion-content active">
-            <div class="accordion-content-details">
-              <div class="accordion-content_top" style="line-height: 1;padding: 8px clamp(15px,2vw,32px);">
-                <div class="checkbox-list watch_list">
-                  {% render 'offer-bug' %}
-
-                  <input
-                    type="checkbox"
-                    name="offer-checkbox"
-                    class="select-premium selectRV"
-                    id="player-pro-hard-case-upsell"
-                    value="{{ case_product.selected_or_first_available_variant.id }}"
-                    data-variant-id="{{ case_product.selected_or_first_available_variant.id }}"
-                  />
-
-                  <label for="player-pro-hard-case-upsell" class="checkbox-title custom_heading">PLAYER PRO CARRYING CASE</label>
-                  <div class="offer-price " style="align-items: flex-end;">
-                    <span class="custom_heading" style="font-size: clamp(14px,1.2vw,16px);line-height: 1.5;"
-                      >+$19.99</span
+{% endunless %}
+        {% if product.template_suffix == 'product-new' %}
+          <div class="free-offer-info group2 offer_cap-pro">
+            <div id="soft-case-offer" class="offer-description-info accordion-content active">
+              <div class="accordion-content-details">
+                <div class="accordion-content_top">
+                  <div class="checkbox-list">
+                    {% render 'offer-bug' %}
+                    {% comment %}
+                      <input type="checkbox" name="offer-checkbox" class="select-premium selectRV"
+                      id="playerplus-player-go-upshell" />
+                    {% endcomment %}
+                    <label for="playerplus-player-go-upshell" class="checkbox-title custom_heading"
+                      >UPGRADE TO THE PRO</label
                     >
-                    <div class="price_discounted">
-                      <span class="price-compare" style="line-height: 1;">($39.98)</span>
-                      <span class="price_discount" style="color: var(--new-red-light); line-height: 1; font-weight: 600;">50% off</span>
+                    <div class="offer-price custom_heading" style="align-items: flex-end;">
+                      {% comment %} <span class="price-compare">($129)</span> {% endcomment %}
+                      <span>+$50</span>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="accordion-content_bottom"
-                style="padding: clamp(16px, 1.3vw, 23px) clamp(15px, 1.9vw, 32px);"
-              >
-                <div class="accordion-content_left">
-                  <div class="accordion-content_img-holder">
-                    <a href="/products/player-hard-shell-carrying-case">
+                <div class="accordion-content_bottom">
+                  <div class="accordion-content_left">
+                    <div class="accordion-content_img-holder">
                       <img
                         class="product-atc_product-img"
                         height="30"
                         width="30"
                         decoding="async"
-                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE_36c6dfc1-a56f-43e4-b2e0-f4ea29944e0c.png?v=1785917917"
-                        alt="Player Pro Hard Shell Case"
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE.png?v=1770286269"
+                        alt="Player Pro Rangefinder"
                       >
-                    </a>
+                    </div>
                   </div>
-                </div>
-                <div class="accordion-content_right">
-                  <div class="offer-description" style="max-width: 310px;">
-                    {% comment %} <h6>WATCH CARRYING CASE</h6> {% endcomment %}
-                    <p style="gap: 10px;display: flex;flex-direction: column;justify-content: center;align-items: flex-start;text-wrap: inherit;-webkit-text-wrap-style: inherit;text-wrap-style: inherit;">
-                      The Player Pro Carrying Case is made from a premium leatherette material, molded shell for impact protection, and a comfortable padded handle.
-                      <a
-                        class="anchor_hover"
-                        href="/products/player-hard-shell-carrying-case"
-                        style="--hover-clr:#9E9E9E; margin: 0;"
-                        >LEARN MORE</a
-                      >
-                    </p>
-                  </div>
-                  <div class="cta_content" style="visiblity:hidden; opacity:0; pointer-events:none;">
-                    {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
-                    <a class="content-cta content-cta__solid" href="/products/player-hard-shell-carrying-case"> SHOP NOW </a>
+                  <div class="accordion-content_right">
+                    <div class="offer-description">
+                      <h6>CAPTAIN PRO RANGEFINDER</h6>
+                      <p>
+                        Tour-level laser rangefinder featuring industry-leading electronics like an OLED display, 350yd
+                        Flag Lock, Auto-Depth Filter, and Find My Rangefinder.
+                        <a
+                          class="anchor_hover"
+                          href="/products/captain-pro-bluetooth-rangefinder"
+                          style="--hover-clr:#9E9E9E; margin: 0;"
+                          >LEARN MORE</a
+                        >
+                      </p>
+                    </div>
+                    <div class="cta_content">
+                      {% comment %} id="captainPro_upshell" data-id="45724258468037" {% endcomment %}
+                      <a class="content-cta content-cta__solid" href="/products/captain-pro-bluetooth-rangefinder">
+                        SHOP NOW
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <style>
-          .price_discounted {
-            display: flex;
-            gap: 5px;
-          }
-          .newupshell .offer_cap-pro .checkbox-list.watch_list .checkbox-title::before{display:block;}
-          .newupshell .checkbox-list.watch_list .checkbox-title{padding-left: 27px !important;}
-          .newupshell .offer-price{flex-direction: column;}
-          .free-offer-info.group2.offer_cap-pro.active { border-color: #fff; }
-        </style>
-      {% endif %}
-    </div>
-  </div>
-  <div
-    id="six_month_popup"
-    class="upsell_popup--new modal"
-    data-main-product-id="{{ product.selected_or_first_available_variant.id }}"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="{{ product_name | handleize }}-title"
-  >
-    <div class="new-popup modal-content">
-      <div class="popup-modal-inner">
-        <div class="popup-modal-content">
-          <span class="close" role="button" tabindex="0" aria-label="Close Modal">
-            <img
-              class="product-atc_product-img"
-              height="30"
-              width="30"
-              decoding="async"
-              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000002326_43761f0a-7b47-4de8-a8b4-d2967db4d63f.svg?v=1784792642"
-              alt="close icon"
-              aria-hidden="true"
-            >
-          </span>
-          <div class="popup-modal-left">
-            <picture>
-              <source srcset="{{ popup_image }}" media="(min-width:992px)">
-              <source srcset="{{ popup_image_mobile }}" media="(max-width:991px)">
-              <img src="{{ popup_image }}" alt="{{ product_name | downcase }} mockup" loading="lazy" decoding="async">
-            </picture>
+        {% elsif product.template_suffix == 'player-pro' %}
+        {% assign case_product = all_products['player-hard-shell-carrying-case'] %}
+          {% if case_product == blank or case_product.selected_or_first_available_variant == blank %}
+            {% assign case_product = all_products['player-hard-shell-carrying-case'] %}
+          {% endif %}
+
+          <div
+            class="free-offer-info group2 offer_cap-pro"
+            style="border-radius: 16px;border-width: 1px;"
+          >
+            <div id="soft-case-offer" class="offer-description-info accordion-content active">
+              <div class="accordion-content-details">
+                <div class="accordion-content_top" style="line-height: 1;padding: 8px clamp(15px,2vw,32px);">
+                  <div class="checkbox-list watch_list">
+                    {% render 'offer-bug' %}
+
+                    <input
+                      type="checkbox"
+                      name="offer-checkbox"
+                      class="select-premium selectRV"
+                      id="player-pro-hard-case-upsell"
+                      value="{{ case_product.selected_or_first_available_variant.id }}"
+                      data-variant-id="{{ case_product.selected_or_first_available_variant.id }}"
+                    />
+
+                    <label for="player-pro-hard-case-upsell" class="checkbox-title custom_heading"
+                      >PLAYER PRO CARRYING CASE</label
+                    >
+                    <div class="offer-price " style="align-items: flex-end;">
+                      <span class="custom_heading" style="font-size: clamp(14px,1.2vw,16px);line-height: 1.5;"
+                        >+$19.99</span
+                      >
+                      <div class="price_discounted">
+                        <span class="price-compare" style="line-height: 1;">($39.98)</span>
+                        <span
+                          class="price_discount"
+                          style="color: var(--new-red-light); line-height: 1; font-weight: 600;"
+                          >50% off</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="accordion-content_bottom"
+                  style="padding: clamp(16px, 1.3vw, 23px) clamp(15px, 1.9vw, 32px);"
+                >
+                  <div class="accordion-content_left">
+                    <div class="accordion-content_img-holder">
+                      <a href="/products/player-hard-shell-carrying-case">
+                        <img
+                          class="product-atc_product-img"
+                          height="30"
+                          width="30"
+                          decoding="async"
+                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE_36c6dfc1-a56f-43e4-b2e0-f4ea29944e0c.png?v=1785917917"
+                          alt="Player Pro Hard Shell Case"
+                        >
+                      </a>
+                    </div>
+                  </div>
+                  <div class="accordion-content_right">
+                    <div class="offer-description" style="max-width: 310px;">
+                      {% comment %} <h6>WATCH CARRYING CASE</h6> {% endcomment %}
+                      <p style="gap: 10px;display: flex;flex-direction: column;justify-content: center;align-items: flex-start;text-wrap: inherit;-webkit-text-wrap-style: inherit;text-wrap-style: inherit;">
+                        The Player Pro Carrying Case is made from a premium leatherette material, molded shell for
+                        impact protection, and a comfortable padded handle.
+                        <a
+                          class="anchor_hover"
+                          href="/products/player-hard-shell-carrying-case"
+                          style="--hover-clr:#9E9E9E; margin: 0;"
+                          >LEARN MORE</a
+                        >
+                      </p>
+                    </div>
+                    <div class="cta_content" style="visiblity:hidden; opacity:0; pointer-events:none;">
+                      {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
+                      <a class="content-cta content-cta__solid" href="/products/player-hard-shell-carrying-case">
+                        SHOP NOW
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="popup-modal-right">
-            <div class="popup-modal-right_top">
-              {% comment %}
+          <style>
+            .price_discounted {
+              display: flex;
+              gap: 5px;
+            }
+            .newupshell .offer_cap-pro .checkbox-list.watch_list .checkbox-title::before{display:block;}
+            .newupshell .checkbox-list.watch_list .checkbox-title{padding-left: 27px !important;}
+            .newupshell .offer-price{flex-direction: column;}
+            .free-offer-info.group2.offer_cap-pro.active { border-color: #fff; }
+            @media only screen and (max-width:560px){
+              .accordion-content_right .cta_content {
+  display: none;
+}
+            }
+          </style> 
+        {% endif %}
+      </div>
+    </div>
+    <div
+      id="six_month_popup"
+      class="upsell_popup--new modal"
+      data-main-product-id="{{ product.selected_or_first_available_variant.id }}"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="{{ product_name | handleize }}-title"
+    >
+      <div class="new-popup modal-content">
+        <div class="popup-modal-inner">
+          <div class="popup-modal-content">
+            <span class="close" role="button" tabindex="0" aria-label="Close Modal">
+              <img
+                class="product-atc_product-img"
+                height="30"
+                width="30"
+                decoding="async"
+                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000002326_43761f0a-7b47-4de8-a8b4-d2967db4d63f.svg?v=1784792642"
+                alt="close icon"
+                aria-hidden="true"
+              >
+            </span>
+            <div class="popup-modal-left">
+              <picture>
+                <source srcset="{{ popup_image }}" media="(min-width:992px)">
+                <source srcset="{{ popup_image_mobile }}" media="(max-width:991px)">
+                <img src="{{ popup_image }}" alt="{{ product_name | downcase }} mockup" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="popup-modal-right">
+              <div class="popup-modal-right_top">
+                {% comment %}
+                  <img
+                    class="product-atc_product-img popup-right_icon"
+                    src="{{'player-plus-membership-icon-popup.svg' | asset_url}}"
+                    alt="{{ product_name | downcase }} membership"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                {% endcomment %}
+                {% render 'offer-bug' %}
+                {% comment %} <span class="upshell_bug">6  FREE ACCESS</span> {% endcomment %}
                 <img
-                  class="product-atc_product-img popup-right_icon"
-                  src="{{'player-plus-membership-icon-popup.svg' | asset_url}}"
-                  alt="{{ product_name | downcase }} membership"
+                  class="product-atc_product-img"
+                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/6mons-upsell-popup.svg?v=1782822954"
+                  alt="6 month membership for {{ product_name | downcase }}"
                   loading="lazy"
                   decoding="async"
                 >
-              {% endcomment %}
-              {% render 'offer-bug' %}
-              {% comment %} <span class="upshell_bug">6  FREE ACCESS</span> {% endcomment %}
-              <img
-                class="product-atc_product-img"
-                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/6mons-upsell-popup.svg?v=1782822954"
-                alt="6 month membership for {{ product_name | downcase }}"
-                loading="lazy"
-                decoding="async"
-              >
 
-              <h2 id="{{ product_name | handleize }}-title">SUPERCHARGE YOUR {{ product_name }} WITH AI</h2>
-              <div class="popup-modal-ul">
-                <ul>
-                  <li class="has_different-icon">
-                    Lifetime Access <span class="course-count-short"></span>+ Courses FCB
-                  </li>
-                  <li>6  FREE Premium Access Game APP</li>
-                  <li>Unlocks All Connected {{ product_name }} Displays</li>
-                  <li>True Distance™ Technology</li>
-                  <li>AI Club Recommendations</li>
-                  <li>Scout AI Caddie™</li>
-
-                  {% if product.template_suffix == 'player-pro' %}
+                {% comment %} <h2 id="{{ product_name | handleize }}-title">SUPERCHARGE YOUR {{ product_name | capitalize }} WITH AI</h2> {% endcomment %}
+                <h2 id="{{ product_name | handleize }}-title">GAME APP INTELLIGENCE MEMBERSHIP</h2>
+                <div class="popup-modal-ul">
+                  <ul>
+                    {% if product.template_suffix == 'captain-pro' %}
+                    <li class="has_different-icon">
+                      Unlocks All Connected Captain Pro Displays
+                    </li>
+                    <li>True Distance™ Technology</li>
+                    <li>AI Club Recommendations</li>
+                    <li>Scout AI Caddie™</li>
+                    <li>Advanced Score Keeping & Shot Tracking</li>
+                    <li>Live Leaderboards</li>
+                    <li>AI Post-Round Report & 3D Playbacks</li>
+                    <li>Shot Dispersion & Accuracy Data</li>
+                    <li>Comparative Analytics</li>
+                    <li>Satellite Course Maps</li>
+                    <li>More...</li>
+                  {% elsif product.template_suffix == 'player-pro' %}
+                    <li>True Distance™ Technology</li>
+                    <li>AI Club Recommendations</li>
+                    <li>Scout AI Caddie™</li>
                     <li>On-device Score Keeping & Shot Tracking</li>
                     <li>
                       Additional {{ product_name }} Screens
                       <span>(Dynamic Hole View, Green Heat Maps, Dynamic Hazards) </span>
                     </li>
+                    <li>Live Leaderboards</li>
+                    <li>AI Post-Round Report & 3D Playbacks</li>
+                    <li>Shot Dispersion & Accuracy Data</li>
+                    <li>Comparative Analytics</li>
+                    <li>Satellite Course Maps</li>
+                    <li>More...</li>
                   {% endif %}
-
-                  <li>Advanced Score Keeping & Shot Tracking</li>
-                  <li>Live Leaderboards</li>
-                  <li>AI Post-Round Report & 3D Playbacks</li>
-                  <li>Shot Dispersion & Accuracy Data</li>
-                  <li>Comparative Analytics</li>
-                  <li>Satellite Course Maps</li>
-                  <li>More...</li>
-                </ul>
-              </div>
-              <div class="popup-modal-bottom">
-                <div class="popup-modal-cta-section no_slash--out">
-                  <p class="custom_heading">FREE</p>
-                  <p>$39.50</p>
+                  </ul>
                 </div>
-                <a
-                  class="upshell-popup-button"
-                  href="javascript:void(0)"
-                  id="6month-free-premium-product"
-                  data-product-id="{{product.selected_or_first_available_variant.id}}"
-                  >CLAIM FREE TRIAL</a
-                >
-                <div class="popup-modal-terms">
-                  <p class="custom_subHeading-text">No Commitment. Cancel Anytime.</p>
-                  <p>
-                    *all subscriptions billed annually after promotional period at $79/yr and are subject to
+                <div class="popup-modal-bottom">
+                  <div class="popup-modal-cta-section no_slash--out">
+                    <p class="custom_heading">FREE</p>
+                    <p>$39.50</p>
+                  </div>
+                  {% comment %}
                     <a
-                      class="anchor_hover"
-                      href="/pages/app-terms-of-service"
-                      style="--hover-clr:#A8A8A8;"
-                      >terms & conditions </a
-                    >.
-                  </p>
+                      class="upshell-popup-button"
+                      href="javascript:void(0)"
+                      id="6month-free-premium-product"
+                      data-product-id="{{product.selected_or_first_available_variant.id}}"
+                      >CLAIM FREE TRIAL</a
+                    >
+                  {% endcomment %}
+                  <div class="popup_msg">
+                    <p class="popup_msg-text">
+                      6 Months Free Access included in product packaging. Scan QR code on insert to redeem.
+                    </p>
+                  </div>
+                  <div class="popup-modal-terms">
+                    <p class="custom_subHeading-text">No Commitment. Cancel Anytime.</p>
+                    <p>
+                      *all subscriptions billed annually after promotional period at $79/yr and are subject to
+                      <a
+                        class="anchor_hover"
+                        href="/pages/game-subscription-terms"
+                        style="--hover-clr:#A8A8A8;"
+                        >GAME Subscription Terms</a
+                      >.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -447,268 +518,292 @@
         </div>
       </div>
     </div>
-  </div>
-  <style>
-    .offer_price-has_discount {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    
-
-    .price-compare+span.discount_pricee {
-      color: red;
-      font-size: 12px;
-      line-height: 1;
-      margin-left: 10px;
-      display: flex;
-    }
-  </style>
-
-  <script>
-    $(document).ready(function () {
-      // $('.free-offer-info.group1').addClass('active');
-      // $('.group1 input[type="checkbox"]').prop('checked', true);
-
-      function handleCheckboxGroups(groupSelector) {
-        const group = $(groupSelector);
-        const checkbox = group.find('input[type="checkbox"]');
-
-        checkbox.on('change', function () {
-          if ($(this).is(':checked')) {
-            group.addClass('active');
-          } else {
-            group.removeClass('active');
-          }
-        });
+    <style>
+      .offer_price-has_discount {
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      // Handle both groups independently
-      handleCheckboxGroups('.group1');
-      handleCheckboxGroups('.group2');
-    });
-  </script>
+
+
+      .price-compare+span.discount_pricee {
+        color: red;
+        font-size: 12px;
+        line-height: 1;
+        margin-left: 10px;
+        display: flex;
+      }
+    </style>
+
+    <script>
+      $(document).ready(function () {
+        // $('.free-offer-info.group1').addClass('active');
+        // $('.group1 input[type="checkbox"]').prop('checked', true);
+
+        function handleCheckboxGroups(groupSelector) {
+          const group = $(groupSelector);
+          const checkbox = group.find('input[type="checkbox"]');
+
+          checkbox.on('change', function () {
+            if ($(this).is(':checked')) {
+              group.addClass('active');
+            } else {
+              group.removeClass('active');
+            }
+          });
+        }
+
+        // Handle both groups independently
+        handleCheckboxGroups('.group1');
+        handleCheckboxGroups('.group2');
+      });
+    </script>
+  
 {% elsif app_upsell == 'one_year' %}
   {% liquid
     assign popup_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rainmaker-desktop-popup.png?v=1782377767'
     assign popup_image_mobile = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rainmaker-mobile-popup.png?v=1782377767'
   %}
-  <div class="free-offer-info group2 offer_cap-pro">
-    <div id="soft-case-offer" class="offer-description-info accordion-content active">
-      <div class="accordion-content-details">
-        <div class="accordion-content_top">
-          <div class="checkbox-list">
-            {% render 'offer-bug' %}
-            <input
-              type="checkbox"
-              name="offer-checkbox"
-              class="select-premium selectRV"
-              id="rainmakerPreOrderUpsell"
-            >
-            <label for="rainmakerPreOrderUpsell" class="checkbox-title custom_heading checkbox__rainmaker">
-              <span class="text-highlight">LIMITED TIME {% comment %} PRE-ORDER {% endcomment %} EXCLUSIVE</span>
-              {% comment %} <br> {% endcomment %}
-              AI APP & ANALYTICS</label
-            >
-            <div class="offer-price custom_heading" style="align-items: flex-end">
-              <span class="visually-hidden">Original price:</span>
-              <span class="price-compare" aria-hidden="true">$79</span>
-              <span class="visually-hidden">$79</span>
-              <span class="visually-hidden">Current price:</span>
-              <span>FREE</span>
+  {% comment %}
+    <div class="free-offer-info group2 offer_cap-pro">
+      <div id="soft-case-offer" class="offer-description-info accordion-content active">
+        <div class="accordion-content-details">
+          <div class="accordion-content_top">
+            <div class="checkbox-list">
+              {% render 'offer-bug' %}
+              <input
+                type="checkbox"
+                name="offer-checkbox"
+                class="select-premium selectRV"
+                id="rainmakerPreOrderUpsell"
+              >
+              <label for="rainmakerPreOrderUpsell" class="checkbox-title custom_heading checkbox__rainmaker">
+                <span class="text-highlight">LIMITED TIME {% comment %} PRE-ORDER {% endcomment %} EXCLUSIVE</span>
+                {% comment %} <br> {% endcomment %}
+                AI APP & ANALYTICS</label
+              >
+              <div class="offer-price custom_heading" style="align-items: flex-end">
+                <span class="visually-hidden">Original price:</span>
+                <span class="price-compare" aria-hidden="true">$79</span>
+                <span class="visually-hidden">$79</span>
+                <span class="visually-hidden">Current price:</span>
+                <span>FREE</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="accordion-content_bottom content_bottom-list">
-          <ul class="bottom-list_item">
-            <li class="list-item__inner">
-              <div class="list-item_left">
-                <div class="list-item_left-mockup">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-icon-pp_2.png?v=1770621990"
-                    alt="GAME AI + Launch App Package"
-                    height="100%"
-                    width="100%"
-                    decoding="async"
-                  >
+          <div class="accordion-content_bottom content_bottom-list">
+            <ul class="bottom-list_item">
+              <li class="list-item__inner">
+                <div class="list-item_left">
+                  <div class="list-item_left-mockup">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-icon-pp_2.png?v=1770621990"
+                      alt="GAME AI + Launch App Package"
+                      height="100%"
+                      width="100%"
+                      decoding="async"
+                    >
+                  </div>
+                  <div class="list-item_left-details">
+                    <h6 class="list-item_product-name">GAME AI + LAUNCH App Package</h6>
+                    <ul>
+                      <li>Launch Monitor exclusive LAUNCH App</li>
+                      <li>3D Range Simulation</li>
+                      <li>12 Additional Data Points & Metrics</li>
+                      <li>
+                        Deeper Advanced Analytics Visualizations <br>
+                        (Dispersion Charts, Shot Performance, etc.)
+                      </li>
+                      <li>Unlimited Shot Data Storage</li>
+                      <li>Full Ecosystem Integration & Club Data Syncing</li>
+                      <li>
+                        GAME AI GPS App Membership <br>
+                        (GPS Data for 42k courses, live leaderboards, etc.)
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div class="list-item_left-details">
-                  <h6 class="list-item_product-name">GAME AI + LAUNCH App Package</h6>
-                  <ul>
-                    <li>Launch Monitor exclusive LAUNCH App</li>
-                    <li>3D Range Simulation</li>
-                    <li>12 Additional Data Points & Metrics</li>
-                    <li>
-                      Deeper Advanced Analytics Visualizations <br>
-                      (Dispersion Charts, Shot Performance, etc.)
-                    </li>
-                    <li>Unlimited Shot Data Storage</li>
-                    <li>Full Ecosystem Integration & Club Data Syncing</li>
-                    <li>
-                      GAME AI GPS App Membership <br>
-                      (GPS Data for 42k courses, live leaderboards, etc.)
-                    </li>
-                  </ul>
+                <div class="list-item_right">
+                  <div class="offer-price custom_heading" style="align-items: flex-end">
+                    <span class="visually-hidden">Original price:</span>
+                    <span class="price-compare" aria-hidden="true">$79</span>
+                    <span class="visually-hidden">$79</span>
+                    <span class="visually-hidden">Current price:</span>
+                    <span>12 Month FREE</span>
+                  </div>
                 </div>
-              </div>
-              <div class="list-item_right">
-                <div class="offer-price custom_heading" style="align-items: flex-end">
-                  <span class="visually-hidden">Original price:</span>
-                  <span class="price-compare" aria-hidden="true">$79</span>
-                  <span class="visually-hidden">$79</span>
-                  <span class="visually-hidden">Current price:</span>
-                  <span>12 Month FREE</span>
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <style>
-    .checkbox__rainmaker { flex-direction: column; }
-    .list-item_left-top { display: flex; align-items: center; justify-content: space-between; gap: clamp(10px, 1.6vw, 24px); width: 100%; }
-    .text-highlight { color: #CDFF07; }
-    h6.list-item_product-name { font-size: clamp(12px, 1.3vw, 16px); line-height: 150%; font-family: 'Blue Tees Paragraph'; text-transform: none; letter-spacing: 2%; }
-    p.list-item_descrition { font-size: 10px; line-height: 1.5; color: var(--new-gray); margin-bottom: 0 !important; }
-    .list-item_left-mockup { display: flex; align-items: center; justify-content: center; max-width: 38px; width: 100%; }
-    .list-item_left { display: flex; align-items: flex-start; gap: 20px; }
-    .list-item__inner:not(:last-child) { margin-bottom: 16px !important; }
-    .list-item__inner { display: flex; align-items: flex-start; justify-content: space-between; width: 100%; gap: 10px; }
-    .list-item_left-mockup img { display: flex; }
-    .bottom-list_item { margin: 0; padding: 0; width: 100%; }
-    .list-item_left-details ul { list-style: disc; }
-    .list-item_left-details ul li { color: var(--new-gray); line-height: 1.2; font-size: 10px; }
-    .upshell-of-rainmaker-portable-launch-monitor .accordion-content_top { padding: 13px 40px 13px 20px; background: #1C1C1C; }
-    .upshell-of-rainmaker-portable-launch-monitor .accordion-content-details { padding: 0; }
-    .upshell-of-rainmaker-portable-launch-monitor .checkbox-list label::before { top: 14%; }
-    .checkbox-list label, .checkbox-list { margin: 0; }
-    .checkbox-list {align-items: flex-start; flex-wrap: nowrap; }
-    .accordion-content_bottom { padding: 15px clamp(10px, 2.3vw, 40px); }
-    .offer-price span:not(.price-compare) { color: #CDFF07; margin-left: 5px; text-transform: uppercase; }
-    .checkbox-list label::before { top: 5px; }
-    .checkbox-list label::after { top: 8px; }
-    .checkbox-list { align-items: flex-start; flex-wrap: nowrap; }
-    .price-compare { font-family: 'Blue Tees Paragraph'; }
-    .list-item_left-top-variant label.swatch { border: 1px solid transparent; outline: none !important; height: 14px; width: 14px; outline-offset: inherit !important; margin: 0; }
-    .list-item_left-top-variant label.swatch.active { border-color: #fff !important; }
-    .list-item_left-top-variant .quick-add-swatches { display: flex; flex-wrap: wrap; gap: 5px; }
-    .list-item_left-top-variant { display: flex; align-items: center; justify-content: center; gap: 5px; }
-    .list-item_left-top-variant>span { font-size: 10px; font-weight: normal; }
-    .list-item_left-top-variant label.swatch.color-black { background: #1E1E1E !important; }
-    .list-item_left-top-variant label.swatch.color-navy { background: #203366 !important; }
-    .list-item_left-mockup img.variant { transition: opacity 0.35s ease; }
+    <style>
+      .checkbox__rainmaker { flex-direction: column; }
+      .list-item_left-top { display: flex; align-items: center; justify-content: space-between; gap: clamp(10px, 1.6vw, 24px); width: 100%; }
+      .text-highlight { color: #CDFF07; }
+      h6.list-item_product-name { font-size: clamp(12px, 1.3vw, 16px); line-height: 150%; font-family: 'Blue Tees Paragraph'; text-transform: none; letter-spacing: 2%; }
+      p.list-item_descrition { font-size: 10px; line-height: 1.5; color: var(--new-gray); margin-bottom: 0 !important; }
+      .list-item_left-mockup { display: flex; align-items: center; justify-content: center; max-width: 38px; width: 100%; }
+      .list-item_left { display: flex; align-items: flex-start; gap: 20px; }
+      .list-item__inner:not(:last-child) { margin-bottom: 16px !important; }
+      .list-item__inner { display: flex; align-items: flex-start; justify-content: space-between; width: 100%; gap: 10px; }
+      .list-item_left-mockup img { display: flex; }
+      .bottom-list_item { margin: 0; padding: 0; width: 100%; }
+      .list-item_left-details ul { list-style: disc; }
+      .list-item_left-details ul li { color: var(--new-gray); line-height: 1.2; font-size: 10px; }
+      .upshell-of-rainmaker-portable-launch-monitor .accordion-content_top { padding: 13px 40px 13px 20px; background: #1C1C1C; }
+      .upshell-of-rainmaker-portable-launch-monitor .accordion-content-details { padding: 0; }
+      .upshell-of-rainmaker-portable-launch-monitor .checkbox-list label::before { top: 14%; }
+      .checkbox-list label, .checkbox-list { margin: 0; }
+      .checkbox-list {align-items: flex-start; flex-wrap: nowrap; }
+      .accordion-content_bottom { padding: 15px clamp(10px, 2.3vw, 40px); }
+      .offer-price span:not(.price-compare) { color: #CDFF07; margin-left: 5px; text-transform: uppercase; }
+      {% comment %} .checkbox-list label::before { top: 5px; } {% endcomment %}
+      {% comment %} .checkbox-list label::after { top: 8px; } {% endcomment %}
+      .checkbox-list { align-items: flex-start; flex-wrap: nowrap; }
+      .price-compare { font-family: 'Blue Tees Paragraph'; }
+      .list-item_left-top-variant label.swatch { border: 1px solid transparent; outline: none !important; height: 14px; width: 14px; outline-offset: inherit !important; margin: 0; }
+      .list-item_left-top-variant label.swatch.active { border-color: #fff !important; }
+      .list-item_left-top-variant .quick-add-swatches { display: flex; flex-wrap: wrap; gap: 5px; }
+      .list-item_left-top-variant { display: flex; align-items: center; justify-content: center; gap: 5px; }
+      .list-item_left-top-variant>span { font-size: 10px; font-weight: normal; }
+      .list-item_left-top-variant label.swatch.color-black { background: #1E1E1E !important; }
+      .list-item_left-top-variant label.swatch.color-navy { background: #203366 !important; }
+      .list-item_left-mockup img.variant { transition: opacity 0.35s ease; }
 
-    @media only screen and (max-width:860px) {
-      .accordion-content_bottom { padding: 25px 0 0; }
-      .offer-price span:not(.price-compare) { justify-content: flex-end; font-size: 12px; text-align: right; }
-      .offer-price.custom_heading { justify-content: flex-end; }
-      .list-item_left-top { gap: 5px; margin-bottom: 8px; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start; flex-direction: column; }
-      .checkbox-title {font-size: 12px !important; line-height: 1; }
-      .offer-price.custom_heading { width: fit-content; }
-      .list-item_left { flex-wrap: wrap; gap: 12px; }
-    }
-  </style>
-  <div
-    id="one_year_popup"
-    class="upsell_popup--new modal"
-    data-main-product-id="{{ product.selected_or_first_available_variant.id }}"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="{{ product_name | handleize }}-title"
-  >
-    <div class="new-popup modal-content">
-      <div class="popup-modal-inner">
-        <div class="popup-modal-content">
-          <span class="close" role="button" tabindex="0" aria-label="Close Modal">
-            <img
-              class="product-atc_product-img"
-              height="30"
-              width="30"
-              decoding="async"
-              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000002326_43761f0a-7b47-4de8-a8b4-d2967db4d63f.svg?v=1784792642"
-              alt="close icon"
-              aria-hidden="true"
-            >
-          </span>
-          <div class="popup-modal-left">
-            <picture>
-              <source srcset="{{ popup_image }}" media="(min-width:992px)">
-              <source srcset="{{ popup_image_mobile }}" media="(max-width:991px)">
-              <img src="{{ popup_image }}" alt="{{ product_name | downcase }} mockup" loading="lazy" decoding="async">
-            </picture>
-          </div>
-          <div class="popup-modal-right">
-            <div class="popup-modal-right_top">
-              {% comment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      @media only screen and (max-width:860px) {
+        .accordion-content_bottom { padding: 25px 0 0; }
+        .offer-price span:not(.price-compare) { justify-content: flex-end; font-size: 12px; text-align: right; }
+        .offer-price.custom_heading { justify-content: flex-end; }
+        .list-item_left-top { gap: 5px; margin-bottom: 8px; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start; flex-direction: column; }
+        .checkbox-title {font-size: 12px !important; line-height: 1; }
+        .offer-price.custom_heading { width: fit-content; }
+        .list-item_left { flex-wrap: wrap; gap: 12px; }
+      }
+    </style>
+    <div
+      id="one_year_popup"
+      class="upsell_popup--new modal"
+      data-main-product-id="{{ product.selected_or_first_available_variant.id }}"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="{{ product_name | handleize }}-title"
+    >
+      <div class="new-popup modal-content">
+        <div class="popup-modal-inner">
+          <div class="popup-modal-content">
+            <span class="close" role="button" tabindex="0" aria-label="Close Modal">
+              <img
+                class="product-atc_product-img"
+                height="30"
+                width="30"
+                decoding="async"
+                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000002326_43761f0a-7b47-4de8-a8b4-d2967db4d63f.svg?v=1784792642"
+                alt="close icon"
+                aria-hidden="true"
+              >
+            </span>
+            <div class="popup-modal-left">
+              <picture>
+                <source srcset="{{ popup_image }}" media="(min-width:992px)">
+                <source srcset="{{ popup_image_mobile }}" media="(max-width:991px)">
+                <img src="{{ popup_image }}" alt="{{ product_name | downcase }} mockup" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="popup-modal-right">
+              <div class="popup-modal-right_top">
+                {% comment %}
+                  <img
+                    class="product-atc_product-img popup-right_icon"
+                    src="{{'player-plus-membership-icon-popup.svg' | asset_url}}"
+                    alt="{{ product_name | downcase }} membership"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                {% endcomment %}
+                {% render 'offer-bug' %}
+                {% comment %} <span class="upshell_bug">6 MONTH FREE ACCESS</span> {% endcomment %}
                 <img
-                  class="product-atc_product-img popup-right_icon"
-                  src="{{'player-plus-membership-icon-popup.svg' | asset_url}}"
-                  alt="{{ product_name | downcase }} membership"
+                  class="product-atc_product-img"
+                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/one-year-app-upsell-popup.svg?v=1782822981"
+                  alt="1 year membership for {{ product_name | downcase }}"
                   loading="lazy"
                   decoding="async"
                 >
-              {% endcomment %}
-              {% render 'offer-bug' %}
-              {% comment %} <span class="upshell_bug">6 MONTH FREE ACCESS</span> {% endcomment %}
-              <img
-                class="product-atc_product-img"
-                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/one-year-app-upsell-popup.svg?v=1782822981"
-                alt="1 year membership for {{ product_name | downcase }}"
-                loading="lazy"
-                decoding="async"
-              >
 
-              <h2 id="{{ product_name | handleize }}-title">SUPERCHARGE YOUR {{ product_name }} WITH AI</h2>
-              <div class="popup-modal-ul">
-                <ul>
-                  <li class="has_different-icon">
-                    Lifetime Access <span class="course-count-short"></span>+ Courses FCB
-                  </li>
-                  <li>1 YEAR Intelligence Access to LAUNCH App</li>
-                  <li>1 YEAR Intelligence Access to GAME App</li>
+                <h2 id="{{ product_name | handleize }}-title">SUPERCHARGE YOUR {{ product_name }} WITH AI</h2>
+                <div class="popup-modal-ul">
+                  <ul>
+                    <li class="has_different-icon">
+                      Lifetime Access <span class="course-count-short"></span>+ Courses FCB
+                    </li>
+                    <li>1 YEAR Intelligence Access to LAUNCH App</li>
+                    <li>1 YEAR Intelligence Access to GAME App</li>
 
-                  <li>On-device Score Keeping & Shot Tracking</li>
-                  <li>
-                    12 Additional LAUNCH App Data Measurements
-                    <span
-                      >(Side Spin, Apex Time, Descent Angle, Landing Speed,Landing Spin, Side Total, Hang Time, etc.)
-                    </span>
-                  </li>
-                  <li>True Distance™ Technology</li>
-                  <li>AI Club Recommendations</li>
-                  <li>Scout AI Caddie™</li>
+                    <li>On-device Score Keeping & Shot Tracking</li>
+                    <li>
+                      12 Additional LAUNCH App Data Measurements
+                      <span
+                        >(Side Spin, Apex Time, Descent Angle, Landing Speed,Landing Spin, Side Total, Hang Time, etc.)
+                      </span>
+                    </li>
+                    <li>True Distance™ Technology</li>
+                    <li>AI Club Recommendations</li>
+                    <li>Scout AI Caddie™</li>
 
-                  <li>Live Leaderboards</li>
+                    <li>Live Leaderboards</li>
 
-                  <li>AI Post-Round Report & 3D Playbacks</li>
-                  <li>Shot Dispersion & Accuracy Data</li>
-                  <li>Comparative Analytics</li>
-                  <li>Satellite Course Maps</li>
-                  <li>More...</li>
-                </ul>
-              </div>
-              <div class="popup-modal-bottom">
-                <div class="popup-modal-cta-section no_slash--out">
-                  <p class="custom_heading">FREE</p>
-                  <p>$79.99</p>
+                    <li>AI Post-Round Report & 3D Playbacks</li>
+                    <li>Shot Dispersion & Accuracy Data</li>
+                    <li>Comparative Analytics</li>
+                    <li>Satellite Course Maps</li>
+                    <li>More...</li>
+                  </ul>
                 </div>
-                <a class="upshell-popup-button" href="javascript:void(0)" id="rainmakerPreOrderUpsell"
-                  >CLAIM FREE TRIAL</a
-                >
-                <div class="popup-modal-terms">
-                  <p class="custom_subHeading-text">No Commitment. Cancel Anytime.</p>
-                  <p>
-                    *all subscriptions billed annually after promotional period at $79/yr and are subject to
-                    <a
-                      class="anchor_hover"
-                      href="/pages/app-terms-of-service"
-                      style="--hover-clr:#A8A8A8;"
-                      >terms & conditions </a
-                    >.
-                  </p>
+                <div class="popup-modal-bottom">
+                  <div class="popup-modal-cta-section no_slash--out">
+                    <p class="custom_heading">FREE</p>
+                    <p>$79.99</p>
+                  </div>
+                  <a class="upshell-popup-button" href="javascript:void(0)" id="rainmakerPreOrderUpsell"
+                    >CLAIM FREE TRIAL</a
+                  >
+                  <div class="popup-modal-terms">
+                    <p class="custom_subHeading-text">No Commitment. Cancel Anytime.</p>
+                    <p>
+                      *all subscriptions billed annually after promotional period at $79/yr and are subject to
+                      <a
+                        class="anchor_hover"
+                        href="/pages/app-terms-of-service"
+                        style="--hover-clr:#A8A8A8;"
+                        >terms & conditions </a
+                      >.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -716,55 +811,35 @@
         </div>
       </div>
     </div>
-  </div>
-{% else %}
-  {% liquid
-    assign popup_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/generic-desktop-popup.png?v=1782375817'
-    assign popup_image_mobile = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/generic-mobile-popup.png?v=1782375816'
-  %}
+  {% endcomment %}
   <div class="subscriptionbox newupshell">
     <div class="membershipplans">
-      <div class="free-offer-info group1 supercharged_ai--upshell">
+      <div class="free-offer-info group1 supercharged_ai--upshell" style="margin-bottom: 0px;">
         <div id="advanced-analytics-offer" class="offer-description-info accordion-content active">
           <div class="accordion-content-details">
             <div class="accordion-content_top">
               <div class="checkbox-list">
                 {% render 'offer-bug' %}
-                <input
-                  type="checkbox"
-                  name="offer-checkbox"
-                  class="select-premium selectRV"
-                  id="1month-membership-free"
-                >
-                <label for="1month-membership-free" class="checkbox-title membership__name"
-                  >SUPERCHARGE YOUR GAME <br>
-                  WITH AI
-                </label>
-                <div class="offer-price">
-                  <span class="visually-hidden">Original price:</span>
-                  <span class="price-compare" aria-hidden="true">($6.50)</span>
-                  <span class="visually-hidden">($6.50)</span>
-                  <span class="visually-hidden">Current price:</span>
-                  <span class="membership__duration">
-                    1 MONTH FREE
-                    <span style="display:none;">
-                      <a href="#" class="learn-more-link" data-target="one_month_popup">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          x="0px"
-                          y="0px"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 32 32"
-                        >
-                          <path id="info_icon"
-                            d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 15 10 L 15 12 L 17 12 L 17 10 Z M 15 14 L 15 22 L 17 22 L 17 14 Z">
-                          </path>
-                        </svg>
-                      </a>
-                    </span>
-                  </span>
-                </div>
+                {% comment %}
+                  <input
+                    type="checkbox"
+                    name="offer-checkbox"
+                    class="select-premium selectRV"
+                    id="6month-free-premium-product"
+                  >
+                {% endcomment %}
+                {% comment %}
+                  <label for="6month-free-premium-product" class="checkbox-title membership__name"
+                    >Supercharge <br>
+                    {{ product_name }} with AI
+                  </label>
+                {% endcomment %}
+                <div class="checkbox-title membership__name">
+                  <span class="upsell_name custom_heading"
+                    >STANDALONE FEATURES</span
+                  >
+                  <span class="upsell_note-text">NO APP REQUIRED</span>
+                  </div>
               </div>
             </div>
             <div class="accordion-content_bottom">
@@ -775,19 +850,11 @@
                     height="30"
                     width="30"
                     decoding="async"
-                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/upshell-ai-icon-pp.png?v=1763455070"
+                    loading="lazy"
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105520.png?v=1790072870"
                     alt="{{product_name | downcase | capitalize }} ADVANCED ANALYTICS"
                   >
-
-                  <span class="anchor_holder">
-                    <a
-                      href="#"
-                      data-target="one_month_popup"
-                      class="learn-more-link anchor_hover"
-                      style="--hover-clr:#A8A8A8;"
-                      >Learn More</a
-                    >
-                  </span>
+                   
                 </div>
               </div>
               <div class="accordion-content_right">
@@ -798,16 +865,16 @@
                         <span>
                           <img
                             class="block_image"
-                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/true-distance-app-icon.svg?v=1782823490"
-                            alt="True Distance image for {{ product_name | downcase }}"
+                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1000012803_a1f09c6a-951f-4e75-ad8b-83ad86fcdc67.svg?v=1790072752"
+                            alt="PRACTICE MODE image for {{ product_name | downcase }}"
                             loading="eager"
                             decoding="async"
                           >
                         </span>
                       </div>
                       <dl class="rule_block-right">
-                        <dt>TRUE DISTANCE™ TECHNOLOGY</dt>
-                        <dd>Real-time yardage adjusted for slope and wind.</dd>
+                        <dt>PRACTICE MODE</dt>
+                        <dd>Pick a club, hit your shot, get your data.</dd>
                       </dl>
                     </div>
                     <div class="rule_play-block">
@@ -815,16 +882,16 @@
                         <span>
                           <img
                             class="block_image"
-                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-club-app-icon.svg?v=1782823490"
-                            alt="AI club image for {{ product_name | downcase }}"
+                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000012803_ad8fb1ac-fbdc-444c-a075-877f4b5b6d7b.svg?v=1790072753"
+                            alt="SWING SPEED MODE image for {{ product_name | downcase }}"
                             loading="eager"
                             decoding="async"
                           >
                         </span>
                       </div>
                       <dl class="rule_block-right">
-                        <dt>AI CLUB RECOMMENDATIONS</dt>
-                        <dd>AI suggests the ideal club for every shot.</dd>
+                        <dt>SWING SPEED MODE</dt>
+                        <dd>Measure pure clubhead velocity.</dd>
                       </dl>
                     </div>
                     <div class="rule_play-block">
@@ -832,16 +899,16 @@
                         <span>
                           <img
                             class="block_image"
-                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/caddie-app-icon.svg?v=1782823490"
-                            alt="AI caddie image for {{ product_name | downcase }}"
+                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1000012804_61d9d588-b914-4b8b-962d-6dabed913b97.svg?v=1790072752"
+                            alt="TARGET DISTANCE MODE image for {{ product_name | downcase }}"
                             loading="eager"
                             decoding="async"
                           >
                         </span>
                       </div>
                       <dl class="rule_block-right">
-                        <dt>SCOUT AI CADDIE™</dt>
-                        <dd>Predictive gameplay intelligence for every hole.</dd>
+                        <dt>TARGET DISTANCE MODE</dt>
+                        <dd>Set a yardage, dial in carry distance.</dd>
                       </dl>
                     </div>
                     <div class="rule_play-block">
@@ -849,31 +916,16 @@
                         <span>
                           <img
                             class="block_image"
-                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/adv-analytics-app-icon.svg?v=1782823490"
-                            alt="ADVANCED ANALYTICS round image for {{ product_name | downcase }}"
+                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1000012803.svg?v=1790069360"
+                            alt="12 DEFAULT SHOT DATA METRICS round image for {{ product_name | downcase }}"
                             loading="eager"
                             decoding="async"
                           >
                         </span>
                       </div>
                       <dl class="rule_block-right">
-                        <dt>ADVANCED ANALYTICS</dt>
-                        <dd>Shot Dispersion, 3D Mapping, Live Leaderboards & More</dd>
-                      </dl>
-                    </div>
-                    <div class="rule_play-block">
-                      <div class="rule_block-left">
-                        <img
-                          class="block_image"
-                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-post-app-icon.svg?v=1782823490"
-                          alt="AI post round image for {{ product_name | downcase }}"
-                          loading="eager"
-                          decoding="async"
-                        >
-                      </div>
-                      <dl class="rule_block-right">
-                        <dt>AI POST ROUND</dt>
-                        <dd>Estimated strokes gained analysis & recommendations</dd>
+                        <dt>12 DEFAULT SHOT DATA METRICS</dt>
+                        <dd>Carry & Total, Direction, Club & Ball Speed, & more.</dd>
                       </dl>
                     </div>
                   </div>
@@ -883,7 +935,309 @@
           </div>
         </div>
       </div>
+      <div class="free-offer-info group1 supercharged_ai--upshell" style="margin-bottom: 10px;">
+        <div id="advanced-analytics-offer" class="offer-description-info accordion-content active">
+          <div class="accordion-content-details">
+            <div class="accordion-content_top">
+              <div class="checkbox-list">
+                {% render 'offer-bug' %}
+                {% comment %}
+                  <input
+                    type="checkbox"
+                    name="offer-checkbox"
+                    class="select-premium selectRV"
+                    id="6month-free-premium-product"
+                  >
+                {% endcomment %}
+                {% comment %}
+                  <label for="6month-free-premium-product" class="checkbox-title membership__name"
+                    >Supercharge <br>
+                    {{ product_name }} with AI
+                  </label>
+                {% endcomment %}
+                <div class="checkbox-title membership__name">
+                  <span class="upsell_name custom_heading"
+                    >CONNECTED FEATURES</span
+                  >
+                  <span class="upsell_note-text">WHEN PAIRED WITH LAUNCH APP</span>
+                  </div>
+              </div>
+            </div>
+            <div class="accordion-content_bottom">
+              <div class="accordion-content_left">
+                <div class="accordion-content_img-holder">
+                  <img
+                    class="product-atc_product-img"
+                    height="30"
+                    width="30"
+                    decoding="async"
+                    loading="lazy"
+                    src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rainmaker-connected-feature-image.png?v=1790069366"
+                    alt="{{product_name | downcase | capitalize }} ADVANCED ANALYTICS"
+                  >
+                    <div class="store_icons-upsell">
+                      <a class="store_icon-play-store" href="https://apps.apple.com/us/app/blue-tees-launch/id6746279551" target="_blank">
+                        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/app-store-icon-new_b5b5b592-d22a-4e76-9a76-cb91b68b3a69.png?v=1777886504" alt="Download Launch App For IOS Devices" height="35.26" width="113.79" loading="lazy" decoding="async">
+                      </a>
+                      <a class="store_icon-play-store" href="https://play.google.com/store/apps/details?id=com.blueteesgolf.launch&pcampaignid=web_share" target="_blank">
+                        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/play-store-icon-new_780b8c89-332b-4c73-8e93-c4b250362da5.png?v=1777886507" alt="Download Launch App For Android Devices" height="35.26" width="113.79" loading="lazy" decoding="async">
+                      </a>
+                    </div>
+                </div>
+              </div>
+              <div class="accordion-content_right">
+                <div class="offer-description">
+                  <div class="rule_play-blocks">
+                    <div class="rule_play-block">
+                      <div class="rule_block-left">
+                        <span>
+                          <img
+                            class="block_image"
+                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1000012804.svg?v=1790069360"
+                            alt="SESSION INSIGHTS image for {{ product_name | downcase }}"
+                            loading="eager"
+                            decoding="async"
+                          >
+                        </span>
+                      </div>
+                      <dl class="rule_block-right">
+                        <dt>SESSION INSIGHTS</dt>
+                        <dd>Trends & club averages over time.</dd>
+                      </dl>
+                    </div>
+                    <div class="rule_play-block">
+                      <div class="rule_block-left">
+                        <span>
+                          <img
+                            class="block_image"
+                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1000012804-1.svg?v=1790069361"
+                            alt="SHOT DISPERSION CHARTS image for {{ product_name | downcase }}"
+                            loading="eager"
+                            decoding="async"
+                          >
+                        </span>
+                      </div>
+                      <dl class="rule_block-right">
+                        <dt>SHOT DISPERSION CHARTS</dt>
+                        <dd>Visualize shot patterns & tendencies.</dd>
+                      </dl>
+                    </div>
+                    <div class="rule_play-block">
+                      <div class="rule_block-left">
+                        <span>
+                          <img
+                            class="block_image"
+                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000012803.svg?v=1790069360"
+                            alt="VIRTUAL DRIVING RANGE image for {{ product_name | downcase }}"
+                            loading="eager"
+                            decoding="async"
+                          >
+                        </span>
+                      </div>
+                      <dl class="rule_block-right">
+                        <dt>VIRTUAL DRIVING RANGE</dt>
+                        <dd>Real-time ball flight arcs & data metrics.</dd>
+                      </dl>
+                    </div>
+                    <div class="rule_play-block">
+                      <div class="rule_block-left">
+                        <span>
+                          <img
+                            class="block_image"
+                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1000012803.svg?v=1790069360"
+                            alt="ADDITIONAL METRICS round image for {{ product_name | downcase }}"
+                            loading="eager"
+                            decoding="async"
+                          >
+                        </span>
+                      </div>
+                      <dl class="rule_block-right">
+                        <dt>ADDITIONAL METRICS (20+ TOTAL)</dt>
+                        <dd>Descent Angle, Landing Spin, Side, & more.</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<style>
+  @media only screen and (max-width:768px) {
+        .free-offer-info.group1.supercharged_ai--upshell .accordion-content_img-holder{display: flex;
+  flex-direction: column-reverse;
+  gap: 15px;}
+      }
+    </style>
+{% else %}
+  <div class="subscriptionbox newupshell" style="margin-top:0px;">
+    <div class="membershipplans" {% comment %} style="margin-bottom:0px;" {% endcomment %}>
       {% if product.template_suffix == 'new-s3-max' %}
+        {% comment %}
+          <div class="free-offer-info group1 supercharged_ai--upshell">
+            <div id="advanced-analytics-offer" class="offer-description-info accordion-content active">
+              <div class="accordion-content-details">
+                <div class="accordion-content_top">
+                  <div class="checkbox-list">
+                    {% render 'offer-bug' %}
+                    <input
+                      type="checkbox"
+                      name="offer-checkbox"
+                      class="select-premium selectRV"
+                      id="1month-membership-free"
+                    >
+                    <label for="1month-membership-free" class="checkbox-title membership__name"
+                      >SUPERCHARGE YOUR GAME <br>
+                      WITH AI
+                    </label>
+                    <div class="offer-price">
+                      <span class="visually-hidden">Original price:</span>
+                      <span class="price-compare" aria-hidden="true">($6.50)</span>
+                      <span class="visually-hidden">($6.50)</span>
+                      <span class="visually-hidden">Current price:</span>
+                      <span class="membership__duration">
+                        1 MONTH FREE
+                        <span style="display:none;">
+                          <a href="#" class="learn-more-link" data-target="one_month_popup">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              x="0px"
+                              y="0px"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 32 32"
+                            >
+                              <path id="info_icon"
+                                d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 15 10 L 15 12 L 17 12 L 17 10 Z M 15 14 L 15 22 L 17 22 L 17 14 Z">
+                              </path>
+                            </svg>
+                          </a>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-content_bottom">
+                  <div class="accordion-content_left">
+                    <div class="accordion-content_img-holder">
+                      <img
+                        class="product-atc_product-img"
+                        height="30"
+                        width="30"
+                        decoding="async"
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/upshell-ai-icon-pp.png?v=1763455070"
+                        alt="{{product_name | downcase | capitalize }} ADVANCED ANALYTICS"
+                      >
+
+                      <span class="anchor_holder">
+                        <a
+                          href="#"
+                          data-target="one_month_popup"
+                          class="learn-more-link anchor_hover"
+                          style="--hover-clr:#A8A8A8;"
+                          >Learn More</a
+                        >
+                      </span>
+                    </div>
+                  </div>
+                  <div class="accordion-content_right">
+                    <div class="offer-description">
+                      <div class="rule_play-blocks">
+                        <div class="rule_play-block">
+                          <div class="rule_block-left">
+                            <span>
+                              <img
+                                class="block_image"
+                                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/true-distance-app-icon.svg?v=1782823490"
+                                alt="True Distance image for {{ product_name | downcase }}"
+                                loading="eager"
+                                decoding="async"
+                              >
+                            </span>
+                          </div>
+                          <dl class="rule_block-right">
+                            <dt>TRUE DISTANCE™ TECHNOLOGY</dt>
+                            <dd>Real-time yardage adjusted for slope and wind.</dd>
+                          </dl>
+                        </div>
+                        <div class="rule_play-block">
+                          <div class="rule_block-left">
+                            <span>
+                              <img
+                                class="block_image"
+                                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-club-app-icon.svg?v=1782823490"
+                                alt="AI club image for {{ product_name | downcase }}"
+                                loading="eager"
+                                decoding="async"
+                              >
+                            </span>
+                          </div>
+                          <dl class="rule_block-right">
+                            <dt>AI CLUB RECOMMENDATIONS</dt>
+                            <dd>AI suggests the ideal club for every shot.</dd>
+                          </dl>
+                        </div>
+                        <div class="rule_play-block">
+                          <div class="rule_block-left">
+                            <span>
+                              <img
+                                class="block_image"
+                                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/caddie-app-icon.svg?v=1782823490"
+                                alt="AI caddie image for {{ product_name | downcase }}"
+                                loading="eager"
+                                decoding="async"
+                              >
+                            </span>
+                          </div>
+                          <dl class="rule_block-right">
+                            <dt>SCOUT AI CADDIE™</dt>
+                            <dd>Predictive gameplay intelligence for every hole.</dd>
+                          </dl>
+                        </div>
+                        <div class="rule_play-block">
+                          <div class="rule_block-left">
+                            <span>
+                              <img
+                                class="block_image"
+                                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/adv-analytics-app-icon.svg?v=1782823490"
+                                alt="ADVANCED ANALYTICS round image for {{ product_name | downcase }}"
+                                loading="eager"
+                                decoding="async"
+                              >
+                            </span>
+                          </div>
+                          <dl class="rule_block-right">
+                            <dt>ADVANCED ANALYTICS</dt>
+                            <dd>Shot Dispersion, 3D Mapping, Live Leaderboards & More</dd>
+                          </dl>
+                        </div>
+                        <div class="rule_play-block">
+                          <div class="rule_block-left">
+                            <img
+                              class="block_image"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-post-app-icon.svg?v=1782823490"
+                              alt="AI post round image for {{ product_name | downcase }}"
+                              loading="eager"
+                              decoding="async"
+                            >
+                          </div>
+                          <dl class="rule_block-right">
+                            <dt>AI POST ROUND</dt>
+                            <dd>Estimated strokes gained analysis & recommendations</dd>
+                          </dl>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endcomment %}
+
         <div class="free-offer-info group2 offer_cap-pro">
           <div id="soft-case-offer" class="offer-description-info accordion-content active">
             <div class="accordion-content-details">
@@ -945,76 +1299,142 @@
           </div>
         </div>
       {% elsif product.template_suffix == 'play-maker-plus' %}
-        {% assign case_product = all_products['playmaker-watch-case-black'] %}
-        {% if case_product == blank or case_product.selected_or_first_available_variant == blank %}
-          {% assign case_product = all_products['watch-hard-shell-carrying-case'] %}
-        {% endif %}
-        <div
-          class="free-offer-info group2 offer_cap-pro"
-          style="border-radius: 16px;border-width: 1px;"
-        >
-          <div id="soft-case-offer" class="offer-description-info accordion-content active">
-            <div class="accordion-content-details">
-              <div class="accordion-content_top" style="line-height: 1;padding: 8px clamp(15px,2vw,32px);">
-                <div class="checkbox-list watch_list">
-                  {% render 'offer-bug' %}
+        {% comment %}
+          {% assign case_product = all_products['playmaker-watch-case-black'] %}
+          {% if case_product == blank or case_product.selected_or_first_available_variant == blank %}
+            {% assign case_product = all_products['watch-hard-shell-carrying-case'] %}
+          {% endif %}
+          <div
+            class="free-offer-info group2 offer_cap-pro"
+            style="border-radius: 16px;border-width: 1px;"
+          >
+            <div id="soft-case-offer" class="offer-description-info accordion-content active">
+              <div class="accordion-content-details">
+                <div class="accordion-content_top" style="line-height: 1;padding: 8px clamp(15px,2vw,32px);">
+                  <div class="checkbox-list watch_list">
+                    {% render 'offer-bug' %}
 
-                  <input
-                    type="checkbox"
-                    name="offer-checkbox"
-                    class="select-premium selectRV"
-                    id="playmaker-hard-new-case"
-                    value="{{ case_product.selected_or_first_available_variant.id }}"
-                    data-variant-id="{{ case_product.selected_or_first_available_variant.id }}"
-                  />
+                    <input
+                      type="checkbox"
+                      name="offer-checkbox"
+                      class="select-premium selectRV"
+                      id="playmaker-hard-new-case"
+                      value="{{ case_product.selected_or_first_available_variant.id }}"
+                      data-variant-id="{{ case_product.selected_or_first_available_variant.id }}"
+                    />
 
-                  <label for="playmaker-hard-new-case" class="checkbox-title custom_heading">WATCH CARRYING CASE</label>
-                  <div class="offer-price " style="align-items: flex-end;">
-                    <span class="custom_heading" style="font-size: clamp(14px,1.2vw,16px);line-height: 1.5;"
-                      >+$14.99</span
-                    >
-                    <div class="price_discounted">
-                      <span class="price-compare" style="line-height: 1;">($29.98)</span>
-                      <span class="price_discount" style="color: var(--new-red-light); line-height: 1; font-weight: 600;">50% off</span>
+                    <label for="playmaker-hard-new-case" class="checkbox-title custom_heading">WATCH CARRYING CASE</label>
+                    <div class="offer-price " style="align-items: flex-end;">
+                      <span class="custom_heading" style="font-size: clamp(14px,1.2vw,16px);line-height: 1.5;"
+                        >+$14.99</span
+                      >
+                      <div class="price_discounted">
+                        <span class="price-compare" style="line-height: 1;">($29.98)</span>
+                        <span
+                          class="price_discount"
+                          style="color: var(--new-red-light); line-height: 1; font-weight: 600;"
+                          >50% off</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="accordion-content_bottom"
+                  style="padding: clamp(16px, 1.3vw, 23px) clamp(15px, 1.9vw, 32px);"
+                >
+                  <div class="accordion-content_left">
+                    <div class="accordion-content_img-holder">
+                      <a href="/products/playmaker-watch-case-black">
+                        <img
+                          class="product-atc_product-img"
+                          height="30"
+                          width="30"
+                          decoding="async"
+                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/playmaker-case-new-upsell-image.png?v=1782195914"
+                          alt="Playmaker Watch Case"
+                        >
+                      </a>
+                    </div>
+                  </div>
+                  <div class="accordion-content_right">
+                    <div class="offer-description" style="max-width: 310px;">
+                      {% comment %} <h6>WATCH CARRYING CASE</h6> {% endcomment %}
+                      <p style="gap: 10px;display: flex;flex-direction: column;justify-content: center;align-items: flex-start;text-wrap: inherit;-webkit-text-wrap-style: inherit;text-wrap-style: inherit;">
+                        Premium case with a suede microfiber lining ensures your watch stays well protected from impact,
+                        scratches, and the elements.
+                        <a
+                          class="anchor_hover"
+                          href="/products/playmaker-watch-case-black"
+                          style="--hover-clr:#9E9E9E; margin: 0;"
+                          >LEARN MORE</a
+                        >
+                      </p>
+                    </div>
+                    <div class="cta_content" style="visiblity:hidden; opacity:0; pointer-events:none;">
+                      {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
+                      <a class="content-cta content-cta__solid" href="/products/playmaker-watch-case-black"> SHOP NOW </a>
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                class="accordion-content_bottom"
-                style="padding: clamp(16px, 1.3vw, 23px) clamp(15px, 1.9vw, 32px);"
-              >
+            </div>
+          </div>
+        {% endcomment %}
+        <div class="free-offer-info group2 offer_cap-pro">
+          <div id="soft-case-offer" class="offer-description-info accordion-content active">
+            <div class="accordion-content-details">
+              <div class="accordion-content_top">
+                <div class="checkbox-list">
+                  {% render 'offer-bug' %}
+                  {% comment %}
+                    <input type="checkbox" name="offer-checkbox" class="select-premium selectRV"
+                    id="playerplus-player-go-upshell" />
+                  {% endcomment %}
+                  <label for="playerplus-player-go-upshell" class="checkbox-title custom_heading"
+                    >UPGRADE TO OUR LATEST MODEL</label
+                  >
+                  {% comment %}
+                    <div class="offer-price custom_heading" style="align-items: flex-end;">
+                      {% comment %} <span class="price-compare">($129)</span> {% endcomment %}
+                      <span>+$100</span>
+                      </div>
+                  {% endcomment %}
+                </div>
+              </div>
+              <div class="accordion-content_bottom">
                 <div class="accordion-content_left">
                   <div class="accordion-content_img-holder">
-                    <a href="/products/playmaker-watch-case-black">
+                    <a href="/products/player-pro">
                       <img
                         class="product-atc_product-img"
                         height="30"
                         width="30"
                         decoding="async"
-                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/playmaker-case-new-upsell-image.png?v=1782195914"
-                        alt="Playmaker Watch Case"
+                        loading="lazy"
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE_1.png?v=1789547411"
+                        alt="Player Pro"
                       >
                     </a>
                   </div>
                 </div>
                 <div class="accordion-content_right">
-                  <div class="offer-description" style="max-width: 310px;">
-                    {% comment %} <h6>WATCH CARRYING CASE</h6> {% endcomment %}
-                    <p style="gap: 10px;display: flex;flex-direction: column;justify-content: center;align-items: flex-start;text-wrap: inherit;-webkit-text-wrap-style: inherit;text-wrap-style: inherit;">
-                      Premium case with a suede microfiber lining ensures your watch stays well protected from impact,
-                      scratches, and the elements.
+                  <div class="offer-description">
+                    <h6>PLAYER PRO RANGEFINDER</h6>
+                    <p>
+                      GPS golf speaker with full-color touchscreen, True Distance yardages, AI club recommendations,
+                      green heat maps, on-device scoring, and 360° audio.
                       <a
                         class="anchor_hover"
-                        href="/products/playmaker-watch-case-black"
-                        style="--hover-clr:#9E9E9E; margin: 0;"
+                        href="/products/player-pro"
+                        style="--hover-clr:#A8A8A8; margin: 0;"
                         >LEARN MORE</a
                       >
                     </p>
                   </div>
-                  <div class="cta_content" style="visiblity:hidden; opacity:0; pointer-events:none;">
+                  <div class="cta_content">
                     {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
-                    <a class="content-cta content-cta__solid" href="/products/playmaker-watch-case-black"> SHOP NOW </a>
+                    <a class="content-cta content-cta__solid" href="/products/player-pro"> SHOP NOW </a>
                   </div>
                 </div>
               </div>
@@ -1027,102 +1447,719 @@
           .newupshell .checkbox-list.watch_list .checkbox-title{padding-left: 27px !important;}
           .newupshell .offer-price{flex-direction: column;}
           .free-offer-info.group2.offer_cap-pro.active { border-color: #fff; }
+        
         </style>
+      {% elsif product.template_suffix == 'player-go' %}
+        <div class="free-offer-info group2 offer_cap-pro">
+          <div id="soft-case-offer" class="offer-description-info accordion-content active">
+            <div class="accordion-content-details">
+              <div class="accordion-content_top">
+                <div class="checkbox-list">
+                  {% render 'offer-bug' %}
+                  {% comment %}
+                    <input type="checkbox" name="offer-checkbox" class="select-premium selectRV"
+                    id="playerplus-player-go-upshell" />
+                  {% endcomment %}
+                  <label for="playerplus-player-go-upshell" class="checkbox-title custom_heading"
+                    >UPGRADE TO OUR LATEST MODEL</label
+                  >
+                  {% comment %}
+                    <div class="offer-price custom_heading" style="align-items: flex-end;">
+                      {% comment %} <span class="price-compare">($129)</span> {% endcomment %}
+                      <span>+$100</span>
+                    </div>
+                  {% endcomment %}
+                </div>
+              </div>
+              <div class="accordion-content_bottom">
+                <div class="accordion-content_left">
+                  <div class="accordion-content_img-holder">
+                    <a href="/products/player-pro">
+                      <img
+                        class="product-atc_product-img"
+                        height="30"
+                        width="30"
+                        decoding="async"
+                        loading="lazy"
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE_1.png?v=1789547411"
+                        alt="Player Pro"
+                      >
+                    </a>
+                  </div>
+                </div>
+                <div class="accordion-content_right">
+                  <div class="offer-description">
+                    <h6>PLAYER PRO RANGEFINDER</h6>
+                    <p>
+                      GPS golf speaker with full-color touchscreen, True Distance yardages, AI club recommendations,
+                      green heat maps, on-device scoring, and 360° audio.
+                      <a
+                        class="anchor_hover"
+                        href="/products/player-pro"
+                        style="--hover-clr:#A8A8A8; margin: 0;"
+                        >LEARN MORE</a
+                      >
+                    </p>
+                  </div>
+                  <div class="cta_content">
+                    {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
+                    <a class="content-cta content-cta__solid" href="/products/player-pro"> SHOP NOW </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% elsif product.template_suffix == 's4-ultra' %}
+        <div class="free-offer-info group2 offer_cap-pro">
+          <div id="soft-case-offer" class="offer-description-info accordion-content active">
+            <div class="accordion-content-details">
+              <div class="accordion-content_top">
+                <div class="checkbox-list">
+                  {% render 'offer-bug' %}
+                  {% comment %}
+                    <input type="checkbox" name="offer-checkbox" class="select-premium selectRV"
+                    id="playerplus-player-go-upshell" />
+                  {% endcomment %}
+                  <label for="playerplus-player-go-upshell" class="checkbox-title custom_heading"
+                    >UPGRADE TO THE PRO</label
+                  >
+                  <div class="offer-price custom_heading" style="align-items: flex-end;">
+                    {% comment %} <span class="price-compare">($129)</span> {% endcomment %}
+                    <span>+$50</span>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-content_bottom">
+                <div class="accordion-content_left">
+                  <a class="accordion-content_img-holder" href="/products/captain-pro">
+                    <img
+                      class="product-atc_product-img"
+                      height="30"
+                      width="30"
+                      decoding="async"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE.png?v=1770286269"
+                      alt="Player Pro Rangefinder"
+                    >
+                  </a>
+                </div>
+                <div class="accordion-content_right">
+                  <div class="offer-description">
+                    <h6>CAPTAIN PRO RANGEFINDER</h6>
+                    <p>
+                      Tour-level laser rangefinder featuring industry-leading electronics like an OLED display, 350yd
+                      Flag Lock, Auto-Depth Filter, and Find My Rangefinder.
+                      <a
+                        class="anchor_hover"
+                        href="/products/captain-pro"
+                        style="--hover-clr:#9E9E9E; margin: 0;"
+                        >LEARN MORE</a
+                      >
+                    </p>
+                  </div>
+                  <div class="cta_content">
+                    {% comment %} id="captainPro_upshell" data-id="45724258468037" {% endcomment %}
+                    <a class="content-cta content-cta__solid" href="/products/captain-pro"> SHOP NOW </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       {% endif %}
     </div>
   </div>
 
-  <div
-    id="one_month_popup"
-    class="upsell_popup--new modal"
-    data-main-product-id="{{ product.selected_or_first_available_variant.id }}"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="{{ product_name | handleize }}-title"
-  >
-    <div class="new-popup modal-content">
-      <div class="popup-modal-inner">
-        <div class="popup-modal-content">
-          <span class="close" role="button" tabindex="0" aria-label="Close Modal">
-            <img
-              class="product-atc_product-img"
-              height="30"
-              width="30"
-              decoding="async"
-              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000002326_43761f0a-7b47-4de8-a8b4-d2967db4d63f.svg?v=1784792642"
-              alt="close icon"
-              aria-hidden="true"
-            >
-          </span>
-          <div class="popup-modal-left">
-            <picture>
-              <source srcset="{{ popup_image }}" media="(min-width:992px)">
-              <source srcset="{{ popup_image_mobile }}" media="(max-width:991px)">
-              <img src="{{ popup_image }}" alt="{{ product_name | downcase }} mockup" loading="lazy" decoding="async">
-            </picture>
+  {% comment %}
+    {% liquid
+      assign popup_image = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/generic-desktop-popup.png?v=1782375817'
+      assign popup_image_mobile = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/generic-mobile-popup.png?v=1782375816'
+    %}
+    <div class="subscriptionbox newupshell">
+      <div class="membershipplans">
+        <div class="free-offer-info group1 supercharged_ai--upshell">
+          <div id="advanced-analytics-offer" class="offer-description-info accordion-content active">
+            <div class="accordion-content-details">
+              <div class="accordion-content_top">
+                <div class="checkbox-list">
+                  {% render 'offer-bug' %}
+                  <input
+                    type="checkbox"
+                    name="offer-checkbox"
+                    class="select-premium selectRV"
+                    id="1month-membership-free"
+                  >
+                  <label for="1month-membership-free" class="checkbox-title membership__name"
+                    >SUPERCHARGE YOUR GAME <br>
+                    WITH AI
+                  </label>
+                  <div class="offer-price">
+                    <span class="visually-hidden">Original price:</span>
+                    <span class="price-compare" aria-hidden="true">($6.50)</span>
+                    <span class="visually-hidden">($6.50)</span>
+                    <span class="visually-hidden">Current price:</span>
+                    <span class="membership__duration">
+                      1 MONTH FREE
+                      <span style="display:none;">
+                        <a href="#" class="learn-more-link" data-target="one_month_popup">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            x="0px"
+                            y="0px"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 32 32"
+                          >
+                            <path id="info_icon"
+                              d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 15 10 L 15 12 L 17 12 L 17 10 Z M 15 14 L 15 22 L 17 22 L 17 14 Z">
+                            </path>
+                          </svg>
+                        </a>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-content_bottom">
+                <div class="accordion-content_left">
+                  <div class="accordion-content_img-holder">
+                    <img
+                      class="product-atc_product-img"
+                      height="30"
+                      width="30"
+                      decoding="async"
+                      src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/upshell-ai-icon-pp.png?v=1763455070"
+                      alt="{{product_name | downcase | capitalize }} ADVANCED ANALYTICS"
+                    >
+
+                    <span class="anchor_holder">
+                      <a
+                        href="#"
+                        data-target="one_month_popup"
+                        class="learn-more-link anchor_hover"
+                        style="--hover-clr:#A8A8A8;"
+                        >Learn More</a
+                      >
+                    </span>
+                  </div>
+                </div>
+                <div class="accordion-content_right">
+                  <div class="offer-description">
+                    <div class="rule_play-blocks">
+                      <div class="rule_play-block">
+                        <div class="rule_block-left">
+                          <span>
+                            <img
+                              class="block_image"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/true-distance-app-icon.svg?v=1782823490"
+                              alt="True Distance image for {{ product_name | downcase }}"
+                              loading="eager"
+                              decoding="async"
+                            >
+                          </span>
+                        </div>
+                        <dl class="rule_block-right">
+                          <dt>TRUE DISTANCE™ TECHNOLOGY</dt>
+                          <dd>Real-time yardage adjusted for slope and wind.</dd>
+                        </dl>
+                      </div>
+                      <div class="rule_play-block">
+                        <div class="rule_block-left">
+                          <span>
+                            <img
+                              class="block_image"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-club-app-icon.svg?v=1782823490"
+                              alt="AI club image for {{ product_name | downcase }}"
+                              loading="eager"
+                              decoding="async"
+                            >
+                          </span>
+                        </div>
+                        <dl class="rule_block-right">
+                          <dt>AI CLUB RECOMMENDATIONS</dt>
+                          <dd>AI suggests the ideal club for every shot.</dd>
+                        </dl>
+                      </div>
+                      <div class="rule_play-block">
+                        <div class="rule_block-left">
+                          <span>
+                            <img
+                              class="block_image"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/caddie-app-icon.svg?v=1782823490"
+                              alt="AI caddie image for {{ product_name | downcase }}"
+                              loading="eager"
+                              decoding="async"
+                            >
+                          </span>
+                        </div>
+                        <dl class="rule_block-right">
+                          <dt>SCOUT AI CADDIE™</dt>
+                          <dd>Predictive gameplay intelligence for every hole.</dd>
+                        </dl>
+                      </div>
+                      <div class="rule_play-block">
+                        <div class="rule_block-left">
+                          <span>
+                            <img
+                              class="block_image"
+                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/adv-analytics-app-icon.svg?v=1782823490"
+                              alt="ADVANCED ANALYTICS round image for {{ product_name | downcase }}"
+                              loading="eager"
+                              decoding="async"
+                            >
+                          </span>
+                        </div>
+                        <dl class="rule_block-right">
+                          <dt>ADVANCED ANALYTICS</dt>
+                          <dd>Shot Dispersion, 3D Mapping, Live Leaderboards & More</dd>
+                        </dl>
+                      </div>
+                      <div class="rule_play-block">
+                        <div class="rule_block-left">
+                          <img
+                            class="block_image"
+                            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-post-app-icon.svg?v=1782823490"
+                            alt="AI post round image for {{ product_name | downcase }}"
+                            loading="eager"
+                            decoding="async"
+                          >
+                        </div>
+                        <dl class="rule_block-right">
+                          <dt>AI POST ROUND</dt>
+                          <dd>Estimated strokes gained analysis & recommendations</dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="popup-modal-right">
-            <div class="popup-modal-right_top">
-              {% comment %}
+        </div>
+        {% if product.template_suffix == 'new-s3-max' %}
+          <div class="free-offer-info group2 offer_cap-pro">
+            <div id="soft-case-offer" class="offer-description-info accordion-content active">
+              <div class="accordion-content-details">
+                <div class="accordion-content_top">
+                  <div class="checkbox-list">
+                    {% render 'offer-bug' %}
+                    {% comment %}
+                      <input type="checkbox" name="offer-checkbox" class="select-premium selectRV"
+                      id="playerplus-player-go-upshell" />
+                    {% endcomment %}
+                    <label for="playerplus-player-go-upshell" class="checkbox-title custom_heading"
+                      >UPGRADE TO OUR LATEST MODEL</label
+                    >
+                    {% comment %}
+                      <div class="offer-price custom_heading" style="align-items: flex-end;">
+                        {% comment %} <span class="price-compare">($129)</span> {% endcomment %}
+                        <span>+$100</span>
+                      </div>
+                    {% endcomment %}
+                  </div>
+                </div>
+                <div class="accordion-content_bottom">
+                  <div class="accordion-content_left">
+                    <div class="accordion-content_img-holder">
+                      <a href="/products/captain-air">
+                        <img
+                          class="product-atc_product-img"
+                          height="30"
+                          width="30"
+                          decoding="async"
+                          loading="lazy"
+                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE_05b78da9-367e-41c7-90c1-3d77bf0c6b42.png?v=1775200914"
+                          alt="Captain Air"
+                        >
+                      </a>
+                    </div>
+                  </div>
+                  <div class="accordion-content_right">
+                    <div class="offer-description">
+                      <h6>CAPTAIN AIR RANGEFINDER</h6>
+                      <p>
+                        Bluetooth rangefinder with 1000-yard range, club recommendations, GPS distances, slope switch, and
+                        an LED display.
+                        <a
+                          class="anchor_hover"
+                          href="/products/captain-air"
+                          style="--hover-clr:#A8A8A8; margin: 0;"
+                          >LEARN MORE</a
+                        >
+                      </p>
+                    </div>
+                    <div class="cta_content">
+                      {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
+                      <a class="content-cta content-cta__solid" href="/products/captain-air"> SHOP NOW </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% elsif product.template_suffix == 'play-maker-plus' %}
+          {% comment %} {% assign case_product = all_products['playmaker-watch-case-black'] %}
+          {% if case_product == blank or case_product.selected_or_first_available_variant == blank %}
+            {% assign case_product = all_products['watch-hard-shell-carrying-case'] %}
+          {% endif %}
+          <div
+            class="free-offer-info group2 offer_cap-pro"
+            style="border-radius: 16px;border-width: 1px;"
+          >
+            <div id="soft-case-offer" class="offer-description-info accordion-content active">
+              <div class="accordion-content-details">
+                <div class="accordion-content_top" style="line-height: 1;padding: 8px clamp(15px,2vw,32px);">
+                  <div class="checkbox-list watch_list">
+                    {% render 'offer-bug' %}
+
+                    <input
+                      type="checkbox"
+                      name="offer-checkbox"
+                      class="select-premium selectRV"
+                      id="playmaker-hard-new-case"
+                      value="{{ case_product.selected_or_first_available_variant.id }}"
+                      data-variant-id="{{ case_product.selected_or_first_available_variant.id }}"
+                    />
+
+                    <label for="playmaker-hard-new-case" class="checkbox-title custom_heading">WATCH CARRYING CASE</label>
+                    <div class="offer-price " style="align-items: flex-end;">
+                      <span class="custom_heading" style="font-size: clamp(14px,1.2vw,16px);line-height: 1.5;"
+                        >+$14.99</span
+                      >
+                      <div class="price_discounted">
+                        <span class="price-compare" style="line-height: 1;">($29.98)</span>
+                        <span
+                          class="price_discount"
+                          style="color: var(--new-red-light); line-height: 1; font-weight: 600;"
+                          >50% off</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="accordion-content_bottom"
+                  style="padding: clamp(16px, 1.3vw, 23px) clamp(15px, 1.9vw, 32px);"
+                >
+                  <div class="accordion-content_left">
+                    <div class="accordion-content_img-holder">
+                      <a href="/products/playmaker-watch-case-black">
+                        <img
+                          class="product-atc_product-img"
+                          height="30"
+                          width="30"
+                          decoding="async"
+                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/playmaker-case-new-upsell-image.png?v=1782195914"
+                          alt="Playmaker Watch Case"
+                        >
+                      </a>
+                    </div>
+                  </div>
+                  <div class="accordion-content_right">
+                    <div class="offer-description" style="max-width: 310px;">
+                      {% comment %} <h6>WATCH CARRYING CASE</h6> {% endcomment %}
+                      <p style="gap: 10px;display: flex;flex-direction: column;justify-content: center;align-items: flex-start;text-wrap: inherit;-webkit-text-wrap-style: inherit;text-wrap-style: inherit;">
+                        Premium case with a suede microfiber lining ensures your watch stays well protected from impact,
+                        scratches, and the elements.
+                        <a
+                          class="anchor_hover"
+                          href="/products/playmaker-watch-case-black"
+                          style="--hover-clr:#9E9E9E; margin: 0;"
+                          >LEARN MORE</a
+                        >
+                      </p>
+                    </div>
+                    <div class="cta_content" style="visiblity:hidden; opacity:0; pointer-events:none;">
+                      {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
+                      <a class="content-cta content-cta__solid" href="/products/playmaker-watch-case-black"> SHOP NOW </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> {% endcomment %}
+          <div class="free-offer-info group2 offer_cap-pro">
+            <div id="soft-case-offer" class="offer-description-info accordion-content active">
+              <div class="accordion-content-details">
+                <div class="accordion-content_top">
+                  <div class="checkbox-list">
+                    {% render 'offer-bug' %}
+                    {% comment %}
+                      <input type="checkbox" name="offer-checkbox" class="select-premium selectRV"
+                      id="playerplus-player-go-upshell" />
+                    {% endcomment %}
+                    <label for="playerplus-player-go-upshell" class="checkbox-title custom_heading"
+                      >UPGRADE TO OUR LATEST MODEL</label
+                    >
+                    {% comment %}
+                      <div class="offer-price custom_heading" style="align-items: flex-end;">
+                        {% comment %} <span class="price-compare">($129)</span> {% endcomment %}
+                        <span>+$100</span>
+                        </div>
+                    {% endcomment %}
+                  </div>
+                </div>
+                <div class="accordion-content_bottom">
+                  <div class="accordion-content_left">
+                    <div class="accordion-content_img-holder">
+                      <a href="/products/player-pro">
+                        <img
+                          class="product-atc_product-img"
+                          height="30"
+                          width="30"
+                          decoding="async"
+                          loading="lazy"
+                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE_1.png?v=1789547411"
+                          alt="Player Pro"
+                        >
+                      </a>
+                    </div>
+                  </div>
+                  <div class="accordion-content_right">
+                    <div class="offer-description">
+                      <h6>PLAYER PRO RANGEFINDER</h6>
+                      <p>
+                        GPS golf speaker with full-color touchscreen, True Distance yardages, AI club recommendations,
+                        green heat maps, on-device scoring, and 360° audio.
+                        <a
+                          class="anchor_hover"
+                          href="/products/player-pro"
+                          style="--hover-clr:#A8A8A8; margin: 0;"
+                          >LEARN MORE</a
+                        >
+                      </p>
+                    </div>
+                    <div class="cta_content">
+                      {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
+                      <a class="content-cta content-cta__solid" href="/products/player-pro"> SHOP NOW </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <style>
+            .price_discounted { display: flex; gap: 5px; }
+            .newupshell .offer_cap-pro .checkbox-list.watch_list .checkbox-title::before{display:block;}
+            .newupshell .checkbox-list.watch_list .checkbox-title{padding-left: 27px !important;}
+            .newupshell .offer-price{flex-direction: column;}
+            .free-offer-info.group2.offer_cap-pro.active { border-color: #fff; }
+          </style>
+        {% elsif product.template_suffix == 'player-go' %}
+          <div class="free-offer-info group2 offer_cap-pro">
+            <div id="soft-case-offer" class="offer-description-info accordion-content active">
+              <div class="accordion-content-details">
+                <div class="accordion-content_top">
+                  <div class="checkbox-list">
+                    {% render 'offer-bug' %}
+                    {% comment %}
+                      <input type="checkbox" name="offer-checkbox" class="select-premium selectRV"
+                      id="playerplus-player-go-upshell" />
+                    {% endcomment %}
+                    <label for="playerplus-player-go-upshell" class="checkbox-title custom_heading"
+                      >UPGRADE TO OUR LATEST MODEL</label
+                    >
+                    {% comment %}
+                      <div class="offer-price custom_heading" style="align-items: flex-end;">
+                        {% comment %} <span class="price-compare">($129)</span> {% endcomment %}
+                        <span>+$100</span>
+                      </div>
+                    {% endcomment %}
+                  </div>
+                </div>
+                <div class="accordion-content_bottom">
+                  <div class="accordion-content_left">
+                    <div class="accordion-content_img-holder">
+                      <a href="/products/player-pro">
+                        <img
+                          class="product-atc_product-img"
+                          height="30"
+                          width="30"
+                          decoding="async"
+                          loading="lazy"
+                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE_1.png?v=1789547411"
+                          alt="Player Pro"
+                        >
+                      </a>
+                    </div>
+                  </div>
+                  <div class="accordion-content_right">
+                    <div class="offer-description">
+                      <h6>PLAYER PRO RANGEFINDER</h6>
+                      <p>
+                        GPS golf speaker with full-color touchscreen, True Distance yardages, AI club recommendations,
+                        green heat maps, on-device scoring, and 360° audio.
+                        <a
+                          class="anchor_hover"
+                          href="/products/player-pro"
+                          style="--hover-clr:#A8A8A8; margin: 0;"
+                          >LEARN MORE</a
+                        >
+                      </p>
+                    </div>
+                    <div class="cta_content">
+                      {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
+                      <a class="content-cta content-cta__solid" href="/products/player-pro"> SHOP NOW </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% elsif product.template_suffix == 's4-ultra' %}
+          <div class="free-offer-info group2 offer_cap-pro">
+            <div id="soft-case-offer" class="offer-description-info accordion-content active">
+              <div class="accordion-content-details">
+                <div class="accordion-content_top">
+                  <div class="checkbox-list">
+                    {% render 'offer-bug' %}
+                    {% comment %}
+                      <input type="checkbox" name="offer-checkbox" class="select-premium selectRV"
+                      id="playerplus-player-go-upshell" />
+                    {% endcomment %}
+                    <label for="playerplus-player-go-upshell" class="checkbox-title custom_heading"
+                      >UPGRADE TO THE PRO</label
+                    >
+                    <div class="offer-price custom_heading" style="align-items: flex-end;">
+                      {% comment %} <span class="price-compare">($129)</span> {% endcomment %}
+                      <span>+$50</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-content_bottom">
+                  <div class="accordion-content_left">
+                    <a class="accordion-content_img-holder" href="/products/captain-pro">
+                      <img
+                        class="product-atc_product-img"
+                        height="30"
+                        width="30"
+                        decoding="async"
+                        src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE.png?v=1770286269"
+                        alt="Player Pro Rangefinder"
+                      >
+                      </a>
+                  </div>
+                  <div class="accordion-content_right">
+                    <div class="offer-description">
+                      <h6>CAPTAIN PRO RANGEFINDER</h6>
+                      <p>
+                        Tour-level laser rangefinder featuring industry-leading electronics like an OLED display, 350yd
+                        Flag Lock, Auto-Depth Filter, and Find My Rangefinder.
+                        <a
+                          class="anchor_hover"
+                          href="/products/captain-pro"
+                          style="--hover-clr:#9E9E9E; margin: 0;"
+                          >LEARN MORE</a
+                        >
+                      </p>
+                    </div>
+                    <div class="cta_content">
+                      {% comment %} id="captainPro_upshell" data-id="45724258468037" {% endcomment %}
+                      <a class="content-cta content-cta__solid" href="/products/captain-pro">
+                        SHOP NOW
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div
+      id="one_month_popup"
+      class="upsell_popup--new modal"
+      data-main-product-id="{{ product.selected_or_first_available_variant.id }}"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="{{ product_name | handleize }}-title"
+    >
+      <div class="new-popup modal-content">
+        <div class="popup-modal-inner">
+          <div class="popup-modal-content">
+            <span class="close" role="button" tabindex="0" aria-label="Close Modal">
+              <img
+                class="product-atc_product-img"
+                height="30"
+                width="30"
+                decoding="async"
+                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000002326_43761f0a-7b47-4de8-a8b4-d2967db4d63f.svg?v=1784792642"
+                alt="close icon"
+                aria-hidden="true"
+              >
+            </span>
+            <div class="popup-modal-left">
+              <picture>
+                <source srcset="{{ popup_image }}" media="(min-width:992px)">
+                <source srcset="{{ popup_image_mobile }}" media="(max-width:991px)">
+                <img src="{{ popup_image }}" alt="{{ product_name | downcase }} mockup" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="popup-modal-right">
+              <div class="popup-modal-right_top">
+                {% comment %}
+                  <img
+                    class="product-atc_product-img popup-right_icon"
+                    src="{{'player-plus-membership-icon-popup.svg' | asset_url}}"
+                    alt="{{ product_name | downcase }} membership"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                {% endcomment %}
+                {% render 'offer-bug' %}
+                {% comment %} <span class="upshell_bug">6  FREE ACCESS</span> {% endcomment %}
                 <img
-                  class="product-atc_product-img popup-right_icon"
-                  src="{{'player-plus-membership-icon-popup.svg' | asset_url}}"
-                  alt="{{ product_name | downcase }} membership"
+                  class="product-atc_product-img"
+                  style="justify-self: center;"
+                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/one-mon-app-upsell-popup.svg?v=1782823011"
+                  alt="1 month membership for {{ product_name | downcase }}"
                   loading="lazy"
                   decoding="async"
                 >
-              {% endcomment %}
-              {% render 'offer-bug' %}
-              {% comment %} <span class="upshell_bug">6  FREE ACCESS</span> {% endcomment %}
-              <img
-                class="product-atc_product-img"
-                style="justify-self: center;"
-                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/one-mon-app-upsell-popup.svg?v=1782823011"
-                alt="1 month membership for {{ product_name | downcase }}"
-                loading="lazy"
-                decoding="async"
-              >
 
-              <h2 id="{{ product_name | handleize }}-title">SUPERCHARGE YOUR GAME WITH AI</h2>
-              <div class="popup-modal-ul">
-                <ul>
-                  <li class="has_different-icon">
-                    Lifetime Access <span class="course-count-short"></span>+ Courses FCB
-                  </li>
-                  <li>1 MONTH Intelligence Access to GAME App</li>
-                  <li>True Distance™ Technology</li>
-                  <li>AI Club Recommendations</li>
+                <h2 id="{{ product_name | handleize }}-title">SUPERCHARGE YOUR GAME WITH AI</h2>
+                <div class="popup-modal-ul">
+                  <ul>
+                    <li class="has_different-icon">
+                      Lifetime Access <span class="course-count-short"></span>+ Courses FCB
+                    </li>
+                    <li>1 MONTH Intelligence Access to GAME App</li>
+                    <li>True Distance™ Technology</li>
+                    <li>AI Club Recommendations</li>
 
-                  <li>Scout AI Caddie™</li>
+                    <li>Scout AI Caddie™</li>
 
-                  <li>Advanced Score Keeping & Shot Tracking</li>
-                  <li>Live Leaderboards</li>
-                  <li>AI Post-Round Report & 3D Playbacks</li>
-                  <li>Shot Dispersion & Accuracy Data</li>
-                  <li>Comparative Analytics</li>
-                  <li>Satellite Course Maps</li>
-                  <li>More...</li>
-                </ul>
-              </div>
-              <div class="popup-modal-bottom">
-                <div class="popup-modal-cta-section no_slash--out">
-                  <p class="custom_heading">FREE</p>
-                  <p>$6.50</p>
+                    <li>Advanced Score Keeping & Shot Tracking</li>
+                    <li>Live Leaderboards</li>
+                    <li>AI Post-Round Report & 3D Playbacks</li>
+                    <li>Shot Dispersion & Accuracy Data</li>
+                    <li>Comparative Analytics</li>
+                    <li>Satellite Course Maps</li>
+                    <li>More...</li>
+                  </ul>
                 </div>
-                <a class="upshell-popup-button" href="javascript:void(0)" id="1month-membership-free"
-                  >CLAIM FREE TRIAL</a
-                >
-                <div class="popup-modal-terms">
-                  <p class="custom_subHeading-text">No Commitment. Cancel Anytime.</p>
-                  <p>
-                    *all subscriptions billed annually after promotional period at $79/yr and are subject to
-                    <a
-                      class="anchor_hover"
-                      href="/pages/app-terms-of-service"
-                      style="--hover-clr:#A8A8A8;"
-                      >terms & conditions </a
-                    >.
-                  </p>
+                <div class="popup-modal-bottom">
+                  <div class="popup-modal-cta-section no_slash--out">
+                    <p class="custom_heading">FREE</p>
+                    <p>$6.50</p>
+                  </div>
+                  <a class="upshell-popup-button" href="javascript:void(0)" id="1month-membership-free"
+                    >CLAIM FREE TRIAL</a
+                  >
+                  <div class="popup-modal-terms">
+                    <p class="custom_subHeading-text">No Commitment. Cancel Anytime.</p>
+                    <p>
+                      *all subscriptions billed annually after promotional period at $79/yr and are subject to
+                      <a
+                        class="anchor_hover"
+                        href="/pages/app-terms-of-service"
+                        style="--hover-clr:#A8A8A8;"
+                        >terms & conditions </a
+                      >.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1130,83 +2167,309 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    $(document).ready(function () {
-      // $('.free-offer-info.group1').addClass('active');
-      // $('.group1 input[type="checkbox"]').prop('checked', true);
+    <script>
+      $(document).ready(function () {
+        // $('.free-offer-info.group1').addClass('active');
+        // $('.group1 input[type="checkbox"]').prop('checked', true);
 
-      function handleCheckboxGroups(groupSelector) {
-        const group = $(groupSelector);
-        const checkbox = group.find('input[type="checkbox"]');
+        function handleCheckboxGroups(groupSelector) {
+          const group = $(groupSelector);
+          const checkbox = group.find('input[type="checkbox"]');
 
-        checkbox.on('change', function () {
-          if ($(this).is(':checked')) {
-            group.addClass('active');
-          } else {
-            group.removeClass('active');
-          }
-        });
-      }
+          checkbox.on('change', function () {
+            if ($(this).is(':checked')) {
+              group.addClass('active');
+            } else {
+              group.removeClass('active');
+            }
+          });
+        }
 
-      // Handle both groups independently
-      handleCheckboxGroups('.group1');
-      handleCheckboxGroups('.group2');
-    });
-  </script>
+        // Handle both groups independently
+        handleCheckboxGroups('.group1');
+        handleCheckboxGroups('.group2');
+      });
+    </script>
+  {% endcomment %}
 {% endif %}
 
 <style>
-  .product-atc_product-img{margin-inline:auto;}
-  /* Accessibility: Allow the checkbox to be reached by Tab, but visually hidden */
-  .checkbox-list input[type="checkbox"].selectRV {
-    display: block !important;
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
+      .product-atc_product-img{margin-inline:auto;}
+      /* Accessibility: Allow the checkbox to be reached by Tab, but visually hidden */
+      .checkbox-list input[type="checkbox"].selectRV {
+        display: block !important;
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+      }
+
+      /* Accessibility: Show visual focus indicators on custom checkboxes when native checkbox is focused */
+      .checkbox-list input[type="checkbox"].selectRV:focus + label::before,
+      .checkbox-list input[type="checkbox"].selectRV:focus-visible + label::before {
+        outline: 2px solid #CDFF07 !important;
+        outline-offset: 2px !important;
+        box-shadow: 0 0 4px #CDFF07 !important;
+      }
+
+      /* Ensure focus outline doesn't show on mouse clicks in browsers supporting focus-visible */
+      .checkbox-list input[type="checkbox"].selectRV:focus:not(:focus-visible) + label::before {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      .cta_content { width: 100%; max-width: fit-content; cursor: pointer; }
+      .block_image { --ratio: 43px; max-width: var(--ratio); display: flex; width: var(--ratio); }
+      .newupshell .offer_cap-pro .offer-description-info .offer-description p { max-width: 267px !important; }
+      .newupshell .free-offer-info .offer_cap-pro { border-radius: 16px; }
+      .new-product__layout .offer_cap-pro .accordion-content_left { max-width: clamp(80px, 10vw, 114px); }
+      .newupshell .offer_cap-pro .accordion-content-details .accordion-content_top { padding: clamp(10px, 1.3vw, 17px) clamp(15px, 1.9vw, 32px); }
+      .newupshell .offer_cap-pro .offer-description p a { display: inline-flex; }
+      .offer_cap-pro .accordion-content_bottom { padding: clamp(16px, 1.3vw, 23px) clamp(15px, 1.9vw, 32px); }
+      .newupshell .offer-description h6 { font-size: 16px; line-height: 1; margin-bottom: 10px; }
+      .newupshell .offer_cap-pro .checkbox-list .checkbox-title { padding-left: 0; }
+      .newupshell .offer_cap-pro .checkbox-list .checkbox-title::before { display: none; }
+      .newupshell .offer_cap-pro .accordion-content_right { width: 100%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+      .rule_play-blocks { display: flex; flex-direction: column; }
+      .rule_play-block { display: flex; align-items: center; gap: 7px; padding: 11px 10px; }
+      .rule_block-left { border-radius: 50px; display: flex; justify-content: center; align-items: center; }
+      .rule_block-left span { font-weight: 900; color: #075ee1; }
+      .rule_block-right { display: flex; flex-direction: column; gap: 5px; margin: 0; }
+      .rule_block-right h3, .rule_block-right dt {font-size: clamp(12px,1vw,16px); line-height: 1; display: flex; align-items: center; gap: 5px; margin: 0; font-family:"Blue Tees Paragraph";}
+      .rule_block-right h5, .rule_block-right dd { font-size: 12px; font-weight: 400; line-height: 1; margin: 0; }
+      .rule_play-block:first-child { padding-top: 11px; }
+
+      .store_icons-upsell {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+  .newupshell .supercharged_ai--upshell .checkbox-list .checkbox-title{display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: baseline}
+
+      .popup_msg {
+    background: #E9E9E9;
+    border-radius: 4px;
+    padding: 12px;
+    margin-block: 10px 16px;
+  }
+  .popup_msg-text {
+    font-size: 12px;
   }
 
-  /* Accessibility: Show visual focus indicators on custom checkboxes when native checkbox is focused */
-  .checkbox-list input[type="checkbox"].selectRV:focus + label::before,
-  .checkbox-list input[type="checkbox"].selectRV:focus-visible + label::before {
-    outline: 2px solid #CDFF07 !important;
-    outline-offset: 2px !important;
-    box-shadow: 0 0 4px #CDFF07 !important;
-  }
 
-  /* Ensure focus outline doesn't show on mouse clicks in browsers supporting focus-visible */
-  .checkbox-list input[type="checkbox"].selectRV:focus:not(:focus-visible) + label::before {
-    outline: none !important;
-    box-shadow: none !important;
-  }
 
-  .cta_content { width: 100%; max-width: fit-content; cursor: pointer; }
-  .block_image { --ratio: 30px; max-width: var(--ratio); display: flex; width: var(--ratio); }
-  .newupshell .offer_cap-pro .offer-description-info .offer-description p { max-width: 267px !important; }
-  .newupshell .free-offer-info .offer_cap-pro { border-radius: 16px; }
-  .new-product__layout .offer_cap-pro .accordion-content_left { max-width: clamp(80px, 10vw, 114px); }
-  .newupshell .offer_cap-pro .accordion-content-details .accordion-content_top { padding: clamp(10px, 1.3vw, 17px) clamp(15px, 1.9vw, 32px); }
-  .newupshell .offer_cap-pro .offer-description p a { display: inline-flex; }
-  .offer_cap-pro .accordion-content_bottom { padding: clamp(16px, 1.3vw, 23px) clamp(15px, 1.9vw, 32px); }
-  .newupshell .offer-description h6 { font-size: 16px; line-height: 1; margin-bottom: 10px; }
-  .newupshell .offer_cap-pro .checkbox-list .checkbox-title { padding-left: 0; }
-  .newupshell .offer_cap-pro .checkbox-list .checkbox-title::before { display: none; }
-  .newupshell .offer_cap-pro .accordion-content_right { width: 100%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-  .rule_play-blocks { display: flex; flex-direction: column; }
-  .rule_play-block { display: flex; align-items: center; gap: 7px; padding: 0px 10px 8px; }
-  .rule_block-left { border-radius: 50px; display: flex; justify-content: center; align-items: center; }
-  .rule_block-left span { font-weight: 900; color: #075ee1; }
-  .rule_block-right { display: flex; flex-direction: column; gap: 5px; margin: 0; }
-  .rule_block-right h3, .rule_block-right dt {font-size: clamp(12px,0.8vw,14px); line-height: 1; display: flex; align-items: center; gap: 5px; margin: 0; font-weight: bold; }
-  .rule_block-right h5, .rule_block-right dd { font-size: 12px; font-weight: 400; line-height: 1; margin: 0; }
-  .rule_play-block:first-child { padding-top: 8px; }
+  .newupshell .offer-price img{
+  height:auto;
+    
+  }
+       /* Main Banner Container */
+           .upsell_banner {
+             box-sizing: border-box;
+             max-width: 711px;
+             width:100%;
+             height: 205px;
+             background: #010C27;
+             border: 2px solid #FFFFFF;
+             border-radius: 14px;
+             display: flex;
+             align-items: center;
+             position: relative;
+             overflow: hidden;
+           }
+
+           /* Left side – placeholder for the full golf green image */
+           .upsell_left {
+             position: relative;
+             max-width: clamp(200px, 15vw, 260px);
+             width:100%;
+             height: 100%;
+             flex-shrink: 0;
+             display: flex;
+             align-items: center;
+             padding-left: 20px;
+             justify-content: center;
+           }
+
+           .upsell_left img {
+             max-width: 100%;
+             max-height: 95%;
+             object-fit: contain;
+           }
+
+           /* Right content section */
+           .upsell_right {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             justify-content: center;
+             gap: 11px;
+             flex: 1;
+             padding: 0 20px 0 10px;
+           }
+
+           .upsell_title {
+
+             font-weight: 855;
+             font-size: clamp(18px,1.4vw,24px);
+             line-height: 105%;
+             text-align: center;
+             letter-spacing: -0.02em;
+             text-transform: uppercase;
+             color: #FFFFFF;
+             {% comment %} white-space: nowrap; {% endcomment %}
+           }
+
+           /* Blue Free For Life box */
+           .upsell_free_box {
+             max-width: 393px;
+             width: 100%;
+             height: 74px;
+             background: #0045FF;
+             border-radius: 10px;
+             position: relative;
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             justify-content: center;
+           }
+
+           .upsell_free_content {
+             display: flex;
+             align-items: center;
+             gap: 8px;
+           }
+
+           /* Checkbox */
+           .upsell_checkbox {
+             width: 28px;
+             height: 28px;
+             background: #FFFFFF;
+             border-radius: 4px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             flex-shrink: 0;
+           }
+
+           .upsell_checkbox svg {
+             width: 16px;
+             height: 16px;
+           }
+
+           .upsell_free_text {
+
+
+             font-weight: 855;
+             font-size: clamp(24px,1.9vw,34px);
+             line-height: 105%;
+             letter-spacing: -0.02em;
+             text-transform: uppercase;
+             color: #FFFFFF;
+           }
+
+           .upsell_included {
+
+             font-style: normal;
+             font-weight: 700;
+             font-size: 14px;
+             line-height: 16px;
+             text-align: center;
+             letter-spacing: 0.09em;
+             text-transform: uppercase;
+             color: #FFFFFF;
+             margin-top: 2px;
+           }
+
+           .upsell_sub_text {
+
+             font-style: normal;
+             font-weight: 700;
+             font-size: 14px;
+             line-height: 16px;
+             text-align: center;
+             letter-spacing: 0.15em;
+             text-transform: uppercase;
+             color: #FFFFFF;
+           }
+
+           .upsell_note-text {
+      font-size: 14px;
+      color: var(--new-gray-dark);
+      line-height: 1;
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+    .upsell_name {
+      font-size: clamp(22px, 1.4vw, 26px);
+      line-height: 1;
+      letter-spacing: -2%;
+    }
+
+           /* Responsive */
+           @media (max-width: 860px) {
+             .upsell_banner {
+              
+               max-width: 100%;
+             width:100%;
+               height: auto;
+               min-height: 180px;
+               flex-direction: column-reverse;
+               padding: 16px;
+               margin-bottom:20px;
+             }
+
+             .upsell_left {
+               width: 100%;
+               height: 180px;
+               padding-left: 0px;
+             }
+
+             .upsell_right {
+               width: 100%;
+               padding: 10px 0 0;
+             }
+
+             .upsell_title {
+               font-size: 20px;
+             }
+
+             .upsell_free_box {
+               width: 100%;
+               max-width: 393px;
+             }
+
+             .upsell_free_text {
+               font-size: 26px;
+             }
+             
+             
+          }
+           @media (max-width: 768px) {
+         .upsell_name{
+              font-size: clamp(26px, 5.8vw, 44px);
+            }
+           }
+           @media (max-width: 620px) {
+          .newupshell .supercharged_ai--upshell .checkbox-list .checkbox-title{align-items: center;}
+          .supercharged_ai--upshell .accordion-content_bottom{
+              flex-wrap: wrap;
+  justify-content: center;
+  flex-direction:column;
+            }
+            
+           
+            .newupshell .supercharged_ai--upshell .checkbox-list .checkbox-title{align-items: center;}
+           }
+          
 </style>
 
 <script>
@@ -1245,31 +2508,32 @@
 
   document.addEventListener('DOMContentLoaded', () => {
 
-    function nameDuration() {
-      const offerContainers = document.querySelectorAll('.free-offer-info');
+  function nameDuration() {
+  const offerContainers = document.querySelectorAll('.free-offer-info');
+  const membershipShow = document.querySelector('.membership__show');
 
-      const membershipShow = document.querySelector('.membership__show');
+  if (membershipShow) {
+    const visibleContainer = Array.from(offerContainers).find(
+      container => container.style.display !== 'none'
+    );
 
-      if (membershipShow) {
-        const visibleContainer = Array.from(offerContainers).find(container =>
-          container.style.display !== 'none'
-        );
+    if (visibleContainer) {
+      const membershipName = visibleContainer.querySelector('.membership__name')?.textContent.trim();
+      const membershipDuration = visibleContainer.querySelector('.membership__duration')?.textContent.trim();
 
-        if (visibleContainer) {
+      membershipShow.classList.remove('skeleton-loader');
 
-          const membershipName = visibleContainer.querySelector('.membership__name')?.textContent.trim() || 'No Offer Name';
-          const membershipDuration = visibleContainer.querySelector('.membership__duration')?.textContent.trim() || 'No Duration';
-
-
-          membershipShow.classList.remove('skeleton-loader');
-          membershipShow.textContent = `${membershipName} | ${membershipDuration} (Included)`;
-        } else {
-          membershipShow.classList.remove('skeleton-loader');
-          {% comment %} membershipShow.textContent = 'Loading....'; {% endcomment %}
-        }
+      // Only render if both name and duration exist
+      if (membershipName && membershipDuration) {
+        membershipShow.textContent = `${membershipName} | ${membershipDuration} (Included)`;
       }
+      // else: leave it empty (or keep whatever was already there)
+    } else {
+      membershipShow.classList.remove('skeleton-loader');
     }
-    nameDuration();
+  }
+}
+nameDuration();
 
   });
 

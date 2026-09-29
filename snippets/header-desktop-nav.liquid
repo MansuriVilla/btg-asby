@@ -43,7 +43,7 @@
 {% assign rangefinder = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Rangefinders_hover_state.png?v=1771475917' %}
 {% assign gps_speakers = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/GPS_Speakers_hover_state_2_cdf95fae-089a-4405-97a5-4497f2af8060.png?v=1785994334' %}
 {% assign launch_monitor = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Launch_Monitors_hover_state.png?v=1771475917' %}
-{% assign handhelds_wearables = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Handhelds_Wearables_hover_state.png?v=1771475917' %}
+{% assign handhelds_wearables = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Handhelds_Wearables_hover_state_d1e96602-b5b0-43c5-a32b-3b4a6bf4173b.png?v=1789970850' %}
 {% assign extras = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Extras_hover_state_US.png?v=1772169732' %}
 {% assign accessories = 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Accessories_hover_state.png?v=1771561341' %}
 
@@ -65,12 +65,14 @@
       class="isMenu_close"
       src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/menu_icon-new-header.png?v=1786718014"
       alt=""
-      aria-hidden="true">
+      aria-hidden="true"
+    >
     <img
       class="isMenu_open"
       src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/menu_icon-new-header_close.png?v=1786718012"
       alt=""
-      aria-hidden="true">
+      aria-hidden="true"
+    >
   </button>
   <div class="site_header-left">
     <div class="header_logo">
@@ -78,15 +80,18 @@
         <picture>
           <source
             srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bluetees-logo-full-new.svg?v=1767964501"
-            media="(min-width:992px)">
+            media="(min-width:992px)"
+          >
           <source
             srcset="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bluetees-logo-full-new.svg?v=1767964501"
-            media="(max-width:991px)">
+            media="(max-width:991px)"
+          >
           <img
             src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bluetees-logo-full-new.svg?v=1767964501"
             alt="Blue Tees logo Homepage"
             height="100%"
-            width="100%">
+            width="100%"
+          >
         </picture>
       </a>
     </div>
@@ -103,29 +108,34 @@
       <ul class="site_header-links header__nav-offer">
         <li
           class="site_header-link{% if product.handle contains speaker_handle %} active{% endif %}"
-          style="border-bottom: 0px;">
+          style="border-bottom: 0px;"
+        >
           <a href="/products/{{ speaker_handle }}" class="nav_link nav_offer--link">SPEAKER BUNDLE</a>
         </li>
         <li
           class="site_header-link{% if product.handle contains gps_handle %} active{% endif %}"
-          style="border-bottom: 0px;">
+          style="border-bottom: 0px;"
+        >
           <a href="/products/{{ gps_handle }}" class="nav_link nav_offer--link">GPS OFFER</a>
         </li>
         <li
           class="site_header-link{% if product.handle contains laser_handle %} active{% endif %}"
-          style="border-bottom: 0px;">
+          style="border-bottom: 0px;"
+        >
           <a href="/products/{{ laser_handle }}" class="nav_link nav_offer--link">LASER OFFER</a>
         </li>
         {% if is_v2 == false %}
           <li
             class="site_header-link"
-            style="border-bottom: 0px;">
+            style="border-bottom: 0px;"
+          >
             <span class="cta_pluse-pdp cta_pluse" style="--ripple-clr: var(--new-red)80">
               <a
                 href="/products/{{ special_link }}"
                 class="nav_link nav_offer--link special__link "
                 style="z-index:1; position:relative;"
-                >3 BIGGER BUNDLES</a>
+                >3 BIGGER BUNDLES</a
+              >
             </span>
           </li>
         {% endif %}
@@ -146,8 +156,11 @@
         <li
           class="site_header-link site_headerContains__megaMenu"
           data-disable-menu="false"
-          data-menu="products">
-          <button type="button" class="nav_link item_has--dropdown" aria-expanded="false" aria-haspopup="menu">PRODUCTS</button>
+          data-menu="products"
+        >
+          <button type="button" class="nav_link item_has--dropdown" aria-expanded="false" aria-haspopup="menu">
+            PRODUCTS
+          </button>
           <div class="site__megaMenu_container">
             <div class="site__megaMenu_content new-page-width">
               <button class="back-button">Back</button>
@@ -253,22 +266,26 @@
                               open_in_new_tab: open_in_new_tab,
                               hover_effect: hover_effect
                             %}
-                            {% comment %} {% render 'header-nav-item',
-                              item_title: 'Player+',
-                              item_url: '/products/player-gps-speaker',
-                              item_image_var: player_plus,
-                              item_image_var_mobile: player_plus,
-                              open_in_new_tab: open_in_new_tab,
-                              hover_effect: hover_effect
-                            %} {% endcomment %}
-                            {% comment %} {% render 'header-nav-item',
-                              item_title: 'Player GO',
-                              item_url: '/products/magnetic-golf-speaker',
-                              item_image_var: player_go,
-                              item_image_var_mobile: player_go,
-                              open_in_new_tab: open_in_new_tab,
-                              hover_effect: hover_effect
-                            %} {% endcomment %}
+                            {% comment %}
+                              {% render 'header-nav-item',
+                                item_title: 'Player+',
+                                item_url: '/products/player-gps-speaker',
+                                item_image_var: player_plus,
+                                item_image_var_mobile: player_plus,
+                                open_in_new_tab: open_in_new_tab,
+                                hover_effect: hover_effect
+                              %}
+                            {% endcomment %}
+                            {% comment %}
+                              {% render 'header-nav-item',
+                                item_title: 'Player GO',
+                                item_url: '/products/magnetic-golf-speaker',
+                                item_image_var: player_go,
+                                item_image_var_mobile: player_go,
+                                open_in_new_tab: open_in_new_tab,
+                                hover_effect: hover_effect
+                              %}
+                            {% endcomment %}
                           </ul>
                         </div>
                       </div>
@@ -341,7 +358,7 @@
                             {% if hover_effect or handhelds_wearables != blank %}
                               data-img="{{handhelds_wearables}}"
                             {% endif %}
-                            >Handhelds & Wearables</a
+                            >Handhelds</a
                           >
                           <span class="dropdown_opener mega-toggle" data-toggle-dropdown>
                             <svg
@@ -365,14 +382,16 @@
                               open_in_new_tab: open_in_new_tab,
                               hover_effect: hover_effect
                             %}
-                            {% comment %} {% render 'header-nav-item',
-                              item_title: 'PlayMaker+',
-                              item_url: '/products/playmaker-watch',
-                              item_image_var: playmaker_plus,
-                              item_image_var_mobile: playmaker_plus,
-                              open_in_new_tab: open_in_new_tab,
-                              hover_effect: hover_effect
-                            %} {% endcomment %}
+                            {% comment %}
+                              {% render 'header-nav-item',
+                                item_title: 'PlayMaker+',
+                                item_url: '/products/playmaker-watch',
+                                item_image_var: playmaker_plus,
+                                item_image_var_mobile: playmaker_plus,
+                                open_in_new_tab: open_in_new_tab,
+                                hover_effect: hover_effect
+                              %}
+                            {% endcomment %}
                           </ul>
                         </div>
                       </div>
@@ -475,7 +494,9 @@
                             target="_blank" rel="noopener noreferrer"
                           {% endif %}
                         >
-                          <span class="anchor_hover arrow__text" style="--hover-clr:var(--new-black);">Shop all Products</span>
+                          <span class="anchor_hover arrow__text" style="--hover-clr:var(--new-black);"
+                            >Shop all Products</span
+                          >
                           <span class="Site_arrow__container bar-right__left">
                             <svg
                               class="Site_arrow__hover"
@@ -502,7 +523,7 @@
                       target="_blank" rel="noopener noreferrer"
                     {% endif %}
                   >
-                   <picture class="promo_banner_prod_render">
+                    <picture class="promo_banner_prod_render">
                       <source
                         srcset="{{menu_prod_image}}"
                         media="(min-width:992px)"
@@ -536,7 +557,9 @@
           data-disable-menu="false"
           data-menu="apps"
         >
-          <button type="button" class="nav_link item_has--dropdown" aria-expanded="false" aria-haspopup="menu">APPS</button>
+          <button type="button" class="nav_link item_has--dropdown" aria-expanded="false" aria-haspopup="menu">
+            APPS
+          </button>
           <div class="site__megaMenu_container">
             <div class="site__megaMenu_content new-page-width">
               <button class="back-button">Back</button>
@@ -582,31 +605,31 @@
                         </ul>
                       </li>
                       <li class="site_planText_Link-wrap" style="display:contents">
-                      <div class="site_planText_Link">
-                        <h2 class="site_megaMenu__item site_megaMenu__Title">DOWNLOAD THE GAME APP:</h2>
-                        <div class="site_store-icons">
-                          <a
-                            href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
-                            {% if open_in_new_tab %}
-                              target="_blank" rel="noopener noreferrer"
-                            {% endif %}
-                            ><img
-                              class="store_ico"
-                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/app_store-ico-header_1.png?v=1785996105"
-                              alt="Download on the App Store – Blue Tees Game app"
-                          ></a>
-                          <a
-                            href="https://play.google.com/store/apps/details?id=com.bluetees"
-                            {% if open_in_new_tab %}
-                              target="_blank" rel="noopener noreferrer"
-                            {% endif %}
-                            ><img
-                              class="store_ico"
-                              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/play_store-ico-header_1.png?v=1785996104"
-                              alt="Get it on Google Play – Blue Tees Game app"
-                          ></a>
+                        <div class="site_planText_Link">
+                          <h2 class="site_megaMenu__item site_megaMenu__Title">DOWNLOAD THE GAME APP:</h2>
+                          <div class="site_store-icons">
+                            <a
+                              href="https://apps.apple.com/us/app/blue-tees-game/id6448720121"
+                              {% if open_in_new_tab %}
+                                target="_blank" rel="noopener noreferrer"
+                              {% endif %}
+                              ><img
+                                class="store_ico"
+                                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/app_store-ico-header_1.png?v=1785996105"
+                                alt="Download on the App Store – Blue Tees Game app"
+                            ></a>
+                            <a
+                              href="https://play.google.com/store/apps/details?id=com.bluetees"
+                              {% if open_in_new_tab %}
+                                target="_blank" rel="noopener noreferrer"
+                              {% endif %}
+                              ><img
+                                class="store_ico"
+                                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/play_store-ico-header_1.png?v=1785996104"
+                                alt="Get it on Google Play – Blue Tees Game app"
+                            ></a>
+                          </div>
                         </div>
-                      </div>
                       </li>
                     </ul>
                   </div>
@@ -656,7 +679,7 @@
                         {% endif %}
                         ><img
                           class="store_ico"
-                          src="{{ 'app_store-ico-header.svg' | asset_url }}"
+                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/app_store-ico-header_1.png?v=1785996105"
                           alt="Download on the App Store – Blue Tees Game app"
                       ></a>
                       <a
@@ -666,7 +689,7 @@
                         {% endif %}
                         ><img
                           class="store_ico"
-                          src="{{ 'play_store-ico-header.svg' | asset_url }}"
+                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/play_store-ico-header_1.png?v=1785996104"
                           alt="Get it on Google Play – Blue Tees Game app"
                       ></a>
                     </div>
@@ -677,7 +700,9 @@
           </div>
         </li>
         <li class="site_header-link site_headerContains__megaMenu" data-disable-menu="false" data-menu="community">
-          <button type="button" class="nav_link item_has--dropdown" aria-expanded="false" aria-haspopup="menu">COMMUNITY</button>
+          <button type="button" class="nav_link item_has--dropdown" aria-expanded="false" aria-haspopup="menu">
+            COMMUNITY
+          </button>
           <div class="site__megaMenu_container">
             <div class="site__megaMenu_content new-page-width">
               <button class="back-button">Back</button>
@@ -711,10 +736,10 @@
                         </ul>
                       </li>
                       <li class="site_planText_Link-wrap" style="display:contents">
-                      <div class="site_planText_Link">
-                        <h2 class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</h2>
-                        {% render 'site-social-icon-new', icon_theme: 'dark' %}
-                      </div>
+                        <div class="site_planText_Link">
+                          <h2 class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</h2>
+                          {% render 'site-social-icon-new', icon_theme: 'dark' %}
+                        </div>
                       </li>
                     </ul>
                     <ul class="site_megaMenu_left-ul">
@@ -757,16 +782,16 @@
                         </ul>
                       </li>
                       <li class="site_planText_Link-wrap" style="display:contents">
-                      <div class="site_planText_Link mobile-menu-bottom-image desktop-text">
-                        <h2 class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</h2>
-                        {% render 'site-social-icon-new', icon_theme: 'dark' %}
-                      </div>
+                        <div class="site_planText_Link mobile-menu-bottom-image desktop-text">
+                          <h2 class="site_megaMenu__item site_megaMenu__Title">FOLLOW US</h2>
+                          {% render 'site-social-icon-new', icon_theme: 'dark' %}
+                        </div>
                       </li>
                     </ul>
                   </div>
                 </li>
                 <li class="site__megaMenu_right">
-                  <h2 class="site_megaMenu__Title"> LATEST NEWS </h2>
+                  <h2 class="site_megaMenu__Title">LATEST NEWS</h2>
                   <div class="latest_news-container site_megaMenu_flex">
                     {% assign blog_handles = 'news,press-release,game-app' | split: ',' %}
 
@@ -787,7 +812,7 @@
                     {% endfor %}
 
                     {% if latest_article %}
-                      <div class="latest_newsImage site_megaMenu_flex">
+                      <div class="latest_newsImage site_megaMenu_flex ">
                         <a
                           href="{{ latest_article.url }}"
                           style="display: flex;"
@@ -814,19 +839,36 @@
                         </h3>
                       </div>
                       <div class="latest_news_meta">{{ latest_article.excerpt | truncate: 150 }}</div>
-                      <div class="site_planText_Link">  
-                        <a
-                          href="{{ latest_article.url }}"
-                          aria-label="Read more about {{ latest_article.title | strip_html | escape }}"
-                          {% if open_in_new_tab %}
-                            target="_blank" rel="noopener noreferrer"
-                          {% endif %}
-                        >
-                          <span class="blog_anchor-text">Read More</span>
-                          <span class="site_arrow">
-                            <img src="{{ 'menu-arrow-icons-s.svg' | asset_url }}" alt="" aria-hidden="true">
-                          </span>
-                        </a>
+                      <div class="site_planText_Link">
+                        <div class="top__bar-right Hover__arrow">
+                          <a
+                            class="top__bar-right--inner Arrow Arrow--right"
+                            href="{{ latest_article.url }}"
+                            aria-label="Read more about {{ latest_article.title | strip_html | escape }}"
+                            {% if open_in_new_tab %}
+                              target="_blank" rel="noopener noreferrer"
+                            {% endif %}
+                          >
+                            <span
+                              class="anchor_hover arrow__text blog_anchor-text"
+                              style="--hover-clr:var(--new-black);"
+                              >Read More</span
+                            >
+                            <span class="Site_arrow__container bar-right__left" aria-hidden="true">
+                              <svg
+                                class="Site_arrow__hover"
+                                style="--arrow-clr:var(--new-black);"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                              >
+                                <path class="Arrow__path Arrow__path--one" fill="currentColor" d="M7.28033 3.21967C6.98744 2.92678 6.51256 2.92678 6.21967 3.21967C5.92678 3.51256 5.92678 3.98744 6.21967 4.28033L7.28033 3.21967ZM11 8L11.5303 8.53033C11.8232 8.23744 11.8232 7.76256 11.5303 7.46967L11 8ZM6.21967 11.7197C5.92678 12.0126 5.92678 12.4874 6.21967 12.7803C6.51256 13.0732 6.98744 13.0732 7.28033 12.7803L6.21967 11.7197ZM6.21967 4.28033L10.4697 8.53033L11.5303 7.46967L7.28033 3.21967L6.21967 4.28033ZM10.4697 7.46967L6.21967 11.7197L7.28033 12.7803L11.5303 8.53033L10.4697 7.46967Z"></path>
+                                <path class="Arrow__path Arrow__path--two" stroke="currentColor" d="M1.75 8H11" stroke-width="1.5" stroke-linecap="round"></path>
+                              </svg>
+                            </span>
+                          </a>
+                        </div>
                       </div>
                     {% else %}
                       <p>No blog posts available.</p>
@@ -867,7 +909,9 @@
           </a>
         </li>
       </ul>
-    {% endif %}
+
+
+    {%- endif %}
   </nav>
   <div class="site_header-right">
     <a
@@ -882,7 +926,10 @@
       >
       <span>LOGIN</span>
     </a>
-    <button type="button" aria-expanded="false" class="cart_custom site__header-cartIcon site-nav__link site-nav__link--icon js-drawer-open-cart"
+    <button
+      type="button"
+      aria-expanded="false"
+      class="cart_custom site__header-cartIcon site-nav__link site-nav__link--icon js-drawer-open-cart"
       aria-controls="CartDrawer"
       data-icon="{{ settings.cart_icon }}"
     >

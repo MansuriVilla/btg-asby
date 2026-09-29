@@ -1,0 +1,225 @@
+{%- comment -%}
+  Reusable Button / Link Component
+  Parameters:
+  - text: Button label / text (required)
+  - url: URL for link (if blank or type is 'button'/'submit', renders <button>)
+  - type: 'link' | 'button' | 'submit' | 'reset' (default: url != blank ? 'link' : 'button')
+  - variant: 'solid' | 'outline' | 'text' (default: 'solid')
+  - class: Custom classes to append (optional)
+  - id: Element ID (optional)
+  - target_blank: Boolean (default: settings.open_new_tab or false)
+  - aria_label: Accessibility label (optional)
+  - disabled: Boolean (optional)
+  - icon: HTML or snippet for icon (optional)
+  - icon_position: 'left' | 'right' (default: 'right')
+  - attributes: Extra raw HTML attributes (optional)
+{%- endcomment -%}
+
+{%- liquid
+  assign btn_text = text | default: ''
+  assign btn_url = url | default: ''
+  assign btn_variant = variant | default: 'solid'
+  assign btn_type = type | default: ''
+  
+  if btn_type == blank
+    if btn_url != blank
+      assign btn_type = 'link'
+    else
+      assign btn_type = 'button'
+    endif
+  endif
+
+  assign is_link = false
+  if btn_type == 'link' and btn_url != blank
+    assign is_link = true
+  endif
+
+  assign open_new_tab = false
+  if target_blank == true or settings.open_new_tab and target_blank != false and is_link
+    assign open_new_tab = true
+  endif
+
+  assign class_list = 'content-cta content-cta__' | append: btn_variant
+  if class != blank
+    assign class_list = class_list | append: ' ' | append: class
+  endif
+-%}
+
+{%- if btn_text != blank or icon != blank -%}
+  <style>
+    .content-cta.content-cta--fill-hover {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      z-index: 1;
+      transition: border-color 0.75s cubic-bezier(0.25, 1, 0.35, 1), color 0.6s cubic-bezier(0.25, 1, 0.35, 1);
+    }
+
+    .content-cta.content-cta--fill-hover .content-cta__bg-fill {
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      width: 160%;
+      height: 220%;
+      top: -60%;
+      left: -30%;
+      transform: translate3d(0, 115%, 0);
+      pointer-events: none;
+      z-index: -1;
+      will-change: transform;
+    }
+
+    /* Solid Variant */
+    .content-cta__solid.content-cta--fill-hover .content-cta__bg-fill {
+      background-color: #ffffff;
+    }
+    .content-cta__solid.content-cta--fill-hover:hover {
+      border-color: #ffffff;
+      color: #0b0b0b !important;
+    }
+
+    /* Outline Variant */
+    .content-cta__outline.content-cta--fill-hover .content-cta__bg-fill {
+      background-color: var(--new-blue, #0016cb);
+    }
+    .content-cta__outline.content-cta--fill-hover:hover {
+      border-color: var(--new-blue, #0016cb);
+      color: #ffffff !important;
+    }
+
+    .content-cta.content-cta--fill-hover .content-cta__inner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .content-cta.content-cta--fill-hover .content-cta__icon {
+      display: inline-flex;
+      align-items: center;
+      transition: transform 0.75s cubic-bezier(0.25, 1, 0.35, 1);
+    }
+
+    .content-cta.content-cta--fill-hover:hover .content-cta__icon--right {
+      transform: translateX(4px);
+    }
+
+    .content-cta.content-cta--fill-hover:hover .content-cta__icon--left {
+      transform: translateX(-4px);
+    }
+  </style>
+
+  {%- assign class_list = class_list | append: ' content-cta--fill-hover' -%}
+
+  {%- if is_link -%}
+    <a
+      {% if id != blank %}id="{{ id }}"{% endif %}
+      class="{{ class_list }}"
+      href="{{ btn_url }}"
+      {% if open_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+      {% if aria_label != blank %}aria-label="{{ aria_label | escape }}"{% endif %}
+      {% if attributes != blank %}{{ attributes }}{% endif %}
+      onmouseenter="
+        const f = this.querySelector('.content-cta__bg-fill');
+        if (f) {
+          clearTimeout(this._ctaTimer);
+          if (this._ctaState === 'leaving') {
+            f.style.transition = 'none';
+            f.style.transform = 'translate3d(0, 115%, 0)';
+            f.offsetHeight;
+          }
+          this._ctaState = 'entering';
+          f.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.35, 1)';
+          f.style.transform = 'translate3d(0, 0%, 0)';
+        }
+      "
+      onmouseleave="
+        const f = this.querySelector('.content-cta__bg-fill');
+        if (f) {
+          this._ctaState = 'leaving';
+          f.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.35, 1)';
+          f.style.transform = 'translate3d(0, -115%, 0)';
+          clearTimeout(this._ctaTimer);
+          this._ctaTimer = setTimeout(() => {
+            if (this._ctaState === 'leaving') {
+              f.style.transition = 'none';
+              f.style.transform = 'translate3d(0, 115%, 0)';
+              f.offsetHeight;
+              this._ctaState = 'idle';
+            }
+          }, 800);
+        }
+      "
+    >
+      <span class="content-cta__bg-fill" aria-hidden="true"></span>
+      <span class="content-cta__inner">
+        {%- if icon != blank and icon_position == 'left' -%}
+          <span class="content-cta__icon content-cta__icon--left">{{ icon }}</span>
+        {%- endif -%}
+        {%- if btn_text != blank -%}
+          <span class="content-cta__text">{{- btn_text -}}</span>
+        {%- endif -%}
+        {%- if icon != blank and icon_position != 'left' -%}
+          <span class="content-cta__icon content-cta__icon--right">{{ icon }}</span>
+        {%- endif -%}
+      </span>
+    </a>
+  {%- else -%}
+    <button
+      {% if id != blank %}id="{{ id }}"{% endif %}
+      type="{{ btn_type | default: 'button' }}"
+      class="{{ class_list }}"
+      {% if disabled %}disabled{% endif %}
+      {% if aria_label != blank %}aria-label="{{ aria_label | escape }}"{% endif %}
+      {% if attributes != blank %}{{ attributes }}{% endif %}
+      onmouseenter="
+        const f = this.querySelector('.content-cta__bg-fill');
+        if (f) {
+          clearTimeout(this._ctaTimer);
+          if (this._ctaState === 'leaving') {
+            f.style.transition = 'none';
+            f.style.transform = 'translate3d(0, 115%, 0)';
+            f.offsetHeight;
+          }
+          this._ctaState = 'entering';
+          f.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.35, 1)';
+          f.style.transform = 'translate3d(0, 0%, 0)';
+        }
+      "
+      onmouseleave="
+        const f = this.querySelector('.content-cta__bg-fill');
+        if (f) {
+          this._ctaState = 'leaving';
+          f.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.35, 1)';
+          f.style.transform = 'translate3d(0, -115%, 0)';
+          clearTimeout(this._ctaTimer);
+          this._ctaTimer = setTimeout(() => {
+            if (this._ctaState === 'leaving') {
+              f.style.transition = 'none';
+              f.style.transform = 'translate3d(0, 115%, 0)';
+              f.offsetHeight;
+              this._ctaState = 'idle';
+            }
+          }, 800);
+        }
+      "
+    >
+      <span class="content-cta__bg-fill" aria-hidden="true"></span>
+      <span class="content-cta__inner">
+        {%- if icon != blank and icon_position == 'left' -%}
+          <span class="content-cta__icon content-cta__icon--left">{{ icon }}</span>
+        {%- endif -%}
+        {%- if btn_text != blank -%}
+          <span class="content-cta__text">{{- btn_text -}}</span>
+        {%- endif -%}
+        {%- if icon != blank and icon_position != 'left' -%}
+          <span class="content-cta__icon content-cta__icon--right">{{ icon }}</span>
+        {%- endif -%}
+      </span>
+    </button>
+  {%- endif -%}
+{%- endif -%}

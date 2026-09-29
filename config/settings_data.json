@@ -92,7 +92,7 @@
     ],
     "social_facebook_link": "https://www.facebook.com/blueteesgolf/",
     "social_instagram_link": "https://www.instagram.com/blueteesgolf",
-    "social_youtube_link": "https://www.youtube.com/@blueteesgolf5614",
+    "social_youtube_link": "https://www.youtube.com/@blueteesgolf",
     "favicon": "shopify://shop_images/new-fav-icon.png",
     "search_enable": false,
     "search_type": "product",
@@ -100,6 +100,10 @@
     "show_breadcrumbs_collection_link": false,
     "open_new_tab": false,
     "custom_debug_mode": false,
+    "enable_pdp_preloader": false,
+    "enable_sticky_footer_animation": false,
+    "enable_collection_hero_reveal": false,
+    "enable_button_hover_fill": false,
     "performance": false,
     "checkout_logo_position": "left",
     "checkout_logo_size": "small",
@@ -2796,6 +2800,7 @@
         "settings": {
           "title": "You Might also like",
           "home_featured_products": "you-like-travismathew",
+          "home_featured_products_custom_link": "",
           "per_row": 4,
           "rows": 1,
           "mobile_scrollable": true,
@@ -3522,11 +3527,11 @@
               "page": ""
             }
           },
-          "260cc207-6d63-4e84-a506-5d4d1aa3c2e8": {
+          "tab_RJELNi": {
             "type": "tab",
             "settings": {
               "title": "FEATURES",
-              "content": "<img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/icons-mt-pdp-features.png?v=1752142493\" alt=\"Blue Tees Magnetic Golf Towel features including Magnetic Strip, Scrub Brush, Groove Cleaner, Mountaineer Buckle, and Waffle texture\">",
+              "content": "{%render 'pdp-feature-content' %}",
               "page": ""
             }
           },
@@ -3544,7 +3549,7 @@
           "ef98e819-4ed9-4696-a224-2872d76976b7",
           "735e29f2-ce8e-495b-ad03-373833750746",
           "9f7216c1-55fe-4e4d-a7f3-3761878096bb",
-          "260cc207-6d63-4e84-a506-5d4d1aa3c2e8",
+          "tab_RJELNi",
           "35871efd-77d1-44ea-b308-1cd87f4d7b44"
         ],
         "settings": {
@@ -3836,11 +3841,11 @@
               "page": ""
             }
           },
-          "2ac58c2f-ac16-4aff-ab76-5d5610bb4fe1": {
+          "tab_KzMJH3": {
             "type": "tab",
             "settings": {
               "title": "FEATURES",
-              "content": "<img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/icons-dt-pdp-features.png?v=1752142493\" alt=\"Blue Tees Divot Repair Tool features including Divot Repair, Bottle Opener, Ball Marker, Club Tee, Groove Cleaner, and Putting Alignment\">",
+              "content": "{%render 'pdp-feature-content' %}",
               "page": ""
             }
           },
@@ -3858,7 +3863,7 @@
           "20ebf529-272f-4999-88c5-a21488063320",
           "de3d0516-7343-4fd1-bf45-58a733f1a3c3",
           "c2d4ff03-75eb-4b42-9a63-66716cbd6791",
-          "2ac58c2f-ac16-4aff-ab76-5d5610bb4fe1",
+          "tab_KzMJH3",
           "e4b9208f-7c96-4cbd-9bcd-2f1e55697b2f"
         ],
         "settings": {
@@ -4182,6 +4187,12 @@
             "type": "price",
             "settings": {}
           },
+          "description_yHmwtw": {
+            "type": "description",
+            "settings": {
+              "is_tab": false
+            }
+          },
           "967a7c4d-fae3-4741-ac5a-336db70204bb": {
             "type": "variant_picker",
             "settings": {
@@ -4200,19 +4211,11 @@
               "cta_note_text": ""
             }
           },
-          "eb261715-9933-42a2-92c3-c7a4bdb0aafa": {
-            "type": "tab",
-            "settings": {
-              "title": "DESCRIPTION",
-              "content": "<p><strong>Touch GPS Golf Display</strong></p><p>The Ringer Smart Magnetic GPS handheld was designed and engineered for the modern golfer. It comes equipped with over 42k preloaded courses, touch screen glass display, built-in magnet, and companion app engineered to elevate your round.</p>",
-              "page": ""
-            }
-          },
-          "031ef53a-8e35-4194-8d91-074dde043aec": {
+          "tab_XLtDjw": {
             "type": "tab",
             "settings": {
               "title": "FEATURES",
-              "content": "<img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/icons-ringer-pdp-features.png?v=1752134770\" alt=\"Blue Tees Ringer golf GPS device features including Touch Screen Display, Built-In GPS Distances, Auto-Course Recognition, Advanced Scoring, Dynamic Green View, Hazard Distances, Shot Tracking, Magnetic Strip, and 10+ Hours Battery\">",
+              "content": "{%render 'pdp-feature-content' %}",
               "page": ""
             }
           },
@@ -4235,10 +4238,10 @@
         },
         "block_order": [
           "5b6ae2f5-8131-4b39-921f-13a419ba0a53",
+          "description_yHmwtw",
           "967a7c4d-fae3-4741-ac5a-336db70204bb",
           "f5b1162e-d6f4-475d-b6ef-3e125126a763",
-          "eb261715-9933-42a2-92c3-c7a4bdb0aafa",
-          "031ef53a-8e35-4194-8d91-074dde043aec",
+          "tab_XLtDjw",
           "e7da83f6-5300-4de0-8664-f6a9567c8583",
           "8370f8c4-23ad-4ac9-ad42-799596f8ef0d"
         ],

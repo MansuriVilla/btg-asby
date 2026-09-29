@@ -49,7 +49,7 @@
           <p class="floating-price__actual">{{ all_products.rainmaker.price | money }}</p>
 
 
-             <p class="price__compare ">
+             {% comment %} <p class="price__compare ">
                             <span class="price__compare--price  custom_heading">
                               {{- all_products['rainmaker'].compare_at_price_max | money }}
                               <svg
@@ -70,7 +70,7 @@
                                 | money
                               }}
                             </span>
-                          </p>
+                          </p> {% endcomment %}
 
                         </div>     
           <p class="floating-price__compare">
