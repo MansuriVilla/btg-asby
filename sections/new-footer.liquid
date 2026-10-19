@@ -644,8 +644,9 @@
   {% endif %}
 
 {% else %}
+{%unless product.template_suffix == 'pdp-new'%}
   {%render 'footer-floating-atc' %}
-  
+{%endunless%}
 
   {% render 'new-footer-legal' %}
 {% endif %}

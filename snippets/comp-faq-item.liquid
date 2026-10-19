@@ -1,0 +1,52 @@
+{% comment %}
+  Component: comp-faq-item
+  Usage: 
+  {% render 'comp-faq-item', 
+     id: 'faq-1', 
+     question: 'How loud is the 360° audio compared to the Player+?', 
+     answer: 'Player Pro uses a redesigned acoustic chamber...', 
+     is_open: true, 
+     category: 'hardware' 
+  %}
+{% endcomment %}
+
+{% liquid
+  assign item_id = id | default: 'faq-item'
+  assign item_question = question | default: 'Frequently Asked Question'
+  assign item_answer = answer | default: ''
+  assign open_state = is_open | default: false
+  assign item_category = category | default: 'all' | downcase | strip
+%}
+
+<div
+  class="comp-faq-item {% if open_state %}is-open{% endif %}"
+  data-category="{{ item_category }}"
+  id="comp-item-{{ item_id }}"
+>
+  <button
+    type="button"
+    class="comp-faq-item__header"
+    aria-expanded="{% if open_state %}true{% else %}false{% endif %}"
+    aria-controls="comp-panel-{{ item_id }}"
+    id="comp-header-{{ item_id }}"
+  >
+    <span class="comp-faq-item__question">{{ item_question }}</span>
+    <span class="comp-faq-item__icon-wrapper">
+      {% render 'comp-faq-icon', is_open: open_state, size: 18, color: '#0f172a' %}
+    </span>
+  </button>
+
+  <div
+    class="comp-faq-item__body"
+    id="comp-panel-{{ item_id }}"
+    role="region"
+    aria-labelledby="comp-header-{{ item_id }}"
+  >
+    <div class="comp-faq-item__content">
+      <div class="comp-faq-item__text">
+        {{ item_answer }}
+      </div>
+    </div>
+  </div>
+</div>
+

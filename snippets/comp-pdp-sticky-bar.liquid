@@ -1,0 +1,718 @@
+{% comment %}
+  Component: comp-pdp-sticky-bar
+  Floating sticky bar on PDP that appears on scroll.
+  Features:
+  - Initial state: Only circular product thumbnail is visible.
+  - On scroll/expand: Pill smoothly expands in width using GSAP/CSS and reveals logo/title, anchor nav links, pricing, and CTA button.
+  - Menu items anchor smoothly to sections within PDP (#hardware, #features, #game-ai, #faqs, #reviews).
+  - Uses the reusable `cta-button` component for the ATC button.
+  - Fully accessible, keyboard navigable, responsive, and performance-optimized.
+{% endcomment %}
+
+{%- liquid
+  assign cv = current_variant | default: product.selected_or_first_available_variant
+  assign is_available = cv.available
+  if product.template_suffix == 'player-go' or product.template_suffix == 'new-s3-max' or product.template_suffix == 'play-maker-plus' or product.template_suffix == 's4-ultra'
+    assign is_available = false
+  endif
+
+  assign atc_text = 'products.product.add_to_cart' | t
+  if atc_text == blank or atc_text contains 'translation missing'
+    assign atc_text = 'ADD TO CART'
+  endif
+  unless is_available
+    assign atc_text = 'products.product.sold_out' | t
+    if atc_text == blank or atc_text contains 'translation missing'
+      assign atc_text = 'SOLD OUT'
+    endif
+  endunless
+
+  assign on_sale = false
+  if cv.compare_at_price > cv.price
+    assign on_sale = true
+  endif
+
+  comment
+    Thumbnail image: custom sticky_bar_image takes priority, falls back to product featured image
+  endcomment
+  assign prod_image = sticky_bar_image | default: product.featured_media.preview_image | default: product.featured_image
+
+  comment
+    Product Title & Badge:
+    If sticky_bar_title is blank, defaults to product.title.
+  endcomment
+  assign bar_title = sticky_bar_title | default: product.title | default: 'PLAYER'
+  assign bar_badge = sticky_bar_badge | default: ''
+
+  assign nav_1_label = sticky_nav_1_label | default: 'HARDWARE'
+  assign nav_1_anchor = sticky_nav_1_anchor | default: 'hardware'
+  assign nav_2_label = sticky_nav_2_label | default: 'FEATURES'
+  assign nav_2_anchor = sticky_nav_2_anchor | default: 'features'
+  assign nav_3_label = sticky_nav_3_label | default: 'GAME AI'
+  assign nav_3_anchor = sticky_nav_3_anchor | default: 'game-ai'
+  assign nav_4_label = sticky_nav_4_label | default: 'FAQS'
+  assign nav_4_anchor = sticky_nav_4_anchor | default: 'faqs'
+  assign nav_5_label = sticky_nav_5_label | default: 'REVIEWS'
+  assign nav_5_anchor = sticky_nav_5_anchor | default: 'reviews'
+-%}
+
+<div
+  id="CompPdpStickyBar-{{ section.id | default: product.id }}"
+  class="comp-sticky-bar"
+  data-comp-sticky-bar
+  role="region"
+  aria-label="Product navigation and quick purchase"
+>
+  <div class="comp-sticky-bar__pill" data-sticky-pill>
+    
+    <!-- Left: Product Image Thumb + Brand Title -->
+    <a href="#ProductPhotos-{{ section.id | default: 'main' }}" class="comp-sticky-bar__brand" data-sticky-anchor aria-label="Scroll to top of product">
+      <div class="comp-sticky-bar__thumb">
+        {% if prod_image != blank %}
+          {{
+            prod_image
+            | image_url: width: 120, height: 120, crop: 'center'
+            | image_tag:
+              loading: 'lazy',
+              decoding: 'async',
+              width: 38,
+              height: 38,
+              alt: bar_title | escape
+          }}
+        {% else %}
+          <div class="comp-sticky-bar__thumb-placeholder"></div>
+        {% endif %}
+      </div>
+
+      <div class="comp-sticky-bar__title-wrap" data-reveal-item>
+        <span class="comp-sticky-bar__title custom_heading">{{ bar_title }}</span>
+        {% if bar_badge != blank %}
+          <span class="comp-sticky-bar__badge">{{ bar_badge }}</span>
+        {% endif %}
+      </div>
+    </a>
+
+    <!-- Center: Anchor Menu Links -->
+    <nav class="comp-sticky-bar__nav" data-reveal-item aria-label="Product section shortcuts">
+      {% if nav_1_label != blank and nav_1_anchor != blank %}
+        <a href="#{{ nav_1_anchor | remove: '#' }}" class="comp-sticky-bar__link" data-sticky-anchor>{{ nav_1_label }}</a>
+      {% endif %}
+      {% if nav_2_label != blank and nav_2_anchor != blank %}
+        <a href="#{{ nav_2_anchor | remove: '#' }}" class="comp-sticky-bar__link" data-sticky-anchor>{{ nav_2_label }}</a>
+      {% endif %}
+      {% if nav_3_label != blank and nav_3_anchor != blank %}
+        <a href="#{{ nav_3_anchor | remove: '#' }}" class="comp-sticky-bar__link" data-sticky-anchor>{{ nav_3_label }}</a>
+      {% endif %}
+      {% if nav_4_label != blank and nav_4_anchor != blank %}
+        <a href="#{{ nav_4_anchor | remove: '#' }}" class="comp-sticky-bar__link" data-sticky-anchor>{{ nav_4_label }}</a>
+      {% endif %}
+      {% if nav_5_label != blank and nav_5_anchor != blank %}
+        <a href="#{{ nav_5_anchor | remove: '#' }}" class="comp-sticky-bar__link" data-sticky-anchor>{{ nav_5_label }}</a>
+      {% endif %}
+    </nav>
+
+    <!-- Right: Price + Add To Cart CTA -->
+    <div class="comp-sticky-bar__actions" data-reveal-item>
+      <div class="comp-sticky-bar__pricing">
+        <span class="comp-sticky-bar__price-current" data-sticky-price>
+          {{ cv.price | money_without_trailing_zeros }}
+        </span>
+        <span class="comp-sticky-bar__price-compare{% unless on_sale %} hide{% endunless %}" data-sticky-compare>
+          {% if on_sale %}
+            {{ cv.compare_at_price | money_without_trailing_zeros }}
+          {% endif %}
+        </span>
+      </div>
+
+      <div class="comp-sticky-bar__btn-wrap">
+        {%- capture atc_attrs -%}data-sticky-atc data-variant-id="{{ cv.id }}" aria-label="{% if is_available %}Add {{ product.title | escape }} to cart{% else %}{{ product.title | escape }} is sold out{% endif %}"{%- endcapture -%}
+        {%- assign atc_class = 'comp-sticky-bar__atc js-comp-sticky-atc' -%}
+        {%- unless is_available -%}
+          {%- assign atc_class = atc_class | append: ' is-disabled is-sold-out product-sold_cta' -%}
+        {%- endunless -%}
+        {%- assign is_disabled = false -%}
+        {%- unless is_available -%}
+          {%- assign is_disabled = true -%}
+        {%- endunless -%}
+        {% render 'cta-button',
+          text: atc_text,
+          type: 'button',
+          variant: 'solid',
+          disabled: is_disabled,
+          class: atc_class,
+          attributes: atc_attrs
+        %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .comp-sticky-bar {
+    position: fixed;
+    bottom: 20px;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    z-index: 3;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    width: min(1380px, calc(100vw - 32px));
+    
+    display: flex;
+    justify-content: center;
+  }
+
+  .comp-sticky-bar.is-visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+
+  /* Pill container: expands from small circular thumbnail to full width */
+  .comp-sticky-bar__pill {
+    position: relative;
+    background: #ffffff;
+    border-radius: 999px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.08);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 6px 14px 6px 8px;
+    box-sizing: border-box;
+    overflow: hidden;
+    width: 56px; /* collapsed width: exactly thumbnail circle */
+    transition: width 0.85s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s ease;
+    will-change: width;
+  }
+
+  .comp-sticky-bar__pill.is-expanded {
+    width: 100%;
+    padding: 6px 16px 6px 10px;
+  }
+
+  /* Left Brand Group */
+  .comp-sticky-bar__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #111417;
+    flex-shrink: 0;
+    z-index: 2;
+  }
+
+  .comp-sticky-bar__thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #000000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .comp-sticky-bar__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .comp-sticky-bar__thumb-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #111417;
+  }
+
+  .comp-sticky-bar__title-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.4s ease 0.25s, transform 0.4s ease 0.25s;
+  }
+
+  .comp-sticky-bar__pill.is-expanded .comp-sticky-bar__title-wrap {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .comp-sticky-bar__title {
+    font-size: 21px;
+    letter-spacing: -0.02em;
+    color: #111417;
+    text-transform: uppercase;
+  }
+
+  .comp-sticky-bar__badge {
+    border: 1.5px solid #111417;
+    border-radius: 999px;
+    font-size: 10px;
+    line-height: 1;
+    padding: 3px 6px;
+    text-transform: uppercase;
+    color: #111417;
+  }
+
+  /* Center Nav Items: strictly centered relative to the entire bar */
+  .comp-sticky-bar__nav {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateY(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 2.2vw, 34px);
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease 0.3s, transform 0.45s ease 0.3s;
+    z-index: 1;
+  }
+
+  .comp-sticky-bar__pill.is-expanded .comp-sticky-bar__nav {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%);
+  }
+
+  .comp-sticky-bar__link {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: #1e2229;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+    padding: 6px 2px;
+  }
+
+  .comp-sticky-bar__link:hover {
+    color: #0741DD;
+  }
+
+  /* Right Actions */
+  .comp-sticky-bar__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+    margin-left: auto;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.4s ease 0.25s, transform 0.4s ease 0.25s;
+    z-index: 2;
+  }
+
+  .comp-sticky-bar__pill.is-expanded .comp-sticky-bar__actions {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .comp-sticky-bar__pricing {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .comp-sticky-bar__price-current {
+    font-size: 19px;
+    color: #D31818;
+    line-height: 1;
+  }
+
+  .comp-sticky-bar__price-compare {
+    font-size: 15px;
+    color: #8C929C;
+    text-decoration: line-through;
+    line-height: 1;
+  }
+
+  .comp-sticky-bar__price-compare.hide {
+    display: none;
+  }
+
+  /* CTA Button inside bar */
+  .comp-sticky-bar__btn-wrap {
+    flex-shrink: 0;
+  }
+
+  .comp-sticky-bar__pill .comp-sticky-bar__atc {
+    font-family: 'Blue Tees Subhead';
+    background-color: var(--new-blue, #0016cb);
+    border: 2px solid var(--new-blue, #0016cb);
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 10px 24px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1;
+    height: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(7, 65, 221, 0.35);
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .comp-sticky-bar__pill .comp-sticky-bar__atc .content-cta__inner {
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comp-sticky-bar__pill .comp-sticky-bar__atc .content-cta__text {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    text-transform: inherit;
+  }
+
+  .comp-sticky-bar__pill .comp-sticky-bar__atc:hover {
+    background-color: #ffffff;
+    border-color: var(--new-blue, #0016cb);
+    color: var(--new-blue, #0016cb);
+    transform: scale(1.02);
+  }
+
+  .comp-sticky-bar__pill .comp-sticky-bar__atc:hover .content-cta__text {
+    color: var(--new-blue, #0016cb);
+  }
+
+  .comp-sticky-bar__pill .comp-sticky-bar__atc:disabled,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.is-disabled,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.is-sold-out,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.product-sold_cta {
+    color: var(--new-gray, #8C929C);
+    background-color: transparent;
+    border: 2px solid var(--new-gray, #8C929C);
+    cursor: default;
+    pointer-events: none;
+    box-shadow: none;
+    transform: none;
+    opacity: 1;
+  }
+
+  .comp-sticky-bar__pill .comp-sticky-bar__atc:disabled .content-cta__inner,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.is-disabled .content-cta__inner,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.is-sold-out .content-cta__inner,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.product-sold_cta .content-cta__inner,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc:disabled .content-cta__text,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.is-disabled .content-cta__text,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.is-sold-out .content-cta__text,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.product-sold_cta .content-cta__text {
+    color: var(--new-gray, #8C929C);
+  }
+
+  .comp-sticky-bar__pill .comp-sticky-bar__atc:disabled .content-cta__bg-fill,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.is-disabled .content-cta__bg-fill,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.is-sold-out .content-cta__bg-fill,
+  .comp-sticky-bar__pill .comp-sticky-bar__atc.product-sold_cta .content-cta__bg-fill {
+    display: none;
+  }
+
+  /* Responsive Rules */
+  @media (max-width: 991px) {
+    .comp-sticky-bar__nav {
+      display: none;
+    }
+    .comp-sticky-bar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .comp-sticky-bar {
+      display: none;
+      bottom: 12px;
+      width: calc(100vw - 16px);
+      max-width: 100vw;
+    }
+    .comp-sticky-bar__pill {
+      height: 48px;
+      width: 48px;
+      padding: 4px;
+    }
+    .comp-sticky-bar__pill.is-expanded {
+      padding: 4px 10px 4px 6px;
+    }
+    .comp-sticky-bar__thumb {
+      width: 36px;
+      height: 36px;
+    }
+    .comp-sticky-bar__title {
+      font-size: 16px;
+    }
+    .comp-sticky-bar__badge {
+      display: none;
+    }
+    .comp-sticky-bar__price-current {
+      font-size: 16px;
+    }
+    .comp-sticky-bar__price-compare {
+      font-size: 13px;
+    }
+    .comp-sticky-bar__pill .comp-sticky-bar__atc {
+      padding: 8px 16px;
+      font-size: 11px;
+      height: 36px;
+      min-height: 36px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    function initStickyBar() {
+      var root = document.querySelector('[data-comp-sticky-bar]');
+      if (!root) return;
+
+      var pill = root.querySelector('[data-sticky-pill]');
+      var triggerEl = document.querySelector('[data-product-photos]') || document.querySelector('.product-single__meta');
+      if (!pill) return;
+
+      var isVisible = false;
+      var isExpanded = false;
+      var expandTimer = null;
+
+      // Scroll trigger threshold: reveal when main PDP is scrolled halfway past
+      function checkScroll() {
+        var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        var triggerPoint = triggerEl ? (triggerEl.getBoundingClientRect().top + scrollY + 280) : 400;
+
+        if (scrollY > triggerPoint) {
+          if (!isVisible) {
+            isVisible = true;
+            root.classList.add('is-visible');
+
+            // Sequence: thumbnail appears first with a noticeable pause, then pill smoothly expands
+            clearTimeout(expandTimer);
+            expandTimer = setTimeout(function () {
+              if (isVisible) {
+                isExpanded = true;
+                pill.classList.add('is-expanded');
+              }
+            }, 380);
+          }
+        } else {
+          if (isVisible) {
+            isVisible = false;
+            isExpanded = false;
+            clearTimeout(expandTimer);
+            pill.classList.remove('is-expanded');
+            root.classList.remove('is-visible');
+          }
+        }
+      }
+
+      window.addEventListener('scroll', checkScroll, { passive: true });
+      checkScroll();
+
+
+      // Smooth scroll anchor links
+      root.querySelectorAll('[data-sticky-anchor]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+          var targetId = this.getAttribute('href');
+          if (!targetId || targetId.charAt(0) !== '#') return;
+
+          e.preventDefault();
+          var targetElem = document.querySelector(targetId);
+
+          // Fallbacks for known sections if IDs vary
+          if (!targetElem) {
+            if (targetId === '#hardware') {
+              targetElem = document.querySelector('.comp-screen-showcase') || document.querySelector('.comp-lineup-comparison');
+            } else if (targetId === '#features') {
+              targetElem = document.querySelector('.comp-feature-card') || document.querySelector('.comp-screen-showcase');
+            } else if (targetId === '#game-ai') {
+              targetElem = document.querySelector('.comp-feature-card--ai') || document.querySelector('[data-section-type="game-ai"]');
+            } else if (targetId === '#faqs') {
+              targetElem = document.querySelector('.comp-faq-section') || document.querySelector('#faq');
+            } else if (targetId === '#reviews') {
+              targetElem = document.querySelector('#looxReviews') || document.querySelector('.review-section') || document.querySelector('#reviews');
+            }
+          }
+
+          if (targetElem) {
+            var offset = 80; // offset for sticky bar
+            var bodyRect = document.body.getBoundingClientRect().top;
+            var elementRect = targetElem.getBoundingClientRect().top;
+            var elementPosition = elementRect - bodyRect;
+            var offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // Quick Add to Cart button connects to theme ATC form or direct cart API
+      var atcBtn = root.querySelector('[data-sticky-atc]');
+      if (atcBtn) {
+        atcBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          // Check if primary PDP form ATC button exists and can be clicked
+          var mainForm = document.querySelector('.product-single__form');
+          var mainAtc = document.querySelector('.product-single__form [name="add"]') ||
+                        document.querySelector('.product-single__form [data-add-to-cart]') ||
+                        document.querySelector('.product-single__form .add-to-cart') ||
+                        document.querySelector('.comp-pdp-cta .add-to-cart') ||
+                        document.querySelector('form[action*="/cart/add"] [type="submit"]');
+
+          if (mainAtc && typeof mainAtc.click === 'function' && !mainAtc.disabled) {
+            mainAtc.click();
+            return;
+          }
+
+          // Direct Cart API Add fallback
+          var vid = (mainForm && mainForm.querySelector('[name="id"]')) ?
+                    mainForm.querySelector('[name="id"]').value :
+                    (this.getAttribute('data-variant-id') || (root.dataset.variantId));
+
+          if (!vid) {
+            var varSelect = document.querySelector('[data-product-select]') || document.querySelector('select[name="id"]');
+            if (varSelect) vid = varSelect.value;
+          }
+
+          if (!vid) return;
+
+          var btnTextEl = this.querySelector('.content-cta__text') || this;
+          var originalText = btnTextEl ? btnTextEl.textContent : '';
+          this.disabled = true;
+          if (btnTextEl) btnTextEl.textContent = 'ADDING...';
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              id: parseInt(vid, 10),
+              quantity: 1
+            })
+          })
+          .then(function (res) {
+            return res.json();
+          })
+          .then(function (data) {
+            if (btnTextEl) {
+              btnTextEl.textContent = 'ADDED ✓';
+              setTimeout(function () {
+                btnTextEl.textContent = originalText || 'ADD TO CART';
+              }, 2000);
+            }
+            atcBtn.disabled = false;
+            // Dispatch theme events to open cart drawer
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: data } }));
+            document.dispatchEvent(new CustomEvent('cart:open'));
+            if (window.theme && window.theme.CartDrawer && typeof window.theme.CartDrawer.open === 'function') {
+              window.theme.CartDrawer.open();
+            }
+          })
+          .catch(function (err) {
+            console.error('Sticky ATC error:', err);
+            atcBtn.disabled = false;
+            if (btnTextEl) {
+              btnTextEl.textContent = originalText || 'ADD TO CART';
+            }
+          });
+        });
+      }
+      // Sync sticky bar state with variant changes and main ATC state
+      function syncStickyBarWithMain() {
+        var priceEl = root.querySelector('[data-sticky-price]');
+        var compareEl = root.querySelector('[data-sticky-compare]');
+        var atcBtn = root.querySelector('[data-sticky-atc]');
+        var btnTextEl = atcBtn ? (atcBtn.querySelector('.content-cta__text') || atcBtn) : null;
+
+        var mainPrice = document.querySelector('.comp-pdp-panel [data-product-price]') || document.querySelector('[data-product-price]');
+        var mainCompare = document.querySelector('.comp-pdp-panel [data-compare-price]') || document.querySelector('[data-compare-price]');
+        var mainAtc = document.querySelector('.product-single__form [name="add"]') ||
+                      document.querySelector('.product-single__form [data-add-to-cart]') ||
+                      document.querySelector('.comp-pdp-cta .add-to-cart') ||
+                      document.querySelector('.product-single__form .add-to-cart');
+
+        if (mainPrice && priceEl && mainPrice.textContent.trim()) {
+          priceEl.textContent = mainPrice.textContent.trim();
+        }
+
+        if (mainCompare && compareEl) {
+          var compVal = mainCompare.textContent.trim();
+          if (compVal) {
+            compareEl.textContent = compVal;
+            compareEl.classList.remove('hide');
+          } else {
+            compareEl.classList.add('hide');
+          }
+        }
+
+        if (atcBtn && btnTextEl) {
+          var mainText = '';
+          var isSoldOut = false;
+
+          if (mainAtc) {
+            var mainTextEl = mainAtc.querySelector('[data-add-to-cart-text]') || mainAtc.querySelector('span') || mainAtc;
+            mainText = mainTextEl ? mainTextEl.textContent.trim() : '';
+            isSoldOut = mainAtc.disabled ||
+                        mainAtc.classList.contains('disabled') ||
+                        mainAtc.classList.contains('button_sold-out') ||
+                        /sold\s*out/i.test(mainText) ||
+                        /instead/i.test(mainText);
+          }
+
+          if (isSoldOut) {
+            atcBtn.disabled = true;
+            atcBtn.classList.add('is-disabled', 'is-sold-out', 'product-sold_cta');
+            btnTextEl.textContent = 'SOLD OUT';
+          } else if (!/adding|added/i.test(btnTextEl.textContent)) {
+            atcBtn.disabled = false;
+            atcBtn.classList.remove('is-disabled', 'is-sold-out', 'product-sold_cta');
+            btnTextEl.textContent = mainText || 'ADD TO CART';
+          }
+        }
+      }
+
+      // Initial check & observe main ATC mutations
+      syncStickyBarWithMain();
+      var mainAtcTarget = document.querySelector('.comp-pdp-cta') || document.querySelector('.product-single__form');
+      if (mainAtcTarget && window.MutationObserver) {
+        var observer = new MutationObserver(function() {
+          syncStickyBarWithMain();
+        });
+        observer.observe(mainAtcTarget, { childList: true, subtree: true, attributes: true, characterData: true });
+      }
+
+      document.addEventListener('variant:change', syncStickyBarWithMain, { passive: true });
+      document.addEventListener('variantChange', syncStickyBarWithMain, { passive: true });
+      window.addEventListener('resize', syncStickyBarWithMain, { passive: true });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initStickyBar);
+    } else {
+      initStickyBar();
+    }
+  })();
+</script>

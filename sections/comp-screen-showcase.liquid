@@ -1,0 +1,928 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color | default: '#1B1E22'
+  assign has_gradient = false
+  if section.settings.gradient_bg != blank
+    assign has_gradient = true
+  endif
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'CompScreenShowcase-' | append: section.id
+  endif
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-screen-showcase section-{{ section.id }}"
+  style="
+    --css-bg-color: {{ bg_color }};
+    {% if has_gradient %}--css-bg-gradient: {{ section.settings.gradient_bg }};{% endif %}
+    --css-padding-top: {{ section.settings.padding_top | default: 60 }}px;
+    --css-padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    --css-max-width: {{ section.settings.max_width | default: 1440 }}px;
+    --css-screen-top: {{ section.settings.screen_top | default: 18 }}%;
+    --css-screen-left: {{ section.settings.screen_left | default: 24 }}%;
+    --css-screen-width: {{ section.settings.screen_width | default: 52 }}%;
+    --css-screen-height: {{ section.settings.screen_height | default: 64 }}%;
+    --css-screen-radius: {{ section.settings.screen_radius | default: 12 }}px;
+  "
+>
+  <div class="comp-screen-showcase__container">
+    <!-- Top Header -->
+    <div class="comp-screen-showcase__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="comp-screen-showcase__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="comp-screen-showcase__desc">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <!-- Upper Interactive Stage: Device Mockup + Sliding Screens -->
+    <div class="comp-screen-showcase__stage" data-stage>
+      <!-- Navigation Arrows -->
+      <button
+        type="button"
+        class="comp-screen-showcase__arrow comp-screen-showcase__arrow--prev"
+        data-arrow-prev
+        aria-label="Previous screen"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M12.5 15L7.5 10L12.5 5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="comp-screen-showcase__arrow comp-screen-showcase__arrow--next"
+        data-arrow-next
+        aria-label="Next screen"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M7.5 5L12.5 10L7.5 15" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Center Device Frame with Screen Mask -->
+      <div class="comp-screen-showcase__device-wrap" data-device-wrap>
+        <!-- Device Cutout Display Area -->
+        <div class="comp-screen-showcase__cutout-window" data-cutout-window>
+          <!-- Screens Track (Slides inside cutout) -->
+          <div class="comp-screen-showcase__screens-track" data-screens-track>
+            {%- for block in section.blocks -%}
+              <div
+                class="comp-screen-showcase__screen-slide{% if forloop.first %} is-active{% endif %}"
+                data-screen-slide
+                data-index="{{ forloop.index0 }}"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.screen_image != blank -%}
+                  {{
+                    block.settings.screen_image
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'comp-screen-showcase__screen-img',
+                      alt: block.settings.feature_title | default: 'Player screen' | escape
+                  }}
+                {%- else -%}
+                  <div class="comp-screen-showcase__screen-placeholder">
+                    <span>Screen {{ forloop.index }}</span>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <!-- Outer Product Image with Cutout (Overlay frame sitting on top) -->
+        {%- if section.settings.product_cutout_image != blank -%}
+          {%- assign frame_alt = section.settings.heading | default: 'Player Pro' | escape -%}
+          {{
+            section.settings.product_cutout_image
+            | image_url: width: 1400
+            | image_tag:
+              loading: 'eager',
+              class: 'comp-screen-showcase__device-frame',
+              alt: frame_alt,
+              data-device-frame: ''
+          }}
+        {%- else -%}
+          <div class="comp-screen-showcase__device-frame-fallback"></div>
+        {%- endif -%}
+      </div>
+
+      <!-- Ghost / Neighbor preview cards behind on left/right for 3D depth -->
+      <div class="comp-screen-showcase__ambient-screens" data-ambient-screens>
+        {%- for block in section.blocks -%}
+          <div
+            class="comp-screen-showcase__ambient-item"
+            data-ambient-item
+            data-index="{{ forloop.index0 }}"
+          >
+            {%- if block.settings.screen_image != blank -%}
+              {{
+                block.settings.screen_image
+                | image_url: width: 400
+                | image_tag:
+                  loading: 'lazy',
+                  alt: block.settings.feature_title | escape
+              }}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- Bottom Detail Feature Card (2 Columns: Left Video/Media, Right Copy) -->
+    <div class="comp-screen-showcase__feature-wrap">
+      {%- for block in section.blocks -%}
+        <div
+          class="comp-screen-showcase__feature-card{% if forloop.first %} is-active{% endif %}"
+          data-feature-card
+          data-index="{{ forloop.index0 }}"
+        >
+          <!-- Left: Media Box -->
+          <div class="comp-screen-showcase__feature-media">
+            {%- if block.settings.feature_video != blank -%}
+              {% render 'comp-video-player',
+                video: block.settings.feature_video,
+                poster: block.settings.feature_image,
+                is_active: forloop.first,
+                title: block.settings.feature_title,
+                video_class: 'comp-screen-showcase__feature-video',
+                data_attr: 'data-feature-video',
+                controls_variant: 'buttonsonly'
+              %}
+            {%- elsif block.settings.feature_image != blank -%}
+              {{
+                block.settings.feature_image
+                | image_url: width: 1000
+                | image_tag:
+                  loading: 'lazy',
+                  class: 'comp-screen-showcase__feature-img',
+                  alt: block.settings.feature_title,
+                  widths: '400, 600, 800, 1000'
+              }}
+            {%- else -%}
+              <div class="comp-screen-showcase__feature-media-placeholder"></div>
+            {%- endif -%}
+          </div>
+
+          <!-- Right: Text Content -->
+          <div class="comp-screen-showcase__feature-content">
+            {%- if block.settings.feature_title != blank -%}
+              <h3 class="comp-screen-showcase__feature-title">{{ block.settings.feature_title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.feature_description != blank -%}
+              <div class="comp-screen-showcase__feature-text">{{ block.settings.feature_description }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .comp-screen-showcase {
+    position: relative;
+    width: 100%;
+    background: var(--css-bg-color);
+    {% if has_gradient %}
+      background: var(--css-bg-gradient);
+    {% endif %}
+    padding-top: var(--css-padding-top);
+    padding-bottom: var(--css-padding-bottom);
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #ffffff;
+  }
+
+  .comp-screen-showcase__container {
+    width: 100%;
+    max-width: var(--css-max-width);
+    margin: 0 auto;
+    padding: 0 clamp(16px, 2.5vw, 36px);
+    box-sizing: border-box;
+  }
+
+  /* Header */
+  .comp-screen-showcase__header {
+    text-align: center;
+    max-width: 718px;
+    margin: 0 auto clamp(36px, 4.5vw, 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .comp-screen-showcase__title {
+    font-family: 'Blue Tees Headline Italic', sans-serif;
+    font-size: clamp(28px, 3.2vw, 42px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .comp-screen-showcase__desc {
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: clamp(14px, 1.15vw, 16px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    max-width: 612px;
+    margin: 0 auto;
+    opacity: 0.9;
+  }
+
+  /* Stage */
+  .comp-screen-showcase__stage {
+    position: relative;
+    width: 100%;
+    max-width: 1111px;
+    margin: 0 auto clamp(30px, 4vw, 55px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(340px, 38vw, 460px);
+  }
+
+  /* Device Wrap with Cutout */
+  .comp-screen-showcase__device-wrap {
+    position: relative;
+    width: clamp(260px, 28vw, 380px);
+    aspect-ratio: 1 / 1.38;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Cutout Window: sits strictly inside the device display boundary */
+  .comp-screen-showcase__cutout-window {
+    position: absolute;
+    top: var(--css-screen-top);
+    left: var(--css-screen-left);
+    width: var(--css-screen-width);
+    height: var(--css-screen-height);
+    border-radius: var(--css-screen-radius);
+    overflow: hidden;
+    background: #000000;
+    z-index: 1;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  }
+
+  .comp-screen-showcase__screens-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .comp-screen-showcase__screen-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.96);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .comp-screen-showcase__screen-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+    z-index: 2;
+  }
+
+  .comp-screen-showcase__screen-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--css-screen-radius);
+  }
+
+  .comp-screen-showcase__screen-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #181d24;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    border-radius: var(--css-screen-radius);
+  }
+
+  /* Overlay Device Mockup Frame */
+  .comp-screen-showcase__device-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 2;
+    filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.7));
+  }
+
+  .comp-screen-showcase__device-frame-fallback {
+    position: absolute;
+    inset: 0;
+    border-radius: 36px;
+    border: 12px solid #1a222c;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Ambient side preview cards for 3D depth */
+  .comp-screen-showcase__ambient-screens {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comp-screen-showcase__ambient-item {
+    position: absolute;
+    width: clamp(160px, 16vw, 220px);
+    aspect-ratio: 185.24 / 246.99;
+    border-radius: 12.3px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.35);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    filter: blur(1px) brightness(0.5);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+  .comp-screen-showcase__ambient-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Arrows: Figma 44x44px round white pill */
+  .comp-screen-showcase__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    border-radius: 1000px;
+    background: #ffffff;
+    border: none;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .comp-screen-showcase__arrow:hover {
+    transform: translateY(-50%) scale(1.08);
+    background: #f5f5f5;
+  }
+  .comp-screen-showcase__arrow--prev {
+    left: clamp(4px, 4vw, 40px);
+  }
+  .comp-screen-showcase__arrow--next {
+    right: clamp(4px, 4vw, 40px);
+  }
+
+  /* Feature Card at Bottom: Figma 843px x 324px, #1B2029 background, 10px radius */
+  .comp-screen-showcase__feature-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 843px;
+    margin: 0 auto;
+    min-height: 324px;
+  }
+
+  .comp-screen-showcase__feature-card {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 421px 1fr;
+    gap: 24px;
+    align-items: center;
+    background: #1B2029;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .comp-screen-showcase__feature-card.is-active {
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .comp-screen-showcase__feature-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 324px;
+    background: #000000;
+    overflow: hidden;
+  }
+
+  .comp-screen-showcase__feature-video,
+  .comp-screen-showcase__feature-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .comp-screen-showcase__feature-media-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #202732;
+  }
+
+  /* Button Glass inside video: 30x30px, radius 100px */
+  .comp-screen-showcase__media-btn {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    background: rgba(27, 30, 34, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid #474646;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .comp-screen-showcase__media-btn:hover {
+    transform: scale(1.1);
+    background: rgba(27, 30, 34, 0.7);
+  }
+
+  /* Right Text: Frame 1410105716, 329px max-width */
+  .comp-screen-showcase__feature-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 32px 24px 16px;
+    gap: 12px;
+  }
+
+  .comp-screen-showcase__feature-title {
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-size: clamp(18px, 1.8vw, 20px);
+    text-transform: uppercase;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .comp-screen-showcase__feature-text {
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  @media (max-width: 860px) {
+    .comp-screen-showcase__stage {
+      min-height: 360px;
+    }
+    .comp-screen-showcase__device-wrap {
+      width: 270px;
+    }
+    .comp-screen-showcase__arrow--prev {
+      left: 6px;
+    }
+    .comp-screen-showcase__arrow--next {
+      right: 6px;
+    }
+    .comp-screen-showcase__feature-card {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .comp-screen-showcase__feature-media {
+      min-height: 240px;
+      aspect-ratio: 16 / 10;
+    }
+    .comp-screen-showcase__feature-content {
+      padding: 20px 20px 24px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    function initScreenShowcase() {
+      var root = document.getElementById('{{ section_id }}') || document.querySelector('.comp-screen-showcase.section-{{ section.id }}');
+      if (!root) return;
+
+      var screenSlides = Array.from(root.querySelectorAll('[data-screen-slide]'));
+      var ambientItems = Array.from(root.querySelectorAll('[data-ambient-item]'));
+      var featureCards = Array.from(root.querySelectorAll('[data-feature-card]'));
+      var prevBtn = root.querySelector('[data-arrow-prev]');
+      var nextBtn = root.querySelector('[data-arrow-next]');
+
+      if (screenSlides.length === 0) return;
+
+      var currentIndex = 0;
+      var total = screenSlides.length;
+
+      function updateAmbientDepth(activeIdx) {
+        if (ambientItems.length === 0) return;
+
+        ambientItems.forEach(function (item, i) {
+          var diff = i - activeIdx;
+          if (diff > total / 2) diff -= total;
+          if (diff < -total / 2) diff += total;
+
+          var targetOpacity = 0;
+          var targetX = 0;
+          var targetScale = 0.5;
+          var targetZ = 0;
+
+          if (diff === -1 || (activeIdx === 0 && i === total - 1)) {
+            // Immediate Left
+            targetOpacity = 0.45;
+            targetX = -180;
+            targetScale = 0.82;
+            targetZ = 2;
+          } else if (diff === 1 || (activeIdx === total - 1 && i === 0)) {
+            // Immediate Right
+            targetOpacity = 0.45;
+            targetX = 180;
+            targetScale = 0.82;
+            targetZ = 2;
+          } else if (diff === -2) {
+            targetOpacity = 0.2;
+            targetX = -320;
+            targetScale = 0.7;
+            targetZ = 1;
+          } else if (diff === 2) {
+            targetOpacity = 0.2;
+            targetX = 320;
+            targetScale = 0.7;
+            targetZ = 1;
+          }
+
+          if (window.gsap) {
+            gsap.to(item, {
+              opacity: targetOpacity,
+              x: targetX,
+              scale: targetScale,
+              zIndex: targetZ,
+              duration: 0.45,
+              ease: 'power2.out'
+            });
+          } else {
+            item.style.opacity = targetOpacity;
+            item.style.transform = 'translate(' + targetX + 'px, -50%) scale(' + targetScale + ')';
+            item.style.zIndex = targetZ;
+          }
+        });
+      }
+
+      function goToIndex(nextIdx) {
+        if (nextIdx < 0) nextIdx = total - 1;
+        if (nextIdx >= total) nextIdx = 0;
+        if (nextIdx === currentIndex) return;
+
+        currentIndex = nextIdx;
+
+        // Switch screen slide inside cutout window
+        screenSlides.forEach(function (slide, i) {
+          slide.classList.toggle('is-active', i === currentIndex);
+        });
+
+        // Switch bottom feature card
+        featureCards.forEach(function (card, i) {
+          var isActive = (i === currentIndex);
+          card.classList.toggle('is-active', isActive);
+
+          var vid = card.querySelector('video');
+          if (vid) {
+            if (isActive) {
+              if (!vid.src && vid.dataset.src) {
+                vid.src = vid.dataset.src;
+              }
+              vid.currentTime = 0;
+              vid.play().catch(function () {});
+            } else {
+              vid.pause();
+            }
+          }
+        });
+
+        updateAmbientDepth(currentIndex);
+      }
+
+      // Intersection Observer: pause video when section leaves viewport for performance & battery savings
+      if ('IntersectionObserver' in window) {
+        var sectionObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            var activeCard = featureCards[currentIndex];
+            var vid = activeCard ? activeCard.querySelector('video') : null;
+            if (!vid) return;
+
+            if (entry.isIntersecting) {
+              if (vid.paused && !vid.hasAttribute('data-manual-paused')) {
+                vid.play().catch(function () {});
+              }
+            } else {
+              if (!vid.paused) {
+                vid.pause();
+              }
+            }
+          });
+        }, { threshold: 0.2 });
+        sectionObserver.observe(root);
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          goToIndex(currentIndex - 1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          goToIndex(currentIndex + 1);
+        });
+      }
+
+      // Ambient items click to navigate
+      ambientItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+          var idx = parseInt(this.getAttribute('data-index'), 10);
+          goToIndex(idx);
+        });
+      });
+
+      // Swipe support for touch devices
+      var touchStartX = 0;
+      var stage = root.querySelector('[data-stage]');
+      if (stage) {
+        stage.addEventListener('touchstart', function (e) {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        stage.addEventListener('touchend', function (e) {
+          var touchEndX = e.changedTouches[0].screenX;
+          if (touchStartX - touchEndX > 45) {
+            goToIndex(currentIndex + 1);
+          } else if (touchEndX - touchStartX > 45) {
+            goToIndex(currentIndex - 1);
+          }
+        }, { passive: true });
+      }
+
+      updateAmbientDepth(0);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initScreenShowcase);
+    } else {
+      initScreenShowcase();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Screen Showcase Slider",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Section Anchor ID",
+      "info": "Optional custom HTML ID for anchor navigation (e.g. hardware, screen-showcase). Do not include '#'"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "MORE DATA. SMARTER ROUNDS."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "A bright, high-resolution touchscreen makes your GPS and gameplay data feel alive. With crisp visuals and intuitive controls, everything you need is right where you'd expect it—just tap, swipe, and play."
+    },
+    {
+      "type": "header",
+      "content": "Device Cutout Mask Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_cutout_image",
+      "label": "Product Image with Screen Cutout (PNG)"
+    },
+    {
+      "type": "range",
+      "id": "screen_top",
+      "label": "Screen Cutout Top Position (%)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "screen_left",
+      "label": "Screen Cutout Left Position (%)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "screen_width",
+      "label": "Screen Cutout Width (%)",
+      "min": 20,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "screen_height",
+      "label": "Screen Cutout Height (%)",
+      "min": 20,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "screen_radius",
+      "label": "Screen Cutout Corner Radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Background & Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#0d1015"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_bg",
+      "label": "Background Gradient",
+      "info": "Optional linear or radial gradient"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Container Max Width",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1320
+    }
+  ],
+  "blocks": [
+    {
+      "type": "screen_item",
+      "name": "Screen & Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "screen_image",
+          "label": "Screen UI Image (Shown on device)"
+        },
+        {
+          "type": "text",
+          "id": "feature_title",
+          "label": "Feature Title",
+          "default": "DYNAMIC HOLE VIEW"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_description",
+          "label": "Feature Description",
+          "default": "Get a complete visual layout of every hole, right on your Player Pro screen. From tee to green, Hole View reveals fairway shape, key landing areas, hazards, and green position—so you can plan every shot with confidence."
+        },
+        {
+          "type": "video",
+          "id": "feature_video",
+          "label": "Feature Video (Bottom card left)"
+        },
+        {
+          "type": "image_picker",
+          "id": "feature_image",
+          "label": "Feature Image Fallback (If no video)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Screen Showcase Slider",
+      "blocks": [
+        {
+          "type": "screen_item",
+          "settings": {
+            "feature_title": "SCORECARD"
+          }
+        },
+        {
+          "type": "screen_item",
+          "settings": {
+            "feature_title": "GPS DISTANCES"
+          }
+        },
+        {
+          "type": "screen_item",
+          "settings": {
+            "feature_title": "DYNAMIC HOLE VIEW"
+          }
+        },
+        {
+          "type": "screen_item",
+          "settings": {
+            "feature_title": "GREEN HEATMAP"
+          }
+        },
+        {
+          "type": "screen_item",
+          "settings": {
+            "feature_title": "SHOT DISTANCE"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

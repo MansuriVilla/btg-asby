@@ -8,10 +8,11 @@
 <div class="performance-metrics" data-section-id="{{ section.id }}">
   <div class="performance-metrics__background">
     {%- if section.settings.background_image != blank -%}
+      {%- assign bg_alt = section.settings.heading | strip_html | escape | default: 'Performance Metrics Background' -%}
       {{
         section.settings.background_image
         | image_url: width: 1920
-        | image_tag: alt: section.settings.heading, loading: 'lazy'
+        | image_tag: alt: bg_alt, loading: 'lazy'
       }}
     {%- else -%}
       <div

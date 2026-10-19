@@ -1,0 +1,125 @@
+{% comment %}
+  Component: comp-accessory-row
+  One accessory line, data pulled from product or custom overrides.
+  Usage:
+  {% render 'comp-accessory-row',
+     item: product_object,
+     product: product_object,
+     subtitle: 'optional override',
+     custom_title: 'Title override',
+     custom_price: '$179',
+     custom_compare_price: '$199',
+     custom_image: image_object,
+     fallback_img: 'filename.png',
+     enable_modal: false
+  %}
+{% endcomment %}
+
+{% liquid
+  assign prod = product | default: item
+  if prod.title == blank and prod != blank
+    assign prod = all_products[prod]
+  endif
+  assign v = prod.selected_or_first_available_variant
+
+  assign row_title = custom_title
+  if row_title == blank and prod != blank
+    assign row_title = prod.title
+  endif
+  if row_title == blank
+    assign row_title = 'Product'
+  endif
+
+  assign row_sub = subtitle
+  if row_sub == blank and prod != blank
+    assign row_sub = prod.description | strip_html | truncate: 70
+  endif
+
+  assign row_url = '#'
+  if prod != blank
+    assign row_url = prod.url
+  endif
+
+  assign row_variant_id = ''
+  assign is_available = true
+  if prod != blank
+    assign row_variant_id = v.id
+    assign is_available = v.available
+  endif
+
+  assign row_price = custom_price
+  if row_price == blank and v != blank
+    assign row_price = v.price | money_without_trailing_zeros
+  endif
+  if row_price == blank
+    assign row_price = '$0'
+  endif
+
+  assign row_compare = custom_compare_price
+  if row_compare == blank and v != blank and v.compare_at_price > v.price
+    assign row_compare = v.compare_at_price | money_without_trailing_zeros
+  endif
+%}
+
+<div class="comp-accessory-row" data-variant-id="{{ row_variant_id }}">
+  <a href="{{ row_url }}" class="comp-accessory-row__thumb" tabindex="-1" aria-hidden="true">
+    {% if custom_image != blank %}
+      {{ custom_image | image_url: width: 180 | image_tag: loading: 'lazy', widths: '90,180', alt: row_title }}
+    {% elsif prod != blank and prod.featured_image != blank %}
+      {{ prod.featured_image | image_url: width: 180 | image_tag: loading: 'lazy', widths: '90,180', alt: row_title }}
+    {% elsif fallback_img != blank %}
+      {{ fallback_img | asset_img_url: '180x' | image_tag: loading: 'lazy', alt: row_title }}
+    {% endif %}
+  </a>
+
+  <div class="comp-accessory-row__info">
+    <div class="comp-accessory-row__header">
+      <a href="{{ row_url }}" class="comp-accessory-row__title">{{ row_title }}</a>
+      <div class="comp-accessory-row__price{% if row_compare != blank %} is-on-sale{% endif %}">
+        <strong>{{ row_price }}</strong>
+        {% if row_compare != blank %}
+          <s class="custom_body-text">{{ row_compare }}</s>
+        {% endif %}
+      </div>
+    </div>
+    {% if row_sub != blank %}
+      <span class="comp-accessory-row__sub">{{ row_sub }}</span>
+    {% endif %}
+  </div>
+
+  <div class="comp-accessory-row__action">
+    <button
+      type="button"
+      class="comp-accessory-row__add"
+      data-comp-accessory-add
+      data-variant-id="{{ row_variant_id }}"
+      aria-label="Add {{ row_title | escape }} to cart"
+      {% unless is_available %}disabled{% endunless %}
+    >
+      <span class="comp-accessory-row__add-label" data-label>{% if is_available %}ADD{% else %}SOLD OUT{% endif %}</span>
+      <span class="comp-accessory-row__add-icon" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+    </button>
+    {% assign show_modal = enable_modal | default: false %}
+    {% if prod != blank and show_modal == true %}
+      <button
+        type="button"
+        class="comp-accessory-row__details"
+        data-comp-accessory-details
+        data-modal-target="CompProdModal-{{ prod.id }}"
+        aria-label="View {{ row_title | escape }} details"
+      >
+        Details
+      </button>
+    {% else %}
+      <a href="{{ row_url }}" class="comp-accessory-row__details" aria-label="View {{ row_title | escape }} details">Details</a>
+    {% endif %}
+  </div>
+</div>
+
+{% if prod != blank and show_modal == true %}
+  {% render 'comp-product-detail-modal', product: prod, modal_id: prod.id %}
+{% endif %}

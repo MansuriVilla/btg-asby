@@ -70,7 +70,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .tab_area button, .product
 .template-article .main-content th :is(h4, .h4, h5, .h5, h6, .h6, h3, .h3, h2, .h2) { margin:0px !important;}
 .template-article .main-content :is(h5, .h5) { font-size: clamp(16px, 1.1vw, 20px); line-height: 1; }
 .template-article .main-content :is(h6, .h6) { font-size: clamp(14px, 1vw, 18px); line-height: 1; }
-.money:not(.am-main_slider-container .money, .content-floating__price .money), .product__price{font-family: 'Blue Tees Subhead';}
+.money:not(.am-main_slider-container .money, .content-floating__price .money, .comp-pdp-panel .money), .product__price{font-family: 'Blue Tees Subhead';}
 button:not(.tab_area button, .product-block--tab button){font-family: 'Blue Tees Subhead';}
 input, label, ::placeholder, select, label, option{font-family: 'Blue Tees Paragraph';}
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 { font-size:30px; line-height:40px; font-weight:900; margin:0; padding:0; letter-spacing:0; }
@@ -3801,11 +3801,11 @@ PDP Above The Fold Styles Start
   -----------*/
   
   [class*="new-product__layout--"] .below-title-review > *, 
-  [class*="new-product__layout--"] .product-single__meta > *, 
-  [class*="new-product__layout--"] .product-single__meta .collapsible-trigger,
-  [class*="new-product__layout--"] .product-single__meta svg > *:not([class*="new-product__layout--"] .product-single__meta .hundred-days_shipping svg > *, .membershipplans svg > *, .coming_soon-label svg > *, .offer_bug svg > *, .perk_icon svg > *), 
-  [class*="new-product__layout--"] .product-single__meta a[href="#looxReviews"],
-  [class*="new-product__layout--"] .product-single__meta .product__price:not(.product__price.product__price--compare) { color:#fff !important; fill:#fff !important; border-color:#fff !important; }
+  [class*="new-product__layout--"] .product-single__meta:not(.comp-pdp-panel) > *, 
+  [class*="new-product__layout--"] .product-single__meta:not(.comp-pdp-panel) .collapsible-trigger,
+  [class*="new-product__layout--"] .product-single__meta:not(.comp-pdp-panel) svg > *:not([class*="new-product__layout--"] .product-single__meta .hundred-days_shipping svg > *, .product-single__meta.comp-pdp-panel svg > *, .membershipplans svg > *, .coming_soon-label svg > *, .offer_bug svg > *, .perk_icon svg > *), 
+  [class*="new-product__layout--"] .product-single__meta:not(.comp-pdp-panel) a[href="#looxReviews"],
+  [class*="new-product__layout--"] .product-single__meta:not(.comp-pdp-panel) .product__price:not(.product__price.product__price--compare) { color:#fff !important; fill:#fff !important; border-color:#fff !important; }
   [class*="new-product__layout--"] .product-single__meta .variant-wrapper.js { justify-content:space-between; }
   [class*="new-product__layout--"] .product-single__meta .variant-wrapper .variant__label,[class*="new-product__layout--"] .product-single__meta .compare__price-funnle { margin:0px !important; }
   [class*="new-product__layout--"] .product-single__meta .product-block .product__price:not(.product__price.price-main) { font-size: 18px; line-height:1; margin-block:7px; color: var(--new-gray); text-decoration-color: red; }
@@ -3843,6 +3843,7 @@ PDP Above The Fold Styles Start
   
   & .grid {
     display: flex;
+    align-items: flex-start;
     gap: clamp(30px, 5vw, 65px);
     margin: 0;
     width: 100%;
@@ -4019,7 +4020,7 @@ max-width: 1700px;
 
 [id^="shopify-section-main-"], [class*="new-product__layout--"] { background:var(--new-black); }
 [class*="new-product__layout--"] .product-single__meta h1.product-single__title { font-size: clamp(24px,2.4vw,38px); line-height: 105%; }
-.max3-product-page [id^="shopify-section-main-"] .product-single__meta h1.product-single__title, [class*="new-product__layout--"] .product-single__meta h1.product-single__title { font-style: normal !important; color: #fff !important; font-weight: 900; /* font-size: clamp(24px,2.5vw,42px); line-height: clamp(27px,2.8vw,49px); */ display: flex; align-items: center; margin-top: 5px; }
+.max3-product-page [id^="shopify-section-main-"] .product-single__meta h1.product-single__title, [class*="new-product__layout--"] .product-single__meta:not(.comp-pdp-panel) h1.product-single__title { font-style: normal !important; color: #fff !important; font-weight: 900; /* font-size: clamp(24px,2.5vw,42px); line-height: clamp(27px,2.8vw,49px); */ display: flex; align-items: center; margin-top: 5px; }
 [id^="shopify-section-main-"] a[href="#looxReviews"], [class*="new-product__layout--"] .below-title-review { display: flex; opacity: 0.5; margin-bottom:15px; }
 [id^="shopify-section-main-"] a[href="#looxReviews"] .loox-rating .loox-rating-content, [class*="new-product__layout--"] a[href="#looxReviews"] .loox-rating .loox-rating-content { margin:0px; }
 [id^="shopify-section-main-"] .product__thumbs, 
@@ -4817,12 +4818,8 @@ NEW REGISTER PAGE START
   -----------*/
 
 .content-ctas { display: flex; align-items: center; justify-content: center; gap: 16px; }
-.content-cta { font-family: 'Blue Tees Subhead'; line-height: 22.4px; display: inline-flex; padding: 10px 20px; border-radius: 50px; color: #fff; font-size: clamp(12px, 0.8vw, 14px); transition: .4s ease all; justify-content: center; align-items: center; overflow: hidden; }
+.content-cta { font-family: 'Blue Tees Subhead'; line-height: 22.4px; display: inline-flex; padding: 10px 20px; border-radius: 50px; color: #fff; font-size: clamp(12px, 0.8vw, 14px); justify-content: center; align-items: center; }
 .content-cta.btn--loading, .btn.btn--loading, .download_app.btn--loading, .upshell-popup-button.btn--loading, .btn--loading { pointer-events:none; }
-.content-cta__solid { min-width: max-content; background: var(--new-blue); border: 2px solid var(--new-blue); }
-.content-cta__solid:hover { background: #fff0; color: #fff; border-color: #fff; }
-.content-cta__outline { background: #fff0; border: 2px solid #fff; }
-.content-cta__outline:hover { background: #fff; color: var(--new-black); }
 .product-sold_cta {color: var(--new-gray); background:transparent; border: 2px solid var(--new-gray); cursor: default; pointer-events: none; }
 .item-cta__button { text-transform: uppercase; min-width: max-content; }
 .item-cta__button:hover { border-color: var(--new-blue); color: var(--new-blue); }
@@ -6273,3 +6270,122 @@ body, p, span, li, a {
     grid-template-columns: 1fr;
   }
 }
+
+
+/*----------------
+  BUTTON CSS
+  --------*/
+
+   .content-cta.content-cta--fill-hover {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      z-index: 1;
+      transition: border-color 0.75s cubic-bezier(0.25, 1, 0.35, 1), color 0.6s cubic-bezier(0.25, 1, 0.35, 1);
+    }
+
+    .content-cta.content-cta--fill-hover .content-cta__bg-fill {
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      width: 160%;
+      height: 220%;
+      top: -60%;
+      left: -30%;
+      transform: translate3d(0, 115%, 0);
+      pointer-events: none;
+      z-index: -1;
+      will-change: transform;
+    }
+
+    /* Solid Variant (Button 1: Blue Pill with White Text -> White Fill & Blue Border/Text on Hover) */
+    .content-cta__solid:not(.product-sold_cta) {
+      background-color: var(--new-blue, #0016cb);
+      border: 2px solid var(--new-blue, #0016cb);
+      color: #ffffff;
+      border-radius: 100px;
+      text-transform: uppercase;
+    }
+    .content-cta__solid .content-cta__text {
+      color: inherit;
+      transition: color 0.6s cubic-bezier(0.25, 1, 0.35, 1);
+    }
+    .content-cta__solid.content-cta--fill-hover .content-cta__bg-fill {
+      background-color: #ffffff;
+    }
+    .content-cta__solid.content-cta--fill-hover:hover {
+      border-color: var(--new-blue, #0016cb);
+      color: var(--new-blue, #0016cb);
+    }
+    .content-cta__solid.content-cta--fill-hover:hover .content-cta__text {
+      color: var(--new-blue, #0016cb);
+    }
+
+    /* Outline Variant (Button 3: Clean White Pill with Thin Border & Dark Text -> Blue Hover) */
+    .content-cta__outline {
+      background-color: #ffffff;
+      border: 1px solid #D9D9D9;
+      color: #0b0b0b;
+      border-radius: 100px;
+      text-transform: uppercase;
+    }
+    .content-cta__outline .content-cta__text {
+      color: inherit;
+      transition: color 0.6s cubic-bezier(0.25, 1, 0.35, 1);
+    }
+    .content-cta__outline.content-cta--fill-hover .content-cta__bg-fill {
+      background-color: var(--new-blue, #0016cb);
+    }
+    .content-cta__outline.content-cta--fill-hover:hover {
+      border-color: var(--new-blue, #0016cb);
+      color: #ffffff;
+    }
+    .content-cta__outline.content-cta--fill-hover:hover .content-cta__text {
+      color: #ffffff;
+    }
+
+    /* Text / Add Variant (Button 2: ADD + Compact Text Button) */
+    .content-cta__text-btn,
+    .content-cta__text-only {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 1px;
+      border-radius: 100px;
+      text-transform: uppercase;
+    }
+    .content-cta__text-btn.content-cta--fill-hover .content-cta__bg-fill,
+    .content-cta__text-only.content-cta--fill-hover .content-cta__bg-fill {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    .content-cta__text-btn.content-cta--fill-hover:hover,
+    .content-cta__text-only.content-cta--fill-hover:hover {
+      color: #000000;
+    }
+
+    .content-cta.content-cta--fill-hover .content-cta__inner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .content-cta.content-cta--fill-hover .content-cta__icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.75s cubic-bezier(0.25, 1, 0.35, 1);
+    }
+
+    .content-cta.content-cta--fill-hover:hover .content-cta__icon--right {
+      transform: translateX(3px);
+    }
+
+    .content-cta.content-cta--fill-hover:hover .content-cta__icon--left {
+      transform: translateX(-3px);
+    }

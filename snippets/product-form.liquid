@@ -445,7 +445,7 @@
       const checkbox1mo       = $('#1month-membership-free');
       const checkbox6mo       = $('#6month-free-premium-product');
       const checkboxRainmaker = $('#rainmakerPreOrderUpsell');
-      const caseCheckbox      = $('#playmaker-hard-new-case, #player-pro-hard-case-upsell');
+      const caseCheckbox      = $('#playmaker-hard-new-case, #player-pro-hard-case-upsell', '#player-pro-soft-case-upsell' );
 
       const knownMembershipIds = [46056795209925, 46056776990917, 45793869299909];
       const mainVariantId = form.find('input[name="id"]').val() || form.find('select[name="id"]').val();
@@ -676,7 +676,7 @@
         }
 
         // Check if secondary upsell checkbox (playmaker or player-pro hard case) is checked
-        const checkedCaseCheckbox = $('#playmaker-hard-new-case, #player-pro-hard-case-upsell').filter(':checked');
+        const checkedCaseCheckbox = $('#playmaker-hard-new-case, #player-pro-hard-case-upsell, #player-pro-soft-case-upsell').filter(':checked');
         if (checkedCaseCheckbox.length) {
           let caseVariantId = checkedCaseCheckbox.val() || checkedCaseCheckbox.attr('data-variant-id');
           if (caseVariantId && !isNaN(parseInt(caseVariantId))) {

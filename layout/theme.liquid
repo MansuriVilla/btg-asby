@@ -301,25 +301,6 @@
     {% endstyle %}
 
     {%- capture captured_content -%}{{ content_for_layout }}{%- endcapture -%}
-    {%- assign has_h1 = false -%}
-    {%- if captured_content contains '<h1' or captured_content contains '<H1' -%}
-      {%- assign has_h1 = true -%}
-    {%- endif -%}
-
-    {%- unless has_h1 -%}
-      {%- if request.path contains 'pages' and page.metafields.custom.seo_title_h1_tag != blank -%}
-        <h1 class="visually-hidden custom_h1_tag">{{ page.metafields.custom.seo_title_h1_tag }}</h1>
-      {%- endif -%}
-      {%- if request.path contains 'collections' and collection.metafields.custom.seo_title_h1 != blank -%}
-        <h1 class="visually-hidden custom_h1_tag">{{ collection.metafields.custom.seo_title_h1 }}</h1>
-      {%- endif -%}
-    {%- endunless -%}
-
-    {%- if template.name == 'index' -%}
-      <h1 class="visually-hidden custom_h1_tag">
-        Smart Golf Technology — Rangefinders, GPS Speakers & More By Blue Tees Golf
-      </h1>
-    {%- endif -%}
 
     {% if page.handle == 'your-privacy-choices' %}
       <script>
@@ -432,13 +413,7 @@
       <meta property="product:availability" content="{% if product.available %}in stock{% else %}out of stock{% endif %}" >
     {% endif %}
     {% comment %} <!-- Title and description ================================================== --> {% endcomment %}
-    <title>
-      {% if request.path contains '/a/loop_subscriptions/' %}
-        Request Subscription Login Link | {{ shop.name }}
-      {% else %}
-        {{ page_title }}{% if current_tags -%} {%- assign meta_tags = current_tags | join: ', ' %} | {{ 'general.meta.tags' | t: tags: meta_tags -}} {%- endif %}{% if current_page != 1 %} | {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} | {{ shop.name }}{% endunless %}
-      {% endif %}
-    </title>
+    <title>{%- if request.path contains '/a/loop_subscriptions/' -%}Request Subscription Login Link | {{ shop.name | replace: '&amp;', '&' | raw }}{%- else -%}{{ page_title | replace: '&amp;', '&' | raw }}{%- if current_tags -%}{%- assign meta_tags = current_tags | join: ', ' -%}| {{ 'general.meta.tags' | t: tags: meta_tags }}{%- endif -%}{%- if current_page != 1 -%}| {{ 'general.meta.page' | t: page: current_page }}{%- endif -%}{%- unless page_title contains shop.name or template.name == 'index' -%}| {{ shop.name | replace: '&amp;', '&' | raw }}{%- endunless -%}{%- endif -%}</title>
 
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
@@ -694,7 +669,9 @@
 
     <script type="text/javascript" id="loop-subscription-script" src="{{ 'loop-widget.js' | asset_url }}"></script>
     {{ 'custom.css' | asset_url | stylesheet_tag }}
+    {{ 'custom-components.css' | asset_url | stylesheet_tag }}
     {{ 'animation.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'custom-components.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'animation.js' | asset_url }}" defer="defer"></script>
 
     {% comment %} <!-- Meta Pixel Code --> {% endcomment %}
@@ -778,6 +755,7 @@
       {% endif %}
     {% endcomment %}
     <main class="main-content main_animation" id="MainContent">
+      {% render 'h1-seo', captured_content: captured_content %}
       {%- if request.path contains 'loop_subscriptions/bundle' -%}
         {% render 'loop_loader' %}
       {%- endif -%}

@@ -1115,6 +1115,16 @@
         "space_around": true
       }
     },
+    "custom_loox_reviews_a6QU74": {
+      "type": "custom-loox-reviews",
+      "name": "Custom Loox Reviews",
+      "settings": {
+        "heading": "Customer Reviews",
+        "subheading": "",
+        "write_review_text": "Write a Review",
+        "load_more_text": "Load More Reviews"
+      }
+    },
     "new_faq_section_FPTrA9": {
       "type": "new-faq-section",
       "blocks": {
@@ -1318,6 +1328,7 @@
     "portability_meets_section_RR4dUm",
     "product_compare_two_zFQfRt",
     "loox-product-reviews-app-section",
+    "custom_loox_reviews_a6QU74",
     "new_faq_section_FPTrA9",
     "collection-return"
   ]

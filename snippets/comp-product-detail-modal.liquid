@@ -1,0 +1,197 @@
+{% comment %}
+  Component: comp-product-detail-modal
+  Reusable product detail modal displaying product media gallery with macOS morph dock,
+  pricing, feature checklist, and specifications.
+  Usage:
+  {% render 'comp-product-detail-modal', product: p, modal_id: 'custom-id' %}
+{% endcomment %}
+
+{% if product != blank %}
+  {% liquid
+    assign v = product.selected_or_first_available_variant
+    assign m_id = modal_id | default: product.id
+  %}
+
+  <div
+    class="comp-prod-modal"
+    id="CompProdModal-{{ m_id }}"
+    data-comp-prod-modal
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="comp-prod-modal__backdrop" data-comp-prod-modal-close></div>
+
+    <div class="comp-prod-modal__dialog">
+      <!-- Media Header Block -->
+      <div class="comp-prod-modal__media-block">
+        <button
+          type="button"
+          class="comp-prod-modal__close"
+          data-comp-prod-modal-close
+          aria-label="Close modal"
+        >
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="comp-prod-modal__slides" data-prod-modal-slides>
+          {% if product.media.size > 0 %}
+            {% for media in product.media limit: 6 %}
+              <div
+                class="comp-prod-modal__slide{% if forloop.first %} is-active{% endif %}"
+                data-prod-modal-slide
+                data-index="{{ forloop.index0 }}"
+              >
+                {% if media.media_type == 'video' or media.media_type == 'external_video' %}
+                  {% assign vid_url = media.sources[1].url | default: media.sources[0].url %}
+                  {% assign vid_title = media.alt | default: product.title %}
+                  {% render 'comp-video-player',
+                    video_url: vid_url,
+                    poster: media.preview_image,
+                    is_active: forloop.first,
+                    title: vid_title,
+                    video_class: 'comp-prod-modal__media-el',
+                    controls_variant: 'buttonsonly'
+                  %}
+                {% else %}
+                  {% assign modal_img_alt = media.alt | default: product.title | escape %}
+                  {{ media | image_url: width: 900 | image_tag: loading: 'lazy', class: 'comp-prod-modal__media-el', alt: modal_img_alt, widths: '450,700,900' }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="comp-prod-modal__slide is-active" data-prod-modal-slide data-index="0">
+              {% assign fallback_modal_img = product.featured_image | default: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/accessories_carousel_entry.png' %}
+              {% assign fallback_modal_alt = product.title | escape %}
+              {{ fallback_modal_img | image_url: width: 900 | image_tag: loading: 'lazy', class: 'comp-prod-modal__media-el', alt: fallback_modal_alt, widths: '450,700,900' }}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Universal Morphing Mac Dock -->
+        {% render 'comp-mac-dock',
+          dock_id: m_id,
+          media_list: product.media,
+          product: product,
+          limit: 6,
+          custom_class: 'comp-prod-modal__dock'
+        %}
+      </div>
+
+      <!-- Copy & Product Details Body -->
+      <div class="comp-prod-modal__body">
+        <div class="comp-prod-modal__title-section">
+          <h2 class="comp-prod-modal__title">{{ product.title }}</h2>
+
+          <div class="comp-prod-modal__price-row">
+            <span class="comp-prod-modal__price-sale{% if v.compare_at_price > v.price %} is-on-sale{% endif %}">{{ v.price | money_without_trailing_zeros }}</span>
+            {% if v.compare_at_price > v.price %}
+              <s class="comp-prod-modal__price-compare">{{ v.compare_at_price | money_without_trailing_zeros }}</s>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- 2-Column Feature Checklist Table (Image 2 style) -->
+        <div class="comp-prod-modal__features-grid">
+          {% assign handle = product.handle %}
+          {% if handle contains 'case' %}
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">UMT Leatherette Body Material</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Silicone 3D print crossed tees logo</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Microfiber Suede interior lining</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Comfortable padded carry handle</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Double wall molded EVA shell</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Carabiner Clip</span>
+            </div>
+          {% elsif handle contains 'towel' %}
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Ultra-strong magnetic strip</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Built-in groove cleaner</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Waffle-weave microfiber fabric</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">All-weather durability</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Clips to carts, clubs & hub</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">High-absorbency cleaning</span>
+            </div>
+          {% elsif handle contains 'hub' %}
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Heavy-duty steel landing pad</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Clips onto any golf bag</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Instant magnetic rangefinder lock</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Holds MagTowel securely</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Weatherproof silicone coat</span>
+            </div>
+            <div class="comp-prod-modal__feature-cell">
+              <span class="comp-prod-modal__check-circle">✔</span>
+              <span class="comp-prod-modal__feature-text">Non-slip rubberized grip</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Specifications Footer -->
+        <div class="comp-prod-modal__specs">
+          <h3 class="comp-prod-modal__specs-title">Specifications</h3>
+          <p class="comp-prod-modal__specs-desc">
+            {% if handle contains 'case' %}
+              Compatible with Player & Player+
+            {% elsif handle contains 'towel' %}
+              Dimensions: 17" x 17" • Heavy-duty magnet
+            {% elsif handle contains 'hub' %}
+              Universal fit for cart & stand bags
+            {% else %}
+              Designed by Blue Tees Golf
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+

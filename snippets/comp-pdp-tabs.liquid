@@ -1,0 +1,232 @@
+{% comment %}
+  Component: comp-pdp-tabs
+  Overview tab (product description) + one tab per `tab` block.
+  Usage:
+  {% render 'comp-pdp-tabs', product: product, blocks: blocks, overview_label: 'Overview', uid: block.id %}
+{% endcomment %}
+
+{% liquid
+  assign tabs_uid = uid | default: 'tabs'
+  assign overview_title = overview_label | default: 'Overview'
+%}
+
+<div class="comp-pdp-tabs" data-comp-tabs>
+  <div class="comp-pdp-tabs__nav" role="tablist">
+    <button type="button" role="tab" class="comp-pdp-tabs__tab is-active" id="tab-{{ tabs_uid }}-0" aria-selected="true" aria-controls="panel-{{ tabs_uid }}-0">
+      {{ overview_title }}
+    </button>
+    {% assign t_index = 0 %}
+    {% for b in blocks %}
+      {% if b.type == 'tab' %}
+        {% assign t_index = t_index | plus: 1 %}
+        <button type="button" role="tab" class="comp-pdp-tabs__tab" id="tab-{{ tabs_uid }}-{{ t_index }}" aria-selected="false" aria-controls="panel-{{ tabs_uid }}-{{ t_index }}" tabindex="-1">
+          {{ b.settings.title }}
+        </button>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="comp-pdp-tabs__panel is-active" role="tabpanel" id="panel-{{ tabs_uid }}-0" aria-labelledby="tab-{{ tabs_uid }}-0">
+    {% if overview_content != blank %}
+      {{ overview_content }}
+    {% else %}
+      {{ product.description }}
+    {% endif %}
+  </div>
+    {% assign t_index = 0 %}
+    {% for b in blocks %}
+      {% if b.type == 'tab' %}
+        {% assign t_index = t_index | plus: 1 %}
+        {% assign b_title_down = b.settings.title | downcase %}
+        <div class="comp-pdp-tabs__panel" role="tabpanel" id="panel-{{ tabs_uid }}-{{ t_index }}" aria-labelledby="tab-{{ tabs_uid }}-{{ t_index }}" hidden {{ b.shopify_attributes }}>
+          {% if b_title_down contains 'feature' %}
+            {% render 'pdp-feature-content', product: product %}
+          {% elsif b_title_down contains 'included' and b.settings.content contains 'Add what' %}
+            {% render 'pdp-whats-included', product: product %}
+          {% elsif b_title_down contains 'manual' and b.settings.content contains 'Add the manual' %}
+            {% render 'pdp-user-manual', product: product %}
+          {% elsif b_title_down contains 'manual' and b.settings.content contains 'user-manual-tab' %}
+            {% render 'pdp-user-manual', product: product %}
+          {% elsif b_title_down contains 'feature' and b.settings.content == blank %}
+            {% render 'pdp-feature-content', product: product %}
+          {% elsif b_title_down contains 'included' and b.settings.content == blank %}
+            {% render 'pdp-whats-included', product: product %}
+          {% elsif b_title_down contains 'manual' and b.settings.content == blank %}
+            {% render 'pdp-user-manual', product: product %}
+          {% else %}
+            {{ b.settings.content }}
+            {{ b.settings.page.content }}
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+</div>
+
+<style>
+  .comp-pdp-tabs {
+    width: 100%;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1vw, 13px);
+  }
+  .comp-pdp-tabs__nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 43px;
+    border-bottom: 1px solid #D9D9D9;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  .comp-pdp-tabs__nav::-webkit-scrollbar { display: none; }
+  .comp-pdp-tabs__tab {
+    position: relative;
+    flex: 1 1 0;
+    min-width: fit-content;
+    height: 42px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(10px, 1.2vw, 16px) clamp(10px, 1vw, 14px);
+    border: none;
+    background: transparent;
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-size: clamp(12px, 1vw, 14px);
+    line-height: 1.5;
+    color: #B4B4B4;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .comp-pdp-tabs__tab.is-active {
+    color: #1B2029;
+  }
+  .comp-pdp-tabs__tab.is-active::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: -1px;
+    height: 4px;
+    background: #004DF5;
+    border-radius: 100px 100px 0 0;
+  }
+  .comp-pdp-tabs__panel {
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: clamp(12px, 1vw, 14px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #4F4F4F;
+    padding: 0;
+  }
+  .comp-pdp-tabs__panel[hidden] { display: none; }
+
+  /* Feature Checklist (Image 3 Style) */
+  .comp-pdp-tabs .pdp-feature-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 0;
+  }
+  .comp-pdp-tabs .pdp-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+  }
+  .comp-pdp-tabs .pdp-feature-item__icon {
+    display: none !important;
+  }
+  .comp-pdp-tabs .pdp-feature-item::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    background-color: #1e293b;
+    border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M6 10.2L8.7 13L14 7.5' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px 14px;
+  }
+  .comp-pdp-tabs .pdp-feature-item__text {
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: #334155;
+  }
+  .comp-pdp-tabs .pdp-feature-item__text br {
+    display: none;
+  }
+  .comp-pdp-tabs .pdp-feature-item__text::after {
+    content: '';
+  }
+
+  /* Mobile Tabs Centering */
+  @media (max-width: 991px) {
+    .comp-pdp-tabs__nav {
+      justify-content: flex-start;
+      gap: 4px;
+      padding: 0 8px;
+    }
+    .comp-pdp-tabs__tab {
+      flex: 0 0 auto;
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.currentScript.previousElementSibling.previousElementSibling;
+    if (!root || !root.hasAttribute('data-comp-tabs')) return;
+    var nav = root.querySelector('.comp-pdp-tabs__nav');
+    var tabs = root.querySelectorAll('[role="tab"]');
+    var panels = root.querySelectorAll('[role="tabpanel"]');
+
+    function scrollToCenter(tab) {
+      if (!nav || !tab) return;
+      var navRect = nav.getBoundingClientRect();
+      var tabRect = tab.getBoundingClientRect();
+      var scrollLeft = nav.scrollLeft + (tabRect.left - navRect.left) - (navRect.width / 2) + (tabRect.width / 2);
+      nav.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+      });
+    }
+
+    function activate(i) {
+      tabs.forEach(function (t, n) {
+        var on = n === i;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on);
+        t.tabIndex = on ? 0 : -1;
+        if (panels[n]) {
+          panels[n].hidden = !on;
+          panels[n].classList.toggle('is-active', on);
+        }
+      });
+      if (tabs[i]) {
+        scrollToCenter(tabs[i]);
+      }
+    }
+
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { activate(i); });
+      t.addEventListener('keydown', function (e) {
+        var next = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : null;
+        if (next === null) return;
+        next = (next + tabs.length) % tabs.length;
+        activate(next);
+        tabs[next].focus();
+      });
+    });
+  })();
+</script>

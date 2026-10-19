@@ -259,7 +259,22 @@
            assign shop_product_label = shop_product_label | append: ', ' | append: product_price_text
          endif
        -%}
-       <a href="{{ product.url | within: collection }}" class="bottom-add-to-cart" {%- if on_sale -%}id="product_on_sale" {%- endif -%} tabindex="-1" aria-hidden="true" aria-label="{{ shop_product_label | escape }}">SHOP NOW</a>
+       {%- liquid
+         assign btn_custom_id = ''
+         if on_sale
+           assign btn_custom_id = 'product_on_sale'
+         endif
+       -%}
+       {% render 'cta-button',
+         text: 'SHOP NOW',
+         url: product.url,
+         type: 'link',
+         variant: 'solid',
+         id: btn_custom_id,
+         class: 'bottom-add-to-cart',
+         aria_label: shop_product_label,
+         attributes: 'tabindex="-1" aria-hidden="true"'
+       %}
     {% endform %}
   </div>
   {%- if settings.enable_swatches -%}

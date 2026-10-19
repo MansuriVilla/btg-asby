@@ -181,14 +181,14 @@ lazySizesConfig.expFactor = 4;
       }
 
       if (options.elementToFocus) {
-        options.elementToFocus.focus();
+        options.elementToFocus.focus({ preventScroll: true });
       } else {
         var initialElements = getVisibleFocusable(options.container);
         if (initialElements.length > 0) {
-          initialElements[0].focus();
+          initialElements[0].focus({ preventScroll: true });
         } else {
           options.container.setAttribute('tabindex', '-1');
-          options.container.focus();
+          options.container.focus({ preventScroll: true });
         }
       }
 
@@ -2465,7 +2465,7 @@ lazySizesConfig.expFactor = 4;
           var sourceToFocus = this.activeSource;
           window.setTimeout(function() {
             if (sourceToFocus && typeof sourceToFocus.focus === 'function') {
-              sourceToFocus.focus();
+              sourceToFocus.focus({ preventScroll: true });
             }
           }, 200);
         }

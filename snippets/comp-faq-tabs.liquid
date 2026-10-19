@@ -1,0 +1,114 @@
+{% comment %}
+  Component: comp-faq-tabs
+  Usage: {% render 'comp-faq-tabs', tabs: 'Hardware,Features,App', active_tab: 'Hardware', section_id: section.id %}
+{% endcomment %}
+
+{% liquid
+  assign raw_tabs = tabs | default: 'Hardware,Features,App'
+  assign tab_array = raw_tabs | split: ','
+  assign current_active = active_tab | default: tab_array.first | strip
+  assign s_id = section_id | default: 'faq-tabs'
+%}
+
+<nav class="comp-faq-tabs" id="comp-tabs-{{ s_id }}" aria-label="FAQ Categories">
+  <div class="comp-faq-tabs__list" role="tablist" aria-orientation="horizontal">
+    {% for tab in tab_array %}
+      {% assign tab_name = tab | strip %}
+      {% assign is_selected = false %}
+      {% if tab_name == current_active or forloop.first and current_active == blank %}
+        {% assign is_selected = true %}
+      {% endif %}
+      <button
+        type="button"
+        role="tab"
+        class="comp-faq-tabs__btn {% if is_selected %}is-active{% endif %}"
+        data-category="{{ tab_name | downcase | escape }}"
+        id="tab-{{ s_id }}-{{ forloop.index }}"
+        aria-controls="comp-accordion-{{ s_id }}"
+        aria-selected="{% if is_selected %}true{% else %}false{% endif %}"
+        tabindex="{% if is_selected %}0{% else %}-1{% endif %}"
+      >
+        <span class="comp-faq-tabs__btn-text">{{ tab_name }}</span>
+        <span class="comp-faq-tabs__indicator"></span>
+      </button>
+    {% endfor %}
+  </div>
+</nav>
+
+<style>
+  .comp-faq-tabs {
+    width: 100%;
+    margin-bottom: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+    position: relative;
+  }
+
+  .comp-faq-tabs__list {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.25rem, 1rem + 1.25vw, 2.25rem);
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .comp-faq-tabs__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .comp-faq-tabs__btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: clamp(0.5rem, 0.4rem + 0.3vw, 0.75rem) clamp(0.2rem, 0.15rem + 0.1vw, 0.35rem) clamp(0.65rem, 0.5rem + 0.4vw, 0.95rem) clamp(0.2rem, 0.15rem + 0.1vw, 0.35rem);
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-size: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
+    color: #64748b;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+  }
+
+  .comp-faq-tabs__btn:hover {
+    color: #0f172a;
+  }
+
+  .comp-faq-tabs__btn:focus:not(:focus-visible) {
+    outline: none !important;
+  }
+
+  .comp-faq-tabs__btn:focus-visible {
+    outline: 2px solid #175cff;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .comp-faq-tabs__btn.is-active {
+    color: #0f172a;
+  }
+
+  .comp-faq-tabs__indicator {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: clamp(2px, 0.15rem + 0.1vw, 3.5px);
+    background-color: #175cff;
+    border-radius: 2px 2px 0 0;
+    opacity: 0;
+    transform: scaleX(0.7);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .comp-faq-tabs__btn.is-active .comp-faq-tabs__indicator {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+</style>

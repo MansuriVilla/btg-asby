@@ -1,0 +1,107 @@
+{% comment %}
+  Component: comp-mac-dock
+  Universal macOS-style morphing floating dock with fish-eye zoom & timer ring.
+  Usage:
+    {% render 'comp-mac-dock',
+       dock_id: 'AiModalDock',
+       media_list: product.media, (or custom items)
+       product: product,          (optional fallback)
+       custom_class: 'comp-prod-modal__dock',
+       limit: 6,                  (optional item limit, default no limit or pass number)
+       content: custom_content    (optional raw html override)
+    %}
+{% endcomment %}
+
+{% liquid
+  assign item_limit = limit | default: 99
+%}
+
+<div
+  class="comp-mac-dock {{ custom_class }}"
+  data-mac-dock="{{ dock_id | default: 'default' }}"
+  aria-label="Media navigation"
+>
+  <!-- Background pill morphs on hover -->
+  <div class="comp-mac-dock__pill-bg" data-mac-dock-bg></div>
+
+  <!-- Dock items container -->
+  <div class="comp-mac-dock__items" data-mac-dock-items>
+    {% if content != blank %}
+      {{ content }}
+    {% elsif media_list != blank and media_list.size > 0 %}
+      {% for media in media_list limit: item_limit %}
+        {% assign is_vid = false %}
+        {% if media.media_type == 'video' or media.media_type == 'external_video' %}
+          {% assign is_vid = true %}
+        {% endif %}
+        <div
+          class="comp-mac-dock__item{% if forloop.first %} is-active{% endif %}{% if is_vid %} is-video-item{% endif %}"
+          data-mac-dock-item
+          data-index="{{ forloop.index0 }}"
+          data-id="{{ media.id }}"
+          role="button"
+          tabindex="0"
+          aria-label="Slide {{ forloop.index }}"
+        >
+          <svg class="comp-mac-dock__item-timer" data-mac-item-timer width="20" height="20" viewBox="0 0 24 24">
+            <circle class="comp-mac-dock__timer-track" cx="12" cy="12" r="9" />
+            <circle class="comp-mac-dock__timer-progress" data-mac-timer-progress cx="12" cy="12" r="9" />
+          </svg>
+          {% if is_vid %}
+            <span class="comp-mac-dock__item-dot comp-mac-dock__item-dot--video" data-mac-item-dot>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="8,5 19,12 8,19" fill="#ffffff"/></svg>
+            </span>
+          {% else %}
+            <span class="comp-mac-dock__item-dot" data-mac-item-dot></span>
+          {% endif %}
+          <div class="comp-mac-dock__item-thumb" data-mac-item-thumb>
+            {% assign thumb_src = media.preview_image | default: media %}
+            {% assign thumb_alt = media.alt | default: product.title | escape %}
+            {{ thumb_src | image_url: width: 120 | image_tag: loading: 'lazy', alt: thumb_alt, width: 28, height: 28 }}
+            {% if is_vid %}
+              <span class="comp-mac-dock__item-thumb-play">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="8,5 19,12 8,19" fill="#ffffff"/></svg>
+              </span>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    {% elsif product != blank %}
+      <div
+        class="comp-mac-dock__item is-active"
+        data-mac-dock-item
+        data-index="0"
+        role="button"
+        tabindex="0"
+        aria-label="Slide 1"
+      >
+        <svg class="comp-mac-dock__item-timer" data-mac-item-timer width="20" height="20" viewBox="0 0 24 24">
+          <circle class="comp-mac-dock__timer-track" cx="12" cy="12" r="9" />
+          <circle class="comp-mac-dock__timer-progress" data-mac-timer-progress cx="12" cy="12" r="9" />
+        </svg>
+        <span class="comp-mac-dock__item-dot" data-mac-item-dot></span>
+        <div class="comp-mac-dock__item-thumb" data-mac-item-thumb>
+          {% assign fallback_dock_alt = product.title | escape %}
+          {{ product.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: fallback_dock_alt, width: 28, height: 28 }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% comment %} <!-- Auto-advance Play / Pause Toggle Button --> {% endcomment %}
+  <button
+    type="button"
+    class="comp-mac-dock__toggle-btn is-playing"
+    data-mac-dock-toggle
+    aria-label="Pause slideshow"
+    title="Pause auto-advance"
+  >
+    <svg class="comp-mac-dock__toggle-icon-pause" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <rect x="5" y="4" width="4" height="16" rx="1"></rect>
+      <rect x="15" y="4" width="4" height="16" rx="1"></rect>
+    </svg>
+    <svg class="comp-mac-dock__toggle-icon-play" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display:none;" aria-hidden="true">
+      <polygon points="6 4 20 12 6 20 6 4"></polygon>
+    </svg>
+  </button>
+</div>

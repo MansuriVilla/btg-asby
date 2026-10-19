@@ -1,0 +1,397 @@
+{% comment %}
+  Component: new-pdp-media
+  New Look PDP media carousel with 5-second circular SVG countdown timer, play/pause,
+  morphing pill to circular thumbnails on hover, full GSAP animations.
+  Preserves product__photos and product__main-photos structure so theme Flickity and lazyload work 100%.
+{% endcomment %}
+
+{%- liquid
+  assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+  assign first_3d_model = product.media | where: 'media_type', 'model' | first
+-%}
+
+{%- unless product.empty? -%}
+  <div
+    class="new-pdp-media"
+    id="NewPdpMedia-{{ section_id }}"
+    data-section-id="{{ section_id }}"
+    data-product-images
+    data-zoom="{{ product_zoom_enable }}"
+    data-has-slideshow="{% if product.media.size > 1 %}true{% else %}false{% endif %}"
+  >
+    <div class="product__photos product__photos-{{ section_id }} product__photos--{{ thumbnail_position | default: 'beside' }}">
+      <div class="product__main-photos" data-aos data-product-single-media-group>
+        <div data-product-photos class="product-slideshow" id="ProductPhotos-{{ section_id }}">
+          {%- if product.media != blank and product.media.size > 0 -%}
+            {%- for media in product.media -%}
+              {%- render 'media',
+                section_id: section_id,
+                media: media,
+                featured_media: featured_media,
+                loopIndex0: forloop.index0,
+                loopIndex: forloop.index,
+                product_zoom_enable: product_zoom_enable,
+                product_zoom_size: product_zoom_size,
+                product_image_size: product_image_size,
+                isModal: isModal,
+                video_looping: video_looping,
+                video_style: video_style
+              -%}
+            {%- endfor -%}
+          {%- else -%}
+            <div data-product-photos class="product-slideshow">
+              <img
+                style="display:block; max-width:600px; filter: brightness(100%) invert(1);"
+                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/tees-logo-cart.svg?v=1758027539"
+                alt="{{ product.title | escape }} no image"
+              >
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if first_3d_model -%}
+          <button
+            aria-label="{{ 'products.product.view_in_space_label' | t }}"
+            class="product-single__view-in-space"
+            data-shopify-xr
+            data-shopify-model3d-id="{{ first_3d_model.id }}"
+            data-shopify-title="{{ product.title | escape }}"
+            data-shopify-xr-hidden
+          >
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-3d" viewBox="18.24 17.35 24.52 28.3">
+              <path fill="#3A3A3A" d="M30.5 17.35l-12.26 7.07v14.16l12.26 7.07 12.26-7.08V24.42L30.5 17.35zM20.24 37.42V25.58l10.26-5.93 10.13 5.85-10.13 5.88v12l-10.26-5.96z"/>
+            </svg>
+            <span class="product-single__view-in-space-text">{{ 'products.product.view_in_space' | t }}</span>
+          </button>
+        {%- endif -%}
+
+        {%- if product.media.size > 1 -%}
+          <!-- Modern Floating Pill / Morphing Thumbnails GSAP Dock -->
+          {% render 'comp-mac-dock',
+            dock_id: section_id,
+            media_list: product.media,
+            product: product,
+            custom_class: 'new-pdp-media__dock'
+          %}
+        {%- endif -%}
+      </div>
+
+      <!-- Hidden theme thumbSlider to fulfill theme.js dependencies without rendering default thumbs -->
+      {%- if product.media.size > 1 -%}
+        <div
+          data-product-thumbs
+          class="product__thumbs product__thumbs--{{ thumbnail_position | default: 'beside' }} hide"
+          data-position="{{ thumbnail_position | default: 'beside' }}"
+          data-arrows="{{ thumbnail_arrows }}"
+          style="display: none !important;"
+        >
+          <div class="product__thumbs--scroller">
+            {%- for media in product.media -%}
+              <div class="product__thumb-item" data-index="{{ forloop.index0 }}">
+                <a href="{{ media.preview_image | img_url: product_zoom_size }}" data-product-thumb data-index="{{ forloop.index0 }}" data-id="{{ media.id }}"></a>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <script type="application/json" id="ModelJson-{{ section_id }}">
+      {{ product.media | where: 'media_type', 'model' | json }}
+    </script>
+  </div>
+{%- endunless -%}
+
+<style>
+
+
+.new-pdp-media {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+  /* Flickity dots clean hide */
+  .new-pdp-media .flickity-page-dots {
+    display: none !important;
+  }
+
+  /* Video Slide matching image height & letterboxed */
+  /* .image-wrap--video-slide {
+    background: #000000 !important;
+  } */
+  .image-wrap--video-slide img {
+    object-fit: contain !important;
+  }
+  .image-wrap--video-slide .comp-video-player-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .image-wrap--video-slide .comp-video-player__inner {
+    position: relative;
+    width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .image-wrap--video-slide video,
+  .image-wrap--video-slide .comp-video-player__media {
+    position: static;
+    transform: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Thumb play badge on thumbnail hover */
+  .new-pdp-media__item-thumb-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .new-pdp-media__item-thumb-play svg {
+    width: 11px;
+    height: 11px;
+    fill: #ffffff;
+    transform: translateX(1px);
+  }
+
+  /* Inline Video & Play Button Overlay */
+  .product-video-inline-wrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .product-video-play-btn--inline {
+    pointer-events: auto;
+  }
+  .product-video-inline-wrapper.is-playing .product-video-play-btn--inline {
+    display: none !important;
+  }
+  .product-video-inline-player,
+  .product-video-inline-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    background: #000000;
+    z-index: 6;
+    pointer-events: auto;
+  }
+  .product-video-inline-player.hide,
+  .product-video-inline-frame.hide {
+    display: none !important;
+  }
+
+  /* Central PLAY pill button overlay on active slide (matches user Image 2) */
+  .product-video-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 28px 12px 24px;
+    background: rgba(14, 18, 23, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 999px;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 8;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease;
+    user-select: none;
+  }
+  .product-video-play-btn:hover {
+    background: rgba(22, 28, 35, 0.98);
+    border-color: #ffffff;
+    transform: translate(-50%, -50%) scale(1.06);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), 0 0 15px rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+  }
+  .product-video-play-btn:active {
+    transform: translate(-50%, -50%) scale(0.97);
+  }
+  .product-video-play-btn__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .product-video-play-btn__icon svg {
+    width: 100%;
+    height: 100%;
+    fill: #ffffff;
+    display: block;
+  }
+  .product-video-play-btn__text {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ffffff;
+    line-height: 1;
+  }
+</style>
+
+<script>
+  (function () {
+    function initNewPdpMedia() {
+      var root = document.getElementById('NewPdpMedia-{{ section_id }}');
+      if (!root) return;
+
+      var dock = root.querySelector('[data-mac-dock]');
+      var slidesContainer = root.querySelector('[data-product-photos]');
+      if (!dock) return;
+
+      var dockCtrl = null;
+
+      function getFlkty() {
+        if (window.Flickity && slidesContainer) {
+          return window.Flickity.data(slidesContainer);
+        }
+        return null;
+      }
+
+      function goToSlide(index) {
+        var flkty = getFlkty();
+        if (flkty && flkty.selectedIndex !== index) {
+          flkty.select(index);
+        }
+      }
+
+      if (window.initMacDock) {
+        dockCtrl = window.initMacDock({
+          dock: dock,
+          initialIndex: 0,
+          duration: 5,
+          autoPlay: true,
+          onSelect: function (idx) {
+            goToSlide(idx);
+          },
+          onAutoAdvance: function (idx) {
+            goToSlide(idx);
+          }
+        });
+      }
+
+      var lastSyncedIdx = 0;
+
+      function syncFromFlickity(targetIdx) {
+        if (typeof targetIdx !== 'number') {
+          var flkty = getFlkty();
+          if (flkty) targetIdx = flkty.selectedIndex;
+        }
+        if (typeof targetIdx === 'number' && targetIdx !== lastSyncedIdx) {
+          lastSyncedIdx = targetIdx;
+          if (dockCtrl) {
+            dockCtrl.select(targetIdx);
+          }
+        }
+      }
+
+      function bindFlickityEvents() {
+        var flkty = getFlkty();
+        if (flkty && typeof flkty.on === 'function') {
+          flkty.on('change', syncFromFlickity);
+          return true;
+        }
+        return false;
+      }
+
+      if (!bindFlickityEvents()) {
+        var checkCount = 0;
+        var bindInterval = setInterval(function () {
+          checkCount++;
+          if (bindFlickityEvents() || checkCount > 30) {
+            clearInterval(bindInterval);
+          }
+        }, 150);
+      }
+
+      if (slidesContainer) {
+        slidesContainer.addEventListener('change.flickity', function (e, idx) { syncFromFlickity(idx); });
+
+        // Pause Dock when any slide video starts playing, resume on pause/ended
+        slidesContainer.addEventListener('play', function (e) {
+          if (dockCtrl) dockCtrl.pause();
+        }, true);
+
+        slidesContainer.addEventListener('pause', function (e) {
+          if (dockCtrl) dockCtrl.resume();
+        }, true);
+
+        slidesContainer.addEventListener('ended', function (e) {
+          if (dockCtrl) dockCtrl.resume();
+        }, true);
+
+        // YouTube / Legacy Inline Video Play Trigger
+        slidesContainer.addEventListener('click', function (e) {
+          var playBtn = e.target.closest('[data-inline-play-btn]');
+          if (!playBtn) return;
+          e.preventDefault();
+          e.stopPropagation();
+
+          var wrapper = playBtn.closest('[data-inline-video-wrapper]');
+          if (!wrapper) return;
+
+          if (dockCtrl) dockCtrl.pause();
+          wrapper.classList.add('is-playing');
+
+          var iframeEl = wrapper.querySelector('[data-inline-iframe]');
+          if (iframeEl) {
+            iframeEl.classList.remove('hide');
+            if (!iframeEl.src && iframeEl.getAttribute('data-src')) {
+              iframeEl.src = iframeEl.getAttribute('data-src');
+            }
+          }
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        initNewPdpMedia();
+        if (window.initVideoPlayers) window.initVideoPlayers();
+      });
+    } else {
+      initNewPdpMedia();
+      if (window.initVideoPlayers) window.initVideoPlayers();
+    }
+  })();
+</script>

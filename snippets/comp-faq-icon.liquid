@@ -1,0 +1,49 @@
+{% comment %}
+  Component: comp-faq-icon
+  Usage: {% render 'comp-faq-icon', is_open: true, color: '#0f172a' %}
+{% endcomment %}
+
+{% liquid
+  assign icon_color = color | default: 'currentColor'
+  assign open_state = is_open | default: false
+%}
+
+<span class="comp-faq-icon {% if open_state %}is-open{% endif %} {{ class }}" style="--comp-icon-color: {{ icon_color }};" aria-hidden="true">
+  <span class="comp-faq-icon__line comp-faq-icon__line--h"></span>
+  <span class="comp-faq-icon__line comp-faq-icon__line--v"></span>
+</span>
+
+<style>
+  .comp-faq-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: clamp(1.1rem, 0.95rem + 0.3vw, 1.35rem);
+    height: clamp(1.1rem, 0.95rem + 0.3vw, 1.35rem);
+    flex-shrink: 0;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .comp-faq-icon__line {
+    position: absolute;
+    background-color: var(--comp-icon-color, #0f172a);
+    border-radius: 1px;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  }
+
+  .comp-faq-icon__line--h {
+    width: 70%;
+    height: clamp(1.5px, 0.1rem, 2px);
+  }
+
+  .comp-faq-icon__line--v {
+    width: clamp(1.5px, 0.1rem, 2px);
+    height: 70%;
+  }
+
+  /* When open, rotate + to × */
+  .comp-faq-icon.is-open {
+    transform: rotate(45deg);
+  }
+</style>

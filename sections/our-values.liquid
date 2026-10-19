@@ -5,6 +5,7 @@
   assign floating_image_mobile = section.settings.floating_image_mobile
   assign bg_image = section.settings.bg_image
   assign bg_clr = section.settings.bg_clr
+  assign image_alt = heading | strip_html | escape | default: 'Our Values'
 %}
 
 <div class="our-values__section">
@@ -13,7 +14,7 @@
       <picture>
         <source srcset="{{ floating_image | image_url }}" media="(min-width:992px)">
         <source srcset="{{ floating_image_mobile | image_url }}" media="(max-width:991px)">
-        {{ floating_image  | image_url: width: 900 | image_tag: class: 'our-values--floating_image', loading: 'eager', alt: heading}}
+        {{ floating_image  | image_url: width: 900 | image_tag: class: 'our-values--floating_image', loading: 'eager', alt: image_alt }}
       </picture>
       <div class="our-values__section--left">
         {% if heading != blank %}

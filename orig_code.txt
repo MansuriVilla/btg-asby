@@ -1,0 +1,2317 @@
+<USER_REQUEST>
+@[d:\Main\work\BTG-US-ASBY-CLI-ORG-CODE\sections\custom-loox-reviews.liquid] this is the current code, when i am clicking on the button to add review i was getting an alert. Im giving you an our original code. Can you please use that instead.
+
+
+{% comment %}
+  ============================================================
+  CUSTOM LOOX REVIEWS
+  ============================================================
+
+  Loox = review backend
+  Shopify = completely custom frontend
+
+  Supports:
+  - Product-specific reviews
+  - Images
+  - Videos
+  - Verified reviews
+  - Merchant replies
+  - Media filters
+  - Rating filters
+  - Sorting
+  - Pagination / Load More
+  - Image lightbox
+
+  CSS is intentionally minimal.
+{% endcomment %}
+
+{% if product %}
+
+<section
+  id="CustomLooxReviews-{{ section.id }}"
+  class="custom-loox-reviews"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-public-store-id="{{ section.settings.loox_public_store_id | escape }}"
+  data-reviews-per-page="{{ section.settings.reviews_per_page }}"
+>
+
+  <div class="custom-loox-reviews__container">
+
+    <!-- =====================================================
+      HEADER
+    ====================================================== -->
+
+    <div class="custom-loox-reviews__header">
+
+      {% if section.settings.heading != blank %}
+        <h2 class="custom-loox-reviews__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <div class="custom-loox-reviews__subheading">
+          {{ section.settings.subheading }}
+        </div>
+      {% endif %}
+
+    </div>
+
+
+    <!-- =====================================================
+      SUMMARY
+    ====================================================== -->
+
+    <div class="custom-loox-reviews__summary">
+
+      <div class="custom-loox-reviews__summary-main">
+
+        <div
+          class="custom-loox-reviews__average"
+          data-review-average
+        >
+          {{ product.metafields.loox.avg_rating | default: 0 }}
+        </div>
+
+
+        <div
+          class="custom-loox-reviews__summary-stars"
+          data-summary-stars
+          aria-label="Average product rating"
+        ></div>
+
+
+        <div class="custom-loox-reviews__review-count">
+
+          <span data-review-count>
+            {{ product.metafields.loox.num_reviews | default: 0 }}
+          </span>
+
+          <span>
+            {{ section.settings.review_count_text }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+        RATING BREAKDOWN
+      ================================================== -->
+
+      {% if section.settings.show_rating_breakdown %}
+
+        <div class="custom-loox-reviews__breakdown">
+
+          {% for rating in (1..5) reversed %}
+
+            <button
+              type="button"
+              class="custom-loox-reviews__breakdown-row"
+              data-rating-breakdown="{{ rating }}"
+            >
+
+              <span class="custom-loox-reviews__breakdown-label">
+                {{ rating }} ★
+              </span>
+
+              <span class="custom-loox-reviews__breakdown-track">
+
+                <span
+                  class="custom-loox-reviews__breakdown-fill"
+                  data-rating-bar="{{ rating }}"
+                  style="width: 0%;"
+                ></span>
+
+              </span>
+
+              <span
+                class="custom-loox-reviews__breakdown-count"
+                data-rating-count="{{ rating }}"
+              >
+                0
+              </span>
+
+            </button>
+
+          {% endfor %}
+
+        </div>
+
+      {% endif %}
+
+
+      <!-- =================================================
+        WRITE REVIEW
+      ================================================== -->
+
+      {% if section.settings.show_write_review %}
+
+        <div class="custom-loox-reviews__write">
+
+          <a
+            href="{{ product.url }}?ref=review"
+            class="custom-loox-reviews__write-button"
+          >
+            {{ section.settings.write_review_text }}
+          </a>
+
+        </div>
+
+      {% endif %}
+
+    </div>
+
+
+    <!-- =====================================================
+      FILTERS + SORT
+    ====================================================== -->
+
+    <div class="custom-loox-reviews__toolbar">
+
+
+      <!-- FILTERS -->
+
+      <div class="custom-loox-reviews__filters">
+
+        <button
+          type="button"
+          class="custom-loox-reviews__filter is-active"
+          data-review-filter="all"
+        >
+          All Reviews
+        </button>
+
+
+        {% if section.settings.show_media_filter %}
+
+          <button
+            type="button"
+            class="custom-loox-reviews__filter"
+            data-review-filter="media"
+          >
+            Photos & Videos
+          </button>
+
+        {% endif %}
+
+
+        {% if section.settings.show_photo_filter %}
+
+          <button
+            type="button"
+            class="custom-loox-reviews__filter"
+            data-review-filter="photo"
+          >
+            Photos
+          </button>
+
+        {% endif %}
+
+
+        {% if section.settings.show_video_filter %}
+
+          <button
+            type="button"
+            class="custom-loox-reviews__filter"
+            data-review-filter="video"
+          >
+            Videos
+          </button>
+
+        {% endif %}
+
+
+        {% if section.settings.show_rating_filters %}
+
+          {% for rating in (1..5) reversed %}
+
+            <button
+              type="button"
+              class="custom-loox-reviews__filter"
+              data-review-filter="rating"
+              data-rating="{{ rating }}"
+            >
+              {{ rating }} Star
+            </button>
+
+          {% endfor %}
+
+        {% endif %}
+
+      </div>
+
+
+      <!-- SORT -->
+
+      {% if section.settings.show_sort %}
+
+        <div class="custom-loox-reviews__sort">
+
+          <label
+            for="LooxSort-{{ section.id }}"
+            class="custom-loox-reviews__sort-label"
+          >
+            Sort by
+          </label>
+
+          <select
+            id="LooxSort-{{ section.id }}"
+            class="custom-loox-reviews__sort-select"
+            data-review-sort
+          >
+
+            <option value="newest">
+              Most Recent
+            </option>
+
+            <option value="oldest">
+              Oldest
+            </option>
+
+            <option value="highest">
+              Highest Rating
+            </option>
+
+            <option value="lowest">
+              Lowest Rating
+            </option>
+
+          </select>
+
+        </div>
+
+      {% endif %}
+
+    </div>
+
+
+    <!-- =====================================================
+      LOADING
+    ====================================================== -->
+
+    <div
+      class="custom-loox-reviews__loading"
+      data-reviews-loading
+    >
+      {{ section.settings.loading_text }}
+    </div>
+
+
+    <!-- =====================================================
+      ERROR
+    ====================================================== -->
+
+    <div
+      class="custom-loox-reviews__error"
+      data-reviews-error
+      hidden
+    >
+      {{ section.settings.error_text }}
+    </div>
+
+
+    <!-- =====================================================
+      EMPTY
+    ====================================================== -->
+
+    <div
+      class="custom-loox-reviews__empty"
+      data-reviews-empty
+      hidden
+    >
+      {{ section.settings.no_reviews_text }}
+    </div>
+
+
+    <!-- =====================================================
+      REVIEWS LIST
+    ====================================================== -->
+
+    <div
+      class="custom-loox-reviews__list"
+      data-review-list
+    ></div>
+
+
+    <!-- =====================================================
+      LOAD MORE
+    ====================================================== -->
+
+    <div
+      class="custom-loox-reviews__load-more-wrapper"
+      data-load-more-wrapper
+      hidden
+    >
+
+      <button
+        type="button"
+        class="custom-loox-reviews__load-more"
+        data-load-more
+      >
+        {{ section.settings.load_more_text }}
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+(function () {
+
+  'use strict';
+
+
+  /* ========================================================
+     SECTION
+  ======================================================== */
+
+  const section = document.getElementById(
+    'CustomLooxReviews-{{ section.id }}'
+  );
+
+  if (!section) return;
+
+
+
+  /* ========================================================
+     CONFIG
+  ======================================================== */
+
+  const publicStoreId =
+    section.dataset.publicStoreId;
+
+  const currentProductId =
+    String(section.dataset.productId);
+
+  const reviewsPerPage =
+    Number(section.dataset.reviewsPerPage || 10);
+
+
+  const API_BASE =
+    'https://storefront-api.loox.io/storefront/v1/store/' +
+    encodeURIComponent(publicStoreId) +
+    '/product-reviews';
+
+
+
+  /* ========================================================
+     DOM ELEMENTS
+  ======================================================== */
+
+  const reviewList =
+    section.querySelector('[data-review-list]');
+
+  const loadingElement =
+    section.querySelector('[data-reviews-loading]');
+
+  const errorElement =
+    section.querySelector('[data-reviews-error]');
+
+  const emptyElement =
+    section.querySelector('[data-reviews-empty]');
+
+  const loadMoreWrapper =
+    section.querySelector('[data-load-more-wrapper]');
+
+  const loadMoreButton =
+    section.querySelector('[data-load-more]');
+
+  const reviewCountElement =
+    section.querySelector('[data-review-count]');
+
+  const averageElement =
+    section.querySelector('[data-review-average]');
+
+  const summaryStars =
+    section.querySelector('[data-summary-stars]');
+
+  const sortSelect =
+    section.querySelector('[data-review-sort]');
+
+
+
+  /* ========================================================
+     STATE
+  ======================================================== */
+
+  let allReviews = [];
+
+  let filteredReviews = [];
+
+  let currentVisibleCount =
+    reviewsPerPage;
+
+  let activeFilter =
+    'all';
+
+  let activeRating =
+    null;
+
+  let nextApiPageUrl =
+    null;
+
+  let apiHasMore =
+    true;
+
+  let apiLoading =
+    false;
+
+
+
+  /* ========================================================
+     HTML ESCAPE
+  ======================================================== */
+
+  function escapeHTML(value) {
+
+    if (
+      value === null ||
+      value === undefined
+    ) {
+      return '';
+    }
+
+    return String(value)
+
+      .replace(/&/g, '&amp;')
+
+      .replace(/</g, '&lt;')
+
+      .replace(/>/g, '&gt;')
+
+      .replace(/"/g, '&quot;')
+
+      .replace(/'/g, '&#039;');
+
+  }
+
+
+
+  /* ========================================================
+     DATE FORMAT
+  ======================================================== */
+
+  function formatDate(value) {
+
+    if (!value) return '';
+
+    const date =
+      new Date(value);
+
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
+      return '';
+    }
+
+    return new Intl.DateTimeFormat(
+
+      document.documentElement.lang || 'en-US',
+
+      {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      }
+
+    ).format(date);
+
+  }
+
+
+
+  /* ========================================================
+     STARS
+  ======================================================== */
+
+  function renderStars(rating) {
+
+    const rounded =
+      Math.round(
+        Number(rating) || 0
+      );
+
+    let output = '';
+
+    for (
+      let star = 1;
+      star <= 5;
+      star++
+    ) {
+
+      const filled =
+        star <= rounded;
+
+      output += `
+
+        <span
+          class="
+            custom-loox-review__star
+            ${
+              filled
+                ? 'custom-loox-review__star--filled'
+                : 'custom-loox-review__star--empty'
+            }
+          "
+          aria-hidden="true"
+        >
+          ★
+        </span>
+
+      `;
+
+    }
+
+    return output;
+
+  }
+
+
+
+  /* ========================================================
+     MEDIA NORMALIZATION
+  ======================================================== */
+
+  function normalizeMedia(review) {
+
+    if (
+      !review.media ||
+      !Array.isArray(review.media)
+    ) {
+      return [];
+    }
+
+    return review.media
+
+      .map(function (media) {
+
+        if (
+          !media ||
+          !media.url
+        ) {
+          return null;
+        }
+
+
+        let type =
+          String(
+            media.type || 'photo'
+          ).toLowerCase();
+
+
+        /*
+          Loox response currently uses:
+
+          photo
+          video
+        */
+
+        if (
+          type === 'photo' ||
+          type === 'image'
+        ) {
+          type = 'photo';
+        }
+
+
+        return {
+
+          type: type,
+
+          url: media.url,
+
+          thumbnail:
+            media.thumbnail ||
+            media.thumbnailUrl ||
+            media.previewUrl ||
+            media.poster ||
+            ''
+
+        };
+
+      })
+
+      .filter(Boolean);
+
+  }
+
+
+
+  /* ========================================================
+     REVIEW NORMALIZATION
+  ======================================================== */
+
+  function normalizeReview(review) {
+
+    const reviewer =
+      review.reviewer || {};
+
+
+    return {
+
+      id:
+        review.id || '',
+
+      rating:
+        Number(
+          review.rating || 0
+        ),
+
+      body:
+        review.body || '',
+
+      date:
+        review.createdAt ||
+        review.date ||
+        '',
+
+      verified:
+        review.verified === true,
+
+      reviewerName:
+        reviewer.name ||
+        'Customer',
+
+      reply:
+        review.reply || '',
+
+      media:
+        normalizeMedia(review),
+
+      productId:
+        review.product &&
+        review.product.id
+          ? String(review.product.id)
+          : '',
+
+      productName:
+        review.product &&
+        review.product.name
+          ? review.product.name
+          : ''
+
+    };
+
+  }
+
+
+
+  /* ========================================================
+     PRODUCT MATCH
+  ======================================================== */
+
+  function isCurrentProduct(review) {
+
+    if (
+      !review.product ||
+      !review.product.id
+    ) {
+      return false;
+    }
+
+    return (
+      String(review.product.id) ===
+      currentProductId
+    );
+
+  }
+
+
+
+  /* ========================================================
+     MEDIA HTML
+  ======================================================== */
+
+  function renderMedia(review) {
+
+    if (
+      !review.media ||
+      !review.media.length
+    ) {
+      return '';
+    }
+
+
+    const items =
+      review.media.map(
+        function (media, index) {
+
+
+          /* ================================================
+             VIDEO
+          ================================================= */
+
+          if (
+            media.type === 'video'
+          ) {
+
+            return `
+
+              <div
+                class="
+                  custom-loox-review__media-item
+                  custom-loox-review__media-item--video
+                "
+              >
+
+                <div class="custom-loox-review__video-wrapper">
+
+                  <video
+                    class="custom-loox-review__video"
+                    controls
+                    playsinline
+                    preload="metadata"
+                    ${
+                      media.thumbnail
+                        ? 'poster="' +
+                          escapeHTML(media.thumbnail) +
+                          '"'
+                        : ''
+                    }
+                  >
+
+                    <source
+                      src="${escapeHTML(media.url)}"
+                    >
+
+                  </video>
+
+                  <span
+                    class="custom-loox-review__video-icon"
+                    aria-hidden="true"
+                  >
+                    ▶
+                  </span>
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+
+
+
+          /* ================================================
+             PHOTO
+          ================================================= */
+
+          return `
+
+            <div
+              class="
+                custom-loox-review__media-item
+                custom-loox-review__media-item--photo
+              "
+            >
+
+              <button
+                type="button"
+                class="custom-loox-review__media-button"
+                data-review-image="${escapeHTML(media.url)}"
+                aria-label="Open customer photo ${index + 1}"
+              >
+
+                <img
+                  src="${escapeHTML(media.url)}"
+                  class="custom-loox-review__image"
+                  alt="Customer review photo"
+                  loading="lazy"
+                  width="500"
+                  height="500"
+                >
+
+              </button>
+
+            </div>
+
+          `;
+
+        }
+      );
+
+
+    return `
+
+      <div class="custom-loox-review__media">
+
+        ${items.join('')}
+
+      </div>
+
+    `;
+
+  }
+
+
+
+  /* ========================================================
+     REVIEW CARD
+  ======================================================== */
+
+  function renderReviewCard(review) {
+
+    const verifiedHTML =
+      review.verified
+        ? `
+
+          <span class="custom-loox-review__verified">
+
+            <span
+              class="custom-loox-review__verified-icon"
+              aria-hidden="true"
+            >
+              ✓
+            </span>
+
+            Verified Buyer
+
+          </span>
+
+        `
+        : '';
+
+
+    const replyHTML =
+      review.reply
+        ? `
+
+          <div class="custom-loox-review__reply">
+
+            <div class="custom-loox-review__reply-heading">
+              Response from Blue Tees Golf
+            </div>
+
+            <div class="custom-loox-review__reply-body">
+              ${escapeHTML(review.reply)}
+            </div>
+
+          </div>
+
+        `
+        : '';
+
+
+    return `
+
+      <article
+        class="custom-loox-review"
+        data-review-id="${escapeHTML(review.id)}"
+      >
+
+
+        <div class="custom-loox-review__header">
+
+
+          <div
+            class="custom-loox-review__stars"
+            aria-label="${review.rating} out of 5 stars"
+          >
+
+            ${renderStars(review.rating)}
+
+          </div>
+
+
+          ${verifiedHTML}
+
+
+        </div>
+
+
+        <div class="custom-loox-review__content">
+
+          ${escapeHTML(review.body)}
+
+        </div>
+
+
+        ${renderMedia(review)}
+
+
+        <div class="custom-loox-review__footer">
+
+          <div class="custom-loox-review__reviewer">
+
+            ${escapeHTML(review.reviewerName)}
+
+          </div>
+
+
+          ${
+            review.date
+              ? `
+
+                <time
+                  class="custom-loox-review__date"
+                  datetime="${escapeHTML(review.date)}"
+                >
+
+                  ${escapeHTML(
+                    formatDate(review.date)
+                  )}
+
+                </time>
+
+              `
+              : ''
+          }
+
+        </div>
+
+
+        ${replyHTML}
+
+
+      </article>
+
+    `;
+
+  }
+
+
+
+  /* ========================================================
+     FILTER
+  ======================================================== */
+
+  function reviewMatchesFilter(review) {
+
+
+    /* ALL */
+
+    if (
+      activeFilter === 'all'
+    ) {
+      return true;
+    }
+
+
+    /* ANY MEDIA */
+
+    if (
+      activeFilter === 'media'
+    ) {
+
+      return (
+        review.media &&
+        review.media.length > 0
+      );
+
+    }
+
+
+    /* PHOTOS */
+
+    if (
+      activeFilter === 'photo'
+    ) {
+
+      return review.media.some(
+        function (media) {
+
+          return (
+            media.type === 'photo'
+          );
+
+        }
+      );
+
+    }
+
+
+    /* VIDEOS */
+
+    if (
+      activeFilter === 'video'
+    ) {
+
+      return review.media.some(
+        function (media) {
+
+          return (
+            media.type === 'video'
+          );
+
+        }
+      );
+
+    }
+
+
+    /* RATING */
+
+    if (
+      activeFilter === 'rating'
+    ) {
+
+      return (
+        Math.round(review.rating) ===
+        Number(activeRating)
+      );
+
+    }
+
+
+    return true;
+
+  }
+
+
+
+  /* ========================================================
+     SORT
+  ======================================================== */
+
+  function sortReviews(reviews) {
+
+    const output =
+      [...reviews];
+
+
+    const sortMode =
+      sortSelect
+        ? sortSelect.value
+        : 'newest';
+
+
+    switch (sortMode) {
+
+
+      case 'oldest':
+
+        output.sort(
+          function (a, b) {
+
+            return (
+              new Date(a.date).getTime() -
+              new Date(b.date).getTime()
+            );
+
+          }
+        );
+
+        break;
+
+
+
+      case 'highest':
+
+        output.sort(
+          function (a, b) {
+
+            return (
+              b.rating -
+              a.rating
+            );
+
+          }
+        );
+
+        break;
+
+
+
+      case 'lowest':
+
+        output.sort(
+          function (a, b) {
+
+            return (
+              a.rating -
+              b.rating
+            );
+
+          }
+        );
+
+        break;
+
+
+
+      case 'newest':
+
+      default:
+
+        output.sort(
+          function (a, b) {
+
+            return (
+              new Date(b.date).getTime() -
+              new Date(a.date).getTime()
+            );
+
+          }
+        );
+
+        break;
+
+    }
+
+
+    return output;
+
+  }
+
+
+
+  /* ========================================================
+     APPLY FILTER
+  ======================================================== */
+
+  function applyFilters() {
+
+    filteredReviews =
+      allReviews.filter(
+        reviewMatchesFilter
+      );
+
+
+    filteredReviews =
+      sortReviews(
+        filteredReviews
+      );
+
+
+    currentVisibleCount =
+      reviewsPerPage;
+
+
+    renderReviews();
+
+  }
+
+
+
+  /* ========================================================
+     RENDER REVIEWS
+  ======================================================== */
+
+  function renderReviews() {
+
+    const visible =
+      filteredReviews.slice(
+        0,
+        currentVisibleCount
+      );
+
+
+    reviewList.innerHTML =
+      visible
+        .map(renderReviewCard)
+        .join('');
+
+
+    emptyElement.hidden =
+      filteredReviews.length !== 0;
+
+
+    /*
+      Show Load More if:
+
+      1. we have more already loaded reviews
+      OR
+      2. Loox API says there are more pages.
+    */
+
+    const moreLocalReviews =
+      currentVisibleCount <
+      filteredReviews.length;
+
+
+    loadMoreWrapper.hidden =
+      !moreLocalReviews &&
+      !apiHasMore;
+
+
+    if (
+      loadMoreButton
+    ) {
+
+      loadMoreButton.disabled =
+        apiLoading;
+
+    }
+
+  }
+
+
+
+  /* ========================================================
+     SUMMARY
+  ======================================================== */
+
+  function updateSummary() {
+
+    const ratingCounts = {
+
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0
+
+    };
+
+
+    let totalRating = 0;
+
+
+    allReviews.forEach(
+      function (review) {
+
+        const rounded =
+          Math.round(
+            review.rating
+          );
+
+
+        if (
+          rounded >= 1 &&
+          rounded <= 5
+        ) {
+
+          ratingCounts[rounded]++;
+
+        }
+
+
+        totalRating +=
+          Number(
+            review.rating || 0
+          );
+
+      }
+    );
+
+
+    const loadedTotal =
+      allReviews.length;
+
+
+    const calculatedAverage =
+      loadedTotal
+        ? (
+            totalRating /
+            loadedTotal
+          )
+        : 0;
+
+
+
+    /*
+      Prefer official Loox metafields for
+      overall count and rating.
+    */
+
+    const metafieldCount =
+      Number(
+        reviewCountElement
+          ? reviewCountElement.textContent
+          : 0
+      );
+
+
+    const metafieldAverage =
+      Number(
+        averageElement
+          ? averageElement.textContent
+          : 0
+      );
+
+
+    const displayCount =
+      metafieldCount ||
+      loadedTotal;
+
+
+    const displayAverage =
+      metafieldAverage ||
+      calculatedAverage;
+
+
+    if (
+      reviewCountElement
+    ) {
+
+      reviewCountElement.textContent =
+        displayCount;
+
+    }
+
+
+    if (
+      averageElement
+    ) {
+
+      averageElement.textContent =
+        displayAverage
+          ? displayAverage.toFixed(1)
+          : '0.0';
+
+    }
+
+
+    if (
+      summaryStars
+    ) {
+
+      summaryStars.innerHTML =
+        renderStars(
+          displayAverage
+        );
+
+    }
+
+
+
+    /* Rating histogram */
+
+    Object.keys(
+      ratingCounts
+    ).forEach(
+      function (rating) {
+
+        const count =
+          ratingCounts[rating];
+
+
+        const percentage =
+          loadedTotal
+            ? (
+                count /
+                loadedTotal
+              ) * 100
+            : 0;
+
+
+        const countElement =
+          section.querySelector(
+            '[data-rating-count="' +
+            rating +
+            '"]'
+          );
+
+
+        const barElement =
+          section.querySelector(
+            '[data-rating-bar="' +
+            rating +
+            '"]'
+          );
+
+
+        if (
+          countElement
+        ) {
+
+          countElement.textContent =
+            count;
+
+        }
+
+
+        if (
+          barElement
+        ) {
+
+          barElement.style.width =
+            percentage + '%';
+
+        }
+
+      }
+    );
+
+  }
+
+
+
+  /* ========================================================
+     PROCESS API RESPONSE
+  ======================================================== */
+
+  function processApiResponse(payload) {
+
+    if (
+      !payload ||
+      !Array.isArray(payload.reviews)
+    ) {
+
+      return;
+
+    }
+
+
+    /*
+      Filter to this Shopify product.
+
+      The public endpoint you've shared currently returns
+      store-wide reviews, so this check prevents reviews
+      from another product appearing on this PDP.
+    */
+
+    const matchingReviews =
+      payload.reviews.filter(
+        isCurrentProduct
+      );
+
+
+    const normalized =
+      matchingReviews.map(
+        normalizeReview
+      );
+
+
+    /*
+      Prevent duplicates if Load More returns
+      something already loaded.
+    */
+
+    normalized.forEach(
+      function (review) {
+
+        const exists =
+          allReviews.some(
+            function (existing) {
+
+              return (
+                existing.id ===
+                review.id
+              );
+
+            }
+          );
+
+
+        if (
+          !exists
+        ) {
+
+          allReviews.push(
+            review
+          );
+
+        }
+
+      }
+    );
+
+
+
+    /* Pagination */
+
+    if (
+      payload.pagination
+    ) {
+
+      apiHasMore =
+        Boolean(
+          payload.pagination.hasMore
+        );
+
+
+      nextApiPageUrl =
+        payload.pagination.nextPageUrl ||
+        null;
+
+    } else {
+
+      apiHasMore =
+        false;
+
+      nextApiPageUrl =
+        null;
+
+    }
+
+  }
+
+
+
+  /* ========================================================
+     FETCH API PAGE
+  ======================================================== */
+
+  async function fetchApiPage(url) {
+
+    if (
+      !url ||
+      apiLoading
+    ) {
+      return;
+    }
+
+
+    apiLoading = true;
+
+
+    if (
+      loadMoreButton
+    ) {
+
+      loadMoreButton.disabled =
+        true;
+
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          url,
+          {
+            method: 'GET',
+
+            headers: {
+              'Accept':
+                'application/json'
+            }
+          }
+        );
+
+
+      if (
+        !response.ok
+      ) {
+
+        throw new Error(
+          'Loox API request failed: ' +
+          response.status
+        );
+
+      }
+
+
+      const payload =
+        await response.json();
+
+
+      processApiResponse(
+        payload
+      );
+
+
+      updateSummary();
+
+
+    } catch (error) {
+
+      console.error(
+        'Custom Loox Reviews:',
+        error
+      );
+
+
+      errorElement.hidden =
+        false;
+
+    } finally {
+
+      apiLoading =
+        false;
+
+
+      if (
+        loadMoreButton
+      ) {
+
+        loadMoreButton.disabled =
+          false;
+
+      }
+
+    }
+
+  }
+
+
+
+  /* ========================================================
+     INITIAL LOAD
+  ======================================================== */
+
+  async function initialLoad() {
+
+    if (
+      !publicStoreId
+    ) {
+
+      loadingElement.hidden =
+        true;
+
+      errorElement.hidden =
+        false;
+
+      console.error(
+        'Missing Loox Public Store ID.'
+      );
+
+      return;
+
+    }
+
+
+    loadingElement.hidden =
+      false;
+
+
+    errorElement.hidden =
+      true;
+
+
+    try {
+
+
+      /*
+        Start with the official storefront endpoint.
+
+        Loox restricts Storefront API browser access using
+        the store domain/CORS. No secret Merchant API key
+        should ever be placed here.
+      */
+
+      await fetchApiPage(
+        API_BASE
+      );
+
+
+
+      /*
+        Because the endpoint may contain reviews for many
+        products, continue loading pages until we have enough
+        reviews for this PDP or Loox has no more pages.
+
+        Limit initial scanning to protect performance.
+      */
+
+      let scanCount = 0;
+
+      const MAX_INITIAL_API_PAGES =
+        5;
+
+
+      while (
+        allReviews.length <
+          reviewsPerPage &&
+        apiHasMore &&
+        nextApiPageUrl &&
+        scanCount <
+          MAX_INITIAL_API_PAGES
+      ) {
+
+        scanCount++;
+
+
+        const nextUrl =
+          nextApiPageUrl;
+
+
+        await fetchApiPage(
+          nextUrl
+        );
+
+      }
+
+
+      filteredReviews =
+        sortReviews(
+          allReviews
+        );
+
+
+      updateSummary();
+
+
+      renderReviews();
+
+
+    } catch (error) {
+
+      console.error(
+        'Custom Loox Reviews:',
+        error
+      );
+
+
+      errorElement.hidden =
+        false;
+
+    } finally {
+
+      loadingElement.hidden =
+        true;
+
+    }
+
+  }
+
+
+
+  /* ========================================================
+     FILTER EVENTS
+  ======================================================== */
+
+  const filterButtons =
+    section.querySelectorAll(
+      '[data-review-filter]'
+    );
+
+
+  filterButtons.forEach(
+    function (button) {
+
+      button.addEventListener(
+        'click',
+        function () {
+
+
+          filterButtons.forEach(
+            function (item) {
+
+              item.classList.remove(
+                'is-active'
+              );
+
+            }
+          );
+
+
+          button.classList.add(
+            'is-active'
+          );
+
+
+          activeFilter =
+            button.dataset.reviewFilter;
+
+
+          activeRating =
+            button.dataset.rating ||
+            null;
+
+
+          applyFilters();
+
+        }
+      );
+
+    }
+  );
+
+
+
+  /* ========================================================
+     RATING BREAKDOWN EVENTS
+  ======================================================== */
+
+  const breakdownButtons =
+    section.querySelectorAll(
+      '[data-rating-breakdown]'
+    );
+
+
+  breakdownButtons.forEach(
+    function (button) {
+
+      button.addEventListener(
+        'click',
+        function () {
+
+          activeFilter =
+            'rating';
+
+
+          activeRating =
+            button.dataset.ratingBreakdown;
+
+
+          filterButtons.forEach(
+            function (item) {
+
+              item.classList.remove(
+                'is-active'
+              );
+
+
+              if (
+                item.dataset.reviewFilter ===
+                  'rating' &&
+                item.dataset.rating ===
+                  activeRating
+              ) {
+
+                item.classList.add(
+                  'is-active'
+                );
+
+              }
+
+            }
+          );
+
+
+          applyFilters();
+
+        }
+      );
+
+    }
+  );
+
+
+
+  /* ========================================================
+     SORT EVENT
+  ======================================================== */
+
+  if (
+    sortSelect
+  ) {
+
+    sortSelect.addEventListener(
+      'change',
+      function () {
+
+        filteredReviews =
+          sortReviews(
+            filteredReviews
+          );
+
+
+        currentVisibleCount =
+          reviewsPerPage;
+
+
+        renderReviews();
+
+      }
+    );
+
+  }
+
+
+
+  /* ========================================================
+     LOAD MORE
+  ======================================================== */
+
+  if (
+    loadMoreButton
+  ) {
+
+    loadMoreButton.addEventListener(
+      'click',
+      async function () {
+
+
+        /*
+          First show already-loaded reviews.
+        */
+
+        if (
+          currentVisibleCount <
+          filteredReviews.length
+        ) {
+
+          currentVisibleCount +=
+            reviewsPerPage;
+
+
+          renderReviews();
+
+
+          return;
+
+        }
+
+
+
+        /*
+          Otherwise fetch the next Loox API page.
+        */
+
+        if (
+          apiHasMore &&
+          nextApiPageUrl
+        ) {
+
+          const beforeCount =
+            allReviews.length;
+
+
+          await fetchApiPage(
+            nextApiPageUrl
+          );
+
+
+          applyFilters();
+
+
+          /*
+            Increase visible amount if new
+            matching reviews were added.
+          */
+
+          if (
+            allReviews.length >
+            beforeCount
+          ) {
+
+            currentVisibleCount +=
+              reviewsPerPage;
+
+          }
+
+
+          renderReviews();
+
+        }
+
+      }
+    );
+
+  }
+
+
+
+  /* ========================================================
+     IMAGE LIGHTBOX
+  ======================================================== */
+
+  section.addEventListener(
+    'click',
+    function (event) {
+
+      const trigger =
+        event.target.closest(
+          '[data-review-image]'
+        );
+
+
+      if (
+        !trigger
+      ) {
+        return;
+      }
+
+
+      const imageUrl =
+        trigger.dataset.reviewImage;
+
+
+      if (
+        !imageUrl
+      ) {
+        return;
+      }
+
+
+      openImageLightbox(
+        imageUrl
+      );
+
+    }
+  );
+
+
+
+  function openImageLightbox(imageUrl) {
+
+    const overlay =
+      document.createElement(
+        'div'
+      );
+
+
+    overlay.className =
+      'custom-loox-lightbox';
+
+
+    overlay.innerHTML = `
+
+      <div
+        class="custom-loox-lightbox__backdrop"
+        data-lightbox-close
+      ></div>
+
+
+      <div
+        class="custom-loox-lightbox__dialog"
+        role="dialog"
+        aria-modal="true"
+      >
+
+        <button
+          type="button"
+          class="custom-loox-lightbox__close"
+          data-lightbox-close
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+
+        <img
+          src="${escapeHTML(imageUrl)}"
+          class="custom-loox-lightbox__image"
+          alt="Customer review image"
+        >
+
+      </div>
+
+    `;
+
+
+    document.body.appendChild(
+      overlay
+    );
+
+
+    document.body.classList.add(
+      'custom-loox-lightbox-open'
+    );
+
+
+    function closeLightbox() {
+
+      overlay.remove();
+
+
+      document.body.classList.remove(
+        'custom-loox-lightbox-open'
+      );
+
+
+      document.removeEventListener(
+        'keydown',
+        onKeyDown
+      );
+
+    }
+
+
+    function onKeyDown(event) {
+
+      if (
+        event.key === 'Escape'
+      ) {
+
+        closeLightbox();
+
+      }
+
+    }
+
+
+    overlay.addEventListener(
+      'click',
+      function (event) {
+
+        if (
+          event.target.closest(
+            '[data-lightbox-close]'
+          )
+        ) {
+
+          closeLightbox();
+
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      'keydown',
+      onKeyDown
+    );
+
+  }
+
+
+
+  /* ========================================================
+     START
+  ======================================================== */
+
+  initialLoad();
+
+
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "Custom Loox Reviews",
+  "tag": "section",
+  "class": "section-custom-loox-reviews",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "loox_public_store_id",
+      "label": "Loox Public Store ID",
+      "default": "NkWLIAFhqB.d5f86dbd70a6351c1542d44dc92c1d48efc3128792711cf61e48ee96a56a5273",
+      "info": "Loox > Settings > API Keys > publicStoreId"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": ""
+    },
+
+    {
+      "type": "text",
+      "id": "review_count_text",
+      "label": "Review count text",
+      "default": "Reviews"
+    },
+
+    {
+      "type": "range",
+      "id": "reviews_per_page",
+      "label": "Reviews per page",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 10
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_rating_breakdown",
+      "label": "Show rating breakdown",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_write_review",
+      "label": "Show Write a Review button",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "write_review_text",
+      "label": "Write review text",
+      "default": "Write a Review"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_media_filter",
+      "label": "Show Photos & Videos filter",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_photo_filter",
+      "label": "Show Photos filter",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_video_filter",
+      "label": "Show Videos filter",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_rating_filters",
+      "label": "Show star filters",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_sort",
+      "label": "Show sorting",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "loading_text",
+      "label": "Loading text",
+      "default": "Loading reviews..."
+    },
+
+    {
+      "type": "text",
+      "id": "load_more_text",
+      "label": "Load more text",
+      "default": "Load More Reviews"
+    },
+
+    {
+      "type": "text",
+      "id": "no_reviews_text",
+      "label": "Empty message",
+      "default": "There are no reviews matching your selection."
+    },
+
+    {
+      "type": "text",
+      "id": "error_text",
+      "label": "Error message",
+      "default": "Unable to load reviews. Please try again."
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Custom Loox Reviews"
+    }
+  ]
+}
+{% endschema %}
+
+{% endif %}
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-12T11:23:09+05:30.
+
+The user's current state is as follows:
+Active Document: d:\Main\work\BTG-US-ASBY-CLI-ORG-CODE\sections\custom-loox-reviews.liquid (LANGUAGE_UNSPECIFIED)
+Cursor is on line: 44
+Other open documents:
+- d:\Main\work\BTG-US-ASBY-CLI-ORG-CODE\sections\comp-game-ai.liquid (LANGUAGE_UNSPECIFIED)
+- d:\Main\work\BTG-US-ASBY-CLI-ORG-CODE\sections\custom-loox-reviews.liquid (LANGUAGE_UNSPECIFIED)
+- d:\Main\work\BTG-US-ASBY-CLI-ORG-CODE\sections\comp-3d-model-explorer.liquid (LANGUAGE_UNSPECIFIED)
+- d:\Main\work\BTG-US-ASBY-CLI-ORG-CODE\snippets\comp-pdp-sticky-bar.liquid (LANGUAGE_UNSPECIFIED)
+- d:\Main\work\BTG-US-ASBY-CLI-ORG-CODE\snippets\new-pdp-template.liquid (LANGUAGE_UNSPECIFIED)
+Running terminal commands:
+- shopify theme dev (in d:\Main\work\BTG-US-ASBY-CLI-ORG-CODE, running for 39m48s)
+
+The user has mentioned some items in the form @[ITEM]. Here is extra information about the items that were mentioned by the user, in the order that they appear:
+
+@[d:\Main\work\BTG-US-ASBY-CLI-ORG-CODE\sections\custom-loox-reviews.liquid] is a [File]:
+d:\Main\work\BTG-US-ASBY-CLI-ORG-CODE\sections\custom-loox-reviews.liquid
+</ADDITIONAL_METADATA>

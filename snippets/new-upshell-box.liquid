@@ -291,15 +291,15 @@
             </div>
           </div>
         {% elsif product.template_suffix == 'player-pro' %}
-        {% assign case_product = all_products['player-hard-shell-carrying-case'] %}
-          {% if case_product == blank or case_product.selected_or_first_available_variant == blank %}
-            {% assign case_product = all_products['player-hard-shell-carrying-case'] %}
-          {% endif %}
-
+          
           <div
             class="free-offer-info group2 offer_cap-pro"
             style="border-radius: 16px;border-width: 1px;"
           >
+            {% assign case_product = all_products['player-hard-shell-carrying-case'] %}
+              {% if case_product == blank or case_product.selected_or_first_available_variant == blank %}
+                {% assign case_product = all_products['player-hard-shell-carrying-case'] %}
+              {% endif %}
             <div id="soft-case-offer" class="offer-description-info accordion-content active">
               <div class="accordion-content-details">
                 <div class="accordion-content_top" style="line-height: 1;padding: 8px clamp(15px,2vw,32px);">
@@ -376,6 +376,90 @@
               </div>
             </div>
           </div>
+          <div
+            class="free-offer-info group3 offer_cap-pro"
+            style="border-radius: 16px;border-width: 1px;"
+          >
+                  {% assign case_product = all_products['player-soft-drawstring-carrying-case'] %}
+              {% if case_product == blank or case_product.selected_or_first_available_variant == blank %}
+                {% assign case_product = all_products['player-soft-drawstring-carrying-case'] %}
+              {% endif %}
+
+            <div id="soft-case-offer" class="offer-description-info accordion-content active">
+              <div class="accordion-content-details">
+                <div class="accordion-content_top" style="line-height: 1;padding: 8px clamp(15px,2vw,32px);">
+                  <div class="checkbox-list watch_list">
+                    {% render 'offer-bug' %}
+
+                    <input
+                      type="checkbox"
+                      name="offer-checkbox"
+                      class="select-premium selectRV"
+                      id="player-pro-soft-case-upsell"
+                      value="{{ case_product.selected_or_first_available_variant.id }}"
+                      data-variant-id="{{ case_product.selected_or_first_available_variant.id }}"
+                    />
+
+                    <label for="player-pro-soft-case-upsell" class="checkbox-title custom_heading"
+                      >PLAYER PRO SOFT CASE</label
+                    >
+                    <div class="offer-price " style="align-items: flex-end;">
+                      <span class="custom_heading" style="font-size: clamp(14px,1.2vw,16px);line-height: 1.5;"
+                        >+$9.98</span
+                      >
+                      <div class="price_discounted">
+                        <span class="price-compare" style="line-height: 1;">($39.98)</span>
+                        <span
+                          class="price_discount"
+                          style="color: var(--new-red-light); line-height: 1; font-weight: 600;"
+                          >75% off</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="accordion-content_bottom"
+                  style="padding: clamp(16px, 1.3vw, 23px) clamp(15px, 1.9vw, 32px);"
+                >
+                  <div class="accordion-content_left">
+                    <div class="accordion-content_img-holder">
+                      <a href="/products/player-soft-drawstring-carrying-case">
+                        <img
+                          class="product-atc_product-img"
+                          height="30"
+                          width="30"
+                          decoding="async"
+                          src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PDP-UPSELL-DESKTOP-MAIN_IMAGE_1572fa6c-e96e-4b00-819d-b41a076a61ea.png?v=1791961452"
+                          alt="Player Pro Soft Shell Case"
+                        >
+                      </a>
+                    </div>
+                  </div>
+                  <div class="accordion-content_right">
+                    <div class="offer-description" style="max-width: 310px;">
+                      {% comment %} <h6>WATCH CARRYING CASE</h6> {% endcomment %}
+                      <p style="gap: 10px;display: flex;flex-direction: column;justify-content: center;align-items: flex-start;text-wrap: inherit;-webkit-text-wrap-style: inherit;text-wrap-style: inherit;">
+                        The Player Pro Soft Drawstring Carrying Case is crafted from premium leatherette and foam padding.
+                        <a
+                          class="anchor_hover"
+                          href="/products/player-soft-drawstring-carrying-case"
+                          style="--hover-clr:#9E9E9E; margin: 0;"
+                          >LEARN MORE</a
+                        >
+                      </p>
+                    </div>
+                    <div class="cta_content" style="visiblity:hidden; opacity:0; pointer-events:none;">
+                      {% comment %} data-id="45724250669253" cart_cta{% endcomment %}
+                      <a class="content-cta content-cta__solid" href="/products/player-soft-drawstring-carrying-case">
+                        SHOP NOW
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <style>
             .price_discounted {
               display: flex;
@@ -385,6 +469,7 @@
             .newupshell .checkbox-list.watch_list .checkbox-title{padding-left: 27px !important;}
             .newupshell .offer-price{flex-direction: column;}
             .free-offer-info.group2.offer_cap-pro.active { border-color: #fff; }
+            .free-offer-info.group3.offer_cap-pro.active { border-color: #fff; }
             @media only screen and (max-width:560px){
               .accordion-content_right .cta_content {
   display: none;
@@ -557,6 +642,7 @@
         // Handle both groups independently
         handleCheckboxGroups('.group1');
         handleCheckboxGroups('.group2');
+        handleCheckboxGroups('.group3');
       });
     </script>
   

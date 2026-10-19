@@ -1,0 +1,1210 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color | default: '#000000'
+  assign bg_gradient = section.settings.bg_gradient | default: 'linear-gradient(180deg, #1B1E22 0%, #000000 100%)'
+  assign glow_image = section.settings.glow_image
+  assign hero_stage_image = section.settings.hero_stage_image
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'CompGameAI-' | append: section.id
+  endif
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-game-ai section-{{ section.id }}"
+  style="
+    --cgai-bg: {{ bg_color }};
+    {% if bg_gradient != blank %}--cgai-bg-grad: {{ bg_gradient }};{% endif %}
+    --cgai-pt: {{ section.settings.padding_top | default: 80 }}px;
+    --cgai-pb: {{ section.settings.padding_bottom | default: 100 }}px;
+  "
+>
+  <!-- Background Glow Layer (Absolute image or CSS radial fallback) -->
+  <div class="comp-game-ai__bg-glow" aria-hidden="true">
+    {%- if glow_image != blank -%}
+      {{
+        glow_image
+        | image_url: width: 2200
+        | image_tag:
+          loading: 'lazy',
+          decoding: 'async',
+          class: 'comp-game-ai__glow-img',
+          alt: ''
+      }}
+    {%- else -%}
+      <div class="comp-game-ai__glow-fallback"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="comp-game-ai__inner">
+    <!-- Top Hero Area -->
+    <div class="comp-game-ai__hero">
+      <!-- Left Column: Single Hero Stage Image -->
+      <div class="comp-game-ai__hero-stage">
+        {%- if section.settings.hero_stage_image != blank -%}
+          {{
+            section.settings.hero_stage_image
+            | image_url: width: 1400
+            | image_tag:
+              loading: 'eager',
+              decoding: 'async',
+              class: 'comp-game-ai__hero-stage-img',
+              alt: section.settings.promo_text | default: 'Game AI Speaker & Features'
+          }}
+        {%- else -%}
+          <!-- Placeholder until image uploaded -->
+          <div class="comp-game-ai__hero-stage-placeholder">
+            <span>Upload Hero Stage Image in Theme Customizer</span>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Right Column: Content + Headline + Badges -->
+      <div class="comp-game-ai__hero-content">
+        <!-- Promo Badge -->
+        <div class="comp-game-ai__promo-badge">
+          <div class="comp-game-ai__promo-top">
+            <span class="comp-game-ai__promo-highlight">{{ section.settings.promo_text | default: '6 MONTHS FREE' }}</span>
+            <span class="comp-game-ai__promo-strikethrough">{{ section.settings.promo_orig_price | default: '$39.50' }}</span>
+          </div>
+          <span class="comp-game-ai__promo-sub">{{ section.settings.promo_subtext | default: 'INCLUDED WITH PURCHASE' }}</span>
+        </div>
+
+        <!-- Heading with Gradient Glow -->
+        <div class="comp-game-ai__title-wrap">
+          <h2 class="comp-game-ai__title custom_heading">
+            <span class="comp-game-ai__title-game">GAME</span>
+            <span class="comp-game-ai__title-ai">
+              <span class="comp-game-ai__title-ai-text">AI</span>
+              <span class="comp-game-ai__title-ai-glow" aria-hidden="true">AI</span>
+            </span>
+          </h2>
+        </div>
+
+        <!-- Description Paragraph -->
+        <div class="comp-game-ai__desc custom_body-text">
+          {{
+            section.settings.description
+            | default: 'Player Pro supercharges your round with the power of the GAME app’s integrated AI. By analyzing real-time course data, your positioning, and playing conditions, it delivers you the True Distance™ to the hole, audible caddie advice using Scout AI™, and intelligent Club Recommendations to dial in your game.'
+          }}
+        </div>
+
+        {%- if section.settings.button_text != blank -%}
+          {%- assign ai_btn_url = section.settings.button_url | default: '#' -%}
+          {% render 'cta-button',
+            text: section.settings.button_text,
+            url: ai_btn_url,
+            type: 'link',
+            variant: 'solid',
+            class: 'comp-game-ai__cta-btn'
+          %}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- Bottom Slider / Carousel Area: Custom Left-Aligned Slider -->
+    <div class="comp-game-ai__slider-wrapper">
+      <div
+        class="comp-game-ai__slider"
+        id="comp-game-ai-slider-{{ section.id }}"
+      >
+        <div class="comp-game-ai__slider-track" data-game-ai-slider-track>
+          {%- for block in section.blocks -%}
+            <div
+              class="comp-game-ai__slide{% if forloop.first %} is-active{% endif %}"
+              data-slide-index="{{ forloop.index0 }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="comp-game-ai__card">
+                <!-- Card Top: Video / GIF / Lifestyle Feature Image -->
+                <div class="comp-game-ai__card-media">
+                  {%- if block.settings.video != blank -%}
+                    {% render 'comp-video-player',
+                      video: block.settings.video,
+                      poster: block.settings.image,
+                      is_active: forloop.first,
+                      title: block.settings.title,
+                      video_class: 'comp-game-ai__card-video',
+                      data_attr: 'data-game-ai-video'
+                    %}
+                  {%- elsif block.settings.gif_image != blank -%}
+                    {{
+                      block.settings.gif_image
+                      | image_url: width: 900
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'comp-game-ai__card-img',
+                        alt: block.settings.title | escape
+                    }}
+                  {%- elsif block.settings.image != blank -%}
+                    {{
+                      block.settings.image
+                      | image_url: width: 900
+                      | image_tag:
+                        loading: 'lazy',
+                        decoding: 'async',
+                        class: 'comp-game-ai__card-img',
+                        alt: block.settings.title
+                    }}
+                  {%- else -%}
+                    <div class="comp-game-ai__card-placeholder"></div>
+                  {%- endif -%}
+
+                  {%- if block.settings.overlay_badge != blank -%}
+                    <div class="comp-game-ai__card-overlay-badge">
+                      {{
+                        block.settings.overlay_badge
+                        | image_url: width: 300
+                        | image_tag: loading: 'lazy', alt: ''
+                      }}
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                <!-- Card Bottom: Device Preview + Info -->
+                <div class="comp-game-ai__card-body">
+                  <div class="comp-game-ai__card-device-col">
+                    {%- if block.settings.device_preview != blank -%}
+                      {{
+                        block.settings.device_preview
+                        | image_url: width: 260
+                        | image_tag:
+                          loading: 'lazy',
+                          class: 'comp-game-ai__card-device-img',
+                          alt: block.settings.title | escape
+                      }}
+                    {%- else -%}
+                      <div class="comp-game-ai__card-icon-circle">
+                        {%- if block.settings.icon != blank -%}
+                          {{
+                            block.settings.icon
+                            | image_url: width: 64
+                            | image_tag:
+                              loading: 'lazy',
+                              alt: ''
+                          }}
+                        {%- else -%}
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#FFFFFF"/>
+                          </svg>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+
+                  <div class="comp-game-ai__card-info-col">
+                    <h3 class="comp-game-ai__card-title custom_heading">
+                      {{ block.settings.title }}
+                    </h3>
+                    <div class="comp-game-ai__card-text custom_body-text">
+                      {{ block.settings.description }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <!-- Progress Bar Navigation Only -->
+      <div class="comp-game-ai__nav-row">
+        <div class="comp-game-ai__progress-track" data-game-ai-track>
+          <div class="comp-game-ai__progress-bar" data-game-ai-bar></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .comp-game-ai {
+    position: relative;
+    width: 100%;
+    background-color: var(--cgai-bg, #000000);
+    background-image: var(--cgai-bg-grad, linear-gradient(180deg, #1B1E22 0%, #000000 100%));
+    padding-top: var(--cgai-pt, 80px);
+    padding-bottom: var(--cgai-pb, 100px);
+    overflow: hidden;
+    color: #FFFFFF;
+    box-sizing: border-box;
+  }
+
+  /* Glow Layer */
+  .comp-game-ai__bg-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .comp-game-ai__glow-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+  }
+
+  .comp-game-ai__glow-fallback {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 900px;
+    background: radial-gradient(55% 50% at 35% 35%, rgba(0, 149, 255, 0.45) 0%, rgba(93, 39, 241, 0.35) 45%, rgba(0, 0, 0, 0) 80%),
+                radial-gradient(45% 45% at 75% 30%, rgba(0, 69, 255, 0.35) 0%, rgba(0, 0, 0, 0) 75%);
+    filter: blur(50px);
+  }
+
+  .comp-game-ai__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+  }
+
+  /* Top Hero Area */
+  .comp-game-ai__hero {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 70px;
+  }
+
+  /* Left Hero Stage - Clean Single Image */
+  .comp-game-ai__hero-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .comp-game-ai__hero-stage-img {
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.7));
+  }
+
+  .comp-game-ai__hero-stage-placeholder {
+    width: 100%;
+    min-height: 480px;
+    border: 2px dashed rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Right Hero Content */
+  .comp-game-ai__hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 530px;
+    margin: 0 auto;
+  }
+
+  .comp-game-ai__promo-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 20px;
+  }
+
+  .comp-game-ai__promo-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .comp-game-ai__promo-highlight {
+    font-weight: 900;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #CDFF07;
+    letter-spacing: 0.05em;
+  }
+
+  .comp-game-ai__promo-strikethrough {
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: line-through;
+    color: #B4B4B4;
+  }
+
+  .comp-game-ai__promo-sub {
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #B4B4B4;
+  }
+
+  .comp-game-ai__title-wrap {
+    margin-bottom: 24px;
+  }
+
+  .comp-game-ai__title {
+    font-size: clamp(48px, 6vw, 76px);
+    line-height: 0.95;
+    margin: 0;
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-transform: uppercase;
+  }
+
+  .comp-game-ai__title-game {
+    color: #FFFFFF;
+  }
+
+  .comp-game-ai__title-ai {
+    position: relative;
+    display: inline-block;
+  }
+
+  .comp-game-ai__title-ai-text {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #00A2FF 0%, #2B00FF 50%, #5D27F1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 18px rgba(0, 162, 255, 0.6));
+  }
+
+  .comp-game-ai__title-ai-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    color: #0095FF;
+    filter: blur(16px);
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  .comp-game-ai__desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.02em;
+    max-width: 510px;
+  }
+
+  .comp-game-ai__cta-btn {
+    margin-top: 24px;
+    padding: 12px 28px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+
+  /* Slider Area */
+  .comp-game-ai__slider-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 30px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .comp-game-ai__slider {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+    padding-bottom: 8px;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+
+  .comp-game-ai__slider.is-dragging {
+    cursor: grabbing;
+  }
+
+  .comp-game-ai__slider-track {
+    display: flex;
+    gap: 32px;
+    will-change: transform;
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    touch-action: pan-y;
+  }
+
+  .comp-game-ai__slider.is-dragging .comp-game-ai__slider-track {
+    transition: none;
+  }
+
+  .comp-game-ai__slide {
+    width: clamp(320px, 36.4vw, 524px);
+    flex-shrink: 0;
+    box-sizing: border-box;
+    opacity: 1;
+    transform: none;
+  }
+
+  .comp-game-ai__slide:not(.is-active) .comp-video-control-btn,
+  .comp-game-ai__slide:not(.is-active) .comp-game-ai__media-btn {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .comp-game-ai__slide.is-active {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Slider Card */
+  .comp-game-ai__card {
+    width: 100%;
+    height: 100%;
+    background: #1B2029;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border: none;
+    transition: transform 0.3s ease;
+  }
+
+  .comp-game-ai__slide.is-active .comp-game-ai__card {
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .comp-game-ai__card-media {
+    position: relative;
+    width: 100%;
+    height: 295px;
+    background: #11141B;
+    overflow: hidden;
+  }
+
+  .comp-game-ai__card-img,
+  .comp-game-ai__card-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .comp-game-ai__card:hover .comp-game-ai__card-img {
+    transform: scale(1.03);
+  }
+
+  .comp-game-ai__card-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1B2029 0%, #252B38 100%);
+  }
+
+  /* Video Glass Button (Same aesthetic as comp-screen-showcase) */
+  .comp-game-ai__media-btn {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    background: rgba(27, 30, 34, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .comp-game-ai__media-btn:hover {
+    transform: scale(1.1);
+    background: rgba(27, 30, 34, 0.8);
+  }
+
+  .comp-game-ai__card-overlay-badge {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    width: 130px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .comp-game-ai__card-overlay-badge img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .comp-game-ai__card-body {
+    padding: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex: 1;
+    background: #1B2029;
+  }
+
+  .comp-game-ai__card-device-col {
+    flex-shrink: 0;
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .comp-game-ai__card-device-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .comp-game-ai__card-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(10, 12, 24, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 161, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comp-game-ai__card-info-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .comp-game-ai__card-title {
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: #FFFFFF;
+    line-height: 1.2;
+    opacity: 0.95;
+  }
+
+  .comp-game-ai__card-text {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  /* Slider Progress Controls */
+  .comp-game-ai__nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1060px;
+    width: 100%;
+    margin: 48px auto 0;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .comp-game-ai__progress-track {
+    width: 100%;
+    max-width: 1060px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 100px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .comp-game-ai__progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 33.33%;
+    background: #FFFFFF;
+    border-radius: 100px;
+    transition: transform 0.4s ease, width 0.4s ease;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    .comp-game-ai__hero {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .comp-game-ai__hero-content {
+      order: -1;
+      margin-bottom: 20px;
+    }
+
+    .comp-game-ai__hero-stage {
+      margin-bottom: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .comp-game-ai__inner {
+      padding: 0 20px;
+    }
+
+    .comp-game-ai__hero-stage-img {
+      max-width: 100%;
+    }
+
+    .comp-game-ai__slide {
+      width: 82vw;
+    }
+
+    .comp-game-ai__card-media {
+      height: 220px;
+    }
+
+    .comp-game-ai__card-body {
+      padding: 16px;
+      gap: 14px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    function initCompGameAI() {
+      const section = document.getElementById('{{ section_id }}') || document.querySelector('.comp-game-ai.section-{{ section.id }}');
+      if (!section) return;
+
+      const sliderEl = section.querySelector('.comp-game-ai__slider');
+      const track = section.querySelector('[data-game-ai-slider-track]');
+      const slides = Array.from(section.querySelectorAll('.comp-game-ai__slide'));
+      const progressBar = section.querySelector('[data-game-ai-bar]');
+
+      if (!sliderEl || !track || slides.length === 0) return;
+
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      let startX = 0;
+      let currentTranslate = 0;
+      let prevTranslate = 0;
+      let isDragging = false;
+      let dragDistance = 0;
+      let animationID = 0;
+
+      // Prevent native browser dragging on cards/images/videos
+      track.querySelectorAll('img, video, a').forEach(function (el) {
+        el.setAttribute('draggable', 'false');
+        el.addEventListener('dragstart', function (e) {
+          e.preventDefault();
+        });
+      });
+
+      // Prepare initial 5s cue for inactive video previews
+      slides.forEach(function (slide, idx) {
+        const vid = slide.querySelector('[data-game-ai-video]');
+        if (!vid) return;
+
+        if (idx !== 0) {
+          vid.pause();
+          const seekToInitialPreview = function () {
+            if (idx !== currentIndex && vid.currentTime < 4.9) {
+              try { vid.currentTime = 5; } catch (e) {}
+            }
+          };
+          if (vid.readyState >= 1) {
+            seekToInitialPreview();
+          } else {
+            vid.addEventListener('loadedmetadata', seekToInitialPreview, { once: true });
+          }
+        }
+      });
+
+      function getGap() {
+        const style = window.getComputedStyle(track);
+        return parseFloat(style.gap) || 24;
+      }
+
+      function getSlideWidth() {
+        return slides[0].offsetWidth + getGap();
+      }
+
+      function getMaxTranslate() {
+        const totalWidth = track.scrollWidth;
+        const containerWidth = sliderEl.offsetWidth;
+        return Math.max(0, totalWidth - containerWidth);
+      }
+
+      function setButtonIcons(btn, isPlaying) {
+        if (!btn) return;
+        const iconPlay = btn.querySelector('.icon-play');
+        const iconPause = btn.querySelector('.icon-pause');
+        if (iconPlay) iconPlay.style.display = isPlaying ? 'none' : 'block';
+        if (iconPause) iconPause.style.display = isPlaying ? 'block' : 'none';
+      }
+
+      function updateActiveVideos() {
+        slides.forEach(function (slide, idx) {
+          const isActive = (idx === currentIndex);
+          slide.classList.toggle('is-active', isActive);
+
+          const vid = slide.querySelector('[data-game-ai-video]');
+          const mediaBtn = slide.querySelector('[data-media-btn]');
+          if (!vid) return;
+
+          if (isActive) {
+            if (vid.hasAttribute('data-manual-paused')) {
+              vid.pause();
+              setButtonIcons(mediaBtn, false);
+            } else {
+              if (vid.currentTime >= 4.9 || vid.currentTime === 0) {
+                try { vid.currentTime = 0; } catch (e) {}
+              }
+              const playPromise = vid.play();
+              if (playPromise !== undefined) {
+                playPromise.then(function () {
+                  setButtonIcons(mediaBtn, true);
+                }).catch(function () {
+                  setButtonIcons(mediaBtn, false);
+                });
+              } else {
+                setButtonIcons(mediaBtn, true);
+              }
+            }
+          } else {
+            vid.pause();
+            try { vid.currentTime = 5; } catch (e) {}
+            setButtonIcons(mediaBtn, false);
+          }
+        });
+      }
+
+      function updateProgress() {
+        if (!progressBar) return;
+        const maxT = getMaxTranslate();
+        if (maxT <= 0) {
+          progressBar.style.width = '100%';
+          progressBar.style.transform = 'translateX(0)';
+          return;
+        }
+        const barWidth = Math.max((sliderEl.offsetWidth / track.scrollWidth) * 100, 20);
+        progressBar.style.width = barWidth + '%';
+
+        const progressRatio = Math.min(Math.max(-currentTranslate / maxT, 0), 1);
+        const shift = progressRatio * (100 - barWidth);
+        progressBar.style.transform = `translateX(${shift}%)`;
+      }
+
+      function setPosition(x, animate) {
+        const maxT = getMaxTranslate();
+        let targetX = Math.min(0, Math.max(-maxT, x));
+        currentTranslate = targetX;
+        prevTranslate = targetX;
+
+        if (animate) {
+          track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
+        } else {
+          track.style.transition = 'none';
+        }
+        track.style.transform = `translateX(${targetX}px)`;
+
+        // Update active slide based on closest slide to view center or start
+        const slideW = getSlideWidth();
+        if (x !== undefined && arguments[2] !== undefined) {
+          currentIndex = arguments[2];
+        } else {
+          // If scrolled to max or close to max, activate last slide
+          if (maxT > 0 && Math.abs(targetX) >= maxT - 20) {
+            currentIndex = totalSlides - 1;
+          } else {
+            currentIndex = Math.max(0, Math.min(Math.round(Math.abs(targetX) / slideW), totalSlides - 1));
+          }
+        }
+        updateProgress();
+        updateActiveVideos();
+      }
+
+      function goToSlide(index) {
+        currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
+        const slideW = getSlideWidth();
+        const maxT = getMaxTranslate();
+        let targetX = -(currentIndex * slideW);
+        if (Math.abs(targetX) > maxT) {
+          targetX = -maxT;
+        }
+        setPosition(targetX, true, currentIndex);
+      }
+
+      // Clicking any slide will activate it and bring it into view
+      slides.forEach(function (slide, idx) {
+        slide.addEventListener('click', function (e) {
+          if (dragDistance > 6) return;
+          if (e.target.closest('[data-media-btn]')) return;
+          goToSlide(idx);
+        });
+      });
+
+      // Clicking progress track jumps directly to corresponding slide
+      const pTrack = section.querySelector('[data-game-ai-track]');
+      if (pTrack) {
+        pTrack.addEventListener('click', function (e) {
+          const rect = pTrack.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const ratio = Math.max(0, Math.min(clickX / rect.width, 1));
+          const targetIndex = Math.round(ratio * (totalSlides - 1));
+          goToSlide(targetIndex);
+        });
+      }
+
+      // Video play/pause toggle button (Only active slide can be toggled)
+      section.querySelectorAll('[data-media-btn]').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const card = this.closest('.comp-game-ai__card');
+          const slide = this.closest('.comp-game-ai__slide');
+          const vid = card ? card.querySelector('[data-game-ai-video]') : null;
+          if (!vid) return;
+
+          const slideIdx = slides.indexOf(slide);
+          // Non-active card videos CANNOT play
+          if (slideIdx !== -1 && slideIdx !== currentIndex) {
+            goToSlide(slideIdx);
+            return;
+          }
+
+          if (vid.paused) {
+            vid.removeAttribute('data-manual-paused');
+            if (vid.currentTime >= 4.9) {
+              try { vid.currentTime = 0; } catch (err) {}
+            }
+            const p = vid.play();
+            if (p !== undefined) {
+              p.then(() => {
+                setButtonIcons(this, true);
+              }).catch(() => {
+                setButtonIcons(this, false);
+              });
+            } else {
+              setButtonIcons(this, true);
+            }
+          } else {
+            vid.setAttribute('data-manual-paused', 'true');
+            vid.pause();
+            setButtonIcons(this, false);
+          }
+        });
+      });
+
+      // Drag / Swipe Touch and Mouse Handlers
+      let velX = 0;
+      let lastMoveX = 0;
+      let lastMoveTime = 0;
+
+      function touchStart(event) {
+        if (event.target.closest('[data-media-btn]')) return;
+        isDragging = true;
+        dragDistance = 0;
+        sliderEl.classList.add('is-dragging');
+        track.style.transition = 'none';
+        startX = getPositionX(event);
+        lastMoveX = startX;
+        lastMoveTime = Date.now();
+        velX = 0;
+        cancelAnimationFrame(animationID);
+      }
+
+      function touchMove(event) {
+        if (!isDragging) return;
+        const currentX = getPositionX(event);
+        const now = Date.now();
+        const dt = now - lastMoveTime || 16;
+        velX = (currentX - lastMoveX) / dt;
+        lastMoveX = currentX;
+        lastMoveTime = now;
+
+        const diff = currentX - startX;
+        dragDistance = Math.abs(diff);
+        const maxT = getMaxTranslate();
+        let targetX = prevTranslate + diff;
+
+        // Rubber-band resistance at edges
+        if (targetX > 0) {
+          targetX = targetX * 0.3;
+        } else if (targetX < -maxT) {
+          targetX = -maxT + (targetX + maxT) * 0.3;
+        }
+
+        currentTranslate = targetX;
+        track.style.transform = `translateX(${targetX}px)`;
+        updateProgress();
+      }
+
+      function touchEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        sliderEl.classList.remove('is-dragging');
+
+        // Momentum / inertia coasting
+        const momentum = velX * 180;
+        const maxT = getMaxTranslate();
+        let targetX = currentTranslate + momentum;
+        targetX = Math.min(0, Math.max(-maxT, targetX));
+
+        setPosition(targetX, true);
+      }
+
+      function getPositionX(event) {
+        return event.type.includes('mouse') ? event.pageX : (event.touches && event.touches[0] ? event.touches[0].clientX : 0);
+      }
+
+      sliderEl.addEventListener('touchstart', touchStart, { passive: true });
+      sliderEl.addEventListener('touchmove', touchMove, { passive: true });
+      sliderEl.addEventListener('touchend', touchEnd);
+
+      sliderEl.addEventListener('mousedown', function (e) {
+        touchStart(e);
+      });
+      window.addEventListener('mousemove', touchMove);
+      window.addEventListener('mouseup', touchEnd);
+
+      // Section Intersection Observer: Pause active video when user leaves viewport
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            const activeSlide = slides[currentIndex];
+            const vid = activeSlide ? activeSlide.querySelector('[data-game-ai-video]') : null;
+            if (!vid) return;
+
+            if (entry.isIntersecting) {
+              if (vid.paused && !vid.hasAttribute('data-manual-paused')) {
+                vid.play().catch(function () {});
+              }
+            } else {
+              if (!vid.paused) {
+                vid.pause();
+              }
+            }
+          });
+        }, { threshold: 0.15 });
+
+        observer.observe(section);
+      }
+
+      // Initial state
+      goToSlide(0);
+
+      window.addEventListener('resize', function () {
+        goToSlide(currentIndex);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCompGameAI);
+    } else {
+      initCompGameAI();
+    }
+
+    document.addEventListener('shopify:section:load', function (e) {
+      if (e.target && (e.target.id === '{{ section_id }}' || e.target.classList.contains('section-{{ section.id }}'))) {
+        initCompGameAI();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Game AI Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Section Anchor ID",
+      "info": "Optional custom HTML ID for anchor navigation (e.g. game-ai, features). Do not include '#'"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "bg_gradient",
+      "label": "Background Gradient",
+      "default": "linear-gradient(180deg, #1B1E22 0%, #000000 100%)",
+      "info": "CSS gradient string, e.g. linear-gradient(180deg, #1B1E22 0%, #000000 100%)"
+    },
+    {
+      "type": "image_picker",
+      "id": "glow_image",
+      "label": "Background Glow Image",
+      "info": "Absolute image layer for ambient light and glow effects"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_stage_image",
+      "label": "Hero Stage Graphic / Speaker Mockup",
+      "info": "Upload the full speaker + pedestal + AI card graphic as a single image"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo Badge Highlight",
+      "default": "6 MONTHS FREE"
+    },
+    {
+      "type": "text",
+      "id": "promo_orig_price",
+      "label": "Promo Strikethrough Price",
+      "default": "$39.50"
+    },
+    {
+      "type": "text",
+      "id": "promo_subtext",
+      "label": "Promo Subtext",
+      "default": "INCLUDED WITH PURCHASE"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Hero Description",
+      "default": "Player Pro supercharges your round with the power of the GAME app’s integrated AI. By analyzing real-time course data, your positioning, and playing conditions, it delivers you the True Distance™ to the hole, audible caddie advice using Scout AI™, and intelligent Club Recommendations to dial in your game."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 100
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_card",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Card Video (Plays when active)"
+        },
+        {
+          "type": "image_picker",
+          "id": "gif_image",
+          "label": "Card GIF (Alternative to video/image)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Feature Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "overlay_badge",
+          "label": "Top Overlay Graphic/Badge"
+        },
+        {
+          "type": "image_picker",
+          "id": "device_preview",
+          "label": "Device / Screen Preview Image (Bottom Left)"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Feature Icon (Alternative to preview)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "CLUB RECOMMENDATIONS"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "AI analyzes your past performance and shot tendencies to recommend the right club for every situation, factoring in distance and course conditions to deliver confident, data-driven decisions."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Game AI Showcase",
+      "blocks": [
+        {
+          "type": "feature_card",
+          "settings": {
+            "title": "CLUB RECOMMENDATIONS",
+            "description": "AI analyzes your past performance and shot tendencies to recommend the right club for every situation, factoring in distance and course conditions to deliver confident, data-driven decisions."
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "title": "SCOUT AI™ CADDIE",
+            "description": "Scout AI Caddie analyzes your performance, shot tendencies, and live course data—including weather, elevation, and hazards—to guide every decision. It delivers clear, audible advice right when you need it, offering real-time insights."
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "title": "TRUE DISTANCE™ ADJUSTED YARDAGES",
+            "description": "Automatically factors slope, wind, elevation, and temperature into your yardages, giving you real-world numbers you can trust on every swing."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

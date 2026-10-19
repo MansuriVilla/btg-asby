@@ -1,0 +1,143 @@
+{%- comment -%}
+  Per-product User Manual downloads list, rendered inside comp-pdp-tabs or PDP tab block.
+  Uses pdp-manual-row component with cta-button.
+{%- endcomment -%}
+
+<div class="pdp-manuals-list">
+  {%- case product.template_suffix -%}
+
+    {%- when 'player-pro' -%}
+      {% render 'pdp-manual-row',
+        title: 'Quick Start Guide',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Player_Pro_Quick_Start_Guide.pdf?v=1773722566'
+      %}
+      {% render 'pdp-manual-row',
+        title: 'Complete User Manual PDF',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Player_Pro_Product_Manual_1.3_rfs.pdf?v=1782280999'
+      %}
+
+    {%- when 'captain-pro' -%}
+      {% render 'pdp-manual-row',
+        title: 'Complete User Manual PDF',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Captain_Pro_Product_Manual_1.1_rfs.pdf?v=1772686833'
+      %}
+
+    {%- when 'product-new' -%}
+      {% render 'pdp-manual-row',
+        title: 'Complete User Manual PDF',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Captain_Air_Product_Manual_1.1_rfs.pdf?v=1772686837'
+      %}
+
+    {%- when 'new-s3-max' -%}
+      {% render 'pdp-manual-row',
+        title: 'Complete User Manual PDF',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/S3_MAX__MANUAL_1.4.pdf'
+      %}
+
+    {%- when 'rainmaker' -%}
+      {% render 'pdp-manual-row',
+        title: 'Complete User Manual PDF',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Rainmaker_Product_Manual_3_rfs.pdf?v=1790748665'
+      %}
+
+    {%- when 'ringer' -%}
+      {% render 'pdp-manual-row',
+        title: 'Complete User Manual PDF',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/RINGER_MANUAL_1.6_1.pdf'
+      %}
+
+    {%- else -%}
+      {% render 'pdp-manual-row',
+        title: 'Quick Start Guide',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Player_Pro_Quick_Start_Guide.pdf?v=1773722566'
+      %}
+      {% render 'pdp-manual-row',
+        title: 'Complete User Manual PDF',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Player_Pro_Product_Manual_1.3_rfs.pdf?v=1782280999'
+      %}
+
+  {%- endcase -%}
+</div>
+
+<style>
+  .pdp-manuals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px 0;
+    width: 100%;
+  }
+
+  .pdp-manuals-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .pdp-manuals-row__title {
+    font-size: 15px;
+    line-height: 1.4;
+    color: #334155;
+    font-weight: 500;
+  }
+
+  /* Manual Download Button pill styling with cta-button */
+  .content-cta.pdp-manuals-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #E2E8F0 !important;
+    color: #1E293B !important;
+    border: 1px solid transparent !important;
+    border-radius: 9999px !important;
+    padding: 8px 18px !important;
+    font-family: 'Blue Tees Subhead', sans-serif !important;
+    font-size: 12px !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    cursor: pointer;
+    text-decoration: none !important;
+    flex-shrink: 0;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease !important;
+  }
+
+  .content-cta.pdp-manuals-btn .content-cta__inner {
+    gap: 6px !important;
+    color: inherit !important;
+  }
+
+  .content-cta.pdp-manuals-btn .content-cta__text {
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .content-cta.pdp-manuals-btn .content-cta__icon {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+  }
+
+  .content-cta.pdp-manuals-btn .content-cta__bg-fill {
+    background-color: #CBD5E1 !important;
+  }
+
+  .content-cta.pdp-manuals-btn:hover {
+    background-color: #CBD5E1 !important;
+    color: #0F172A !important;
+  }
+
+  @media (max-width: 991px) {
+    .pdp-manuals-list {
+      gap: 14px;
+    }
+    .pdp-manuals-row__title {
+      font-size: 14px;
+    }
+    .content-cta.pdp-manuals-btn {
+      padding: 7px 14px !important;
+      font-size: 11px !important;
+    }
+  }
+</style>

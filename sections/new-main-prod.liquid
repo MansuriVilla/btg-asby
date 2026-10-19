@@ -1,0 +1,910 @@
+{%- liquid
+  assign isModal = false
+  if template == 'product.modal'
+    assign isModal = true
+  endif
+-%}
+
+{%- render 'new-pdp-template',
+  product: product,
+  section_id: section.id,
+  blocks: section.blocks,
+
+  image_position: section.settings.image_position,
+  image_container_width: section.settings.image_size,
+  product_zoom_enable: section.settings.product_zoom_enable,
+  sku_enable: section.settings.sku_enable,
+  isModal: isModal,
+  thumbnail_position: section.settings.thumbnail_position,
+  thumbnail_arrows: section.settings.thumbnail_arrows,
+  mobile_layout: section.settings.mobile_layout,
+  video_looping: section.settings.enable_video_looping,
+  video_style: section.settings.product_video_style,
+
+  promo_text: section.settings.promo_text,
+  promo_subtitle: section.settings.promo_subtitle,
+  promo_link: section.settings.promo_link,
+  promo_bg_color: section.settings.promo_bg_color,
+  promo_text_color: section.settings.promo_text_color,
+  promo_bg_image: section.settings.promo_bg_image,
+
+  enable_sticky_bar: section.settings.enable_sticky_bar,
+  sticky_bar_image: section.settings.sticky_bar_image,
+  sticky_bar_title: section.settings.sticky_bar_title,
+  sticky_bar_badge: section.settings.sticky_bar_badge,
+  sticky_nav_1_label: section.settings.sticky_nav_1_label,
+  sticky_nav_1_anchor: section.settings.sticky_nav_1_anchor,
+  sticky_nav_2_label: section.settings.sticky_nav_2_label,
+  sticky_nav_2_anchor: section.settings.sticky_nav_2_anchor,
+  sticky_nav_3_label: section.settings.sticky_nav_3_label,
+  sticky_nav_3_anchor: section.settings.sticky_nav_3_anchor,
+  sticky_nav_4_label: section.settings.sticky_nav_4_label,
+  sticky_nav_4_anchor: section.settings.sticky_nav_4_anchor,
+  sticky_nav_5_label: section.settings.sticky_nav_5_label,
+  sticky_nav_5_anchor: section.settings.sticky_nav_5_anchor
+-%}
+ {% schema %}
+{
+  "name": "New Product Main",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Promo banner (new PDP UI)"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Banner text",
+      "info": "Leave empty to hide the banner."
+    },
+    {
+      "type": "text",
+      "id": "promo_subtitle",
+      "label": "Banner subtitle"
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_bg_image",
+      "label": "Banner background image"
+    },
+    {
+      "type": "url",
+      "id": "promo_link",
+      "label": "Banner link"
+    },
+    {
+      "type": "color",
+      "id": "promo_bg_color",
+      "label": "Banner background",
+      "default": "#0b1220"
+    },
+    {
+      "type": "color",
+      "id": "promo_text_color",
+      "label": "Banner text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "html",
+      "id": "must_watch",
+      "label": "Add Vimeo Video ID For Must Watch Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_review_button",
+      "label": "Check this to hide or show the review button",
+    },
+    {
+      "type": "html",
+      "id": "review_video",
+      "label": "Add Vimeo Video ID For Must Review Button",
+      "visible_if": "{{section.settings.display_review_button}}"
+    },
+    
+    {
+      "type": "checkbox",
+      "id": "show_label",
+      "label": "Show NEW bug above Product Title"
+    },
+      
+    {
+      "type": "checkbox",
+      "id": "sku_enable",
+      "label": "t:sections.main-product.settings.sku_enable.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-product.settings.header_media"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-product.settings.content"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "t:sections.main-product.settings.image_position.label",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.main-product.settings.image_position.options.left.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.main-product.settings.image_position.options.right.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_size",
+      "label": "t:sections.main-product.settings.image_size.label",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.main-product.settings.image_size.options.small.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.main-product.settings.image_size.options.medium.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.main-product.settings.image_size.options.large.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "product_zoom_enable",
+      "label": "t:sections.main-product.settings.product_zoom_enable.label",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "thumbnail_position",
+      "label": "t:sections.main-product.settings.thumbnail_position.label",
+      "default": "beside",
+      "options": [
+        {
+          "value": "beside",
+          "label": "t:sections.main-product.settings.thumbnail_position.options.beside.label"
+        },
+        {
+          "value": "below",
+          "label": "t:sections.main-product.settings.thumbnail_position.options.below.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "thumbnail_arrows",
+      "label": "t:sections.main-product.settings.thumbnail_arrows.label"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "t:sections.main-product.settings.mobile_layout.label",
+      "default": "partial",
+      "options": [
+        {
+          "value": "partial",
+          "label": "t:sections.main-product.settings.mobile_layout.options.partial.label"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.main-product.settings.mobile_layout.options.full.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "t:sections.main-product.settings.enable_video_looping.label",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "product_video_style",
+      "label": "t:sections.main-product.settings.product_video_style.label",
+      "default": "muted",
+      "options": [
+        {
+          "value": "muted",
+          "label": "t:sections.main-product.settings.product_video_style.options.muted.label"
+        },
+        {
+          "value": "unmuted",
+          "label": "t:sections.main-product.settings.product_video_style.options.unmuted.label"
+        }
+      ],
+      "info": "t:sections.main-product.settings.product_video_style.info"
+    },
+    {
+      "type": "header",
+      "content": "Sticky Navigation Bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_bar",
+      "label": "Enable Sticky Bar",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "sticky_bar_image",
+      "label": "Custom Sticky Bar Product Image",
+      "info": "Overrides product featured image thumbnail"
+    },
+    {
+      "type": "text",
+      "id": "sticky_bar_title",
+      "label": "Custom Product Title",
+      "info": "Leave blank to use the product title"
+    },
+    {
+      "type": "text",
+      "id": "sticky_bar_badge",
+      "label": "Custom Badge Text",
+      "info": "Leave blank if no badge needed (e.g. PRO)"
+    },
+    {
+      "type": "header",
+      "content": "Sticky Bar Nav Links"
+    },
+    {
+      "type": "text",
+      "id": "sticky_nav_1_label",
+      "label": "Nav Link 1 Label",
+      "default": "HARDWARE"
+    },
+    {
+      "type": "text",
+      "id": "sticky_nav_1_anchor",
+      "label": "Nav Link 1 Anchor ID",
+      "default": "hardware",
+      "info": "Section ID without '#'"
+    },
+    {
+      "type": "text",
+      "id": "sticky_nav_2_label",
+      "label": "Nav Link 2 Label",
+      "default": "FEATURES"
+    },
+    {
+      "type": "text",
+      "id": "sticky_nav_2_anchor",
+      "label": "Nav Link 2 Anchor ID",
+      "default": "features",
+      "info": "Section ID without '#'"
+    },
+    {
+      "type": "text",
+      "id": "sticky_nav_3_label",
+      "label": "Nav Link 3 Label",
+      "default": "GAME AI"
+    },
+    {
+      "type": "text",
+      "id": "sticky_nav_3_anchor",
+      "label": "Nav Link 3 Anchor ID",
+      "default": "game-ai",
+      "info": "Section ID without '#'"
+    },
+    {
+      "type": "text",
+      "id": "sticky_nav_4_label",
+      "label": "Nav Link 4 Label",
+      "default": "FAQS"
+    },
+    {
+      "type": "text",
+      "id": "sticky_nav_4_anchor",
+      "label": "Nav Link 4 Anchor ID",
+      "default": "faqs",
+      "info": "Section ID without '#'"
+    },
+    {
+      "type": "text",
+      "id": "sticky_nav_5_label",
+      "label": "Nav Link 5 Label",
+      "default": "REVIEWS"
+    },
+    {
+      "type": "text",
+      "id": "sticky_nav_5_anchor",
+      "label": "Nav Link 5 Anchor ID",
+      "default": "reviews",
+      "info": "Section ID without '#'"
+    }
+  ],
+  "blocks": [
+  {
+    "type": "@app"
+  },
+  {
+    "type": "pdp_header",
+    "name": "PDP: Price & reviews",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Show product title",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_rating",
+        "label": "Show customer reviews link",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "gift_text",
+        "label": "Gift line",
+        "default": "Includes Free Gift"
+      }
+    ]
+  },
+  {
+    "type": "pdp_tabs",
+    "name": "PDP: Overview tabs",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "text",
+        "id": "overview_label",
+        "label": "Overview tab label",
+        "default": "Overview"
+      },
+      {
+        "type": "richtext",
+        "id": "overview_content",
+        "label": "Overview tab content",
+        "info": "Leave blank to use default Product Description."
+      },
+      {
+        "type": "paragraph",
+        "content": "Add 'Tab' blocks below this block for Features, What's Included, Manual, etc."
+      }
+    ]
+  },
+  {
+    "type": "select_player",
+    "name": "Select a Player",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Select a Player"
+      },
+      {
+        "type": "product",
+        "id": "product_1",
+        "label": "Product 1"
+      },
+      {
+        "type": "text",
+        "id": "sub_1",
+        "label": "Subtitle 1 (optional)"
+      },
+      {
+        "type": "product",
+        "id": "product_2",
+        "label": "Product 2"
+      },
+      {
+        "type": "text",
+        "id": "sub_2",
+        "label": "Subtitle 2 (optional)"
+      },
+      {
+        "type": "product",
+        "id": "product_3",
+        "label": "Product 3"
+      },
+      {
+        "type": "text",
+        "id": "sub_3",
+        "label": "Subtitle 3 (optional)"
+      }
+    ]
+  },
+  {
+    "type": "feature_gps",
+    "name": "Feature card: GPS",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "FCB GPS Distances<br>and Hazards"
+      },
+      {
+        "type": "text",
+        "id": "badge",
+        "label": "Badge",
+        "default": "Included"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Free for life | No subscription required"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Main image"
+      },
+      {
+        "type": "image_picker",
+        "id": "feature_1_icon",
+        "label": "Feature 1 icon"
+      },
+      {
+        "type": "text",
+        "id": "feature_1_label",
+        "label": "Feature 1 label"
+      },
+      {
+        "type": "image_picker",
+        "id": "feature_2_icon",
+        "label": "Feature 2 icon"
+      },
+      {
+        "type": "text",
+        "id": "feature_2_label",
+        "label": "Feature 2 label"
+      },
+      {
+        "type": "image_picker",
+        "id": "feature_3_icon",
+        "label": "Feature 3 icon"
+      },
+      {
+        "type": "text",
+        "id": "feature_3_label",
+        "label": "Feature 3 label"
+      }
+    ]
+  },
+  {
+    "type": "feature_ai",
+    "name": "Feature card: GameAI",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title (HTML allowed)",
+        "default": "<em>Game</em>AI<br>Intelligence Package"
+      },
+      {
+        "type": "text",
+        "id": "badge",
+        "label": "Badge",
+        "default": "Included"
+      },
+      {
+        "type": "text",
+        "id": "promo_text",
+        "label": "Promo text",
+        "default": "6 months free"
+      },
+      {
+        "type": "text",
+        "id": "old_price",
+        "label": "Old price (struck through)",
+        "default": "$39.50"
+      },
+      {
+        "type": "image_picker",
+        "id": "media_image",
+        "label": "Media image / video poster"
+      },
+      {
+        "type": "url",
+        "id": "video_url",
+        "label": "Video URL (.mp4)",
+        "info": "Opens inline when the button is clicked."
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link (used when no video)"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text",
+        "default": "Learn more"
+      },
+      {
+        "type": "image_picker",
+        "id": "feature_1_icon",
+        "label": "Feature 1 icon"
+      },
+      {
+        "type": "text",
+        "id": "feature_1_label",
+        "label": "Feature 1 label"
+      },
+      {
+        "type": "image_picker",
+        "id": "feature_2_icon",
+        "label": "Feature 2 icon"
+      },
+      {
+        "type": "text",
+        "id": "feature_2_label",
+        "label": "Feature 2 label"
+      },
+      {
+        "type": "image_picker",
+        "id": "feature_3_icon",
+        "label": "Feature 3 icon"
+      },
+      {
+        "type": "text",
+        "id": "feature_3_label",
+        "label": "Feature 3 label"
+      },
+      {
+        "type": "image_picker",
+        "id": "feature_4_icon",
+        "label": "Feature 4 icon"
+      },
+      {
+        "type": "text",
+        "id": "feature_4_label",
+        "label": "Feature 4 label"
+      }
+    ]
+  },
+  {
+    "type": "save_accessories",
+    "name": "Save on Accessories",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Save on Accessories"
+      },
+      {
+        "type": "product",
+        "id": "product_1",
+        "label": "Accessory 1"
+      },
+      {
+        "type": "text",
+        "id": "sub_1",
+        "label": "Subtitle 1 (optional)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_modal_1",
+        "label": "Open details in modal (popup)",
+        "default": true
+      },
+      {
+        "type": "product",
+        "id": "product_2",
+        "label": "Accessory 2"
+      },
+      {
+        "type": "text",
+        "id": "sub_2",
+        "label": "Subtitle 2 (optional)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_modal_2",
+        "label": "Open details in modal (popup)",
+        "default": true
+      },
+      {
+        "type": "product",
+        "id": "product_3",
+        "label": "Accessory 3"
+      },
+      {
+        "type": "text",
+        "id": "sub_3",
+        "label": "Subtitle 3 (optional)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_modal_3",
+        "label": "Open details in modal (popup)",
+        "default": true
+      },
+      {
+        "type": "product",
+        "id": "product_4",
+        "label": "Accessory 4"
+      },
+      {
+        "type": "text",
+        "id": "sub_4",
+        "label": "Subtitle 4 (optional)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_modal_4",
+        "label": "Open details in modal (popup)",
+        "default": true
+      }
+    ]
+  },
+  {
+    "type": "protect_player",
+    "name": "Protect your Player",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Protect your Player"
+      },
+      {
+        "type": "product",
+        "id": "product_1",
+        "label": "Protection plan 1"
+      },
+      {
+        "type": "textarea",
+        "id": "features_1",
+        "label": "Benefits 1 (one per line)"
+      },
+      {
+        "type": "product",
+        "id": "product_2",
+        "label": "Protection plan 2"
+      },
+      {
+        "type": "textarea",
+        "id": "features_2",
+        "label": "Benefits 2 (one per line)"
+      }
+    ]
+  },
+  {
+    "type": "pdp_sticky_cta",
+    "name": "PDP: Add to cart + badges",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_dynamic_checkout",
+        "label": "Show dynamic checkout buttons",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "pre_order",
+        "label": "Pre-order state",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "cta_note_text",
+        "label": "Note text"
+      },
+      {
+        "type": "text",
+        "id": "badge_1",
+        "label": "Badge 1",
+        "default": "Free shipping over $50"
+      },
+      {
+        "type": "text",
+        "id": "badge_2",
+        "label": "Badge 2",
+        "default": "100 day risk-free trial"
+      }
+    ]
+  },
+  {
+    "type": "price",
+    "name": "t:product_block.price.name",
+    "limit": 1
+  },
+  {
+    "type": "quantity_selector",
+    "name": "t:product_block.quantity_selector.name",
+    "limit": 1
+  },
+  {
+    "type": "variant_picker",
+    "name": "t:product_block.variant_picker.name",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "page",
+        "id": "size_chart",
+        "label": "t:product_block.variant_picker.settings.size_chart.label"
+      },
+      {
+        "type": "checkbox",
+        "id": "variant_labels",
+        "label": "t:product_block.variant_picker.settings.variant_labels.label",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "picker_type",
+        "label": "t:product_block.variant_picker.settings.picker_type.label",
+        "options": [
+          {
+            "value": "button",
+            "label": "t:product_block.variant_picker.settings.picker_type.options.button.label"
+          },
+          {
+            "value": "dropdown",
+            "label": "t:product_block.variant_picker.settings.picker_type.options.dropdown.label"
+          }
+        ],
+        "default": "button"
+      },
+      {
+        "type": "checkbox",
+        "id": "color_swatches",
+        "label": "t:product_block.variant_picker.settings.color_swatches.label",
+        "info": "t:product_block.variant_picker.settings.color_swatches.info"
+      }
+    ]
+  },
+  {
+    "type": "description",
+    "name": "t:product_block.description.name",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "is_tab",
+        "label": "t:product_block.description.settings.is_tab.label"
+      }
+    ]
+  },
+  {
+    "type": "buy_buttons",
+    "name": "t:product_block.buy_buttons.name",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_dynamic_checkout",
+        "label": "t:product_block.buy_buttons.settings.show_dynamic_checkout.label",
+        "info": "t:product_block.buy_buttons.settings.show_dynamic_checkout.info",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "surface_pickup_enable",
+        "label": "t:product_block.buy_buttons.settings.surface_pickup_enable.label",
+        "info": "t:product_block.buy_buttons.settings.surface_pickup_enable.info",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "pre_order",
+        "label": "Check This To Change CTA To Pre-order State",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "cta_note_text",
+        "label": "Note Text",
+        "info": "This will override any exsiting text."
+      }
+    ]
+  },
+  {
+    "type": "inventory_status",
+    "name": "t:product_block.inventory_status.name",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "range",
+        "id": "inventory_threshold",
+        "label": "t:product_block.inventory_status.settings.inventory_threshold.label",
+        "default": 10,
+        "min": 0,
+        "max": 20,
+        "step": 2
+      },
+      {
+        "type": "checkbox",
+        "id": "inventory_transfers_enable",
+        "label": "t:product_block.inventory_status.settings.inventory_transfers_enable.label",
+        "info": "t:product_block.inventory_status.settings.inventory_transfers_enable.info",
+        "default": true
+      }
+    ]
+  },
+  {
+    "type": "text",
+    "name": "t:product_block.text.name",
+    "settings": [
+      {
+        "type": "text",
+        "id": "text",
+        "default": "Text block",
+        "label": "t:product_block.text.settings.text.label"
+      }
+    ]
+  },
+  {
+    "type": "tab",
+    "name": "t:product_block.tab.name",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "t:product_block.tab.settings.title.label",
+        "default": "Shipping information"
+      },
+      {
+        "type": "liquid",
+        "id": "content",
+        "label": "t:product_block.tab.settings.content.label",
+        "default": "{%render 'pdp-feature-content' %}"
+      },
+      {
+        "type": "page",
+        "id": "page",
+        "label": "t:product_block.tab.settings.page.label"
+      }
+    ]
+  },
+  {
+    "type": "share",
+    "name": "t:product_block.share_on_social.name",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "t:product_block.share_on_social.settings.content"
+      }
+    ]
+  },
+  {
+    "type": "separator",
+    "name": "t:product_block.separator.name"
+  },
+  {
+    "type": "contact",
+    "name": "t:product_block.contact_form.name",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "t:product_block.contact_form.settings.content"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "t:product_block.contact_form.settings.title.label",
+        "default": "Ask a question"
+      },
+      {
+        "type": "checkbox",
+        "id": "phone",
+        "label": "t:product_block.contact_form.settings.phone.label"
+      }
+    ]
+  }
+]
+}
+{% endschema %}
+

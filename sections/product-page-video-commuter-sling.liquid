@@ -1,4 +1,4 @@
-{% render 'video-scaling-animation', video_url: section.settings.video_url | escape, disable_animation: true %}
+{% render 'video-scaling-animation', video_url: section.settings.video_url, disable_animation: true %}
 
 
 
@@ -14,4 +14,15 @@
         }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'video-scaling-animation', video_url: section.settings.video_url
+    | escape, disable_animation: true %}"
+  to: "{% render 'video-scaling-animation', video_url: section.settings.video_url,
+    disable_animation: true %}"
+  position: 0..102
+{%- endcomment -%}

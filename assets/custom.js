@@ -91,7 +91,13 @@ document.addEventListener("DOMContentLoaded", function () {
               link.href = url.toString();
 
               if (link.classList.contains('content-cta') || link.classList.contains('item-cta__button')) {
-                link.textContent = isAvailable ? 'SHOP NOW' : 'SOLD OUT';
+                const textEl = link.querySelector('.content-cta__text');
+                const targetText = isAvailable ? 'SHOP NOW' : 'SOLD OUT';
+                if (textEl) {
+                  textEl.textContent = targetText;
+                } else {
+                  link.textContent = targetText;
+                }
                 link.classList.toggle('product-sold_cta', !isAvailable);
               }
             } catch (err) {

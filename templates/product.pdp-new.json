@@ -1,0 +1,1071 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "new-main-prod",
+      "blocks": {
+        "pdp_header": {
+          "type": "pdp_header",
+          "settings": {
+            "show_title": true,
+            "show_rating": true,
+            "gift_text": "Includes Free Gift"
+          }
+        },
+        "pdp_tabs": {
+          "type": "pdp_tabs",
+          "settings": {
+            "overview_label": "Overview",
+            "overview_content": "<p>Player Pro pushes the golf speaker into a new category to become your complete on-course companion.</p>"
+          }
+        },
+        "tab_features": {
+          "type": "tab",
+          "settings": {
+            "title": "Features",
+            "content": "<p>Add the featussdfdre list here.</p>",
+            "page": ""
+          }
+        },
+        "tab_included": {
+          "type": "tab",
+          "settings": {
+            "title": "What's Included",
+            "content": "<p>Add what's in the box here.</p>",
+            "page": ""
+          }
+        },
+        "tab_manual": {
+          "type": "tab",
+          "settings": {
+            "title": "Manual",
+            "content": "<p>Add the manual link here.</p>",
+            "page": ""
+          }
+        },
+        "select_player": {
+          "type": "select_player",
+          "settings": {
+            "heading": "Select a Player",
+            "product_1": "new-pdp-v1",
+            "sub_1": "GPS. Music. Made for golf",
+            "product_2": "rainmaker",
+            "sub_2": "Bigger. Louder. Smarter.",
+            "product_3": "",
+            "sub_3": ""
+          }
+        },
+        "feature_gps": {
+          "type": "feature_gps",
+          "settings": {
+            "title": "FCB GPS Distancesand Hazards",
+            "badge": "Included",
+            "subtitle": "Free for life | No subscription required",
+            "image": "shopify://shop_images/Frame_1410105683.png",
+            "feature_1_icon": "shopify://shop_images/Group_1000012680.svg",
+            "feature_1_label": "Front, Center & Back",
+            "feature_2_icon": "shopify://shop_images/Frame_1410105955.svg",
+            "feature_2_label": "Bunkers & Water",
+            "feature_3_icon": "shopify://shop_images/Frame_1410105953.svg",
+            "feature_3_label": "End of Fairway"
+          }
+        },
+        "feature_ai": {
+          "type": "feature_ai",
+          "settings": {
+            "title": "GameAIIntelligence Package",
+            "badge": "Included",
+            "promo_text": "6 months free",
+            "old_price": "$39.50",
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/30033d36ee4e40cb86f4095b58588b0b.mp4",
+            "button_link": "",
+            "button_text": "Learn more",
+            "feature_1_icon": "shopify://shop_images/Widgets_Icons.svg",
+            "feature_1_label": "True Distance™ Yardages",
+            "feature_2_icon": "shopify://shop_images/Group_4438963e-306a-4f0d-a9a8-2061362efde6.svg",
+            "feature_2_label": "AI Club Recommendations",
+            "feature_3_icon": "shopify://shop_images/Group_1000011873.svg",
+            "feature_3_label": "Scout AI Caddie™",
+            "feature_4_icon": "shopify://shop_images/Golf.svg",
+            "feature_4_label": "Post-Game Analytics"
+          }
+        },
+        "save_accessories": {
+          "type": "save_accessories",
+          "settings": {
+            "heading": "Save on Accessories",
+            "product_1": "magnetic-golf-towel",
+            "sub_1": "",
+            "enable_modal_1": true,
+            "product_2": "magnetic-hub",
+            "sub_2": "",
+            "enable_modal_2": true,
+            "product_3": "",
+            "sub_3": "",
+            "enable_modal_3": true,
+            "product_4": "",
+            "sub_4": "",
+            "enable_modal_4": true
+          }
+        },
+        "protect_player": {
+          "type": "protect_player",
+          "settings": {
+            "heading": "Protect your Player",
+            "product_1": "blue-tees-care",
+            "features_1": "Accidental Coverage\nPriority Support\nTrade-Up Program\n2 Year Warranty",
+            "product_2": "",
+            "features_2": ""
+          }
+        },
+        "pdp_sticky_cta": {
+          "type": "pdp_sticky_cta",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "pre_order": false,
+            "cta_note_text": "",
+            "badge_1": "Free shipping over $50",
+            "badge_2": "100 day risk-free trial"
+          }
+        }
+      },
+      "block_order": [
+        "pdp_header",
+        "pdp_tabs",
+        "tab_features",
+        "tab_included",
+        "tab_manual",
+        "select_player",
+        "feature_gps",
+        "feature_ai",
+        "save_accessories",
+        "protect_player",
+        "pdp_sticky_cta"
+      ],
+      "settings": {
+        "promo_text": "LABOR DAY SALE: $20 OFF",
+        "promo_subtitle": "With Purchase of $199.99 or more",
+        "promo_bg_image": "shopify://shop_images/popup-promo.webp",
+        "promo_link": "",
+        "promo_bg_color": "#ffffff",
+        "promo_text_color": "#ffffff",
+        "must_watch": "",
+        "display_review_button": false,
+        "review_video": "",
+        "show_label": false,
+        "sku_enable": true,
+        "image_position": "left",
+        "image_size": "large",
+        "product_zoom_enable": true,
+        "thumbnail_position": "below",
+        "thumbnail_arrows": true,
+        "mobile_layout": "full",
+        "enable_video_looping": true,
+        "product_video_style": "muted",
+        "enable_sticky_bar": true,
+        "sticky_bar_title": "",
+        "sticky_bar_badge": "",
+        "sticky_nav_1_label": "HARDWARE",
+        "sticky_nav_1_anchor": "hardware",
+        "sticky_nav_2_label": "FEATURES",
+        "sticky_nav_2_anchor": "features",
+        "sticky_nav_3_label": "GAME AI",
+        "sticky_nav_3_anchor": "game-ai",
+        "sticky_nav_4_label": "FAQS",
+        "sticky_nav_4_anchor": "faqs",
+        "sticky_nav_5_label": "REVIEWS",
+        "sticky_nav_5_anchor": "reviews"
+      }
+    },
+    "comp_3d_model_explorer_mN8XyA": {
+      "type": "comp-3d-model-explorer",
+      "blocks": {
+        "hotspot_69MVdM": {
+          "type": "hotspot",
+          "settings": {
+            "title": "Touchscreen Display",
+            "visible_view": "front",
+            "hotspot_position_exact": "",
+            "hotspot_normal_exact": "",
+            "pos_x": 4,
+            "pos_y": 0,
+            "pos_z": 0,
+            "norm_x": 0,
+            "norm_y": 0,
+            "norm_z": 100,
+            "static_top": 5,
+            "static_left": 95,
+            "drawer_hero_image": "shopify://shop_images/video_block32.webp",
+            "drawer_hero_video": "",
+            "drawer_title": "ELEVATE YOUR GAME",
+            "drawer_subtitle": "Player Pro delivers ultra-rapid wireless display. The entire system works seamlessly together.",
+            "card_1_image": "shopify://shop_images/Frame_2085664384.webp",
+            "card_1_title": "FRONT, CENTER, BACK GPS DISTANCES",
+            "card_1_desc": "Instantly view FCB yardages across 42,000+ courses to dial in every shot with confidence, wherever you play, round after round.",
+            "card_2_image": "shopify://shop_images/Frame_2085664383.webp",
+            "card_2_title": "SHOT DISTANCE TRACKING",
+            "card_2_desc": "Automatically track the distance of every shot to measure performance, dial in your yardages, and play with more confidence—all directly on your screen.",
+            "card_3_image": "shopify://shop_images/Frame_2085664382.webp",
+            "card_3_title": "DYNAMIC HAZARD DISTANCES",
+            "card_3_desc": "Get real-time distances to bunkers, water, trees, and trouble. Every hazard is mapped and surfaced clearly, helping you navigate the course with smarter decisions.",
+            "highlight_title": "",
+            "highlight_desc": "",
+            "highlight_video_url": "https://cdn.shopify.com/videos/c/o/v/9332cf75afbe41a9bca83d732d2074c4.mp4",
+            "card_4_image": "shopify://shop_images/Frame_2085664387.webp",
+            "card_4_title": "On-Device Scoring",
+            "card_4_desc": "Keep score without pulling out your phone. Track your round shot-by-shot with an intuitive, full-color interface.",
+            "card_5_image": "shopify://shop_images/Frame_2085664386.webp",
+            "card_5_title": "Clock + Round Timer",
+            "card_5_desc": "Stay on pace and in rhythm with an integrated clock and hole-by-hole round timer designed for focus and flow.",
+            "card_6_image": "shopify://shop_images/Frame_2085664385.webp",
+            "card_6_title": "MUSIC PLAYER with album art",
+            "card_6_desc": "Get real-time distances to bunkers, water, trees, and trouble. Every hazard is mapped and surfaced clearly, helping you navigate the course with smarter decisions."
+          }
+        },
+        "hotspot_wjaxkY": {
+          "type": "hotspot",
+          "settings": {
+            "title": "ACTION BUTTON",
+            "visible_view": "front",
+            "hotspot_position_exact": "",
+            "hotspot_normal_exact": "",
+            "pos_x": 4,
+            "pos_y": -6,
+            "pos_z": 0,
+            "norm_x": 0,
+            "norm_y": 0,
+            "norm_z": 0,
+            "static_top": 35,
+            "static_left": 35,
+            "drawer_hero_image": "shopify://shop_images/popup-promo.webp",
+            "drawer_hero_video": "",
+            "drawer_title": "ELEVATE YOUR GAME",
+            "drawer_subtitle": "Player Pro delivers ultra-rapid wireless display. The entire system works seamlessly together.",
+            "card_1_title": "",
+            "card_1_desc": "",
+            "card_2_title": "",
+            "card_2_desc": "",
+            "card_3_title": "",
+            "card_3_desc": "",
+            "highlight_title": "",
+            "highlight_desc": "",
+            "highlight_video_url": "",
+            "card_4_title": "",
+            "card_4_desc": "",
+            "card_5_title": "",
+            "card_5_desc": "",
+            "card_6_title": "",
+            "card_6_desc": ""
+          }
+        },
+        "hotspot_KPR9Cc": {
+          "type": "hotspot",
+          "settings": {
+            "title": "MAGNET",
+            "visible_view": "back",
+            "hotspot_position_exact": "",
+            "hotspot_normal_exact": "",
+            "pos_x": -2,
+            "pos_y": 0,
+            "pos_z": 0,
+            "norm_x": 0,
+            "norm_y": 0,
+            "norm_z": 0,
+            "static_top": 55,
+            "static_left": 65,
+            "drawer_hero_image": "shopify://shop_images/UGC.webp",
+            "drawer_hero_video": "",
+            "drawer_title": "ELEVATE YOUR GAME",
+            "drawer_subtitle": "Player Pro delivers ultra-rapid wireless display. The entire system works seamlessly together.",
+            "card_1_title": "",
+            "card_1_desc": "",
+            "card_2_title": "",
+            "card_2_desc": "",
+            "card_3_title": "",
+            "card_3_desc": "",
+            "highlight_title": "",
+            "highlight_desc": "",
+            "highlight_video_url": "https://cdn.shopify.com/videos/c/o/v/9332cf75afbe41a9bca83d732d2074c4.mp4",
+            "card_4_title": "",
+            "card_4_desc": "",
+            "card_5_title": "",
+            "card_5_desc": "",
+            "card_6_title": "",
+            "card_6_desc": ""
+          }
+        },
+        "hotspot_cLd4Q4": {
+          "type": "hotspot",
+          "settings": {
+            "title": "AURACAST™",
+            "visible_view": "side",
+            "hotspot_position_exact": "",
+            "hotspot_normal_exact": "",
+            "pos_x": -4,
+            "pos_y": 4,
+            "pos_z": 2,
+            "norm_x": 0,
+            "norm_y": 0,
+            "norm_z": 0,
+            "static_top": 78,
+            "static_left": 50,
+            "drawer_hero_image": "shopify://shop_images/Labor_Day_Sale_Banner_HOME_page_desktop-2.webp",
+            "drawer_hero_video": "",
+            "drawer_title": "ELEVATE YOUR GAME",
+            "drawer_subtitle": "Player Pro delivers ultra-rapid wireless display. The entire system works seamlessly together.",
+            "card_1_title": "",
+            "card_1_desc": "",
+            "card_2_title": "",
+            "card_2_desc": "",
+            "card_3_title": "",
+            "card_3_desc": "",
+            "highlight_title": "",
+            "highlight_desc": "",
+            "highlight_video_url": "",
+            "card_4_title": "",
+            "card_4_desc": "",
+            "card_5_title": "",
+            "card_5_desc": "",
+            "card_6_title": "",
+            "card_6_desc": ""
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_69MVdM",
+        "hotspot_wjaxkY",
+        "hotspot_KPR9Cc",
+        "hotspot_cLd4Q4"
+      ],
+      "name": "Comp 3D Model Explorer",
+      "settings": {
+        "custom_section_id": "hardware",
+        "heading": "EXPLORE PLAYER PRO",
+        "bg_watermark_image": "shopify://shop_images/Frame_1410105863.svg",
+        "model_glb_url": "https://cdn.shopify.com/3d/models/ac63c71c6c6e8b4a/Player_Pro_001.glb",
+        "enable_user_rotation": false,
+        "pill_front_label": "FRONT",
+        "angle_front_deg": 0,
+        "angle_front_pitch": 90,
+        "pill_side_label": "SIDE",
+        "angle_side_deg": -90,
+        "angle_side_pitch": 90,
+        "pill_back_label": "BACK",
+        "angle_back_deg": -180,
+        "angle_back_pitch": 90
+      }
+    },
+    "new_comp_video_6bJyzd": {
+      "type": "new-comp-video",
+      "name": "New Video Component",
+      "settings": {
+        "custom_section_id": "",
+        "subheading": "",
+        "heading": "",
+        "video_file": "shopify://files/videos/2026 Bbq Teaser.mp4",
+        "video_url": "",
+        "background_color": "#101216",
+        "gradient_bg": "linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(27, 30, 34, 1) 100%)",
+        "max_width": 1240,
+        "border_radius": 16,
+        "padding_top": 60,
+        "padding_bottom": 80
+      }
+    },
+    "comp_screen_showcase_AmAzCK": {
+      "type": "comp-screen-showcase",
+      "blocks": {
+        "screen_item_ngb3bH": {
+          "type": "screen_item",
+          "settings": {
+            "screen_image": "shopify://shop_images/Active_Score_Display_ScreeN.webp",
+            "feature_title": "SCORECARD",
+            "feature_description": "Get a complete visual layout of every hole, right on your Player Pro screen. From tee to green, Hole View reveals fairway shape, key landing areas, hazards, and green position—so you can plan every shot with confidence.",
+            "feature_video": "shopify://files/videos/3 with Caption 02.mp4"
+          }
+        },
+        "screen_item_8hPYhb": {
+          "type": "screen_item",
+          "settings": {
+            "screen_image": "shopify://shop_images/Shot_Distance_Calculator.webp",
+            "feature_title": "GPS DISTANCES",
+            "feature_description": "Get a complete visual layout of every hole, right on your Player Pro screen. From tee to green, Hole View reveals fairway shape, key landing areas, hazards, and green position—so you can plan every shot with confidence.",
+            "feature_video": "shopify://files/videos/cf337733850640248a4dc44250247f5f.mp4"
+          }
+        },
+        "screen_item_3H4NTe": {
+          "type": "screen_item",
+          "settings": {
+            "screen_image": "shopify://shop_images/Course_View_-_default.webp",
+            "feature_title": "DYNAMIC HOLE VIEW",
+            "feature_description": "Get a complete visual layout of every hole, right on your Player Pro screen. From tee to green, Hole View reveals fairway shape, key landing areas, hazards, and green position—so you can plan every shot with confidence.",
+            "feature_video": "shopify://files/videos/dad4792dbc5a4dd19d0cf765707f97d3.HD-1080p-2.mp4"
+          }
+        },
+        "screen_item_GDREaH": {
+          "type": "screen_item",
+          "settings": {
+            "screen_image": "shopify://shop_images/Green_View_-_Idle.webp",
+            "feature_title": "GREEN HEATMAP",
+            "feature_description": "Get a complete visual layout of every hole, right on your Player Pro screen. From tee to green, Hole View reveals fairway shape, key landing areas, hazards, and green position—so you can plan every shot with confidence.",
+            "feature_video": "shopify://files/videos/2.mp4.mp4"
+          }
+        },
+        "screen_item_YhwqJP": {
+          "type": "screen_item",
+          "settings": {
+            "screen_image": "shopify://shop_images/Shot_Distance_Calculator.webp",
+            "feature_title": "SHOT DISTANCE",
+            "feature_description": "Get a complete visual layout of every hole, right on your Player Pro screen. From tee to green, Hole View reveals fairway shape, key landing areas, hazards, and green position—so you can plan every shot with confidence.",
+            "feature_video": "shopify://files/videos/1-Raw.mp4"
+          }
+        }
+      },
+      "block_order": [
+        "screen_item_ngb3bH",
+        "screen_item_8hPYhb",
+        "screen_item_3H4NTe",
+        "screen_item_GDREaH",
+        "screen_item_YhwqJP"
+      ],
+      "name": "Screen Showcase Slider",
+      "settings": {
+        "custom_section_id": "features",
+        "heading": "MORE DATA. SMARTER ROUNDS.",
+        "description": "A bright, high-resolution touchscreen makes your GPS and gameplay data feel alive. With crisp visuals and intuitive controls, everything you need is right where you'd expect it—just tap, swipe, and play.",
+        "product_cutout_image": "shopify://shop_images/Frame_2085664380.png",
+        "screen_top": 18,
+        "screen_left": 24,
+        "screen_width": 52,
+        "screen_height": 64,
+        "screen_radius": 16,
+        "bg_color": "#1b1e22",
+        "gradient_bg": "",
+        "padding_top": 70,
+        "padding_bottom": 90,
+        "max_width": 1320
+      }
+    },
+    "comp_logo_ticker_YntKrG": {
+      "type": "comp-logo-ticker",
+      "blocks": {
+        "logo_QRhcgn": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1410105875.webp",
+            "link": ""
+          }
+        },
+        "logo_xAYiHT": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1410105872.webp",
+            "link": ""
+          }
+        },
+        "logo_GVLEhH": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1410105870.webp",
+            "link": ""
+          }
+        },
+        "logo_4h68pD": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1410105873.webp",
+            "link": ""
+          }
+        },
+        "logo_6zL8f8": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1410105871.webp",
+            "link": ""
+          }
+        },
+        "logo_eHrNdW": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1410105874.webp",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_QRhcgn",
+        "logo_xAYiHT",
+        "logo_GVLEhH",
+        "logo_4h68pD",
+        "logo_6zL8f8",
+        "logo_eHrNdW"
+      ],
+      "name": "Logo Ticker Banner",
+      "settings": {
+        "custom_section_id": "",
+        "bg_color": "#1b1e22",
+        "speed": 40,
+        "logo_height": 250,
+        "gap": 40,
+        "pause_on_hover": true,
+        "padding_top": 12,
+        "padding_bottom": 10
+      }
+    },
+    "comp_game_ai_4j9YBk": {
+      "type": "comp-game-ai",
+      "blocks": {
+        "feature_card_dqzbA4": {
+          "type": "feature_card",
+          "settings": {
+            "video": "shopify://files/videos/ea6e5fac0b594513ac129c01ef25b43e.mp4",
+            "device_preview": "shopify://shop_images/Group_2085664386.png",
+            "title": "CLUB RECOMMENDATIONS",
+            "description": "AI analyzes your past performance and shot tendencies to recommend the right club for every situation, factoring in distance and course conditions to deliver confident, data-driven decisions."
+          }
+        },
+        "feature_card_eVibXH": {
+          "type": "feature_card",
+          "settings": {
+            "video": "shopify://files/videos/dad4792dbc5a4dd19d0cf765707f97d3.HD-1080p-2.mp4",
+            "device_preview": "shopify://shop_images/Group_2085664388.png",
+            "title": "SCOUT AI™ CADDIE",
+            "description": "Scout AI Caddie analyzes your performance, shot tendencies, and live course data—including weather, elevation, and hazards—to guide every decision. It delivers clear, audible advice right when you need it, offering real-time insights."
+          }
+        },
+        "feature_card_fmzQpe": {
+          "type": "feature_card",
+          "settings": {
+            "video": "shopify://files/videos/a7076c30d83b4a36bb57f7920e982093.mp4",
+            "device_preview": "shopify://shop_images/Group_2085664383.png",
+            "title": "TRUE DISTANCE™ ADJUSTED YARDAGES",
+            "description": "Automatically factors slope, wind, elevation, and temperature into your yardages, giving you real-world numbers you can trust on every swing."
+          }
+        },
+        "feature_card_gWYNtt": {
+          "type": "feature_card",
+          "settings": {
+            "video": "shopify://files/videos/cf337733850640248a4dc44250247f5f.mp4",
+            "device_preview": "shopify://shop_images/Group_2085664384.png",
+            "title": "CLUB RECOMMENDATIONS",
+            "description": "AI analyzes your past performance and shot tendencies to recommend the right club for every situation, factoring in distance and course conditions to deliver confident, data-driven decisions."
+          }
+        }
+      },
+      "block_order": [
+        "feature_card_dqzbA4",
+        "feature_card_eVibXH",
+        "feature_card_fmzQpe",
+        "feature_card_gWYNtt"
+      ],
+      "name": "Game AI Showcase",
+      "settings": {
+        "custom_section_id": "game-ai",
+        "bg_color": "#000000",
+        "bg_gradient": "linear-gradient(180deg, #1B1E22 0%, #000000 100%)",
+        "hero_stage_image": "shopify://shop_images/Frame_1410105420_ae992036-6f79-46e4-b853-afbd99e5e28f.png",
+        "promo_text": "6 MONTHS FREE",
+        "promo_orig_price": "$39.50",
+        "promo_subtext": "INCLUDED WITH PURCHASE",
+        "description": "Player Pro supercharges your round with the power of the GAME app’s integrated AI. By analyzing real-time course data, your positioning, and playing conditions, it delivers you the True Distance™ to the hole, audible caddie advice using Scout AI™, and intelligent Club Recommendations to dial in your game.",
+        "button_text": "",
+        "button_url": "",
+        "padding_top": 80,
+        "padding_bottom": 100
+      }
+    },
+    "comp_lineup_comparison_WYVjAg": {
+      "type": "comp-lineup-comparison",
+      "blocks": {
+        "category_kkwqJ6": {
+          "type": "category",
+          "settings": {
+            "title": "HARDWARE"
+          }
+        },
+        "feature_row_AhTnjH": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "DISPLAY",
+            "val_1_type": "text",
+            "val_1_text": "2.4\" Full-color touchscreen",
+            "val_2_type": "text",
+            "val_2_text": "4.2\" Full-color touchscreen"
+          }
+        },
+        "feature_row_36T6CL": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "AUDIO",
+            "val_1_type": "text",
+            "val_1_text": "2x 48mm 15W Drivers\n2x Passive Radiator\nw/ custom tuning",
+            "val_2_type": "text",
+            "val_2_text": "2x 68mm 15W Racetrack Woofers\n2x 18-coil 5W Tweeters\n2x Passive Radiators"
+          }
+        },
+        "feature_row_iYg3pA": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "WATERPROOF RATING",
+            "val_1_type": "text",
+            "val_1_text": "IPX7",
+            "val_2_type": "text",
+            "val_2_text": "IPX7"
+          }
+        },
+        "feature_row_gFP4t9": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "MAGNETIC CART MOUNT",
+            "val_1_type": "text",
+            "val_1_text": "Heavy-duty magnet",
+            "val_2_type": "text",
+            "val_2_text": "2X Heavy-duty magnet"
+          }
+        },
+        "feature_row_ThYLjy": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "SPLIT SCREEN MODE",
+            "val_1_type": "cross",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_rPapkD": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "BATTERY LIFE",
+            "val_1_type": "text",
+            "val_1_text": "14 Hours",
+            "val_2_type": "text",
+            "val_2_text": "14 Hours"
+          }
+        },
+        "category_MHT4di": {
+          "type": "category",
+          "settings": {
+            "title": "ON-COURSE FEATURES"
+          }
+        },
+        "feature_row_EyJwhn": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "COURSE LIBRARY",
+            "val_1_type": "text",
+            "val_1_text": "42,000+",
+            "val_2_type": "text",
+            "val_2_text": "42,000+"
+          }
+        },
+        "feature_row_fyagpr": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "FCB DISTANCES",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_3GhYY4": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "HAZARD DISTANCES",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_mch7Hi": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "DYNAMIC HOLE VIEW",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_ktrxfj": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "GREEN HEAT MAPS",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_7R7Mh8": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "SCORE DISPLAY",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_BytXJU": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "SHOT DISTANCE CALCULATOR",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_HRiefL": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "ROUND TIMER",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_kipUA9": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "ON-DEVICE SCOREKEEPING",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_QG6Ar3": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "LIVE SPORTS SCORES",
+            "val_1_type": "cross",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "category_WfYrNd": {
+          "type": "category",
+          "settings": {
+            "title": "GAME AI INTELLIGENCE"
+          }
+        },
+        "feature_row_8KjNh6": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "AI CLUB RECOMMENDATIONS",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_7i6cPa": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "SCOUT AI™ CADDIE",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        },
+        "feature_row_A3LkP8": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "TRUE DISTANCE™ ADJUSTED YARDAGES",
+            "val_1_type": "check",
+            "val_1_text": "Value 1",
+            "val_2_type": "check",
+            "val_2_text": "Value 2"
+          }
+        }
+      },
+      "block_order": [
+        "category_kkwqJ6",
+        "feature_row_AhTnjH",
+        "feature_row_36T6CL",
+        "feature_row_iYg3pA",
+        "feature_row_gFP4t9",
+        "feature_row_ThYLjy",
+        "feature_row_rPapkD",
+        "category_MHT4di",
+        "feature_row_EyJwhn",
+        "feature_row_fyagpr",
+        "feature_row_3GhYY4",
+        "feature_row_mch7Hi",
+        "feature_row_ktrxfj",
+        "feature_row_7R7Mh8",
+        "feature_row_BytXJU",
+        "feature_row_HRiefL",
+        "feature_row_kipUA9",
+        "feature_row_QG6Ar3",
+        "category_WfYrNd",
+        "feature_row_8KjNh6",
+        "feature_row_7i6cPa",
+        "feature_row_A3LkP8"
+      ],
+      "name": "Lineup Comparison Table",
+      "settings": {
+        "custom_section_id": "",
+        "heading": "ONE LINEUP. <br>\nYOUR WAY TO PLAY.",
+        "subtitle": "From essential GPS audio to AI-powered performance, compare the Player family and step into the future of golf speakers.",
+        "product_1": "player-pro",
+        "p1_title": "PLAYER PRO",
+        "p1_price": "$199.99",
+        "p1_image": "shopify://shop_images/Frame_1410105734.webp",
+        "product_2": "",
+        "p2_title": "PLAYER ULTRA",
+        "p2_price": "$299.99",
+        "p2_image": "shopify://shop_images/Frame_1410105733.webp",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "comp_see_it_in_play_PmLXbY": {
+      "type": "comp-see-it-in-play",
+      "blocks": {
+        "product_item_gfqb7g": {
+          "type": "product_item",
+          "settings": {
+            "product": "player-pro",
+            "custom_title": "Player Pro",
+            "subtitle": "Compact golf speaker",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "fallback_asset_img": "player-speaker-img.png",
+            "enable_modal": false,
+            "video": "shopify://files/videos/1-Raw.mp4",
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/0fca515419e743d4a7ed6047598c316c.mp4",
+            "creator_handle": "@ALLIE.GOLFS"
+          }
+        },
+        "product_item_diJgnF": {
+          "type": "product_item",
+          "settings": {
+            "product": "rainmaker",
+            "custom_title": "Icon Series MagTowel",
+            "subtitle": "4-In-1 utility golf towel keeps your clubs and balls clean",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "fallback_asset_img": "mag-towel-img.png",
+            "enable_modal": false,
+            "video": "shopify://files/videos/2.mp4.mp4",
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/74124ef049424293875aee3998fb37b3.mp4",
+            "creator_handle": "@COURSE.TOUR"
+          }
+        },
+        "product_item_3P4t7i": {
+          "type": "product_item",
+          "settings": {
+            "product": "captain-air",
+            "custom_title": "Divot Tool",
+            "subtitle": "Six Functions In One ultimate divot tool",
+            "custom_price": "",
+            "custom_compare_price": "",
+            "fallback_asset_img": "divot-img1.png",
+            "enable_modal": false,
+            "video": "shopify://files/videos/Captain-Pdps-Must-Watch-Video (1080P)_d49fa6da-147b-464c-bf44-a60b17fd7edf.mp4",
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/a5c1aedc48af44f0a298a83028cd054a.mp4",
+            "creator_handle": "@BLUETEES"
+          }
+        }
+      },
+      "block_order": [
+        "product_item_gfqb7g",
+        "product_item_diJgnF",
+        "product_item_3P4t7i"
+      ],
+      "name": "See It In Play",
+      "settings": {
+        "custom_section_id": "",
+        "heading": "SEE IT IN PLAY",
+        "subtitle": "Real rounds. Real setups. See how Player Pro shows up when it matters most.",
+        "shop_heading": "SHOP THEIR BAG",
+        "background_image": "shopify://shop_images/UGC.webp",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "comp_faq_section_DNaA3D": {
+      "type": "comp-faq-section",
+      "blocks": {
+        "faq_item_64ETdV": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Hardware",
+            "question": "How loud is the 360° audio compared to the Player+?",
+            "answer": "<p>Player Pro uses a redesigned acoustic chamber that pushes sound evenly in all directions, not just forward. It gets significantly louder without distorting, and golfers can hear crisp vocals and bass even when the speaker is mounted on the cart, bag, or behind them on the tee box.</p>",
+            "is_open": true
+          }
+        },
+        "faq_item_Yg7NTw": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Hardware",
+            "question": "Is the Player Pro fully waterproof?",
+            "answer": "<p>Player Pro features an IPX7 waterproof rating, allowing it to withstand heavy rain, splashes, and even submersion in water up to 1 meter for 30 minutes.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_Rww8wz": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Hardware",
+            "question": "How responsive is the touchscreen outdoors?",
+            "answer": "<p>The ultra-bright touchscreen is engineered specifically for outdoor visibility with anti-glare technology and responsive touch even when wearing golf gloves or in damp conditions.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_aGypRB": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Hardware",
+            "question": "What does “unlimited paring via Auracast” mean?",
+            "answer": "<p>Auracast broadcast audio allows you to seamlessly connect an unlimited number of compatible speakers together, synchronizing music across multiple carts and groups across the course.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_bPPNb4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Hardware",
+            "question": "Will the magnet hold on fast-moving carts or rough terrain",
+            "answer": "<p>Engineered with industrial-grade Neodymium magnets, Player Pro locks firmly onto golf cart frames and stays secure over bumpy cart paths and rough terrain.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_PdCB8N": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Hardware",
+            "question": "Do I need to be on golf course to use Player Pro?",
+            "answer": "<p>No! While Player Pro includes course GPS and golfing features, it works as a world-class premium Bluetooth speaker anywhere you go—at the pool, beach, tailgates, or home.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_wCrLCb": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Features",
+            "question": "How does GPS distance tracking work?",
+            "answer": "<p>Player Pro connects to satellites directly to deliver precision yardages to the front, center, and back of greens on over 40,000 courses worldwide.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_dL39kV": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Features",
+            "question": "Can I keep score on the speaker?",
+            "answer": "<p>Yes, you can track your score, putts, and driving accuracy right from the touchscreen and sync it directly to the mobile app.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_wqkDaa": {
+          "type": "faq_item",
+          "settings": {
+            "category": "App",
+            "question": "Is the companion app free?",
+            "answer": "<p>Yes, the Blue Tees Game app is free to download on iOS and Android with full access to 3D course maps and statistics tracking.</p>",
+            "is_open": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_64ETdV",
+        "faq_item_Yg7NTw",
+        "faq_item_Rww8wz",
+        "faq_item_aGypRB",
+        "faq_item_bPPNb4",
+        "faq_item_PdCB8N",
+        "faq_item_wCrLCb",
+        "faq_item_dL39kV",
+        "faq_item_wqkDaa"
+      ],
+      "name": "FAQ Pro Showcase",
+      "settings": {
+        "custom_section_id": "faq",
+        "image": "shopify://shop_images/image_275.webp",
+        "heading": "GOT QUESTIONS?\nWE'VE GOT ANSWERS.",
+        "heading_color": "#0f172a",
+        "tabs": "Hardware,Features,App",
+        "active_tab": "Hardware",
+        "background_color": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "custom_loox_reviews_dhzyVq": {
+      "type": "custom-loox-reviews",
+      "name": "Custom Loox Reviews",
+      "settings": {
+        "custom_section_id": "reviews",
+        "loox_public_store_id": "NkWLIAFhqB.d5f86dbd70a6351c1542d44dc92c1d48efc3128792711cf61e48ee96a56a5273",
+        "heading": "Customer Reviews",
+        "subheading": "",
+        "write_review_text": "Write a Review",
+        "write_review_url": "",
+        "load_more_text": "Load More Reviews",
+        "reviews_limit": 9
+      }
+    },
+    "sub": {
+      "type": "product-full-width",
+      "disabled": true,
+      "settings": {
+        "max_width": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": false,
+        "product_recommendations_heading": "You may also like",
+        "related_count": 5
+      }
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "disabled": true,
+      "settings": {
+        "recent_count": 5
+      }
+    },
+    "collection-return": {
+      "type": "collection-return",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "comp_3d_model_explorer_mN8XyA",
+    "new_comp_video_6bJyzd",
+    "comp_screen_showcase_AmAzCK",
+    "comp_logo_ticker_YntKrG",
+    "comp_game_ai_4j9YBk",
+    "comp_lineup_comparison_WYVjAg",
+    "comp_see_it_in_play_PmLXbY",
+    "comp_faq_section_DNaA3D",
+    "custom_loox_reviews_dhzyVq",
+    "sub",
+    "product-recommendations",
+    "recently-viewed",
+    "collection-return"
+  ]
+}

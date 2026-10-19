@@ -1,0 +1,217 @@
+{% comment %}
+  Component: comp-pdp-header
+  Price row + reviews + free gift line. Keeps the data-* hooks the theme variant JS updates.
+  Usage:
+  {% render 'comp-pdp-header', product: product, current_variant: current_variant, show_title: false, gift_text: 'Includes Free Gift', show_rating: true, isModal: false %}
+{% endcomment %}
+
+{% liquid
+  assign cv = current_variant | default: product.selected_or_first_available_variant
+  assign on_sale = false
+  if cv.compare_at_price > cv.price
+    assign on_sale = true
+  endif
+%}
+
+<div class="comp-pdp-header">
+  {% if show_title %}
+    {% if isModal %}
+      <p class="comp-pdp-header__title product-single__title">{{ product.title }}</p>
+    {% else %}
+      <h1 class="comp-pdp-header__title product-single__title">{{ product.title }}</h1>
+    {% endif %}
+  {% else %}
+    <h1 class="visually-hidden">{{ product.title }}</h1>
+  {% endif %}
+
+  <div class="comp-pdp-header__row">
+    <div class="comp-pdp-header__price-group">
+      <div class="comp-pdp-header__price product__prices">
+        <span data-product-price class="comp-pdp-header__price-main product__price price-main{% if on_sale %} on-sale{% endif %}">
+          {{ cv.price | money_without_trailing_zeros }}
+        </span>
+        <span data-product-price-wrap class="comp-pdp-header__compare-wrap{% unless on_sale %} hide{% endunless %}">
+          <span data-compare-price class="comp-pdp-header__price-compare custom_heading product__price--compare">
+            {%- if on_sale -%}{{ cv.compare_at_price | money_without_trailing_zeros }}{%- endif -%}
+          </span>
+        </span>
+      </div>
+
+      <div class="comp-pdp-header__divider">
+        <span class="comp-pdp-header__divider-line"></span>
+        <span class="comp-pdp-header__divider-text">or</span>
+        <span class="comp-pdp-header__divider-line"></span>
+      </div>
+
+      <div class="comp-pdp-header__afterpay-inline">
+        <div class="comp-pdp-header__afterpay-text">Starting at $50/mo</div>
+        <div class="comp-pdp-header__afterpay-brand">with <span class="comp-pdp-header__afterpay-badge ">Afterpay</span> <span class="comp-pdp-header__afterpay-info after-pay" aria-label="info">ⓘ</span></div>
+      </div>
+    </div>
+
+    <div class="comp-pdp-header__meta">
+      {% if gift_text != blank %}
+        <span class="comp-pdp-header__gift">
+          <svg class="comp-pdp-header__gift-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M15 9V16.5H3V9M9 9V16.5M16.5 6H1.5V9H16.5V6ZM6 6C6 4.34315 7.34315 3 9 3M12 6C12 4.34315 10.6569 3 9 3" stroke="#0149E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ gift_text }}
+        </span>
+      {% endif %}
+      {% if show_rating %}
+        <a href="#looxReviews" class="comp-pdp-header__reviews">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="10" height="10" fill="#282C35"/>
+<path d="M15.8808 7.22953C15.6157 6.9525 15.3415 6.66703 15.2381 6.41602C15.1425 6.18609 15.1369 5.805 15.1312 5.43586C15.1207 4.74961 15.1095 3.97195 14.5687 3.43125C14.028 2.89055 13.2504 2.8793 12.5641 2.86875C12.195 2.86312 11.8139 2.8575 11.584 2.76187C11.3337 2.65852 11.0475 2.3843 10.7705 2.11922C10.2853 1.65305 9.73406 1.125 9 1.125C8.26594 1.125 7.71539 1.65305 7.22953 2.11922C6.9525 2.3843 6.66703 2.65852 6.41602 2.76187C6.1875 2.8575 5.805 2.86312 5.43586 2.86875C4.74961 2.8793 3.97195 2.89055 3.43125 3.43125C2.89055 3.97195 2.88281 4.74961 2.86875 5.43586C2.86312 5.805 2.8575 6.18609 2.76187 6.41602C2.65852 6.66633 2.3843 6.9525 2.11922 7.22953C1.65305 7.71469 1.125 8.26594 1.125 9C1.125 9.73406 1.65305 10.2846 2.11922 10.7705C2.3843 11.0475 2.65852 11.333 2.76187 11.584C2.8575 11.8139 2.86312 12.195 2.86875 12.5641C2.8793 13.2504 2.89055 14.028 3.43125 14.5687C3.97195 15.1095 4.74961 15.1207 5.43586 15.1312C5.805 15.1369 6.18609 15.1425 6.41602 15.2381C6.66633 15.3415 6.9525 15.6157 7.22953 15.8808C7.71469 16.347 8.26594 16.875 9 16.875C9.73406 16.875 10.2846 16.347 10.7705 15.8808C11.0475 15.6157 11.333 15.3415 11.584 15.2381C11.8139 15.1425 12.195 15.1369 12.5641 15.1312C13.2504 15.1207 14.028 15.1095 14.5687 14.5687C15.1095 14.028 15.1207 13.2504 15.1312 12.5641C15.1369 12.195 15.1425 11.8139 15.2381 11.584C15.3415 11.3337 15.6157 11.0475 15.8808 10.7705C16.347 10.2853 16.875 9.73406 16.875 9C16.875 8.26594 16.347 7.71539 15.8808 7.22953ZM12.2105 7.71047L8.27297 11.648C8.22073 11.7003 8.15869 11.7418 8.0904 11.7701C8.02212 11.7984 7.94892 11.8129 7.875 11.8129C7.80108 11.8129 7.72788 11.7984 7.6596 11.7701C7.59131 11.7418 7.52927 11.7003 7.47703 11.648L5.78953 9.96047C5.68398 9.85492 5.62469 9.71177 5.62469 9.5625C5.62469 9.41323 5.68398 9.27008 5.78953 9.16453C5.89508 9.05898 6.03823 8.99969 6.1875 8.99969C6.33677 8.99969 6.47992 9.05898 6.58547 9.16453L7.875 10.4548L11.4145 6.91453C11.4668 6.86227 11.5288 6.82081 11.5971 6.79253C11.6654 6.76424 11.7386 6.74969 11.8125 6.74969C11.8864 6.74969 11.9596 6.76424 12.0279 6.79253C12.0962 6.82081 12.1582 6.86227 12.2105 6.91453C12.2627 6.96679 12.3042 7.02884 12.3325 7.09712C12.3608 7.1654 12.3753 7.23859 12.3753 7.3125C12.3753 7.38641 12.3608 7.4596 12.3325 7.52788C12.3042 7.59616 12.2627 7.65821 12.2105 7.71047Z" fill="#DBBF71"/>
+</svg>
+
+          <span class="comp-pdp-header__reviews-label">Customer Reviews</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="comp-pdp-header__afterpay after-pay"></div>
+</div>
+
+<style>
+  .comp-pdp-header {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6px, 0.6vw, 10px);
+    width: 100%;
+  }
+  .comp-pdp-header__title,
+  h1.comp-pdp-header__title,
+  p.comp-pdp-header__title,
+  .comp-pdp-header .product-single__title {
+    margin: 0;
+    font-family: 'Blue Tees Headline Italic', sans-serif;
+    font-size: clamp(28px, 2.6vw, 38px);
+    line-height: clamp(34px, 3.2vw, 48px);
+    color: #1B2029 !important;
+    opacity: 0.95;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .comp-pdp-header__row {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1vw, 14px);
+    width: 100%;
+  }
+  .comp-pdp-header__price-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(10px, 1vw, 14px);
+  }
+  .product-single__meta .comp-pdp-header__price.product__prices {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(4px, 0.4vw, 6px);
+    margin-top: 0;
+  }
+  .comp-pdp-header__price-main,
+  .comp-pdp-header .product__price.price-main,
+  .comp-pdp-header__price-main *,
+  .comp-pdp-header .product__price.price-main * {
+    font-family: 'Blue Tees Headline Italic', sans-serif;
+    font-size: clamp(24px, 2vw, 29px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #1B2029;
+    fill: #1B2029;
+    opacity: 0.95;
+  }
+  .comp-pdp-header__price-main.on-sale,
+  .comp-pdp-header .product__price.price-main.on-sale,
+  .comp-pdp-header__price-main.on-sale *,
+  .comp-pdp-header .product__price.price-main.on-sale * {
+    color: #CB0000;
+    fill: #CB0000;
+  }
+  .comp-pdp-header__price-compare,
+  .comp-pdp-header__price-compare .money,
+  .comp-pdp-header .product__price--compare,
+  .comp-pdp-header__price-compare *,
+  .comp-pdp-header .product__price--compare * {
+    font-family: 'Blue Tees Headline Italic', sans-serif;
+    font-size: clamp(15px, 1.3vw, 18.5px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .comp-pdp-header__divider {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    height: 29px;
+  }
+  .comp-pdp-header__divider-line {
+    width: 1px;
+    height: 7px;
+    background: #B4B4B4;
+  }
+  .comp-pdp-header__divider-text {
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-size: 10px;
+    line-height: 1;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #B4B4B4;
+  }
+  .comp-pdp-header__afterpay-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    color: #101820;
+  }
+  .comp-pdp-header__afterpay-badge {
+    font-family: 'Blue Tees Subhead', sans-serif;
+  }
+  .comp-pdp-header__afterpay-info {
+    font-size: 9px;
+    color: #7A8291;
+    cursor: pointer;
+  }
+  .comp-pdp-header__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(12px, 1.2vw, 16px);
+  }
+  .comp-pdp-header__gift {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: clamp(11px, 0.8vw, 12px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #4F4F4F;
+  }
+  .comp-pdp-header__reviews, a.comp-pdp-header__reviews[href="#looxReviews"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: clamp(11px, 0.8vw, 12px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    text-decoration: underline;
+    color: #4F4F4F;
+  }
+  .comp-pdp-header__gift-icon,
+  .comp-pdp-header__seal-icon {
+    flex-shrink: 0;
+  }
+  .comp-pdp-header__afterpay {
+    display: none;
+  }
+</style>

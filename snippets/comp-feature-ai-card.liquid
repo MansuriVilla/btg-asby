@@ -1,0 +1,938 @@
+{% comment %}
+  Component: comp-feature-ai-card  (purple "GameAI Intelligence Package" card)
+  Usage:
+  {% render 'comp-feature-ai-card', block: block %}
+  Block settings: title, badge, promo_text, old_price, media_image, video_url, button_text,
+                  feature_1..4_icon / feature_1..4_label
+{% endcomment %}
+
+{% liquid
+  assign a_title = block.settings.title | default: '<em>Game</em>AI<br>Intelligence Package'
+  assign a_badge = block.settings.badge | default: 'Included'
+  assign a_btn = block.settings.button_text | default: 'Learn more'
+  assign slots = '1,2,3,4' | split: ','
+  assign video_src = block.settings.video_url
+%}
+
+{% render 'comp-feature-card-base' %}
+<div class="pdp_component">
+<div class="comp-feature-card comp-feature-card--ai" {{ block.shopify_attributes }}>
+  <div class="comp-feature-card__aura" aria-hidden="true">
+    <div class="comp-feature-card__aura-1"></div>
+    <div class="comp-feature-card__aura-2"></div>
+    <div class="comp-feature-card__aura-3"></div>
+  </div>
+
+  <div class="comp-feature-card__top">
+    <div class="comp-feature-card__header-text">
+      <h2 class="comp-feature-card__title">{{ a_title }}</h2>
+      {% if block.settings.promo_text != blank %}
+        <p class="comp-feature-card__sub comp-feature-card__sub--ai">
+          <span class="comp-feature-card__sub-highlight">{{ block.settings.promo_text }}</span>
+          {% if block.settings.old_price != blank %}<s>{{ block.settings.old_price }}</s>{% endif %}
+        </p>
+      {% endif %}
+    </div>
+
+    <span class="comp-feature-card__badge comp-feature-card__badge--ai">
+      {{ a_badge }}
+      <svg width="11" height="8" viewBox="0 0 11 8" fill="none" aria-hidden="true">
+        <path d="M1.5 4L4 6.5L9.5 1.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </div>
+
+  <div class="comp-ai-media" data-comp-ai-media>
+    {% if block.settings.media_image != blank %}
+      {{ block.settings.media_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '450,900', sizes: '(min-width: 750px) 40vw, 90vw', class: 'comp-ai-media__img', alt: '' }}
+    {% endif %}
+    {% if video_src != blank %}
+      <video
+        class="comp-ai-media__video"
+        data-comp-ai-preview-video
+        src="{{ video_src }}"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="none"
+        {% if block.settings.media_image != blank %}
+          poster="{{ block.settings.media_image | image_url: width: 900 }}"
+        {% endif %}
+      ></video>
+    {% endif %}
+    <button type="button" class="comp-ai-media__btn" data-comp-ai-modal-trigger aria-label="Open Game AI Package details">
+      <svg class="comp-ai-media__btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M6 4l15 8-15 8V4z"/>
+      </svg>
+      <span class="comp-ai-media__btn-label">{{ a_btn }}</span>
+    </button>
+  </div>
+
+  <ul class="comp-ai-features">
+    {% for n in slots %}
+      {% liquid
+        assign icon_key = 'feature_' | append: n | append: '_icon'
+        assign label_key = 'feature_' | append: n | append: '_label'
+        assign f_icon = block.settings[icon_key]
+        assign f_label = block.settings[label_key]
+      %}
+      {% if f_label != blank %}
+        <li class="comp-ai-features__item">
+          <span class="comp-ai-features__icon-wrap">
+            {% if f_icon != blank %}
+              {{ f_icon | image_url: width: 80 | image_tag: loading: 'lazy', class: 'comp-ai-features__icon', alt: '' }}
+            {% else %}
+              <span class="comp-ai-features__icon-fallback"></span>
+            {% endif %}
+          </span>
+          <span class="comp-ai-features__label">{{ f_label }}</span>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+</div>
+
+<!-- Game AI Modal with Floating Media Dock (Image 4) -->
+<div class="comp-ai-modal" id="CompAiModal-{{ block.id }}" data-comp-ai-modal aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="comp-ai-modal__backdrop" data-comp-ai-modal-close></div>
+  <div class="comp-ai-modal__dialog">
+    <button type="button" class="comp-ai-modal__close" data-comp-ai-modal-close aria-label="Close dialog">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M1 1L13 13M1 13L13 1" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- Top Media Carousel with Floating Dock (Supports images, gifs, and video) -->
+    <div class="comp-ai-modal__media-viewport" data-ai-modal-viewport>
+      <div class="comp-ai-modal__slides" data-ai-modal-slides>
+        <!-- Slide 1: Golf cart with speaker (Image from user screenshot) -->
+        <div class="comp-ai-modal__slide is-active" data-ai-modal-slide data-index="0" data-type="image">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105683.png?v=1758027539"
+            alt="Golf cart speaker on course"
+            class="comp-ai-modal__slide-media"
+            loading="lazy"
+          >
+        </div>
+
+        <!-- Slide 2: Video (or user MP4 video if present) -->
+        {% if video_src != blank %}
+          <div class="comp-ai-modal__slide" data-ai-modal-slide data-index="1" data-type="video">
+            {% render 'comp-video-player',
+              video_url: video_src,
+              is_active: false,
+              title: 'Game AI Presentation Video',
+              video_class: 'comp-ai-modal__slide-media comp-ai-modal__slide-video',
+              controls_variant: 'buttonsonly'
+            %}
+          </div>
+        {% else %}
+          <div class="comp-ai-modal__slide" data-ai-modal-slide data-index="1" data-type="image">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/6mons-upsell-popup.svg?v=1782822954"
+              alt="Game AI presentation"
+              class="comp-ai-modal__slide-media"
+              loading="lazy"
+            >
+          </div>
+        {% endif %}
+
+        <!-- Slide 3: Live GPS Display / Green Map -->
+        <div class="comp-ai-modal__slide" data-ai-modal-slide data-index="2" data-type="image">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Widgets_Icons.svg?v=1758027539"
+            alt="Course navigation"
+            class="comp-ai-modal__slide-media"
+            style="background:#0b1118; object-fit: contain; padding: 40px;"
+            loading="lazy"
+          >
+        </div>
+      </div>
+
+      <!-- Universal Mac Dock Overlay inside Modal -->
+      {% capture modal_dock_items %}
+        <div
+          class="comp-mac-dock__item is-active"
+          data-mac-dock-item
+          data-index="0"
+          role="button"
+          tabindex="0"
+          aria-label="Slide 1"
+        >
+          <svg class="comp-mac-dock__item-timer" data-mac-item-timer width="20" height="20" viewBox="0 0 24 24">
+            <circle class="comp-mac-dock__timer-track" cx="12" cy="12" r="9" />
+            <circle class="comp-mac-dock__timer-progress" data-mac-timer-progress cx="12" cy="12" r="9" />
+          </svg>
+          <span class="comp-mac-dock__item-dot" data-mac-item-dot></span>
+          <div class="comp-mac-dock__item-thumb" data-mac-item-thumb>
+            <img
+              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105683.png?v=1758027539"
+              alt="Cart on course"
+              loading="lazy"
+              width="32"
+              height="32"
+            >
+          </div>
+        </div>
+
+        <div
+          class="comp-mac-dock__item is-video-item"
+          data-mac-dock-item
+          data-index="1"
+          role="button"
+          tabindex="0"
+          aria-label="Slide 2"
+        >
+          <svg class="comp-mac-dock__item-timer" data-mac-item-timer width="20" height="20" viewBox="0 0 24 24">
+            <circle class="comp-mac-dock__timer-track" cx="12" cy="12" r="9" />
+            <circle class="comp-mac-dock__timer-progress" data-mac-timer-progress cx="12" cy="12" r="9" />
+          </svg>
+          <span class="comp-mac-dock__item-dot comp-mac-dock__item-dot--video" data-mac-item-dot>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="8,5 19,12 8,19" fill="#ffffff"/></svg>
+          </span>
+          <div class="comp-mac-dock__item-thumb" data-mac-item-thumb>
+            <img
+              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/6mons-upsell-popup.svg?v=1782822954"
+              alt="Game AI presentation"
+              loading="lazy"
+              width="32"
+              height="32"
+            >
+            <span class="comp-mac-dock__item-thumb-play">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="8,5 19,12 8,19" fill="#ffffff"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <div
+          class="comp-mac-dock__item"
+          data-mac-dock-item
+          data-index="2"
+          role="button"
+          tabindex="0"
+          aria-label="Slide 3"
+        >
+          <svg class="comp-mac-dock__item-timer" data-mac-item-timer width="20" height="20" viewBox="0 0 24 24">
+            <circle class="comp-mac-dock__timer-track" cx="12" cy="12" r="9" />
+            <circle class="comp-mac-dock__timer-progress" data-mac-timer-progress cx="12" cy="12" r="9" />
+          </svg>
+          <span class="comp-mac-dock__item-dot" data-mac-item-dot></span>
+          <div class="comp-mac-dock__item-thumb" data-mac-item-thumb>
+            <img
+              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Widgets_Icons.svg?v=1758027539"
+              alt="Course navigation"
+              loading="lazy"
+              width="32"
+              height="32"
+            >
+          </div>
+        </div>
+      {% endcapture %}
+
+      {% render 'comp-mac-dock',
+        dock_id: 'AiModalDock',
+        custom_class: 'comp-ai-modal__dock',
+        content: modal_dock_items
+      %}
+    </div>
+
+    <!-- Modal Body Content (Exact design from Image 4) -->
+    <div class="comp-ai-modal__body">
+      <div class="comp-ai-modal__badge">6 MONTHS FREE ACCESS</div>
+      <div class="comp-ai-modal__badge-sub">INCLUDED WITH PURCHASE</div>
+
+      <h3 class="comp-ai-modal__heading">
+        UPGRADE YOUR PLAYER<br>PRO WITH GAME AI
+      </h3>
+
+      <p class="comp-ai-modal__desc">
+        Transform your speaker into a personalized on-course assistant, combining GPS data, environmental conditions, shot history, and performance analytics to help you make smarter decisions throughout every round.
+      </p>
+
+      <!-- Side-by-Side Comparison Table -->
+      <div class="comp-ai-modal__table">
+        <div class="comp-ai-modal__table-header">
+          <div class="comp-ai-modal__col-head comp-ai-modal__col-head--left">
+            INCLUDED WITH PLAYER PRO
+          </div>
+          <div class="comp-ai-modal__col-head comp-ai-modal__col-head--right">
+            WITH GAME AI
+          </div>
+        </div>
+
+        <div class="comp-ai-modal__table-row">
+          <div class="comp-ai-modal__col-cell">
+            <span class="comp-ai-modal__check">✔</span> Lifetime Access 42k+ Course FCB
+          </div>
+          <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+            <span class="comp-ai-modal__check">✔</span> Premium Access Game APP
+          </div>
+        </div>
+
+        <div class="comp-ai-modal__table-row">
+          <div class="comp-ai-modal__col-cell">
+            <span class="comp-ai-modal__check">✔</span> Dynamic Hazards
+          </div>
+          <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+            <span class="comp-ai-modal__check">✔</span> Scout AI Caddie™
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Free CTA & Terms -->
+      <div class="comp-ai-modal__pricing">
+        <div class="comp-ai-modal__price-wrap">
+          <span class="comp-ai-modal__price-main">FREE</span>
+          <span class="comp-ai-modal__price-old">$39.50</span>
+        </div>
+        <div class="comp-ai-modal__commit-row">
+          <span><svg width="14" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg> NO COMMITMENT</span>
+          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg> CANCEL ANYTIME</span>
+        </div>
+        <p class="comp-ai-modal__footnote">
+          *all subscriptions billed annually after promotional period at $79/yr and are subject to our <a href="/pages/terms-and-conditions">terms and conditions</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .comp-feature-card--ai {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: clamp(14px, 1.4vw, 16px);
+    gap: 12px;
+    isolation: isolate;
+    width: 100%;
+    min-height: 382px;
+    background: #101820 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .comp-feature-card__aura {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .comp-feature-card__aura-1 {
+    position: absolute;
+    width: 465px;
+    height: 374px;
+    left: -10px;
+    top: 17px;
+    background: #251163;
+    filter: blur(50px);
+    opacity: 0.85;
+  }
+  .comp-feature-card__aura-2 {
+    position: absolute;
+    width: 257px;
+    height: 208px;
+    left: 94px;
+    top: 72px;
+    background: #0149E3;
+    filter: blur(50px);
+    opacity: 0.8;
+  }
+  .comp-feature-card__aura-3 {
+    position: absolute;
+    width: 252px;
+    height: 48px;
+    left: calc(50% - 252px/2 + 60.5px);
+    top: 83px;
+    background: #E8EBF4;
+    filter: blur(50px);
+    opacity: 0.3;
+  }
+  .comp-feature-card--ai .comp-feature-card__top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+  }
+  .comp-feature-card__header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+  }
+  .comp-feature-card--ai .comp-feature-card__title,
+  .comp-feature-card--ai h2.comp-feature-card__title {
+    margin: 0;
+    font-family: 'Blue Tees Headline Italic', sans-serif;
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #FFFFFF !important;
+    opacity: 0.95;
+  }
+  .comp-feature-card--ai .comp-feature-card__title em {
+    font-style: normal;
+  }
+  .comp-feature-card__sub--ai {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-size: 12px;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .comp-feature-card__sub-highlight {
+    color: #CDFF07 !important;
+  }
+  .comp-feature-card__sub--ai s {
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: 12px;
+    line-height: 1;
+    text-decoration-line: line-through;
+    color: #B4B4B4 !important;
+  }
+  .comp-ai-media {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #000000;
+    width: 100%;
+    aspect-ratio: 411 / 173;
+    max-height: 173px;
+  }
+  .comp-ai-media__img,
+  .comp-ai-media__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.55;
+  }
+  .comp-ai-media__btn {
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    gap: 8px;
+    width: auto;
+    min-width: 145px;
+    height: 46px;
+    border: 1px solid #474646;
+    border-radius: 100px;
+    background: rgba(27, 30, 34, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #FFFFFF !important;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .comp-ai-media__btn:hover {
+    background: rgba(27, 30, 34, 0.8);
+    transform: scale(1.02);
+  }
+  .comp-ai-media__btn-label {
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #FFFFFF !important;
+  }
+  .comp-ai-media__btn-icon {
+    color: #FFFFFF !important;
+    fill: #FFFFFF !important;
+  }
+  .comp-ai-features {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+  }
+  .comp-ai-features__item {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 0px;
+    gap: 8px;
+    width: 100%;
+  }
+  .comp-ai-features__icon-wrap {
+    flex: none;
+    position: relative;
+    width: 28px;
+    height: 28px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 100%, rgba(1, 73, 227, 0.45) 0%, rgba(10, 14, 22, 0.95) 75%), #0A0D14;
+    border: 1px solid rgba(1, 73, 227, 0.65);
+    box-shadow: 0 0 10px rgba(1, 73, 227, 0.4), inset 0 0 6px rgba(0, 161, 255, 0.25);
+    overflow: hidden;
+  }
+  .comp-ai-features__icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    position: relative;
+    z-index: 1;
+  }
+  .comp-ai-features__label {
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #FFFFFF !important;
+  }
+
+  /* Modal Overlay */
+  .comp-ai-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
+  }
+  .comp-ai-modal.is-open {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .comp-ai-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .comp-ai-modal__dialog {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 440px;
+    max-height: 92vh;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+    transform: scale(0.94) translateY(12px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .comp-ai-modal.is-open .comp-ai-modal__dialog {
+    transform: scale(1) translateY(0);
+  }
+  .comp-ai-modal__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(18, 22, 28, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .comp-ai-modal__close:hover {
+    transform: scale(1.1);
+    background: #000000;
+  }
+
+  /* Media Viewport + Floating Dock */
+  .comp-ai-modal__media-viewport {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background: #000000;
+    overflow: hidden;
+  }
+  .comp-ai-modal__slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .comp-ai-modal__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .comp-ai-modal__slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .comp-ai-modal__slide-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .comp-ai-modal__slide .comp-video-player__controls {
+    padding-bottom: 54px;
+  }
+  .comp-ai-modal__dock {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    padding: 5px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .comp-ai-modal__dock-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(22, 27, 34, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+  }
+  .comp-ai-modal__dock-items {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .comp-ai-modal__dock-dot {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .comp-ai-modal__dot-circle {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .comp-ai-modal__dock-dot.is-active .comp-ai-modal__dot-circle {
+    background: #ffffff;
+    transform: scale(1.15);
+  }
+  .comp-ai-modal__timer-svg {
+    position: absolute;
+    inset: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    transform: rotate(-90deg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .comp-ai-modal__dock-dot.is-active .comp-ai-modal__timer-svg {
+    opacity: 1;
+  }
+  .comp-ai-modal__timer-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 2;
+  }
+  .comp-ai-modal__timer-bar {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-dasharray: 56.55;
+    stroke-dashoffset: 56.55;
+    stroke-linecap: round;
+  }
+
+  /* Body Content */
+  .comp-ai-modal__body {
+    padding: 24px 20px 20px;
+    text-align: center;
+    color: #111111;
+  }
+  .comp-ai-modal__badge {
+    display: inline-block;
+    background: #CDFF07;
+    color: #000000;
+    font-family: 'Blue Tees Headline', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .comp-ai-modal__badge-sub {
+    font-size: 9px;
+    color: #888888;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .comp-ai-modal__heading {
+    margin: 12px 0 8px;
+    font-family: 'Blue Tees Headline Italic', sans-serif;
+    font-size: 20px;
+    line-height: 1.15;
+    text-transform: uppercase;
+    color: #111111;
+    letter-spacing: -0.01em;
+  }
+  .comp-ai-modal__desc {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #555555;
+    margin: 0 auto 18px;
+    max-width: 380px;
+  }
+
+  /* Comparison Table */
+  .comp-ai-modal__table {
+    border: 1px solid #ebebeb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 11px;
+  }
+  .comp-ai-modal__table-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #f7f7f8;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .comp-ai-modal__col-head {
+    padding: 8px 10px;
+  }
+  .comp-ai-modal__col-head--right {
+    background: linear-gradient(90deg, rgba(160, 210, 255, 0.4) 0%, rgba(200, 180, 255, 0.4) 100%);
+    border-left: 1px solid #ebebeb;
+  }
+  .comp-ai-modal__table-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .comp-ai-modal__table-row:last-child {
+    border-bottom: none;
+  }
+  .comp-ai-modal__col-cell {
+    padding: 8px 10px;
+    color: #222222;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .comp-ai-modal__col-cell--right {
+    border-left: 1px solid #ebebeb;
+  }
+  .comp-ai-modal__check {
+    color: #0b78e3;
+    font-size: 12px;
+  }
+
+  /* Pricing & Terms */
+  .comp-ai-modal__pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .comp-ai-modal__price-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .comp-ai-modal__price-main {
+    font-family: 'Blue Tees Headline Italic', sans-serif;
+    font-size: 26px;
+    color: #111111;
+  }
+  .comp-ai-modal__price-old {
+    font-size: 13px;
+    text-decoration: line-through;
+    color: #888888;
+  }
+  .comp-ai-modal__commit-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: #555555;
+  }
+  .comp-ai-modal__commit-row span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .comp-ai-modal__footnote {
+    font-size: 9px;
+    color: #888888;
+    line-height: 1.4;
+    margin-top: 4px;
+    max-width: 360px;
+  }
+  .comp-ai-modal__footnote a {
+    color: #555555;
+    text-decoration: underline;
+  }
+</style>
+
+<script>
+  (function () {
+    var card = document.querySelector('[data-comp-ai-media]');
+    var modal = document.getElementById('CompAiModal-{{ block.id }}');
+    if (!card || !modal) return;
+
+    var trigger = card.querySelector('[data-comp-ai-modal-trigger]');
+    var closeButtons = modal.querySelectorAll('[data-comp-ai-modal-close]');
+    var slides = Array.from(modal.querySelectorAll('[data-ai-modal-slide]'));
+    var currentIndex = 0;
+    var total = slides.length;
+    var dockEl = modal.querySelector('[data-mac-dock]');
+    var dockCtrl = null;
+
+    function initModalDock() {
+      if (dockCtrl || !dockEl || !window.initMacDock) return;
+      dockCtrl = window.initMacDock({
+        dock: dockEl,
+        initialIndex: currentIndex,
+        duration: 4.5,
+        autoPlay: true,
+        onSelect: function (idx) {
+          goToSlide(idx, false);
+        },
+        onAutoAdvance: function (idx) {
+          goToSlide(idx, false);
+        }
+      });
+    }
+
+    function openModal() {
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      initModalDock();
+      if (dockCtrl) {
+        dockCtrl.select(0);
+        dockCtrl.resume();
+      } else {
+        goToSlide(0, true);
+      }
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (dockCtrl) {
+        dockCtrl.pause();
+      }
+      // Pause any playing videos
+      slides.forEach(function (slide) {
+        var v = slide.querySelector('video');
+        if (v) v.pause();
+      });
+    }
+
+    function goToSlide(index, updateDock) {
+      if (index < 0) index = total - 1;
+      if (index >= total) index = 0;
+      currentIndex = index;
+
+      slides.forEach(function (slide, i) {
+        var isActive = (i === currentIndex);
+        slide.classList.toggle('is-active', isActive);
+        var v = slide.querySelector('video');
+        if (v) {
+          if (isActive) {
+            v.currentTime = 0;
+            v.play().catch(function(){});
+          } else {
+            v.pause();
+          }
+        }
+      });
+
+      if (updateDock && dockCtrl) {
+        dockCtrl.select(currentIndex);
+      }
+    }
+
+    if (trigger) trigger.addEventListener('click', openModal);
+    closeButtons.forEach(function (b) { b.addEventListener('click', closeModal); });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+
+    // 5-second preview loop for card video
+    var previewVideo = card.querySelector('[data-comp-ai-preview-video]');
+    if (previewVideo) {
+      var previewCutoff = 5;
+      previewVideo.addEventListener('loadedmetadata', function () {
+        previewVideo.currentTime = 0;
+        previewVideo.muted = true;
+        previewVideo.play().catch(function () {});
+      });
+      previewVideo.addEventListener('timeupdate', function () {
+        if (previewVideo.currentTime >= previewCutoff) {
+          previewVideo.currentTime = 0;
+          previewVideo.play().catch(function () {});
+        }
+      });
+    }
+  })();
+</script>

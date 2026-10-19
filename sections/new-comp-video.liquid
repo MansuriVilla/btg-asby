@@ -1,0 +1,505 @@
+{%- liquid
+  assign video_url = ''
+  if section.settings.video_file != blank
+    assign video_url = section.settings.video_file.sources[1].url | default: section.settings.video_file.sources[0].url
+  elsif section.settings.video_url != blank
+    assign video_url = section.settings.video_url
+  endif
+
+  assign has_gradient = false
+  if section.settings.gradient_bg != blank
+    assign has_gradient = true
+  endif
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'NewCompVideo-' | append: section.id
+  endif
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="new-comp-video section-{{ section.id }}"
+  style="
+    --ncv-bg-color: {{ section.settings.background_color | default: '#101216' }};
+    {% if has_gradient %}--ncv-bg-gradient: {{ section.settings.gradient_bg }};{% endif %}
+    --ncv-padding-top: {{ section.settings.padding_top | default: 60 }}px;
+    --ncv-padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    --ncv-radius: {{ section.settings.border_radius | default: 16 }}px;
+    --ncv-max-width: {{ section.settings.max_width | default: 1240 }}px;
+  "
+>
+  <div class="new-comp-video__container">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <div class="new-comp-video__header">
+        {%- if section.settings.subheading != blank -%}
+          <span class="new-comp-video__subheading">{{ section.settings.subheading }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="new-comp-video__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="new-comp-video__card" data-ncv-card>
+      <!-- Video Element: starts in 5s preview loop mode -->
+      <video
+        class="new-comp-video__player"
+        data-ncv-player
+        data-src="{{ video_url }}"
+        src="{{ video_url }}"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="none"
+        {% if section.settings.poster_image != blank %}
+          poster="{{ section.settings.poster_image | img_url: '1600x' }}"
+        {% endif %}
+      ></video>
+
+      <!-- Bottom Controls Bar (Matches Figma: Duration Pill on Left, Mute/Unmute & Play/Pause on Right) -->
+      <div class="new-comp-video__controls" data-ncv-controls>
+        <!-- Left: Duration Pill -->
+        <div class="new-comp-video__duration-pill" data-ncv-duration>
+          <span class="new-comp-video__time-current" data-ncv-time-current>00:00</span>
+          <span class="new-comp-video__time-sep">/</span>
+          <span class="new-comp-video__time-total" data-ncv-time-total>00:00</span>
+        </div>
+
+        <!-- Right: Action Buttons (Mute / Unmute + Play / Pause) -->
+        <div class="new-comp-video__actions">
+          <!-- Mute / Unmute Button -->
+          <button
+            type="button"
+            class="new-comp-video__btn new-comp-video__btn--mute is-muted"
+            data-ncv-mute
+            aria-label="Unmute video"
+          >
+            <!-- Muted Icon -->
+            <svg class="new-comp-video__icon icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+            <!-- Unmuted / Sound Icon -->
+            <svg class="new-comp-video__icon icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+
+          <!-- Play / Pause Button -->
+          <button
+            type="button"
+            class="new-comp-video__btn new-comp-video__btn--play is-playing"
+            data-ncv-play
+            aria-label="Pause video"
+          >
+            <!-- Pause Icon -->
+            <svg class="new-comp-video__icon icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+              <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+            </svg>
+            <!-- Play Icon -->
+            <svg class="new-comp-video__icon icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .new-comp-video {
+    position: relative;
+    width: 100%;
+    background: var(--ncv-bg-color);
+    {% if has_gradient %}
+      background: var(--ncv-bg-gradient);
+    {% endif %}
+    padding-top: var(--ncv-padding-top);
+    padding-bottom: var(--ncv-padding-bottom);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .new-comp-video__container {
+    width: 100%;
+    max-width: var(--ncv-max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .new-comp-video__header {
+    text-align: center;
+    margin-bottom: clamp(24px, 3vw, 44px);
+  }
+
+  .new-comp-video__subheading {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 8px;
+  }
+
+  .new-comp-video__heading {
+    font-size: clamp(26px, 3.5vw, 48px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .new-comp-video__card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--ncv-radius);
+    overflow: hidden;
+    background: #000000;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  }
+
+  .new-comp-video__player {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #000000;
+  }
+
+  /* Controls Overlay Bar */
+  .new-comp-video__controls {
+    position: absolute;
+    bottom: clamp(14px, 2vw, 24px);
+    left: clamp(14px, 2vw, 28px);
+    right: clamp(14px, 2vw, 28px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Duration Pill */
+  .new-comp-video__duration-pill {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px;
+    background: rgba(18, 22, 28, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    user-select: none;
+  }
+
+  .new-comp-video__time-sep {
+    opacity: 0.45;
+  }
+
+  .new-comp-video__time-total {
+    opacity: 0.7;
+  }
+
+  /* Right Action Buttons Group */
+  .new-comp-video__actions {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .new-comp-video__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(38px, 3.2vw, 44px);
+    height: clamp(38px, 3.2vw, 44px);
+    padding: 0;
+    margin: 0;
+    background: rgba(18, 22, 28, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .new-comp-video__btn:hover {
+    transform: scale(1.08);
+    background: rgba(30, 36, 46, 0.88);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .new-comp-video__btn:active {
+    transform: scale(0.96);
+  }
+
+  .new-comp-video__btn svg {
+    pointer-events: none;
+  }
+
+  /* Toggle icon states */
+  .new-comp-video__btn--mute.is-muted .icon-unmuted {
+    display: none;
+  }
+  .new-comp-video__btn--mute:not(.is-muted) .icon-muted {
+    display: none;
+  }
+
+  .new-comp-video__btn--play.is-playing .icon-play {
+    display: none;
+  }
+  .new-comp-video__btn--play:not(.is-playing) .icon-pause {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .new-comp-video__card {
+      border-radius: clamp(10px, 2.5vw, 14px);
+    }
+    .new-comp-video__duration-pill {
+      font-size: 11px;
+      padding: 5px 10px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    function initNewCompVideo() {
+      var root = document.getElementById('NewCompVideo-{{ section.id }}');
+      if (!root) return;
+
+      var video = root.querySelector('[data-ncv-player]');
+      var muteBtn = root.querySelector('[data-ncv-mute]');
+      var playBtn = root.querySelector('[data-ncv-play]');
+      var currentEl = root.querySelector('[data-ncv-time-current]');
+      var totalEl = root.querySelector('[data-ncv-time-total]');
+
+      if (!video) return;
+
+      var previewCutoff = 5; // 5-second preview loop initially
+      var inPreviewMode = true;
+
+      function formatTime(seconds) {
+        if (isNaN(seconds) || seconds < 0) return '00:00';
+        var m = Math.floor(seconds / 60);
+        var s = Math.floor(seconds % 60);
+        return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      }
+
+      function updateDuration() {
+        if (video.duration && !isNaN(video.duration)) {
+          totalEl.textContent = formatTime(video.duration);
+        }
+      }
+
+      video.addEventListener('loadedmetadata', function () {
+        updateDuration();
+        video.currentTime = 0;
+        video.muted = true;
+        video.play().catch(function () {});
+      });
+
+      video.addEventListener('timeupdate', function () {
+        currentEl.textContent = formatTime(video.currentTime);
+
+        // In 5s preview mode, loop seamlessly between 0 and 5s
+        if (inPreviewMode && video.currentTime >= previewCutoff) {
+          video.currentTime = 0;
+          video.play().catch(function () {});
+        }
+      });
+
+      // Mute / Unmute Toggle
+      if (muteBtn) {
+        muteBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          video.muted = !video.muted;
+          muteBtn.classList.toggle('is-muted', video.muted);
+          muteBtn.setAttribute('aria-label', video.muted ? 'Unmute video' : 'Mute video');
+
+          // If user unmutes, break out of 5-second preview and let full video play with audio
+          if (!video.muted && inPreviewMode) {
+            inPreviewMode = false;
+          }
+        });
+      }
+
+      // Play / Pause Toggle
+      if (playBtn) {
+        playBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (video.paused) {
+            // Once user explicitly plays, let full video run
+            inPreviewMode = false;
+            video.play().then(function () {
+              playBtn.classList.add('is-playing');
+              playBtn.setAttribute('aria-label', 'Pause video');
+            }).catch(function () {});
+          } else {
+            video.pause();
+            playBtn.classList.remove('is-playing');
+            playBtn.setAttribute('aria-label', 'Play video');
+          }
+        });
+      }
+
+      // Intersection Observer: pause video when section scrolls off-screen to save CPU and battery
+      if ('IntersectionObserver' in window) {
+        var videoObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              if (video.paused && playBtn && playBtn.classList.contains('is-playing')) {
+                video.play().catch(function () {});
+              }
+            } else {
+              if (!video.paused) {
+                video.pause();
+              }
+            }
+          });
+        }, { threshold: 0.25 });
+        videoObserver.observe(root);
+      }
+
+      updateDuration();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNewCompVideo);
+    } else {
+      initNewCompVideo();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "New Video Component",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Section Anchor ID",
+      "info": "Optional custom HTML ID for anchor navigation (e.g. video, hero-video). Do not include '#'"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Video"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "header",
+      "content": "Video Source"
+    },
+    {
+      "type": "video",
+      "id": "video_file",
+      "label": "Shopify Hosted Video"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "External Video MP4 URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Poster Image"
+    },
+    {
+      "type": "header",
+      "content": "Background & Gradient Styling"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Solid Color",
+      "default": "#101216"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_bg",
+      "label": "Background Gradient",
+      "info": "Optional custom linear or radial gradient"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max Container Width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Card Border Radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Video Component"
+    }
+  ]
+}
+{% endschema %}

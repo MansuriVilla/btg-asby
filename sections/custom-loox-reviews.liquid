@@ -1,0 +1,844 @@
+{%- comment -%}
+  Custom Loox Reviews Section - Heard on the Course
+  3-Column Masonry Layout with theme typography
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'custom-loox-reviews-' | append: section.id
+  endif
+  assign product_id = product.id | default: ''
+  assign fallback_heading = 'HEARD ON THE COURSE'
+  assign fallback_subheading = 'Real golfers. Real rounds. See what players have to say about the Player Pro.'
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="custom-loox-reviews-section"
+  data-custom-loox-reviews
+  data-product-id="{{ product_id }}"
+  data-public-store-id="{{ section.settings.loox_public_store_id | default: 'NkWLIAFhqB.d5f86dbd70a6351c1542d44dc92c1d48efc3128792711cf61e48ee96a56a5273' | escape }}"
+  data-limit="{{ section.settings.reviews_limit | default: 9 }}"
+  data-write-url="{{ section.settings.write_review_url | escape }}"
+>
+  <div class="custom-loox-reviews__container">
+    <!-- Header -->
+    <header class="custom-loox-reviews__header">
+      <div class="custom-loox-reviews__title-wrap">
+        <h2 class="custom-loox-reviews__heading custom_heading">
+          {{ section.settings.heading | default: fallback_heading }}
+        </h2>
+        <p class="custom-loox-reviews__subheading custom_body-text">
+          {{ section.settings.subheading | default: fallback_subheading }}
+        </p>
+      </div>
+
+      <div class="custom-loox-reviews__header-actions">
+        {%- assign rev_write_text = section.settings.write_review_text | default: 'WRITE A REVIEW' -%}
+        {%- assign rev_write_url = product.url | append: '?ref=review' -%}
+        {% render 'cta-button',
+          text: rev_write_text,
+          url: rev_write_url,
+          type: 'link',
+          variant: 'outline',
+          class: 'custom-loox-reviews__btn--write'
+        %}
+      </div>
+    </header>
+
+    <!-- State Messages -->
+    <div class="custom-loox-reviews__status custom_body-text" data-reviews-status aria-live="polite"></div>
+
+    <!-- Masonry 3-Column Grid -->
+    <div class="custom-loox-reviews__grid-wrapper">
+      <div class="custom-loox-reviews__grid" data-reviews-grid>
+        <div class="custom-loox-reviews__col" data-col="0"></div>
+        <div class="custom-loox-reviews__col" data-col="1"></div>
+        <div class="custom-loox-reviews__col" data-col="2"></div>
+      </div>
+
+      <!-- Load More with Blurred Overlay -->
+      <div class="custom-loox-reviews__footer-overlay" data-reviews-footer>
+        {%- assign rev_load_more_text = section.settings.load_more_text | default: 'LOAD MORE' -%}
+        {% render 'cta-button',
+          text: rev_load_more_text,
+          type: 'button',
+          variant: 'outline',
+          class: 'custom-loox-reviews__btn--load-more',
+          attributes: 'data-action="load-more"'
+        %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #{{ section_id }}.custom-loox-reviews-section {
+    width: 100%;
+    padding: 40px 20px 60px;
+    background: transparent;
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} .custom-loox-reviews__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: #F4F4F5;
+    border-radius: 12px;
+    padding: 44px 34px 20px;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} .custom-loox-reviews__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 34px;
+  }
+
+  #{{ section_id }} .custom-loox-reviews__title-wrap {
+    max-width: 700px;
+  }
+
+  #{{ section_id }} .custom-loox-reviews__heading {
+    margin: 0 0 10px;
+    font-size: 32px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #101820;
+  }
+
+  #{{ section_id }} .custom-loox-reviews__subheading {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #55595F;
+  }
+
+
+
+  #{{ section_id }} .custom-loox-reviews__status {
+    text-align: center;
+    padding: 20px 0;
+    color: #71767E;
+    font-size: 14px;
+  }
+
+  #{{ section_id }} .custom-loox-reviews__grid-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .custom-loox-reviews__grid {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  #{{ section_id }} .custom-loox-reviews__col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  /* Card Base */
+  #{{ section_id }} .clr-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  #{{ section_id }} .clr-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  /* 1. Media / Instagram Card (Matches Image 2) */
+  #{{ section_id }} .clr-card--media {
+    background: #FFFFFF;
+    color: #101820;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .clr-card--media .clr-card__media-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Varied aspect ratios for masonry staggered heights */
+  #{{ section_id }} .clr-card--ratio-tall .clr-card__media-wrap {
+    aspect-ratio: 3 / 4;
+  }
+
+  #{{ section_id }} .clr-card--ratio-standard .clr-card__media-wrap {
+    aspect-ratio: 4 / 5;
+  }
+
+  #{{ section_id }} .clr-card--ratio-square .clr-card__media-wrap {
+    aspect-ratio: 1 / 1;
+  }
+
+  #{{ section_id }} .clr-card--ratio-landscape .clr-card__media-wrap {
+    aspect-ratio: 4 / 3;
+  }
+
+  #{{ section_id }} .clr-card--media img,
+  #{{ section_id }} .clr-card--media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #{{ section_id }} .clr-card--media .clr-card__top {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  #{{ section_id }} .clr-pill-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 24, 32, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 100px;
+    padding: 5px 12px 5px 6px;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  #{{ section_id }} .clr-pill-user__avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #000000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #FFFFFF;
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .clr-pill-user__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #{{ section_id }} .clr-pill-user__avatar svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  #{{ section_id }} .clr-social-icon--circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(16, 24, 32, 0.75);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  #{{ section_id }} .clr-social-icon--circle svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  #{{ section_id }} .clr-card--media .clr-card__content {
+    padding: 16px 18px 20px;
+    background: #FFFFFF;
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} .clr-card--media .clr-card__text {
+    color: #4A4F56;
+    font-size: 14px;
+    line-height: 1.45;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 2. Social Card (Light) */
+  #{{ section_id }} .clr-card--social {
+    padding: 22px 20px;
+    background: #FFFFFF;
+  }
+
+  #{{ section_id }} .clr-card--social .clr-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  #{{ section_id }} .clr-card--social .clr-pill-user {
+    background: #F4F4F5;
+    border: 1px solid #E5E7EB;
+    color: #101820;
+  }
+
+  #{{ section_id }} .clr-card--social .clr-pill-user__avatar {
+    background: #E5E7EB;
+    color: #101820;
+  }
+
+  #{{ section_id }} .clr-card--social .clr-social-icon {
+    color: #101820;
+  }
+
+  #{{ section_id }} .clr-card--social .clr-card__text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #101820;
+    margin: 0;
+  }
+
+  /* 3. Rating Review Card (Short & Clean) */
+  #{{ section_id }} .clr-card--rating {
+    padding: 22px 20px;
+    background: #FFFFFF;
+  }
+
+  #{{ section_id }} .clr-card--rating .clr-card__stars-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  #{{ section_id }} .clr-stars {
+    display: inline-flex;
+    gap: 3px;
+    color: #DBBF71;
+  }
+
+  #{{ section_id }} .clr-stars svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  #{{ section_id }} .clr-card__date {
+    font-size: 12px;
+    color: #8C929C;
+  }
+
+  #{{ section_id }} .clr-card__author-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  #{{ section_id }} .clr-card__author {
+    font-size: 14px;
+    color: #101820;
+  }
+
+  #{{ section_id }} .clr-badge-verified {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    background: #0149E3;
+    color: #FFFFFF;
+    border-radius: 50%;
+  }
+
+  #{{ section_id }} .clr-badge-verified svg {
+    width: 9px;
+    height: 9px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    fill: none;
+  }
+
+  #{{ section_id }} .clr-card--rating .clr-card__text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #3B4048;
+    margin: 0;
+  }
+
+  /* Sticky Gradient Load More Wrapper */
+  #{{ section_id }} .custom-loox-reviews__footer-overlay {
+    position: relative;
+    width: 100%;
+    margin-top: -110px;
+    padding-top: 100px;
+    padding-bottom: 24px;
+    background: linear-gradient(180deg, rgba(244, 244, 245, 0) 0%, rgba(244, 244, 245, 0.92) 55%, #F4F4F5 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  #{{ section_id }} .custom-loox-reviews__footer-overlay .content-cta {
+    pointer-events: auto;
+  }
+
+  /* Responsive Breakpoints */
+  @media (max-width: 990px) {
+    #{{ section_id }} .custom-loox-reviews__container {
+      padding: 32px 20px 20px;
+    }
+
+    #{{ section_id }} .custom-loox-reviews__heading {
+      font-size: 26px;
+    }
+
+    #{{ section_id }} .custom-loox-reviews__col[data-col="2"] {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #{{ section_id }}.custom-loox-reviews-section {
+      padding: 24px 12px;
+    }
+
+    #{{ section_id }} .custom-loox-reviews__container {
+      padding: 20px 12px 16px;
+      border-radius: 8px;
+    }
+
+    #{{ section_id }} .custom-loox-reviews__header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    #{{ section_id }} .custom-loox-reviews__heading {
+      font-size: 22px;
+    }
+
+    #{{ section_id }} .custom-loox-reviews__btn--write {
+      width: 100%;
+    }
+
+    /* 2 Columns on Mobile */
+    #{{ section_id }} .custom-loox-reviews__grid {
+      gap: 10px;
+    }
+
+    #{{ section_id }} .custom-loox-reviews__col {
+      gap: 10px;
+    }
+
+    #{{ section_id }} .custom-loox-reviews__col[data-col="1"] {
+      display: flex;
+    }
+
+    #{{ section_id }} .custom-loox-reviews__col[data-col="2"] {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const root = document.getElementById('{{ section_id }}');
+    if (!root) return;
+
+    const productId = root.dataset.productId;
+    const writeUrl = root.dataset.writeUrl;
+    const limit = parseInt(root.dataset.limit, 10) || 9;
+
+    const statusEl = root.querySelector('[data-reviews-status]');
+    const cols = [
+      root.querySelector('[data-col="0"]'),
+      root.querySelector('[data-col="1"]'),
+      root.querySelector('[data-col="2"]')
+    ];
+    const footerEl = root.querySelector('[data-reviews-footer]');
+    const writeBtn = root.querySelector('[data-action="write-review"]');
+    const loadMoreBtn = root.querySelector('[data-action="load-more"]');
+
+    let allReviews = [];
+    let displayedCount = 0;
+
+    // Handle Write a Review button
+    if (writeBtn) {
+      writeBtn.addEventListener('click', function () {
+        if (writeUrl) {
+          window.open(writeUrl, '_blank');
+          return;
+        }
+        // Fallback: loox modal if present on page
+        if (window.LOOX && typeof window.LOOX.openReviewFormModal === 'function') {
+          window.LOOX.openReviewFormModal({ productId: productId });
+        } else {
+          alert('Reviews form is loading or not available.');
+        }
+      });
+    }
+
+    const publicStoreId = root.dataset.publicStoreId;
+    let nextApiPageUrl = null;
+    let apiHasMore = true;
+    let apiLoading = false;
+
+    // Icons SVGs
+    const STAR_SVG = `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    const VERIFIED_CHECK = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`;
+    const TWITTER_X_SVG = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`;
+    const INSTAGRAM_SVG = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>`;
+
+    // Normalize review from Loox storefront API
+    function normalizeReview(rev) {
+      const reviewer = rev.reviewer || {};
+      let mediaUrl = '';
+      let isVideo = false;
+
+      if (Array.isArray(rev.media) && rev.media.length > 0) {
+        const firstMedia = rev.media[0];
+        mediaUrl = firstMedia.url || '';
+        isVideo = String(firstMedia.type || '').toLowerCase() === 'video' || mediaUrl.endsWith('.mp4');
+      } else if (rev.img || rev.image_url) {
+        mediaUrl = rev.img || rev.image_url;
+      } else if (rev.video_url) {
+        mediaUrl = rev.video_url;
+        isVideo = true;
+      }
+
+      return {
+        id: rev.id || '',
+        author: reviewer.name || rev.author || rev.reviewer_name || 'Verified Golfer',
+        text: rev.body || rev.text || rev.review || '',
+        rating: Number(rev.rating || 5),
+        date: rev.createdAt || rev.date || '',
+        verified: rev.verified === true,
+        mediaUrl: mediaUrl,
+        isVideo: isVideo,
+        source: rev.source || '',
+        productId: rev.product && rev.product.id ? String(rev.product.id) : ''
+      };
+    }
+
+    function sanitize(str) {
+      if (!str) return '';
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function escapeHTML(str) {
+      return sanitize(str);
+    }
+
+    // Aspect ratio sequence to create dynamic staggered heights
+    const RATIO_CLASSES = [
+      'clr-card--ratio-tall',       // 3:4 (taller)
+      'clr-card--ratio-standard',   // 4:5
+      'clr-card--ratio-square',     // 1:1 (shorter)
+      'clr-card--ratio-standard',   // 4:5
+      'clr-card--ratio-tall',       // 3:4
+      'clr-card--ratio-landscape'   // 4:3 (compact)
+    ];
+
+    function createCardElement(review, index) {
+      const card = document.createElement('article');
+      const author = sanitize(review.author);
+      const text = sanitize(review.text);
+      const initials = author.charAt(0).toUpperCase();
+      const date = review.date ? new Date(review.date).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }) : '10/02/24';
+
+      // Masonry rhythm: If review has no media, OR every 4th card when text is rich, render as clean Rating or Social card for height variation
+      const preferTextCard = !review.mediaUrl || (index % 5 === 2 && text.length > 30) || (index % 7 === 4 && text.length > 20);
+
+      // Type 1: Media card (Photo or Video)
+      if (review.mediaUrl && !preferTextCard) {
+        const ratioClass = RATIO_CLASSES[index % RATIO_CLASSES.length];
+        card.className = `clr-card clr-card--media ${ratioClass}`;
+        card.innerHTML = `
+          <div class="clr-card__media-wrap">
+            ${review.isVideo 
+              ? `<video src="${escapeHTML(review.mediaUrl)}" autoplay loop muted playsinline preload="none"></video>`
+              : `<img src="${escapeHTML(review.mediaUrl)}" alt="Review photo by ${author}" loading="lazy" />`
+            }
+            <div class="clr-card__top">
+              <span class="clr-pill-user custom_subHeading-text">
+                <span class="clr-pill-user__avatar">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="12" cy="7" r="4"></circle>
+                    <path d="M12 14c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z"></path>
+                  </svg>
+                </span>
+                ${author}
+              </span>
+              <span class="clr-social-icon--circle" aria-label="Instagram">${INSTAGRAM_SVG}</span>
+            </div>
+          </div>
+          ${text ? `
+            <div class="clr-card__content">
+              <p class="clr-card__text custom_body-text">${text}</p>
+            </div>
+          ` : ''}
+        `;
+        return card;
+      }
+
+      // Type 2: Social Card (interleaved for variety)
+      if (index % 3 === 1 || review.source === 'twitter' || review.source === 'social') {
+        card.className = 'clr-card clr-card--social';
+        card.innerHTML = `
+          <div class="clr-card__top">
+            <span class="clr-pill-user custom_subHeading-text">
+              <span class="clr-pill-user__avatar">${initials}</span>
+              ${author}
+            </span>
+            <span class="clr-social-icon">${TWITTER_X_SVG}</span>
+          </div>
+          <p class="clr-card__text custom_body-text">${text || 'Incredible experience on the course with this device!'}</p>
+        `;
+        return card;
+      }
+
+      // Type 3: Standard Rating Card
+      card.className = 'clr-card clr-card--rating';
+      const rating = Math.min(5, Math.max(1, review.rating || 5));
+      let starsHtml = '';
+      for (let s = 0; s < rating; s++) {
+        starsHtml += STAR_SVG;
+      }
+
+      card.innerHTML = `
+        <div class="clr-card__stars-row">
+          <div class="clr-stars" aria-label="${rating} out of 5 stars">${starsHtml}</div>
+          <span class="clr-card__date custom_body-text">${date}</span>
+        </div>
+        <div class="clr-card__author-row">
+          <span class="clr-card__author custom_subHeading-text">${author}</span>
+          ${review.verified ? `<span class="clr-badge-verified" title="Verified Customer">${VERIFIED_CHECK}</span>` : ''}
+        </div>
+        <p class="clr-card__text custom_body-text">${text || 'Super accurate and easy to use on every round.'}</p>
+      `;
+      return card;
+    }
+
+    // Append to shortest visible column for optimal masonry balance
+    function getShortestColumn() {
+      const visibleCols = cols.filter(col => col && window.getComputedStyle(col).display !== 'none');
+      if (!visibleCols.length) return cols[0];
+      let shortestCol = visibleCols[0];
+      let minHeight = Infinity;
+      visibleCols.forEach(col => {
+        const h = col.offsetHeight || col.scrollHeight || 0;
+        if (h < minHeight) {
+          minHeight = h;
+          shortestCol = col;
+        }
+      });
+      return shortestCol;
+    }
+
+    function renderNextBatch() {
+      if (!allReviews.length) return;
+      const nextBatch = allReviews.slice(displayedCount, displayedCount + limit);
+
+      nextBatch.forEach((rev, idx) => {
+        const globalIdx = displayedCount + idx;
+        const cardEl = createCardElement(rev, globalIdx);
+        // Distribute to the shortest column for true masonry staggered balance
+        const targetCol = getShortestColumn();
+        targetCol.appendChild(cardEl);
+      });
+
+      displayedCount += nextBatch.length;
+
+      if (displayedCount >= allReviews.length && !apiHasMore && footerEl) {
+        footerEl.style.display = 'none';
+      }
+    }
+
+    async function fetchApiPage(url) {
+      if (!url || apiLoading) return;
+      apiLoading = true;
+
+      try {
+        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        if (!res.ok) throw new Error('Loox API error: ' + res.status);
+        const data = await res.json();
+
+        if (Array.isArray(data.reviews)) {
+          // If product id present, prefer reviews matching this product, or show store reviews
+          const relevant = productId
+            ? data.reviews.filter(r => !r.product || !r.product.id || String(r.product.id) === String(productId))
+            : data.reviews;
+
+          const toAdd = relevant.length > 0 ? relevant : data.reviews;
+          toAdd.forEach(r => {
+            const normalized = normalizeReview(r);
+            if (!allReviews.some(existing => existing.id && existing.id === normalized.id)) {
+              allReviews.push(normalized);
+            }
+          });
+        }
+
+        if (data.pagination) {
+          apiHasMore = Boolean(data.pagination.hasMore);
+          nextApiPageUrl = data.pagination.nextPageUrl || null;
+        } else {
+          apiHasMore = false;
+          nextApiPageUrl = null;
+        }
+      } catch (err) {
+        console.warn('[Custom Loox Reviews] API page error:', err);
+      } finally {
+        apiLoading = false;
+      }
+    }
+
+    async function fetchReviews() {
+      if (statusEl) statusEl.textContent = 'Loading reviews...';
+
+      try {
+        const apiBase = `https://storefront-api.loox.io/storefront/v1/store/${encodeURIComponent(publicStoreId)}/product-reviews`;
+        await fetchApiPage(apiBase);
+
+        // Fetch up to 3 pages initially if needed to fill masonry grid
+        let scans = 0;
+        while (allReviews.length < limit && apiHasMore && nextApiPageUrl && scans < 3) {
+          scans++;
+          await fetchApiPage(nextApiPageUrl);
+        }
+
+        if (allReviews.length > 0) {
+          if (statusEl) statusEl.style.display = 'none';
+          renderNextBatch();
+        } else {
+          if (statusEl) statusEl.textContent = 'No reviews found.';
+          if (footerEl) footerEl.style.display = 'none';
+        }
+      } catch (err) {
+        console.warn('[Custom Loox Reviews] Error fetching reviews:', err);
+        if (statusEl) statusEl.textContent = 'Unable to load reviews at this time.';
+        if (footerEl) footerEl.style.display = 'none';
+      }
+    }
+
+    // Load More action
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', async function () {
+        if (displayedCount < allReviews.length) {
+          renderNextBatch();
+          return;
+        }
+
+        if (apiHasMore && nextApiPageUrl) {
+          await fetchApiPage(nextApiPageUrl);
+          renderNextBatch();
+        }
+      });
+    }
+
+    fetchReviews();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Loox Reviews",
+  "tag": "section",
+  "class": "section-custom-loox-reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Section Anchor ID",
+      "info": "Optional custom HTML ID for anchor navigation (e.g. reviews, customer-reviews). Do not include '#'"
+    },
+    {
+      "type": "text",
+      "id": "loox_public_store_id",
+      "label": "Loox Public Store ID",
+      "default": "NkWLIAFhqB.d5f86dbd70a6351c1542d44dc92c1d48efc3128792711cf61e48ee96a56a5273",
+      "info": "Loox > Settings > API Keys > publicStoreId"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "HEARD ON THE COURSE"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Real golfers. Real rounds. See what players have to say about the Player Pro."
+    },
+    {
+      "type": "text",
+      "id": "write_review_text",
+      "label": "Write Review Button Text",
+      "default": "WRITE A REVIEW"
+    },
+    {
+      "type": "url",
+      "id": "write_review_url",
+      "label": "Write Review URL"
+    },
+    {
+      "type": "text",
+      "id": "load_more_text",
+      "label": "Load More Button Text",
+      "default": "LOAD MORE"
+    },
+    {
+      "type": "range",
+      "id": "reviews_limit",
+      "label": "Reviews per page",
+      "min": 3,
+      "max": 18,
+      "step": 3,
+      "default": 9
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Loox Reviews"
+    }
+  ]
+}
+{% endschema %}

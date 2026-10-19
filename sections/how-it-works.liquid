@@ -50,7 +50,8 @@
 
           <div class="step-image-wrapper">
             {% if block.settings.image != blank %}
-              {{ block.settings.image | image_url: width: 800 |image_tag: loading: 'lazy', alt: block.settings.title }}
+              {% assign step_alt = block.settings.title | strip_html | escape %}
+              {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: step_alt }}
             {% else %}
                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
             {% endif %}

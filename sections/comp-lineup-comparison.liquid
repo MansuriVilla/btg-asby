@@ -1,0 +1,974 @@
+{% liquid
+  assign s_id = section.id
+  assign title = section.settings.heading | default: "ONE LINEUP.<br>YOUR WAY TO PLAY."
+  assign subtitle = section.settings.subtitle | default: "From essential GPS audio to AI-powered performance, compare the Player family and step into the future of golf speakers."
+  
+  assign p1 = section.settings.product_1
+  assign p1_title = section.settings.p1_title
+  if p1_title == blank and p1 != blank
+    assign p1_title = p1.title
+  endif
+  if p1_title == blank
+    assign p1_title = "PLAYER+"
+  endif
+
+  assign p1_v = p1.selected_or_first_available_variant
+  assign p1_price = section.settings.p1_price
+  if p1_price == blank and p1 != blank
+    assign p1_price = p1_v.price | money
+  endif
+  if p1_price == blank
+    assign p1_price = "$199.99"
+  endif
+
+  assign p1_compare = ""
+  if p1 != blank and p1_v.compare_at_price > p1_v.price
+    assign p1_compare = p1_v.compare_at_price | money
+  endif
+
+  assign p1_on_sale = false
+  if p1_compare != blank
+    assign p1_on_sale = true
+  endif
+
+  assign p1_variant_id = ""
+  if p1 != blank
+    assign p1_variant_id = p1_v.id
+  endif
+
+  assign p2 = section.settings.product_2
+  assign p2_title = section.settings.p2_title
+  if p2_title == blank and p2 != blank
+    assign p2_title = p2.title
+  endif
+  if p2_title == blank
+    assign p2_title = "PLAYER PRO"
+  endif
+
+  assign p2_v = p2.selected_or_first_available_variant
+  assign p2_price = section.settings.p2_price
+  if p2_price == blank and p2 != blank
+    assign p2_price = p2_v.price | money
+  endif
+  if p2_price == blank
+    assign p2_price = "$299.99"
+  endif
+
+  assign p2_compare = ""
+  if p2 != blank and p2_v.compare_at_price > p2_v.price
+    assign p2_compare = p2_v.compare_at_price | money
+  endif
+
+  assign p2_on_sale = false
+  if p2_compare != blank
+    assign p2_on_sale = true
+  endif
+
+  assign p2_variant_id = ""
+  if p2 != blank
+    assign p2_variant_id = p2_v.id
+  endif
+
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'comp-lineup-' | append: s_id
+  endif
+%}
+
+<div
+  class="comp-lineup-comparison comp-lineup-comp-{{ s_id }}"
+  id="{{ section_id }}"
+  style="--comp-lc-pt: {{ section.settings.padding_top | default: 60 }}px; --comp-lc-pb: {{ section.settings.padding_bottom | default: 60 }}px;"
+>
+  <div class="comp-lineup-comp__container">
+    
+    <!-- Section Header -->
+    <header class="comp-lineup-comp__header">
+      <h2 class="comp-lineup-comp__title">{{ title }}</h2>
+      {% if subtitle != blank %}
+        <p class="comp-lineup-comp__subtitle">{{ subtitle }}</p>
+      {% endif %}
+    </header>
+
+    <!-- Comparison Table Card -->
+    <div class="comp-lineup-comp__table-wrapper">
+      <div class="comp-lineup-comp__table" role="table" aria-label="Product Comparison">
+        
+        <!-- Table Head: Product Images (Scrolls away) -->
+        <div class="comp-lineup-comp__row comp-lineup-comp__row--images" role="row">
+          <div class="comp-lineup-comp__cell comp-lineup-comp__cell--feature-head" role="columnheader"></div>
+
+          <!-- Product 1 Image -->
+          <div class="comp-lineup-comp__cell comp-lineup-comp__cell--product-media-head" role="columnheader">
+            <div class="comp-lineup-comp__prod-media">
+              {% if section.settings.p1_image != blank %}
+                {{ section.settings.p1_image | image_url: width: 350 | image_tag: loading: 'lazy', class: 'comp-lineup-comp__prod-img', alt: p1_title }}
+              {% elsif p1.featured_image != blank %}
+                {{ p1.featured_image | image_url: width: 350 | image_tag: loading: 'lazy', class: 'comp-lineup-comp__prod-img', alt: p1_title }}
+              {% else %}
+                {{ 'player-speaker-img.png' | asset_img_url: '350x' | image_tag: class: 'comp-lineup-comp__prod-img', loading: 'lazy', alt: p1_title }}
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Product 2 Image -->
+          <div class="comp-lineup-comp__cell comp-lineup-comp__cell--product-media-head" role="columnheader">
+            <div class="comp-lineup-comp__prod-media">
+              {% if section.settings.p2_image != blank %}
+                {{ section.settings.p2_image | image_url: width: 350 | image_tag: loading: 'lazy', class: 'comp-lineup-comp__prod-img', alt: p2_title }}
+              {% elsif p2.featured_image != blank %}
+                {{ p2.featured_image | image_url: width: 350 | image_tag: loading: 'lazy', class: 'comp-lineup-comp__prod-img', alt: p2_title }}
+              {% else %}
+                {{ 'mobile-speaker-img.png' | asset_img_url: '350x' | image_tag: class: 'comp-lineup-comp__prod-img', loading: 'lazy', alt: p2_title }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticky Table Head: Product Name & ATC Button -->
+        <div class="comp-lineup-comp__row comp-lineup-comp__row--sticky-badge" role="row">
+          <div class="comp-lineup-comp__cell comp-lineup-comp__cell--feature-head" role="columnheader"></div>
+
+          <!-- Product 1 Badge -->
+          <div class="comp-lineup-comp__cell comp-lineup-comp__cell--product-badge-head" role="columnheader">
+            <div class="comp-lineup-comp__prod-badge">
+              <span class="comp-lineup-comp__prod-name">{{ p1_title }}</span>
+              {% capture p1_btn_attrs %}data-variant-id="{{ p1_variant_id }}" aria-label="Add {{ p1_title }} to cart"{% endcapture %}
+              {% render 'cta-button',
+                text: 'ADD TO CART',
+                type: 'button',
+                variant: 'solid',
+                class: 'comp-lineup-comp__atc-btn js-comp-lineup-atc',
+                attributes: p1_btn_attrs
+              %}
+            </div>
+          </div>
+
+          <!-- Product 2 Badge -->
+          <div class="comp-lineup-comp__cell comp-lineup-comp__cell--product-badge-head" role="columnheader">
+            <div class="comp-lineup-comp__prod-badge">
+              <span class="comp-lineup-comp__prod-name">{{ p2_title }}</span>
+              {% capture p2_btn_attrs %}data-variant-id="{{ p2_variant_id }}" aria-label="Add {{ p2_title }} to cart"{% endcapture %}
+              {% render 'cta-button',
+                text: 'ADD TO CART',
+                type: 'button',
+                variant: 'solid',
+                class: 'comp-lineup-comp__atc-btn js-comp-lineup-atc',
+                attributes: p2_btn_attrs
+              %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Price Row -->
+        <div class="comp-lineup-comp__row comp-lineup-comp__row--price" role="row">
+          <div class="comp-lineup-comp__cell comp-lineup-comp__cell--label" role="rowheader">PRICE</div>
+          <div class="comp-lineup-comp__cell comp-lineup-comp__cell--val" role="cell">
+            <span class="comp-lineup-comp__price-val{% if p1_on_sale %} is-on-sale{% endif %}">{{ p1_price }}</span>
+            {% if p1_compare != blank %}
+              <s class="comp-lineup-comp__compare-val">{{ p1_compare }}</s>
+            {% endif %}
+          </div>
+          <div class="comp-lineup-comp__cell comp-lineup-comp__cell--val" role="cell">
+            <span class="comp-lineup-comp__price-val{% if p2_on_sale %} is-on-sale{% endif %}">{{ p2_price }}</span>
+            {% if p2_compare != blank %}
+              <s class="comp-lineup-comp__compare-val">{{ p2_compare }}</s>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Feature Blocks & Categories -->
+        {% assign current_group = '' %}
+        {% for block in section.blocks %}
+          {% if block.type == 'category' %}
+            <div
+              class="comp-lineup-comp__category-header js-comp-toggle-group"
+              role="button"
+              tabindex="0"
+              aria-expanded="true"
+              id="cat-btn-{{ block.id }}"
+              aria-controls="cat-group-{{ block.id }}"
+            >
+              <span class="comp-lineup-comp__cat-title">{{ block.settings.title }}</span>
+              {% render 'comp-table-icons', icon: 'chevron', size: 16 %}
+            </div>
+          {% elsif block.type == 'feature_row' %}
+            <div class="comp-lineup-comp__row comp-lineup-comp__row--data" role="row" {{ block.shopify_attributes }}>
+              <div class="comp-lineup-comp__cell comp-lineup-comp__cell--label" role="rowheader">
+                {{ block.settings.feature_name }}
+              </div>
+
+              <!-- Product 1 Val -->
+              <div class="comp-lineup-comp__cell comp-lineup-comp__cell--val" role="cell">
+                <span class="comp-lineup-comp__mobile-feature-label custom_heading">{{ block.settings.feature_name }}</span>
+                {% case block.settings.val_1_type %}
+                  {% when 'check' %}
+                    {% render 'comp-table-icons', icon: 'check', size: 16 %}
+                  {% when 'cross' %}
+                    {% render 'comp-table-icons', icon: 'cross', size: 16 %}
+                  {% else %}
+                    <span class="comp-lineup-comp__text-val">{{ block.settings.val_1_text }}</span>
+                {% endcase %}
+              </div>
+
+              <!-- Product 2 Val -->
+              <div class="comp-lineup-comp__cell comp-lineup-comp__cell--val" role="cell">
+                <span class="comp-lineup-comp__mobile-feature-label custom_heading">{{ block.settings.feature_name }}</span>
+                {% case block.settings.val_2_type %}
+                  {% when 'check' %}
+                    {% render 'comp-table-icons', icon: 'check', size: 16 %}
+                  {% when 'cross' %}
+                    {% render 'comp-table-icons', icon: 'cross', size: 16 %}
+                  {% else %}
+                    <span class="comp-lineup-comp__text-val">{{ block.settings.val_2_text }}</span>
+                {% endcase %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .comp-lineup-comp-{{ s_id }} {
+    width: 100%;
+    position: relative;
+    padding-top: clamp(2.5rem, 1.8rem + 3vw, 5.5rem);
+    padding-bottom: clamp(2.5rem, 1.8rem + 3vw, 5.5rem);
+    background-color: #ffffff;
+    box-sizing: border-box;
+  }
+
+  .comp-lineup-comp-{{ s_id }} * {
+    box-sizing: border-box;
+  }
+
+  .comp-lineup-comp__container {
+    max-width: min(100% - clamp(1.5rem, 3vw, 3rem), 75rem);
+    margin: 0 auto;
+    padding: 0 clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
+  }
+
+  /* Header */
+  .comp-lineup-comp__header {
+    text-align: center;
+    margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .comp-lineup-comp__title {
+    margin: 0 0 clamp(0.5rem, 0.3rem + 0.3vw, 0.75rem) 0;
+    color: #0f172a;
+    font-weight: 900;
+ 
+    text-transform: uppercase;
+    font-size: clamp(1.85rem, 1.3rem + 2.4vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .comp-lineup-comp__subtitle {
+    margin: 0;
+    color: #475569;
+    font-size: clamp(0.875rem, 0.82rem + 0.3vw, 1.05rem);
+    line-height: 1.5;
+    max-width: clamp(340px, 30vw,660px);
+  }
+
+  /* Table Card */
+  .comp-lineup-comp__table-wrapper {
+    width: 100%;
+    overflow: clip;
+    background: #f8fafc;
+  }
+
+  @supports not (overflow: clip) {
+    .comp-lineup-comp__table-wrapper {
+      overflow: visible;
+    }
+  }
+
+  .comp-lineup-comp__table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 540px;
+  }
+
+  .comp-lineup-comp__row {
+    display: grid;
+    grid-template-columns: 32% 34% 34%;
+    align-items: center;
+    border-bottom: 1px solid #eef2f6;
+  }
+
+.comp-lineup-comp__cell:not(:empty, .comp-lineup-comp__cell--product-media-head, .comp-lineup-comp__cell--product-badge-head) {
+  padding: 34px 32px;
+  background: #F4F4F5;
+  height: 100%;
+}
+
+  .comp-lineup-comp__cell--label {
+    font-size: clamp(0.75rem, 0.7rem + 0.15vw, 0.85rem);
+   font-family: 'Blue Tees Subhead';
+    text-transform: uppercase;
+    color: #0f172a;
+    letter-spacing: 0.02em;
+  }
+
+  .comp-lineup-comp__cell--val {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comp-lineup-comp__text-val {
+    font-size: clamp(0.78rem, 0.74rem + 0.15vw, 0.88rem);
+    /* font-weight: 600; */
+    color: #334155;
+    line-height: 1.35;
+  }
+
+
+  .comp-lineup-comp__table-wrapper .comp-lineup-comp__cell:nth-child(2n):not(.comp-lineup-comp__table-wrapper .comp-lineup-comp__cell.comp-lineup-comp__cell--product-media-head) {
+    border-right: 1px solid #E7E8E9;
+    border-left: 1px solid #E7E8E9;
+  }
+
+  /* Product Showcase Images Row */
+  .comp-lineup-comp__row--images {
+    background: #ffffff;
+    align-items: flex-end;
+    border-bottom: none;
+  }
+
+  .comp-lineup-comp__cell--product-media-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #ffffff;
+    padding-top: clamp(1rem, 0.8rem + 1vw, 2rem);
+  }
+
+  .comp-lineup-comp__prod-media {
+    width: clamp(7.5rem, 6rem + 4vw, 12rem);
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: clamp(0.5rem, 0.3rem + 0.3vw, 0.85rem);
+  }
+
+  .comp-lineup-comp__prod-img {
+    max-width: 100%;
+    max-height: 100%;
+    height:auto;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.15));
+  }
+
+  /* Sticky Product Badge Row */
+  .comp-lineup-comp__row--sticky-badge {
+    background: #ffffff;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border-bottom: 1px solid #eef2f6;
+  }
+
+  .comp-lineup-comp__row--sticky-badge .comp-lineup-comp__cell--feature-head {
+    background: #ffffff;
+  }
+
+  .comp-lineup-comp__cell--product-badge-head {
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .comp-lineup-comp__prod-badge {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.4rem, 0.3rem + 0.2vw, 0.75rem);
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 32px;
+    background: #ffffff;
+  }
+
+  .comp-lineup-comp__prod-name {
+    font-size: clamp(0.85rem, 0.78rem + 0.25vw, 1.05rem);
+   font-family: 'Blue Tees Headline Italic';
+    color: #0f172a;
+    letter-spacing: -0.01em;
+  }
+
+  .comp-lineup-comp__atc-btn {
+    padding: clamp(0.35rem, 0.25rem + 0.2vw, 0.5rem) clamp(0.65rem, 0.5rem + 0.4vw, 0.95rem);
+    font-size: clamp(0.65rem, 0.6rem + 0.15vw, 0.75rem);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .comp-lineup-comp__atc-btn.is-loading .comp-lineup-comp__btn-text {
+    opacity: 0;
+  }
+
+  .comp-lineup-comp__atc-btn.is-loading .comp-lineup-comp__btn-spin {
+    display: block;
+  }
+
+  .comp-lineup-comp__btn-spin {
+    display: none;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: comp-atc-spin 0.6s linear infinite;
+    position: absolute;
+  }
+
+  @keyframes comp-atc-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Price Row */
+  .comp-lineup-comp__row--price {
+    background: #ffffff;
+  }
+
+  .comp-lineup-comp__price-val {
+    font-size: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
+    color: #000000;
+  }
+  .comp-lineup-comp__price-val.is-on-sale {
+    color: #CB0000;
+  }
+  .comp-lineup-comp__compare-val {
+    font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.9rem);
+    color: #94a3b8;
+    text-decoration: line-through;
+    margin-left: 6px;
+  }
+
+  /* Category Collapsible Header */
+  .comp-lineup-comp__category-header {
+    background-color: #E7E8E9;
+    padding: clamp(0.65rem, 0.5rem + 0.3vw, 0.95rem) clamp(0.75rem, 0.5rem + 0.5vw, 1.25rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+    outline: none;
+  }
+  
+  .comp-lineup-comp__category-header:hover {
+    background-color: #cbd5e1;
+  }
+  
+  .comp-lineup-comp__category-header:focus-visible {
+    outline: 2px solid #175cff;
+    outline-offset: -2px;
+  }
+  
+  .comp-lineup-comp__cat-title {
+    font-size: clamp(0.8rem, 0.75rem + 0.2vw, 0.925rem);
+    font-weight: 900;
+    font-family: 'Blue Tees Headline Italic';
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  /* Data Row Transition */
+  .comp-lineup-comp__row--data {
+    transition: opacity 0.2s ease;
+  }
+
+  .comp-lineup-comp__mobile-feature-label {
+    display: none;
+  }
+
+  .comp-lineup-comp__row--data.is-collapsed {
+    display: none !important;
+  }
+
+  .comp-lineup-comp__category-header .comp-table-icon--chevron {
+    transition: transform 0.3s ease;
+  }
+
+  .comp-lineup-comp__category-header.is-collapsed .comp-table-icon--chevron {
+    transform: rotate(-90deg);
+  }
+
+  /* Mobile Responsive View (<= 991px) */
+  @media (max-width: 991px) {
+    .comp-lineup-comp-{{ s_id }} {
+      padding-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+      padding-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    }
+
+    .comp-lineup-comp__container {
+      max-width: 100%;
+      padding: 0 12px;
+    }
+
+    .comp-lineup-comp__table-wrapper {
+      overflow: visible;
+      background: transparent;
+    }
+
+    .comp-lineup-comp__table {
+      min-width: 0;
+      width: 100%;
+    }
+
+    /* Hide 1st column label headers and desktop spacer cell */
+    .comp-lineup-comp__cell--feature-head,
+    .comp-lineup-comp__row--data .comp-lineup-comp__cell--label,
+    .comp-lineup-comp__row--price .comp-lineup-comp__cell--label {
+      display: none !important;
+    }
+
+    /* Change grid to 2 columns */
+    .comp-lineup-comp__row {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* Reset desktop nth-child borders */
+    .comp-lineup-comp__table-wrapper .comp-lineup-comp__cell:nth-child(2n):not(.comp-lineup-comp__table-wrapper .comp-lineup-comp__cell.comp-lineup-comp__cell--product-media-head) {
+      border-right: none;
+      border-left: none;
+    }
+
+    .comp-lineup-comp__cell:not(:empty, .comp-lineup-comp__cell--product-media-head, .comp-lineup-comp__cell--product-badge-head) {
+      padding: 16px 14px;
+      height: 100%;
+    }
+
+    /* Column separator between product 1 and product 2 */
+    .comp-lineup-comp__row > .comp-lineup-comp__cell:last-child {
+      border-left: 1px solid #e2e8f0;
+    }
+
+    /* Image row */
+    .comp-lineup-comp__cell--product-media-head {
+      padding: 12px 8px 8px;
+    }
+
+    .comp-lineup-comp__prod-media {
+      width: clamp(5.5rem, 30vw, 8.5rem);
+      margin-bottom: 6px;
+    }
+
+    /* Sticky Product Badge row */
+    .comp-lineup-comp__prod-badge {
+      padding: 10px 8px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+    }
+
+    .comp-lineup-comp__prod-name {
+      font-size: 0.95rem;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .comp-lineup-comp__atc-btn {
+      padding: 6px 14px;
+      font-size: 0.68rem;
+    }
+
+    /* Price row */
+    .comp-lineup-comp__row--price .comp-lineup-comp__cell--val {
+      padding: 10px 8px;
+      background: #ffffff;
+    }
+
+    .comp-lineup-comp__price-val {
+      font-size: 0.95rem;
+      font-family: 'Blue Tees Headline Italic';
+    }
+
+    /* Category banner */
+    .comp-lineup-comp__category-header {
+      padding: 10px 14px;
+    }
+
+    .comp-lineup-comp__cat-title {
+      font-size: 0.85rem;
+    }
+
+    /* Data Cells on Mobile */
+    .comp-lineup-comp__row--data .comp-lineup-comp__cell--val {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      text-align: left;
+      gap: 5px;
+    }
+
+    /* Feature Label inside each cell */
+    .comp-lineup-comp__mobile-feature-label {
+      display: block;
+      font-size: 0.72rem;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 1.2;
+    }
+
+    .comp-lineup-comp__text-val {
+      font-size: 0.78rem;
+      color: #334155;
+      line-height: 1.35;
+      font-family: 'Blue Tees Paragraph';
+    }
+
+    .comp-lineup-comp__row--data .comp-lineup-comp__cell--val .comp-table-icon {
+      margin-top: 2px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    function initLineupComp() {
+      const section = document.getElementById('comp-lineup-{{ s_id }}');
+      if (!section) return;
+
+      function toggleCategory(header, forceOpen) {
+        const currentlyCollapsed = header.classList.contains('is-collapsed');
+        const shouldOpen = forceOpen !== undefined ? forceOpen : currentlyCollapsed;
+
+        header.classList.toggle('is-collapsed', !shouldOpen);
+        header.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+
+        let sibling = header.nextElementSibling;
+        while (sibling && !sibling.classList.contains('comp-lineup-comp__category-header')) {
+          if (sibling.classList.contains('comp-lineup-comp__row--data')) {
+            sibling.classList.toggle('is-collapsed', !shouldOpen);
+          }
+          sibling = sibling.nextElementSibling;
+        }
+      }
+
+      const catHeaders = section.querySelectorAll('.js-comp-toggle-group');
+
+      // Default all items collapsed
+      catHeaders.forEach(function(header) {
+        toggleCategory(header, false);
+      });
+
+      // Auto open each item one by one as they come into view
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              toggleCategory(entry.target, true);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          root: null,
+          rootMargin: '0px 0px -15% 0px',
+          threshold: 0.1
+        });
+
+        catHeaders.forEach(function(header) {
+          observer.observe(header);
+        });
+      }
+
+        // Category Manual Collapsing Click & Keydown
+        catHeaders.forEach(function(header) {
+          header.addEventListener('click', function() {
+            toggleCategory(this);
+          });
+
+          header.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              this.click();
+            }
+          });
+        });
+
+      // AJAX Add to Cart
+      const atcBtns = section.querySelectorAll('.js-comp-lineup-atc');
+      atcBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const variantId = this.getAttribute('data-variant-id');
+          const btnText = this.querySelector('.content-cta__text') || this.querySelector('.comp-lineup-comp__btn-text') || this;
+
+          if (!variantId) {
+            if (btnText) {
+              const orig = btnText.textContent;
+              btnText.textContent = 'DEMO ONLY';
+              setTimeout(() => { btnText.textContent = orig; }, 1600);
+            }
+            return;
+          }
+
+          this.classList.add('is-loading');
+          this.disabled = true;
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({ id: variantId, quantity: 1 })
+          })
+          .then(res => res.json())
+          .then(data => {
+            btn.classList.remove('is-loading');
+            btn.disabled = false;
+            if (btnText) {
+              btnText.textContent = 'ADDED ✓';
+              setTimeout(() => { btnText.textContent = 'ADD TO CART'; }, 2000);
+            }
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: data } }));
+            document.dispatchEvent(new CustomEvent('cart:open'));
+          })
+          .catch(err => {
+            console.error('Error adding to cart:', err);
+            btn.classList.remove('is-loading');
+            btn.disabled = false;
+            if (btnText) {
+              btnText.textContent = 'ERROR';
+              setTimeout(() => { btnText.textContent = 'ADD TO CART'; }, 2000);
+            }
+          });
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLineupComp);
+    } else {
+      initLineupComp();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Lineup Comparison Table",
+  "tag": "section",
+  "class": "section-lineup-comparison",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Section Anchor ID",
+      "info": "Optional custom HTML ID for anchor navigation (e.g. comparison, lineup). Do not include '#'"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ONE LINEUP.\nYOUR WAY TO PLAY."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "From essential GPS audio to AI-powered performance, compare the Player family and step into the future of golf speakers."
+    },
+    {
+      "type": "header",
+      "content": "Product 1 (Left)"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Select Product 1"
+    },
+    {
+      "type": "text",
+      "id": "p1_title",
+      "label": "Product 1 Title Override",
+      "default": "PLAYER+"
+    },
+    {
+      "type": "text",
+      "id": "p1_price",
+      "label": "Product 1 Price Override",
+      "default": "$199.99"
+    },
+    {
+      "type": "image_picker",
+      "id": "p1_image",
+      "label": "Product 1 Image"
+    },
+    {
+      "type": "header",
+      "content": "Product 2 (Right)"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Select Product 2"
+    },
+    {
+      "type": "text",
+      "id": "p2_title",
+      "label": "Product 2 Title Override",
+      "default": "PLAYER PRO"
+    },
+    {
+      "type": "text",
+      "id": "p2_price",
+      "label": "Product 2 Price Override",
+      "default": "$299.99"
+    },
+    {
+      "type": "image_picker",
+      "id": "p2_image",
+      "label": "Product 2 Image"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Header",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "default": "HARDWARE"
+        }
+      ]
+    },
+    {
+      "type": "feature_row",
+      "name": "Feature Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_name",
+          "label": "Feature Name",
+          "default": "Feature"
+        },
+        {
+          "type": "select",
+          "id": "val_1_type",
+          "label": "Product 1 Value Type",
+          "options": [
+            { "value": "text", "label": "Text" },
+            { "value": "check", "label": "Checkmark (Green)" },
+            { "value": "cross", "label": "Cross / Dash (Dark)" }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "textarea",
+          "id": "val_1_text",
+          "label": "Product 1 Text Value",
+          "default": "Value 1"
+        },
+        {
+          "type": "select",
+          "id": "val_2_type",
+          "label": "Product 2 Value Type",
+          "options": [
+            { "value": "text", "label": "Text" },
+            { "value": "check", "label": "Checkmark (Green)" },
+            { "value": "cross", "label": "Cross / Dash (Dark)" }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "textarea",
+          "id": "val_2_text",
+          "label": "Product 2 Text Value",
+          "default": "Value 2"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lineup Comparison Table",
+      "settings": {
+        "heading": "ONE LINEUP.\nYOUR WAY TO PLAY.",
+        "subtitle": "From essential GPS audio to AI-powered performance, compare the Player family and step into the future of golf speakers.",
+        "p1_title": "PLAYER+",
+        "p1_price": "$199.99",
+        "p2_title": "PLAYER PRO",
+        "p2_price": "$299.99"
+      },
+      "blocks": [
+        { "type": "category", "settings": { "title": "HARDWARE" } },
+        { "type": "feature_row", "settings": { "feature_name": "DISPLAY", "val_1_type": "text", "val_1_text": "2.4\" Full-color touchscreen", "val_2_type": "text", "val_2_text": "4.2\" Full-color touchscreen" } },
+        { "type": "feature_row", "settings": { "feature_name": "AUDIO", "val_1_type": "text", "val_1_text": "2x 48mm 15W Drivers\n2x Passive Radiator\nw/ custom tuning", "val_2_type": "text", "val_2_text": "2x 68mm 15W Racetrack Woofers\n2x 18-coil 5W Tweeters\n2x Passive Radiators" } },
+        { "type": "feature_row", "settings": { "feature_name": "WATERPROOF RATING", "val_1_type": "text", "val_1_text": "IPX7", "val_2_type": "text", "val_2_text": "IPX7" } },
+        { "type": "feature_row", "settings": { "feature_name": "MAGNETIC CART MOUNT", "val_1_type": "text", "val_1_text": "Heavy-duty magnet", "val_2_type": "text", "val_2_text": "2X Heavy-duty magnet" } },
+        { "type": "feature_row", "settings": { "feature_name": "SPLIT SCREEN MODE", "val_1_type": "cross", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "BATTERY LIFE", "val_1_type": "text", "val_1_text": "14 Hours", "val_2_type": "text", "val_2_text": "14 Hours" } },
+
+        { "type": "category", "settings": { "title": "ON-COURSE FEATURES" } },
+        { "type": "feature_row", "settings": { "feature_name": "COURSE LIBRARY", "val_1_type": "text", "val_1_text": "42,000+", "val_2_type": "text", "val_2_text": "42,000+" } },
+        { "type": "feature_row", "settings": { "feature_name": "FCB DISTANCES", "val_1_type": "check", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "HAZARD DISTANCES", "val_1_type": "check", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "DYNAMIC HOLE VIEW", "val_1_type": "check", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "GREEN HEAT MAPS", "val_1_type": "check", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "SCORE DISPLAY", "val_1_type": "check", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "SHOT DISTANCE CALCULATOR", "val_1_type": "check", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "ROUND TIMER", "val_1_type": "check", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "ON-DEVICE SCOREKEEPING", "val_1_type": "check", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "LIVE SPORTS SCORES", "val_1_type": "cross", "val_2_type": "check" } },
+
+        { "type": "category", "settings": { "title": "GAME AI INTELLIGENCE" } },
+        { "type": "feature_row", "settings": { "feature_name": "AI CLUB RECOMMENDATIONS", "val_1_type": "check", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "SCOUT AI™ CADDIE", "val_1_type": "check", "val_2_type": "check" } },
+        { "type": "feature_row", "settings": { "feature_name": "TRUE DISTANCE™ ADJUSTED YARDAGES", "val_1_type": "check", "val_2_type": "check" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

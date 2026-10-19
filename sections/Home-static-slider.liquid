@@ -719,7 +719,7 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
 #snow_init .banner_tag-line{font-size: clamp(12px,1.4vw,24px);
   font-weight: 300;
   line-height: 155%;
-  color: #ffffff70; margin-top: 5px;}
+  color: #ffffff70; margin-top: 5px; letter-spacing: 4px;}
   #snow_init .title__title-badge {
   display: inline-flex;
   max-width: clamp(60px,6vw,108px);
@@ -733,6 +733,7 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
         align-items: flex-start;
         gap:10px;
       }
+      #snow_init .item__left--center{margin-block:0px;}
     @media only screen and (max-width: 860px) {
       .item__left--floating {
         position: absolute;
@@ -740,8 +741,14 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
         width: 100%;
         left: 0;
         gap: 0;
+        justify-content: center;
+        align-items: center;
         
       }
+      #snow_init [data-banner-two-col] .bottom__title:not(#bannerHome #am-slide_item-1[data-banner-two-col] .bottom__title){
+              justify-content: center;
+        align-items: center;
+        }
       
     }
   </style>
@@ -757,7 +764,7 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
       <div
         class="am-slide_item two_col-banner fireworks two_col-banner--image-bottom"
 
-        style="--banner-bg: url('https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Labor_Day_Sale_Banner_HOME_page_desktop-1.webp?v=1790665064'); --banner-bg-mobile:url('https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Labor_Day_Sale_Banner_HOME_page_MOBILE-1.webp?v=1790665063');"
+        style="--banner-bg: url('https://cdn.shopify.com/s/files/1/0057/8958/1381/files/October_evergreen_Banner_HOME_page_desktop.webp?v=1790700069'); --banner-bg-mobile:url('https://cdn.shopify.com/s/files/1/0057/8958/1381/files/October_evergreen_Banner_HOME_page_MOBILE.webp?v=1790700070');"
         data-banner-two-col
         data-slide-none="true"
         data-slide-index="1"
@@ -834,7 +841,7 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
                     <div class="center_top">
                       <p>
                         <span class="banner_pricing custom_heading">
-                          {{- all_products.rainmaker.compare_at_price_max | money }}
+                          {{- all_products.rainmaker.price | money }}
                           {% comment %}
                             <svg
                               width="403"
@@ -892,7 +899,7 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
       </div>
       <div
         class="am-slide_item two_col-banner fireworks"
-        style="--banner-bg: url('https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Labor_Day_Sale_Banner_HOME_page_desktop_45587f4f-e2de-4032-96cd-874ac97fb2e3.webp?v=1790665064'); --banner-bg-mobile:url('https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Labor_Day_Sale_Banner_HOME_page_MOBILE_b5a746a3-ed1a-4c66-9d0e-118c7de442cb.webp?v=1790665064');"
+        style="--banner-bg: url('https://cdn.shopify.com/s/files/1/0057/8958/1381/files/October_evergreen_Banner_HOME_page_desktop.webp?v=1790700069'); --banner-bg-mobile:url('https://cdn.shopify.com/s/files/1/0057/8958/1381/files/October_evergreen_Banner_HOME_page_MOBILE.webp?v=1790700070');"
         data-banner-two-col
         data-slide-index="0"
       >
@@ -965,28 +972,19 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
                   </div>
                   <div class="item__left--center">
                     <div class="center_top">
-                      <p>
-                        <span class="banner_pricing custom_heading">
-                          {{- all_products.rainmaker.compare_at_price_max | money }}
-                          {% comment %}
-                            <svg
-                              width="403"
-                              height="9"
-                              viewBox="0 0 403 9"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M201.497 8.43298V4.21649H0C21.221 6.36282 118.858 8.43298 201.497 8.43298Z" fill="var(--new-sale-red)"></path> <path d="M201.503 8.43698V4.22049H403C381.779 6.36682 284.142 8.43698 201.503 8.43698Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H402.994C381.773 2.07016 284.136 0 201.497 0Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H0C21.221 2.07016 118.857 0 201.497 0Z" fill="var(--new-sale-red)"></path>
-                            </svg>
-                          {% endcomment %}
-                        </span>
-                        {% comment %}
-                          <span class="price__compare--save">
+                      <p {% if all_products.rainmaker.compare_at_price_max > all_products.rainmaker.price %} style="display: flex;align-items: center;gap: 30px;"{% endif %} >
+               <span class="banner_pricing custom_heading">
+                      {{ all_products.rainmaker.price | money }}
+                      </span>
+
+                    {% if all_products.rainmaker.compare_at_price_max > all_products.rainmaker.price %}
+                      <span class="price__compare--save" style="color: var(--new-sale-red);">
                             <span class="save_textd">SAVE</span>
                             {{ all_products.rainmaker.compare_at_price_max | minus: all_products.rainmaker.price | money }}
                           </span>
-                        {% endcomment %}
+                    {% endif %}
                       </p>
+                     
                     </div>
                   </div>
                 </div>
@@ -1118,27 +1116,17 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
                   </div>
                   <div class="item__left--center">
                     <div class="center_top">
-                      <p>
-                        <span class="banner_pricing custom_heading">
-                          {{- all_products['player-pro'].compare_at_price_max | money }}
-                          {% comment %}
-                            <svg
-                              width="403"
-                              height="9"
-                              viewBox="0 0 403 9"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M201.497 8.43298V4.21649H0C21.221 6.36282 118.858 8.43298 201.497 8.43298Z" fill="var(--new-sale-red)"></path> <path d="M201.503 8.43698V4.22049H403C381.779 6.36682 284.142 8.43698 201.503 8.43698Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H402.994C381.773 2.07016 284.136 0 201.497 0Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H0C21.221 2.07016 118.857 0 201.497 0Z" fill="var(--new-sale-red)"></path>
-                            </svg>
-                          {% endcomment %}
-                        </span>
-                        {% comment %}
-                          <span class="price__compare--save">
+                      <p {% if all_products.player-pro.compare_at_price_max > all_products.player-pro.price %} style="display: flex;align-items: center;gap: 30px;"{% endif %} >
+               <span class="banner_pricing custom_heading">
+                      {{ all_products.player-pro.price | money }}
+                      </span>
+
+                    {% if all_products.player-pro.compare_at_price_max > all_products.player-pro.price %}
+                      <span class="price__compare--save" style="color: var(--new-sale-red);">
                             <span class="save_textd">SAVE</span>
-                            {{ all_products.rainmaker.compare_at_price_max | minus: all_products.rainmaker.price | money }}
+                            {{ all_products.player-pro.compare_at_price_max | minus: all_products.player-pro.price | money }}
                           </span>
-                        {% endcomment %}
+                    {% endif %}
                       </p>
                     </div>
                   </div>
@@ -1261,27 +1249,17 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
                   </div>
                   <div class="item__left--center">
                     <div class="center_top">
-                      <p>
-                        <span class="banner_pricing custom_heading">
-                          {{- all_products['captain-pro'].compare_at_price_max | money }}
-                          {% comment %}
-                            <svg
-                              width="403"
-                              height="9"
-                              viewBox="0 0 403 9"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M201.497 8.43298V4.21649H0C21.221 6.36282 118.858 8.43298 201.497 8.43298Z" fill="var(--new-sale-red)"></path> <path d="M201.503 8.43698V4.22049H403C381.779 6.36682 284.142 8.43698 201.503 8.43698Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H402.994C381.773 2.07016 284.136 0 201.497 0Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H0C21.221 2.07016 118.857 0 201.497 0Z" fill="var(--new-sale-red)"></path>
-                            </svg>
-                          {% endcomment %}
-                        </span>
-                        {% comment %}
-                          <span class="price__compare--save">
+                      <p {% if all_products.captain-pro.compare_at_price_max > all_products.captain-pro.price %} style="display: flex;align-items: center;gap: 30px;"{% endif %} >
+               <span class="banner_pricing custom_heading">
+                      {{ all_products.captain-pro.price | money }}
+                      </span>
+
+                    {% if all_products.captain-pro.compare_at_price_max > all_products.captain-pro.price %}
+                      <span class="price__compare--save" style="color: var(--new-sale-red);">
                             <span class="save_textd">SAVE</span>
-                            {{ all_products.rainmaker.compare_at_price_max | minus: all_products.rainmaker.price | money }}
+                            {{ all_products.captain-pro.compare_at_price_max | minus: all_products.captain-pro.price | money }}
                           </span>
-                        {% endcomment %}
+                    {% endif %}
                       </p>
                     </div>
                   </div>
@@ -1404,27 +1382,17 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
                   </div>
                   <div class="item__left--center">
                     <div class="center_top">
-                      <p>
-                        <span class="banner_pricing custom_heading">
-                          {{- all_products['captain-air'].compare_at_price_max | money }}
-                          {% comment %}
-                            <svg
-                              width="403"
-                              height="9"
-                              viewBox="0 0 403 9"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M201.497 8.43298V4.21649H0C21.221 6.36282 118.858 8.43298 201.497 8.43298Z" fill="var(--new-sale-red)"></path> <path d="M201.503 8.43698V4.22049H403C381.779 6.36682 284.142 8.43698 201.503 8.43698Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H402.994C381.773 2.07016 284.136 0 201.497 0Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H0C21.221 2.07016 118.857 0 201.497 0Z" fill="var(--new-sale-red)"></path>
-                            </svg>
-                          {% endcomment %}
-                        </span>
-                        {% comment %}
-                          <span class="price__compare--save">
+                      <p {% if all_products.captain-air.compare_at_price_max > all_products.captain-air.price %} style="display: flex;align-items: center;gap: 30px;"{% endif %} >
+               <span class="banner_pricing custom_heading">
+                      {{ all_products.captain-air.price | money }}
+                      </span>
+
+                    {% if all_products.captain-air.compare_at_price_max > all_products.captain-air.price %}
+                      <span class="price__compare--save" style="color: var(--new-sale-red);">
                             <span class="save_textd">SAVE</span>
-                            {{ all_products.rainmaker.compare_at_price_max | minus: all_products.rainmaker.price | money }}
+                            {{ all_products.captain-air.compare_at_price_max | minus: all_products.captain-air.price | money }}
                           </span>
-                        {% endcomment %}
+                    {% endif %}
                       </p>
                     </div>
                   </div>
@@ -1629,7 +1597,7 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
         }
 
         span.banner_pricing {
-      font-size: clamp(18px, 2vw, 38px);
+      font-size: clamp(24px, 2vw, 38px);
       line-height: 1;
   }
 
@@ -1768,7 +1736,7 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
               SINGLE LAYOUT BANNER
               -----------------*/
 
-              .banner_tag-line {     font-size: clamp(16px, 1.4vw, 24px);
+              .banner_tag-line {     font-size: 24px;
       font-weight: 300;
       line-height: 1;
       color: #ffffff;
@@ -1840,7 +1808,7 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
                 [data-banner-two-col] .item__right img, [data-banner-one-col] .item__right img{ display:none;}
                {% endcomment %}
 
-               #bannerHome [data-banner-two-col] .bottom__title:not(#bannerHome #am-slide_item-1[data-banner-two-col] .bottom__title){font-size:clamp(min(26px, 52px),4.5vw,90px);}
+               #bannerHome [data-banner-two-col] .bottom__title:not(#bannerHome #am-slide_item-1[data-banner-two-col] .bottom__title){font-size:clamp(min(34px, 52px),4.5vw,90px);}
                #bannerHome [data-banner-two-col] .item__left--floating { display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; width: 100%; gap: clamp(15px,2vw,30px); }
                .title__title-top { display: flex; align-items: center; gap: 10px; }
                .title__title-badge { display: inline-flex; max-width: 30px; width: 100%; /* margin-left: 6px; */ filter: brightness(2);}
@@ -1889,6 +1857,8 @@ d{% comment %} <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/i
                   [data-banner-col-offer].two_col-banner--image-bottom .item__left--bottom , [data-banner-one-col].two_col-banner--image-bottom .item__left--bottom , [data-banner-two-col].two_col-banner--image-bottom .item__left--bottom  {     justify-content: center; display: flex;}
                  #bannerHome .two_col-banner--image-bottom .item__right .item__right-inner{align-items: flex-start;}
                   .two_col-banner--image-bottom .price__actual{font-size:clamp(27px,4vw,54px);}
+                  #bannerHome [data-banner-two-col] .bottom__title:not(#bannerHome #am-slide_item-1[data-banner-two-col] .bottom__title){gap:15px;}
+                  .title__title-badge {max-width: 34px;}
                 }
 
 

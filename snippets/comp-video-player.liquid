@@ -1,0 +1,137 @@
+{% comment %}
+  Component: comp-video-player
+  Universal modular video player with glassmorphism controls.
+  Variants:
+    - 'full': Shows bottom-left timer pill (MM:SS / MM:SS) + bottom-right mute & play/pause buttons
+    - 'buttonsonly': Shows only bottom-right (or bottom-left) mute & play/pause action buttons
+    - 'centerplay': Shows central PLAY pill button, auto-hides on play, click anywhere to pause, bottom mute button
+  
+  Usage:
+    {% render 'comp-video-player',
+       video: block.settings.video,             (Shopify Video object)
+       video_url: 'https://...',               (Or direct string MP4 url)
+       poster: block.settings.image,           (Shopify Image object)
+       poster_url: 'https://...',              (Or direct string image url)
+       is_active: forloop.first,               (boolean, controls autoplay)
+       title: 'Feature video',                 (for accessibility)
+       video_class: 'custom-class',            (optional class on video element)
+       data_attr: 'data-feature-video',        (optional custom attribute)
+       controls_variant: 'full' | 'buttonsonly', (default: 'buttonsonly')
+       wrapper_class: 'optional-wrapper-class'
+    %}
+{% endcomment %}
+
+{% liquid
+  assign v_url = ''
+  if video_url != blank
+    assign v_url = video_url
+  elsif video != blank
+    assign v_url = video.sources[1].url | default: video.sources[0].url
+  endif
+
+  assign v_poster = ''
+  if poster != blank
+    assign v_poster = poster | image_url: width: 1200
+  elsif poster_url != blank
+    assign v_poster = poster_url
+  endif
+
+  assign v_title = title | default: 'Video'
+  assign v_class = video_class | default: 'comp-video-player__media'
+  assign v_data = data_attr | default: 'data-video-player-media'
+  assign variant = controls_variant | default: 'buttonsonly'
+  assign v_preload = preload | default: 'metadata'
+%}
+
+{% if v_url != blank %}
+  <div
+    class="comp-video-player-wrap {{ wrapper_class }}"
+    data-comp-video-player
+    data-variant="{{ variant }}"
+  >
+    <div class="comp-video-player__inner">
+      <video
+        class="{{ v_class }}"
+        {{ v_data }}
+        src="{{ v_url }}{% unless is_active %}#t=0.1{% endunless %}"
+        {% if is_active %}autoplay{% endif %}
+        {% if v_poster != blank %}poster="{{ v_poster }}"{% endif %}
+        loop
+        muted
+        playsinline
+        webkit-playsinline
+        preload="{{ v_preload }}"
+      ></video>
+
+      <!-- Overlay Controls Container -->
+      <div class="comp-video-player__controls" data-video-controls>
+        {% if variant == 'full' %}
+          <!-- Live Timestamp Pill (e.g. 01:09 / 01:19) -->
+          <div class="comp-video-player__timer-pill" data-video-timer>
+            <span class="comp-video-player__time-current" data-video-current>00:00</span>
+            <span class="comp-video-player__time-sep">/</span>
+            <span class="comp-video-player__time-duration" data-video-duration>00:00</span>
+          </div>
+        {% endif %}
+
+        <!-- Buttons Row -->
+        <div class="comp-video-player__actions">
+          <!-- Mute / Unmute Button -->
+          <button
+            type="button"
+            class="comp-video-control-btn comp-video-control-btn--sound is-muted"
+            data-video-btn-mute
+            aria-label="Toggle mute"
+          >
+            <!-- Muted icon (default) -->
+            <svg class="icon-sound-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+            <!-- Unmuted sound waves icon -->
+            <svg class="icon-sound-active" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+
+          {% unless variant == 'centerplay' %}
+            <!-- Play / Pause Button -->
+            <button
+              type="button"
+              class="comp-video-control-btn comp-video-control-btn--play{% if is_active %} is-playing{% endif %}"
+              data-video-btn-play
+              aria-label="Toggle playback: {{ v_title | escape }}"
+            >
+              <!-- Pause Icon (shown when playing) -->
+              <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"{% unless is_active %} style="display:none;"{% endunless %} aria-hidden="true">
+                <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+              </svg>
+              <!-- Play Icon (shown when paused) -->
+              <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"{% if is_active %} style="display:none;"{% endif %} aria-hidden="true">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+          {% endunless %}
+        </div>
+      </div>
+
+      {% if variant == 'centerplay' %}
+        <!-- Center PLAY pill button (Image 2 style) -->
+        <button
+          type="button"
+          class="comp-video-center-play-btn{% if is_active %} is-playing{% endif %}"
+          data-video-btn-play
+          aria-label="Play video: {{ v_title | escape }}"
+        >
+          <span class="comp-video-center-play-btn__icon">
+            <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 24 24" width="16" height="16"><polygon points="8,5 19,12 8,19" fill="#ffffff"/></svg>
+          </span>
+          <span class="comp-video-center-play-btn__text custom_heading">PLAY</span>
+        </button>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,109 @@
+{%- comment -%}
+  Per-product 'What's Included' content grid, rendered inside the "tab" product block or comp-pdp-tabs.
+  Supports image layout with fallback per product template suffix.
+{%- endcomment -%}
+
+<div class="pdp-whats-included-content">
+  {%- case product.template_suffix -%}
+
+    {%- when 'player-pro' -%}
+      <div class="pdp-whats-included__grid">
+        <div class="pdp-whats-included__item">
+          <div class="pdp-whats-included__img-wrap">
+            <img src="{{ 'player-speaker-img.png' | asset_url }}" alt="Player Pro GPS Speaker" loading="lazy" class="pdp-whats-included__img">
+          </div>
+          <span class="pdp-whats-included__text">Player Pro GPS<br>Speaker</span>
+        </div>
+        <div class="pdp-whats-included__item">
+          <div class="pdp-whats-included__img-wrap">
+            <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_0b7684d7-9cf1-4d2c-ad74-7d98bc0f8367.png?v=1770279434" alt="USB-C Charging Cable" loading="lazy" class="pdp-whats-included__img pdp-whats-included__img--crop-cable">
+          </div>
+          <span class="pdp-whats-included__text">USB-C<br>Charging Cable</span>
+        </div>
+      </div>
+
+    {%- when 'rainmaker' -%}
+      <div class="pdp-whats-included__banner">
+        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_246582b0-7d12-47a8-94ec-1755a9b5450e.png?v=1770279567" alt="What's included with the Rainmaker Launch Monitor" loading="lazy">
+      </div>
+
+    {%- when 'captain-pro' -%}
+      <div class="pdp-whats-included__banner">
+        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_bcd669b7-2a7d-4349-986d-5e0bc577f433.png?v=1770279119" alt="What's included with the Captain Pro Rangefinder" loading="lazy">
+      </div>
+
+    {%- when 'product-new' -%}
+      <div class="pdp-whats-included__banner">
+        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_3186d039-6ced-4e84-882e-a8f5fab579ca.png?v=1770278931" alt="What's included with the Captain Air Rangefinder" loading="lazy">
+      </div>
+
+    {%- when 'new-s3-max' -%}
+      <div class="pdp-whats-included__banner">
+        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_61678f64-d1b8-4917-a8fc-d03d5a416137.png?v=1772609249" alt="What's in the box with the Series 3 Max+ Rangefinder" loading="lazy">
+      </div>
+
+    {%- else -%}
+      <div class="pdp-whats-included__grid">
+        <div class="pdp-whats-included__item">
+          <div class="pdp-whats-included__img-wrap">
+            <img src="{{ 'player-speaker-img.png' | asset_url }}" alt="Player Pro GPS Speaker" loading="lazy" class="pdp-whats-included__img">
+          </div>
+          <span class="pdp-whats-included__text">Player Pro GPS<br>Speaker</span>
+        </div>
+        <div class="pdp-whats-included__item">
+          <div class="pdp-whats-included__img-wrap">
+            <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_0b7684d7-9cf1-4d2c-ad74-7d98bc0f8367.png?v=1770279434" alt="USB-C Charging Cable" loading="lazy" class="pdp-whats-included__img pdp-whats-included__img--crop-cable">
+          </div>
+          <span class="pdp-whats-included__text">USB-C<br>Charging Cable</span>
+        </div>
+      </div>
+  {%- endcase -%}
+</div>
+
+<style>
+  .pdp-whats-included-content {
+    width: 100%;
+    padding: 10px 0;
+  }
+  .pdp-whats-included__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    align-items: center;
+  }
+  .pdp-whats-included__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .pdp-whats-included__img-wrap {
+    width: 60px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .pdp-whats-included__img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .pdp-whats-included__img--crop-cable {
+    object-position: 85% center;
+    transform: scale(1.6);
+  }
+  .pdp-whats-included__text {
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: 13px;
+    line-height: 1.35;
+    color: #334155;
+  }
+  .pdp-whats-included__banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+  }
+</style>

@@ -1,0 +1,41 @@
+{% comment %}
+  Snippet: comp-3d-drawer-card
+  Reusable card for 3D Drawer feature grids
+  Usage:
+    {% render 'comp-3d-drawer-card',
+      image: block.settings.card_1_image,
+      title: block.settings.card_1_title,
+      default_title: 'FRONT, CENTER, BACK GPS DISTANCES',
+      desc: block.settings.card_1_desc,
+      default_desc: 'Instantly view FCB yardages across 42,000+ courses to dial in every shot with confidence, wherever you play, round after round.'
+    %}
+{% endcomment %}
+
+{% liquid
+  assign c_title = title | default: default_title
+  assign c_desc = desc | default: default_desc
+%}
+
+<div class="comp-3d-drawer-card">
+  {%- if image != blank -%}
+    <div class="comp-3d-drawer-card__media">
+      {{
+        image
+        | image_url: width: 600
+        | image_tag: loading: 'lazy', class: 'comp-3d-drawer-card__img', alt: c_title | default: '' | escape
+      }}
+    </div>
+  {%- endif -%}
+
+  {%- if c_title != blank -%}
+    <h4 class="comp-3d-drawer-card__title custom_heading">
+      {{ c_title }}
+    </h4>
+  {%- endif -%}
+
+  {%- if c_desc != blank -%}
+    <p class="comp-3d-drawer-card__desc custom_body-text">
+      {{ c_desc }}
+    </p>
+  {%- endif -%}
+</div>

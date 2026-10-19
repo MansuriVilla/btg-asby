@@ -81,6 +81,7 @@
           <div class="horizon-slider_container aio-slider">
             <div class="horizon-slider_track">
               {% for block in section.blocks %}
+                {% assign slide_alt = block.settings.title | strip_html | escape %}
                 <div class="horizon-slide">
                   <div class="aio-slide-card">
                     {% if block.settings.image != blank %}
@@ -88,7 +89,7 @@
                         block.settings.image
                         | image_url: width: 1200
                         | image_tag:
-                          alt: block.settings.title,
+                          alt: slide_alt,
                           loading: 'lazy',
                           widths: '300,400,500,600,800,1000,1200,1600',
                           sizes: '(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw',
@@ -103,7 +104,7 @@
                         <img
                           class="aio-slide-badge"
                           src="{{ block.settings.badge | image_url }}"
-                          alt="{{ block.settings.title }}"
+                          alt="{{ slide_alt }}"
                           height="100%"
                           width="100%"
                           decoding="async"

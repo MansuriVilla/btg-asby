@@ -357,19 +357,36 @@
 
             <form class="quick-add-form" data-quick-add-form>
               <input type="hidden" name="id" value="{{ v.id }}" data-quick-add-id>
-              <button
-                type="submit"
-                class="content-cta content-cta__solid quick-add-btn item-cta__button {% unless v.available %}product-sold_cta{% endunless %}"
-                {% unless v.available %}
-                  disabled
-                {% endunless %}
-                data-adding-text="ADDING..."
-                data-add-to-cart-text="ADD TO CART"
-                data-sold-text="SOLD OUT"
-                aria-label="{% if v.available %}Add {{ product.title | escape }} to cart{% else %}{{ product.title | escape }} - Sold Out{% endif %}"
-              >
-                {% if v.available %}ADD TO CART{% else %}SOLD OUT{% endif %}
-              </button>
+              {%- liquid
+                assign quick_add_label = 'ADD TO CART'
+                unless v.available
+                  assign quick_add_label = 'SOLD OUT'
+                endunless
+
+                assign quick_add_classes = 'quick-add-btn item-cta__button'
+                unless v.available
+                  assign quick_add_classes = quick_add_classes | append: ' product-sold_cta'
+                endunless
+
+                assign quick_add_aria = 'Add ' | append: product.title | append: ' to cart'
+                unless v.available
+                  assign quick_add_aria = product.title | append: ' - Sold Out'
+                endunless
+
+                assign is_btn_disabled = false
+                unless v.available
+                  assign is_btn_disabled = true
+                endunless
+              -%}
+              {% render 'cta-button',
+                text: quick_add_label,
+                type: 'submit',
+                variant: 'solid',
+                class: quick_add_classes,
+                disabled: is_btn_disabled,
+                aria_label: quick_add_aria,
+                attributes: 'data-adding-text="ADDING..." data-add-to-cart-text="ADD TO CART" data-sold-text="SOLD OUT"'
+              %}
             </form>
           </div>
 
@@ -449,23 +466,27 @@
               assign shop_product_label = shop_product_label | append: ', ' | append: product_price_text
             endif
           -%}
-          <a
-            href="{{ product.url }}"
-            class="content-cta content-cta__solid item-cta__button {% unless v.available or product.template_suffix == 'new-s3-max' %}product-sold_cta{% endunless %}"
-            {% if settings.open_new_tab %}
-              target="_blank" rel="noopener noreferrer"
-            {% endif %}
-            data-shop-now-link
-            tabindex="-1"
-            aria-hidden="true"
-            aria-label="{{ shop_product_label | escape }}"
-          >
-            {% if v.available or product.template_suffix == 'new-s3-max'%}
-              SHOP NOW
-            {% else %}
-              SOLD OUT
-            {% endif %}
-          </a>
+          {%- liquid
+            assign btn_label = 'SHOP NOW'
+            unless v.available or product.template_suffix == 'new-s3-max'
+              assign btn_label = 'SOLD OUT'
+            endunless
+
+            assign btn_custom_class = 'item-cta__button'
+            unless v.available or product.template_suffix == 'new-s3-max'
+              assign btn_custom_class = btn_custom_class | append: ' product-sold_cta'
+            endunless
+          -%}
+          {% render 'cta-button',
+            text: btn_label,
+            url: product.url,
+            type: 'link',
+            variant: 'solid',
+            class: btn_custom_class,
+            aria_label: shop_product_label,
+            target_blank: settings.open_new_tab,
+            attributes: 'data-shop-now-link tabindex="-1" aria-hidden="true"'
+          %}
         {%- endif -%}
       </div>
     </div>

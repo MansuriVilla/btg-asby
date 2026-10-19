@@ -62,7 +62,7 @@
       // Update all timer elements on the page
       document
         .querySelectorAll(
-          '.ringer_funnel_timer, .counter, .clock-builder-output, [class*="timer"]'
+          '.ringer_funnel_timer, .counter, .clock-builder-output'
         )
         .forEach((timer) => {
           timer.innerHTML = countdownText;
@@ -313,8 +313,7 @@
                   <span class="arrow__text" style="display:flex;">
                     <p>
                       {% comment %} {%- render 'sale-name'-%}. {% endcomment %}
-                       IMPROVE ANYWHERE WITH RAINMAKER
-                     
+                       IMPROVE ANYWHERE WITH RAINMAKER.                     
                       <span
                         class="top__bar-anhor-hover anchor_hover"
                         style="color:#FFFFFF; --hover-clr:#fff; line-height: 1.4;"

@@ -1,0 +1,653 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+
+  unless thumbnail_position
+    assign thumbnail_position = 'beside'
+  endunless
+
+  assign product_zoom_size = '1800x1800'
+  assign product_image_size = '620x'
+
+  case image_container_width
+    when 'small'
+      assign product_image_width = 'medium-up--two-fifths new-product__two-fifths'
+      assign product_description_width = 'medium-up--three-fifths new-product__two-fifths'
+      assign product_image_size = '480x'
+    when 'medium'
+      assign product_image_width = 'medium-up--one-half'
+      assign product_description_width = 'medium-up--one-half'
+      assign product_image_size = '620x'
+    when 'large'
+      assign product_image_width = 'medium-up--three-fifths new-product__two-fifths'
+      assign product_description_width = 'medium-up--two-fifths new-product__two-fifths'
+      assign product_image_size = '740x'
+  endcase
+
+  assign product_img_structure = product.featured_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
+
+  comment
+    New UI: when a section uses the `pdp_header` block the legacy title/rating header is skipped.
+  endcomment
+  assign has_new_header = false
+  for b in blocks
+    if b.type == 'pdp_header'
+      assign has_new_header = true
+    endif
+  endfor
+
+  assign hide_upsell = true
+  case product.handle
+    when 'rainmaker-launch-monitor-remote-navy', 'blue-tees-golf-gift-card', 'gift'
+      assign hide_upsell = false
+  endcase
+-%}
+{% comment %}
+  when blank
+  assign hide_upsell = false
+{% endcomment %}
+
+<div
+  id="ProductSection-{{ section_id }}-{{ product.id }}"
+  class="product-section new-product__layout new-product__layout--{{ product.handle | handleize }}"
+  data-section-id="{{ section_id }}"
+  data-product-id="{{ product.id }}"
+  data-section-type="product"
+  data-product-handle="{{ product.handle }}"
+  data-product-title="{{ product.title | escape }}"
+  data-product-url="{{ product.url | within: collection }}"
+  data-aspect-ratio="{{ 100 | divided_by: product.featured_media.aspect_ratio }}"
+  data-img-url="{{ product_img_structure }}"
+  {% unless isModal %}
+    data-history="true"
+  {% endunless %}
+  data-modal="{{ isModal }}"
+>
+  {%- render 'product-template-variables', product: product, current_variant: current_variant -%}
+
+  {%- if promo_text != blank and has_new_header == false -%}
+    {%- render 'comp-pdp-promo-banner',
+      text: promo_text,
+      subtitle: promo_subtitle,
+      link: promo_link,
+      bg_color: promo_bg_color,
+      text_color: promo_text_color,
+      bg_image: promo_bg_image
+    -%}
+  {%- endif -%}
+
+  <div class="page-content page-content--product new-product-template {%if hide_upsell == false %} no_upsells{%endif %}">
+    <div class="new-page-width">
+      <div class="grid{% unless image_position == 'left' %} grid--product-images-right{% endunless %}{% if mobile_layout == 'partial' %} grid--product-images--partial{% endif %}">
+        {%- if image_position == 'left' -%}
+          <div class="grid__item {{ product_image_width }} product-single__sticky">
+            {%- render 'new-pdp-media',
+              section_id: section_id,
+              product: product,
+              isModal: isModal,
+              image_position: image_position,
+              product_zoom_enable: product_zoom_enable,
+              product_zoom_size: product_zoom_size,
+              product_image_size: product_image_size,
+              thumbnail_arrows: thumbnail_arrows,
+              thumbnail_position: thumbnail_position,
+              video_looping: video_looping,
+              video_style: video_style
+            -%}
+
+            {% render 'watch-button-pdp',
+              must_watch: section.settings.must_watch,
+              review_video: section.settings.review_video,
+              display_review_button: section.settings.display_review_button
+            %}
+          </div>
+        {%- endif -%}
+
+        <div class="grid__item {{ product_description_width }}">
+          {%- if has_new_header and promo_text != blank -%}
+            {%- render 'comp-pdp-promo-banner',
+              text: promo_text,
+              subtitle: promo_subtitle,
+              link: promo_link,
+              bg_color: promo_bg_color,
+              text_color: promo_text_color,
+              bg_image: promo_bg_image
+            -%}
+          {%- endif -%}
+          <div class="product-single__meta{% if has_new_header %} comp-pdp-panel{% endif %}">
+            <div class="product-block product-block--header{% if has_new_header %} hide{% endif %}">
+              {%- if settings.show_breadcrumbs and isModal != true -%}
+                {%- render 'breadcrumbs' -%}
+              {%- endif -%}
+
+              {%- if settings.vendor_enable -%}
+                <div class="product-single__vendor">
+                  {%- assign vendor_handle = product.vendor | handleize -%}
+                  {%- if collections[vendor_handle] != empty -%}
+                    <a href="{{ routes.collections_url }}/{{ collections[vendor_handle].handle }}">
+                      {{ collections[vendor_handle].title }}
+                    </a>
+                  {%- else -%}
+                    {{ product.vendor | link_to_vendor }}
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              {%- if isModal -%}
+                <p class="h2 product-single__title">
+                  {{ product.title }}
+                </p>
+              {%- else -%}
+                {% if product.title contains 'Rangefinder with slope' %}
+                  <h1 class="h1 product-single__title">
+                    {{
+                      product.title
+                      | replace: 'Golf Rangefinder with slope',
+                        '<span id="test-series">Golf Rangefinder with slope</span>'
+                    }}
+                  </h1>
+                {% else %}
+                  <h1 class="h1 product-single__title">
+                    {{ product.title }}
+                  </h1>
+                {% endif %}
+              {%- endif -%}
+
+              {% unless product.template_suffix == 'player-pro' or product.template_suffix == 'rainmaker' %}
+                <a
+                  href="#reviews"
+                  style="
+                    width: fit-content;
+                    display: flex;
+                  "
+                >
+                  <div
+                    class="loox-rating"
+                    data-id="{{ product.id }}"
+                    data-rating="{{ product.metafields.loox.avg_rating }}"
+                    data-raters="{{ product.metafields.loox.num_reviews }}"
+                  ></div>
+                </a>
+              {% endunless %}
+
+              {%- if sku_enable -%}
+                <p data-sku class="product-single__sku">
+                  {%- if current_variant.sku -%}
+                    {{ current_variant.sku }}
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+            </div>
+
+            <div data-product-blocks class="product_single--meta">
+              {%- capture form_id -%}AddToCartForm-{{ section_id }}-{{ product.id }}{%- endcapture -%}
+              {%- for block in blocks -%}
+                {%- case block.type -%}
+                  {%- when '@app' -%}
+                    {% render block %}
+                  {%- comment -%} New UI components {%- endcomment -%}
+                  {%- when 'pdp_header' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {%- render 'comp-pdp-header',
+                        product: product,
+                        current_variant: current_variant,
+                        show_title: block.settings.show_title,
+                        show_rating: block.settings.show_rating,
+                        gift_text: block.settings.gift_text,
+                        isModal: isModal
+                      -%}
+                    </div>
+                  {%- when 'pdp_tabs' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {%- render 'comp-pdp-tabs',
+                        product: product,
+                        blocks: blocks,
+                        overview_label: block.settings.overview_label,
+                        overview_content: block.settings.overview_content,
+                        uid: block.id
+                      -%}
+                    </div>
+                  {%- when 'select_player' -%}
+                    {%- render 'comp-select-player', block: block, current_product: product -%}
+                  {%- when 'feature_gps' -%}
+                    {%- render 'comp-feature-gps-card', block: block -%}
+                  {%- when 'feature_ai' -%}
+                    {%- render 'comp-feature-ai-card', block: block -%}
+                  {%- when 'save_accessories' -%}
+                    {%- render 'comp-save-accessories', block: block -%}
+                  {%- when 'protect_player' -%}
+                    {%- render 'comp-protect-player', block: block -%}
+                  {%- when 'pdp_sticky_cta' -%}
+                    {%- render 'comp-pdp-sticky-cta',
+                      product: product,
+                      current_variant: current_variant,
+                      form_id: form_id,
+                      block: block
+                    -%}
+
+                  {%- when 'separator' -%}
+                    <div class="product-block"><hr></div>
+                  {%- when 'text' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {{ block.settings.text }}
+                    </div>
+
+                  {%- when 'contact' -%}
+                    <div class="product-block product-block--tab" {{ block.shopify_attributes }}>
+                      {% assign tab_id = block.id | append: product.id %}
+                      {%- render 'tab-contact', id: tab_id, block: block -%}
+                    </div>
+                  {%- when 'description' -%}
+                    <div
+                      class="product-block product_block--description{% if block.settings.is_tab %} product-block--tab{% endif %}"
+                      {{ block.shopify_attributes }}
+                    >
+                      {%- assign id = block.id | append: product.id -%}
+                      {%- render 'product-description', id: id, product: product, is_tab: block.settings.is_tab -%}
+                    </div>
+                  {%- when 'price' -%}
+                    <div class="product-block product-block--price" {{ block.shopify_attributes }}>
+                      <div class="product__prices">
+                        {%- assign hide_sale_price = true -%}
+                        {%- if product.compare_at_price_max > product.price -%}
+                          {%- if current_variant.compare_at_price > current_variant.price -%}
+                            {%- assign hide_sale_price = false -%}
+                          {%- endif -%}
+                          <span
+                            data-a11y-price
+                            class="visually-hidden"
+                            aria-hidden="{{ hide_sale_price }}"
+                          >
+                            {{ 'products.general.regular_price' | t }}
+                          </span>
+                          <span
+                            data-product-price-wrap
+                            class="{% if hide_sale_price %} hide{% endif %}"
+                          >
+                            <span data-compare-price class="product__price product__price--compare">
+                              {%- if current_variant.compare_at_price > current_variant.price -%}
+                                {{ current_variant.compare_at_price | money }}
+                              {%- endif -%}
+                            </span>
+                          </span>
+                          <span data-compare-price-a11y class="visually-hidden">
+                            {{- 'products.general.sale_price' | t -}}
+                          </span>
+                        {%- else -%}
+                          <span data-a11y-price class="visually-hidden">
+                            {{- 'products.general.regular_price' | t -}}
+                          </span>
+                        {%- endif -%}
+                        <div class="product__price--actual">
+                          <span
+                            data-product-price
+                            class="product__price price-main{% if current_variant.compare_at_price > current_variant.price %} on-sale{% endif %}"
+                          >
+                            {%- unless product.empty? -%}
+                              {{ current_variant.price | money }}
+                            {%- else -%}
+                              {{ 1999 | money }}
+                            {%- endunless -%}
+                          </span>
+                        </div>
+                      </div>
+                      {%- if settings.product_save_amount -%}
+                        {%- if settings.product_save_type == 'dollar' -%}
+                          {%- capture saved_amount -%}{{ current_variant.compare_at_price | minus: current_variant.price | money }}{%- endcapture -%}
+                        {%- else -%}
+                          {%- capture saved_amount -%}{{ current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round }}%{%- endcapture -%}
+                        {%- endif -%}
+                        <span data-save-price class="product__price-savings{% if hide_sale_price %} hide{% endif %}">
+                          {%- unless hide_sale_price -%}
+                            {{ 'products.general.save_html' | t: saved_amount: saved_amount }}
+                          {%- endunless -%}
+                        </span>
+                      {%- endif -%}
+
+                      <div
+                        data-unit-price-wrapper
+                        class="product__unit-price product__unit-price--spacing {% unless current_variant.unit_price_measurement %} hide{% endunless %}"
+                      >
+                        {%- capture unit_price_base_unit -%}
+                          <span data-unit-base>
+                            {%- if current_variant.unit_price_measurement -%}
+                              {%- if current_variant.unit_price_measurement.reference_value != 1 -%}
+                                {{ current_variant.unit_price_measurement.reference_value }}
+                              {%- endif -%}
+                              {{ current_variant.unit_price_measurement.reference_unit }}
+                            {%- endif -%}
+                          </span>
+                        {%- endcapture -%}
+
+                        <span data-unit-price>{{ current_variant.unit_price | money }}</span>/{{ unit_price_base_unit }}
+                      </div>
+
+                      {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+                        <div class="product__policies rte small--text-center">
+                          {%- if shop.taxes_included -%}
+                            {{ 'products.product.include_taxes' | t }}
+                          {%- endif -%}
+                          {%- if shop.shipping_policy.body != blank -%}
+                            {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+
+                    <div class="tab_area">
+                      {%- for block in blocks -%}
+                        {%- case block.type -%}
+                          {%- when 'tab' -%}
+                            <div class="product-block product-block--tab" {{ block.shopify_attributes }}>
+                              {% assign tab_id = block.id | append: product.id %}
+                              {% capture tab_content %}
+                          {{ block.settings.content }}
+                          {% comment %} <p class="playdifferentlable"><img src="{{ 'play-different-lable.png' | asset_url }}" alt=""></p> {% endcomment %}
+                          {{ block.settings.page.content }}
+                        {% endcapture %}
+
+                              {%- render 'tab', id: tab_id, title: block.settings.title, content: tab_content -%}
+                            </div>
+                        {%- endcase -%}
+                      {%- endfor -%}
+                    </div>
+                    
+                    {% comment %}
+                      {% if hide_upsell %}
+                        {% render 'bonus-pdp-upshell' %}
+                      {% endif %}
+                    {% endcomment %}
+
+                  {%- when 'quantity_selector' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      <div class="product__quantity">
+                        {% assign qty_id = section_id | append: product.id %}
+                        <label for="Quantity-{{ qty_id }}">{{ 'products.product.quantity' | t }}</label>
+                        {%- render 'quantity-input', form_id: form_id, id: qty_id, qty: 1, min: 1 -%}
+                      </div>
+                    </div>
+                  {%- when 'variant_picker' -%}
+                    <div
+                      class="product-block"
+                      {{ block.shopify_attributes }}
+                    >
+                      {%- unless product.has_only_default_variant -%}
+                        {%- for option in product.options_with_values -%}
+                          {%- liquid
+                            if block.settings.color_swatches
+                              assign is_color = false
+                              assign color_option_index = 0
+                              assign swatch_trigger = 'products.general.color_swatch_trigger' | t | downcase
+                              assign color_option_index = forloop.index0
+                              assign downcased_option = option.name | downcase
+                              if downcased_option contains swatch_trigger
+                                assign is_color = true
+                              elsif swatch_trigger == 'color' and downcased_option contains 'colour'
+                                assign is_color = true
+                              endif
+                            endif
+                          -%}
+
+                          {%- if block.settings.picker_type == 'button' -%}
+                            {%- render 'variant-button',
+                              block: block,
+                              product: product,
+                              form_id: form_id,
+                              section_id: section_id,
+                              option: option,
+                              forloop: forloop,
+                              variant_labels: block.settings.variant_labels,
+                              is_color: is_color,
+                              color_option_index: color_option_index
+                            -%}
+                          {%- else -%}
+                            {%- render 'variant-dropdown',
+                              product: product,
+                              form_id: form_id,
+                              section_id: section_id,
+                              option: option,
+                              forloop: forloop,
+                              variant_labels: block.settings.variant_labels
+                            -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+                      {%- endunless -%}
+                    </div>
+
+                    <div class="prod_options fdsf">
+                      <div class="after-pay"></div>
+
+                      <div class="options_extend-protection">
+                        <span class="anchor_holder">
+                          <a
+                            href="/pages/extend-protection-plan"
+                            class="anchor_hover"
+                            style="--hover-clr:var(--new-gray);"
+                          >
+                            <span class="anchor_holder"> Extend Protection Plans </span>
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  {%- when 'buy_buttons' -%}
+                    {% if hide_upsell %}
+                      {% unless product.handle contains 'hat' %}
+                        {% render 'new-upshell-box' %}
+                      {% endunless %}
+                    {% endif %}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {%- unless product.empty? -%}
+                        <div class="product-block">
+                          {%- render 'product-form',
+                            form_id: form_id,
+                            product: product,
+                            show_dynamic_checkout: block.settings.show_dynamic_checkout,
+                            current_variant: current_variant,
+                            pre_order: block.settings.pre_order,
+                            cta_note_text: block.settings.cta_note_text
+                          -%}
+                        </div>
+                      {%- endunless -%}
+
+                      {%- if block.settings.surface_pickup_enable -%}
+                        <div
+                          data-store-availability-holder
+                          data-product-name="{{ product.title | escape }}"
+                          data-base-url="{{ shop.url }}{{ routes.root_url }}"
+                        ></div>
+                      {%- endif -%}
+                    </div>
+                  {%- when 'inventory_status' -%}
+                    {%- render 'product-inventory', product: product, current_variant: current_variant, block: block -%}
+                  {%- when 'share' -%}
+                    <div class="product-block" {{ block.shopify_attributes }}>
+                      {%- render 'social-sharing',
+                        share_title: product.title,
+                        share_permalink: product.url,
+                        share_image: product
+                      -%}
+                    </div>
+                {%- endcase -%}
+              {%- else -%}
+                <div
+                  data-blocks-holder
+                  data-url="{{ product.url | within: collection }}"
+                  data-template="{{ product.template_suffix }}"
+                >
+                  <div class="placeholder-content" style="min-height: 86px;"></div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+
+        {%- unless image_position == 'left' -%}
+          <div class="grid__item {{ product_image_width }} product-single__sticky">
+            {%- render 'product-images',
+              section_id: section_id,
+              product: product,
+              isModal: isModal,
+              image_position: image_position,
+              product_zoom_enable: product_zoom_enable,
+              product_zoom_size: product_zoom_size,
+              product_image_size: product_image_size,
+              thumbnail_arrows: thumbnail_arrows,
+              thumbnail_position: thumbnail_position,
+              video_looping: video_looping,
+              video_style: video_style
+            -%}
+          </div>
+        {%- endunless -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- unless isModal -%}
+  {%- if enable_sticky_bar != false -%}
+    {%- render 'comp-pdp-sticky-bar',
+      product: product,
+      current_variant: current_variant,
+      section_id: section_id,
+      sticky_bar_image: sticky_bar_image,
+      sticky_bar_title: sticky_bar_title,
+      sticky_bar_badge: sticky_bar_badge,
+      sticky_nav_1_label: sticky_nav_1_label,
+      sticky_nav_1_anchor: sticky_nav_1_anchor,
+      sticky_nav_2_label: sticky_nav_2_label,
+      sticky_nav_2_anchor: sticky_nav_2_anchor,
+      sticky_nav_3_label: sticky_nav_3_label,
+      sticky_nav_3_anchor: sticky_nav_3_anchor,
+      sticky_nav_4_label: sticky_nav_4_label,
+      sticky_nav_4_anchor: sticky_nav_4_anchor,
+      sticky_nav_5_label: sticky_nav_5_label,
+      sticky_nav_5_anchor: sticky_nav_5_anchor
+    -%}
+  {%- endif -%}
+{%- endunless -%}
+
+<style>
+  [id^="shopify-section-main-"], [class*="new-product__layout--"] {
+  background: #1B1E22;
+}
+  .comp-pdp-panel {
+    background: #FFFFFF !important;
+    color: #1B2029;
+    border: 1px solid #B4B4B4;
+    border-radius: clamp(8px, 0.6vw, 10px);
+    overflow: visible;
+    width: 100%;
+    margin-inline: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 1.8vw, 28px);
+    padding: clamp(16px, 1.8vw, 28px) clamp(16px, 1.8vw, 28px) clamp(24px, 3vw, 40px);
+  }
+  .comp-pdp-panel, .comp-pdp-panel * {
+    box-sizing: border-box;
+  }
+  /* Defeat theme dark mode overrides */
+  .comp-pdp-panel h1.product-single__title,
+  .comp-pdp-panel .product-single__title,
+  .comp-pdp-panel .product-single__title *,
+  .comp-pdp-panel .comp-pdp-header__title,
+  .comp-pdp-panel .comp-pdp-header__title * {
+    color: #1B2029 !important;
+  }
+  .comp-pdp-panel .product__price.price-main,
+  .comp-pdp-panel .product__price.price-main *,
+  .comp-pdp-panel .comp-pdp-header__price-main,
+  .comp-pdp-panel .comp-pdp-header__price-main *,
+  .comp-pdp-panel [data-product-price],
+  .comp-pdp-panel [data-product-price] * {
+    color: #CB0000 !important;
+    fill: #CB0000 !important;
+  }
+  .comp-pdp-panel .product__price.product__price--compare,
+  .comp-pdp-panel .product__price.product__price--compare *,
+  .comp-pdp-panel .comp-pdp-header__price-compare,
+  .comp-pdp-panel .comp-pdp-header__price-compare *,
+  .comp-pdp-panel [data-compare-price],
+  .comp-pdp-panel [data-compare-price] * {
+    color: #B4B4B4 !important;
+    fill: #B4B4B4 !important;
+    text-decoration: line-through !important;
+  }
+  .comp-pdp-panel > .product-block,
+  .comp-pdp-panel > [data-product-blocks] {
+    padding-inline: 0;
+  }
+  .comp-pdp-panel > [data-product-blocks] {
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 1.8vw, 28px);
+    padding-block: clamp(20px, 2.2vw, 38px);
+  }
+  .comp-pdp-panel [data-product-blocks] > div:not(:empty) { padding-inline: clamp(18px, 1.7vw, 28px); }
+  .comp-pdp-panel [data-product-blocks] > .product-block { padding-inline: 0; margin: 0; }
+  .comp-pdp-panel .comp-pdp-promo { margin-bottom: 0; }
+
+  .new-product-template > .new-page-width {
+    padding-inline: 0;
+  }
+  /* Sticky Left Column */
+  @media only screen and (min-width: 992px) {
+    .new-product__layout .grid,
+    [class*="new-product__layout--"] .grid {
+      align-items: flex-start !important;
+    }
+    .new-product__layout .grid__item.product-single__sticky,
+    [class*="new-product__layout--"] .grid__item.product-single__sticky {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 100px !important;
+      align-self: flex-start !important;
+      height: fit-content;
+    }
+    .new-product-template > .new-page-width {
+      padding-inline: clamp(16px, 3.8vw, 30px);
+    }
+  }
+
+  @media only screen and (max-width: 991px) {
+      .page-content--product,   .new-product__layout, [class*="new-product__layout--"] {
+    padding: 0;
+  }
+  .comp-pdp-panel [data-product-blocks] * {
+  text-align: left !important;
+}
+
+  :is(.new-product__layout, [class*="new-product__layout--"]) .grid{gap:0px;}
+  .product__main-photos{margin-bottom:0px;}
+  .comp-pdp-panel{margin-top:0px;}
+  }
+
+  /* Hide old theme money back / shipping banner rendered inside product-form */
+  .comp-pdp-panel .hundred-days_shipping,
+  .comp-pdp-panel .perks_pdp-labels {
+    display: none !important;
+  }
+
+  /* Cart drawer opens via accessory ADD: theme sets html{overflow:hidden} which
+     removes the scrollbar, reflows the page and shifts scroll. Keep scrollbar/layout stable on PDP. */
+  html.js-drawer-open,
+  html.js-drawer-open body {
+    overflow: visible !important;
+    overflow-anchor: none;
+  }
+</style>
+
+<style>
+    .afterpay-placement{display:block !important;}
+
+  .product-right-icon
+  {   border-top: 1.7px solid #c2c2c2;
+  border-bottom: 1.7px solid #c2c2c2;
+  padding: 10px 2px; text-align: center;
+  margin-bottom: 20px;
+  }
+  .product-single__meta .product-block.same-height .variant-input-wrap label.variant__button-label
+  {   height:40px !important; width:40px !important; background-size: 20px;
+  }
+</style>
