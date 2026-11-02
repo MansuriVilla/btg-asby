@@ -1,0 +1,697 @@
+{%- comment -%}
+  Comp Setup Space Switcher Section
+  - Clean light background (#F4F4F1) with dark typography (#0D0D0D)
+  - Eyebrow in BTG Blue (#0149E3)
+  - Interactive Pill Button Switcher (INDOOR / OUTDOOR / GARAGE)
+  - Smooth image switch per space mode with desktop & mobile images
+  - Strict BTG Fonts:
+      custom_heading ('Blue Tees Headline Italic')
+      custom_subHeading-text ('Blue Tees Subhead')
+      custom_body-text ('Blue Tees Paragraph')
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'comp-setup-switcher-' | append: section.id
+  endif
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-setup-switcher comp-setup-switcher-{{ section.id }}"
+  data-comp-setup-switcher
+  data-autoplay="{{ section.settings.autoplay | default: true }}"
+  data-speed="{{ section.settings.autoplay_speed | default: 4 }}"
+  style="
+    --css-pt: {{ section.settings.padding_top | default: 70 }}px;
+    --css-pb: {{ section.settings.padding_bottom | default: 90 }}px;
+    --css-bg: {{ section.settings.background_color | default: '#F4F4F1' }};
+  "
+>
+  <div class="comp-setup-switcher__container">
+    
+    <!-- Top Header: Title Left + Pill Switcher Right -->
+    <header class="comp-setup-switcher__header">
+      <div class="comp-setup-switcher__title-group">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="comp-setup-switcher__eyebrow custom_subHeading-text">
+            {{ section.settings.eyebrow }}
+          </span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="comp-setup-switcher__heading custom_heading">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+      </div>
+
+      <!-- Pill Mode Buttons -->
+      {%- if section.blocks.size > 0 -%}
+        <div class="comp-setup-switcher__nav-pill" role="tablist" aria-label="Setup Spaces">
+          {%- for block in section.blocks -%}
+            <button
+              type="button"
+              class="comp-setup-switcher__pill-btn custom_subHeading-text {% if forloop.first %}is-active{% endif %}"
+              role="tab"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              aria-controls="image-{{ block.id }}"
+              id="pill-{{ block.id }}"
+              data-space-index="{{ forloop.index0 }}"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.label | default: 'SPACE' }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </header>
+
+    <!-- Main Image Stage -->
+    <div class="comp-setup-switcher__stage">
+      {%- for block in section.blocks -%}
+        <div
+          id="image-{{ block.id }}"
+          class="comp-setup-switcher__slide {% if forloop.first %}is-active{% endif %}"
+          role="tabpanel"
+          aria-labelledby="pill-{{ block.id }}"
+          data-slide-index="{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: 2560
+              | image_tag:
+                loading: 'lazy',
+                widths: '750, 1100, 1600, 2000, 2560',
+                sizes: '(max-width: 768px) 100vw, 1280px',
+                class: 'comp-setup-switcher__img',
+                alt: block.settings.label | default: section.settings.heading | escape
+            }}
+          {%- else -%}
+            <img
+              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278048_2.png?v=1774348073"
+              alt="{{ block.settings.label | escape }}"
+              loading="lazy"
+              class="comp-setup-switcher__img"
+            >
+          {%- endif -%}
+
+          {%- if block.settings.caption != blank -%}
+            <div class="comp-setup-switcher__caption custom_subHeading-text">
+              {{ block.settings.caption }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+
+      {%- if section.blocks.size > 1 -%}
+        <!-- Bottom Controls: Circular Indicators + Play/Pause Button -->
+        <div class="comp-setup-switcher__controls" aria-label="Slideshow Controls">
+          <!-- Play / Pause Toggle Button -->
+          <button
+            type="button"
+            class="comp-setup-switcher__playback-btn"
+            data-playback-toggle
+            aria-label="Pause slideshow"
+            title="Pause slideshow"
+          >
+            <!-- Pause Icon -->
+            <svg class="comp-setup-switcher__icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect x="6" y="4" width="4" height="16" rx="1"/>
+              <rect x="14" y="4" width="4" height="16" rx="1"/>
+            </svg>
+            <!-- Play Icon -->
+            <svg class="comp-setup-switcher__icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <polygon points="6 4 20 12 6 20 6 4"/>
+            </svg>
+          </button>
+
+          <!-- Progress Bar Track & Fill -->
+          <div class="comp-setup-switcher__progress-track" aria-hidden="true">
+            <div class="comp-setup-switcher__progress-bar" data-progress-bar></div>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+<style>
+  #{{ section_id }} {
+    position: relative;
+    background-color: var(--css-bg);
+    padding-top: clamp(30px, 6vw, var(--css-pt, 70px));
+    padding-bottom: clamp(30px, 6vw, var(--css-pb, 90px));
+    overflow: hidden;
+    color: #0D0D0D;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 768px) {
+    #{{ section_id }} {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+  }
+
+  #{{ section_id }} .comp-setup-switcher__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 900px) {
+    #{{ section_id }} .comp-setup-switcher__container {
+      padding: 0 80px;
+    }
+  }
+
+  /* Header: Flex Row on Desktop */
+  #{{ section_id }} .comp-setup-switcher__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: clamp(28px, 3.5vw, 42px);
+  }
+
+  @media (min-width: 768px) {
+    #{{ section_id }} .comp-setup-switcher__header {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+    }
+  }
+
+  #{{ section_id }} .comp-setup-switcher__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 640px;
+  }
+
+  #{{ section_id }} .comp-setup-switcher__eyebrow {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0149E3;
+  }
+
+  #{{ section_id }} .comp-setup-switcher__heading {
+    margin: 0;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #0D0D0D;
+  }
+
+  /* Pill Navigation Bar */
+  #{{ section_id }} .comp-setup-switcher__nav-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px;
+    gap: 4px;
+    background: transparent;
+    border: 1px solid #474646;
+    border-radius: 100px;
+    box-sizing: border-box;
+    align-self: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    #{{ section_id }} .comp-setup-switcher__nav-pill {
+      align-self: flex-end;
+    }
+  }
+
+  #{{ section_id }} .comp-setup-switcher__pill-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    border-radius: 100px;
+    padding: 10px clamp(14px, 1.5vw, 24px);
+    color: #8C8C8C;
+    font-size: clamp(12px, 0.9vw, 14px);
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    white-space: nowrap;
+    outline: none;
+  }
+
+  #{{ section_id }} .comp-setup-switcher__pill-btn:hover {
+    color: #0D0D0D;
+  }
+
+  #{{ section_id }} .comp-setup-switcher__pill-btn.is-active {
+    background: #000000;
+    color: #FFFFFF !important;
+  }
+
+  /* Main Stage & Images */
+  #{{ section_id }} .comp-setup-switcher__stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 658px;
+    /* border-radius: 10px; */
+    overflow: hidden;
+    background: #E8E8E4;
+  }
+  
+
+  @media (max-width: 991px) {
+    #{{ section_id }} .comp-setup-switcher__stage {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  #{{ section_id }} .comp-setup-switcher__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  #{{ section_id }} .comp-setup-switcher__slide.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #{{ section_id }} .comp-setup-switcher__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #{{ section_id }} .comp-setup-switcher__caption {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 100px;
+    color: #FFFFFF;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2;
+  }
+
+  /* Bottom Controls: Dots & Play/Pause */
+  #{{ section_id }} .comp-setup-switcher__controls {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 100px;
+    z-index: 3;
+    box-sizing: border-box;
+  }
+
+  /* Playback Button */
+  #{{ section_id }} .comp-setup-switcher__playback-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+    opacity: 0.85;
+    outline: none;
+  }
+
+  #{{ section_id }} .comp-setup-switcher__playback-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    color: #0149E3;
+  }
+
+  #{{ section_id }} .comp-setup-switcher__playback-btn:focus-visible {
+    box-shadow: 0 0 0 2px #0149E3;
+  }
+
+  #{{ section_id }} .comp-setup-switcher__icon-play {
+    display: none;
+  }
+  #{{ section_id }} .comp-setup-switcher__icon-pause {
+    display: block;
+  }
+
+  /* When paused */
+  #{{ section_id }} .comp-setup-switcher__controls.is-paused .comp-setup-switcher__icon-play {
+    display: block;
+  }
+  #{{ section_id }} .comp-setup-switcher__controls.is-paused .comp-setup-switcher__icon-pause {
+    display: none;
+  }
+
+  /* Progress Bar Track */
+  #{{ section_id }} .comp-setup-switcher__progress-track {
+    width: 60px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 100px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Progress Bar Animated Fill */
+  #{{ section_id }} .comp-setup-switcher__progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: #FFFFFF;
+    border-radius: 100px;
+    transform-origin: left center;
+  }
+
+  @media (max-width: 767px) {
+    #{{ section_id }} .comp-setup-switcher__controls {
+      bottom: 12px;
+      left: 12px;
+      padding: 5px 10px;
+      gap: 10px;
+    }
+    #{{ section_id }} .comp-setup-switcher__progress-track {
+      width: 48px;
+    }
+    #{{ section_id }} .comp-setup-switcher__caption {
+      bottom: 12px;
+      right: 12px;
+      padding: 6px 12px;
+      font-size: 11px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    function initSetupSwitcher() {
+      var root = document.getElementById('{{ section_id }}');
+      if (!root || root.dataset.initialized === 'true') return;
+      root.dataset.initialized = 'true';
+
+      var buttons = Array.from(root.querySelectorAll('.comp-setup-switcher__pill-btn'));
+      var slides = Array.from(root.querySelectorAll('.comp-setup-switcher__slide'));
+      var progressBar = root.querySelector('[data-progress-bar]');
+      var playbackBtn = root.querySelector('[data-playback-toggle]');
+      var controlsContainer = root.querySelector('.comp-setup-switcher__controls');
+
+      if (buttons.length <= 1) return;
+
+      var currentIndex = 0;
+      var speedSec = parseInt(root.getAttribute('data-speed') || '4', 10);
+      var durationMs = (isNaN(speedSec) || speedSec < 2 ? 4 : speedSec) * 1000;
+      var isAutoplaySetting = root.getAttribute('data-autoplay') !== 'false';
+      var isUserPaused = !isAutoplaySetting;
+
+      var animFrame = null;
+      var startTime = null;
+      var elapsedBeforePause = 0;
+
+      function setActive(index) {
+        currentIndex = (index + buttons.length) % buttons.length;
+
+        // Update Pill Buttons
+        buttons.forEach(function (btn, i) {
+          var active = i === currentIndex;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
+        // Update Slides
+        slides.forEach(function (slide, i) {
+          slide.classList.toggle('is-active', i === currentIndex);
+        });
+
+        resetProgress();
+      }
+
+      function resetProgress() {
+        elapsedBeforePause = 0;
+        startTime = null;
+        if (progressBar) {
+          progressBar.style.width = '0%';
+        }
+      }
+
+      function tick(now) {
+        if (!startTime) startTime = now - elapsedBeforePause;
+        var currentElapsed = now - startTime;
+        var progress = Math.min(1, currentElapsed / durationMs);
+
+        if (progressBar) {
+          progressBar.style.width = (progress * 100).toFixed(1) + '%';
+        }
+
+        if (currentElapsed >= durationMs) {
+          setActive(currentIndex + 1);
+          if (!isUserPaused) {
+            animFrame = requestAnimationFrame(tick);
+          }
+        } else {
+          animFrame = requestAnimationFrame(tick);
+        }
+      }
+
+      function startTimer() {
+        if (isUserPaused || animFrame) return;
+        startTime = null;
+        animFrame = requestAnimationFrame(tick);
+      }
+
+      function stopTimer() {
+        if (animFrame) {
+          cancelAnimationFrame(animFrame);
+          animFrame = null;
+          if (startTime) {
+            elapsedBeforePause = performance.now() - startTime;
+          }
+        }
+      }
+
+      function updatePlaybackUI() {
+        if (controlsContainer) {
+          controlsContainer.classList.toggle('is-paused', isUserPaused);
+        }
+        if (playbackBtn) {
+          var label = isUserPaused ? 'Play slideshow' : 'Pause slideshow';
+          playbackBtn.setAttribute('aria-label', label);
+          playbackBtn.setAttribute('title', label);
+        }
+      }
+
+      // Pill button click
+      buttons.forEach(function (btn, idx) {
+        btn.addEventListener('click', function () {
+          setActive(idx);
+          if (!isUserPaused) {
+            stopTimer();
+            elapsedBeforePause = 0;
+            startTimer();
+          }
+        });
+      });
+
+      // Play / Pause Toggle button click
+      if (playbackBtn) {
+        playbackBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          isUserPaused = !isUserPaused;
+          if (isUserPaused) {
+            stopTimer();
+          } else {
+            startTimer();
+          }
+          updatePlaybackUI();
+        });
+      }
+
+      // Pause on hover, resume on leave
+      root.addEventListener('mouseenter', function () {
+        if (!isUserPaused) stopTimer();
+      });
+      root.addEventListener('mouseleave', function () {
+        if (!isUserPaused) startTimer();
+      });
+
+      // Init UI state & start
+      updatePlaybackUI();
+      if (!isUserPaused) {
+        startTimer();
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSetupSwitcher);
+    } else {
+      initSetupSwitcher();
+    }
+    document.addEventListener('shopify:section:load', initSetupSwitcher);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Comp Setup Switcher",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Identification"
+    },
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Custom HTML ID",
+      "info": "Optional custom anchor id"
+    },
+    {
+      "type": "header",
+      "content": "Header Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "THE SETUP"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "YOUR RANGE.<br>YOUR SPACE."
+    },
+    {
+      "type": "header",
+      "content": "Section Styling"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#F4F4F1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "default": 90
+    },
+    {
+      "type": "header",
+      "content": "Autoplay Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable Auto-Switch",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Switch Interval (seconds)",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "space_item",
+      "name": "Space Mode",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Button Label",
+          "default": "INDOOR"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Space Image (1280x658 recommended)"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Optional Bottom Caption"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comp Setup Switcher",
+      "blocks": [
+        {
+          "type": "space_item",
+          "settings": {
+            "label": "INDOOR"
+          }
+        },
+        {
+          "type": "space_item",
+          "settings": {
+            "label": "OUTDOOR"
+          }
+        },
+        {
+          "type": "space_item",
+          "settings": {
+            "label": "GARAGE"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

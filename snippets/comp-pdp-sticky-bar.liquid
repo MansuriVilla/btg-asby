@@ -10,8 +10,13 @@
 {% endcomment %}
 
 {%- liquid
-  assign cv = current_variant | default: product.selected_or_first_available_variant
+  assign cv = current_variant | default: product.selected_or_first_available_variant | default: product.variants.first
   assign is_available = cv.available
+  if is_available == nil or is_available == false
+    if product.available
+      assign is_available = true
+    endif
+  endif
   if product.template_suffix == 'player-go' or product.template_suffix == 'new-s3-max' or product.template_suffix == 'play-maker-plus' or product.template_suffix == 's4-ultra'
     assign is_available = false
   endif
@@ -19,6 +24,9 @@
   assign atc_text = 'products.product.add_to_cart' | t
   if atc_text == blank or atc_text contains 'translation missing'
     assign atc_text = 'ADD TO CART'
+  endif
+  if sticky_bar_button_text != blank
+    assign atc_text = sticky_bar_button_text
   endif
   unless is_available
     assign atc_text = 'products.product.sold_out' | t
@@ -32,28 +40,26 @@
     assign on_sale = true
   endif
 
-  comment
-    Thumbnail image: custom sticky_bar_image takes priority, falls back to product featured image
-  endcomment
-  assign prod_image = sticky_bar_image | default: product.featured_media.preview_image | default: product.featured_image
+  assign prod_image = sticky_bar_image | default: cv.featured_image | default: cv.image | default: product.featured_media.preview_image | default: product.featured_image
 
   comment
     Product Title & Badge:
-    If sticky_bar_title is blank, defaults to product.title.
+    If sticky_bar_title is blank, defaults to product custom title metafield, then product.title.
   endcomment
-  assign bar_title = sticky_bar_title | default: product.title | default: 'PLAYER'
+  assign default_product_title = product.metafields.custom.collection_title | default: product.title
+  assign bar_title = sticky_bar_title | default: default_product_title
   assign bar_badge = sticky_bar_badge | default: ''
 
-  assign nav_1_label = sticky_nav_1_label | default: 'HARDWARE'
-  assign nav_1_anchor = sticky_nav_1_anchor | default: 'hardware'
-  assign nav_2_label = sticky_nav_2_label | default: 'FEATURES'
-  assign nav_2_anchor = sticky_nav_2_anchor | default: 'features'
-  assign nav_3_label = sticky_nav_3_label | default: 'GAME AI'
-  assign nav_3_anchor = sticky_nav_3_anchor | default: 'game-ai'
-  assign nav_4_label = sticky_nav_4_label | default: 'FAQS'
-  assign nav_4_anchor = sticky_nav_4_anchor | default: 'faqs'
-  assign nav_5_label = sticky_nav_5_label | default: 'REVIEWS'
-  assign nav_5_anchor = sticky_nav_5_anchor | default: 'reviews'
+  assign nav_1_label = sticky_nav_1_label
+  assign nav_1_anchor = sticky_nav_1_anchor
+  assign nav_2_label = sticky_nav_2_label
+  assign nav_2_anchor = sticky_nav_2_anchor
+  assign nav_3_label = sticky_nav_3_label
+  assign nav_3_anchor = sticky_nav_3_anchor
+  assign nav_4_label = sticky_nav_4_label
+  assign nav_4_anchor = sticky_nav_4_anchor
+  assign nav_5_label = sticky_nav_5_label
+  assign nav_5_anchor = sticky_nav_5_anchor
 -%}
 
 <div
@@ -77,6 +83,7 @@
               decoding: 'async',
               width: 38,
               height: 38,
+              class: 'comp-sticky-bar__thumb-img',
               alt: bar_title | escape
           }}
         {% else %}
@@ -85,7 +92,7 @@
       </div>
 
       <div class="comp-sticky-bar__title-wrap" data-reveal-item>
-        <span class="comp-sticky-bar__title custom_heading">{{ bar_title }}</span>
+        <span class="comp-sticky-bar__title custom_heading" data-sticky-title>{{ bar_title }}</span>
         {% if bar_badge != blank %}
           <span class="comp-sticky-bar__badge">{{ bar_badge }}</span>
         {% endif %}
@@ -114,18 +121,18 @@
     <!-- Right: Price + Add To Cart CTA -->
     <div class="comp-sticky-bar__actions" data-reveal-item>
       <div class="comp-sticky-bar__pricing">
-        <span class="comp-sticky-bar__price-current" data-sticky-price>
+        <span class="comp-sticky-bar__price-current{% if on_sale and cv.compare_at_price > cv.price %} on-sale{% endif %}" data-sticky-price>
           {{ cv.price | money_without_trailing_zeros }}
         </span>
-        <span class="comp-sticky-bar__price-compare{% unless on_sale %} hide{% endunless %}" data-sticky-compare>
-          {% if on_sale %}
+        <span class="comp-sticky-bar__price-compare{% unless on_sale and cv.compare_at_price > cv.price %} hide{% endunless %}" data-sticky-compare>
+          {% if on_sale and cv.compare_at_price > cv.price %}
             {{ cv.compare_at_price | money_without_trailing_zeros }}
           {% endif %}
         </span>
       </div>
 
       <div class="comp-sticky-bar__btn-wrap">
-        {%- capture atc_attrs -%}data-sticky-atc data-variant-id="{{ cv.id }}" aria-label="{% if is_available %}Add {{ product.title | escape }} to cart{% else %}{{ product.title | escape }} is sold out{% endif %}"{%- endcapture -%}
+        {%- capture atc_attrs -%}data-sticky-atc data-variant-id="{{ cv.id }}" {% if sticky_bar_button_text != blank %}data-custom-text="{{ sticky_bar_button_text | escape }}" {% endif %}aria-label="{% if is_available %}Add {{ product.title | escape }} to cart{% else %}{{ product.title | escape }} is sold out{% endif %}"{%- endcapture -%}
         {%- assign atc_class = 'comp-sticky-bar__atc js-comp-sticky-atc' -%}
         {%- unless is_available -%}
           {%- assign atc_class = atc_class | append: ' is-disabled is-sold-out product-sold_cta' -%}
@@ -178,10 +185,10 @@
     background: #ffffff;
     border-radius: 999px;
     box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.08);
-    height: 56px;
+    /* height: 56px; */
     display: flex;
     align-items: center;
-    padding: 6px 14px 6px 8px;
+    padding: 6px;
     box-sizing: border-box;
     overflow: hidden;
     width: 56px; /* collapsed width: exactly thumbnail circle */
@@ -191,7 +198,7 @@
 
   .comp-sticky-bar__pill.is-expanded {
     width: 100%;
-    padding: 6px 16px 6px 10px;
+    padding: 6px;
   }
 
   /* Left Brand Group */
@@ -247,7 +254,7 @@
   }
 
   .comp-sticky-bar__title {
-    font-size: 21px;
+    font-size: 16px;
     letter-spacing: -0.02em;
     color: #111417;
     text-transform: uppercase;
@@ -329,8 +336,12 @@
 
   .comp-sticky-bar__price-current {
     font-size: 19px;
-    color: #D31818;
+    color: #000000;
     line-height: 1;
+  }
+
+  .comp-sticky-bar__price-current.on-sale {
+    color: #D31818;
   }
 
   .comp-sticky-bar__price-compare {
@@ -350,26 +361,26 @@
   }
 
   .comp-sticky-bar__pill .comp-sticky-bar__atc {
-    font-family: 'Blue Tees Subhead';
-    background-color: var(--new-blue, #0016cb);
-    border: 2px solid var(--new-blue, #0016cb);
-    color: #ffffff;
-    border-radius: 999px;
-    padding: 10px 24px;
+    /* font-family: 'Blue Tees Subhead'; */
+    /* background-color: var(--new-blue, #0016cb); */
+    /* border: 2px solid var(--new-blue, #0016cb); */
+    /* color: #ffffff; */
+    /* border-radius: 999px; */
+    /* padding: 10px 24px; */
     font-size: 12px;
-    letter-spacing: 0.06em;
+    /* letter-spacing: 0.06em;
     text-transform: uppercase;
     line-height: 1;
     height: 40px;
     min-height: 40px;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 14px rgba(7, 65, 221, 0.35);
-    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    justify-content: center; */
+    /* box-shadow: 0 4px 14px rgba(7, 65, 221, 0.35); */
+    /* transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; */
   }
 
-  .comp-sticky-bar__pill .comp-sticky-bar__atc .content-cta__inner {
+  /* .comp-sticky-bar__pill .comp-sticky-bar__atc .content-cta__inner {
     color: inherit;
     display: inline-flex;
     align-items: center;
@@ -383,18 +394,18 @@
     letter-spacing: inherit;
     line-height: inherit;
     text-transform: inherit;
-  }
+  } */
 
-  .comp-sticky-bar__pill .comp-sticky-bar__atc:hover {
+  /* .comp-sticky-bar__pill .comp-sticky-bar__atc:hover {
     background-color: #ffffff;
     border-color: var(--new-blue, #0016cb);
     color: var(--new-blue, #0016cb);
     transform: scale(1.02);
-  }
+  } */
 
-  .comp-sticky-bar__pill .comp-sticky-bar__atc:hover .content-cta__text {
+  /* .comp-sticky-bar__pill .comp-sticky-bar__atc:hover .content-cta__text {
     color: var(--new-blue, #0016cb);
-  }
+  } */
 
   .comp-sticky-bar__pill .comp-sticky-bar__atc:disabled,
   .comp-sticky-bar__pill .comp-sticky-bar__atc.is-disabled,
@@ -465,6 +476,10 @@
     }
     .comp-sticky-bar__price-current {
       font-size: 16px;
+      color: #000000;
+    }
+    .comp-sticky-bar__price-current.on-sale {
+      color: #D31818;
     }
     .comp-sticky-bar__price-compare {
       font-size: 13px;
@@ -488,16 +503,30 @@
       var triggerEl = document.querySelector('[data-product-photos]') || document.querySelector('.product-single__meta');
       if (!pill) return;
 
+      var footerEl = document.querySelector('.site-footer, .ringer-funnel__footer, footer, #shopify-section-new-footer, #shopify-section-footer');
       var isVisible = false;
       var isExpanded = false;
       var expandTimer = null;
 
-      // Scroll trigger threshold: reveal when main PDP is scrolled halfway past
+      // Scroll trigger threshold: reveal when main PDP is scrolled past trigger, hide as soon as footer appears
       function checkScroll() {
         var scrollY = window.pageYOffset || document.documentElement.scrollTop;
         var triggerPoint = triggerEl ? (triggerEl.getBoundingClientRect().top + scrollY + 280) : 400;
 
-        if (scrollY > triggerPoint) {
+        // Check if footer has reached viewport
+        var isFooterInView = false;
+        if (!footerEl) {
+          footerEl = document.querySelector('.site-footer, .ringer-funnel__footer, footer, #shopify-section-new-footer, #shopify-section-footer');
+        }
+        if (footerEl) {
+          var footerRect = footerEl.getBoundingClientRect();
+          // Hide when the top of the footer enters or is near the bottom of viewport (with 20px padding)
+          if (footerRect.top <= (window.innerHeight || document.documentElement.clientHeight) + 20) {
+            isFooterInView = true;
+          }
+        }
+
+        if (scrollY > triggerPoint && !isFooterInView) {
           if (!isVisible) {
             isVisible = true;
             root.classList.add('is-visible');
@@ -585,6 +614,65 @@
             return;
           }
 
+          // Hidden bundle mode fallback: add all hidden bundle products directly
+          var bundleEl = document.querySelector('.comp-pdp-hidden-bundle[data-variant-ids]');
+          if (bundleEl && bundleEl.getAttribute('data-available') === 'true') {
+            var bundleItems = (bundleEl.getAttribute('data-variant-ids') || '').split(',')
+              .map(function (s) { return parseInt(s, 10); })
+              .filter(function (n) { return !isNaN(n); })
+              .map(function (n) { return { id: n, quantity: 1 }; });
+            if (bundleItems.length) {
+              var bTextEl = this.querySelector('.content-cta__text') || this;
+              var bOriginal = bTextEl ? bTextEl.textContent : '';
+              this.disabled = true;
+              if (bTextEl) bTextEl.textContent = 'ADDING...';
+              fetch('/cart/add.js', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ items: bundleItems })
+              })
+              .then(function (res) {
+                if (!res.ok) throw new Error('Sticky bundle batch add failed');
+                return res.json();
+              })
+              .then(function (data) {
+                if (bTextEl) {
+                  bTextEl.textContent = 'ADDED \u2713';
+                  setTimeout(function () { bTextEl.textContent = bOriginal || 'ADD TO CART'; }, 2000);
+                }
+                atcBtn.disabled = false;
+                document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: data } }));
+                document.dispatchEvent(new CustomEvent('cart:open'));
+              })
+              .catch(async function (err) {
+                console.warn('Sticky bundle batch add failed, adding available items individually:', err);
+                var lastData = null;
+                for (var i = 0; i < bundleItems.length; i++) {
+                  try {
+                    var r = await fetch('/cart/add.js', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                      body: JSON.stringify(bundleItems[i])
+                    });
+                    if (r.ok) lastData = await r.json();
+                  } catch (e) {}
+                }
+                atcBtn.disabled = false;
+                if (lastData) {
+                  if (bTextEl) {
+                    bTextEl.textContent = 'ADDED \u2713';
+                    setTimeout(function () { bTextEl.textContent = bOriginal || 'ADD TO CART'; }, 2000);
+                  }
+                  document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: lastData } }));
+                  document.dispatchEvent(new CustomEvent('cart:open'));
+                } else if (bTextEl) {
+                  bTextEl.textContent = bOriginal || 'ADD TO CART';
+                }
+              });
+              return;
+            }
+          }
+
           // Direct Cart API Add fallback
           var vid = (mainForm && mainForm.querySelector('[name="id"]')) ?
                     mainForm.querySelector('[name="id"]').value :
@@ -647,24 +735,48 @@
         var atcBtn = root.querySelector('[data-sticky-atc]');
         var btnTextEl = atcBtn ? (atcBtn.querySelector('.content-cta__text') || atcBtn) : null;
 
-        var mainPrice = document.querySelector('.comp-pdp-panel [data-product-price]') || document.querySelector('[data-product-price]');
-        var mainCompare = document.querySelector('.comp-pdp-panel [data-compare-price]') || document.querySelector('[data-compare-price]');
+        var mainPrice = document.querySelector('.comp-pdp-header [data-product-price]') ||
+                        document.querySelector('.comp-pdp-panel [data-product-price]') ||
+                        document.querySelector('[data-product-price]');
+        var mainCompare = document.querySelector('.comp-pdp-header [data-compare-price]') ||
+                          document.querySelector('.comp-pdp-panel [data-compare-price]') ||
+                          document.querySelector('[data-compare-price]');
+        var mainCompareWrap = document.querySelector('.comp-pdp-header [data-product-price-wrap]') ||
+                              document.querySelector('.comp-pdp-panel [data-product-price-wrap]') ||
+                              (mainCompare ? mainCompare.closest('[data-product-price-wrap]') : null);
+
         var mainAtc = document.querySelector('.product-single__form [name="add"]') ||
                       document.querySelector('.product-single__form [data-add-to-cart]') ||
                       document.querySelector('.comp-pdp-cta .add-to-cart') ||
                       document.querySelector('.product-single__form .add-to-cart');
 
-        if (mainPrice && priceEl && mainPrice.textContent.trim()) {
-          priceEl.textContent = mainPrice.textContent.trim();
+        // Simple price sync
+        if (mainPrice && priceEl) {
+          var pText = mainPrice.textContent.trim();
+          if (pText) {
+            priceEl.textContent = pText;
+          }
         }
 
-        if (mainCompare && compareEl) {
-          var compVal = mainCompare.textContent.trim();
-          if (compVal) {
-            compareEl.textContent = compVal;
+        // Compare price: only show if product is on sale and compare price wrap is not hidden
+        if (compareEl) {
+          var compText = mainCompare ? mainCompare.textContent.trim() : '';
+          var currText = priceEl ? priceEl.textContent.trim() : '';
+          var isHidden = !compText || compText === currText || (mainCompareWrap && (
+            mainCompareWrap.classList.contains('hide') ||
+            mainCompareWrap.classList.contains('hidden') ||
+            mainCompareWrap.style.display === 'none'
+          ));
+
+          if (!isHidden) {
+            compareEl.textContent = compText;
             compareEl.classList.remove('hide');
+            compareEl.style.display = '';
+            if (priceEl) priceEl.classList.add('on-sale');
           } else {
             compareEl.classList.add('hide');
+            compareEl.style.display = 'none';
+            if (priceEl) priceEl.classList.remove('on-sale');
           }
         }
 
@@ -689,7 +801,8 @@
           } else if (!/adding|added/i.test(btnTextEl.textContent)) {
             atcBtn.disabled = false;
             atcBtn.classList.remove('is-disabled', 'is-sold-out', 'product-sold_cta');
-            btnTextEl.textContent = mainText || 'ADD TO CART';
+            var customBarText = atcBtn.getAttribute('data-custom-text');
+            btnTextEl.textContent = customBarText || mainText || 'ADD TO CART';
           }
         }
       }
@@ -704,8 +817,26 @@
         observer.observe(mainAtcTarget, { childList: true, subtree: true, attributes: true, characterData: true });
       }
 
-      document.addEventListener('variant:change', syncStickyBarWithMain, { passive: true });
-      document.addEventListener('variantChange', syncStickyBarWithMain, { passive: true });
+      document.addEventListener('variant:change', function(evt) {
+        syncStickyBarWithMain();
+        if (evt && evt.detail && evt.detail.variant && evt.detail.variant.featured_image) {
+          var thumbImg = root.querySelector('.comp-sticky-bar__thumb-img');
+          if (thumbImg && evt.detail.variant.featured_image.src) {
+            thumbImg.removeAttribute('srcset');
+            thumbImg.src = evt.detail.variant.featured_image.src;
+          }
+        }
+      }, { passive: true });
+      document.addEventListener('variantChange', function(evt) {
+        syncStickyBarWithMain();
+        if (evt && evt.detail && evt.detail.variant && evt.detail.variant.featured_image) {
+          var thumbImg = root.querySelector('.comp-sticky-bar__thumb-img');
+          if (thumbImg && evt.detail.variant.featured_image.src) {
+            thumbImg.removeAttribute('srcset');
+            thumbImg.src = evt.detail.variant.featured_image.src;
+          }
+        }
+      }, { passive: true });
       window.addEventListener('resize', syncStickyBarWithMain, { passive: true });
     }
 

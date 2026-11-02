@@ -25,7 +25,7 @@
 </script> {% endcomment %}
 
 <script>
-  if (window.location.pathname !== '/pages/play-w-paige') {
+  {% comment %} if (window.location.pathname !== '/pages/play-w-paige') {
     // Clear any existing intervals to avoid duplicates
 
     if (window.countdownInterval) {
@@ -74,7 +74,51 @@
 
     // Update every second (1000ms is enough and smoother than 500ms)
     window.countdownInterval = setInterval(calculateCountdown, 1000);
-  } 
+  }  {% endcomment %}
+
+  if (window.location.pathname !== '/pages/play-w-paige') {
+  // Clear any existing intervals to avoid duplicates
+  if (window.countdownInterval) {
+    clearInterval(window.countdownInterval);
+  }
+
+  function calculateCountdown() {
+    // Target: November 29, 2026 11:59 PM PST = 07:59 UTC on November 30
+    const targetDate = new Date(Date.UTC(2026, 10, 30, 7, 59, 0)).getTime();
+    const now = new Date().getTime();
+
+    let timeDifference = targetDate - now;
+
+    // Safety check – never show negative time
+    if (timeDifference <= 0) {
+      timeDifference = 0;
+    }
+
+    // Calculate days, hours, minutes, seconds
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    const pad = (n) => String(n).padStart(2, '0');
+    const countdownText = `${days}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+
+    // Update all timer elements on the page
+    document
+      .querySelectorAll(
+        '.ringer_funnel_timer, .counter, .clock-builder-output'
+      )
+      .forEach((timer) => {
+        timer.innerHTML = countdownText;
+      });
+  }
+
+  // Run immediately
+  calculateCountdown();
+
+  // Update every second
+  window.countdownInterval = setInterval(calculateCountdown, 1000);
+}
 
   {% comment %} if (window.location.pathname !== '/pages/play-w-paige') {
     // Clear any existing intervals to avoid duplicates
@@ -308,12 +352,12 @@
                 <a
                   class="top__bar-right--inner Arrow Arrow--right"
 
-                  href="/products/rainmaker"
+                  href="/pages/deals"
                 >
                   <span class="arrow__text" style="display:flex;">
                     <p>
                       {% comment %} {%- render 'sale-name'-%}. {% endcomment %}
-                       IMPROVE ANYWHERE WITH RAINMAKER.                     
+                       BLACK FRIDAY SALE <span class="header_counter counter"></span>  
                       <span
                         class="top__bar-anhor-hover anchor_hover"
                         style="color:#FFFFFF; --hover-clr:#fff; line-height: 1.4;"

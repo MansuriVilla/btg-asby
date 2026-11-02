@@ -23,9 +23,15 @@
         assign sub_override = block.settings[sub_key]
         assign modal_key = key | replace: 'product_', 'enable_modal_'
         assign modal_enabled = block.settings[modal_key] | default: false
+        assign preselect_key = key | replace: 'product_', 'preselect_'
+        assign preselected = block.settings[preselect_key] | default: false
+        assign price_key = key | replace: 'product_', 'custom_price_'
+        assign custom_price_val = block.settings[price_key]
+        assign slash_key = key | replace: 'product_', 'slashout_price_'
+        assign custom_slashout = block.settings[slash_key]
       %}
       {% if p != blank %}
-        {% render 'comp-accessory-row', product: p, item: p, subtitle: sub_override, enable_modal: modal_enabled %}
+        {% render 'comp-accessory-row', product: p, item: p, subtitle: sub_override, enable_modal: modal_enabled, is_preselected: preselected, custom_price: custom_price_val, custom_compare_price: custom_slashout %}
       {% endif %}
     {% endfor %}
   </div>
@@ -108,13 +114,14 @@
   }
   .comp-accessory-row__title {
     font-family: 'Blue Tees Subhead', sans-serif;
-    font-size: 16px;
+    font-size: clamp(14px, 1.1vw, 16px);
     line-height: 1;
     color: #000000;
     text-decoration: none;
-    white-space: nowrap;
+    text-transform: capitalize;
+    /* white-space: nowrap; */
     overflow: hidden;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis; */
     width: 100%;
   }
   .comp-accessory-row__price {
@@ -172,7 +179,7 @@
     gap: 4px;
     position: absolute;
     width: auto;
-    min-width: 68px;
+    min-width: 32px;
     height: 32px;
     right: 9px;
     top: 9px;
@@ -182,7 +189,7 @@
     cursor: pointer;
     z-index: 3;
     white-space: nowrap;
-    transition: background 0.2s ease;
+    transition: background 0.25s ease, transform 0.2s ease;
   }
   .comp-accessory-row__add-label {
     font-family: 'Blue Tees Subhead', sans-serif;
@@ -192,6 +199,7 @@
     color: #4F4F4F !important;
     text-align: center;
     white-space: nowrap;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
   .comp-accessory-row__add-icon {
     display: inline-flex;
@@ -201,6 +209,7 @@
     height: 12px;
     color: #4F4F4F !important;
     flex-shrink: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
   }
   .comp-accessory-row__add-icon svg,
   .comp-accessory-row__add-icon svg path,
@@ -213,6 +222,77 @@
   }
   .comp-accessory-row__add:hover:not(:disabled) {
     background: rgba(0, 0, 0, 0.05);
+  }
+
+  /* Loading State
+  .comp-accessory-row__add.is-loading,
+  .comp-accessory-row__add.btn--loading {
+    position: relative;
+    pointer-events: none;
+    cursor: wait;
+    min-height: 0 !important;
+  }
+  .comp-accessory-row__add.is-loading .comp-accessory-row__add-label,
+  .comp-accessory-row__add.is-loading .comp-accessory-row__add-icon,
+  .comp-accessory-row__add.btn--loading .comp-accessory-row__add-label,
+  .comp-accessory-row__add.btn--loading .comp-accessory-row__add-icon {
+    opacity: 0 !important;
+    transform: scale(0.7);
+    pointer-events: none;
+  }
+  .comp-accessory-row__add.btn--loading::before,
+  .comp-accessory-row__add.is-loading::before {
+    content: "";
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    margin-left: -8px !important;
+    margin-top: -8px !important;
+    border-radius: 50% !important;
+    border: 2px solid #004DF5 !important;
+    border-top-color: transparent !important;
+    animation: comp-spin 0.6s linear infinite !important;
+    z-index: 5;
+    opacity: 1 !important;
+  }
+  @keyframes comp-spin {
+    to { transform: rotate(360deg); }
+  } */
+
+  /* Selected State with Blue Circle Checkmark Badge */
+  .comp-accessory-row__check-badge {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: #004DF5;
+    border-radius: 50%;
+    transform: scale(0.6);
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
+  }
+  .comp-accessory-row__add.is-selected {
+    min-width: 32px;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+  }
+  .comp-accessory-row__add.is-selected .comp-accessory-row__add-label,
+  .comp-accessory-row__add.is-selected .comp-accessory-row__add-icon {
+    display: none;
+  }
+  .comp-accessory-row__add.is-selected .comp-accessory-row__check-badge {
+    display: inline-flex;
+    transform: scale(1);
+    opacity: 1;
+  }
+  .comp-accessory-row.is-selected {
+    border-color: #004DF5;
+    background:linear-gradient(0deg, rgba(1, 73, 227, 0.05), rgba(1, 73, 227, 0.05)), #FFFFFF;
   }
   .comp-accessory-row__details {
     position: absolute;
@@ -239,9 +319,38 @@
     // Handle Details Button -> Open Modal
     var activeModalDockCtrl = null;
 
+    function positionModal(modal) {
+      if (!modal) return;
+      var dialog = modal.querySelector('.comp-prod-modal__dialog');
+      if (!dialog) return;
+
+      if (window.innerWidth <= 991) {
+        modal.style.justifyContent = 'center';
+        modal.style.alignItems = 'center';
+        modal.style.padding = '12px';
+        dialog.style.width = '100%';
+        dialog.style.maxWidth = '100%';
+        dialog.style.marginLeft = '0px';
+        dialog.style.marginRight = '0px';
+        return;
+      }
+
+      var panel = document.querySelector('.comp-pdp-panel') || document.querySelector('.product-single__meta');
+      if (panel) {
+        var rect = panel.getBoundingClientRect();
+        modal.style.justifyContent = 'flex-start';
+        modal.style.alignItems = 'center';
+        modal.style.padding = '16px';
+        dialog.style.marginLeft = Math.max(16, Math.round(rect.left)) + 'px';
+        dialog.style.width = Math.min(620, Math.round(rect.width)) + 'px';
+        dialog.style.maxWidth = Math.round(rect.width) + 'px';
+      }
+    }
+
     function openModal(modalId) {
       var modal = document.getElementById(modalId);
       if (!modal) return;
+      positionModal(modal);
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -298,6 +407,11 @@
       modal.querySelectorAll('video').forEach(function (v) { v.pause(); });
     }
 
+    window.addEventListener('resize', function () {
+      var openMod = document.querySelector('.comp-prod-modal.is-open');
+      if (openMod) positionModal(openMod);
+    });
+
     root.querySelectorAll('[data-comp-accessory-details]').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
@@ -319,55 +433,6 @@
         var openMod = document.querySelector('.comp-prod-modal.is-open');
         if (openMod) closeModal(openMod);
       }
-    });
-
-    // Handle Add to Cart in rows and modal
-    document.querySelectorAll('[data-comp-accessory-add]').forEach(function (btn) {
-      var label = btn.querySelector('[data-label]');
-      var original = label ? label.textContent : 'ADD';
-
-      function flash(text) {
-        if (!label) return;
-        label.textContent = text;
-        setTimeout(function () { label.textContent = original; }, 2000);
-      }
-
-      btn.addEventListener('click', function (e) {
-        if (e) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-        var id = btn.getAttribute('data-variant-id');
-        if (!id) return;
-        btn.classList.add('is-loading');
-
-        var savedScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-
-        fetch('/cart/add.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ id: id, quantity: 1 })
-        })
-          .then(function (r) {
-            if (!r.ok) throw new Error('add failed');
-            return r.json();
-          })
-          .then(function (item) {
-            flash('ADDED ✓');
-            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: item } }));
-            
-            // Keep page at current scroll position
-            window.scrollTo({ top: savedScrollY, behavior: 'instant' });
-            requestAnimationFrame(function () {
-              window.scrollTo({ top: savedScrollY, behavior: 'instant' });
-            });
-
-            var openMod = document.querySelector('.comp-prod-modal.is-open');
-            if (openMod) closeModal(openMod);
-          })
-          .catch(function () { flash('ERROR'); })
-          .finally(function () { btn.classList.remove('is-loading'); });
-      });
     });
   })();
 </script>

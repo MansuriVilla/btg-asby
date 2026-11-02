@@ -6,56 +6,110 @@
 <div class="pdp-whats-included-content">
   {%- case product.template_suffix -%}
 
-    {%- when 'player-pro' -%}
+    {%- when 'pdp-new', 'player-pro' -%}
       <div class="pdp-whats-included__grid">
-        <div class="pdp-whats-included__item">
-          <div class="pdp-whats-included__img-wrap">
-            <img src="{{ 'player-speaker-img.png' | asset_url }}" alt="Player Pro GPS Speaker" loading="lazy" class="pdp-whats-included__img">
-          </div>
-          <span class="pdp-whats-included__text">Player Pro GPS<br>Speaker</span>
-        </div>
-        <div class="pdp-whats-included__item">
-          <div class="pdp-whats-included__img-wrap">
-            <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_0b7684d7-9cf1-4d2c-ad74-7d98bc0f8367.png?v=1770279434" alt="USB-C Charging Cable" loading="lazy" class="pdp-whats-included__img pdp-whats-included__img--crop-cable">
-          </div>
-          <span class="pdp-whats-included__text">USB-C<br>Charging Cable</span>
-        </div>
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PlayerPro_012_2.png?v=1793080980',
+          title: 'Player Pro GPS',
+          subtitle: 'Speaker'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check321.png?v=1793080979',
+          title: 'USB-C',
+          subtitle: 'Charging Cable'
+        %}
       </div>
-
-    {%- when 'rainmaker' -%}
-      <div class="pdp-whats-included__banner">
-        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_246582b0-7d12-47a8-94ec-1755a9b5450e.png?v=1770279567" alt="What's included with the Rainmaker Launch Monitor" loading="lazy">
-      </div>
-
     {%- when 'captain-pro' -%}
-      <div class="pdp-whats-included__banner">
-        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_bcd669b7-2a7d-4349-986d-5e0bc577f433.png?v=1770279119" alt="What's included with the Captain Pro Rangefinder" loading="lazy">
-      </div>
-
-    {%- when 'product-new' -%}
-      <div class="pdp-whats-included__banner">
-        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_3186d039-6ced-4e84-882e-a8f5fab579ca.png?v=1770278931" alt="What's included with the Captain Air Rangefinder" loading="lazy">
-      </div>
-
-    {%- when 'new-s3-max' -%}
-      <div class="pdp-whats-included__banner">
-        <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_61678f64-d1b8-4917-a8fc-d03d5a416137.png?v=1772609249" alt="What's in the box with the Series 3 Max+ Rangefinder" loading="lazy">
-      </div>
-
-    {%- else -%}
       <div class="pdp-whats-included__grid">
-        <div class="pdp-whats-included__item">
-          <div class="pdp-whats-included__img-wrap">
-            <img src="{{ 'player-speaker-img.png' | asset_url }}" alt="Player Pro GPS Speaker" loading="lazy" class="pdp-whats-included__img">
-          </div>
-          <span class="pdp-whats-included__text">Player Pro GPS<br>Speaker</span>
-        </div>
-        <div class="pdp-whats-included__item">
-          <div class="pdp-whats-included__img-wrap">
-            <img src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea-1_0b7684d7-9cf1-4d2c-ad74-7d98bc0f8367.png?v=1770279434" alt="USB-C Charging Cable" loading="lazy" class="pdp-whats-included__img pdp-whats-included__img--crop-cable">
-          </div>
-          <span class="pdp-whats-included__text">USB-C<br>Charging Cable</span>
-        </div>
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check_b1ddca4e-fe2b-4d6a-b084-5dea73bf2415.png?v=1793163430',
+          title: 'Captain Pro',
+          subtitle: 'Rangefinder'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-1_4c3a4756-933d-4da6-84c9-8c11b5f485a4.png?v=1793163429',
+          title: 'USB-C cable',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-2_01d8c656-135a-477f-b4c3-39d3761529a1.png?v=1793163430',
+          title: 'Rangefinder',
+          subtitle: 'Carrying Case'
+        %}
+      </div>
+    {%- when 'product-new' -%}
+      <div class="pdp-whats-included__grid">
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check_8c26f8f4-db64-47de-a8a7-c3dd3ce0ff47.png?v=1793163420',
+          title: 'Captain Air',
+          subtitle: 'Rangefinder'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-1_4c3a4756-933d-4da6-84c9-8c11b5f485a4.png?v=1793163429',
+          title: 'USB-C cable',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-2_7ef144b0-7737-4ac5-bac0-1a6b400e44fd.png?v=1793163419',
+          title: 'Rangefinder',
+          subtitle: 'Carrying Case'
+        %}
+      </div>
+    {%- when 'rainmaker' -%}
+      <div class="pdp-whats-included__grid">
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check_1a7742c4-f08f-436b-898b-4c203fc8e8be.png?v=1793173808',
+          title: 'Rainmaker Launch Monitor',
+          subtitle: '+ IR remote'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-1_3f8d6fa0-91f0-4989-a9ba-5a801b060ab7.png?v=1793173808',
+          title: 'Protective carry',
+          subtitle: 'case'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-2_80ca394a-ff1a-4fef-a263-a3324d5f16f7.png?v=1793173807',
+          title: 'USB-C cable',
+          subtitle: ''
+        %}
+      </div>
+    {%- when 'rainmaker-bf-bundle' -%}
+      <div class="pdp-whats-included__grid">
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check.png?v=1793080836',
+          title: 'Rainmaker Launch Monitor +',
+          subtitle: 'IR remote'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-1.png?v=1793080836',
+          title: 'Protective carry case',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-2.png?v=1793080836',
+          title: 'USB-C cable',
+          subtitle: ''
+        %}
+        {% comment %} {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-3.png?v=1793080836',
+          title: 'Quick start guide',
+          subtitle: ''
+        %} {% endcomment %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-4.png?v=1793080836',
+          title: 'Premium golf net',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-5.png?v=1793080836',
+          title: '4 × 5 ft hitting mat',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-6.png?v=1793080836',
+          title: '70 mm rubber tee',
+          subtitle: ''
+        %}
       </div>
   {%- endcase -%}
 </div>

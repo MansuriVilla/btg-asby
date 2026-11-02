@@ -41,6 +41,10 @@
   assign v_data = data_attr | default: 'data-video-player-media'
   assign variant = controls_variant | default: 'buttonsonly'
   assign v_preload = preload | default: 'metadata'
+  assign v_show_mute = true
+  if show_mute == false
+    assign v_show_mute = false
+  endif
 %}
 
 {% if v_url != blank %}
@@ -53,14 +57,15 @@
       <video
         class="{{ v_class }}"
         {{ v_data }}
-        src="{{ v_url }}{% unless is_active %}#t=0.1{% endunless %}"
-        {% if is_active %}autoplay{% endif %}
+        data-src="{{ v_url }}"
+        {% if is_active %}src="{{ v_url }}" autoplay preload="metadata"{% else %}preload="none"{% endif %}
         {% if v_poster != blank %}poster="{{ v_poster }}"{% endif %}
         loop
         muted
         playsinline
         webkit-playsinline
-        preload="{{ v_preload }}"
+        disablepictureinpicture
+        controlslist="nodownload noremoteplayback"
       ></video>
 
       <!-- Overlay Controls Container -->
@@ -76,41 +81,43 @@
 
         <!-- Buttons Row -->
         <div class="comp-video-player__actions">
-          <!-- Mute / Unmute Button -->
-          <button
-            type="button"
-            class="comp-video-control-btn comp-video-control-btn--sound is-muted"
-            data-video-btn-mute
-            aria-label="Toggle mute"
-          >
-            <!-- Muted icon (default) -->
-            <svg class="icon-sound-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-              <line x1="23" y1="9" x2="17" y2="15"></line>
-              <line x1="17" y1="9" x2="23" y2="15"></line>
-            </svg>
-            <!-- Unmuted sound waves icon -->
-            <svg class="icon-sound-active" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;" aria-hidden="true">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-            </svg>
-          </button>
+          {% if v_show_mute %}
+            <!-- Mute / Unmute Button -->
+            <button
+              type="button"
+              class="comp-video-control-btn comp-video-control-btn--sound is-muted"
+              data-video-btn-mute
+              aria-label="Toggle mute"
+            >
+              <!-- Muted icon (default) -->
+              <svg class="icon-sound-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+              <!-- Unmuted sound waves icon -->
+              <svg class="icon-sound-active" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+            </button>
+          {% endif %}
 
           {% unless variant == 'centerplay' %}
             <!-- Play / Pause Button -->
             <button
               type="button"
-              class="comp-video-control-btn comp-video-control-btn--play{% if is_active %} is-playing{% endif %}"
+              class="comp-video-control-btn comp-video-control-btn--play"
               data-video-btn-play
               aria-label="Toggle playback: {{ v_title | escape }}"
             >
               <!-- Pause Icon (shown when playing) -->
-              <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"{% unless is_active %} style="display:none;"{% endunless %} aria-hidden="true">
+              <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <rect x="6" y="4" width="4" height="16" rx="1"></rect>
                 <rect x="14" y="4" width="4" height="16" rx="1"></rect>
               </svg>
               <!-- Play Icon (shown when paused) -->
-              <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"{% if is_active %} style="display:none;"{% endif %} aria-hidden="true">
+              <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
               </svg>
             </button>
@@ -119,7 +126,7 @@
       </div>
 
       {% if variant == 'centerplay' %}
-        <!-- Center PLAY pill button (Image 2 style) -->
+        <!-- Center PLAY pill button -->
         <button
           type="button"
           class="comp-video-center-play-btn{% if is_active %} is-playing{% endif %}"

@@ -6,7 +6,7 @@
 <div class="pdp-manuals-list">
   {%- case product.template_suffix -%}
 
-    {%- when 'player-pro' -%}
+    {%- when 'player-pro', 'pdp-new' -%}
       {% render 'pdp-manual-row',
         title: 'Quick Start Guide',
         url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Player_Pro_Quick_Start_Guide.pdf?v=1773722566'
@@ -15,45 +15,34 @@
         title: 'Complete User Manual PDF',
         url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Player_Pro_Product_Manual_1.3_rfs.pdf?v=1782280999'
       %}
-
-    {%- when 'captain-pro' -%}
-      {% render 'pdp-manual-row',
-        title: 'Complete User Manual PDF',
-        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Captain_Pro_Product_Manual_1.1_rfs.pdf?v=1772686833'
-      %}
-
-    {%- when 'product-new' -%}
-      {% render 'pdp-manual-row',
-        title: 'Complete User Manual PDF',
-        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Captain_Air_Product_Manual_1.1_rfs.pdf?v=1772686837'
-      %}
-
-    {%- when 'new-s3-max' -%}
-      {% render 'pdp-manual-row',
-        title: 'Complete User Manual PDF',
-        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/S3_MAX__MANUAL_1.4.pdf'
-      %}
-
     {%- when 'rainmaker' -%}
       {% render 'pdp-manual-row',
         title: 'Complete User Manual PDF',
         url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Rainmaker_Product_Manual_3_rfs.pdf?v=1790748665'
       %}
-
-    {%- when 'ringer' -%}
-      {% render 'pdp-manual-row',
-        title: 'Complete User Manual PDF',
-        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/RINGER_MANUAL_1.6_1.pdf'
-      %}
-
-    {%- else -%}
-      {% render 'pdp-manual-row',
+    {%- when 'captain-pro' -%}
+      {% comment %} {% render 'pdp-manual-row',
         title: 'Quick Start Guide',
         url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Player_Pro_Quick_Start_Guide.pdf?v=1773722566'
+      %} {% endcomment %}
+      {% render 'pdp-manual-row', 
+        title: 'Complete User Manual PDF',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Captain_Pro_Product_Manual_1.1_rfs.pdf?v=1772686833'
       %}
+    {%- when 'product-new' -%}
+      {% comment %} {% render 'pdp-manual-row',
+        title: 'Quick Start Guide',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Player_Pro_Quick_Start_Guide.pdf?v=1773722566'
+      %} {% endcomment %}
+      {% render 'pdp-manual-row', 
+        title: 'Complete User Manual PDF',
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Captain_Air_Product_Manual_1.1_rfs.pdf?v=1772686837'
+      %}
+
+    {%- when 'rainmaker-bf-bundle' -%}
       {% render 'pdp-manual-row',
         title: 'Complete User Manual PDF',
-        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Player_Pro_Product_Manual_1.3_rfs.pdf?v=1782280999'
+        url: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Captain_Pro_Product_Manual_1.1_rfs.pdf?v=1772686833'
       %}
 
   {%- endcase -%}

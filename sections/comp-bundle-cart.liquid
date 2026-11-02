@@ -1,0 +1,974 @@
+{%- comment -%}
+  Comp Bundle Cart Card Section (The value adds up. The price stays simple.)
+  - Background image with top-to-bottom white fade gradient
+  - Header: Italic Headline + Body Subtitle
+  - Centered floating bundle card (white background with #0149E3 3px border, 10px radius)
+  - Card Header: Eyebrow ("Save when you bundle") in #004CFF + Bundle Title ("RAINMAKER SIMULATION BUNDLE")
+  - Included Product Items:
+  - Thumbnail, Title, Price, Description/Inclusions
+  - Grey "INCLUDED ✓" status badge
+  - "Details" link (or modal trigger)
+  - Bottom Summary & CTA:
+  - Left: Bundle Name ("Black Friday Bundle")
+  - Right: Bundle Price ("$1,097.99") + Savings notice ("Bought separately $1,697.99 · YOU SAVE $600" in red #FF0000)
+  - Full-width blue pill "ADD TO CART" button (#0149E3)
+  - On click: Adds all products/variants in the bundle list to cart via Shopify Cart API in one request!
+  - Strict BTG Fonts:
+  custom_heading ('Blue Tees Headline Italic')
+  custom_subHeading-text ('Blue Tees Subhead')
+  custom_body-text ('Blue Tees Paragraph')
+{%- endcomment -%}
+
+{%- liquid
+  assign s_id = section.id
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'comp-bundle-cart-' | append: s_id
+  endif
+  assign bg_image = section.settings.background_image
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-bundle-cart comp-bundle-cart-{{ s_id }}"
+  data-comp-bundle-cart
+  style="
+    --css-pt: {{ section.settings.padding_top | default: 60 }}px;
+    --css-pb: {{ section.settings.padding_bottom | default: 80 }}px;
+  ">
+  <!-- Background Image with Fade Overlay -->
+  {%- if bg_image != blank -%}
+    <div
+      class="comp-bundle-cart__bg-img"
+      style="background-image: url('{{ bg_image | image_url: width: 2200 }}');"
+      aria-hidden="true"></div>
+  {%- endif -%}
+  <div class="comp-bundle-cart__bg-overlay" aria-hidden="true"></div>
+
+  <div class="comp-bundle-cart__container">
+
+    <!-- Top Header -->
+    <header class="comp-bundle-cart__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="comp-bundle-cart__heading custom_heading">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="comp-bundle-cart__subtitle custom_body-text">
+          {{ section.settings.subtitle }}
+        </p>
+      {%- endif -%}
+    </header>
+
+    <!-- Main Floating Bundle Card -->
+    <div class="comp-bundle-cart__card">
+
+      <!-- Card Header -->
+      <div class="comp-bundle-cart__card-header">
+        {%- if section.settings.card_eyebrow != blank -%}
+          <span class="comp-bundle-cart__card-eyebrow custom_subHeading-text">
+            {{ section.settings.card_eyebrow }}
+          </span>
+        {%- endif -%}
+        {%- if section.settings.card_title != blank -%}
+          <h3 class="comp-bundle-cart__card-title custom_heading">
+            {{ section.settings.card_title }}
+          </h3>
+        {%- endif -%}
+      </div>
+
+      <!-- Included Products List -->
+      <div class="comp-bundle-cart__items">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign prod = block.settings.product
+            if prod != blank and prod.id == blank
+              assign prod = all_products[prod]
+            endif
+
+            assign prod_title = block.settings.title
+            if prod_title == blank and prod != blank
+              assign prod_title = prod.title
+            endif
+
+            assign prod_price = block.settings.price
+            if prod_price == blank and prod != blank
+              assign prod_price = prod.selected_or_first_available_variant.price | money_without_trailing_zeros
+            endif
+
+            assign prod_sub = block.settings.subtitle
+            if prod_sub == blank and prod != blank
+              assign prod_sub = prod.description | strip_html | truncate: 60
+            endif
+
+            assign variant_id = ''
+            if prod != blank
+              assign sel_var = prod.selected_or_first_available_variant | default: prod.variants.first
+              assign variant_id = sel_var.id
+            endif
+          -%}
+
+          <div
+            class="comp-bundle-cart__item{% unless block.settings.is_included %} is-optional{% endunless %}"
+            data-bundle-item
+            data-variant-id="{{ variant_id }}"
+            data-is-included="{{ block.settings.is_included }}"
+            {{ block.shopify_attributes }}>
+            <!-- Thumbnail -->
+            <div class="comp-bundle-cart__item-thumb">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'comp-bundle-cart__thumb-img', alt: prod_title }}
+              {%- elsif prod != blank and prod.featured_image != blank -%}
+                {{ prod.featured_image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'comp-bundle-cart__thumb-img', alt: prod_title }}
+              {%- else -%}
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rainmaker-connected-feature-image.png?v=1790069366"
+                  alt="{{ prod_title }}"
+                  class="comp-bundle-cart__thumb-img"
+                  loading="lazy"
+                  width="100"
+                  height="100">
+              {%- endif -%}
+            </div>
+
+            <!-- Info -->
+            <div class="comp-bundle-cart__item-info">
+              <div class="comp-bundle-cart__item-title custom_subHeading-text">{{ prod_title }}</div>
+              <div class="comp-bundle-cart__item-price custom_body-text">{{ prod_price }}</div>
+              {%- if prod_sub != blank -%}
+                <div class="comp-bundle-cart__item-sub custom_body-text">{{ prod_sub }}</div>
+              {%- endif -%}
+            </div>
+
+            <!-- Right: Included / Add Action & Details -->
+            <div class="comp-bundle-cart__item-meta">
+              <div class="comp-bundle-cart__item-action">
+                {%- if block.settings.is_included -%}
+                  <span class="comp-bundle-cart__badge custom_subHeading-text">
+                    INCLUDED
+                    <svg
+                      width="11"
+                      height="8"
+                      viewBox="0 0 11 8"
+                      fill="none"
+                      aria-hidden="true">
+                      <path
+                        d="M1.5 4L4 6.5L9.5 1.5"
+                        stroke="#FFFFFF"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                {%- else -%}
+                  <button
+                    type="button"
+                    class="comp-bundle-cart__add-btn-item custom_subHeading-text"
+                    data-bundle-item-add
+                    data-variant-id="{{ variant_id }}"
+                    aria-label="Add {{ prod_title }} to cart">
+                    <span class="comp-bundle-cart__add-tag-text">ADD +</span>
+                    <span class="comp-bundle-cart__item-spinner" aria-hidden="true"></span>
+                  </button>
+                {%- endif -%}
+              </div>
+
+              {%- assign anchor_val = block.settings.details_anchor_id | default: '' | strip -%}
+              {%- if anchor_val != blank -%}
+                {%- assign anchor_href = anchor_val -%}
+                {%- unless anchor_href contains '#' -%}
+                  {%- assign anchor_href = '#' | append: anchor_href -%}
+                {%- endunless -%}
+                <a href="{{ anchor_href }}" class="comp-bundle-cart__details-link custom_body-text">Details</a>
+              {%- elsif block.settings.details_url != blank -%}
+                <a
+                  href="{{ block.settings.details_url }}"
+                  class="comp-bundle-cart__details-link custom_body-text"
+                  target="_blank"
+                  rel="noopener">Details</a>
+              {%- elsif prod != blank -%}
+                <a
+                  href="{{ prod.url }}"
+                  class="comp-bundle-cart__details-link custom_body-text"
+                  target="_blank"
+                  rel="noopener">Details</a>
+              {%- else -%}
+                <span class="comp-bundle-cart__details-link custom_body-text">Details</span>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <!-- Bottom Summary & Action -->
+      <div class="comp-bundle-cart__footer">
+        <div class="comp-bundle-cart__summary-row">
+          <div class="comp-bundle-cart__summary-name custom_subHeading-text">
+            {{ section.settings.bundle_label | default: 'Black Friday Bundle' }}
+          </div>
+
+          <div class="comp-bundle-cart__summary-pricing">
+            <div class="comp-bundle-cart__bundle-price custom_heading">
+              {{ section.settings.bundle_price | default: '$1,097.99' }}
+            </div>
+            {%- if section.settings.savings_text != blank -%}
+              <div class="comp-bundle-cart__savings custom_subHeading-text">
+                {{ section.settings.savings_text }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <!-- Add All To Cart Button -->
+        <button
+          type="button"
+          class="comp-bundle-cart__add-btn custom_subHeading-text"
+          data-bundle-add-all
+          {% if section.settings.bundle_product != blank %}
+          data-bundle-product-variant-id="{{ section.settings.bundle_product.selected_or_first_available_variant.id }}"
+          {% endif %}>
+          <span class="comp-bundle-cart__add-text">{{ section.settings.button_text | default: 'ADD TO CART' }}</span>
+          <span class="comp-bundle-cart__spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .comp-bundle-cart {
+    position: relative;
+    width: 100%;
+    min-height: 850px;
+    padding-top: clamp(30px, 6vw, var(--css-pt, 60px));
+    padding-bottom: clamp(30px, 6vw, var(--css-pb, 80px));
+    overflow: hidden;
+    color: #000000;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .comp-bundle-cart {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+  }
+
+  /* Background Image & Gradient Fade */
+  .comp-bundle-cart__bg-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+  .comp-bundle-cart__bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #FFFFFF 15%, rgba(255, 255, 255, 0.7) 45%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .comp-bundle-cart__container {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+  }
+
+  /* Header */
+  .comp-bundle-cart__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    max-width: 720px;
+    margin-bottom: clamp(24px, 3vw, 36px);
+  }
+  .comp-bundle-cart__heading {
+    margin: 0;
+    font-size: clamp(28px, 3.2vw, 42px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #000000 !important;
+  }
+  .comp-bundle-cart__subtitle {
+    margin: 0;
+    font-size: clamp(14px, 1.2vw, 16px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #000000;
+  }
+
+  /* Main Floating Card */
+  .comp-bundle-cart__card {
+    width: 100%;
+    max-width: 614px;
+    background: #FFFFFF;
+    border: 3px solid #0149E3;
+    border-radius: 12px;
+    padding: clamp(20px, 2.5vw, 32px);
+    box-sizing: border-box;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  /* Card Header */
+  .comp-bundle-cart__card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .comp-bundle-cart__card-eyebrow {
+    font-size: 15px;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    color: #004CFF;
+  }
+  .comp-bundle-cart__card-title {
+    margin: 0;
+    font-size: clamp(18px, 1.6vw, 20px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #171D20 !important;
+  }
+
+  /* Items List */
+  .comp-bundle-cart__items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  .comp-bundle-cart__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    position: relative;
+    transition: border-color 0.2s ease;
+  }
+  .comp-bundle-cart__item:hover {
+    border-color: #0149E3;
+  }
+
+  .comp-bundle-cart__item-thumb {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #FAFAFA;
+    border-radius: 6px;
+  }
+  .comp-bundle-cart__thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .comp-bundle-cart__item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .comp-bundle-cart__item-title {
+    font-size: 15px;
+    line-height: 1.25;
+    font-weight: 600;
+    color: #000000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .comp-bundle-cart__item-price {
+    font-size: 14px;
+    line-height: 1.2;
+    color: #9EA3B1;
+  }
+  .comp-bundle-cart__item-sub {
+    font-size: 12px;
+    line-height: 1.35;
+    color: #4F4F4F;
+    margin-top: 2px;
+  }
+
+  .comp-bundle-cart__item-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    align-self: stretch;
+    flex-shrink: 0;
+    gap: 8px;
+  }
+  .comp-bundle-cart__item-action {
+    display: flex;
+    align-items: center;
+  }
+  .comp-bundle-cart__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    background: #A7A7A7;
+    border-radius: 100px;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    white-space: nowrap;
+  }
+  .comp-bundle-cart__badge svg {
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .comp-bundle-cart__add-btn-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 4px 6px;
+    font-size: 13px;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #171D20;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.15s ease
+    , transform 0.15s ease;
+  }
+  .comp-bundle-cart__add-btn-item:hover {
+    color: #0149E3;
+  }
+  .comp-bundle-cart__add-btn-item.is-loading {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  .comp-bundle-cart__add-btn-item.is-loading .comp-bundle-cart__add-tag-text {
+    visibility: hidden;
+  }
+  .comp-bundle-cart__item-spinner {
+    display: none;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #0149E3;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: comp-spin 0.6s linear infinite;
+    position: absolute;
+  }
+  .comp-bundle-cart__add-btn-item.is-loading .comp-bundle-cart__item-spinner {
+    display: block;
+  }
+  .comp-bundle-cart__add-btn-item.is-added {
+    color: #0149E3;
+  }
+  .comp-bundle-cart__details-link {
+    font-size: 13px;
+    line-height: 1.2;
+    color: #0149E3;
+    text-decoration: underline;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+  }
+  .comp-bundle-cart__details-link:hover {
+    color: #003cc2;
+  }
+
+  /* Footer & Summary */
+  .comp-bundle-cart__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 4px;
+  }
+  .comp-bundle-cart__summary-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    border-top: 1px solid #ECEEF2;
+    padding-top: 14px;
+  }
+  .comp-bundle-cart__summary-name {
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: #171D20;
+  }
+  .comp-bundle-cart__summary-pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    gap: 2px;
+  }
+  .comp-bundle-cart__bundle-price {
+    font-size: 24px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #171D20 !important;
+  }
+  .comp-bundle-cart__savings {
+    font-size: clamp(13px, 1.1vw, 15px);
+    line-height: 1.3;
+    font-weight: 700;
+    color: #FF0000;
+    letter-spacing: 0.02em;
+  }
+
+  /* Add to Cart Button */
+  .comp-bundle-cart__add-btn {
+    width: 100%;
+    height: 52px;
+    background: #0149E3;
+    border: none;
+    border-radius: 100px;
+    color: #FFFFFF !important;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease
+    , transform 0.15s ease;
+    position: relative;
+  }
+  .comp-bundle-cart__add-btn:hover {
+    background: #003cc2;
+    transform: translateY(-1px);
+  }
+  .comp-bundle-cart__add-btn:disabled,
+  .comp-bundle-cart__add-btn.is-loading {
+    opacity: 0.75;
+    pointer-events: none;
+  }
+  .comp-bundle-cart__spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #FFFFFF;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: comp-spin 0.6s linear infinite;
+    position: absolute;
+  }
+  .comp-bundle-cart__add-btn.is-loading .comp-bundle-cart__add-text {
+    visibility: hidden;
+  }
+  .comp-bundle-cart__add-btn.is-loading .comp-bundle-cart__spinner {
+    display: block;
+  }
+
+  @keyframes comp-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .comp-bundle-cart__item {
+      padding: 8px 10px;
+      gap: 10px;
+    }
+    .comp-bundle-cart__item-thumb {
+      width: 64px;
+      height: 64px;
+    }
+    .comp-bundle-cart__summary-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .comp-bundle-cart__summary-pricing {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    function initBundleCart() {
+      const sections = document.querySelectorAll('[data-comp-bundle-cart]');
+      sections.forEach(function(sec) {
+        if (sec.dataset.initialized) return;
+        sec.dataset.initialized = 'true';
+
+        const addBtn = sec.querySelector('[data-bundle-add-all]');
+        if (!addBtn) return;
+
+        function triggerThemeCart(cartData) {
+          // Dispatch standard BTG theme events that open the cart drawer
+          document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: cartData } }));
+          document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: cartData } }));
+          document.dispatchEvent(new CustomEvent('ajaxCart.afterCartLoad', { detail: { cart: cartData } }));
+
+          if (window.theme && window.theme.CartDrawer && typeof window.theme.CartDrawer.open === 'function') {
+            window.theme.CartDrawer.open();
+          } else if (window.theme && window.theme.cart && typeof window.theme.cart.getCart === 'function') {
+            window.theme.cart.getCart();
+          }
+        }
+
+        // 1. Individual Product Add (ADD +)
+        const itemAddBtns = sec.querySelectorAll('[data-bundle-item-add]');
+        itemAddBtns.forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const vId = btn.dataset.variantId;
+            if (!vId || !parseInt(vId, 10)) {
+              console.warn('No variant ID found for this product');
+              return;
+            }
+            if (btn.classList.contains('is-loading')) return;
+
+            btn.classList.add('is-loading');
+
+            fetch('/cart/add.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({ id: parseInt(vId, 10), quantity: 1 })
+            })
+            .then(function(res) {
+              if (!res.ok) throw new Error('Add to cart failed');
+              return res.json();
+            })
+            .then(function(itemData) {
+              btn.classList.remove('is-loading');
+              btn.classList.add('is-added');
+              const textSpan = btn.querySelector('.comp-bundle-cart__add-tag-text');
+              if (textSpan) textSpan.textContent = 'ADDED ✓';
+
+              triggerThemeCart(itemData);
+
+              setTimeout(function() {
+                btn.classList.remove('is-added');
+                if (textSpan) textSpan.textContent = 'ADD +';
+              }, 3000);
+            })
+            .catch(function(err) {
+              console.error('Error adding product:', err);
+              btn.classList.remove('is-loading');
+            });
+          });
+        });
+
+        // 2. Main Bundle CTA Button
+        addBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (addBtn.classList.contains('is-loading')) return;
+
+          // Collect variant IDs for included items
+          const bundleVariantId = addBtn.dataset.bundleProductVariantId;
+          const itemsToAdd = [];
+
+          if (bundleVariantId) {
+            itemsToAdd.push({ id: parseInt(bundleVariantId, 10), quantity: 1 });
+          } else {
+            const itemEls = sec.querySelectorAll('[data-bundle-item][data-variant-id][data-is-included="true"]');
+            itemEls.forEach(function(el) {
+              const vId = el.dataset.variantId;
+              if (vId && parseInt(vId, 10)) {
+                itemsToAdd.push({ id: parseInt(vId, 10), quantity: 1 });
+              }
+            });
+            // Fallback: if no items had data-variant-id in this card, check hidden bundle on page
+            if (itemsToAdd.length <= 1) {
+              const pageHiddenBundle = document.querySelector('.comp-pdp-hidden-bundle[data-variant-ids]');
+              if (pageHiddenBundle) {
+                const fallbackIds = (pageHiddenBundle.getAttribute('data-variant-ids') || '')
+                  .split(',')
+                  .map(function(s) { return parseInt(s, 10); })
+                  .filter(function(n) { return !isNaN(n); });
+                if (fallbackIds.length > itemsToAdd.length) {
+                  itemsToAdd.length = 0;
+                  fallbackIds.forEach(function(id) {
+                    itemsToAdd.push({ id: id, quantity: 1 });
+                  });
+                }
+              }
+            }
+          }
+
+          if (!itemsToAdd.length) {
+            console.warn('No products assigned to bundle cart');
+            return;
+          }
+
+          addBtn.classList.add('is-loading');
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({ items: itemsToAdd })
+          })
+          .then(function(res) {
+            if (!res.ok) throw new Error('Bundle batch add failed');
+            return res.json();
+          })
+          .then(function(cartData) {
+            addBtn.classList.remove('is-loading');
+            triggerThemeCart(cartData);
+          })
+          .catch(async function(err) {
+            console.warn('Batch bundle add rejected (one item may be out of stock at active location), adding available items individually:', err);
+            let lastSuccessData = null;
+            for (let i = 0; i < itemsToAdd.length; i++) {
+              try {
+                const singleRes = await fetch('/cart/add.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                  },
+                  body: JSON.stringify(itemsToAdd[i])
+                });
+                if (singleRes.ok) {
+                  lastSuccessData = await singleRes.json();
+                } else {
+                  const errJson = await singleRes.json().catch(function() { return {}; });
+                  console.warn('Skipped unavailable item variant ' + itemsToAdd[i].id + ':', errJson.description || singleRes.status);
+                }
+              } catch (singleErr) {
+                console.warn('Failed adding variant ' + itemsToAdd[i].id, singleErr);
+              }
+            }
+            addBtn.classList.remove('is-loading');
+            if (lastSuccessData) {
+              triggerThemeCart(lastSuccessData);
+            }
+          });
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBundleCart);
+    } else {
+      initBundleCart();
+    }
+    document.addEventListener('shopify:section:load', initBundleCart);
+  })();
+</script>
+
+{% schema %}
+  {
+    "name": "Comp: Bundle Cart Card",
+    "settings": [
+      {
+        "type": "text",
+        "id": "custom_section_id",
+        "label": "Custom Section ID",
+        "info": "Optional anchor ID (e.g. 'bundle-cart')"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background Image"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Padding Top",
+        "min": 20,
+        "max": 140,
+        "step": 5,
+        "unit": "px",
+        "default": 60
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Padding Bottom",
+        "min": 20,
+        "max": 140,
+        "step": 5,
+        "unit": "px",
+        "default": 80
+      }, {
+        "type": "header",
+        "content": "Section Header"
+      }, {
+        "type": "text",
+        "id": "heading",
+        "label": "Main Heading",
+        "default": "THE VALUE ADDS UP. THE PRICE STAYS SIMPLE."
+      }, {
+        "type": "textarea",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Three premium products. One complete setup. Available in a limited run of 300 bundles."
+      }, {
+        "type": "header",
+        "content": "Floating Card Header"
+      }, {
+        "type": "text",
+        "id": "card_eyebrow",
+        "label": "Card Eyebrow",
+        "default": "Save when you bundle"
+      }, {
+        "type": "text",
+        "id": "card_title",
+        "label": "Card Title",
+        "default": "RAINMAKER SIMULATION BUNDLE"
+      }, {
+        "type": "header",
+        "content": "Card Summary & Action"
+      }, {
+        "type": "text",
+        "id": "bundle_label",
+        "label": "Bundle Label",
+        "default": "Black Friday Bundle"
+      }, {
+        "type": "text",
+        "id": "bundle_price",
+        "label": "Bundle Price",
+        "default": "$1,097.99"
+      }, {
+        "type": "text",
+        "id": "savings_text",
+        "label": "Savings Text",
+        "default": "Bought separately $1,697.99 · YOU SAVE $600"
+      }, {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "ADD TO CART"
+      }, {
+        "type": "product",
+        "id": "bundle_product",
+        "label": "Master Bundle Product (Optional)",
+        "info": "If chosen, adding to cart will add this single bundle product. Otherwise, it will add all individual block products simultaneously."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "bundle_item",
+        "name": "Bundle Product Item",
+        "limit": 5,
+        "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Select Product"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Custom Image (Optional)"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title Override",
+            "default": "Rainmaker Launch Monitor"
+          },
+          {
+            "type": "text",
+            "id": "price",
+            "label": "Price Override",
+            "default": "$599"
+          }, {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Feature Subtitle",
+            "default": "Includes hardshell carrying case"
+          }, {
+            "type": "checkbox",
+            "id": "is_included",
+            "label": "Included in Bundle by Default",
+            "default": false,
+            "info": "When checked, shows 'INCLUDED ✓' pill and includes product in bundle cart. When unchecked, shows 'ADD +'."
+          }, {
+            "type": "text",
+            "id": "details_anchor_id",
+            "label": "Details Section / Tab Anchor ID",
+            "info": "e.g. 'hitting-mat' or '#hitting-mat'. Jumps directly to that section or tab on the page."
+          }, {
+            "type": "url",
+            "id": "details_url",
+            "label": "Details Link (Fallback URL)",
+            "info": "Used if no anchor ID is specified above."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Comp: Bundle Cart Card",
+        "blocks": [
+          {
+            "type": "bundle_item",
+            "settings": {
+              "title": "Rainmaker Launch Monitor",
+              "price": "$599",
+              "subtitle": "Includes hardshell carrying case",
+              "is_included": false
+            }
+          }, {
+            "type": "bundle_item",
+            "settings": {
+              "title": "Premium Golf Net",
+              "price": "$699",
+              "subtitle": "Full swing practice net",
+              "is_included": false
+            }
+          }, {
+            "type": "bundle_item",
+            "settings": {
+              "title": "Premium Hitting Mat",
+              "price": "$399",
+              "subtitle": "Turf mat with iron and driver strips",
+              "is_included": false
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

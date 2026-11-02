@@ -4,6 +4,9 @@
   assign subtitle = section.settings.subtitle | default: "From essential GPS audio to AI-powered performance, compare the Player family and step into the future of golf speakers."
   
   assign p1 = section.settings.product_1
+  if p1.title == blank and p1 != blank
+    assign p1 = all_products[p1]
+  endif
   assign p1_title = section.settings.p1_title
   if p1_title == blank and p1 != blank
     assign p1_title = p1.title
@@ -12,7 +15,7 @@
     assign p1_title = "PLAYER+"
   endif
 
-  assign p1_v = p1.selected_or_first_available_variant
+  assign p1_v = p1.selected_or_first_available_variant | default: p1.variants.first
   assign p1_price = section.settings.p1_price
   if p1_price == blank and p1 != blank
     assign p1_price = p1_v.price | money
@@ -37,6 +40,9 @@
   endif
 
   assign p2 = section.settings.product_2
+  if p2.title == blank and p2 != blank
+    assign p2 = all_products[p2]
+  endif
   assign p2_title = section.settings.p2_title
   if p2_title == blank and p2 != blank
     assign p2_title = p2.title
@@ -45,7 +51,7 @@
     assign p2_title = "PLAYER PRO"
   endif
 
-  assign p2_v = p2.selected_or_first_available_variant
+  assign p2_v = p2.selected_or_first_available_variant | default: p2.variants.first
   assign p2_price = section.settings.p2_price
   if p2_price == blank and p2 != blank
     assign p2_price = p2_v.price | money
@@ -237,8 +243,8 @@
   .comp-lineup-comp-{{ s_id }} {
     width: 100%;
     position: relative;
-    padding-top: clamp(2.5rem, 1.8rem + 3vw, 5.5rem);
-    padding-bottom: clamp(2.5rem, 1.8rem + 3vw, 5.5rem);
+    padding-top: clamp(30px, 6vw, var(--comp-lc-pt, 60px));
+    padding-bottom: clamp(30px, 6vw, var(--comp-lc-pb, 60px));
     background-color: #ffffff;
     box-sizing: border-box;
   }
@@ -327,6 +333,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap:wrap;
   }
 
   .comp-lineup-comp__text-val {
@@ -518,12 +525,21 @@
     transform: rotate(-90deg);
   }
 
-  /* Mobile Responsive View (<= 991px) */
   @media (max-width: 991px) {
     .comp-lineup-comp-{{ s_id }} {
-      padding-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
-      padding-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+      padding-top: clamp(30px, 5vw, var(--comp-lc-pt, 60px));
+      padding-bottom: clamp(30px, 5vw, var(--comp-lc-pb, 60px));
     }
+  }
+
+  @media (max-width: 768px) {
+    .comp-lineup-comp-{{ s_id }} {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+  }
+
+  @media (max-width: 991px) {
 
     .comp-lineup-comp__container {
       max-width: 100%;
@@ -632,10 +648,10 @@
     /* Feature Label inside each cell */
     .comp-lineup-comp__mobile-feature-label {
       display: block;
-      font-size: 0.72rem;
+      font-size: 10px;
       color: #0f172a;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0;
       line-height: 1.2;
     }
 
@@ -740,9 +756,12 @@
               'Content-Type': 'application/json',
               'Accept': 'application/json'
             },
-            body: JSON.stringify({ id: variantId, quantity: 1 })
+            body: JSON.stringify({ items: [{ id: parseInt(variantId, 10), quantity: 1 }] })
           })
-          .then(res => res.json())
+          .then(res => {
+            if (!res.ok) throw new Error('Failed to add to cart');
+            return res.json();
+          })
           .then(data => {
             btn.classList.remove('is-loading');
             btn.disabled = false;
@@ -750,8 +769,16 @@
               btnText.textContent = 'ADDED ✓';
               setTimeout(() => { btnText.textContent = 'ADD TO CART'; }, 2000);
             }
-            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: data } }));
-            document.dispatchEvent(new CustomEvent('cart:open'));
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: data }, bubbles: true }));
+            document.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true }));
+            document.dispatchEvent(new CustomEvent('cart:open', { bubbles: true }));
+            if (window.jQuery) {
+              window.jQuery('body').trigger('added.ajaxProduct');
+              window.jQuery(document).trigger('ajaxCart.afterCartLoad');
+            }
+            if (window.theme && window.theme.CartDrawer) {
+              try { new window.theme.CartDrawer().open(); } catch (e) {}
+            }
           })
           .catch(err => {
             console.error('Error adding to cart:', err);

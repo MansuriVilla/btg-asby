@@ -69,15 +69,17 @@
   }
   .comp-feature-card--gps .comp-feature-card__title {
     font-family: 'Blue Tees Headline Italic', sans-serif;
-    font-size: 20px;
+    font-size: clamp(16px, 1.5vw, 20px);
     line-height: 1.1;
     text-transform: uppercase;
     color: #FFFFFF !important;
     letter-spacing: -0.01em;
+    max-width: 300px;
+  width: 100%;
   }
   .comp-feature-card--gps .comp-feature-card__badge {
     font-family: 'Blue Tees Subhead', sans-serif;
-    font-size: 11px;
+    font-size: clamp(10px, 0.8vw, 12px);
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #FFFFFF !important;
@@ -89,11 +91,12 @@
     text-transform: uppercase;
     color: #CDFF07 !important;
     margin: 0;
+    padding: 0;
   }
   .comp-feature-card__media {
     position: relative;
     width: 100%;
-    min-height: 173px;
+    /* min-height: 173px; */
     height: auto;
     border-radius: 8px;
     overflow: hidden;
@@ -104,10 +107,10 @@
   }
   .comp-feature-card__media img,
   .comp-feature-card__img {
-    display: block !important;
-    width: 100% !important;
-    min-height: 173px !important;
-    height: 100% !important;
+    display: block;
+    width: 100%;
+    /* min-height: 173px; */
+    height: 100%;
     max-height: 220px;
     object-fit: cover;
     border-radius: 8px;
@@ -129,10 +132,11 @@
     gap: 6px;
     text-align: center;
     font-family: 'Blue Tees Subhead', sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.15;
     text-transform: uppercase;
     color: #FFFFFF !important;
+    margin:0px;
   }
   .comp-feature-card__icon-item span {
     color: #FFFFFF !important;
@@ -140,7 +144,10 @@
   .comp-feature-card__icon {
     width: 34px;
     height: 26px;
-    object-fit: contain;
-    display: block;
+    object-fit: cover;
+    display: flex;
+  }
+  @media only screen and (max-width: 420px){
+    .comp-feature-card__icon-item{font-size: 12px;}
   }
 </style>

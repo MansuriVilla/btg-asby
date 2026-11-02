@@ -7,8 +7,143 @@
 {% endcomment %}
 
 <div class="comp-pdp-cta" {{ block.shopify_attributes }}>
+  {%- if block.settings.enable_product_selection -%}
+    {%- liquid
+      assign switch_p1 = block.settings.switch_product_1
+      assign switch_p2 = block.settings.switch_product_2
+      assign switch_p3 = block.settings.switch_product_3
+      assign switch_p4 = block.settings.switch_product_4
+    -%}
+    {%- if block.settings.hide_product_switcher -%}
+      {%- comment -%}
+        Hidden bundle mode: nothing is shown to the customer. The variants below are
+        added to the cart (instead of the main product) when Add to Cart is clicked.
+      {%- endcomment -%}
+      {%- assign bundle_ids = '' -%}
+      {%- assign bundle_available = 'false' -%}
+      {%- assign bundle_total = 0 -%}
+      {%- assign bundle_compare_total = 0 -%}
+      {%- assign bundle_keys = 'switch_product_1,switch_product_2,switch_product_3,switch_product_4' | split: ',' -%}
+      {%- for key in bundle_keys -%}
+        {%- assign bprod = block.settings[key] -%}
+        {%- if bprod.title == blank and bprod != blank -%}
+          {%- assign bprod = all_products[bprod] -%}
+        {%- endif -%}
+        {%- if bprod != blank -%}
+          {%- assign bvar = bprod.selected_or_first_available_variant | default: bprod.variants.first -%}
+          {%- if bvar != blank -%}
+            {%- assign bundle_ids = bundle_ids | append: bvar.id | append: ',' -%}
+            {%- assign bundle_total = bundle_total | plus: bvar.price -%}
+            {%- if bvar.compare_at_price > bvar.price -%}
+              {%- assign bundle_compare_total = bundle_compare_total | plus: bvar.compare_at_price -%}
+            {%- else -%}
+              {%- assign bundle_compare_total = bundle_compare_total | plus: bvar.price -%}
+            {%- endif -%}
+            {%- if bvar.available or bprod.available -%}
+              {%- assign bundle_available = 'true' -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if bundle_ids != blank -%}
+        <div
+          class="comp-pdp-hidden-bundle"
+          data-variant-ids="{{ bundle_ids }}"
+          data-available="{{ bundle_available }}"
+          data-button-text="{{ block.settings.hidden_bundle_button_text | escape }}"
+          data-total-price="{{ bundle_total | money | strip_html | escape }}"
+          data-total-compare="{% if bundle_compare_total > bundle_total %}{{ bundle_compare_total | money | strip_html | escape }}{% endif %}"
+          hidden
+          aria-hidden="true"
+        ></div>
+      {%- endif -%}
+    {%- elsif switch_p1 != blank or switch_p2 != blank or switch_p3 != blank or switch_p4 != blank -%}
+      <div class="comp-pdp-product-switcher">
+        {%- if block.settings.product_selection_heading != blank -%}
+          <div class="comp-pdp-switcher__heading custom_subHeading-text">
+            {{ block.settings.product_selection_heading }}
+          </div>
+        {%- endif -%}
+        <div class="comp-pdp-switcher__options">
+          {%- comment -%} Option for Current Product {%- endcomment -%}
+          {%- assign main_v = current_variant | default: product.selected_or_first_available_variant -%}
+          <label class="comp-pdp-switcher__item is-selected">
+            <input
+              type="radio"
+              name="comp-pdp-switch-product"
+              value="{{ main_v.id }}"
+              checked="checked"
+              data-available="{{ main_v.available }}"
+              data-price="{{ main_v.price | money_without_trailing_zeros }}"
+              data-title="{{ product.title | escape }}"
+            >
+            <span class="comp-pdp-switcher__card">
+              {%- if product.featured_image != blank -%}
+                <img
+                  src="{{ product.featured_image | image_url: width: 80 }}"
+                  alt="{{ product.title | escape }}"
+                  loading="lazy"
+                  width="40"
+                  height="40"
+                  class="comp-pdp-switcher__thumb"
+                >
+              {%- endif -%}
+              <span class="comp-pdp-switcher__details">
+                <span class="comp-pdp-switcher__title">{{ product.title }}</span>
+                <span class="comp-pdp-switcher__price">{{ main_v.price | money_without_trailing_zeros }}</span>
+              </span>
+            </span>
+          </label>
+
+          {%- assign extra_picks = 'switch_product_1,switch_product_2,switch_product_3,switch_product_4' | split: ',' -%}
+          {%- for key in extra_picks -%}
+            {%- assign prod = block.settings[key] -%}
+            {%- if prod.title == blank and prod != blank -%}
+              {%- assign prod = all_products[prod] -%}
+            {%- endif -%}
+            {%- if prod != blank and prod.id != product.id -%}
+              {%- assign v = prod.selected_or_first_available_variant | default: prod.variants.first -%}
+              {%- assign v_avail = v.available -%}
+              {%- if v_avail == nil or v_avail == false -%}
+                {%- if prod.available -%}
+                  {%- assign v_avail = true -%}
+                {%- endif -%}
+              {%- endif -%}
+              <label class="comp-pdp-switcher__item">
+                <input
+                  type="radio"
+                  name="comp-pdp-switch-product"
+                  value="{{ v.id }}"
+                  data-available="{{ v_avail }}"
+                  data-price="{{ v.price | money_without_trailing_zeros }}"
+                  data-title="{{ prod.title | escape }}"
+                >
+                <span class="comp-pdp-switcher__card">
+                  {%- if prod.featured_image != blank -%}
+                    <img
+                      src="{{ prod.featured_image | image_url: width: 80 }}"
+                      alt="{{ prod.title | escape }}"
+                      loading="lazy"
+                      width="40"
+                      height="40"
+                      class="comp-pdp-switcher__thumb"
+                    >
+                  {%- endif -%}
+                  <span class="comp-pdp-switcher__details">
+                    <span class="comp-pdp-switcher__title">{{ prod.title }}</span>
+                    <span class="comp-pdp-switcher__price">{{ v.price | money_without_trailing_zeros }}</span>
+                  </span>
+                </span>
+              </label>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+
   {%- unless product.empty? -%}
-    {%- render 'product-form',
+    {%- render 'comp-product-form',
       form_id: form_id,
       product: product,
       show_dynamic_checkout: block.settings.show_dynamic_checkout,
@@ -21,13 +156,26 @@
   <ul class="comp-pdp-cta__badges">
     {% if block.settings.badge_1 != blank %}
       <li>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_8771_2461)">
+<path d="M17.9599 8.22656L16.9755 5.76562C16.892 5.5573 16.7478 5.37888 16.5616 5.2535C16.3754 5.12813 16.1559 5.06159 15.9314 5.0625H13.5V4.5C13.5 4.35082 13.4407 4.20774 13.3352 4.10225C13.2298 3.99676 13.0867 3.9375 12.9375 3.9375H2.25C1.95163 3.9375 1.66548 4.05603 1.4545 4.267C1.24353 4.47798 1.125 4.76413 1.125 5.0625V12.9375C1.125 13.2359 1.24353 13.522 1.4545 13.733C1.66548 13.944 1.95163 14.0625 2.25 14.0625H3.44531C3.56923 14.5465 3.85071 14.9755 4.24536 15.2818C4.64002 15.5881 5.1254 15.7544 5.625 15.7544C6.1246 15.7544 6.60998 15.5881 7.00464 15.2818C7.39929 14.9755 7.68077 14.5465 7.80469 14.0625H11.3203C11.4442 14.5465 11.7257 14.9755 12.1204 15.2818C12.515 15.5881 13.0004 15.7544 13.5 15.7544C13.9996 15.7544 14.485 15.5881 14.8796 15.2818C15.2743 14.9755 15.5558 14.5465 15.6797 14.0625H16.875C17.1734 14.0625 17.4595 13.944 17.6705 13.733C17.8815 13.522 18 13.2359 18 12.9375V8.4375C18.0001 8.36529 17.9865 8.29371 17.9599 8.22656ZM5.625 14.625C5.4025 14.625 5.18499 14.559 4.99998 14.4354C4.81498 14.3118 4.67078 14.1361 4.58564 13.9305C4.50049 13.725 4.47821 13.4988 4.52162 13.2805C4.56502 13.0623 4.67217 12.8618 4.8295 12.7045C4.98684 12.5472 5.18729 12.44 5.40552 12.3966C5.62375 12.3532 5.84995 12.3755 6.05552 12.4606C6.26109 12.5458 6.43679 12.69 6.5604 12.875C6.68402 13.06 6.75 13.2775 6.75 13.5C6.75 13.7984 6.63147 14.0845 6.4205 14.2955C6.20952 14.5065 5.92337 14.625 5.625 14.625ZM2.25 9.5625V5.0625H12.375V9.5625H2.25ZM13.5 14.625C13.2775 14.625 13.06 14.559 12.875 14.4354C12.69 14.3118 12.5458 14.1361 12.4606 13.9305C12.3755 13.725 12.3532 13.4988 12.3966 13.2805C12.44 13.0623 12.5472 12.8618 12.7045 12.7045C12.8618 12.5472 13.0623 12.44 13.2805 12.3966C13.4988 12.3532 13.725 12.3755 13.9305 12.4606C14.1361 12.5458 14.3118 12.69 14.4354 12.875C14.559 13.06 14.625 13.2775 14.625 13.5C14.625 13.7984 14.5065 14.0845 14.2955 14.2955C14.0845 14.5065 13.7984 14.625 13.5 14.625ZM13.5 7.875V6.1875H15.9314L16.6064 7.875H13.5Z" fill="#7A8291"/>
+</g>
+<defs>
+<clipPath id="clip0_8771_2461">
+<rect width="18" height="18" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
         {{ block.settings.badge_1 }}
       </li>
     {% endif %}
     {% if block.settings.badge_2 != blank %}
       <li>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.625 2.25H12.9375V1.6875C12.9375 1.53832 12.8782 1.39524 12.7727 1.28975C12.6673 1.18426 12.5242 1.125 12.375 1.125C12.2258 1.125 12.0827 1.18426 11.9773 1.28975C11.8718 1.39524 11.8125 1.53832 11.8125 1.6875V2.25H6.1875V1.6875C6.1875 1.53832 6.12824 1.39524 6.02275 1.28975C5.91726 1.18426 5.77418 1.125 5.625 1.125C5.47582 1.125 5.33274 1.18426 5.22725 1.28975C5.12176 1.39524 5.0625 1.53832 5.0625 1.6875V2.25H3.375C3.07663 2.25 2.79048 2.36853 2.5795 2.5795C2.36853 2.79048 2.25 3.07663 2.25 3.375V14.625C2.25 14.9234 2.36853 15.2095 2.5795 15.4205C2.79048 15.6315 3.07663 15.75 3.375 15.75H14.625C14.9234 15.75 15.2095 15.6315 15.4205 15.4205C15.6315 15.2095 15.75 14.9234 15.75 14.625V3.375C15.75 3.07663 15.6315 2.79048 15.4205 2.5795C15.2095 2.36853 14.9234 2.25 14.625 2.25ZM11.9292 9.39797L8.55422 12.773C8.50198 12.8253 8.43994 12.8668 8.37165 12.8951C8.30337 12.9234 8.23017 12.9379 8.15625 12.9379C8.08233 12.9379 8.00913 12.9234 7.94085 12.8951C7.87256 12.8668 7.81052 12.8253 7.75828 12.773L6.07078 11.0855C5.96523 10.9799 5.90594 10.8368 5.90594 10.6875C5.90594 10.5382 5.96523 10.3951 6.07078 10.2895C6.17633 10.184 6.31948 10.1247 6.46875 10.1247C6.61802 10.1247 6.76117 10.184 6.86672 10.2895L8.15625 11.5798L11.1333 8.60203C11.1855 8.54977 11.2476 8.50831 11.3159 8.48003C11.3842 8.45174 11.4573 8.43719 11.5312 8.43719C11.6052 8.43719 11.6783 8.45174 11.7466 8.48003C11.8149 8.50831 11.877 8.54977 11.9292 8.60203C11.9815 8.65429 12.0229 8.71634 12.0512 8.78462C12.0795 8.8529 12.0941 8.92609 12.0941 9C12.0941 9.07391 12.0795 9.1471 12.0512 9.21538C12.0229 9.28366 11.9815 9.34571 11.9292 9.39797ZM3.375 5.625V3.375H5.0625V3.9375C5.0625 4.08668 5.12176 4.22976 5.22725 4.33525C5.33274 4.44074 5.47582 4.5 5.625 4.5C5.77418 4.5 5.91726 4.44074 6.02275 4.33525C6.12824 4.22976 6.1875 4.08668 6.1875 3.9375V3.375H11.8125V3.9375C11.8125 4.08668 11.8718 4.22976 11.9773 4.33525C12.0827 4.44074 12.2258 4.5 12.375 4.5C12.5242 4.5 12.6673 4.44074 12.7727 4.33525C12.8782 4.22976 12.9375 4.08668 12.9375 3.9375V3.375H14.625V5.625H3.375Z" fill="#7A8291"/>
+</svg>
+
         {{ block.settings.badge_2 }}
       </li>
     {% endif %}
@@ -57,7 +205,7 @@
   .comp-pdp-cta button.add-to-cart,
   .comp-pdp-cta a.btn.add-to-cart {
     width: 100%;
-    height: clamp(46px, 3.8vw, 52px);
+    height: clamp(46px, 3.8vw, 52px) !important;
     background: #0149E3;
     border-radius: 100px;
     border: none;
@@ -80,6 +228,38 @@
   .comp-pdp-cta button[type="submit"].btn span,
   .comp-pdp-cta a.btn.add-to-cart span {
     color: #FFFFFF;
+    transition: opacity 0.2s ease;
+  }
+  .comp-pdp-cta .btn.btn--loading,
+  .comp-pdp-cta button[type="submit"].btn.btn--loading,
+  .comp-pdp-cta a.btn.add-to-cart.btn--loading {
+    position: relative !important;
+    color: transparent !important;
+    pointer-events: none !important;
+  }
+  .comp-pdp-cta .btn.btn--loading span,
+  .comp-pdp-cta button[type="submit"].btn.btn--loading span,
+  .comp-pdp-cta a.btn.add-to-cart.btn--loading span {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+  .comp-pdp-cta .btn.btn--loading::before,
+  .comp-pdp-cta button[type="submit"].btn.btn--loading::before,
+  .comp-pdp-cta a.btn.add-to-cart.btn--loading::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin-left: -10px !important;
+    margin-top: -10px !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border-top-color: #FFFFFF !important;
+    border-radius: 50% !important;
+    animation: spin 0.8s linear infinite !important;
+    box-sizing: border-box !important;
   }
   .comp-pdp-cta .btn.btn--full.add-to-cart:hover,
   .comp-pdp-cta button[type="submit"].btn:hover,
@@ -131,15 +311,98 @@
     color: #7A8291;
     margin: 0;
   }
-  .comp-pdp-cta__badges svg,
+  /* .comp-pdp-cta__badges svg,
   .comp-pdp-cta__badges svg * {
     color: #7A8291;
     stroke: #7A8291;
     flex-shrink: 0;
-  }
+  } */
   .comp-pdp-cta__badges svg {
     width: 16px;
     height: 16px;
+  }
+
+  /* Product Switcher */
+  .comp-pdp-product-switcher {
+    margin-bottom: 14px;
+    width: 100%;
+  }
+  .comp-pdp-switcher__heading {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #1b1e22;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .comp-pdp-switcher__options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+  }
+  .comp-pdp-switcher__item {
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+    display: block;
+  }
+  .comp-pdp-switcher__item input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+  .comp-pdp-switcher__card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border: 1.5px solid #E0E0E0;
+    border-radius: 8px;
+    background: #FAFAFA;
+    transition: all 0.2s ease;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  .comp-pdp-switcher__item:hover .comp-pdp-switcher__card {
+    border-color: #8C929C;
+  }
+  .comp-pdp-switcher__item.is-selected .comp-pdp-switcher__card,
+  .comp-pdp-switcher__item input[type="radio"]:checked + .comp-pdp-switcher__card {
+    border-color: #0149E3;
+    background: #F0F5FF;
+    box-shadow: 0 0 0 1px #0149E3;
+  }
+  .comp-pdp-switcher__thumb {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #FFFFFF;
+  }
+  .comp-pdp-switcher__details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .comp-pdp-switcher__title {
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #1B1E22;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .comp-pdp-switcher__price {
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: 11px;
+    color: #666666;
+    margin-top: 2px;
   }
 
   @media (max-width: 991px) {
@@ -149,7 +412,7 @@
       left: 0;
       right: 0;
       width: 100%;
-      z-index: 9999;
+      z-index: 6;
       margin: 0;
       border-radius: 0;
       border-top: 1px solid #D9D9D9;
@@ -162,5 +425,82 @@
       margin-top: 8px;
       gap: 12px;
     }
+    .comp-pdp-cta__badges li{ letter-spacing: 0;}
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var ctaWrap = document.querySelector('.comp-pdp-cta');
+    var switcherItems = document.querySelectorAll('.comp-pdp-switcher__item');
+
+    // Hidden bundle mode: keep Add to Cart in sync with the availability of the hidden products
+    var hiddenBundle = document.querySelector('.comp-pdp-hidden-bundle');
+    if (hiddenBundle) {
+      var applyBundleState = function () {
+        var atcBtn = document.querySelector('.comp-pdp-cta .btn[data-add-to-cart]');
+        var atcText = atcBtn ? atcBtn.querySelector('[data-add-to-cart-text]') : null;
+        if (!atcBtn) return;
+        if (hiddenBundle.getAttribute('data-available') === 'true') {
+          atcBtn.removeAttribute('disabled');
+          atcBtn.classList.remove('button_sold-out');
+          if (atcText) atcText.textContent = hiddenBundle.getAttribute('data-button-text') || 'ADD TO CART';
+        } else {
+          atcBtn.setAttribute('disabled', 'disabled');
+          atcBtn.classList.add('button_sold-out');
+          if (atcText) atcText.textContent = 'SOLD OUT';
+        }
+      };
+      applyBundleState();
+      window.addEventListener('load', applyBundleState);
+      setTimeout(applyBundleState, 600);
+      return;
+    }
+
+    if (!switcherItems.length) return;
+
+    if (ctaWrap) {
+      ctaWrap.classList.add('has-custom-product-enabled');
+    }
+
+    function syncAtcState(selectedRadio) {
+      if (!selectedRadio) return;
+      var atcBtn = document.querySelector('.comp-pdp-cta .btn[data-add-to-cart]');
+      var atcText = atcBtn ? atcBtn.querySelector('[data-add-to-cart-text]') : null;
+      var isAvail = selectedRadio.getAttribute('data-available') === 'true';
+
+      if (atcBtn) {
+        if (isAvail) {
+          atcBtn.removeAttribute('disabled');
+          atcBtn.classList.remove('button_sold-out');
+          if (atcText) atcText.textContent = 'ADD TO CART';
+        } else {
+          atcBtn.setAttribute('disabled', 'disabled');
+          atcBtn.classList.add('button_sold-out');
+          if (atcText) atcText.textContent = 'SOLD OUT';
+        }
+      }
+    }
+
+    switcherItems.forEach(function (item) {
+      var radio = item.querySelector('input[type="radio"]');
+      if (!radio) return;
+
+      radio.addEventListener('change', function () {
+        switcherItems.forEach(function (el) {
+          el.classList.remove('is-selected');
+        });
+        if (radio.checked) {
+          item.classList.add('is-selected');
+          syncAtcState(radio);
+        }
+      });
+    });
+
+    // Initial sync
+    var initialRadio = document.querySelector('.comp-pdp-switcher__item.is-selected input[type="radio"]') || document.querySelector('.comp-pdp-switcher__item input[type="radio"]:checked');
+    if (initialRadio) {
+      syncAtcState(initialRadio);
+    }
+  });
+</script>

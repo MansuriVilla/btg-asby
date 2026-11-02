@@ -18,12 +18,21 @@
     {% for key in picks %}
       {% liquid
         assign p = block.settings[key]
+        if p.title == blank and p != blank
+          assign p = all_products[p]
+        endif
         assign feat_key = key | replace: 'product_', 'features_'
         assign feat_text = block.settings[feat_key]
       %}
       {% if p != blank %}
         {% liquid
-          assign v = p.selected_or_first_available_variant
+          assign v = p.selected_or_first_available_variant | default: p.variants.first
+          assign is_card_available = v.available
+          if is_card_available == nil or is_card_available == false
+            if p.available
+              assign is_card_available = true
+            endif
+          endif
           assign on_sale = false
           if v.compare_at_price > v.price
             assign on_sale = true
@@ -53,13 +62,18 @@
               class="comp-protect-card__add"
               data-comp-accessory-add
               data-variant-id="{{ v.id }}"
-              aria-label="Add {{ p.title | escape }} to cart"
-              {% unless v.available %}disabled{% endunless %}
+              aria-label="Add {{ p.title | escape }} with product"
+              {% unless is_card_available %}disabled{% endunless %}
             >
-              <span class="comp-protect-card__add-label" data-label>{% if v.available %}ADD{% else %}SOLD OUT{% endif %}</span>
-              <span class="comp-protect-card__add-icon" aria-hidden="true">
+              <span class="comp-protect-card__add-label" data-label>{% if is_card_available %}ADD{% else %}SOLD OUT{% endif %}</span>
+              <span class="comp-protect-card__add-icon comp-protect-card__add-icon--plus" aria-hidden="true">
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                   <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span class="comp-protect-card__check-badge" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2.5 6.2L4.8 8.5L9.5 3.8" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
             </button>
@@ -237,6 +251,38 @@
   }
   .comp-protect-card__add:disabled .comp-protect-card__add-icon {
     display: none;
+  }
+
+  /* Selected State with Blue Circle Checkmark Badge */
+  .comp-protect-card__check-badge {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: #004DF5;
+    border-radius: 50%;
+    transform: scale(0.6);
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
+  }
+  .comp-protect-card__add.is-selected {
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+  }
+  .comp-protect-card__add.is-selected .comp-protect-card__add-label,
+  .comp-protect-card__add.is-selected .comp-protect-card__add-icon {
+    display: none;
+  }
+  .comp-protect-card__add.is-selected .comp-protect-card__check-badge {
+    display: inline-flex;
+    transform: scale(1);
+    opacity: 1;
+  }
+  .comp-protect-card.is-selected {
+    border-color: #004DF5;
   }
 
   /* 2-Column Features Grid Table with thin borders */

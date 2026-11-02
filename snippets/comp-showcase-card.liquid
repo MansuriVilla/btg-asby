@@ -1,0 +1,333 @@
+{% comment %}
+  Component: comp-showcase-card
+  Reusable media + device/thumb + title/description feature card.
+  Used in:
+    - comp-game-ai.liquid
+    - comp-hotspot-showcase.liquid
+
+  Parameters:
+    - block: Shopify block object (optional fallback)
+    - video: Video object (Shopify hosted video)
+    - video_url: External mp4 URL string
+    - preview_image: Image object for preview/media
+    - gif_image: Image object for GIF animation
+    - overlay_badge: Image object for top overlay badge
+    - device_preview: Image object for bottom device/product preview
+    - icon: Image object for fallback icon circle
+    - title: String title
+    - description: String description
+    - is_active: Boolean indicating if currently active/autoplay
+    - card_id: Optional HTML ID attribute for the card
+    - card_class: Optional extra CSS class on card container
+    - data_card_attr: Optional attribute e.g. 'data-hotspot-card'
+    - video_data_attr: Optional attribute for video e.g. 'data-game-ai-video'
+    - show_mute: Boolean (default false)
+    - cta_label: Optional CTA button/link label
+    - cta_url: Optional CTA button/link URL
+{% endcomment %}
+
+{%- liquid
+  assign c_video = video | default: block.settings.video
+  assign c_video_url = video_url | default: block.settings.video_url
+  assign c_img = preview_image | default: block.settings.preview_image | default: block.settings.image
+  assign c_gif = gif_image | default: block.settings.gif_image
+  assign c_badge = overlay_badge | default: block.settings.overlay_badge
+  assign c_device = device_preview | default: block.settings.device_preview | default: block.settings.product_thumb
+  assign c_device_width = device_width | default: block.settings.device_width | default: block.settings.product_thumb_width
+  assign c_icon = icon | default: block.settings.icon
+  assign c_title = title | default: block.settings.title
+  assign c_desc = description | default: block.settings.description
+  assign c_is_active = is_active | default: false
+  assign c_video_attr = video_data_attr | default: 'data-showcase-video'
+  assign c_show_mute = show_mute | default: false
+  assign c_cta_label = cta_label | default: block.settings.button_label
+  assign c_cta_url = cta_url | default: block.settings.button_link
+
+  assign video_src = ''
+  if c_video != blank and c_video.sources
+    for source in c_video.sources
+      if source.format == 'mp4'
+        assign video_src = source.url
+        break
+      endif
+    endfor
+    if video_src == blank
+      assign video_src = c_video.sources.first.url
+    endif
+  elsif c_video_url != blank
+    assign video_src = c_video_url
+  endif
+-%}
+
+<div
+  {% if card_id != blank %}id="{{ card_id }}"{% endif %}
+  class="comp-showcase-card {{ card_class }}{% if c_is_active %} is-active{% endif %}"
+  {% if data_card_attr != blank %}{{ data_card_attr }}{% endif %}
+  {% if c_device_width != blank %}style="--csc-device-width: {{ c_device_width }}px;"{% endif %}
+>
+  <!-- Card Top: Media Stage -->
+  <div class="comp-showcase-card__media">
+    {%- if c_video != blank -%}
+      {% render 'comp-video-player',
+        video: c_video,
+        poster: c_img,
+        is_active: c_is_active,
+        title: c_title,
+        video_class: 'comp-showcase-card__video',
+        data_attr: c_video_attr,
+        preload: 'auto',
+        show_mute: c_show_mute
+      %}
+    {%- elsif video_src != blank -%}
+      {% render 'comp-video-player',
+        video_url: video_src,
+        poster: c_img,
+        is_active: c_is_active,
+        title: c_title,
+        video_class: 'comp-showcase-card__video',
+        data_attr: c_video_attr,
+        preload: 'auto',
+        show_mute: c_show_mute
+      %}
+    {%- elsif c_gif != blank -%}
+      {{
+        c_gif
+        | image_url: width: 900
+        | image_tag:
+          loading: 'lazy',
+          class: 'comp-showcase-card__img',
+          alt: c_title | escape
+      }}
+    {%- elsif c_img != blank -%}
+      {{
+        c_img
+        | image_url: width: 900
+        | image_tag:
+          loading: 'lazy',
+          decoding: 'async',
+          class: 'comp-showcase-card__img',
+          alt: c_title | escape
+      }}
+    {%- else -%}
+      <div class="comp-showcase-card__placeholder"></div>
+    {%- endif -%}
+
+    {%- if c_badge != blank -%}
+      <div class="comp-showcase-card__overlay-badge">
+        {{
+          c_badge
+          | image_url: width: 300
+          | image_tag: loading: 'lazy', alt: ''
+        }}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <!-- Card Bottom: Device Preview + Info -->
+  <div class="comp-showcase-card__body">
+    <div class="comp-showcase-card__device-col">
+      {%- if c_device != blank -%}
+        {{
+          c_device
+          | image_url: width: 260
+          | image_tag:
+            loading: 'lazy',
+            class: 'comp-showcase-card__device-img',
+            alt: c_title | escape
+        }}
+      {%- else -%}
+        <div class="comp-showcase-card__icon-circle">
+          {%- if c_icon != blank -%}
+            {{
+              c_icon
+              | image_url: width: 64
+              | image_tag:
+                loading: 'lazy',
+                alt: ''
+            }}
+          {%- else -%}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#FFFFFF"/>
+            </svg>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="comp-showcase-card__info-col">
+      {%- if c_title != blank -%}
+        <h3 class="comp-showcase-card__title custom_heading">
+          {{ c_title }}
+        </h3>
+      {%- endif -%}
+      {%- if c_desc != blank -%}
+        <div class="comp-showcase-card__text custom_body-text">
+          {{ c_desc }}
+        </div>
+      {%- endif -%}
+      {%- if c_cta_label != blank and c_cta_url != blank -%}
+        <a href="{{ c_cta_url }}" class="comp-showcase-card__cta custom_subHeading-text">
+          {{ c_cta_label }}
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 3L11 8L6 13"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .comp-showcase-card {
+    width: 100%;
+    height: 100%;
+    background: #1B2029;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border: 1px solid transparent;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  .comp-showcase-card__media {
+    position: relative;
+    width: 100%;
+    height: 295px;
+    background: #11141B;
+    overflow: hidden;
+  }
+
+  .comp-showcase-card__img,
+  .comp-showcase-card__video,
+  .comp-showcase-card__media video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .comp-showcase-card:hover .comp-showcase-card__img {
+    transform: scale(1.03);
+  }
+
+  .comp-showcase-card__placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1B2029 0%, #252B38 100%);
+  }
+
+  .comp-showcase-card__overlay-badge {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    width: 130px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .comp-showcase-card__overlay-badge img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .comp-showcase-card__body {
+    padding: clamp(16px, 1.5vw, 24px);
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex: 1;
+    background: #1B2029;
+    box-sizing: border-box;
+  }
+
+  .comp-showcase-card__device-col {
+    flex-shrink: 0;
+    max-width: var(--csc-device-width, clamp(120px, 9vw, 140px));
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .comp-showcase-card__device-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .comp-showcase-card__icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(10, 12, 24, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 161, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comp-showcase-card__info-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .comp-showcase-card__title {
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: #FFFFFF;
+    line-height: 1.2;
+    opacity: 0.95;
+  }
+
+  .comp-showcase-card__text {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .comp-showcase-card__cta {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #CDFF07;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: gap 0.2s ease, opacity 0.2s ease;
+  }
+
+  .comp-showcase-card__cta:hover {
+    gap: 10px;
+    opacity: 0.85;
+  }
+
+  @media (max-width: 991px) {
+    .comp-showcase-card__media {
+      height: 220px;
+    }
+    .comp-showcase-card__body {
+      padding: 16px;
+      gap: 14px;
+      flex-direction: column;
+    }
+  }
+</style>

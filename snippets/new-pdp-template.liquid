@@ -71,7 +71,11 @@
       link: promo_link,
       bg_color: promo_bg_color,
       text_color: promo_text_color,
-      bg_image: promo_bg_image
+      bg_image: promo_bg_image,
+      enable_offer_bug: enable_offer_bug,
+      offer_bug_text: offer_bug_text,
+      offer_bug_bg: offer_bug_bg,
+      offer_bug_color: offer_bug_color
     -%}
   {%- endif -%}
 
@@ -110,7 +114,11 @@
               link: promo_link,
               bg_color: promo_bg_color,
               text_color: promo_text_color,
-              bg_image: promo_bg_image
+              bg_image: promo_bg_image,
+              enable_offer_bug: enable_offer_bug,
+              offer_bug_text: offer_bug_text,
+              offer_bug_bg: offer_bug_bg,
+              offer_bug_color: offer_bug_color
             -%}
           {%- endif -%}
           <div class="product-single__meta{% if has_new_header %} comp-pdp-panel{% endif %}">
@@ -193,6 +201,12 @@
                         show_title: block.settings.show_title,
                         show_rating: block.settings.show_rating,
                         gift_text: block.settings.gift_text,
+                        enable_limited_stock: block.settings.enable_limited_stock,
+                        stock_badge: block.settings.stock_badge,
+                        stock_available: block.settings.stock_available,
+                        stock_percent: block.settings.stock_percent,
+                        enable_savings_line: block.settings.enable_savings_line,
+                        savings_text: block.settings.savings_text,
                         isModal: isModal
                       -%}
                     </div>
@@ -212,6 +226,10 @@
                     {%- render 'comp-feature-gps-card', block: block -%}
                   {%- when 'feature_ai' -%}
                     {%- render 'comp-feature-ai-card', block: block -%}
+                  {%- when 'feature_metrics' -%}
+                    {%- render 'comp-feature-metrics-card', block: block -%}
+                  {%- when 'bundle_callout' -%}
+                    {%- render 'comp-pdp-bundle-callout', block: block -%}
                   {%- when 'save_accessories' -%}
                     {%- render 'comp-save-accessories', block: block -%}
                   {%- when 'protect_player' -%}
@@ -503,24 +521,86 @@
 </div>
 
 {%- unless isModal -%}
-  {%- if enable_sticky_bar != false -%}
+  {%- liquid
+    assign sb_block = blocks | where: 'type', 'sticky_bar' | first
+    if sb_block == blank
+      assign sb_block = blocks | where: 'type', 'pdp_sticky_cta' | first
+    endif
+
+    assign sb_enabled = enable_sticky_bar
+    assign sb_image = sticky_bar_image
+    assign sb_title = sticky_bar_title
+    assign sb_badge = sticky_bar_badge
+    assign sb_btn_text = ''
+    assign sb_nav_1_label = sticky_nav_1_label
+    assign sb_nav_1_anchor = sticky_nav_1_anchor
+    assign sb_nav_2_label = sticky_nav_2_label
+    assign sb_nav_2_anchor = sticky_nav_2_anchor
+    assign sb_nav_3_label = sticky_nav_3_label
+    assign sb_nav_3_anchor = sticky_nav_3_anchor
+    assign sb_nav_4_label = sticky_nav_4_label
+    assign sb_nav_4_anchor = sticky_nav_4_anchor
+    assign sb_nav_5_label = sticky_nav_5_label
+    assign sb_nav_5_anchor = sticky_nav_5_anchor
+
+    if sb_block != blank
+      if sb_block.settings.enable_sticky_bar == false
+        assign sb_enabled = false
+      endif
+      if sb_block.settings.sticky_bar_image != blank
+        assign sb_image = sb_block.settings.sticky_bar_image
+      endif
+      if sb_block.settings.sticky_bar_title != blank
+        assign sb_title = sb_block.settings.sticky_bar_title
+      endif
+      if sb_block.settings.sticky_bar_badge != blank
+        assign sb_badge = sb_block.settings.sticky_bar_badge
+      endif
+      if sb_block.settings.sticky_bar_button_text != blank
+        assign sb_btn_text = sb_block.settings.sticky_bar_button_text
+      endif
+      if sb_block.settings.sticky_nav_1_label != blank or sb_block.settings.sticky_nav_1_anchor != blank
+        assign sb_nav_1_label = sb_block.settings.sticky_nav_1_label
+        assign sb_nav_1_anchor = sb_block.settings.sticky_nav_1_anchor
+      endif
+      if sb_block.settings.sticky_nav_2_label != blank or sb_block.settings.sticky_nav_2_anchor != blank
+        assign sb_nav_2_label = sb_block.settings.sticky_nav_2_label
+        assign sb_nav_2_anchor = sb_block.settings.sticky_nav_2_anchor
+      endif
+      if sb_block.settings.sticky_nav_3_label != blank or sb_block.settings.sticky_nav_3_anchor != blank
+        assign sb_nav_3_label = sb_block.settings.sticky_nav_3_label
+        assign sb_nav_3_anchor = sb_block.settings.sticky_nav_3_anchor
+      endif
+      if sb_block.settings.sticky_nav_4_label != blank or sb_block.settings.sticky_nav_4_anchor != blank
+        assign sb_nav_4_label = sb_block.settings.sticky_nav_4_label
+        assign sb_nav_4_anchor = sb_block.settings.sticky_nav_4_anchor
+      endif
+      if sb_block.settings.sticky_nav_5_label != blank or sb_block.settings.sticky_nav_5_anchor != blank
+        assign sb_nav_5_label = sb_block.settings.sticky_nav_5_label
+        assign sb_nav_5_anchor = sb_block.settings.sticky_nav_5_anchor
+      endif
+    endif
+  -%}
+  {%- if sb_enabled != false -%}
     {%- render 'comp-pdp-sticky-bar',
       product: product,
+      blocks: blocks,
       current_variant: current_variant,
       section_id: section_id,
-      sticky_bar_image: sticky_bar_image,
-      sticky_bar_title: sticky_bar_title,
-      sticky_bar_badge: sticky_bar_badge,
-      sticky_nav_1_label: sticky_nav_1_label,
-      sticky_nav_1_anchor: sticky_nav_1_anchor,
-      sticky_nav_2_label: sticky_nav_2_label,
-      sticky_nav_2_anchor: sticky_nav_2_anchor,
-      sticky_nav_3_label: sticky_nav_3_label,
-      sticky_nav_3_anchor: sticky_nav_3_anchor,
-      sticky_nav_4_label: sticky_nav_4_label,
-      sticky_nav_4_anchor: sticky_nav_4_anchor,
-      sticky_nav_5_label: sticky_nav_5_label,
-      sticky_nav_5_anchor: sticky_nav_5_anchor
+      sticky_bar_image: sb_image,
+      sticky_bar_title: sb_title,
+      sticky_bar_badge: sb_badge,
+      sticky_bar_button_text: sb_btn_text,
+      sticky_nav_1_label: sb_nav_1_label,
+      sticky_nav_1_anchor: sb_nav_1_anchor,
+      sticky_nav_2_label: sb_nav_2_label,
+      sticky_nav_2_anchor: sb_nav_2_anchor,
+      sticky_nav_3_label: sb_nav_3_label,
+      sticky_nav_3_anchor: sb_nav_3_anchor,
+      sticky_nav_4_label: sb_nav_4_label,
+      sticky_nav_4_anchor: sb_nav_4_anchor,
+      sticky_nav_5_label: sb_nav_5_label,
+      sticky_nav_5_anchor: sb_nav_5_anchor
     -%}
   {%- endif -%}
 {%- endunless -%}
@@ -560,6 +640,15 @@
   .comp-pdp-panel .comp-pdp-header__price-main *,
   .comp-pdp-panel [data-product-price],
   .comp-pdp-panel [data-product-price] * {
+    color: #101820 !important;
+    fill: #101820 !important;
+  }
+  .comp-pdp-panel .product__price.price-main.on-sale,
+  .comp-pdp-panel .product__price.price-main.on-sale *,
+  .comp-pdp-panel .comp-pdp-header__price-main.on-sale,
+  .comp-pdp-panel .comp-pdp-header__price-main.on-sale *,
+  .comp-pdp-panel [data-product-price].on-sale,
+  .comp-pdp-panel [data-product-price].on-sale * {
     color: #CB0000 !important;
     fill: #CB0000 !important;
   }
@@ -582,7 +671,7 @@
     display: flex;
     flex-direction: column;
     gap: clamp(16px, 1.8vw, 28px);
-    padding-block: clamp(20px, 2.2vw, 38px);
+    padding-block: clamp(28px, 2.2vw, 38px);
   }
   .comp-pdp-panel [data-product-blocks] > div:not(:empty) { padding-inline: clamp(18px, 1.7vw, 28px); }
   .comp-pdp-panel [data-product-blocks] > .product-block { padding-inline: 0; margin: 0; }
@@ -601,7 +690,7 @@
     [class*="new-product__layout--"] .grid__item.product-single__sticky {
       position: -webkit-sticky !important;
       position: sticky !important;
-      top: 100px !important;
+      top: 66px !important;
       align-self: flex-start !important;
       height: fit-content;
     }
@@ -614,13 +703,15 @@
       .page-content--product,   .new-product__layout, [class*="new-product__layout--"] {
     padding: 0;
   }
-  .comp-pdp-panel [data-product-blocks] * {
+ .comp-pdp-panel [data-product-blocks] * :not(.comp-pdp-panel [data-product-blocks] .comp-feature-card__icon-item span, .comp-pdp-panel [data-product-blocks] .comp-ai-modal__body *, .comp-pdp-panel [data-product-blocks] .comp-ai-modal__sticky-footer *) {
   text-align: left !important;
 }
 
+.comp-feature-card__icon-item span{text-align: center;}
+
   :is(.new-product__layout, [class*="new-product__layout--"]) .grid{gap:0px;}
   .product__main-photos{margin-bottom:0px;}
-  .comp-pdp-panel{margin-top:0px;}
+  .comp-pdp-panel{margin-top:-5px;}
   }
 
   /* Hide old theme money back / shipping banner rendered inside product-form */

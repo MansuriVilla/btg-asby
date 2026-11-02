@@ -1,0 +1,192 @@
+{% comment %}
+  Component: comp-feature-metrics-card (12 Real-Time Metrics + Launch App card)
+  Usage:
+  {% render 'comp-feature-metrics-card', block: block %}
+{% endcomment %}
+
+{% liquid
+  assign card_title = block.settings.title | default: '12 REAL-TIME METRICS'
+  assign card_badge = block.settings.badge | default: 'INCLUDED'
+  assign card_sub = block.settings.subtitle | default: 'FREE FOR LIFE | NO SUBSCRIPTION REQUIRED'
+  assign app_title = block.settings.app_title | default: '20+ METRICS WHEN CONNECTED TO THE LAUNCH APP WITH SIMULATION'
+  assign app_package = block.settings.app_package | default: 'INCLUDES 12 MONTHS OF GAME AI + LAUNCH APP PACKAGE.'
+  assign app_image = block.settings.app_image
+%}
+
+{% render 'comp-feature-card-base' %}
+
+<div class="pdp_component">
+  <div class="comp-feature-card comp-feature-card--metrics" {{ block.shopify_attributes }}>
+    
+    <!-- Top Header -->
+    <div class="comp-feature-card__top">
+      <div class="comp-feature-metrics__title-wrap">
+        <h2 class="comp-feature-card__title comp-feature-metrics__heading custom_heading">{{ card_title }}</h2>
+        {% if card_sub != blank %}
+          <p class="comp-feature-card__sub comp-feature-metrics__sub custom_subHeading-text">{{ card_sub }}</p>
+        {% endif %}
+      </div>
+
+      <span class="comp-feature-card__badge comp-feature-metrics__badge custom_subHeading-text">
+        {{ card_badge }}
+        <svg width="11" height="8" viewBox="0 0 11 8" fill="none" aria-hidden="true">
+          <path d="M1.5 4L4 6.5L9.5 1.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </div>
+
+    <!-- 12 Real-Time Metrics Grid (2 columns x 6 rows) -->
+    <div class="comp-feature-metrics__grid">
+      <div class="comp-feature-metrics__pill">TOTAL DISTANCE</div>
+      <div class="comp-feature-metrics__pill">TOTAL SPIN</div>
+      <div class="comp-feature-metrics__pill">CARRY DISTANCE</div>
+      <div class="comp-feature-metrics__pill">SMASH FACTOR</div>
+      <div class="comp-feature-metrics__pill">BALL SPEED</div>
+      <div class="comp-feature-metrics__pill">LAUNCH ANGLE</div>
+      <div class="comp-feature-metrics__pill">CLUB SPEED</div>
+      <div class="comp-feature-metrics__pill">ATTACK ANGLE</div>
+      <div class="comp-feature-metrics__pill">APEX</div>
+      <div class="comp-feature-metrics__pill">CLUB PATH</div>
+      <div class="comp-feature-metrics__pill">LAUNCH DIRECTION</div>
+      <div class="comp-feature-metrics__pill">SIDE SPIN</div>
+    </div>
+
+    <div class="comp-feature-metrics__divider" aria-hidden="true"></div>
+
+    <!-- Bottom App Simulation Banner -->
+    <div class="comp-feature-metrics__app-box">
+      <div class="comp-feature-metrics__app-media">
+        {% if app_image != blank %}
+          {{ app_image | image_url: width: 300 | image_tag: loading: 'lazy', class: 'comp-feature-metrics__app-img', alt: 'Launch App Simulation' }}
+        {% else %}
+          <img
+            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rainmaker-connected-feature-image.png?v=1790069366"
+            alt="Launch App Simulation"
+            class="comp-feature-metrics__app-img"
+            loading="lazy"
+            width="80"
+            height="56"
+          >
+        {% endif %}
+      </div>
+
+      <div class="comp-feature-metrics__app-content">
+        <h3 class="comp-feature-metrics__app-title custom_heading">{{ app_title }}</h3>
+      </div>
+    </div>
+
+    {% if app_package != blank %}
+      <div class="comp-feature-metrics__package-notice custom_subHeading-text">
+        {{ app_package }}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<style>
+  .comp-feature-card--metrics {
+    gap: 12px;
+  }
+  .comp-feature-metrics__title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .comp-feature-metrics__heading {
+    font-size: clamp(16px, 1.4vw, 18px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #FFFFFF !important;
+    margin: 0;
+  }
+  .comp-feature-metrics__sub {
+    font-size: 11px;
+    line-height: 1.2;
+    color: #CDFF07 !important;
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .comp-feature-metrics__badge {
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  /* 12 Metrics 2-column Grid */
+  .comp-feature-metrics__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px 6px;
+    width: 100%;
+  }
+  .comp-feature-metrics__pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 4px;
+    height: 25px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 17px;
+    font-family: 'Roboto Flex', 'Blue Tees Subhead', sans-serif;
+    font-weight: 700;
+    font-size: 11.5px;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .comp-feature-metrics__divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 2px 0;
+  }
+
+  /* App Box */
+  .comp-feature-metrics__app-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+  }
+  .comp-feature-metrics__app-media {
+    flex: 0 0 76px;
+    height: 52px;
+    background: #FFFFFF;
+    border-radius: 6px;
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .comp-feature-metrics__app-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .comp-feature-metrics__app-content {
+    flex: 1;
+  }
+  .comp-feature-metrics__app-title {
+    margin: 0;
+    font-size: clamp(13px, 1.1vw, 15px);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: #FFFFFF !important;
+    text-transform: uppercase;
+  }
+
+  /* Package Notice */
+  .comp-feature-metrics__package-notice {
+    font-size: 11px;
+    line-height: 1.3;
+    color: #CDFF07 !important;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+</style>

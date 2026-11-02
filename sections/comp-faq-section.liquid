@@ -7,6 +7,7 @@
   assign bg_color = section.settings.background_color | default: '#ffffff'
   assign padding_top = section.settings.padding_top | default: 60
   assign padding_bottom = section.settings.padding_bottom | default: 60
+  assign show_categories = section.settings.show_categories | default: false
   assign tabs_list = section.settings.tabs | default: 'Hardware,Features,App'
   assign active_tab = section.settings.active_tab | default: 'Hardware'
 %}
@@ -50,12 +51,14 @@
            color: section.settings.heading_color 
         %}
 
-        {% comment %} Micro-component: Tabs / Labels {% endcomment %}
-        {% render 'comp-faq-tabs', 
-           tabs: tabs_list, 
-           active_tab: active_tab, 
-           section_id: s_id 
-        %}
+        {% comment %} Micro-component: Tabs / Labels (Optional) {% endcomment %}
+        {% if show_categories and tabs_list != blank %}
+          {% render 'comp-faq-tabs', 
+             tabs: tabs_list, 
+             active_tab: active_tab, 
+             section_id: s_id 
+          %}
+        {% endif %}
 
         {% comment %} Micro-component: Whole Accordion Container {% endcomment %}
         <div class="comp-faq-accordion-holder">
@@ -73,7 +76,9 @@
 
           {% render 'comp-faq-accordion', 
              section_id: s_id, 
-             content: accordion_items 
+             content: accordion_items,
+             enable_load_more: section.settings.enable_load_more,
+             load_more_text: section.settings.load_more_text
           %}
         </div>
 
@@ -84,12 +89,55 @@
 </div>
 
 <style>
+
+
+
+  .comp-faq-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: clamp(1.1rem, 0.95rem + 0.3vw, 1.35rem);
+    height: clamp(1.1rem, 0.95rem + 0.3vw, 1.35rem);
+    flex-shrink: 0;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .comp-faq-icon__line {
+    position: absolute;
+    background-color: var(--comp-icon-color, #0f172a);
+    border-radius: 1px;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  }
+
+  .comp-faq-icon__line--h {
+    width: 70%;
+    height: clamp(1.5px, 0.1rem, 2px);
+  }
+
+  .comp-faq-icon__line--v {
+    width: clamp(1.5px, 0.1rem, 2px);
+    height: 70%;
+  }
+
+  /* When open, rotate + to × */
+  .comp-faq-icon.is-open {
+    transform: rotate(45deg);
+  }
+
   .comp-faq-section-{{ s_id }} {
     background-color: var(--comp-faq-bg, #ffffff);
-    padding-top: clamp(1.8rem, 1.2rem + 2.5vw, 4.5rem);
-    padding-bottom: clamp(1.8rem, 1.2rem + 2.5vw, 4.5rem);
+    padding-top: clamp(30px, 6vw, var(--comp-faq-pt, 60px));
+    padding-bottom: clamp(30px, 6vw, var(--comp-faq-pb, 60px));
     width: 100%;
     position: relative;
+  }
+
+  @media (max-width: 768px) {
+    .comp-faq-section-{{ s_id }} {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
   }
 
   .comp-faq-section-{{ s_id }} .comp-faq-container {
@@ -155,6 +203,9 @@
       max-width: 100%;
       aspect-ratio: 16 / 11;
     }
+    .comp-faq-section-{{ s_id }} .comp-faq-media-col {
+    order:1;
+  }
   }
 
   @media (max-width: 640px) {
@@ -195,6 +246,13 @@
       "default": "#0f172a"
     },
     {
+      "type": "checkbox",
+      "id": "show_categories",
+      "label": "Enable Category Tabs",
+      "default": true,
+      "info": "Uncheck to remove category tabs and show all FAQ questions together."
+    },
+    {
       "type": "text",
       "id": "tabs",
       "label": "Category Tabs (comma-separated)",
@@ -205,6 +263,23 @@
       "id": "active_tab",
       "label": "Default Active Tab",
       "default": "Hardware"
+    },
+    {
+      "type": "header",
+      "content": "Load More (When FAQs > 5)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_load_more",
+      "label": "Enable Load More Button",
+      "default": true,
+      "info": "Shows first 5 FAQ items and reveals remaining FAQs on click if more than 5 exist."
+    },
+    {
+      "type": "text",
+      "id": "load_more_text",
+      "label": "Load More Button Label",
+      "default": "LOAD MORE QUESTIONS"
     },
     {
       "type": "color",

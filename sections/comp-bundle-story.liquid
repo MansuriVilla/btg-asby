@@ -1,0 +1,535 @@
+{%- comment -%}
+  Comp Bundle Story Section (Holiday Bundle Exclusive / 3 Pieces + Value Equation Pill)
+  - Background: #0A0E13 with top radial glow
+  - Header: Eyebrow (#CCFF08) + Big Italic Heading (white)
+  - 3 Product Piece Cards (#111821 with border #26303D):
+      1. Image top on #F2F2F5 background
+      2. Step Index (01 · THE DATA) in #CCFF08
+      3. Title (Headline Italic)
+      4. Big Italic Price ($599)
+      5. Description (#A8B3BF)
+  - Bottom Value Equation Pill:
+      Left: $599.99 + $399 + $699 = $1,697.99 in individual value
+      Arrow: →
+      Right Lime Pill: $1,097.99 for the complete bundle
+  - Strict BTG Fonts:
+      custom_heading ('Blue Tees Headline Italic')
+      custom_subHeading-text ('Blue Tees Subhead')
+      custom_body-text ('Blue Tees Paragraph')
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'comp-bundle-story-' | append: section.id
+  endif
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-bundle-story comp-bundle-story-{{ section.id }}"
+  data-comp-bundle-story
+  style="
+    --css-pt: {{ section.settings.padding_top | default: 120 }}px;
+    --css-pb: {{ section.settings.padding_bottom | default: 120 }}px;
+    --css-bg: {{ section.settings.background_color | default: '#0A0E13' }};
+  "
+>
+  <!-- Background Glow -->
+  <div class="comp-bundle-story__glow" aria-hidden="true"></div>
+
+  <div class="comp-bundle-story__container">
+    
+    <!-- Top Header -->
+    <header class="comp-bundle-story__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="comp-bundle-story__eyebrow custom_subHeading-text">
+          {{ section.settings.eyebrow }}
+        </span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="comp-bundle-story__heading custom_heading">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+    </header>
+
+    <!-- 3 Pieces Cards Grid -->
+    <div class="comp-bundle-story__grid">
+      {%- for block in section.blocks -%}
+        <div class="comp-bundle-story__card" {{ block.shopify_attributes }}>
+          
+          <!-- Image Top -->
+          <div class="comp-bundle-story__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'comp-bundle-story__img', alt: block.settings.title }}
+            {%- else -%}
+              <img
+                src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rainmaker-connected-feature-image.png?v=1790069366"
+                alt="{{ block.settings.title }}"
+                class="comp-bundle-story__img"
+                loading="lazy"
+                width="400"
+                height="220"
+              >
+            {%- endif -%}
+          </div>
+
+          <!-- Content Bottom -->
+          <div class="comp-bundle-story__content">
+            {%- if block.settings.step != blank -%}
+              <span class="comp-bundle-story__step custom_subHeading-text">
+                {{ block.settings.step }}
+              </span>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="comp-bundle-story__card-title custom_heading">
+                {{ block.settings.title }}
+              </h3>
+            {%- endif -%}
+
+            {%- if block.settings.price != blank -%}
+              <div class="comp-bundle-story__card-price custom_heading">
+                {{ block.settings.price }}
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.description != blank -%}
+              <p class="comp-bundle-story__card-desc custom_body-text">
+                {{ block.settings.description }}
+              </p>
+            {%- endif -%}
+          </div>
+
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- Value Equation Bottom Pill Bar -->
+    {%- if section.settings.show_value_equation -%}
+      <div class="comp-bundle-story__equation-pill">
+        <div class="comp-bundle-story__eq-left custom_subHeading-text">
+          {{ section.settings.equation_text | default: '$599.99 + $399 + $699 = $1,697.99 in individual value' }}
+        </div>
+
+        <div class="comp-bundle-story__eq-arrow" aria-hidden="true">
+          <svg width="28" height="16" viewBox="0 0 28 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 8H26M26 8L19 2M26 8L19 14" stroke="#CCFF08" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="comp-bundle-story__eq-cta">
+          {%- if section.settings.cta_link != blank -%}
+            <a href="{{ section.settings.cta_link }}" class="comp-bundle-story__eq-btn custom_subHeading-text">
+              {{ section.settings.bundle_price_text | default: '$1,097.99 for the complete bundle' }}
+            </a>
+          {%- else -%}
+            <span class="comp-bundle-story__eq-btn custom_subHeading-text">
+              {{ section.settings.bundle_price_text | default: '$1,097.99 for the complete bundle' }}
+            </span>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<style>
+  .comp-bundle-story {
+    position: relative;
+    width: 100%;
+    background: var(--css-bg, #0A0E13);
+    padding-top: clamp(30px, 8vw, var(--css-pt, 120px));
+    padding-bottom: clamp(30px, 8vw, var(--css-pb, 120px));
+    overflow: hidden;
+    color: #FFFFFF;
+    box-sizing: border-box;
+    isolation: isolate;
+  }
+
+  @media (max-width: 768px) {
+    .comp-bundle-story {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+  }
+
+  /* Radial Blue Glow */
+  .comp-bundle-story__glow {
+    position: absolute;
+    width: 1200px;
+    height: 700px;
+    left: 50%;
+    top: -300px;
+    transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(1, 74, 227, 0.25) 0%, rgba(1, 74, 227, 0) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .comp-bundle-story__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5.5vw, 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(36px, 4.5vw, 56px);
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+  }
+
+  /* Header */
+  .comp-bundle-story__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    max-width: 820px;
+    width: 100%;
+  }
+  .comp-bundle-story__eyebrow {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    color: #CCFF08;
+    text-transform: uppercase;
+  }
+  .comp-bundle-story__heading {
+    margin: 0;
+    font-size: clamp(32px, 3.8vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #FFFFFF !important;
+  }
+
+  /* Grid of 3 Cards */
+  .comp-bundle-story__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 1.6vw, 20px);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Piece Card */
+  .comp-bundle-story__card {
+    background: #111821;
+    border: 1px solid #26303D;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .comp-bundle-story__card:hover {
+    border-color: rgba(1, 74, 227, 0.6);
+    transform: translateY(-4px);
+  }
+
+  /* Media */
+  .comp-bundle-story__media {
+    width: 100%;
+    height: clamp(180px, 16vw, 220px);
+    background: #F2F2F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .comp-bundle-story__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Content */
+  .comp-bundle-story__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(20px, 2vw, 28px) clamp(20px, 2vw, 28px) clamp(24px, 2.4vw, 32px);
+    gap: 10px;
+    flex: 1;
+    box-sizing: border-box;
+  }
+  .comp-bundle-story__step {
+    font-size: 13px;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    color: #CCFF08;
+    text-transform: uppercase;
+  }
+  .comp-bundle-story__card-title {
+    margin: 0;
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.15;
+    text-transform: uppercase;
+    color: #FFFFFF !important;
+    opacity: 0.95;
+    min-height: 2.3em;
+    display: flex;
+    align-items: flex-start;
+  }
+  .comp-bundle-story__card-price {
+    font-size: clamp(30px, 2.8vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #FFFFFF !important;
+    margin: 2px 0;
+  }
+  .comp-bundle-story__card-desc {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+    color: #A8B3BF;
+  }
+
+  /* Value Equation Pill Bar */
+  .comp-bundle-story__equation-pill {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 16px 36px;
+    gap: 24px;
+    max-width: 1002px;
+    width: 100%;
+    background: #111821;
+    border: 1px solid #26303D;
+    border-radius: 999px;
+    box-sizing: border-box;
+  }
+  .comp-bundle-story__eq-left {
+    font-size: clamp(15px, 1.25vw, 18px);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    flex: 1;
+  }
+  .comp-bundle-story__eq-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .comp-bundle-story__eq-cta {
+    flex-shrink: 0;
+  }
+  .comp-bundle-story__eq-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+    background: #CCFF08;
+    color: #0A0D12 !important;
+    border-radius: 999px;
+    font-size: clamp(14px, 1.25vw, 18px);
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+  .comp-bundle-story__eq-btn:hover {
+    transform: scale(1.02);
+    filter: brightness(1.05);
+  }
+
+  /* Mobile Responsive */
+  @media only screen and (max-width: 991px) {
+    .comp-bundle-story__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .comp-bundle-story__card-title {
+      min-height: auto;
+    }
+    .comp-bundle-story__equation-pill {
+      flex-direction: column;
+      border-radius: 20px;
+      padding: 24px 30px;
+      text-align: center;
+      gap: 16px;
+    }
+    .comp-bundle-story__eq-arrow {
+      transform: rotate(90deg);
+    }
+    .comp-bundle-story__eq-left {
+      text-align: center;
+    }
+    .comp-bundle-story__eq-btn {
+      width: 100%;
+      text-align: center;
+      padding: 14px 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Comp: Bundle Story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Custom Section ID",
+      "info": "Optional anchor ID (e.g. 'bundle-story')"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#0A0E13"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 40,
+      "max": 180,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 40,
+      "max": 180,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "SAVE $500 (Only 300 Units)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "HOLIDAY BUNDLE EXCLUSIVE"
+    },
+    {
+      "type": "header",
+      "content": "Value Equation Bottom Pill"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_value_equation",
+      "label": "Show Value Equation Pill Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "equation_text",
+      "label": "Equation Text Left",
+      "default": "$599.99 + $399 + $699 = $1,697.99 in individual value"
+    },
+    {
+      "type": "text",
+      "id": "bundle_price_text",
+      "label": "Bundle Price Button Text",
+      "default": "$1,097.99 for the complete bundle"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Bundle Link (Optional)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle_piece",
+      "name": "Bundle Piece",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "step",
+          "label": "Step Subheading",
+          "default": "01 · THE DATA"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Piece Title",
+          "default": "RAINMAKER LAUNCH MONITOR"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Piece Price",
+          "default": "$599"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Real shot data at home. 12 metrics free for life, 20+ with the LAUNCH app."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comp: Bundle Story",
+      "blocks": [
+        {
+          "type": "bundle_piece",
+          "settings": {
+            "step": "01 · THE DATA",
+            "title": "RAINMAKER LAUNCH MONITOR",
+            "price": "$599",
+            "description": "Real shot data at home. 12 metrics free for life, 20+ with the LAUNCH app."
+          }
+        },
+        {
+          "type": "bundle_piece",
+          "settings": {
+            "step": "02 · THE HITTING EXPERIENCE",
+            "title": "PREMIUM HITTING MAT",
+            "price": "$399",
+            "description": "Premium nylon iron strip, engineered layered strike surface, and 20 mm EVA cushioning for realistic turf interaction and softer impact."
+          }
+        },
+        {
+          "type": "bundle_piece",
+          "settings": {
+            "step": "03 · THE COMPLETE SETUP",
+            "title": "PREMIUM GOLF NET",
+            "price": "$699",
+            "description": "6063 aluminum, a five section frame and impact absorbing netting. One person, about 15 minutes, zero tools."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

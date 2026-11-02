@@ -2,7 +2,8 @@
   assign s_id = section.id
   assign bg_color = section.settings.bg_color | default: '#111417'
   assign speed = section.settings.speed | default: 25
-  assign logo_height = section.settings.logo_height | default: 20
+  assign logo_height = section.settings.logo_height | default: 40
+  assign logo_height_mobile = section.settings.logo_height_mobile | default: 50
   assign gap = section.settings.gap | default: 60
   assign pause_on_hover = section.settings.pause_on_hover
   assign section_id = section.settings.custom_section_id | default: ''
@@ -18,7 +19,9 @@
     --comp-ticker-bg: {{ bg_color }};
     --comp-ticker-speed: {{ speed }}s;
     --comp-ticker-logo-h: {{ logo_height }}px;
-    --comp-ticker-gap: clamp({{ gap | times: 0.6 | round }}px, 4vw, {{ gap }}px);
+    --comp-ticker-logo-h-mobile: {{ logo_height_mobile }}px;
+    --comp-ticker-logo-h-tablet: clamp(54px, 14vw, {{ logo_height | times: 0.85 | round }}px);
+    --comp-ticker-gap: clamp({{ gap | times: 0.5 | round }}px, 3.5vw, {{ gap }}px);
     --comp-ticker-pt: {{ section.settings.padding_top | default: 24 }}px;
     --comp-ticker-pb: {{ section.settings.padding_bottom | default: 24 }}px;
   "
@@ -157,14 +160,34 @@
   }
 
   .comp-logo-ticker-{{ s_id }} .comp-logo-ticker__img {
-    height: var(--comp-ticker-logo-h, 20px);
-    max-height: auto;
+    height: var(--comp-ticker-logo-h, 40px);
+    max-height: 100%;
     width: auto;
+    max-width: 80vw;
     object-fit: contain;
     /* filter: brightness(0) invert(1); */
     opacity: 0.95;
     transition: opacity 0.2s ease, transform 0.2s ease;
     display: block;
+  }
+
+  @media (max-width: 1024px) {
+    .comp-logo-ticker-{{ s_id }} .comp-logo-ticker__img {
+      height: min(var(--comp-ticker-logo-h, 40px), var(--comp-ticker-logo-h-tablet));
+      max-width: 65vw;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .comp-logo-ticker-{{ s_id }} {
+      padding-top: max(10px, calc(var(--comp-ticker-pt, 24px) * 0.7));
+      padding-bottom: max(10px, calc(var(--comp-ticker-pb, 24px) * 0.7));
+    }
+
+    .comp-logo-ticker-{{ s_id }} .comp-logo-ticker__img {
+      height: var(--comp-ticker-logo-h-mobile, 50px);
+      max-width: 70vw;
+    }
   }
 
   .comp-logo-ticker-{{ s_id }} .comp-logo-ticker__item:hover .comp-logo-ticker__img {
@@ -227,8 +250,18 @@
       "max": 350,
       "step": 10,
       "unit": "px",
-      "label": "Logo Height",
-      "default": 30
+      "label": "Logo Height (Desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "logo_height_mobile",
+      "min": 20,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo Height (Mobile)",
+      "default": 100
     },
     {
       "type": "range",

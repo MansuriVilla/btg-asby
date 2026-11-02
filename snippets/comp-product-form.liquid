@@ -1,0 +1,911 @@
+{%- form 'product', product, id: form_id, class: 'product-single__form' -%}
+  {% comment %}
+    DO NOT modify this source code
+    LOOP BUNDLE CODE STARTS
+  {% endcomment %}
+  {% assign template_exists = false %}
+  {% capture template_content %}
+    {% render 'loop-subscriptions', type: 'product-widget', product: product %}
+{% endcapture %}
+
+  {% if template_content contains 'Rendering loop-subscriptions' %}
+    {% assign template_exists = true %}
+  {% endif %}
+
+  {% if template_exists %}
+    {% render 'loop-subscriptions', type: 'product-widget', product: product %}
+  {% endif %}
+  {% comment %}
+    LOOP BUNDLE CODE ENDS
+  {% endcomment %}
+  {% assign custom_text = cta_note_text %}
+  {% assign current_variant = current_variant | default: product.selected_or_first_available_variant | default: product.variants.first %}
+  {% assign variant_is_available = current_variant.available %}
+  {% if variant_is_available == nil or variant_is_available == false %}
+    {% if product.available %}
+      {% assign variant_is_available = true %}
+    {% endif %}
+  {% endif %}
+
+  {%- liquid
+    assign enable_dynamic_buttons = false
+    assign enable_pre_order = false
+
+    if pre_order
+      assign enable_pre_order = true
+    endif
+
+    if show_dynamic_checkout and template != 'product.preorder'
+      assign enable_dynamic_buttons = true
+    endif
+  -%}
+
+  {% assign enable_preorder = false %}
+
+  {% case product.template_suffix %}
+    {% when 'captain-pro', 'product-new', 'player-pro' %}
+      {% assign enable_preorder = true %}
+  {% endcase %}
+
+  {%- if enable_dynamic_buttons -%}
+    <div class="payment-buttons">
+  {%- endif -%}
+
+  {%- liquid
+    assign default_text = 'products.product.add_to_cart' | t
+    if default_text == blank or default_text contains 'translation missing'
+      assign default_text = 'ADD TO CART'
+    endif
+
+    assign button_text = default_text
+    if template == 'product.preorder'
+      assign default_text = 'products.product.preorder' | t
+      if default_text == blank or default_text contains 'translation missing'
+        assign default_text = 'PRE-ORDER NOW'
+      endif
+      assign button_text = default_text
+    endif
+    if template == 'product.add_to_cart'
+      assign button_text = default_text
+    endif
+
+    unless variant_is_available
+      assign button_text = 'products.product.sold_out' | t
+      if button_text == blank or button_text contains 'translation missing'
+        assign button_text = 'SOLD OUT'
+      endif
+    endunless
+  -%}
+
+  {% comment %} {%- if product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' -%}<div class="ships-test">SHIPPING 4/26</div> {%- endif -%}    {% endcomment %}
+
+  {% comment %}
+    {%- unless product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer' or product.handle contains 'player-gps-speaker' or product.handle contains 'series-3-max-golf-rangefinder-with-slope'  or product.handle contains 'chargemax' or product.handle contains 'series-4-ultra-rangefinder' or product.handle contains 'magnetic-golf-towel' or product.handle contains 'magnetic-hub' or product.handle contains 'rangefinder-magnetic-strap' or product.handle contains 'divot-repair-tool' or product.handle contains 'player-hard-shell-carrying-case' or product.handle contains 'player-soft-drawstring-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'ringer-hard-shell-carrying-case' or product.handle contains 'series-3-max-rangefinder-hard-case' or product.handle contains 'series-2-pro-rangefinder-hard-case' or product.handle contains 'series-2-rangefinder-hard-case' or product.handle contains 'blue-tees-og-script-rope-hat' or product.handle contains 'play-different-hat-by-melin' -%}
+      <div class="ships-test">SHIPPING NOW! ONLY 150 LEFT!</div>
+    {%- endunless -%}
+
+     {%- if product.handle contains 'series-3-max-plus' -%}<div class="ships-test">SHIPPING NOW</div> {%- endif -%}
+     {%- if product.handle contains 'player-go-speaker' or product.handle contains 'chargemax' -%}<div class="ships-test">LIMITED INVENTORY</div> {%- endif -%}
+          {%- if product.handle contains 'series-4-ultra-rangefinder' -%}<div class="ships-test"> SHIPPING 9/13 </div> {%- endif -%}
+  {% endcomment %}
+
+  {% comment %}
+    {%- if product.handle contains 'player-gps-speaker' or product.handle contains 'player-gps-speaker-travis-mathew' -%}
+      <div class="ships-test">60 DAY HASSLE-FREE RETURNS</div>
+    {%- endif -%}
+  {% endcomment %}
+
+  {% if product.handle == 'speaker-bundle'
+    or product.handle == 'gps-offer'
+    or product.handle == 'laser-offer'
+    or product.handle == 'player-gps-speaker-bundle-v2'
+    or product.handle == 'ringer-gps-handheld-bundle-v2'
+    or product.handle == 'series-4-ultra-bundle-v2'
+  %}
+    <div class="cta_pluse-pdp cta_pluse" style="--ripple-clr: var(--new-red)80">
+      <a href="javascript:void(0)" class="btn btn--full add-to-cart above__fold-cart-cta">
+        <span>BUY NOW</span>
+      </a>
+    </div>
+
+  {% elsif product.handle == 'rangefinder-series-2-pro' %}
+    <div class="cta_pluse-pdp">
+      <a
+        href="https://www.amazon.com/Blue-Tees-Golf-Rangefinder-Magnification/dp/B0BDT2XVRC/ref=sr_1_6?crid=3V9O9QKP8V7VD&dib=eyJ2IjoiMSJ9.QOr5SVXB73OwlJZqMb6_P5AGa6HkoAxnqh80tK7j0BWoinVE_Xsw35rcTI-nqBrKbVuZJVFQ2a5zerBWqZk8zI1ZqOWXjR2vKXHFeni5Qi06b_6TF5lOIe8eFoiyF9OpLZy_vzpKnDAbJjpdz_znKZ_5ciHn3qbSwgN71W4KV7ecywrT8EFDKrKbqoUKn3uOwDPxERR2cl52avM93GiEEgy4qd59b4RJ9krEA-OkuaZfPoH7B9S2eSsICLHssgSOZJItmvKZQKdu_mDV-tU0-LbRAWZUMajWzqxlzuy_5Vw.W_6CckeduV3D_bygg714CWBOeOWvR7yOuMJIMfwmGts&dib_tag=se&keywords=Series%2B2%2BBlue%2BTees%2BGolf&qid=1765299810&sprefix=series%2B2%2Bblue%2Btees%2Bgolf%2Caps%2C236&sr=8-6&th=1"
+        target="_blank"
+        class="btn btn--full add-to-cart"
+      >
+        <span>SHOP NOW</span>
+      </a>
+    </div>
+    <style>
+      .cta_pluse-pdp { width: 100%; }
+    </style>
+
+  {% elsif product.template_suffix == 'new-s3-max' %}
+    {% comment %}
+      data-id-two="44528451059909"
+      data-id="45724250669253" data-id-two-checked=".premium-membership-free" cart_cta
+    {% endcomment %}
+    <a
+      class="btn btn--full add-to-cart "
+      href="/products/captain-air"
+    >
+      <span data-add-to-cart-text data-default-text="{{ default_text }}"> GET CAPTAIN AIR INSTEAD </span>
+    </a>
+    {% comment %}
+      <a
+        class="btn btn--full add-to-cart notify_button-pdp learn-more-link"
+        data-target="playerplus"
+      >
+        NOTIFY ME WHEN S3 MAX+ IS BACK
+      </a>
+    {% endcomment %}
+
+    <span class="label-text" style="line-height: 1.3;padding-block: clamp(13px,1.3vw,20px);"
+      >Series 3 Max+ is sold out. Captain Air is our newest, faster <br class="desktop-text">
+      model with even more on-course utility. Available now.</span
+    >
+    <style>
+                [class*="new-product__layout--"] .product-block .btn.btn--full.add-to-cart{letter-spacing: normal;  font-family: 'Blue Tees Subhead' !important ;}
+                .notify_button-pdp{
+            background: transparent !important;
+            border: 2px solid #fff !important;
+      margin-top: clamp(15px,2vw,20px) !important;
+          }
+                .notify_button-pdp:hover{
+            background: #fff !important;
+            color:var(--new-black);
+          }
+          .new-popup.modal-content .popup-modal-inner .close{
+          z-index: 1;}
+
+          #playerplus .klaviyo-form-UUMLry.klaviyo-form.form-version-cid-1 {
+            width: 100%;
+          }
+          .label-text{text-align:center;}
+    </style>
+    {% comment %}
+      <div id="playerplus" class="modal">
+      	<div class="new-popup modal-content">
+      		<div class="popup-modal-inner">
+      			<div class="popup-modal-content">
+      				<span class="close">
+      					<img class="product-atc_product-img" decoding="async" src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000002326_43761f0a-7b47-4de8-a8b4-d2967db4d63f.svg?v=1784792642"
+      						alt="Close Icon To Close POPUP" />
+      				</span>
+      				<div class="klaviyo-form-UUMLry"></div>
+      			</div>
+      		</div>
+      	</div>
+      </div>
+    {% endcomment %}
+  {% elsif product.template_suffix == 'play-maker-plus' %}
+    {% comment %}
+      data-id-two="44528451059909"
+      data-id="45724250669253" data-id-two-checked=".premium-membership-free" cart_cta
+    {% endcomment %}
+    <a
+      class="btn btn--full add-to-cart "
+      href="/products/player-pro"
+    >
+      <span data-add-to-cart-text data-default-text="{{ default_text }}"> GET PLAYER PRO INSTEAD </span>
+    </a>
+    {% comment %}
+      <a
+        class="btn btn--full add-to-cart notify_button-pdp learn-more-link"
+        data-target="playerplus"
+      >
+        NOTIFY ME WHEN S3 MAX+ IS BACK
+      </a>
+    {% endcomment %}
+
+    <span class="label-text" style="line-height: 1.3;padding-block: clamp(13px,1.3vw,20px);"
+      >{{product.title}} is sold out. Player Pro is our newest, faster <br class="desktop-text">
+      model with even more on-course utility. Available now.</span
+    >
+    <style>
+                [class*="new-product__layout--"] .product-block .btn.btn--full.add-to-cart{letter-spacing: normal;  font-family: 'Blue Tees Subhead' !important ;}
+                .notify_button-pdp{
+            background: transparent !important;
+            border: 2px solid #fff !important;
+      margin-top: clamp(15px,2vw,20px) !important;
+          }
+                .notify_button-pdp:hover{
+            background: #fff !important;
+            color:var(--new-black);
+          }
+          .new-popup.modal-content .popup-modal-inner .close{
+          z-index: 1;}
+
+          #playerplus .klaviyo-form-UUMLry.klaviyo-form.form-version-cid-1 {
+            width: 100%;
+          }
+          .label-text{text-align:center;}
+    </style>
+    {% comment %}
+      <div id="playerplus" class="modal">
+      	<div class="new-popup modal-content">
+      		<div class="popup-modal-inner">
+      			<div class="popup-modal-content">
+      				<span class="close">
+      					<img class="product-atc_product-img" decoding="async" src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Group_1000002326_43761f0a-7b47-4de8-a8b4-d2967db4d63f.svg?v=1784792642"
+      						alt="Close Icon To Close POPUP" />
+      				</span>
+      				<div class="klaviyo-form-UUMLry"></div>
+      			</div>
+      		</div>
+      	</div>
+      </div>
+    {% endcomment %}
+  {% elsif product.template_suffix == 'player-go' %}
+    {% comment %}
+      data-id-two="44528451059909"
+      data-id="45724250669253" data-id-two-checked=".premium-membership-free" cart_cta
+    {% endcomment %}
+    <a
+      class="btn btn--full add-to-cart "
+      href="/products/player-pro"
+    >
+      <span data-add-to-cart-text data-default-text="{{ default_text }}"> GET PLAYER PRO INSTEAD </span>
+    </a>
+
+
+    <span class="label-text" style="line-height: 1.3;padding-block: clamp(13px,1.3vw,20px);"
+      >{{product.title}} is sold out. Player Pro is our newest, faster <br class="desktop-text">
+      model with even more on-course utility. Available now.</span
+    >
+    <style>
+                [class*="new-product__layout--"] .product-block .btn.btn--full.add-to-cart{letter-spacing: normal;  font-family: 'Blue Tees Subhead' !important ;}
+                .notify_button-pdp{
+            background: transparent !important;
+            border: 2px solid #fff !important;
+      margin-top: clamp(15px,2vw,20px) !important;
+          }
+                .notify_button-pdp:hover{
+            background: #fff !important;
+            color:var(--new-black);
+          }
+          .new-popup.modal-content .popup-modal-inner .close{
+          z-index: 1;}
+
+          #playerplus .klaviyo-form-UUMLry.klaviyo-form.form-version-cid-1 {
+            width: 100%;
+          }
+          .label-text{text-align:center;}
+    </style>
+
+  {% elsif product.template_suffix == 's4-ultra' %}
+    {% comment %}
+      data-id-two="44528451059909"
+      data-id="45724250669253" data-id-two-checked=".premium-membership-free" cart_cta
+    {% endcomment %}
+    <a
+      class="btn btn--full add-to-cart "
+      href="/products/captain-pro"
+    >
+      <span data-add-to-cart-text data-default-text="{{ default_text }}"> GET Captain PRO INSTEAD </span>
+    </a>
+
+    <span class="label-text" style="line-height: 1.3;padding-block: clamp(13px,1.3vw,20px);"
+      >{{product.title}} is sold out. Captain Pro is our newest, faster <br class="desktop-text">
+      model with even more on-course utility. Available now.</span
+    >
+    <style>
+                [class*="new-product__layout--"] .product-block .btn.btn--full.add-to-cart{letter-spacing: normal;  font-family: 'Blue Tees Subhead' !important ;}
+                .notify_button-pdp{
+            background: transparent !important;
+            border: 2px solid #fff !important;
+      margin-top: clamp(15px,2vw,20px) !important;
+          }
+                .notify_button-pdp:hover{
+            background: #fff !important;
+            color:var(--new-black);
+          }
+          .new-popup.modal-content .popup-modal-inner .close{
+          z-index: 1;}
+
+          #playerplus .klaviyo-form-UUMLry.klaviyo-form.form-version-cid-1 {
+            width: 100%;
+          }
+          .label-text{text-align:center;}
+    </style>
+
+  {% else %}
+    <button
+      {% if product.empty? %}
+        type="button"
+      {% else %}
+        type="submit"
+      {% endif %}
+      name="add"
+      data-add-to-cart-reminder
+      data-add-to-cart
+      {% if enable_pre_order %}
+        data-prod="pre-order"
+      {% endif %}
+      class="btn btn--full add-to-cart{% if enable_dynamic_buttons and product.selling_plan_groups == empty %} btn--secondary{% endif %}{% if enable_pre_order %} btn_pre-order{% endif %} {% unless variant_is_available %} button_sold-out{% endunless %}"
+      {% unless variant_is_available %}
+        disabled="disabled"
+      {% endunless %}
+    >
+      {%- if product.handle contains 'player-gps-speaker' -%}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">{{ button_text }}</span>
+      {% elsif product.handle contains 'series-4-ultra-rangefinder' %}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">ADD TO CART</span>
+      {% elsif enable_pre_order %}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">ADD TO CART</span>
+      {%- else -%}
+        <span data-add-to-cart-text data-default-text="{{ default_text }}">{{ button_text }}</span>
+      {%- endif -%}
+    </button>
+    {% comment %} {% if custom_text != blank %}
+      <span class="label-text">{{ custom_text }}</span>
+    {% else %}
+      {% if enable_preorder %}
+        <span class="label-text">FREE SHIPPING</span>
+      {% elsif product.template_suffix == 'rainmaker' %}
+        {% comment %}
+          <span data-prod-id="{{ product.id }}" class="label-text" style="text-transform: uppercase;"
+            >{% comment %} Delivery Before Father’s Day {% endcomment %}SHIPPING LATE JUNE</span
+          >
+        {% endcomment %}
+        <div class="perks_pdp-label label-text" data-prod-id="{{ product.id }}">
+          <div class="perk_icon icon-checkmark">
+            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_7314_9083)">
+              <path d="M19.0677 9.60281V10.4001C19.0666 12.269 18.4615 14.0875 17.3425 15.5844C16.2235 17.0813 14.6506 18.1763 12.8584 18.7062C11.0661 19.2361 9.15067 19.1725 7.39758 18.5248C5.6445 17.8771 4.14774 16.6801 3.13054 15.1123C2.11334 13.5444 1.63019 11.6898 1.75316 9.82495C1.87613 7.9601 2.59862 6.18496 3.81288 4.76427C5.02715 3.34359 6.66812 2.35347 8.49107 1.9416C10.314 1.52973 12.2213 1.71817 13.9284 2.47881" stroke="#CDFF07" stroke-width="1.73333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M19.0674 3.4668L10.4008 12.1421L7.80078 9.54213" stroke="#CDFF07" stroke-width="1.73333" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_7314_9083">
+              <rect width="20.8" height="20.8" fill="white"/>
+              </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <span class="perk_text"> BACK IN STOCK </span>
+        </div>
+      {% endif %}
+      {% if product.handle == 'playmaker-watch' or product.handle == 'watch-hard-shell-carrying-case' %}
+        <style>
+          .btn.btn--full.add-to-cart{
+            margin-top:clamp(7px,0.7vw,12px) !important;
+          }
+        </style>
+      {% endif %}
+    {% endif %} {% endcomment %}
+  {% endif %}
+
+  <div class="hundred-days_shipping" style="--stroke-clr:#CDFF07;">
+    {% comment %} <img src="{{ '100day-back-svg.svg' | asset_url }}" alt="100 DAY RISK-FREE MONEY BACK GUARANTEE"> {% endcomment %}
+    {% render 'money-back-guarantee' %}
+  </div>
+
+  {%- if enable_dynamic_buttons -%}
+    {{ form | payment_button }}
+  {%- endif -%}
+
+  {%- if enable_dynamic_buttons -%}
+    </div>
+  {%- endif -%}
+
+  {% comment %}
+    {% if localization.country.iso_code == 'US' %}
+         {% render "try-with-nok" %}
+       {% endif %}
+  {% endcomment %}
+  <div class="shopify-payment-terms product__policies">{{ form | payment_terms }}</div>
+
+  {% if ctm_prod != blank %}
+    <input
+      type="hidden"
+      class="ctm_id"
+      data-available="{{ ctm_prod.selected_or_first_available_variant.available }}"
+      value="{{ ctm_prod.selected_or_first_available_variant.id }}"
+    >
+  {% endif %}
+  <select name="id" data-product-select class="product-single__variants no-js ctm_select_id">
+    {%- for variant in product.variants -%}
+      <option
+        {% if variant == product.selected_or_first_available_variant %}
+          selected="selected"
+        {% endif %}
+        value="{{ variant.id }}"
+        data-available="{{ variant.available }}"
+      >
+        {{ variant.title }} - {{ variant.price | money_with_currency }}
+      </option>
+    {%- endfor -%}
+  </select>
+
+  <textarea data-variant-json class="hide" aria-hidden="true" aria-label="Product JSON">
+    {{ product.variants | json }}
+  </textarea>
+  <textarea data-current-variant-json class="hide" aria-hidden="true" aria-label="Variant JSON">
+    {{ current_variant | json }}
+  </textarea>
+  
+{%- endform -%}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    // If no option selectors exist and product is available, ensure ATC button is enabled and not sold out
+    var formEl = $('#{{ form_id }}');
+    if (formEl.length) {
+      var atcBtn = formEl.find('[data-add-to-cart]');
+      var isAvailable = {{ variant_is_available | default: false | json }};
+      if (isAvailable && atcBtn.length && !formEl.find('[data-variant-input]').length) {
+        atcBtn.removeClass('button_sold-out disabled btn--loading').prop('disabled', false);
+        var atcText = atcBtn.find('[data-add-to-cart-text]');
+        if (atcText.length) {
+          atcText.text(atcText.attr('data-default-text') || 'ADD TO CART');
+        }
+      }
+    }
+
+    $(document).on('click', '[data-add-to-cart-reminder]', function(e) {
+      const atcButton = $(this);
+      const form = atcButton.closest('form');
+
+      if (form.data('skip-popup')) {
+        return;
+      }
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const checkbox1mo       = $('#1month-membership-free');
+      const checkbox6mo       = $('#6month-free-premium-product');
+      const checkboxRainmaker = $('#rainmakerPreOrderUpsell');
+      const caseCheckbox      = $('#playmaker-hard-new-case, #player-pro-hard-case-upsell', '#player-pro-soft-case-upsell' );
+
+      const knownMembershipIds = [46056795209925, 46056776990917, 45793869299909];
+      const mainVariantId = form.find('input[name="id"]').val() || form.find('select[name="id"]').val();
+
+      atcButton.addClass('btn--loading');
+
+      $.getJSON('/cart.js?_=' + Date.now(), function(cart) {
+        let currentProductMembershipId = null;
+        if (checkbox1mo.length) {
+          currentProductMembershipId = 46056795209925;
+        } else if (checkbox6mo.length) {
+          currentProductMembershipId = 46056776990917;
+        } else if (checkboxRainmaker.length) {
+          currentProductMembershipId = 45793869299909;
+        }
+
+        var subMgr = window.BTGSubscriptionManager;
+        var existingSubs = subMgr ? subMgr.getCartSubscriptions(cart) : [];
+
+        let hasCurrentMembershipInCart = false;
+        if (cart && cart.items && cart.items.length && currentProductMembershipId) {
+          hasCurrentMembershipInCart = cart.items.some(function(item) {
+            return parseInt(item.variant_id) === parseInt(currentProductMembershipId);
+          });
+        }
+
+        var targetRank = (currentProductMembershipId && subMgr) ? subMgr.getSubscriptionRank(currentProductMembershipId) : 0;
+        var hasLongerOrEqualMembershipInCart = hasCurrentMembershipInCart || existingSubs.some(function(item) {
+          return subMgr && subMgr.getSubscriptionRank(item) >= targetRank;
+        });
+
+        let mId = null;
+        let mPlan = null;
+        if (checkbox1mo.is(':checked')) {
+          mId   = 46056795209925;
+          mPlan = 7328694469;
+        } else if (checkbox6mo.is(':checked')) {
+          mId   = 46056776990917;
+          mPlan = 7328661701;
+        } else if (checkboxRainmaker.is(':checked')) {
+          mId   = 45793869299909;
+          mPlan = 6775537861;
+        }
+
+        const isMembershipCheckboxChecked = !!mId;
+
+        // If user unchecked membership AND cart doesn't have an equal or longer membership -> show reminder popup
+        if (!isMembershipCheckboxChecked && !hasLongerOrEqualMembershipInCart) {
+          if (checkbox1mo.length) {
+            atcButton.removeClass('btn--loading');
+            openReminderPopup('#one_month_popup', form, atcButton);
+            return;
+          }
+          if (checkbox6mo.length) {
+            atcButton.removeClass('btn--loading');
+            openReminderPopup('#six_month_popup', form, atcButton);
+            return;
+          }
+          if (checkboxRainmaker.length) {
+            atcButton.removeClass('btn--loading');
+            openReminderPopup('#one_year_popup', form, atcButton);
+            return;
+          }
+        }
+
+        // Always proceed to addToCartWithMembership to enforce alerts and deduplication
+        addToCartWithMembership(
+          mainVariantId,
+          mId,
+          mPlan,
+          function() { atcButton.removeClass('btn--loading'); },
+          function() { atcButton.removeClass('btn--loading'); }
+        );
+        return;
+
+        let membershipId = null;
+        let membershipPlan = null;
+
+        if (checkbox1mo.is(':checked')) {
+          membershipId   = 46056795209925;
+          membershipPlan = 7328694469;
+        } else if (checkbox6mo.is(':checked')) {
+          membershipId   = 46056776990917;
+          membershipPlan = 7328661701;
+        } else if (checkboxRainmaker.is(':checked')) {
+          membershipId   = 45793869299909;
+          membershipPlan = 6775537861;
+        }
+
+        addToCartWithMembership(
+          mainVariantId,
+          membershipId,
+          membershipPlan,
+          function() { atcButton.removeClass('btn--loading'); },
+          function() { atcButton.removeClass('btn--loading'); }
+        );
+      }).fail(function() {
+        atcButton.removeClass('btn--loading');
+      });
+
+      return false;
+    });
+
+    function openReminderPopup(popupId, form, atcButton) {
+      const popup = $(popupId);
+      popup.data('active-form', form);
+      popup.data('active-button', atcButton);
+      popup.css('display', 'flex').hide().fadeIn(300, function() {
+        popup.attr('tabindex', '-1').trigger('focus');
+        trapFocus(popup);
+      });
+    }
+
+    function trapFocus(popup) {
+      popup.off('keydown.trapFocus');
+      popup.on('keydown.trapFocus', function(e) {
+        if (e.key !== 'Tab') return;
+        const focusableSelectors = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+        const focusableElements = popup.find(focusableSelectors).filter(':visible');
+        if (!focusableElements.length) return;
+        const firstElement = focusableElements.first();
+        const lastElement = focusableElements.last();
+        if (e.shiftKey) { // Shift + Tab
+          if (document.activeElement === firstElement[0] || document.activeElement === popup[0]) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else { // Tab
+          if (document.activeElement === lastElement[0]) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      });
+    }
+
+    function untrapFocus(popup) {
+      popup.off('keydown.trapFocus');
+    }
+
+    function addToCartWithMembership(mainVariantId, membershipId, membershipPlan, onSuccess, onError) {
+
+      console.log('=== addToCartWithMembership ===');
+      console.log('mainVariantId:', mainVariantId);
+      console.log('membershipId:', membershipId);
+      console.log('membershipPlan:', membershipPlan);
+
+      $.getJSON('/cart.js?_=' + Date.now(), function(cart) {
+        var subMgr = window.BTGSubscriptionManager;
+        var existingSubs = subMgr ? subMgr.getCartSubscriptions(cart) : [];
+
+        var targetRank = (membershipId && subMgr) ? subMgr.getSubscriptionRank(membershipId, membershipPlan) : 0;
+        var longerSub = membershipId && existingSubs.find(function(item) {
+          return subMgr && subMgr.getSubscriptionRank(item) > targetRank;
+        });
+
+        // 1. Longest subscription wins: if cart already has a strictly longer subscription, don't add lesser
+        if (longerSub) {
+          alert('A higher-tier membership is already in the cart.');
+          console.log('Preserving longer subscription in cart:', longerSub);
+          membershipId = null;
+          membershipPlan = null;
+        }
+
+        // 2. Prevent duplicates: if cart already has this exact membership variant, don't add another
+        var sameSubExists = membershipId && existingSubs.some(function(item) {
+          return parseInt(item.variant_id || item.id) === parseInt(membershipId);
+        });
+        if (sameSubExists) {
+          alert('Membership is already in the cart.');
+          console.log('Membership already exists in cart, skipping duplicate add');
+          membershipId = null;
+          membershipPlan = null;
+        }
+
+        // 3. Hierarchy override: remove any lesser subscriptions in cart before adding longer one
+        var keysToRemove = [];
+        if (membershipId) {
+          keysToRemove = existingSubs.filter(function(item) {
+            return subMgr && subMgr.getSubscriptionRank(item) < targetRank;
+          }).map(function(item) { return item.key; });
+        }
+
+        var removePromise = (keysToRemove.length && subMgr) ? subMgr.removeLineItems(keysToRemove) : Promise.resolve();
+
+        removePromise.then(function() {
+          const items = [];
+
+          if (mainVariantId) {
+            items.push({ id: parseInt(mainVariantId), quantity: 1 });
+          }
+
+          if (membershipId) {
+            items.push({
+              id:           parseInt(membershipId),
+              quantity:     1,
+              selling_plan: parseInt(membershipPlan)
+            });
+          }
+
+          // If product switcher is enabled and an option is chosen, override main product
+          var hiddenBundle = document.querySelector('.comp-pdp-hidden-bundle[data-variant-ids]');
+          if (hiddenBundle) {
+            var bundleIds = (hiddenBundle.getAttribute('data-variant-ids') || '').split(',').map(function(s) { return parseInt(s); }).filter(function(n) { return !isNaN(n); });
+            if (bundleIds.length) {
+              items.length = 0;
+              bundleIds.forEach(function(bId) { items.push({ id: bId, quantity: 1 }); });
+              if (membershipId) {
+                items.push({
+                  id:           parseInt(membershipId),
+                  quantity:     1,
+                  selling_plan: parseInt(membershipPlan)
+                });
+              }
+            }
+          }
+
+          
+var customSelectedVariant = document.querySelector('.comp-pdp-product-switcher input[name="comp-pdp-switch-product"]:checked');
+          if (customSelectedVariant && customSelectedVariant.value && !isNaN(parseInt(customSelectedVariant.value))) {
+            items.length = 0;
+            items.push({ id: parseInt(customSelectedVariant.value), quantity: 1 });
+            if (membershipId) {
+              items.push({
+                id:           parseInt(membershipId),
+                quantity:     1,
+                selling_plan: parseInt(membershipPlan)
+              });
+            }
+          }
+
+          // Add selected accessory & protection items
+          document.querySelectorAll('.comp-accessory-row.is-selected, .comp-protect-card.is-selected').forEach(function(row) {
+            var aId = row.getAttribute('data-variant-id');
+            if (aId && !isNaN(parseInt(aId))) {
+              items.push({ id: parseInt(aId), quantity: 1 });
+            }
+          });
+
+          // Helper function to send items to cart
+          function sendCartRequest() {
+          console.log('Items being sent to cart:', JSON.stringify(items));
+          fetch('/cart/add.js', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ items: items })
+          })
+          .then(function(response) {
+            if (!response.ok) {
+              return response.json().then(function(err) {
+                console.error('Cart error response:', err);
+                throw new Error(err.description || 'Cart error');
+              });
+            }
+            return response.json();
+          })
+          .then(function(data) {
+            console.log('Successfully added to cart:', data);
+            if (onSuccess) onSuccess();
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+          })
+          .catch(async function(error) {
+            console.warn('Batch add rejected, trying available items individually:', error);
+            var addedCount = 0;
+            for (var i = 0; i < items.length; i++) {
+              try {
+                var r = await fetch('/cart/add.js', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(items[i])
+                });
+                if (r.ok) {
+                  addedCount++;
+                } else {
+                  var eJson = await r.json().catch(function() { return {}; });
+                  console.warn('Item ' + items[i].id + ' skipped:', eJson.description || r.status);
+                }
+              } catch (e) {}
+            }
+            if (addedCount > 0) {
+              if (onSuccess) onSuccess();
+              document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+            } else {
+              alert('There was an issue adding to the cart: ' + error.message);
+              if (onError) onError();
+            }
+          });
+        }
+
+        // Check if secondary upsell checkbox (playmaker or player-pro hard case) is checked
+        const checkedCaseCheckbox = $('#playmaker-hard-new-case, #player-pro-hard-case-upsell, #player-pro-soft-case-upsell').filter(':checked');
+        if (checkedCaseCheckbox.length) {
+          let caseVariantId = checkedCaseCheckbox.val() || checkedCaseCheckbox.attr('data-variant-id');
+          if (caseVariantId && !isNaN(parseInt(caseVariantId))) {
+            items.push({ id: parseInt(caseVariantId), quantity: 1 });
+            sendCartRequest();
+          } else {
+            // Dynamically fetch product JSON if variant ID was not rendered in Liquid
+            const isPlayerProCase = checkedCaseCheckbox.attr('id') === 'player-pro-hard-case-upsell';
+            const primaryUrl = isPlayerProCase ? '/products/player-hard-shell-carrying-case.js' : '/products/playmaker-watch-case-black.js';
+            const fallbackUrl = isPlayerProCase ? '/products/player-hard-shell-carrying-case.js' : '/products/watch-hard-shell-carrying-case.js';
+
+            fetch(primaryUrl)
+              .then(function(res) {
+                if (res.ok) return res.json();
+                return fetch(fallbackUrl).then(function(r) { return r.json(); });
+              })
+              .then(function(pData) {
+                if (pData && pData.variants && pData.variants.length) {
+                  items.push({ id: parseInt(pData.variants[0].id), quantity: 1 });
+                }
+                sendCartRequest();
+              })
+              .catch(function(err) {
+                console.error('Error fetching case product json:', err);
+                sendCartRequest();
+              });
+            return;
+          }
+        } else {
+          sendCartRequest();
+        }
+      });
+      }).fail(function() {
+        if (onError) onError();
+      });
+    }
+
+    function claimOfferAndSubmit(popupId, claimButton) {
+      const popup = $(popupId);
+
+      if (!popup.length) {
+        console.error('Popup not found:', popupId);
+        return;
+      }
+
+      const form = popup.data('active-form');
+      const btn  = popup.find('.upshell-popup-button');
+
+      btn.addClass('btn--loading');
+
+      // PRIORITY 1: grab from the clicked button's data-product-id
+      let mainVariantId = claimButton ? $(claimButton).data('product-id') : null;
+
+      // PRIORITY 2: fall back to the popup's data-main-product-id attribute
+      if (!mainVariantId) {
+        mainVariantId = popup.attr('data-main-product-id');
+      }
+
+      // PRIORITY 3: fall back to the stored form
+      if (!mainVariantId && form) {
+        mainVariantId = form.find('input[name="id"]').val() || form.find('select[name="id"]').val();
+      }
+
+      console.log('Popup:', popupId);
+      console.log('Main variant ID:', mainVariantId);
+
+      let membershipId   = null;
+      let membershipPlan = null;
+
+      if (popupId === '#one_month_popup') {
+        membershipId   = 46056795209925;
+        membershipPlan = 7328694469;
+      } else if (popupId === '#six_month_popup') {
+        membershipId   = 46056776990917;
+        membershipPlan = 7328661701;
+      } else if (popupId === '#one_year_popup') {
+        membershipId   = 45793869299909;
+        membershipPlan = 6775537861;
+      }
+
+      addToCartWithMembership(
+        mainVariantId,
+        membershipId,
+        membershipPlan,
+        function() {
+          btn.removeClass('btn--loading');
+          const atcButton = popup.data('active-button');
+          untrapFocus(popup);
+          popup.fadeOut(200, function() {
+            popup.css('display', 'none');
+            popup.removeData('active-form');
+            popup.removeData('active-button');
+            if (atcButton) {
+              atcButton.trigger('focus');
+            }
+          });
+        },
+        function() {
+          btn.removeClass('btn--loading');
+        }
+      );
+    }
+
+    function closeReminderPopupAndSubmit(popupId, claim, claimButton) {
+      if (claim) {
+        claimOfferAndSubmit(popupId, claimButton);
+        return;
+      }
+
+      const popup     = $(popupId);
+      const form      = popup.data('active-form');
+      const atcButton = popup.data('active-button');
+
+      untrapFocus(popup);
+      popup.removeData('active-form');
+      popup.removeData('active-button');
+
+      popup.fadeOut(200, function() {
+        popup.css('display', 'none');
+        if (atcButton) {
+          atcButton.trigger('focus');
+        }
+
+        if (form && atcButton) {
+          // Get main variant ID from the stored form
+          const mainVariantId = form.find('input[name="id"]').val() || form.find('select[name="id"]').val();
+
+          atcButton.addClass('btn--loading');
+
+          // Add main product (+ case if checked) but NO membership
+          addToCartWithMembership(
+            mainVariantId,
+            null,
+            null,
+            function() { atcButton.removeClass('btn--loading'); },
+            function() { atcButton.removeClass('btn--loading'); }
+          );
+        }
+      });
+    }
+
+    // Close / background click — ignore clicks from the claim button
+    $(document).on('click', '.upsell_popup--new .close, .upsell_popup--new .closePop, .upsell_popup--new', function(e) {
+      if ($(e.target).closest('.upshell-popup-button').length) return;
+      if ($(this).hasClass('upsell_popup--new') && e.target !== this) return;
+      e.preventDefault();
+      const popupId = '#' + $(this).closest('.upsell_popup--new').attr('id');
+      closeReminderPopupAndSubmit(popupId, false, null);
+    });
+
+    // Claim offer button inside popup — pass the button element through
+    $(document).on('click', '.upsell_popup--new .upshell-popup-button', function(e) {
+      e.preventDefault();
+      const popupId = '#' + $(this).closest('.upsell_popup--new').attr('id');
+      closeReminderPopupAndSubmit(popupId, true, this);
+    });
+
+  });
+</script>

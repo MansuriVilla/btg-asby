@@ -157,26 +157,28 @@
       }
 
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', runAnimation);
-      } else {
-        runAnimation();
-      }
-
-      if (document.readyState === 'complete') {
-        isWindowLoaded = true;
-        checkAndFinish();
-      } else {
-        window.addEventListener('load', function () {
+        document.addEventListener('DOMContentLoaded', function() {
           isWindowLoaded = true;
+          runAnimation();
           checkAndFinish();
         });
+      } else {
+        isWindowLoaded = true;
+        runAnimation();
+        checkAndFinish();
       }
 
+      window.addEventListener('load', function () {
+        isWindowLoaded = true;
+        checkAndFinish();
+      });
+
+      // Quick fallback: dismiss preloader after at most 2.5s regardless of slow third-party analytics
       setTimeout(function () {
         isWindowLoaded = true;
         isIntroFinished = true;
         hideLoader();
-      }, 6000);
+      }, 2500);
     })();
   </script>
 {% endif %}

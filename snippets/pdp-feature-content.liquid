@@ -7,211 +7,241 @@
 
 <div class="pdp-feature-content{% if product.template_suffix == 'new-playmaker-case' %} pdp-feature-content--2col{% endif %}">
   {%- case product.template_suffix -%}
-
-    {%- when 'player-pro' -%}
+    {%- when 'player-pro', 'pdp-new' -%}
       {% render 'feature-item',
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
-        title: 'Front, Center, Back',
-        subtitle: 'GPS Distances'
+        title: 'Front, Center, Back GPS Distances',
+        subtitle: ''
       %}
       {% render 'feature-item',
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-10.svg?v=1790233765',
-        title: 'Heavy-Duty',
-        subtitle: 'Magnetic Strip'
+        title: 'Heavy-Duty Magnetic Strip',
+        subtitle: ''
       %}
       {% render 'feature-item',
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-11.svg?v=1790233765',
-        title: 'On Device',
-        subtitle: 'Scoring'
+        title: 'True 360 Studio-Quality Audio with Dynamic Volume',
+        subtitle: ''
       %}
       {% render 'feature-item',
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1.svg?v=1790233765',
-        title: 'Full Color',
-        subtitle: 'Touch Screen'
+        title: 'USB-C Power bank for Quick Device Charging',
+        subtitle: ''
       %}
       {% render 'feature-item',
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-4.svg?v=1790233765',
-        title: 'Auracast™ Pairing with',
+        title: 'On Device Scoring',
         subtitle: 'Unlimited Devices'
       %}
       {% render 'feature-item',
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-8.svg?v=1790233765',
-        title: 'Dynamic Hazards',
+        title: 'Clock with Built in Round Timer',
         subtitle: ''
       %}
       {% render 'feature-item',
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-2.svg?v=1790233765',
-        title: 'Shot Distance',
-        subtitle: 'Tracking'
+        title: 'Shot Distance Tracking',
+        subtitle: ''
       %}
       {% render 'feature-item',
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7.svg?v=1790233765',
-        title: 'IP67 Waterproof',
-        subtitle: 'for any condition'
+        title: 'Dynamic Hazards',
+        subtitle: ''
       %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-9.svg?v=1790233765',
-        title: 'Clock with Built',
-        subtitle: 'in Round Timer'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3.svg?v=1790233765',
-        title: 'True 360° Studio-Quality',
-        subtitle: 'Audio with Dynamic Volume'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-6.svg?v=1790233765',
-        title: 'USB-C Power Bank for',
-        subtitle: 'Quick Device Charging'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-5.svg?v=1790233764',
-        title: 'AI Powered',
-        subtitle: 'Club Suggestions'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-14.svg?v=1790233765',
-        title: 'Dynamic',
-        subtitle: 'Hole View'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-12.svg?v=1790233765',
-        title: 'Green',
-        subtitle: 'Heat Maps'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-13.svg?v=1790233765',
-        title: 'True Distance™',
-        subtitle: 'Environmental Yardage Adjustments'
-      %}
+      {% comment %}
+        {% render 'feature-item',
+          icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-9.svg?v=1790233765',
+          title: 'Clock with Built',
+          subtitle: 'in Round Timer'
+        %}
+        {% render 'feature-item',
+          icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3.svg?v=1790233765',
+          title: 'True 360° Studio-Quality',
+          subtitle: 'Audio with Dynamic Volume'
+        %}
+        {% render 'feature-item',
+          icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-6.svg?v=1790233765',
+          title: 'USB-C Power Bank for',
+          subtitle: 'Quick Device Charging'
+        %}
+        {% render 'feature-item',
+          icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-5.svg?v=1790233764',
+          title: 'AI Powered',
+          subtitle: 'Club Suggestions'
+        %}
+        {% render 'feature-item',
+          icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-14.svg?v=1790233765',
+          title: 'Dynamic',
+          subtitle: 'Hole View'
+        %}
+        {% render 'feature-item',
+          icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-12.svg?v=1790233765',
+          title: 'Green',
+          subtitle: 'Heat Maps'
+        %}
+        {% render 'feature-item',
+          icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-13.svg?v=1790233765',
+          title: 'True Distance™',
+          subtitle: 'Environmental Yardage Adjustments'
+        %}
+      {% endcomment %}
 
     {%- when 'captain-pro' -%}
       {% render 'feature-item',
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
-        title: 'Front, Center, Back',
-        subtitle: 'GPS Distances'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_14101052022.svg?v=1790236394',
-        title: 'Vibrant Brightness Control',
-        subtitle: 'for all Conditions'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7.svg?v=1790233765',
-        title: 'IP67 Dust+',
-        subtitle: 'Waterproof'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202_fc6d1358-e9b6-40da-b329-9a8e88ca6979.svg?v=1790236360',
-        title: '"Find My"',
-        subtitle: 'Rangefinder'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-4_5722fb49-a183-44ff-ad7a-f05b4ead3792.svg?v=1790236359',
-        title: 'Shot Tracking for',
-        subtitle: 'Post Game Round Analysis'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202654.svg?v=1790236478',
-        title: 'Rechargeable',
-        subtitle: 'USB-C Battery'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1_fd8a86c4-d567-4b73-8ee5-cc7f9900c2e6.svg?v=1790236361',
-        title: 'Flag Lock',
-        subtitle: 'W/ Vibration'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-5_b49dc684-fc33-42ab-b346-28c2c2ed465c.svg?v=1790236361',
-        title: '1200-Yard',
-        subtitle: 'Range'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7_57f2793f-7441-4102-9469-5f1e1f330946.svg?v=1790236361',
-        title: 'Bluetooth Connected with',
-        subtitle: 'GAME App Compatibility'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-2_aabfc52a-5da4-4a0a-9cbd-deba32a94157.svg?v=1790236360',
-        title: 'Multi-Color',
-        subtitle: 'OLED Display'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-6_02d3beaf-b82f-40a2-ba9b-328fe38e44c4.svg?v=1790236360',
-        title: 'Tour-Ready',
-        subtitle: 'Slope Button'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3_42d25a48-1c0f-4807-a018-c9a8a5eb9fa8.svg?v=1790236359',
-        title: '7X Magnification',
+        title: 'Front, Center, Back GPS Distances',
         subtitle: ''
       %}
+
       {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-10.svg?v=1790233765',
-        title: 'Heavy-Duty',
-        subtitle: 'Magnetic Strip'
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: '"Find My" Rangefinder',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Flag Lock W/ Vibration',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Multi-Color OLED Display',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Heavy-Duty Magnetic Strip',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Vibrant Brightness Control for all Conditions',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Shot Tracking for Post Game Round Analysis',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: '1200-Yard Range',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Tour-Ready Slope Button',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'IP67 Dust+ Waterproof',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Rechargeable USB-C Battery',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Bluetooth Connected with GAME App Compatibility',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: '7X Magnification',
+        subtitle: ''
       %}
 
     {%- when 'product-new' -%}
       {% render 'feature-item',
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
-        title: 'Front, Center, Back',
-        subtitle: 'GPS Distances'
+        title: 'Front, Center, Back GPS Distances',
+        subtitle: ''
       %}
+
       {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202_8ded7b08-a194-4866-b3b6-a7aa4f7f2b15.svg?v=1790237494',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: '“Find My” Rangefinder',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Flag Lock W/ Vibration',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Red/Black HD DIsplay',
+        subtitle: ''
+      %}
+
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
         title: '6X Magnification',
         subtitle: ''
       %}
+
       {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-10.svg?v=1790233765',
-        title: 'Heavy-Duty',
-        subtitle: 'Magnetic Strip'
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Vibrant Brightness Control for all Conditions',
+        subtitle: ''
       %}
+
       {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202_fc6d1358-e9b6-40da-b329-9a8e88ca6979.svg?v=1790236360',
-        title: '"Find My"',
-        subtitle: 'Rangefinder'
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: '1000-Yard Range',
+        subtitle: ''
       %}
+
       {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_14101052022.svg?v=1790236394',
-        title: 'Vibrant Brightness Control',
-        subtitle: 'for all Conditions'
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Tour-Ready Slope Button',
+        subtitle: ''
       %}
+
       {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7.svg?v=1790233765',
-        title: 'IP65 Dust+',
-        subtitle: 'Waterproof'
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Heavy-Duty Magnetic Strip',
+        subtitle: ''
       %}
+
       {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1_fd8a86c4-d567-4b73-8ee5-cc7f9900c2e6.svg?v=1790236361',
-        title: 'Flag Lock',
-        subtitle: 'W/ Vibration'
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'IP67 Dust+ Waterproof',
+        subtitle: ''
       %}
+
       {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1_fde7d68f-b626-424f-9bae-b6d8f6bea9b9.svg?v=1790237494',
-        title: '1000-Yard',
-        subtitle: 'Range'
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Rechargeable USB-C Battery',
+        subtitle: ''
       %}
+
       {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202654.svg?v=1790236478',
-        title: 'Rechargeable',
-        subtitle: 'USB-C Battery'
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: 'Bluetooth Connected with GAME App Compatibility',
+        subtitle: ''
       %}
+
       {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-2_7edce75d-9a31-4d59-91ba-4a99f3de407e.svg?v=1790237494',
-        title: 'Red/Black',
-        subtitle: 'HD Display'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3_0dac9162-beab-4dc5-bb78-e87902a2f4ea.svg?v=1790237494',
-        title: 'Tour-Ready',
-        subtitle: 'Slope Button'
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7_57f2793f-7441-4102-9469-5f1e1f330946.svg?v=1790236361',
-        title: 'Bluetooth Connected with',
-        subtitle: 'GAME App Compatibility'
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
+        title: '7X Magnification',
+        subtitle: ''
       %}
 
     {%- when 'new-s3-max' -%}
@@ -311,6 +341,47 @@
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-5_f92884ad-fbd2-44a7-a216-683832f87e7e.svg?v=1790239182',
         title: 'Storage Case',
         subtitle: 'Included'
+      %}
+    {%- when 'rainmaker-bf-bundle' -%}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202_f9ca5646-fd73-40dd-bb84-0b5c1b874669.svg?v=1790239182',
+        title: '20+ Real-Time Metrics',
+        subtitle: ''
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-6_82db5712-e047-4bbd-83ad-6f97898cca4f.svg?v=1790239182',
+        title: '3 Offline Training Modes',
+        subtitle: ''
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-7.svg?v=1790233765',
+        title: '42,000+ Course Simulation Access',
+        subtitle: ''
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-1_560b8011-d197-4e2b-8273-e60473ad3a22.svg?v=1790239182',
+        title: '3D Ball Flight & Shot Dispersion',
+        subtitle: ''
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3_155fcf9b-6e8e-40ec-ad53-a2f1973344ef.svg?v=1790239182',
+        title: 'Premium 7.5 ft Golf Hitting Net',
+        subtitle: ''
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-4_a85747c4-188e-49c4-bdbc-2ceed6ee2b82.svg?v=1790239182',
+        title: 'Tool Free Net Setup in 15 Minutes',
+        subtitle: ''
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-2_1eb706b6-b4d4-4f54-9d8d-e766fa9713dd.svg?v=1790239182',
+        title: '35 mm Cushioned 4 × 5 ft Hitting Mat',
+        subtitle: ''
+      %}
+      {% render 'feature-item',
+        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202654.svg?v=1790236478',
+        title: 'Interchangeable Iron & Driver Hitting Strips',
+        subtitle: ''
       %}
 
     {%- when 'ringer' -%}
@@ -449,48 +520,6 @@
         icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-4_ea39a418-6c03-4465-98b3-5b5bc630f133.svg?v=1790253392',
         title: 'Integrated',
         subtitle: 'Carabiner Clip'
-      %}
-
-    {%- else -%}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202.svg?v=1790233765',
-        title: 'Front, Center, Back GPS Distances',
-        subtitle: ''
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-10.svg?v=1790233765',
-        title: 'Heavy-Duty Magnetic Strip',
-        subtitle: ''
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-3.svg?v=1790233765',
-        title: 'True 360 Studio-Quality Audio with Dynamic Volume',
-        subtitle: ''
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-6.svg?v=1790233765',
-        title: 'USB-C Power bank for Quick Device Charging',
-        subtitle: ''
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-11.svg?v=1790233765',
-        title: 'On Device Scoring',
-        subtitle: ''
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-9.svg?v=1790233765',
-        title: 'Clock with Built in Round Timer',
-        subtitle: ''
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-2.svg?v=1790233765',
-        title: 'Shot Distance Tracking',
-        subtitle: ''
-      %}
-      {% render 'feature-item',
-        icon: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105202-8.svg?v=1790233765',
-        title: 'Dynamic Hazards',
-        subtitle: ''
       %}
   {%- endcase -%}
 </div>

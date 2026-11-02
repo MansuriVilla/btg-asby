@@ -1,0 +1,536 @@
+{%- comment -%}
+  Comp Ultimate Setup / 3-Product Bundle ATC Banner
+  - Figma: Frame 1410106016
+  - Dark container / radial glow (#0A0E13 / #111821)
+  - Big 2-line Heading ("THREE PRODUCTS. YOUR ULTIMATE SETUP.")
+  - Subtitle: "Get the complete home range for $1,097.99 and save $600 compared with buying each product separately."
+  - Big Italic Price ("$1,097.99")
+  - Notice text ("Black Friday exclusive. Only 300 complete bundles available.")
+  - Reusable cta-button component ("ADD TO CART")
+  - Multi-product bundle cart submission:
+      - Adds all 3 selected products (or bundle master product) to cart in one AJAX call
+      - Option to redirect directly to /checkout or open cart drawer
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'comp-ultimate-setup-' | append: section.id
+  endif
+
+  assign prod_1 = section.settings.product_1
+  if prod_1 != blank and prod_1.id == blank
+    assign prod_1 = all_products[prod_1]
+  endif
+  assign prod_2 = section.settings.product_2
+  if prod_2 != blank and prod_2.id == blank
+    assign prod_2 = all_products[prod_2]
+  endif
+  assign prod_3 = section.settings.product_3
+  if prod_3 != blank and prod_3.id == blank
+    assign prod_3 = all_products[prod_3]
+  endif
+  assign master_bundle_prod = section.settings.bundle_product
+  if master_bundle_prod != blank and master_bundle_prod.id == blank
+    assign master_bundle_prod = all_products[master_bundle_prod]
+  endif
+
+  assign items_variant_ids = ''
+  if master_bundle_prod != blank
+    assign mb_var = master_bundle_prod.selected_or_first_available_variant | default: master_bundle_prod.variants.first
+    if mb_var != blank
+      assign items_variant_ids = mb_var.id | append: ''
+    endif
+  else
+    if prod_1 != blank
+      assign p1_var = prod_1.selected_or_first_available_variant | default: prod_1.variants.first
+      if p1_var != blank
+        assign items_variant_ids = items_variant_ids | append: p1_var.id | append: ','
+      endif
+    endif
+    if prod_2 != blank
+      assign p2_var = prod_2.selected_or_first_available_variant | default: prod_2.variants.first
+      if p2_var != blank
+        assign items_variant_ids = items_variant_ids | append: p2_var.id | append: ','
+      endif
+    endif
+    if prod_3 != blank
+      assign p3_var = prod_3.selected_or_first_available_variant | default: prod_3.variants.first
+      if p3_var != blank
+        assign items_variant_ids = items_variant_ids | append: p3_var.id | append: ','
+      endif
+    endif
+  endif
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-ultimate-setup comp-ultimate-setup-{{ section.id }}"
+  data-comp-ultimate-setup
+  data-variant-ids="{{ items_variant_ids }}"
+  data-action-target="{{ section.settings.action_target | default: 'cart' }}"
+  style="
+    --cus-pt: {{ section.settings.padding_top | default: 80 }}px;
+    --cus-pb: {{ section.settings.padding_bottom | default: 80 }}px;
+    --cus-bg: {{ section.settings.background_color | default: '#0B0F15' }};
+  "
+>
+  <!-- Background radial glow -->
+  <div class="comp-ultimate-setup__glow" aria-hidden="true"></div>
+
+  <div class="comp-ultimate-setup__container">
+    
+    <!-- Title Area -->
+    {%- if section.settings.heading != blank -%}
+      <h2 class="comp-ultimate-setup__title custom_heading">
+        {{ section.settings.heading | newline_to_br }}
+      </h2>
+    {%- endif -%}
+
+    <!-- Subtitle -->
+    {%- if section.settings.subtitle != blank -%}
+      <p class="comp-ultimate-setup__subtitle custom_body-text">
+        {{ section.settings.subtitle }}
+      </p>
+    {%- endif -%}
+
+    <!-- Big Price -->
+    {%- if section.settings.price != blank -%}
+      <div class="comp-ultimate-setup__price custom_heading">
+        {{ section.settings.price }}
+      </div>
+    {%- endif -%}
+
+    <!-- Exclusive Note -->
+    {%- if section.settings.notice_text != blank -%}
+      <p class="comp-ultimate-setup__notice custom_body-text">
+        {{ section.settings.notice_text }}
+      </p>
+    {%- endif -%}
+
+    <!-- Action Button (Using Reusable cta-button component) -->
+    <div class="comp-ultimate-setup__btn-wrap">
+      {%- capture cta_attrs -%}
+        data-ultimate-setup-atc
+        {% if items_variant_ids != blank %}data-items="{{ items_variant_ids }}"{% endif %}
+      {%- endcapture -%}
+
+      {%- assign btn_text = section.settings.button_text | default: 'ADD TO CART' -%}
+      {% render 'cta-button',
+        text: btn_text,
+        type: 'button',
+        variant: 'solid',
+        class: 'comp-ultimate-setup__cta',
+        attributes: cta_attrs
+      %}
+    </div>
+
+  </div>
+</div>
+
+<style>
+  #{{ section_id }}.comp-ultimate-setup {
+    position: relative;
+    width: 100%;
+    min-height: 466px;
+    /* background-color: var(--cus-bg, #080A0C); */
+    background: radial-gradient(37.47% 101.04% at 50% 12%, rgba(49, 72, 98, 0.55) 0%, rgba(49, 72, 98, 0) 45.71%), #080A0C;
+    padding-top: clamp(48px, 6vw, var(--cus-pt, 64px));
+    padding-bottom: clamp(48px, 6vw, var(--cus-pb, 64px));
+    overflow: hidden;
+    color: #FFFFFF;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    isolation: isolate;
+  }
+
+  /* Ambient radial spotlight */
+  #{{ section_id }} .comp-ultimate-setup__glow {
+    display: none;
+  }
+
+  #{{ section_id }} .comp-ultimate-setup__container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    /* max-width: 995px; */
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* box-sizing: border-box; */
+  }
+
+  /* Three products. Your ultimate setup. */
+  #{{ section_id }} .comp-ultimate-setup__title {
+    margin: 0 0 16px;
+    font-size: clamp(28px, 2.92vw, 42px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-align: center;
+    max-width: 720px;
+  }
+
+  /* Get the complete home range for $1,097.99 and save $600 compared with buying each product separately. */
+  #{{ section_id }} .comp-ultimate-setup__subtitle {
+    margin: 0 0 20px;
+    font-size: clamp(14px, 1.25vw, 18px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #C6CDD3;
+    text-align: center;
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  /* Big Display Price: $1,097.99 */
+  #{{ section_id }} .comp-ultimate-setup__price {
+    margin: 0 0 12px;
+    font-size: clamp(40px, 4.03vw, 58px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  /* Black Friday exclusive. Only 300 complete bundles available. */
+  #{{ section_id }} .comp-ultimate-setup__notice {
+    margin: 0 0 28px;
+    font-size: clamp(13px, 1.11vw, 16px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #AAB2B8;
+    text-align: center;
+    max-width: 650px;
+    width: 100%;
+  }
+
+  /* Action Button Container */
+  #{{ section_id }} .comp-ultimate-setup__btn-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Override / style the button pill matching Figma Frame 1410106016 */
+  #{{ section_id }} .comp-ultimate-setup__cta.content-cta {
+    width: 388px;
+    max-width: 100%;
+    height: 52px;
+    min-height: 52px;
+    background: #0149E3;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    border: none;
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} .comp-ultimate-setup__cta.is-loading,
+  #{{ section_id }} .comp-ultimate-setup__cta.btn--loading {
+    position: relative !important;
+    color: transparent !important;
+    pointer-events: none !important;
+    cursor: wait !important;
+  }
+  #{{ section_id }} .comp-ultimate-setup__cta.is-loading .content-cta__inner,
+  #{{ section_id }} .comp-ultimate-setup__cta.btn--loading .content-cta__inner,
+  #{{ section_id }} .comp-ultimate-setup__cta.is-loading .content-cta__text,
+  #{{ section_id }} .comp-ultimate-setup__cta.btn--loading .content-cta__text,
+  #{{ section_id }} .comp-ultimate-setup__cta.is-loading span,
+  #{{ section_id }} .comp-ultimate-setup__cta.btn--loading span {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+  #{{ section_id }} .comp-ultimate-setup__cta.is-loading::before,
+  #{{ section_id }} .comp-ultimate-setup__cta.btn--loading::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin-left: -10px !important;
+    margin-top: -10px !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border-top-color: #FFFFFF !important;
+    border-radius: 50% !important;
+    animation: comp-spin-smooth 0.75s linear infinite !important;
+    box-sizing: border-box !important;
+    z-index: 5 !important;
+  }
+  @keyframes comp-spin-smooth {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 600px) {
+    #{{ section_id }} .comp-ultimate-setup__cta.content-cta {
+      width: 100%;
+      max-width: 388px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const root = document.getElementById('{{ section_id }}');
+    if (!root) return;
+
+    function initUltimateSetup() {
+      const atcBtn = root.querySelector('[data-ultimate-setup-atc]');
+      if (!atcBtn || atcBtn._bound) return;
+      atcBtn._bound = true;
+
+      atcBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (atcBtn.classList.contains('is-loading')) return;
+
+        const rawIds = root.getAttribute('data-variant-ids') || '';
+        const targetAction = root.getAttribute('data-action-target') || 'cart';
+        let idList = rawIds.split(',').map(s => parseInt(s.trim(), 10)).filter(Boolean);
+
+        // Fallback: if fewer than 2 products configured here, pull from PDP hidden bundle if present
+        if (idList.length <= 1) {
+          const pageHiddenBundle = document.querySelector('.comp-pdp-hidden-bundle[data-variant-ids]');
+          if (pageHiddenBundle) {
+            const fallbackIds = (pageHiddenBundle.getAttribute('data-variant-ids') || '')
+              .split(',')
+              .map(s => parseInt(s.trim(), 10))
+              .filter(Boolean);
+            if (fallbackIds.length > idList.length) {
+              idList = fallbackIds;
+            }
+          }
+        }
+
+        if (!idList.length) {
+          console.warn('[comp-ultimate-setup] No valid variant IDs selected.');
+          return;
+        }
+
+        const itemsToAdd = idList.map(vId => ({ id: vId, quantity: 1 }));
+
+        function onBundleAdded(cartData) {
+          atcBtn.classList.remove('is-loading', 'btn--loading');
+
+          if (targetAction === 'checkout') {
+            window.location.href = '/checkout';
+            return;
+          }
+
+          document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: cartData } }));
+          document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: cartData } }));
+          document.dispatchEvent(new CustomEvent('ajaxCart.afterCartLoad', { detail: { cart: cartData } }));
+
+          if (window.theme && window.theme.CartDrawer && typeof window.theme.CartDrawer.open === 'function') {
+            window.theme.CartDrawer.open();
+          } else if (window.theme && window.theme.cart && typeof window.theme.cart.getCart === 'function') {
+            window.theme.cart.getCart();
+          }
+        }
+
+        atcBtn.classList.add('is-loading', 'btn--loading');
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ items: itemsToAdd })
+        })
+          .then(res => {
+            if (!res.ok) throw new Error('Multi-product add to cart failed');
+            return res.json();
+          })
+          .then(cartData => {
+            onBundleAdded(cartData);
+          })
+          .catch(async err => {
+            console.warn('[comp-ultimate-setup] Batch add rejected, adding available items individually:', err);
+            let lastSuccessData = null;
+            for (let i = 0; i < itemsToAdd.length; i++) {
+              try {
+                const singleRes = await fetch('/cart/add.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                  },
+                  body: JSON.stringify(itemsToAdd[i])
+                });
+                if (singleRes.ok) {
+                  lastSuccessData = await singleRes.json();
+                } else {
+                  const errJson = await singleRes.json().catch(() => ({}));
+                  console.warn('[comp-ultimate-setup] Skipped unavailable variant ' + itemsToAdd[i].id + ':', errJson.description || singleRes.status);
+                }
+              } catch (singleErr) {
+                console.warn('[comp-ultimate-setup] Failed adding variant ' + itemsToAdd[i].id, singleErr);
+              }
+            }
+            if (lastSuccessData) {
+              onBundleAdded(lastSuccessData);
+            } else {
+              atcBtn.classList.remove('is-loading', 'btn--loading');
+            }
+          });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initUltimateSetup);
+    } else {
+      initUltimateSetup();
+    }
+
+    document.addEventListener('shopify:section:load', function (e) {
+      if (e.target && e.target.contains(root)) {
+        initUltimateSetup();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Comp Ultimate Setup",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Section Anchor ID",
+      "info": "Optional anchor link id"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#0B0F15"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (Desktop)",
+      "min": 20,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (Desktop)",
+      "min": 20,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Headings & Content"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "THREE PRODUCTS.\nYOUR ULTIMATE SETUP."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Get the complete home range for $1,097.99 and save $600 compared with buying each product separately."
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Price Display",
+      "default": "$1,097.99"
+    },
+    {
+      "type": "text",
+      "id": "notice_text",
+      "label": "Notice / Stock Text",
+      "default": "Black Friday exclusive. Only 300 complete bundles available."
+    },
+    {
+      "type": "header",
+      "content": "Action & Products"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Label",
+      "default": "ADD TO CART"
+    },
+    {
+      "type": "select",
+      "id": "action_target",
+      "label": "Button Action",
+      "options": [
+        { "value": "cart", "label": "Open Cart Drawer" },
+        { "value": "checkout", "label": "Redirect Directly to Checkout" }
+      ],
+      "default": "cart"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product 3"
+    },
+    {
+      "type": "product",
+      "id": "bundle_product",
+      "label": "Master Bundle Product (Optional Override)",
+      "info": "If selected, will add this single bundle product instead of the 3 individual products above."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comp Ultimate Setup",
+      "settings": {
+        "heading": "THREE PRODUCTS.\nYOUR ULTIMATE SETUP.",
+        "subtitle": "Get the complete home range for $1,097.99 and save $600 compared with buying each product separately.",
+        "price": "$1,097.99",
+        "notice_text": "Black Friday exclusive. Only 300 complete bundles available.",
+        "button_text": "ADD TO CART",
+        "action_target": "cart"
+      }
+    }
+  ]
+}
+{% endschema %}

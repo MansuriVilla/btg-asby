@@ -2,7 +2,8 @@
   class="product-cards__section product-cards__{{ section.id }}"
   style="background:{{ section.settings.backgroundColor }}"
 >
-  <a href="/products/new-pdp-v1">NEW PDP</a>
+  {% comment %} <a href="/products/new-pdp-v1">NEW PDP</a>
+  <a href="/products/rainmaker-simulation-bundle">Rainmaker Bundle</a> {% endcomment %}
   <div class="product-card__container new-page-width">
     {% if section.settings.productCardHeading != blank %}
       <div class="product-card__heading">
@@ -114,10 +115,15 @@
               {%- assign prod = block.settings.product -%}
 
               {%- if block.settings.product -%}
+                {%- assign offer_bug = prod.metafields.custom.offer_bug_lable.value | default: prod.metafields.custom.offer_bug_lable -%}
                 {%- assign variant = prod.selected_or_first_available_variant -%}
-                {%- if variant.compare_at_price > variant.price and prod.available -%}
+                {%- if offer_bug != blank -%}
+                  <div style="color:#FFF;background:var(--new-sale-red);line-height:1;border-radius: 3px;padding: 6px 23px;display: inline-flex;margin-bottom: 7px;font-family: Blue Tees Subhead;font-size: 12px;text-transform: uppercase;">
+                    {{ offer_bug }}
+                  </div>
+                {%- elsif variant.compare_at_price > variant.price and prod.available -%}
                   <div style="color:#FFF;background:var(--new-red);line-height:1;border-radius: 3px;padding: 6px 23px;display: inline-flex;margin-bottom: 7px;font-family: Blue Tees Subhead;font-size: 12px;text-transform: uppercase;">
-                    SALE
+                    BLACK FRIDAY EXCLUSIVE
                   </div>
                 {% elsif prod.template_suffix == 'rainmaker' %}
                   <div style="color:var(--new-black);background:#CDFF07;line-height:1;border-radius: 3px;padding: 6px 23px;display: inline-flex;margin-bottom: 7px;font-family: Blue Tees Subhead;font-size: 12px;text-transform: uppercase;">

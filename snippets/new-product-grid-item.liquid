@@ -33,7 +33,11 @@
 
   assign product_tags = product.tags | join: ','
   assign has_custom_label = false
-  if product.metafields.theme.label and product.metafields.theme.label != blank
+  assign offer_bug_val = product.metafields.custom.offer_bug_lable.value | default: product.metafields.custom.offer_bug_lable
+  if offer_bug_val != blank
+    assign has_custom_label = true
+    assign custom_label = offer_bug_val
+  elsif product.metafields.theme.label and product.metafields.theme.label != blank
     assign has_custom_label = true
     assign custom_label = product.metafields.theme.label.value
   elsif product_tags contains '_label_'
@@ -58,9 +62,11 @@
 >
   <div class="grid-product__content">
     {%- if has_custom_label -%}
-      <div class="grid-product__tag grid-product__tag--custom">
-        {{ custom_label }}
-      </div>
+      <span class="floating_label floating_label--custom">
+        <span class="grid-product__tag-new" style="background: var(--new-sale-red); color: #fff;">
+          {{ custom_label }}
+        </span>
+      </span>
     {%- else -%}
       {%- unless product.available or product.template_suffix == 'new-s3-max' -%}
         <div class="grid-product__tag grid-product__tag-new grid-product__tag--sold-out grid-product__tag--sold-out--new">
@@ -111,6 +117,10 @@
       endunless
 
       assign preview_image = product.featured_media.preview_image
+      assign custom_override_img = product.metafields.custom.override_product_image.value | default: product.metafields.custom.override_product_image
+      if custom_override_img != blank
+        assign preview_image = custom_override_img
+      endif
       assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
 
       if product.price_varies

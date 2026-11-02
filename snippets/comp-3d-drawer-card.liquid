@@ -14,9 +14,10 @@
 {% liquid
   assign c_title = title | default: default_title
   assign c_desc = desc | default: default_desc
+  assign c_ui = card_ui | default: 'ui_v1'
 %}
 
-<div class="comp-3d-drawer-card">
+<div class="comp-3d-drawer-card comp-3d-drawer-card--{{ c_ui }}">
   {%- if image != blank -%}
     <div class="comp-3d-drawer-card__media">
       {{
@@ -27,15 +28,17 @@
     </div>
   {%- endif -%}
 
-  {%- if c_title != blank -%}
-    <h4 class="comp-3d-drawer-card__title custom_heading">
-      {{ c_title }}
-    </h4>
-  {%- endif -%}
+  <div class="comp-3d-drawer-card__content">
+    {%- if c_title != blank -%}
+      <h4 class="comp-3d-drawer-card__title custom_heading">
+        {{ c_title }}
+      </h4>
+    {%- endif -%}
 
-  {%- if c_desc != blank -%}
-    <p class="comp-3d-drawer-card__desc custom_body-text">
-      {{ c_desc }}
-    </p>
-  {%- endif -%}
+    {%- if c_desc != blank -%}
+      <p class="comp-3d-drawer-card__desc custom_body-text">
+        {{ c_desc }}
+      </p>
+    {%- endif -%}
+  </div>
 </div>

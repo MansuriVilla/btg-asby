@@ -1,0 +1,1012 @@
+{%- comment -%}
+  Comp Product Showcase Tabs Section
+  - Top interactive product tabs with active blue indicator line (#0149E3)
+  - 2-Column Showcase per tab:
+      - Left: Product image stage
+      - Right: Eyebrow + Main title + Description + 3 numbered feature bullet points (01, 02, 03)
+      - Collapsible / Expandable "VIEW KEY SPECIFICATIONS" accordion with 2x3 specification table grid
+  - Strict BTG Fonts:
+      H1 / Main Titles -> custom_heading ('Blue Tees Headline Italic')
+      Subheadings / Numbers / Spec labels -> custom_subHeading-text ('Blue Tees Subhead')
+      Body text / Descriptions -> custom_body-text ('Blue Tees Paragraph')
+  - Fully responsive for mobile
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'comp-product-tabs-' | append: section.id
+  endif
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-prod-tabs comp-prod-tabs-{{ section.id }}"
+  data-comp-prod-tabs
+  style="
+    --cpt-pt: {{ section.settings.padding_top | default: 60 }}px;
+    --cpt-pb: {{ section.settings.padding_bottom | default: 80 }}px;
+    --cpt-bg: {{ section.settings.background_color | default: '#000000' }};
+  "
+>
+  <div class="comp-prod-tabs__container">
+    
+    <!-- Top Navigation Tabs -->
+    {%- if section.blocks.size > 0 -%}
+      <div class="comp-prod-tabs__nav-wrap" role="tablist" aria-label="Product Showcase Navigation">
+        <div class="comp-prod-tabs__nav">
+          {%- for block in section.blocks -%}
+            {%- assign tab_custom_id = block.settings.custom_tab_id | default: '' | strip -%}
+            <button
+              type="button"
+              class="comp-prod-tabs__tab-btn {% if forloop.first %}is-active{% endif %}"
+              role="tab"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              aria-controls="panel-{{ block.id }}"
+              id="{% if tab_custom_id != blank %}tab-{{ tab_custom_id }}{% else %}tab-{{ block.id }}{% endif %}"
+              data-tab-index="{{ forloop.index0 }}"
+              {% if tab_custom_id != blank %}data-tab-id="{{ tab_custom_id }}"{% endif %}
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.tab_sublabel != blank -%}
+                <span class="comp-prod-tabs__tab-sublabel custom_subHeading-text">
+                  {{ block.settings.tab_sublabel }}
+                </span>
+              {%- endif -%}
+              <span class="comp-prod-tabs__tab-title custom_subHeading-text">
+                {{ block.settings.tab_title | default: 'PRODUCT' }}
+              </span>
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <!-- Tab Panels -->
+    <div class="comp-prod-tabs__panels">
+      {%- for block in section.blocks -%}
+        {%- assign tab_custom_id = block.settings.custom_tab_id | default: '' | strip -%}
+        <div
+          id="{% if tab_custom_id != blank %}{{ tab_custom_id }}{% else %}panel-{{ block.id }}{% endif %}"
+          class="comp-prod-tabs__panel {% if forloop.first %}is-active{% endif %}"
+          role="tabpanel"
+          aria-labelledby="{% if tab_custom_id != blank %}tab-{{ tab_custom_id }}{% else %}tab-{{ block.id }}{% endif %}"
+          data-panel-index="{{ forloop.index0 }}"
+          {% if tab_custom_id != blank %}data-panel-id="{{ tab_custom_id }}"{% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <div class="comp-prod-tabs__layout">
+            
+            <!-- Left Column: Product Image -->
+            <div class="comp-prod-tabs__media-col">
+              <div class="comp-prod-tabs__image-stage">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1200
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'comp-prod-tabs__img',
+                      alt: block.settings.title | default: block.settings.tab_title | escape
+                  }}
+                {%- else -%}
+                  <div class="comp-prod-tabs__placeholder-media">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                      <circle cx="8.5" cy="8.5" r="1.5"/>
+                      <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <!-- Right Column: Product Content & Details -->
+            <div class="comp-prod-tabs__content-col">
+              
+              <!-- Header block -->
+              <div class="comp-prod-tabs__heading-group">
+                {%- if block.settings.eyebrow != blank -%}
+                  <span class="comp-prod-tabs__eyebrow custom_subHeading-text">
+                    {{ block.settings.eyebrow }}
+                  </span>
+                {%- endif -%}
+                {%- if block.settings.title != blank -%}
+                  <h3 class="comp-prod-tabs__title custom_heading">
+                    {{ block.settings.title }}
+                  </h3>
+                {%- endif -%}
+              </div>
+
+              <!-- Description -->
+              {%- if block.settings.description != blank -%}
+                <p class="comp-prod-tabs__desc custom_body-text">
+                  {{ block.settings.description }}
+                </p>
+              {%- endif -%}
+
+              <!-- Numbered Features (01, 02, 03) -->
+              <div class="comp-prod-tabs__features">
+                {%- for i in (1..3) -%}
+                  {%- liquid
+                    assign feat_num_key = 'feature_' | append: i | append: '_num'
+                    assign feat_text_key = 'feature_' | append: i | append: '_text'
+                    assign feat_num = block.settings[feat_num_key]
+                    assign feat_text = block.settings[feat_text_key]
+                  -%}
+                  {%- if feat_text != blank -%}
+                    <div class="comp-prod-tabs__feature-row">
+                      <span class="comp-prod-tabs__feature-num custom_subHeading-text">
+                        {{ feat_num }}
+                      </span>
+                      <span class="comp-prod-tabs__feature-text custom_body-text">
+                        {{ feat_text }}
+                      </span>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+
+              <!-- Accordion: View Key Specifications -->
+              {%- if block.settings.enable_specs -%}
+                <div class="comp-prod-tabs__specs-accordion" data-specs-accordion>
+                  <button
+                    type="button"
+                    class="comp-prod-tabs__specs-trigger"
+                    data-specs-trigger
+                    aria-expanded="true"
+                  >
+                    <span class="comp-prod-tabs__specs-trigger-title custom_subHeading-text">
+                      {{ block.settings.specs_title | default: 'VIEW KEY SPECIFICATION' }}
+                    </span>
+                    <span class="comp-prod-tabs__specs-icon" aria-hidden="true">
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <line class="comp-prod-tabs__icon-v" x1="7" y1="0" x2="7" y2="14" stroke="#FFFFFF" stroke-width="2"/>
+                        <line class="comp-prod-tabs__icon-h" x1="0" y1="7" x2="14" y2="7" stroke="#FFFFFF" stroke-width="2"/>
+                      </svg>
+                    </span>
+                  </button>
+
+                  <div class="comp-prod-tabs__specs-drawer" data-specs-drawer>
+                    <div class="comp-prod-tabs__specs-grid">
+                      {%- for j in (1..6) -%}
+                        {%- liquid
+                          assign spec_label_key = 'spec_' | append: j | append: '_label'
+                          assign spec_val_key = 'spec_' | append: j | append: '_val'
+                          assign spec_label = block.settings[spec_label_key]
+                          assign spec_val = block.settings[spec_val_key]
+                        -%}
+                        {%- if spec_label != blank or spec_val != blank -%}
+                          <div class="comp-prod-tabs__spec-item">
+                            <span class="comp-prod-tabs__spec-label custom_subHeading-text">{{ spec_label }}</span>
+                            <span class="comp-prod-tabs__spec-val custom_body-text">{{ spec_val }}</span>
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+
+            </div>
+
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+<style>
+  #{{ section_id }} {
+    position: relative;
+    background-color: var(--cpt-bg);
+    padding-top: clamp(30px, 6vw, var(--cpt-pt, 60px));
+    padding-bottom: clamp(30px, 6vw, var(--cpt-pb, 80px));
+    overflow: hidden;
+    color: #FFFFFF;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 768px) {
+    #{{ section_id }} {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+  }
+
+  #{{ section_id }} .comp-prod-tabs__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 768px) {
+    #{{ section_id }} .comp-prod-tabs__container {
+      padding: 0 40px;
+    }
+  }
+
+  /* Top Navigation Tabs */
+  #{{ section_id }} .comp-prod-tabs__nav-wrap {
+    width: 100%;
+    border-bottom: 1px solid #2C2C2C;
+    margin-bottom: clamp(32px, 4vw, 56px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__nav-wrap.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__nav-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__nav {
+    display: flex;
+    gap: clamp(16px, 2vw, 32px);
+    width: max-content;
+    min-width: 100%;
+    padding-bottom: 1px;
+  }
+
+  @media (min-width: 900px) {
+    #{{ section_id }} .comp-prod-tabs__nav {
+      width: 100%;
+      gap: 0;
+    }
+  }
+
+  #{{ section_id }} .comp-prod-tabs__tab-btn {
+    flex: 0 0 auto;
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 12px clamp(12px, 1.2vw, 20px) 16px;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: border-color 0.25s ease, opacity 0.25s ease;
+    opacity: 0.6;
+    outline: none;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 900px) {
+    #{{ section_id }} .comp-prod-tabs__tab-btn {
+      flex: 1 1 0;
+      min-width: 0;
+      white-space: normal;
+    }
+  }
+
+  #{{ section_id }} .comp-prod-tabs__tab-btn:hover {
+    opacity: 0.9;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__tab-btn.is-active {
+    opacity: 1;
+    border-bottom-color: #0149E3;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__tab-sublabel {
+    font-size: 13px;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #0149E3;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__tab-title {
+    font-size: clamp(15px, 1.2vw, 19px);
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    white-space: nowrap;
+  }
+
+  /* Tab Panels */
+  #{{ section_id }} .comp-prod-tabs__panel {
+    display: none;
+    animation: cptFade 0.35s ease;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__panel.is-active {
+    display: block;
+  }
+
+  @keyframes cptFade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 2-Column Grid Layout */
+  #{{ section_id }} .comp-prod-tabs__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    #{{ section_id }} .comp-prod-tabs__layout {
+      grid-template-columns: minmax(360px, 1fr) minmax(420px, 1fr);
+    }
+  }
+
+  /* Left Media Column */
+  #{{ section_id }} .comp-prod-tabs__media-col {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__image-stage {
+    width: 100%;
+    max-width: 580px;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__placeholder-media {
+    width: 100%;
+    height: 100%;
+    background: #111418;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  /* Right Content Column */
+  #{{ section_id }} .comp-prod-tabs__content-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__heading-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__eyebrow {
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #0149E3;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__title {
+    margin: 0;
+    font-size: clamp(26px, 3.2vw, 42px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__desc {
+    margin: 0;
+    font-size: clamp(14px, 1.05vw, 16px);
+    line-height: 1.5;
+    color: #C0C6CA;
+  }
+
+  /* Numbered Features List */
+  #{{ section_id }} .comp-prod-tabs__features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__feature-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #2C2C2C;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__feature-num {
+    font-size: 17px;
+    line-height: 1;
+    color: #0149E3;
+    flex: 0 0 24px;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__feature-text {
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: 1.4;
+    color: #C0C6CA;
+    flex: 1;
+  }
+
+  /* Accordion Specification */
+  #{{ section_id }} .comp-prod-tabs__specs-accordion {
+    border-top: 1px solid #2C2C2C;
+    border-bottom: 1px solid #2C2C2C;
+    padding: 16px 0;
+    margin-top: 4px;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__specs-trigger {
+    width: 100%;
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+    outline: none;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__specs-trigger-title {
+    font-size: clamp(14px, 1.1vw, 17px);
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__specs-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__icon-v {
+    transition: opacity 0.2s ease, transform 0.25s ease;
+    transform-origin: center;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__specs-accordion.is-open .comp-prod-tabs__icon-v {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  /* Specs Grid 2x3 */
+  #{{ section_id }} .comp-prod-tabs__specs-drawer {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.3s ease, margin-top 0.3s ease;
+    margin-top: 18px;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__specs-accordion:not(.is-open) .comp-prod-tabs__specs-drawer {
+    grid-template-rows: 0fr;
+    margin-top: 0;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__specs-grid {
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px 24px;
+  }
+
+  @media (min-width: 600px) {
+    #{{ section_id }} .comp-prod-tabs__specs-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  #{{ section_id }} .comp-prod-tabs__spec-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #2C2C2C;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__spec-label {
+    font-size: 13px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    color: #C0C6CA;
+    flex: 1;
+  }
+
+  #{{ section_id }} .comp-prod-tabs__spec-val {
+    font-size: 13px;
+    line-height: 1.2;
+    color: #C0C6CA;
+    text-align: right;
+    flex: 1;
+  }
+</style>
+
+<script>
+  (function () {
+    function initProdTabs() {
+      var root = document.getElementById('{{ section_id }}');
+      if (!root || root.dataset.initialized === 'true') return;
+      root.dataset.initialized = 'true';
+
+      var tabButtons = root.querySelectorAll('.comp-prod-tabs__tab-btn');
+      var tabPanels = root.querySelectorAll('.comp-prod-tabs__panel');
+
+      var navWrap = root.querySelector('.comp-prod-tabs__nav-wrap');
+
+      function scrollTabIntoView(btn) {
+        if (!navWrap || !btn) return;
+        var wrapRect = navWrap.getBoundingClientRect();
+        var btnRect = btn.getBoundingClientRect();
+        var offsetLeft = btn.offsetLeft - (navWrap.clientWidth / 2) + (btn.clientWidth / 2);
+        navWrap.scrollTo({
+          left: Math.max(0, offsetLeft),
+          behavior: 'smooth'
+        });
+      }
+
+      function activateTabIndex(index) {
+        tabButtons.forEach(function (b) {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        if (tabButtons[index]) {
+          tabButtons[index].classList.add('is-active');
+          tabButtons[index].setAttribute('aria-selected', 'true');
+          scrollTabIntoView(tabButtons[index]);
+        }
+
+        tabPanels.forEach(function (p) {
+          p.classList.remove('is-active');
+          if (p.getAttribute('data-panel-index') === String(index)) {
+            p.classList.add('is-active');
+          }
+        });
+      }
+
+      // Drag to scroll for mouse users
+      if (navWrap) {
+        var isDown = false;
+        var startX = 0;
+        var scrollLeftPos = 0;
+        var hasDragged = false;
+
+        navWrap.addEventListener('mousedown', function (e) {
+          isDown = true;
+          hasDragged = false;
+          navWrap.classList.add('is-dragging');
+          startX = e.pageX - navWrap.offsetLeft;
+          scrollLeftPos = navWrap.scrollLeft;
+        });
+
+        window.addEventListener('mouseup', function () {
+          if (!isDown) return;
+          isDown = false;
+          navWrap.classList.remove('is-dragging');
+        });
+
+        navWrap.addEventListener('mousemove', function (e) {
+          if (!isDown) return;
+          e.preventDefault();
+          var x = e.pageX - navWrap.offsetLeft;
+          var walk = (x - startX) * 1.5;
+          if (Math.abs(walk) > 4) {
+            hasDragged = true;
+          }
+          navWrap.scrollLeft = scrollLeftPos - walk;
+        });
+      }
+
+      tabButtons.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          if (hasDragged) {
+            e.preventDefault();
+            e.stopPropagation();
+            hasDragged = false;
+            return;
+          }
+          var index = btn.getAttribute('data-tab-index');
+          activateTabIndex(index);
+        });
+      });
+
+      // Handle anchor hash navigation (e.g. #mat, #tab-mat, or custom_tab_id)
+      function handleHashChange() {
+        var hash = window.location.hash ? window.location.hash.substring(1) : '';
+        if (!hash) return;
+
+        tabButtons.forEach(function (btn, idx) {
+          var tabId = btn.getAttribute('data-tab-id');
+          var btnId = btn.id;
+          var panel = tabPanels[idx];
+          var panelId = panel ? panel.id : '';
+
+          if (hash === tabId || hash === btnId || hash === panelId || hash === 'tab-' + tabId) {
+            activateTabIndex(idx);
+            setTimeout(function () {
+              root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+          }
+        });
+      }
+
+      window.addEventListener('hashchange', handleHashChange);
+      handleHashChange();
+
+      // Accordion toggles
+      var accordions = root.querySelectorAll('[data-specs-accordion]');
+      accordions.forEach(function (acc) {
+        var trigger = acc.querySelector('[data-specs-trigger]');
+        if (!trigger) return;
+
+        trigger.addEventListener('click', function () {
+          var isOpen = acc.classList.contains('is-open');
+          if (isOpen) {
+            acc.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+          } else {
+            acc.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initProdTabs);
+    } else {
+      initProdTabs();
+    }
+    document.addEventListener('shopify:section:load', initProdTabs);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Comp Product Tabs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Identification"
+    },
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Custom HTML ID",
+      "info": "Optional custom anchor id"
+    },
+    {
+      "type": "header",
+      "content": "Styling & Padding"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab_item",
+      "name": "Product Tab Item",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Tab Header Button & Anchor"
+        },
+        {
+          "type": "text",
+          "id": "custom_tab_id",
+          "label": "Custom Tab Anchor ID",
+          "info": "e.g. 'hitting-mat' or 'golf-net'. Link to this tab using #hitting-mat or #golf-net"
+        },
+        {
+          "type": "text",
+          "id": "tab_sublabel",
+          "label": "Tab Sublabel (Small Blue)",
+          "default": "Quality Surface"
+        },
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Tab Main Title",
+          "default": "TRU-TURF HITTING MAT"
+        },
+        {
+          "type": "header",
+          "content": "Left: Product Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Showcase Image"
+        },
+        {
+          "type": "header",
+          "content": "Right: Header & Body Text"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Product Eyebrow",
+          "default": "TRU-TURF HITTING MAT"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Product Headline",
+          "default": "EVA TECH FOR REALISTIC TURF FEEL."
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Product Description",
+          "default": "4’x5’ surface to hit every club in the bag. This premium hitting mat features a 15 mm nylon iron strip for realistic turf interaction, a 35 mm Tee Line strip for driver practice, and a 20 mm EVA cushioning layer to absorb impact. Switch between hitting surfaces depending on your club, and when a strip wears out, simply replace it instead of the entire mat."
+        },
+        {
+          "type": "header",
+          "content": "Numbered Feature Rows (01, 02, 03)"
+        },
+        {
+          "type": "text",
+          "id": "feature_1_num",
+          "label": "Feature 1 Number",
+          "default": "01"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_1_text",
+          "label": "Feature 1 Description",
+          "default": "15 mm nylon iron strip and a 35 mm Driver Tee Line"
+        },
+        {
+          "type": "text",
+          "id": "feature_2_num",
+          "label": "Feature 2 Number",
+          "default": "02"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_2_text",
+          "label": "Feature 2 Description",
+          "default": "12 × 24 in replaceable hitting zone: swap the strip, not the mat."
+        },
+        {
+          "type": "text",
+          "id": "feature_3_num",
+          "label": "Feature 3 Number",
+          "default": "03"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_3_text",
+          "label": "Feature 3 Description",
+          "default": "20 mm EVA cushion beneath a 4 × 5 ft PP turf base."
+        },
+        {
+          "type": "header",
+          "content": "Accordion: Key Specifications"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_specs",
+          "label": "Enable Specifications Accordion",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "specs_title",
+          "label": "Accordion Title",
+          "default": "VIEW KEY SPECIFICATION"
+        },
+        {
+          "type": "paragraph",
+          "content": "2x3 Specifications Matrix"
+        },
+        {
+          "type": "text",
+          "id": "spec_1_label",
+          "label": "Spec 1 Label",
+          "default": "Dimensions"
+        },
+        {
+          "type": "text",
+          "id": "spec_1_val",
+          "label": "Spec 1 Value",
+          "default": "4 × 5 ft"
+        },
+        {
+          "type": "text",
+          "id": "spec_2_label",
+          "label": "Spec 2 Label",
+          "default": "Replaceable hitting zone"
+        },
+        {
+          "type": "text",
+          "id": "spec_2_val",
+          "label": "Spec 2 Value",
+          "default": "12 × 24 in"
+        },
+        {
+          "type": "text",
+          "id": "spec_3_label",
+          "label": "Spec 3 Label",
+          "default": "Total base thickness"
+        },
+        {
+          "type": "text",
+          "id": "spec_3_val",
+          "label": "Spec 3 Value",
+          "default": "35 mm"
+        },
+        {
+          "type": "text",
+          "id": "spec_4_label",
+          "label": "Spec 4 Label",
+          "default": "Iron hitting strip"
+        },
+        {
+          "type": "text",
+          "id": "spec_4_val",
+          "label": "Spec 4 Value",
+          "default": "15 mm nylon turf, 10 mm 3D layer, 10 mm NBR rubber"
+        },
+        {
+          "type": "text",
+          "id": "spec_5_label",
+          "label": "Spec 5 Label",
+          "default": "Base construction"
+        },
+        {
+          "type": "text",
+          "id": "spec_5_val",
+          "label": "Spec 5 Value",
+          "default": "15 mm PP turf over 20 mm EVA"
+        },
+        {
+          "type": "text",
+          "id": "spec_6_label",
+          "label": "Spec 6 Label",
+          "default": "Driver hitting strip"
+        },
+        {
+          "type": "text",
+          "id": "spec_6_val",
+          "label": "Spec 6 Value",
+          "default": "35 mm nylon tee line turf"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comp Product Tabs",
+      "blocks": [
+        {
+          "type": "tab_item",
+          "settings": {
+            "tab_sublabel": "Quality Surface",
+            "tab_title": "TRU-TURF HITTING MAT",
+            "eyebrow": "TRU-TURF HITTING MAT",
+            "title": "EVA TECH FOR REALISTIC TURF FEEL.",
+            "description": "4’x5’ surface to hit every club in the bag. This premium hitting mat features a 15 mm nylon iron strip for realistic turf interaction, a 35 mm Tee Line strip for driver practice, and a 20 mm EVA cushioning layer to absorb impact.",
+            "feature_1_num": "01",
+            "feature_1_text": "15 mm nylon iron strip and a 35 mm Driver Tee Line",
+            "feature_2_num": "02",
+            "feature_2_text": "12 × 24 in replaceable hitting zone: swap the strip, not the mat.",
+            "feature_3_num": "03",
+            "feature_3_text": "20 mm EVA cushion beneath a 4 × 5 ft PP turf base."
+          }
+        },
+        {
+          "type": "tab_item",
+          "settings": {
+            "tab_sublabel": "Understand Every Shot",
+            "tab_title": "RAINMAKER LAUNCH MONITOR",
+            "eyebrow": "RAINMAKER LAUNCH MONITOR",
+            "title": "TRACK YOUR DATA WITH PRECISION.",
+            "description": "Track your shot after impact. Rainmaker’s doppler radar captures ball and club data, while direct feedback on the built-in display keeps you dialed in during practice.",
+            "feature_1_num": "01",
+            "feature_1_text": "Doppler radar tracking for ball and club data.",
+            "feature_2_num": "02",
+            "feature_2_text": "4.3 inch color display works without a phone.",
+            "feature_3_num": "03",
+            "feature_3_text": "Bluetooth and Wi-Fi to sync with the GAME app.",
+            "spec_1_label": "Dimensions",
+            "spec_1_val": "6.1 x 3.7 x 1.7 in",
+            "spec_2_label": "Radar technology",
+            "spec_2_val": "24 GHz 3D dual-doppler radar",
+            "spec_3_label": "Display",
+            "spec_3_val": "4.3 inch full-color display",
+            "spec_4_label": "Battery life",
+            "spec_4_val": "Approx. 5 hours",
+            "spec_5_label": "On-device metrics",
+            "spec_5_val": "10 performance metrics",
+            "spec_6_label": "Connectivity",
+            "spec_6_val": "Bluetooth & Wi-Fi sync"
+          }
+        },
+        {
+          "type": "tab_item",
+          "settings": {
+            "tab_sublabel": "Play Anywhere",
+            "tab_title": "PREMIUM GOLF NET",
+            "eyebrow": "PREMIUM GOLF NET",
+            "title": "BUILT TO TAKE EVERY SWING.",
+            "description": "7.5 ft x 7.5 ft hitting area and 3.6 ft depth give you room to work on your swing at home. Drop-and-pop slip-fit connections make assembly quick and straightforward.",
+            "feature_1_num": "01",
+            "feature_1_text": "Impact-absorbing netting.",
+            "feature_2_num": "02",
+            "feature_2_text": "Reinforced five-section frame.",
+            "feature_3_num": "03",
+            "feature_3_text": "Electrostatic powder-coated frame.",
+            "spec_1_label": "Dimensions",
+            "spec_1_val": "7.5 x 7.5 x 3.6 ft",
+            "spec_2_label": "Inside depth",
+            "spec_2_val": "3.6 ft",
+            "spec_3_label": "Frame material",
+            "spec_3_val": "6063 aluminum alloy",
+            "spec_4_label": "Frame construction",
+            "spec_4_val": "5-section push-button slip fit",
+            "spec_5_label": "Netting material",
+            "spec_5_val": "Heavy knotless polyester",
+            "spec_6_label": "Frame finish",
+            "spec_6_val": "Electrostatic powder coat"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

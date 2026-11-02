@@ -1,0 +1,1067 @@
+{%- comment -%}
+  Comp Image Hotspot Showcase Section
+  - Hero image with interactive pulsing hotspot nodes
+  - Smooth scroll-to-far-left for corresponding card on hotspot click
+  - Horizontal cards slider with active state highlight and progress bar indicator
+  - Video play modal / inline preview trigger
+  - Dark theme with gradient background options
+  - Strict BTG typography:
+      H1 / Main Heading -> custom_heading ('Blue Tees Headline Italic')
+      Eyebrow / Subhead -> custom_subHeading-text ('Blue Tees Subhead')
+      Body / Descriptions -> custom_body-text ('Blue Tees Paragraph')
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'comp-hotspot-showcase-' | append: section.id
+  endif
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-hotspot-showcase comp-hotspot-showcase-{{ section.id }}"
+  data-comp-hotspot-showcase
+  style="
+    --chs-pt: {{ section.settings.padding_top | default: 60 }}px;
+    --chs-pb: {{ section.settings.padding_bottom | default: 80 }}px;
+    --chs-bg: {{ section.settings.background_color | default: '#101317' }};
+    {% if section.settings.card_width != blank %}
+      --chs-card-width: {{ section.settings.card_width }}px;
+    {% endif %}
+    {% if section.settings.card_width_mobile != blank %}
+      --chs-card-width-mobile: {{ section.settings.card_width_mobile }}px;
+    {% endif %}
+    {% if section.settings.enable_gradient_bg %}
+      --chs-gradient: {{ section.settings.gradient_bg | default: 'radial-gradient(ellipse 80% 50% at 50% -10%, rgba(35, 42, 53, 0.9) 0%, #101317 100%)' }};
+    {% endif %}
+  "
+>
+  {%- if section.settings.enable_gradient_bg -%}
+    <div class="comp-hotspot-showcase__gradient-overlay" aria-hidden="true"></div>
+  {%- endif -%}
+
+  <div class="comp-hotspot-showcase__inner">
+    <!-- Header: Eyebrow + Main Heading -->
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+      <header class="comp-hotspot-showcase__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="comp-hotspot-showcase__eyebrow custom_subHeading-text">
+            {{ section.settings.eyebrow }}
+          </span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="comp-hotspot-showcase__heading custom_heading">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="comp-hotspot-showcase__subheading custom_body-text">
+            {{ section.settings.subheading }}
+          </p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <!-- Main Image Stage with Hotspots -->
+    <div class="comp-hotspot-showcase__stage-wrapper">
+      <div class="comp-hotspot-showcase__stage" data-hotspot-stage>
+        {%- if section.settings.main_image != blank -%}
+          {{
+            section.settings.main_image
+            | image_url: width: 2400
+            | image_tag:
+              loading: 'lazy',
+              widths: '750, 1100, 1600, 2000, 2400',
+              sizes: '(max-width: 768px) 100vw, 1400px',
+              class: 'comp-hotspot-showcase__main-img',
+              alt: section.settings.heading | default: 'Product Showcase' | escape
+          }}
+        {%- else -%}
+          <!-- High-res BTG Studio Default -->
+          <img
+            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1171278048_2.png?v=1774348073"
+            alt="Product Showcase"
+            loading="lazy"
+            class="comp-hotspot-showcase__main-img"
+          >
+        {%- endif -%}
+
+        <!-- Interactive Hotspot Nodes -->
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign top_pos = block.settings.hotspot_top | default: 50
+            assign left_pos = block.settings.hotspot_left | default: 50
+            if block.settings.enable_mobile_hotspot_position
+              assign top_pos_mobile = block.settings.hotspot_top_mobile | default: top_pos
+              assign left_pos_mobile = block.settings.hotspot_left_mobile | default: left_pos
+            else
+              assign top_pos_mobile = top_pos
+              assign left_pos_mobile = left_pos
+            endif
+          -%}
+          <button
+            type="button"
+            class="comp-hotspot-showcase__pin comp-hotspot-showcase__pin--{{ block.id }}{% if forloop.first %} is-active{% endif %}"
+            style="--chs-pin-top: {{ top_pos }}%; --chs-pin-left: {{ left_pos }}%; --chs-pin-top-mob: {{ top_pos_mobile }}%; --chs-pin-left-mob: {{ left_pos_mobile }}%;"
+            data-hotspot-pin
+            data-index="{{ forloop.index0 }}"
+            data-card-id="card-{{ block.id }}"
+            aria-label="{{ block.settings.title | default: 'Feature Hotspot' | escape }}"
+            {{ block.shopify_attributes }}
+          >
+            <span class="comp-hotspot-showcase__pin-halo">
+              <span class="comp-hotspot-showcase__pin-dot"></span>
+            </span>
+            {%- if block.settings.hotspot_label != blank -%}
+              <span class="comp-hotspot-showcase__pin-label custom_subHeading-text">
+                {{ block.settings.hotspot_label }}
+              </span>
+            {%- endif -%}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- Bottom Slider / Horizontal Track -->
+    <div class="comp-hotspot-showcase__slider-container">
+      <div
+        class="comp-hotspot-showcase__track"
+        data-hotspot-track
+        role="region"
+        aria-label="Product feature cards"
+      >
+        {%- for block in section.blocks -%}
+          {%- assign card_id = 'card-' | append: block.id -%}
+          {% render 'comp-showcase-card',
+            block: block,
+            preview_image: block.settings.preview_image,
+            video: block.settings.video,
+            video_url: block.settings.video_url,
+            product_thumb: block.settings.product_thumb,
+            device_width: block.settings.product_thumb_width,
+            title: block.settings.title,
+            description: block.settings.description,
+            cta_label: block.settings.button_label,
+            cta_url: block.settings.button_link,
+            is_active: forloop.first,
+            card_id: card_id,
+            card_class: 'comp-hotspot-showcase__card',
+            data_card_attr: 'data-hotspot-card',
+            video_data_attr: 'data-hotspot-video',
+            show_mute: false
+          %}
+        {%- endfor -%}
+      </div>
+
+      <!-- Scroll Progress Bar -->
+      <div class="comp-hotspot-showcase__progress" aria-hidden="true">
+        <div class="comp-hotspot-showcase__progress-bar" data-hotspot-progress-bar></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Lightbox Modal -->
+  <div class="comp-hotspot-showcase__modal" data-video-modal aria-hidden="true" role="dialog">
+    <div class="comp-hotspot-showcase__modal-backdrop" data-close-modal></div>
+    <div class="comp-hotspot-showcase__modal-content">
+      <button type="button" class="comp-hotspot-showcase__modal-close" data-close-modal aria-label="Close video">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="comp-hotspot-showcase__modal-video-wrap">
+        <video class="comp-hotspot-showcase__modal-video" data-modal-video playsinline controls></video>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Base Container */
+  #{{ section_id }} {
+    position: relative;
+    background-color: var(--chs-bg);
+    padding-top: clamp(30px, 6vw, var(--chs-pt, 60px));
+    padding-bottom: clamp(30px, 6vw, var(--chs-pb, 80px));
+    overflow: hidden;
+    color: #FFFFFF;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 768px) {
+    #{{ section_id }} {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+  }
+
+  /* Optional Gradient Background */
+  #{{ section_id }} .comp-hotspot-showcase__gradient-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: var(--chs-gradient);
+    opacity: 0.95;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 768px) {
+    #{{ section_id }} .comp-hotspot-showcase__inner {
+      padding: 0 40px;
+    }
+  }
+
+  /* Header */
+  #{{ section_id }} .comp-hotspot-showcase__header {
+    margin-bottom: clamp(24px, 3vw, 40px);
+    max-width: 1000px;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__eyebrow {
+    display: inline-block;
+    color: #3871E0;
+    font-size: clamp(11px, 0.9vw, 13px);
+    line-height: 1.2;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__heading {
+    margin: 0 0 12px 0;
+    font-size: clamp(26px, 3.8vw, 54px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-wrap: balance;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__subheading {
+    margin: 0;
+    font-size: clamp(14px, 1.1vw, 16px);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 700px;
+  }
+
+  /* Main Stage Container */
+  #{{ section_id }} .comp-hotspot-showcase__stage-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: clamp(32px, 4vw, 56px);
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__stage {
+    position: relative;
+    width: 100%;
+    /* border-radius: clamp(12px, 1.2vw, 16px); */
+    overflow: hidden;
+    background: #14171B;
+    /* border: 1px solid rgba(255, 255, 255, 0.08); */
+    /* box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7); */
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 720px;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Hotspot Pin with Radar Pulse */
+  #{{ section_id }} .comp-hotspot-showcase__pin {
+    position: absolute;
+    top: var(--chs-pin-top);
+    left: var(--chs-pin-left);
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    outline: none;
+    touch-action: manipulation;
+    transition: transform 0.25s ease;
+  }
+
+  @media screen and (max-width: 768px) {
+    #{{ section_id }} .comp-hotspot-showcase__pin {
+      top: var(--chs-pin-top-mob);
+      left: var(--chs-pin-left-mob);
+    }
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__pin-halo {
+    position: relative;
+    width: clamp(30px, 2.5vw, 36px);
+    height: clamp(30px, 2.5vw, 36px);
+    border-radius: 50%;
+    background: rgba(196, 255, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+    animation: chsHotspotPulse 2.2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes chsHotspotPulse {
+    0% {
+      transform: scale(0.92);
+      box-shadow: 0 0 0 0 rgba(196, 255, 0, 0.5);
+    }
+    70% {
+      transform: scale(1.08);
+      box-shadow: 0 0 0 14px rgba(196, 255, 0, 0);
+    }
+    100% {
+      transform: scale(0.92);
+      box-shadow: 0 0 0 0 rgba(196, 255, 0, 0);
+    }
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__pin-dot {
+    width: clamp(12px, 1vw, 14px);
+    height: clamp(12px, 1vw, 14px);
+    border-radius: 50%;
+    background: #C4FF00;
+    box-shadow: 0 0 8px rgba(196, 255, 0, 0.9);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__pin:hover .comp-hotspot-showcase__pin-halo,
+  #{{ section_id }} .comp-hotspot-showcase__pin.is-active .comp-hotspot-showcase__pin-halo {
+    background: rgba(196, 255, 0, 0.45);
+    transform: scale(1.15);
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__pin.is-active .comp-hotspot-showcase__pin-dot {
+    transform: scale(1.15);
+    background: #FFFFFF;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__pin-label {
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background: rgba(16, 24, 32, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transform: translateX(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__pin:hover .comp-hotspot-showcase__pin-label,
+  #{{ section_id }} .comp-hotspot-showcase__pin.is-active .comp-hotspot-showcase__pin-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Bottom Slider Container */
+  #{{ section_id }} .comp-hotspot-showcase__slider-container {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Horizontal Slider Track */
+  #{{ section_id }} .comp-hotspot-showcase__track {
+    display: flex;
+    gap: clamp(14px, 1.6vw, 20px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 24px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Card Item */
+  #{{ section_id }} .comp-hotspot-showcase__card {
+    flex: 0 0 var(--chs-card-width, clamp(290px, 32vw, 380px));
+    width: var(--chs-card-width, auto);
+    scroll-snap-align: start;
+    border-radius: clamp(10px, 0.8vw, 12px);
+    background: #1B2129;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  @media screen and (max-width: 768px) {
+    #{{ section_id }} .comp-hotspot-showcase__card {
+      flex: 0 0 var(--chs-card-width-mobile, var(--chs-card-width, 290px));
+      width: var(--chs-card-width-mobile, var(--chs-card-width, 290px));
+    }
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card.is-active {
+    border-color: rgba(196, 255, 0, 0.6);
+    /* box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(196, 255, 0, 0.3); */
+  }
+
+  /* Card Top Media Stage */
+  #{{ section_id }} .comp-hotspot-showcase__card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #111418;
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card-img,
+  #{{ section_id }} .comp-hotspot-showcase__card-video-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card:hover .comp-hotspot-showcase__card-img {
+    transform: scale(1.03);
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1C232B 0%, #111418 100%);
+  }
+
+  /* Play Button */
+  #{{ section_id }} .comp-hotspot-showcase__play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__play-icon {
+    width: clamp(40px, 3.5vw, 48px);
+    height: clamp(40px, 3.5vw, 48px);
+  }
+
+  /* Card Bottom: Product Info Tile */
+  #{{ section_id }} .comp-hotspot-showcase__card-body {
+    padding: clamp(14px, 1.4vw, 18px);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: #232A35;
+    flex: 1;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card-thumb-wrap {
+    flex: 0 0 clamp(64px, 5.5vw, 84px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card-thumb {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card-title {
+    margin: 0;
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card-desc {
+    margin: 0;
+    font-size: clamp(11px, 0.75vw, 12px);
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.75);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card-cta {
+    margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #C4FF00;
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: gap 0.2s ease, opacity 0.2s ease;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__card-cta:hover {
+    gap: 8px;
+    opacity: 0.85;
+  }
+
+  /* Progress Bar */
+  #{{ section_id }} .comp-hotspot-showcase__progress {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__progress-bar {
+    width: 33.333%;
+    height: 100%;
+    background: #FFFFFF;
+    transition: transform 0.15s ease-out, width 0.3s ease;
+    transform-origin: left center;
+  }
+
+  /* Video Lightbox Modal */
+  #{{ section_id }} .comp-hotspot-showcase__modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__modal.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__modal-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 900px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000000;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    appearance: none;
+    border: none;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__modal-video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  #{{ section_id }} .comp-hotspot-showcase__modal-video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+  }
+</style>
+
+<script>
+  (function () {
+    function initHotspotShowcase() {
+      var root = document.getElementById('{{ section_id }}');
+      if (!root || root.dataset.initialized === 'true') return;
+      root.dataset.initialized = 'true';
+
+      var track = root.querySelector('[data-hotspot-track]');
+      var pins = root.querySelectorAll('[data-hotspot-pin]');
+      var cards = root.querySelectorAll('[data-hotspot-card]');
+      var progressBar = root.querySelector('[data-hotspot-progress-bar]');
+      var modal = root.querySelector('[data-video-modal]');
+      var modalVideo = root.querySelector('[data-modal-video]');
+      var closeBtns = root.querySelectorAll('[data-close-modal]');
+      var playBtns = root.querySelectorAll('[data-play-video]');
+
+      // Initial progress bar calculation
+      function updateProgress() {
+        if (!track || !progressBar) return;
+        var maxScroll = track.scrollWidth - track.clientWidth;
+        if (maxScroll <= 0) {
+          progressBar.style.width = '100%';
+          progressBar.style.transform = 'translateX(0)';
+          return;
+        }
+        var ratio = track.scrollLeft / maxScroll;
+        var barWidthPct = Math.max(15, (track.clientWidth / track.scrollWidth) * 100);
+        progressBar.style.width = barWidthPct + '%';
+        var travelDist = 100 - barWidthPct;
+        progressBar.style.transform = 'translateX(' + (ratio * (travelDist / barWidthPct) * 100) + '%)';
+      }
+
+      if (track) {
+        track.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('resize', updateProgress, { passive: true });
+        updateProgress();
+      }
+
+      function activateCard(card) {
+        if (!card) return;
+        cards.forEach(function (c) {
+          c.classList.remove('is-active');
+          var v = c.querySelector('video');
+          if (v && v !== modalVideo) {
+            v.pause();
+          }
+        });
+        card.classList.add('is-active');
+        var activeVideo = card.querySelector('video');
+        if (activeVideo && activeVideo !== modalVideo) {
+          if (!activeVideo.src && activeVideo.dataset.src) {
+            activeVideo.src = activeVideo.dataset.src;
+          }
+          activeVideo.play().catch(function () {});
+        }
+      }
+
+      // Hotspot click -> scroll target card to far left
+      pins.forEach(function (pin) {
+        pin.addEventListener('click', function () {
+          var targetId = pin.getAttribute('data-card-id');
+          var card = root.querySelector('#' + targetId);
+          if (!card || !track) return;
+
+          // Set active pin
+          pins.forEach(function (p) { p.classList.remove('is-active'); });
+          pin.classList.add('is-active');
+
+          // Set active card & play video
+          activateCard(card);
+
+          // Scroll card to far left of track container
+          var cardOffsetLeft = card.offsetLeft - track.offsetLeft;
+          track.scrollTo({
+            left: cardOffsetLeft,
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // Card click -> sync active pin & play video
+      cards.forEach(function (card, idx) {
+        card.addEventListener('click', function (e) {
+          if (e.target.closest('[data-play-video]') || e.target.closest('a')) return;
+          activateCard(card);
+
+          if (pins[idx]) {
+            pins.forEach(function (p) { p.classList.remove('is-active'); });
+            pins[idx].classList.add('is-active');
+          }
+        });
+      });
+
+      // Video Modal Open
+      playBtns.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var videoSrc = btn.getAttribute('data-video-src');
+          if (!videoSrc || !modal || !modalVideo) return;
+
+          modalVideo.src = videoSrc;
+          modal.classList.add('is-open');
+          modal.setAttribute('aria-hidden', 'false');
+          modalVideo.play().catch(function () {});
+        });
+      });
+
+      // Video Modal Close
+      function closeModal() {
+        if (!modal || !modalVideo) return;
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+        modalVideo.src = '';
+      }
+
+      closeBtns.forEach(function (btn) {
+        btn.addEventListener('click', closeModal);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
+          closeModal();
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHotspotShowcase);
+    } else {
+      initHotspotShowcase();
+    }
+    document.addEventListener('shopify:section:load', initHotspotShowcase);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Comp Hotspot Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Identification"
+    },
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Custom HTML ID",
+      "info": "Optional custom anchor id for linking"
+    },
+    {
+      "type": "header",
+      "content": "Header Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "THE PRODUCTS"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "THREE ESSENTIALS.<br>ONE ULTIMATE HOME RANGE."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading Text"
+    },
+    {
+      "type": "header",
+      "content": "Showcase Main Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Room / Range Image",
+      "info": "High resolution room image showing products with space for hotspot pins"
+    },
+    {
+      "type": "header",
+      "content": "Background & Styling"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#101317"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient_bg",
+      "label": "Enable Gradient Background Overlay",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "gradient_bg",
+      "label": "Custom CSS Gradient",
+      "default": "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(35, 42, 53, 0.9) 0%, #101317 100%)",
+      "info": "Radial or linear gradient CSS string"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "label": "Cards Width (px)",
+      "min": 260,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 360
+    },
+    {
+      "type": "range",
+      "id": "card_width_mobile",
+      "label": "Cards Width Mobile (px)",
+      "min": 220,
+      "max": 420,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot_card",
+      "name": "Hotspot & Product Card",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Hotspot Pin Positioning"
+        },
+        {
+          "type": "range",
+          "id": "hotspot_top",
+          "label": "Hotspot Top Position (%)",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "hotspot_left",
+          "label": "Hotspot Left Position (%)",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "default": 50
+        },
+        {
+          "type": "header",
+          "content": "Hotspot Mobile Pin Positioning"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_mobile_hotspot_position",
+          "label": "Enable Custom Mobile Hotspot Position",
+          "default": false,
+          "info": "Turn on to set a custom hotspot position on mobile for this product"
+        },
+        {
+          "type": "range",
+          "id": "hotspot_top_mobile",
+          "label": "Hotspot Top Position (Mobile %)",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "default": 50,
+          "visible_if": "{{ block.settings.enable_mobile_hotspot_position }}"
+        },
+        {
+          "type": "range",
+          "id": "hotspot_left_mobile",
+          "label": "Hotspot Left Position (Mobile %)",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "default": 50,
+          "visible_if": "{{ block.settings.enable_mobile_hotspot_position }}"
+        },
+        {
+          "type": "text",
+          "id": "hotspot_label",
+          "label": "Hotspot Hover Tag",
+          "info": "Optional tooltip label on hover"
+        },
+        {
+          "type": "header",
+          "content": "Card Media (Top Half)"
+        },
+        {
+          "type": "image_picker",
+          "id": "preview_image",
+          "label": "Card Media Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Shopify Hosted Video"
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "External Video URL (.mp4)"
+        },
+        {
+          "type": "header",
+          "content": "Card Product Info (Bottom Half)"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_thumb",
+          "label": "Small Product Thumbnail"
+        },
+        {
+          "type": "range",
+          "id": "product_thumb_width",
+          "label": "Product Thumbnail Width (px)",
+          "min": 50,
+          "max": 250,
+          "step": 2,
+          "unit": "px",
+          "default": 130
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product Title",
+          "default": "RAINMAKER"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Short Product Description",
+          "default": "Portable launch monitor that delivers real-time swing and ball-flight data wherever you practice, from the driving range and course, to your backyard or home simulator."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "CTA Link Text",
+          "default": "LEARN MORE"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "CTA Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comp Hotspot Showcase",
+      "blocks": [
+        {
+          "type": "hotspot_card",
+          "settings": {
+            "title": "TRU TURF 4'X5' MAT",
+            "description": "Layered nylon iron strip, Tee Line driver strip and a 20 mm EVA cushion. Replace the strip, not the mat.",
+            "hotspot_top": 72,
+            "hotspot_left": 55,
+            "hotspot_label": "TRU TURF MAT"
+          }
+        },
+        {
+          "type": "hotspot_card",
+          "settings": {
+            "title": "RAINMAKER",
+            "description": "Portable launch monitor that delivers real-time swing and ball-flight data wherever you practice, from the driving range and course, to your backyard or home simulator.",
+            "hotspot_top": 80,
+            "hotspot_left": 32,
+            "hotspot_label": "RAINMAKER"
+          }
+        },
+        {
+          "type": "hotspot_card",
+          "settings": {
+            "title": "ALUMINUM PRACTICE NET",
+            "description": "6063 aluminum frame with durable netting. Quick tool-free setup in under 5 minutes, built for indoor or outdoor use.",
+            "hotspot_top": 35,
+            "hotspot_left": 68,
+            "hotspot_label": "PRACTICE NET"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

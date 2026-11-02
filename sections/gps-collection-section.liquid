@@ -1,4 +1,5 @@
-{%- liquid
+           
+{% liquid
   assign selected_handle = section.settings.featured_collection
 
   if selected_handle != blank
@@ -6,10 +7,16 @@
     # Extra safety: if selected collection no longer exists or is unavailable
     unless display_collection.handle
       assign display_collection = collection
+      if display_collection == blank
+        assign display_collection = collections['all']
+      endif
     endunless
   else
     # No collection selected → fallback to current collection (backend/URL)
     assign display_collection = collection
+    if display_collection == blank
+      assign display_collection = collections['all']
+    endif
   endif
 
   assign current_filter_size = 0
@@ -18,13 +25,21 @@
   for filter in display_collection.filters
     assign current_filter_size = current_filter_size | plus: filter.active_values.size
   endfor
--%}
+
+  assign schema_start_pos = section.settings.schema_starting_position | default: 1
+%}
+ {% render 'schema-collection-itemlist',
+              target_collection: display_collection,
+              target_products: display_collection.products,
+              starting_position: schema_start_pos
+            %}
 
 <div
   class="collection-content collection-content__new"
   data-section-id="{{ section.id }}"
   data-section-type="collection-grid"
 >
+
   <div id="CollectionAjaxContent">
     <div class="page-width new-page-width">
       {%- if selected_handle == blank -%}
@@ -46,12 +61,18 @@
 
         <div class="grid__item medium-up--four-fifths grid__item--content">
           {%- liquid
+            assign has_product_grid = false
             for block in section.blocks
               case block.type
                 when 'product_grid'
+                  assign has_product_grid = true
                   assign paginate_by = block.settings.per_row | times: block.settings.rows_per_page
               endcase
             endfor
+
+            unless has_product_grid
+              assign paginate_by = 21
+            endunless
 
             assign video_blocks = section.blocks | where: 'type', 'video'
           -%}
@@ -97,6 +118,25 @@
                 {%- endcase -%}
               {% comment %} </div> {% endcomment %}
             {%- endfor -%}
+            {%- unless has_product_grid -%}
+              <div data-scroll-to>
+                {% render 'new-collection-grid',
+                  collection: display_collection,
+                  items: display_collection.products,
+                  enable_sidebar: section.settings.enable_sidebar,
+                  filter_style: section.settings.filter_style,
+                  enable_sort: section.settings.enable_sort,
+                  enable_collection_count: false,
+                  per_row: 3,
+                  mobile_flush_grid: false,
+                  quick_shop_enable: settings.quick_shop_enable,
+                  video_blocks: video_blocks
+                %}
+                {%- if paginate.pages > 1 -%}
+                  {%- render 'pagination', paginate: paginate -%}
+                {%- endif -%}
+              </div>
+            {%- endunless -%}
             {% if section.settings.accURL != blank %}
               <div class="collection-footer">
                 <div class="collection-footer_container new-page-width">
@@ -155,7 +195,7 @@
 
 {% endstyle %}
 
-<script type="application/ld+json">
+{% comment %} <script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "CollectionPage",
@@ -164,7 +204,7 @@
     {% endif %}
     "name": {{ display_collection.title | json }}
   }
-</script>
+</script> {% endcomment %}
 
 {% schema %}
 {
@@ -237,6 +277,13 @@
       "type": "collection",
       "id": "accURL",
       "label": "Select Collection"
+    },
+    {
+      "type": "number",
+      "id": "schema_starting_position",
+      "label": "Schema Starting Position",
+      "default": 1,
+      "info": "Start numbering at this index for SEO ItemList position (e.g. 4 for second collection on page)"
     }
   ],
   "blocks": [

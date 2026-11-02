@@ -7018,12 +7018,41 @@
         "type": "image-with-text-new",
         "settings": {
           "containerTrue": false,
-          "backgroundImage": "shopify://shop_images/Frame_1000012104_3bce699f-4f52-44f3-b899-7b9bbe3ff742.png",
-          "backgroundImageMobile": "shopify://shop_images/Rainmaker_-_mobile_banner.png",
+          "backgroundImage": "shopify://shop_images/Frame_1000012105.webp",
+          "backgroundImageMobile": "shopify://shop_images/Frame_1410105657.png",
           "contentQuote": "RAINMAKER",
           "contentCaption": "INDOOR/OUTDOOR PORTABLE LAUNCH MONITOR",
           "ctaText": "SHOP NOW",
           "ctaUrl": "shopify://products/rainmaker"
+        }
+      },
+      "gps-collection-section": {
+        "type": "gps-collection-section",
+        "blocks": {
+          "video_93crWc": {
+            "type": "video",
+            "settings": {
+              "video": "shopify://files/videos/Rainmaker Bundle Pdp 16X9.mp4",
+              "card_size": "small",
+              "selectIndex": "2",
+              "playText": ""
+            }
+          }
+        },
+        "block_order": [
+          "video_93crWc"
+        ],
+        "settings": {
+          "featured_collection": "black-friday-collection",
+          "collectionHeading": "SHOP EXCLUSIVE DEALS",
+          "hide_title": false,
+          "enable_sidebar": false,
+          "collapsed": false,
+          "filter_style": "sidebar",
+          "enable_color_swatches": false,
+          "enable_sort": false,
+          "accURL": "",
+          "schema_starting_position": 1
         }
       }
     },

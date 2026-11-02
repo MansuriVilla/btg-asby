@@ -39,20 +39,18 @@
         {% assign t_index = t_index | plus: 1 %}
         {% assign b_title_down = b.settings.title | downcase %}
         <div class="comp-pdp-tabs__panel" role="tabpanel" id="panel-{{ tabs_uid }}-{{ t_index }}" aria-labelledby="tab-{{ tabs_uid }}-{{ t_index }}" hidden {{ b.shopify_attributes }}>
+          {% assign tab_rendered = '' %}
           {% if b_title_down contains 'feature' %}
-            {% render 'pdp-feature-content', product: product %}
-          {% elsif b_title_down contains 'included' and b.settings.content contains 'Add what' %}
-            {% render 'pdp-whats-included', product: product %}
-          {% elsif b_title_down contains 'manual' and b.settings.content contains 'Add the manual' %}
-            {% render 'pdp-user-manual', product: product %}
-          {% elsif b_title_down contains 'manual' and b.settings.content contains 'user-manual-tab' %}
-            {% render 'pdp-user-manual', product: product %}
-          {% elsif b_title_down contains 'feature' and b.settings.content == blank %}
-            {% render 'pdp-feature-content', product: product %}
-          {% elsif b_title_down contains 'included' and b.settings.content == blank %}
-            {% render 'pdp-whats-included', product: product %}
-          {% elsif b_title_down contains 'manual' and b.settings.content == blank %}
-            {% render 'pdp-user-manual', product: product %}
+            {% capture tab_rendered %}{% render 'pdp-feature-content', product: product %}{% endcapture %}
+          {% elsif b_title_down contains 'included' %}
+            {% capture tab_rendered %}{% render 'pdp-whats-included', product: product %}{% endcapture %}
+          {% elsif b_title_down contains 'manual' %}
+            {% capture tab_rendered %}{% render 'pdp-user-manual', product: product %}{% endcapture %}
+          {% endif %}
+
+          {% assign stripped_rendered = tab_rendered | strip_newlines | replace: ' ', '' %}
+          {% if stripped_rendered != blank and stripped_rendered != '<divclass="pdp-feature-content"></div>' and stripped_rendered != '<divclass="pdp-whats-included-content"></div>' and stripped_rendered != '<divclass="pdp-manuals-list"></div>' %}
+            {{ tab_rendered }}
           {% else %}
             {{ b.settings.content }}
             {{ b.settings.page.content }}
@@ -77,6 +75,7 @@
     height: 43px;
     border-bottom: 1px solid #D9D9D9;
     overflow-x: auto;
+    overflow-y: hidden;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
@@ -112,10 +111,13 @@
     left: 4px;
     right: 4px;
     bottom: -1px;
-    height: 4px;
+    height: 5px;
     background: #004DF5;
     border-radius: 100px 100px 0 0;
   }
+  .comp-pdp-tabs__tab:hover {
+  color: #000;
+}
   .comp-pdp-tabs__panel {
     font-family: 'Blue Tees Paragraph', sans-serif;
     font-size: clamp(12px, 1vw, 14px);

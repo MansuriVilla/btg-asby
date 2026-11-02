@@ -8,7 +8,10 @@
 
 {% if product != blank %}
   {% liquid
-    assign v = product.selected_or_first_available_variant
+    if product.title == blank and product != blank
+      assign product = all_products[product]
+    endif
+    assign v = product.selected_or_first_available_variant | default: product.variants.first
     assign m_id = modal_id | default: product.id
   %}
 
@@ -180,7 +183,7 @@
           <h3 class="comp-prod-modal__specs-title">Specifications</h3>
           <p class="comp-prod-modal__specs-desc">
             {% if handle contains 'case' %}
-              Compatible with Player & Player+
+              Compatible with Player Pro
             {% elsif handle contains 'towel' %}
               Dimensions: 17" x 17" • Heavy-duty magnet
             {% elsif handle contains 'hub' %}

@@ -20,6 +20,22 @@
   <div class="comp-faq-accordion" id="comp-accordion-{{ s_id }}" role="presentation">
     {{ content }}
   </div>
+
+  {% if enable_load_more %}
+    <div class="comp-faq-load-more-wrap" id="comp-faq-load-more-wrap-{{ s_id }}" style="display: none;">
+      <button
+        type="button"
+        class="comp-faq-load-more-btn custom_subHeading-text"
+        id="comp-faq-load-more-btn-{{ s_id }}"
+        aria-label="Load more frequently asked questions"
+      >
+        <span>{{ load_more_text | default: 'LOAD MORE QUESTIONS' }}</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  {% endif %}
 </div>
 
 <style>
@@ -124,11 +140,62 @@
   }
 
   .comp-faq-item__text p {
+    padding-top: 0;
     margin: 0 0 clamp(0.5rem, 0.35rem + 0.3vw, 0.75rem) 0;
   }
 
   .comp-faq-item__text p:last-child {
     margin-bottom: 0;
+  }
+
+  .comp-faq-item.is-paged-hidden {
+    display: none !important;
+  }
+
+  /* Load More Button */
+  .comp-faq-load-more-wrap {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .comp-faq-load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: transparent;
+    border: 1.5px solid #0f172a;
+    border-radius: 100px;
+    color: #0f172a;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .comp-faq-load-more-btn:hover {
+    background: #0f172a;
+    color: #ffffff;
+  }
+
+  .comp-faq-load-more-btn svg {
+    transition: transform 0.25s ease;
+  }
+
+  .comp-faq-load-more-btn:hover svg {
+    transform: translateY(2px);
+  }
+
+  .comp-faq-load-more-btn.is-expanded svg {
+    transform: rotate(180deg);
+  }
+
+  .comp-faq-load-more-btn.is-expanded:hover svg {
+    transform: rotate(180deg) translateY(2px);
   }
 </style>
 
@@ -138,9 +205,92 @@
       const container = document.getElementById('comp-accordion-{{ s_id }}');
       const announcer = document.getElementById('comp-sr-{{ s_id }}');
       const tabsNav = document.getElementById('comp-tabs-{{ s_id }}');
+      const loadMoreWrap = document.getElementById('comp-faq-load-more-wrap-{{ s_id }}');
+      const loadMoreBtn = document.getElementById('comp-faq-load-more-btn-{{ s_id }}');
+      const enableLoadMore = {{ enable_load_more | default: false | json }};
+      const PAGE_LIMIT = 5;
+      let isExpanded = false;
+
       if (!container) return;
 
       const items = Array.from(container.querySelectorAll('.comp-faq-item'));
+
+      // Helper to handle load more pagination
+      function applyPagination(visibleItems, animateReveal) {
+        if (!enableLoadMore) {
+          if (loadMoreWrap) loadMoreWrap.style.display = 'none';
+          return;
+        }
+
+        if (visibleItems.length <= PAGE_LIMIT) {
+          visibleItems.forEach(function(item) {
+            item.classList.remove('is-paged-hidden');
+          });
+          if (loadMoreWrap) loadMoreWrap.style.display = 'none';
+          return;
+        }
+
+        if (loadMoreWrap) loadMoreWrap.style.display = 'flex';
+        const labelSpan = loadMoreBtn ? loadMoreBtn.querySelector('span') : null;
+
+        if (isExpanded) {
+          if (loadMoreBtn) loadMoreBtn.classList.add('is-expanded');
+          if (labelSpan) labelSpan.textContent = 'SHOW LESS';
+          const newlyShown = [];
+          visibleItems.forEach(function(item, idx) {
+            if (idx >= PAGE_LIMIT && item.classList.contains('is-paged-hidden')) {
+              newlyShown.push(item);
+            }
+            item.classList.remove('is-paged-hidden');
+          });
+
+          if (animateReveal && newlyShown.length > 0) {
+            if (typeof gsap !== 'undefined') {
+              gsap.fromTo(
+                newlyShown,
+                { opacity: 0, y: 16 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.35,
+                  stagger: 0.05,
+                  ease: 'power2.out',
+                  clearProps: 'transform,opacity'
+                }
+              );
+            }
+          }
+        } else {
+          if (loadMoreBtn) loadMoreBtn.classList.remove('is-expanded');
+          if (labelSpan) labelSpan.textContent = {{ load_more_text | default: 'LOAD MORE QUESTIONS' | json }};
+          visibleItems.forEach(function(item, idx) {
+            if (idx >= PAGE_LIMIT) {
+              item.classList.add('is-paged-hidden');
+              item.classList.remove('is-open');
+              const hdr = item.querySelector('.comp-faq-item__header');
+              const icn = item.querySelector('.comp-faq-icon');
+              if (hdr) hdr.setAttribute('aria-expanded', 'false');
+              if (icn) icn.classList.remove('is-open');
+            } else {
+              item.classList.remove('is-paged-hidden');
+            }
+          });
+        }
+      }
+
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+          isExpanded = !isExpanded;
+          // Find currently active visible items
+          const visibleItems = items.filter(function(item) {
+            return !item.classList.contains('is-hidden');
+          });
+          applyPagination(visibleItems, true);
+          if (!isExpanded && container) {
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        });
+      }
 
       // Accordion click expand / collapse
       items.forEach(function(item) {
@@ -233,6 +383,10 @@
             announcer.textContent = 'Showing ' + visibleItems.length + ' questions for ' + tabLabel + '.';
           }
 
+          // Reset pagination state on tab switch
+          isExpanded = false;
+          applyPagination(visibleItems, false);
+
           // If initial load or GSAP missing, skip animation
           if (isInitial || typeof gsap === 'undefined' || visibleItems.length === 0) {
             return;
@@ -304,6 +458,19 @@
         if (initialActive) {
           switchTab(initialActive, true);
         }
+      } else {
+        // No category tabs: show all FAQs normally
+        items.forEach(function(item, idx) {
+          item.classList.remove('is-hidden');
+          const isInitiallyOpen = (idx === 0) || item.classList.contains('is-open');
+          item.classList.toggle('is-open', isInitiallyOpen);
+          const hdr = item.querySelector('.comp-faq-item__header');
+          const icn = item.querySelector('.comp-faq-icon');
+          if (hdr) hdr.setAttribute('aria-expanded', isInitiallyOpen ? 'true' : 'false');
+          if (icn) icn.classList.toggle('is-open', isInitiallyOpen);
+        });
+        isExpanded = false;
+        applyPagination(items, false);
       }
     }
 

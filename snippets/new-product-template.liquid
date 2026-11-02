@@ -484,6 +484,8 @@
                       </div> 
                  
                     </div>
+                  {%- when 'bundle_callout' -%}
+                    {%- render 'comp-pdp-bundle-callout', block: block -%}
                   {%- when 'buy_buttons' -%}
                     {% if hide_upsell %}
                       {% unless product.handle contains 'hat' %}

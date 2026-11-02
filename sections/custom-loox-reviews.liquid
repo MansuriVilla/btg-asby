@@ -36,13 +36,12 @@
 
       <div class="custom-loox-reviews__header-actions">
         {%- assign rev_write_text = section.settings.write_review_text | default: 'WRITE A REVIEW' -%}
-        {%- assign rev_write_url = product.url | append: '?ref=review' -%}
         {% render 'cta-button',
           text: rev_write_text,
-          url: rev_write_url,
-          type: 'link',
+          type: 'button',
           variant: 'outline',
-          class: 'custom-loox-reviews__btn--write'
+          class: 'custom-loox-reviews__btn--write',
+          attributes: 'data-action="write-review"'
         %}
       </div>
     </header>
@@ -500,14 +499,15 @@
 
     // Handle Write a Review button
     if (writeBtn) {
-      writeBtn.addEventListener('click', function () {
+      writeBtn.addEventListener('click', function (event) {
+        event.preventDefault();
         if (writeUrl) {
           window.open(writeUrl, '_blank');
           return;
         }
-        // Fallback: loox modal if present on page
-        if (window.LOOX && typeof window.LOOX.openReviewFormModal === 'function') {
-          window.LOOX.openReviewFormModal({ productId: productId });
+        // Open Loox's review form pop-up on this page
+        if (window.LOOX && typeof window.LOOX.showReviewForm === 'function') {
+          window.LOOX.showReviewForm(productId);
         } else {
           alert('Reviews form is loading or not available.');
         }
@@ -522,8 +522,8 @@
     // Icons SVGs
     const STAR_SVG = `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
     const VERIFIED_CHECK = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`;
-    const TWITTER_X_SVG = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`;
-    const INSTAGRAM_SVG = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>`;
+    // const TWITTER_X_SVG = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`;
+    // const INSTAGRAM_SVG = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5 8C10.5 9.38071 9.38071 10.5 8 10.5C6.61929 10.5 5.5 9.38071 5.5 8C5.5 6.61929 6.61929 5.5 8 5.5C9.38071 5.5 10.5 6.61929 10.5 8Z" stroke-width="2" stroke-miterlimit="10" stroke="white"/><path d="M5 2H11C12.6569 2 14 3.34315 14 5V11C14 12.6569 12.6569 14 11 14H5C3.34315 14 2 12.6569 2 11V5C2 3.34315 3.34315 2 5 2Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="white"/><path d="M11.25 5.5C11.6642 5.5 12 5.16421 12 4.75C12 4.33579 11.6642 4 11.25 4C10.8358 4 10.5 4.33579 10.5 4.75C10.5 5.16421 10.8358 5.5 11.25 5.5Z" fill="white"/></svg>`;
 
     // Normalize review from Loox storefront API
     function normalizeReview(rev) {
@@ -607,7 +607,6 @@
                 </span>
                 ${author}
               </span>
-              <span class="clr-social-icon--circle" aria-label="Instagram">${INSTAGRAM_SVG}</span>
             </div>
           </div>
           ${text ? `
@@ -628,7 +627,6 @@
               <span class="clr-pill-user__avatar">${initials}</span>
               ${author}
             </span>
-            <span class="clr-social-icon">${TWITTER_X_SVG}</span>
           </div>
           <p class="clr-card__text custom_body-text">${text || 'Incredible experience on the course with this device!'}</p>
         `;

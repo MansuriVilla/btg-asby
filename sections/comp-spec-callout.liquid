@@ -1,0 +1,765 @@
+{%- comment -%}
+  Comp Product Spec Callout Section (Premium Golf Net / Product Feature Showcase)
+  - Desktop: Centered hero product image with 4 interactive spec callouts with leader lines & blue hotspot dots
+  - Mobile: Swipeable/scrollable carousel with active indicator bar
+  - Top Left: Eyebrow + Big Italic Title
+  - Top Right: Subhead + Body paragraph + 3 Badges (15 MIN SETUP, 1 PERSON, 0 TOOLS)
+  - Fonts:
+  custom_heading ('Blue Tees Headline Italic')
+  custom_subHeading-text ('Blue Tees Subhead')
+  custom_body-text ('Blue Tees Paragraph')
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'comp-spec-callout-' | append: section.id
+  endif
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-spec-callout comp-spec-callout-{{ section.id }}"
+  data-comp-spec-callout
+  style="
+    --css-pt: {{ section.settings.padding_top | default: 70 }}px;
+    --css-pb: {{ section.settings.padding_bottom | default: 80 }}px;
+    --css-bg: {{ section.settings.background_color | default: '#FFFFFF' }};
+  ">
+  <div class="comp-spec-callout__container">
+
+    <!-- Top Header Row -->
+    <div class="comp-spec-callout__header-row">
+
+      <!-- Left Column: Eyebrow + Main Title -->
+      <div class="comp-spec-callout__title-group">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="comp-spec-callout__eyebrow custom_subHeading-text">
+            {{ section.settings.eyebrow }}
+          </span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="comp-spec-callout__heading custom_heading">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+      </div>
+
+      <!-- Right Column: Subtitle + Paragraph + Badges -->
+      <div class="comp-spec-callout__value-lead">
+        {%- if section.settings.subtitle != blank -%}
+          <h3 class="comp-spec-callout__subtitle custom_subHeading-text">
+            {{ section.settings.subtitle }}
+          </h3>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="comp-spec-callout__desc custom_body-text">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+
+        <!-- Setup Badges -->
+        <div class="comp-spec-callout__badges">
+          {%- if section.settings.badge_1 != blank -%}
+            <span class="comp-spec-callout__badge custom_subHeading-text">{{ section.settings.badge_1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.badge_2 != blank -%}
+            <span class="comp-spec-callout__badge custom_subHeading-text">{{ section.settings.badge_2 }}</span>
+          {%- endif -%}
+          {%- if section.settings.badge_3 != blank -%}
+            <span class="comp-spec-callout__badge custom_subHeading-text">{{ section.settings.badge_3 }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Main Visual Stage -->
+    <div class="comp-spec-callout__stage">
+
+      <!-- Center Product Image -->
+      <div class="comp-spec-callout__product-wrap">
+        {%- if section.settings.product_image != blank -%}
+          {{ section.settings.product_image | image_url: width: 1400 | image_tag: loading: 'lazy', class: 'comp-spec-callout__product-img', alt: section.settings.heading }}
+        {%- else -%}
+          <img
+            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/rainmaker-connected-feature-image.png?v=1790069366"
+            alt="Premium Golf Net"
+            class="comp-spec-callout__product-img"
+            loading="lazy"
+            width="600"
+            height="500">
+        {%- endif -%}
+
+        <!-- Mobile-Only Hotspot Dots on the Image -->
+        {%- for block in section.blocks -%}
+          <div
+            class="comp-spec-callout__mobile-hotspot {% if forloop.first %}is-active{% endif %}"
+            data-hotspot-index="{{ forloop.index0 }}"
+            style="
+              --hs-top: {{ block.settings.dot_top | default: 50 }}%;
+              --hs-left: {{ block.settings.dot_left | default: 50 }}%;
+            ">
+            <span class="comp-spec-callout__mobile-dot"></span>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <!-- Desktop 4 Annotated Spec Callouts with Leaders -->
+      <div class="comp-spec-callout__desktop-callouts">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign is_left = false
+            if forloop.index == 1 or forloop.index == 2
+              assign is_left = true
+            endif
+          -%}
+          <div class="comp-spec-callout__item comp-spec-callout__item--{{ forloop.index }} comp-spec-callout__item--{% if is_left %}left{% else %}right{% endif %}" {{ block.shopify_attributes }}>
+            <!-- Callout Text Box -->
+            <div class="comp-spec-callout__box">
+              <span class="comp-spec-callout__index custom_subHeading-text">
+                {{ block.settings.index | default: forloop.index | prepend: '0' | slice: -2, 2 }}
+              </span>
+              <h4 class="comp-spec-callout__item-title custom_heading">
+                {{ block.settings.title }}
+              </h4>
+              <p class="comp-spec-callout__item-body custom_body-text">
+                {{ block.settings.body }}
+              </p>
+            </div>
+
+            <!-- Leader Line + Dot (Desktop) -->
+            <div class="comp-spec-callout__leader" aria-hidden="true">
+              <span class="comp-spec-callout__leader-line"></span>
+              <span class="comp-spec-callout__leader-dot"></span>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+    </div>
+
+    <!-- Mobile Slider / Cards Carousel -->
+    {%- if section.blocks.size > 0 -%}
+      <div class="comp-spec-callout__mobile-cards-wrap">
+        <div class="comp-spec-callout__mobile-cards" data-spec-mobile-cards>
+          {%- for block in section.blocks -%}
+            <div class="comp-spec-callout__mobile-card" data-card-index="{{ forloop.index0 }}">
+              <span class="comp-spec-callout__index custom_subHeading-text">
+                {{ block.settings.index | default: forloop.index | prepend: '0' | slice: -2, 2 }}
+              </span>
+              <h4 class="comp-spec-callout__item-title custom_heading">
+                {{ block.settings.title }}
+              </h4>
+              <p class="comp-spec-callout__item-body custom_body-text">
+                {{ block.settings.body }}
+              </p>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- Mobile Scroll Indicator Bar -->
+        <div class="comp-spec-callout__scroll-track" aria-hidden="true">
+          <div
+            class="comp-spec-callout__scroll-thumb"
+            data-spec-scroll-thumb
+            style="width: 25%;"></div>
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<style>
+  .comp-spec-callout {
+    position: relative;
+    width: 100%;
+    background: var(--css-bg, #FFFFFF);
+    padding-top: clamp(30px, 6vw, var(--css-pt, 70px));
+    padding-bottom: clamp(30px, 6vw, var(--css-pb, 80px));
+    overflow: hidden;
+    color: #000000;
+  }
+  @media (max-width: 768px) {
+    .comp-spec-callout {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+  }
+  .comp-spec-callout__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5.5vw, 80px);
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  /* Header Top Row */
+  .comp-spec-callout__header-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(30px, 4vw, 80px);
+    align-items: flex-start;
+    margin-bottom: clamp(30px, 4vw, 50px);
+  }
+
+  .comp-spec-callout__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .comp-spec-callout__eyebrow {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #0149E3;
+    text-transform: uppercase;
+  }
+  .comp-spec-callout__heading {
+    margin: 0;
+    font-size: clamp(32px, 3.6vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #000000;
+  }
+
+  /* Right column: Value lead */
+  .comp-spec-callout__value-lead {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .comp-spec-callout__subtitle {
+    margin: 0;
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #000000;
+  }
+  .comp-spec-callout__desc {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #0D0D0D;
+    margin: 0;
+  }
+  .comp-spec-callout__badges {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .comp-spec-callout__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    background: #0A0E13;
+    border-radius: 999px;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #CCFF08;
+    white-space: nowrap;
+  }
+
+  /* Main Visual Stage */
+  .comp-spec-callout__stage {
+    position: relative;
+    width: 100%;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .comp-spec-callout__product-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 590px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .comp-spec-callout__product-img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Desktop Callouts Around Product */
+  .comp-spec-callout__desktop-callouts {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .comp-spec-callout__item {
+    position: absolute;
+    width: 240px;
+    border-top: 1px solid #DCE0E6;
+    padding-top: 14px;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .comp-spec-callout__box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .comp-spec-callout__index {
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 1px;
+    color: #0149E3;
+    text-transform: uppercase;
+  }
+  .comp-spec-callout__item-title {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.2;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #000000;
+  }
+  .comp-spec-callout__item-body {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: #4A505A;
+  }
+
+  /* Leader lines & dots */
+  .comp-spec-callout__leader {
+    position: absolute;
+    top: -1px;
+    display: flex;
+    align-items: center;
+    height: 10px;
+  }
+  .comp-spec-callout__leader-line {
+    height: 1px;
+    background: rgba(1, 73, 227, 0.55);
+    display: block;
+  }
+  .comp-spec-callout__leader-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #0149E3;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 0 0 1px rgba(1, 73, 227, 0.2);
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* Exact Desktop Callout Positions matching Figma coordinates */
+  /* 01: Top Left */.comp-spec-callout__item--1 {
+    left: 0;
+    top: 50px;
+  }
+  .comp-spec-callout__item--1 .comp-spec-callout__leader {
+    left: 240px;
+    top: -5px;
+  }
+  .comp-spec-callout__item--1 .comp-spec-callout__leader-line {
+    width: clamp(140px, 14vw, 252px);
+  }
+
+  /* 02: Bottom Left */
+  .comp-spec-callout__item--2 {
+    left: 0;
+    top: 300px;
+  }
+  .comp-spec-callout__item--2 .comp-spec-callout__leader {
+    left: 240px;
+    top: -5px;
+  }
+  .comp-spec-callout__item--2 .comp-spec-callout__leader-line {
+    width: clamp(140px, 14vw, 246px);
+  }
+
+  /* 03: Top Right */
+  .comp-spec-callout__item--3 {
+    right: 0;
+    top: 90px;
+  }
+  .comp-spec-callout__item--3 .comp-spec-callout__leader {
+    right: 240px;
+    top: -5px;
+    flex-direction: row-reverse;
+  }
+  .comp-spec-callout__item--3 .comp-spec-callout__leader-line {
+    width: clamp(140px, 14vw, 260px);
+  }
+
+  /* 04: Bottom Right */
+  .comp-spec-callout__item--4 {
+    right: 0;
+    top: 330px;
+  }
+  .comp-spec-callout__item--4 .comp-spec-callout__leader {
+    right: 240px;
+    top: -5px;
+    flex-direction: row-reverse;
+  }
+  .comp-spec-callout__item--4 .comp-spec-callout__leader-line {
+    width: clamp(120px, 12vw, 218px);
+  }
+
+  /* Mobile-only Hotspots & Carousel hidden on desktop */
+  .comp-spec-callout__mobile-hotspot,
+  .comp-spec-callout__mobile-cards-wrap {
+    display: none;
+  }
+
+  /* Responsive / Mobile styles */
+  @media only screen and (max-width: 991px) {
+    .comp-spec-callout__header-row {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .comp-spec-callout__title-group,
+    .comp-spec-callout__value-lead {
+      align-items: center;
+      text-align: center;
+    }
+    .comp-spec-callout__badges {
+      justify-content: center;
+    }
+
+    /* Hide desktop annotations */
+    .comp-spec-callout__desktop-callouts {
+      display: none;
+    }
+
+    /* Enable mobile hotspots on image */
+    .comp-spec-callout__stage {
+      min-height: auto;
+      margin-bottom: 24px;
+    }
+    .comp-spec-callout__product-wrap {
+      max-width: 380px;
+    }
+    .comp-spec-callout__mobile-hotspot {
+      display: block;
+      position: absolute;
+      top: var(--hs-top, 50%);
+      left: var(--hs-left, 50%);
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      cursor: pointer;
+    }
+    .comp-spec-callout__mobile-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #0149E3;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 0 2px rgba(1, 73, 227, 0.4);
+      display: block;
+      transition: transform 0.2s ease
+      , box-shadow 0.2s ease;
+    }
+    .comp-spec-callout__mobile-hotspot.is-active .comp-spec-callout__mobile-dot {
+      transform: scale(1.3);
+      box-shadow: 0 0 0 4px rgba(1, 73, 227, 0.6);
+    }
+
+    /* Mobile Cards Carousel */
+    .comp-spec-callout__mobile-cards-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+    .comp-spec-callout__mobile-cards {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .comp-spec-callout__mobile-cards::-webkit-scrollbar {
+      display: none;
+    }
+    .comp-spec-callout__mobile-card {
+      flex: 0 0 85%;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-top: 1px solid #DCE0E6;
+      padding-top: 14px;
+      text-align: left;
+    }
+
+    /* Track & Scroll Thumb */
+    .comp-spec-callout__scroll-track {
+      width: 100%;
+      height: 3px;
+      background: #E5E8ED;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+    .comp-spec-callout__scroll-thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: #0D0D0D;
+      border-radius: 2px;
+      transition: left 0.1s linear;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    function initSpecCallout() {
+      const sections = document.querySelectorAll('[data-comp-spec-callout]');
+      sections.forEach(function(sec) {
+        if (sec.dataset.initialized) return;
+        sec.dataset.initialized = 'true';
+
+        const cardsContainer = sec.querySelector('[data-spec-mobile-cards]');
+        const scrollThumb = sec.querySelector('[data-spec-scroll-thumb]');
+        const hotspots = sec.querySelectorAll('[data-hotspot-index]');
+        const cards = sec.querySelectorAll('[data-card-index]');
+
+        if (!cardsContainer || !scrollThumb) return;
+
+        // Update scroll thumb on mobile scroll
+        cardsContainer.addEventListener('scroll', function() {
+          const maxScroll = cardsContainer.scrollWidth - cardsContainer.clientWidth;
+          if (maxScroll <= 0) return;
+          const ratio = cardsContainer.scrollLeft / maxScroll;
+          const thumbWidthPercent = (cardsContainer.clientWidth / cardsContainer.scrollWidth) * 100;
+          scrollThumb.style.width = Math.max(thumbWidthPercent, 20) + '%';
+          
+          const maxLeftPercent = 100 - parseFloat(scrollThumb.style.width);
+          scrollThumb.style.left = (ratio * maxLeftPercent) + '%';
+
+          // Update active hotspot based on visible card
+          const cardWidth = cards[0] ? cards[0].offsetWidth : 1;
+          const activeIndex = Math.round(cardsContainer.scrollLeft / cardWidth);
+          hotspots.forEach(function(hs, idx) {
+            hs.classList.toggle('is-active', idx === activeIndex);
+          });
+        }, { passive: true });
+
+        // Clicking hotspot scrolls to corresponding card
+        hotspots.forEach(function(hs) {
+          hs.addEventListener('click', function() {
+            const idx = parseInt(hs.dataset.hotspotIndex, 10);
+            if (cards[idx]) {
+              cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+            }
+          });
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSpecCallout);
+    } else {
+      initSpecCallout();
+    }
+    document.addEventListener('shopify:section:load', initSpecCallout);
+  })();
+</script>
+
+{% schema %}
+  {
+    "name": "Comp: Spec Callout",
+    "settings": [
+      {
+        "type": "text",
+        "id": "custom_section_id",
+        "label": "Custom Section ID",
+        "info": "Optional anchor ID (e.g. 'premium-golf-net')"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Padding Top",
+        "min": 20,
+        "max": 140,
+        "step": 5,
+        "unit": "px",
+        "default": 70
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Padding Bottom",
+        "min": 20,
+        "max": 140,
+        "step": 5,
+        "unit": "px",
+        "default": 80
+      }, {
+        "type": "header",
+        "content": "Left Header"
+      }, {
+        "type": "text",
+        "id": "eyebrow",
+        "label": "Eyebrow Text",
+        "default": "PREMIUM GOLF NET"
+      }, {
+        "type": "text",
+        "id": "heading",
+        "label": "Main Heading",
+        "default": "BUILT TO TAKE EVERY SWING."
+      }, {
+        "type": "header",
+        "content": "Right Header"
+      }, {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Engineered for full-speed swings, indoors or out."
+      }, {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description",
+        "default": "Every component of this $699 net is specified for repeated full-swing impact: a 6063 aluminum frame, a five-section structure, cut-and-sewn impact-absorbing netting and an electrostatic powder-coat finish. And one person sets it up in about 15 minutes, with zero tools."
+      }, {
+        "type": "text",
+        "id": "badge_1",
+        "label": "Badge 1",
+        "default": "15 MIN SETUP"
+      }, {
+        "type": "text",
+        "id": "badge_2",
+        "label": "Badge 2",
+        "default": "1 PERSON"
+      }, {
+        "type": "text",
+        "id": "badge_3",
+        "label": "Badge 3",
+        "default": "0 TOOLS"
+      }, {
+        "type": "header",
+        "content": "Center Product Image"
+      }, {
+        "type": "image_picker",
+        "id": "product_image",
+        "label": "Product Image"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "spec_callout",
+        "name": "Spec Callout",
+        "limit": 4,
+        "settings": [
+          {
+            "type": "text",
+            "id": "index",
+            "label": "Index (e.g. 01)",
+            "default": "01"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Spec Title",
+            "default": "6063 ALUMINUM FRAME"
+          },
+          {
+            "type": "textarea",
+            "id": "body",
+            "label": "Spec Body",
+            "default": "Corrosion-resistant alloy at a manageable weight, for indoor or outdoor practice."
+          },
+          {
+            "type": "header",
+            "content": "Mobile Dot Hotspot Position (%)"
+          }, {
+            "type": "range",
+            "id": "dot_top",
+            "label": "Hotspot Top %",
+            "min": 5,
+            "max": 95,
+            "step": 1,
+            "unit": "%",
+            "default": 14
+          }, {
+            "type": "range",
+            "id": "dot_left",
+            "label": "Hotspot Left %",
+            "min": 5,
+            "max": 95,
+            "step": 1,
+            "unit": "%",
+            "default": 36
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Comp: Spec Callout",
+        "blocks": [
+          {
+            "type": "spec_callout",
+            "settings": {
+              "index": "01",
+              "title": "6063 ALUMINUM FRAME",
+              "body": "Corrosion-resistant alloy at a manageable weight, for indoor or outdoor practice.",
+              "dot_top": 14,
+              "dot_left": 36
+            }
+          }, {
+            "type": "spec_callout",
+            "settings": {
+              "index": "02",
+              "title": "FIVE-SECTION FRAME",
+              "body": "Structured to spread impact load and stay stable through repeated full swings.",
+              "dot_top": 66,
+              "dot_left": 34
+            }
+          }, {
+            "type": "spec_callout",
+            "settings": {
+              "index": "03",
+              "title": "IMPACT-ABSORBING NETTING",
+              "body": "Cut-and-sewn polyester flexes to absorb ball energy, so shots drop instead of rebounding aggressively.",
+              "dot_top": 24,
+              "dot_left": 66
+            }
+          }, {
+            "type": "spec_callout",
+            "settings": {
+              "index": "04",
+              "title": "POWDER-COATED FINISH",
+              "body": "An electrostatic coat helps protect the frame against scratches, chips and moisture.",
+              "dot_top": 67,
+              "dot_left": 71
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

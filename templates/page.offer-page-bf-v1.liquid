@@ -23,6 +23,9 @@
         decoding="async"
       >
     </div>
+     {% render 'countdown-timer' %}
+    {% section 'gps-collection-section' %}
+    {% comment %}
     <div class="new-offer_exclusive-section">
       <div class="page-width">
         <div class="exclusive-section_title">
@@ -475,6 +478,8 @@
         </div>
       </div>
     </div>
+  </div>
+  {% endcomment %}
   </div>
   {% section 'image-with-text-new' %}
   <div class="new-offer_video-section">
@@ -1633,6 +1638,8 @@
               .new_design-bg-000 .audio_exp-section .audio_exp-section-inner { height: 380px; }
                }
               /* EXCLUSIVE PRODUCT CSS START */
+              .new-offer_main .collection-heading { text-align: center; }
+              .new-offer_main .collection-heading h2 { font-size: clamp(28px, 4vw, 60px); line-height: 1; }
               .new-offer_exclusive-section { margin-bottom: 26px; }
               .new-offer_exclusive-section .exclusive-section_title { text-align: center; padding: 70px 0 29px; }
               .new-offer_exclusive-section .exclusive-section_title h2 { font-size: 60px; font-weight: 900; line-height: 70px; letter-spacing: -2px; }
@@ -2048,7 +2055,7 @@
                }
 </style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 {{ 'owl.theme.css' | asset_url | stylesheet_tag }}
 {{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
 {{ 'owl.carousel.js' | asset_url | script_tag }}

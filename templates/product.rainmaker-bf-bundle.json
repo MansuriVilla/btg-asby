@@ -1,0 +1,987 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "new-main-prod",
+      "blocks": {
+        "pdp_header_YKyLW6": {
+          "type": "pdp_header",
+          "settings": {
+            "show_title": true,
+            "show_rating": false,
+            "gift_text": "Includes Free Gift",
+            "enable_limited_stock": true,
+            "stock_badge": "LIMITED STOCK",
+            "stock_available": "Only 300 Bundles Available",
+            "stock_percent": 20,
+            "enable_savings_line": true,
+            "savings_text": "<p>Save $600 vs. buying separately. <strong>Shipping 11/15.</strong></p>"
+          }
+        },
+        "pdp_tabs_zYnYAU": {
+          "type": "pdp_tabs",
+          "settings": {
+            "overview_label": "Overview",
+            "overview_content": "<p>The Complete At-Home Golf Practice Experience. Real shot data and simulation powered by Rainmaker. A premium layered hitting mat with interchangeable iron and driver strips. A durable 6063 aluminum golf net that sets up in just 15 minutes with one person and no tools. Three premium products engineered to bring the ultimate practice experience home.</p>"
+          }
+        },
+        "tab_ckXf4y": {
+          "type": "tab",
+          "settings": {
+            "title": "Features",
+            "content": "",
+            "page": ""
+          }
+        },
+        "tab_3pkbMH": {
+          "type": "tab",
+          "settings": {
+            "title": "What’s Included",
+            "content": "{%render 'pdp-whats-included' %}",
+            "page": ""
+          }
+        },
+        "tab_bdq8PT": {
+          "type": "tab",
+          "settings": {
+            "title": "Manual",
+            "content": "Download Rainmaker Bundle Manual",
+            "page": ""
+          }
+        },
+        "feature_metrics_TqDgwB": {
+          "type": "feature_metrics",
+          "settings": {
+            "title": "12 REAL-TIME METRICS",
+            "badge": "INCLUDED",
+            "subtitle": "FREE FOR LIFE | NO SUBSCRIPTION REQUIRED",
+            "app_image": "shopify://shop_images/Group_1410105790.png",
+            "app_title": "20+ METRICS WHEN CONNECTED TO THE LAUNCH APP WITH SIMULATION",
+            "app_package": "INCLUDES 12 MONTHS OF GAME AI + LAUNCH APP PACKAGE."
+          }
+        },
+        "protect_player_fmUHkp": {
+          "type": "protect_player",
+          "disabled": true,
+          "settings": {
+            "heading": "Protect your Player",
+            "product_1": "blue-tees-care",
+            "features_1": "",
+            "product_2": "",
+            "features_2": ""
+          }
+        },
+        "pdp_sticky_cta_7mHFyc": {
+          "type": "pdp_sticky_cta",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "pre_order": false,
+            "cta_note_text": "",
+            "badge_1": "Free shipping over $50",
+            "badge_2": "100 day risk-free trial",
+            "enable_product_selection": true,
+            "hide_product_switcher": true,
+            "hidden_bundle_button_text": "ADD TO CART",
+            "product_selection_heading": "Choose Your Product:",
+            "switch_product_1": "rainmaker",
+            "switch_product_2": "hitting-net-v1",
+            "switch_product_3": "premium-hitting-mat-v1",
+            "switch_product_4": "",
+            "enable_sticky_bar": true,
+            "sticky_bar_title": "",
+            "sticky_bar_badge": "",
+            "sticky_bar_button_text": "",
+            "sticky_nav_1_label": "Products",
+            "sticky_nav_1_anchor": "products",
+            "sticky_nav_2_label": "MAT",
+            "sticky_nav_2_anchor": "mat",
+            "sticky_nav_3_label": "Net",
+            "sticky_nav_3_anchor": "net",
+            "sticky_nav_4_label": "FAQS",
+            "sticky_nav_4_anchor": "faqs",
+            "sticky_nav_5_label": "REVIEWS",
+            "sticky_nav_5_anchor": "reviews"
+          }
+        }
+      },
+      "block_order": [
+        "pdp_header_YKyLW6",
+        "pdp_tabs_zYnYAU",
+        "tab_ckXf4y",
+        "tab_3pkbMH",
+        "tab_bdq8PT",
+        "feature_metrics_TqDgwB",
+        "protect_player_fmUHkp",
+        "pdp_sticky_cta_7mHFyc"
+      ],
+      "settings": {
+        "promo_text": "SAVE $600 WHEN YOU BUNDLE",
+        "promo_subtitle": "Rainmaker, Golf Net & Hitting Mat",
+        "promo_bg_image": "shopify://shop_images/popup-promo00.png",
+        "promo_link": "",
+        "promo_bg_color": "#0b1220",
+        "promo_text_color": "#ffffff",
+        "enable_offer_bug": true,
+        "offer_bug_text": "BLACK FRIDAY EXCLUSIVE | ONLY 300 BUNDLES AVAILABLE",
+        "offer_bug_bg": "#ff0000",
+        "offer_bug_color": "#ffffff",
+        "must_watch": "",
+        "display_review_button": false,
+        "review_video": "",
+        "show_label": false,
+        "sku_enable": true,
+        "image_position": "left",
+        "image_size": "large",
+        "product_zoom_enable": true,
+        "thumbnail_position": "below",
+        "thumbnail_arrows": true,
+        "mobile_layout": "full",
+        "enable_video_looping": true,
+        "product_video_style": "muted",
+        "enable_sticky_bar": true,
+        "sticky_bar_title": "",
+        "sticky_bar_badge": "",
+        "sticky_nav_1_label": "HARDWARE",
+        "sticky_nav_1_anchor": "hardware",
+        "sticky_nav_2_label": "FEATURES",
+        "sticky_nav_2_anchor": "features",
+        "sticky_nav_3_label": "GAME AI",
+        "sticky_nav_3_anchor": "game-ai",
+        "sticky_nav_4_label": "FAQS",
+        "sticky_nav_4_anchor": "faqs",
+        "sticky_nav_5_label": "REVIEWS",
+        "sticky_nav_5_anchor": "reviews"
+      }
+    },
+    "comp_hotspot_showcase_tMUBiM": {
+      "type": "comp-hotspot-showcase",
+      "blocks": {
+        "hotspot_card_Y6GbK7": {
+          "type": "hotspot_card",
+          "settings": {
+            "hotspot_top": 72,
+            "hotspot_left": 59,
+            "enable_mobile_hotspot_position": false,
+            "hotspot_top_mobile": 50,
+            "hotspot_left_mobile": 50,
+            "hotspot_label": "TRU-TURF MAT",
+            "video": "shopify://files/videos/Mat.mp4",
+            "video_url": "",
+            "product_thumb": "shopify://shop_images/Frame_1410105957.png",
+            "product_thumb_width": 130,
+            "title": "TRU TURF 4'X5' MAT",
+            "description": "Layered nylon iron strip, Tee Line driver strip and a 20 mm EVA cushion. Replace the strip, not the mat.",
+            "button_label": "LEARN MORE",
+            "button_link": ""
+          }
+        },
+        "hotspot_card_UwVD8t": {
+          "type": "hotspot_card",
+          "settings": {
+            "hotspot_top": 80,
+            "hotspot_left": 36,
+            "enable_mobile_hotspot_position": false,
+            "hotspot_top_mobile": 50,
+            "hotspot_left_mobile": 50,
+            "hotspot_label": "RAINMAKER",
+            "video": "shopify://files/videos/Rainmaker.mp4",
+            "video_url": "",
+            "product_thumb": "shopify://shop_images/Rainmaker_HERO_packaging_v2_1.png",
+            "product_thumb_width": 130,
+            "title": "RAINMAKER",
+            "description": "Portable launch monitor that delivers real-time swing and ball-flight data wherever you practice, from the driving range and course, to your backyard or home simulator.",
+            "button_label": "LEARN MORE",
+            "button_link": ""
+          }
+        },
+        "hotspot_card_XgEqfy": {
+          "type": "hotspot_card",
+          "settings": {
+            "hotspot_top": 35,
+            "hotspot_left": 75,
+            "enable_mobile_hotspot_position": false,
+            "hotspot_top_mobile": 50,
+            "hotspot_left_mobile": 50,
+            "hotspot_label": "PRACTICE NET",
+            "video": "shopify://files/videos/Net.mp4",
+            "video_url": "",
+            "product_thumb": "shopify://shop_images/Frame_1410105957-1.png",
+            "product_thumb_width": 130,
+            "title": "ALUMINUM PRACTICE NET",
+            "description": "6063 aluminum frame with durable netting. Quick tool-free setup in under 15 minutes, built for indoor or outdoor use.",
+            "button_label": "LEARN MORE",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_card_Y6GbK7",
+        "hotspot_card_UwVD8t",
+        "hotspot_card_XgEqfy"
+      ],
+      "name": "Comp Hotspot Showcase",
+      "settings": {
+        "custom_section_id": "products",
+        "eyebrow": "THE PRODUCTS",
+        "heading": "THREE ESSENTIALS.<br>ONE ULTIMATE HOME RANGE.",
+        "subheading": "",
+        "main_image": "shopify://shop_images/Frame_1410106466.png",
+        "background_color": "#101317",
+        "enable_gradient_bg": true,
+        "gradient_bg": "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(35, 42, 53, 0.9) 0%, #101317 100%)",
+        "padding_top": 60,
+        "padding_bottom": 80,
+        "card_width": 500,
+        "card_width_mobile": 300
+      }
+    },
+    "comp_product_tabs_M9zTWb": {
+      "type": "comp-product-tabs",
+      "blocks": {
+        "tab_item_JiVYT9": {
+          "type": "tab_item",
+          "settings": {
+            "custom_tab_id": "turf-tab",
+            "tab_sublabel": "Quality Surface",
+            "tab_title": "TRU-TURF HITTING MAT",
+            "image": "shopify://shop_images/Frame_1410106014.png",
+            "eyebrow": "TRU-TURF HITTING MAT",
+            "title": "EVA TECH FOR REALISTIC TURF FEEL.",
+            "description": "4’x5’ surface to hit every club in the bag. This premium hitting mat features a 15 mm nylon iron strip for realistic turf interaction, a 35 mm Tee Line strip for driver practice, and a 20 mm EVA cushioning layer to absorb impact.",
+            "feature_1_num": "01",
+            "feature_1_text": "15 mm nylon iron strip and a 35 mm Driver Tee Line",
+            "feature_2_num": "02",
+            "feature_2_text": "12 × 24 in replaceable hitting zone: swap the strip, not the mat.",
+            "feature_3_num": "03",
+            "feature_3_text": "20 mm EVA cushion beneath a 4 × 5 ft PP turf base.",
+            "enable_specs": true,
+            "specs_title": "VIEW KEY SPECIFICATIONS",
+            "spec_1_label": "Dimensions",
+            "spec_1_val": "4 × 5 ft",
+            "spec_2_label": "Replaceable hitting zone",
+            "spec_2_val": "12 × 24 in",
+            "spec_3_label": "Total base thickness",
+            "spec_3_val": "35 mm",
+            "spec_4_label": "Iron hitting strip",
+            "spec_4_val": "15 mm nylon turf, 10 mm 3D layer, 10 mm NBR rubber",
+            "spec_5_label": "Base construction",
+            "spec_5_val": "15 mm PP turf over 20 mm EVA",
+            "spec_6_label": "Driver hitting strip",
+            "spec_6_val": "35 mm nylon tee line turf"
+          }
+        },
+        "tab_item_yUGKWN": {
+          "type": "tab_item",
+          "settings": {
+            "custom_tab_id": "rainmaker-tab",
+            "tab_sublabel": "Understand Every Shot",
+            "tab_title": "RAINMAKER LAUNCH MONITOR",
+            "image": "shopify://shop_images/Frame_1410106014-1.png",
+            "eyebrow": "RAINMAKER LAUNCH MONITOR",
+            "title": "TRACK YOUR DATA WITH PRECISION.",
+            "description": "Track your shot after impact. Rainmaker’s doppler radar captures ball and club data, while direct feedback on the built-in display keeps you dialed in during practice.",
+            "feature_1_num": "01",
+            "feature_1_text": "Doppler radar tracking for ball and club data.",
+            "feature_2_num": "02",
+            "feature_2_text": "4.3 inch color display works without a phone.",
+            "feature_3_num": "03",
+            "feature_3_text": "Bluetooth and Wi-Fi to sync with the GAME app.",
+            "enable_specs": true,
+            "specs_title": "VIEW KEY SPECIFICATIONS",
+            "spec_1_label": "Dimensions",
+            "spec_1_val": "6.1 x 3.7 x 1.7 in",
+            "spec_2_label": "Radar technology",
+            "spec_2_val": "24 GHz 3D dual-doppler radar",
+            "spec_3_label": "Display",
+            "spec_3_val": "4.3 inch full-color display",
+            "spec_4_label": "Battery life",
+            "spec_4_val": "Approx. 5 hours",
+            "spec_5_label": "On-device metrics",
+            "spec_5_val": "10 performance metrics",
+            "spec_6_label": "Connectivity",
+            "spec_6_val": "Bluetooth & Wi-Fi sync"
+          }
+        },
+        "tab_item_WwJ8Jd": {
+          "type": "tab_item",
+          "settings": {
+            "custom_tab_id": "net-tab",
+            "tab_sublabel": "Play Anywhere",
+            "tab_title": "PREMIUM GOLF NET",
+            "image": "shopify://shop_images/BT_hitting_net_1.png",
+            "eyebrow": "PREMIUM GOLF NET",
+            "title": "BUILT TO TAKE EVERY SWING.",
+            "description": "7.5 ft x 7.5 ft hitting area and 3.6 ft depth give you room to work on your swing at home. Drop-and-pop slip-fit connections make assembly quick and straightforward.",
+            "feature_1_num": "01",
+            "feature_1_text": "Impact-absorbing netting.",
+            "feature_2_num": "02",
+            "feature_2_text": "Reinforced five-section frame.",
+            "feature_3_num": "03",
+            "feature_3_text": "Electrostatic powder-coated frame.",
+            "enable_specs": true,
+            "specs_title": "VIEW KEY SPECIFICATIONS",
+            "spec_1_label": "Dimensions",
+            "spec_1_val": "7.5 x 7.5 x 3.6 ft",
+            "spec_2_label": "Inside depth",
+            "spec_2_val": "3.6 ft",
+            "spec_3_label": "Frame material",
+            "spec_3_val": "6063 aluminum alloy",
+            "spec_4_label": "Frame construction",
+            "spec_4_val": "5-section push-button slip fit",
+            "spec_5_label": "Netting material",
+            "spec_5_val": "Heavy knotless polyester",
+            "spec_6_label": "Frame finish",
+            "spec_6_val": "Electrostatic powder coat"
+          }
+        }
+      },
+      "block_order": [
+        "tab_item_JiVYT9",
+        "tab_item_yUGKWN",
+        "tab_item_WwJ8Jd"
+      ],
+      "name": "Comp Product Tabs",
+      "settings": {
+        "custom_section_id": "",
+        "background_color": "#000000",
+        "padding_top": 60,
+        "padding_bottom": 80
+      }
+    },
+    "comp_tech_grid_jqPQAP": {
+      "type": "comp-tech-grid",
+      "blocks": {
+        "top_card_pVXjNB": {
+          "type": "top_card",
+          "settings": {
+            "image": "shopify://shop_images/Illustration.png",
+            "eyebrow": "TRU-TURF HITTING TECHNOLOGY",
+            "title": "Made for the strike.",
+            "description": "The iron strip uses 15 mm premium nylon turf designed for repeated club strikes and consistent club interaction.",
+            "pill_prefix": "YOU GET",
+            "pill_text": "A more natural feel than a basic flat mat surface"
+          }
+        },
+        "top_card_DzkFaW": {
+          "type": "top_card",
+          "settings": {
+            "image": "shopify://shop_images/Illustration-1.png",
+            "eyebrow": "IMPACT CUSHION FOUNDATION",
+            "title": "BUILT TO SOFTEN IMPACT.",
+            "description": "A 20 mm high resilience EVA layer beneath the mat helps cushion repeated strikes and maintain a consistent base.",
+            "pill_prefix": "YOU GET",
+            "pill_text": "Comfortable, repeatable practice"
+          }
+        },
+        "feature_card_YKN3iL": {
+          "type": "feature_card",
+          "settings": {
+            "image": "shopify://shop_images/Illustration-2.png",
+            "eyebrow": "DUAL ZONE REPLACEABLE HITTING SYSTEM",
+            "title": "Replace the strip. Not the mat.",
+            "description": "The 12 × 24 inch hitting zone accepts dedicated iron and driver strips. Swap surfaces as needed and replace a worn strip without replacing the entire mat.",
+            "pill_prefix": "YOU GET",
+            "pill_text": "Replaceable wear surfaces"
+          }
+        },
+        "feature_card_gHxpMq": {
+          "type": "feature_card",
+          "settings": {
+            "image": "shopify://shop_images/Illustration-3.png",
+            "eyebrow": "3D STRIKE LAYER",
+            "title": "ENGINEERED FOR CONSISTENT IRON STRIKES.",
+            "description": "The iron strip combines 15 mm nylon turf, a 10 mm 3D layer  to create a layered striking surface.",
+            "pill_prefix": "YOU GET",
+            "pill_text": "Stable, repeatable iron practice"
+          }
+        },
+        "feature_card_QRFYKd": {
+          "type": "feature_card",
+          "settings": {
+            "image": "shopify://shop_images/Illustration-4.png",
+            "eyebrow": "TEE LINE DRIVER STRIP",
+            "title": "FROM DRIVER TO WEDGE.",
+            "description": "A dedicated driver strip uses 35 mm nylon tee line turf over a rubber base and accommodates an included 70 mm rubber tee.",
+            "pill_prefix": "YOU GET",
+            "pill_text": "Purpose built tee and iron surfaces"
+          }
+        }
+      },
+      "block_order": [
+        "top_card_pVXjNB",
+        "top_card_DzkFaW",
+        "feature_card_YKN3iL",
+        "feature_card_gHxpMq",
+        "feature_card_QRFYKd"
+      ],
+      "name": "Comp Tech Specs Grid",
+      "settings": {
+        "custom_section_id": "mat",
+        "eyebrow": "PREMIUM HITTING MAT",
+        "heading": "ENGINEERED FROM<br>THE TURF DOWN.",
+        "background_color": "#0b0d11",
+        "enable_gradient_bg": true,
+        "gradient_bg": "radial-gradient(circle at 90% 10%, rgba(25, 45, 80, 0.45) 0%, rgba(11, 13, 17, 0) 60%), radial-gradient(circle at 10% 90%, rgba(18, 30, 50, 0.35) 0%, #0B0D11 100%)",
+        "padding_top": 60,
+        "padding_bottom": 80,
+        "show_bottom_specs": true,
+        "bottom_layout_type": "table",
+        "specs_eyebrow": "THE SPEC SHEET",
+        "specs_heading": "ONE BASE.<br>REPLACEABLE IRON STRIP.",
+        "table_col_1_header": "MAT BASE",
+        "table_col_2_header": "IRON STRIP",
+        "table_col_3_header": "DRIVER TEE",
+        "table_row_1_label": "Surface",
+        "table_row_1_val1": "15 mm PP turf",
+        "table_row_1_val2": "15 mm premium nylon turf",
+        "table_row_1_val3": "35 mm nylon tee line turf",
+        "table_row_2_label": "Underneath",
+        "table_row_2_val1": "20 mm high resilience EVA",
+        "table_row_2_val2": "10 mm 3D layer + 10 mm NBR rubber",
+        "table_row_2_val3": "Rubber base",
+        "table_row_3_label": "Role",
+        "table_row_3_val1": "4 x 5 ft platform with a 12 x 24 in replaceable zone",
+        "table_row_3_val2": "Consistent, repeatable iron strikes",
+        "table_row_3_val3": "Driver and woods, with included 70 mm rubber tee",
+        "stat_1_value": "15",
+        "stat_1_label": "MIN SETUP",
+        "stat_2_value": "1",
+        "stat_2_label": "PERSON",
+        "stat_3_value": "0",
+        "stat_3_label": "TOOLS",
+        "stat_4_value": "6063",
+        "stat_4_label": "ALUMINUM",
+        "stat_5_value": "5",
+        "stat_5_label": "SECTION FRAME"
+      }
+    },
+    "comp_spec_callout_3MtaQw": {
+      "type": "comp-spec-callout",
+      "blocks": {
+        "spec_callout_pabQgw": {
+          "type": "spec_callout",
+          "settings": {
+            "index": "01",
+            "title": "6063 ALUMINUM FRAME",
+            "body": "Corrosion-resistant alloy at a manageable weight, for indoor or outdoor practice.",
+            "dot_top": 14,
+            "dot_left": 36
+          }
+        },
+        "spec_callout_tcJ7rw": {
+          "type": "spec_callout",
+          "settings": {
+            "index": "02",
+            "title": "FIVE-SECTION FRAME",
+            "body": "Structured to spread impact load and stay stable through repeated full swings.",
+            "dot_top": 66,
+            "dot_left": 34
+          }
+        },
+        "spec_callout_hadQJV": {
+          "type": "spec_callout",
+          "settings": {
+            "index": "03",
+            "title": "IMPACT-ABSORBING NETTING",
+            "body": "Cut-and-sewn polyester flexes to absorb ball energy, so shots drop instead of rebounding aggressively.",
+            "dot_top": 24,
+            "dot_left": 66
+          }
+        },
+        "spec_callout_tQf6hY": {
+          "type": "spec_callout",
+          "settings": {
+            "index": "04",
+            "title": "POWDER-COATED FINISH",
+            "body": "An electrostatic coat helps protect the frame against scratches, chips and moisture.",
+            "dot_top": 67,
+            "dot_left": 71
+          }
+        }
+      },
+      "block_order": [
+        "spec_callout_pabQgw",
+        "spec_callout_tcJ7rw",
+        "spec_callout_hadQJV",
+        "spec_callout_tQf6hY"
+      ],
+      "name": "Comp: Spec Callout",
+      "settings": {
+        "custom_section_id": "",
+        "background_color": "#ffffff",
+        "padding_top": 70,
+        "padding_bottom": 80,
+        "eyebrow": "PREMIUM GOLF NET",
+        "heading": "BUILT TO TAKE EVERY SWING.",
+        "subtitle": "Engineered for full-speed swings, indoors or out.",
+        "description": "Every component of this $699 net is specified for repeated full-swing impact: a 6063 aluminum frame, a five-section structure, cut-and-sewn impact-absorbing netting and an electrostatic powder-coat finish. And one person sets it up in about 15 minutes, with zero tools.",
+        "badge_1": "15 MIN SETUP",
+        "badge_2": "1 PERSON",
+        "badge_3": "0 TOOLS",
+        "product_image": "shopify://shop_images/BT_hitting_net_1.png"
+      }
+    },
+    "comp_tech_grid_JY9UBj": {
+      "type": "comp-tech-grid",
+      "blocks": {
+        "top_card_XLjfEH": {
+          "type": "top_card",
+          "settings": {
+            "image": "shopify://shop_images/Illustration-1_d719b314-2357-4dea-b1c7-fe3d0ad65dfb.png",
+            "eyebrow": "TOOL-FREE ASSEMBLY",
+            "title": "15 minutes. One person. Zero tools.",
+            "description": "A premium net should not require a complicated installation. Slip fit connections allow one person to assemble the net in approximately 15 minutes, without tools.",
+            "pill_prefix": "YOU GET",
+            "pill_text": "Less time assembling. More time swinging."
+          }
+        },
+        "top_card_9ggmXj": {
+          "type": "top_card",
+          "settings": {
+            "image": "shopify://shop_images/Illustration_452e6f75-665c-4a99-9250-956e907aea1e.png",
+            "eyebrow": "ADVANCED FIVE-SECTION FRAME",
+            "title": "Engineered for stability.",
+            "description": "A five section structural frame is designed to distribute impact loads and help the net remain stable through repeated practice.",
+            "pill_prefix": "YOU GET",
+            "pill_text": "A dependable setup for full swings"
+          }
+        },
+        "feature_card_7jEQqC": {
+          "type": "feature_card",
+          "settings": {
+            "image": "shopify://shop_images/Illustration-2_9c21309b-e8ab-4b03-a39d-8924502f17a7.png",
+            "eyebrow": "PREMIUM 6063 ALUMINUM FRAME",
+            "title": "Strength without the bulk.",
+            "description": "6063 aluminum alloy combines corrosion resistance with a manageable frame weight for indoor or outdoor practice.",
+            "pill_prefix": "YOU GET",
+            "pill_text": "Durable construction that is easier to move"
+          }
+        },
+        "feature_card_4w8TQf": {
+          "type": "feature_card",
+          "settings": {
+            "image": "shopify://shop_images/Illustration-3_65e52442-c301-425b-9f6a-50ab23c8a8db.png",
+            "eyebrow": "BALL DISPLACEMENT NETTING",
+            "title": "Catch the shot. Control the rebound.",
+            "description": "Cut and sewn polyester netting flexes to absorb ball energy and help shots drop rather than rebound aggressively.",
+            "pill_prefix": "YOU GET",
+            "pill_text": "Controlled ball return"
+          }
+        },
+        "feature_card_TRaGVC": {
+          "type": "feature_card",
+          "settings": {
+            "image": "shopify://shop_images/Illustration-4_8df9c976-3061-4c2a-ba16-1d5c8166b11b.png",
+            "eyebrow": "ALL WEATHER PROTECTIVE FINISH",
+            "title": "Made to look good. Built to last.",
+            "description": "An electrostatic powder coat helps protect the aluminum frame against scratches, chips and moisture.",
+            "pill_prefix": "YOU GET",
+            "pill_text": "A premium finish indoors or out"
+          }
+        }
+      },
+      "block_order": [
+        "top_card_XLjfEH",
+        "top_card_9ggmXj",
+        "feature_card_7jEQqC",
+        "feature_card_4w8TQf",
+        "feature_card_TRaGVC"
+      ],
+      "name": "Comp Tech Specs Grid",
+      "settings": {
+        "custom_section_id": "net",
+        "eyebrow": "PREMIUM GOLF NET",
+        "heading": "BUILT FOR EVERY CONDITION.",
+        "background_color": "#0b0d11",
+        "enable_gradient_bg": true,
+        "gradient_bg": "radial-gradient(circle at 90% 10%, rgba(25, 45, 80, 0.45) 0%, rgba(11, 13, 17, 0) 60%), radial-gradient(circle at 10% 90%, rgba(18, 30, 50, 0.35) 0%, #0B0D11 100%)",
+        "padding_top": 60,
+        "padding_bottom": 80,
+        "show_bottom_specs": true,
+        "bottom_layout_type": "numbers",
+        "specs_eyebrow": "BY THE NUMBERS",
+        "specs_heading": "The specs behind the price.",
+        "table_col_1_header": "MAT BASE",
+        "table_col_2_header": "IRON STRIP",
+        "table_col_3_header": "DRIVER TEE",
+        "table_row_1_label": "Surface",
+        "table_row_1_val1": "15 mm PP turf",
+        "table_row_1_val2": "15 mm premium nylon turf",
+        "table_row_1_val3": "35 mm nylon tee line turf",
+        "table_row_2_label": "Underneath",
+        "table_row_2_val1": "20 mm high resilience EVA",
+        "table_row_2_val2": "10 mm 3D layer + 10 mm NBR rubber",
+        "table_row_2_val3": "Rubber base",
+        "table_row_3_label": "Role",
+        "table_row_3_val1": "4 x 5 ft platform with a 12 x 24 in replaceable zone",
+        "table_row_3_val2": "Consistent, repeatable iron strikes",
+        "table_row_3_val3": "Driver and woods, with included 70 mm rubber tee",
+        "stat_1_value": "15",
+        "stat_1_label": "MIN SETUP",
+        "stat_2_value": "1",
+        "stat_2_label": "PERSON",
+        "stat_3_value": "0",
+        "stat_3_label": "TOOLS",
+        "stat_4_value": "6063",
+        "stat_4_label": "ALUMINUM",
+        "stat_5_value": "5",
+        "stat_5_label": "SECTION FRAME"
+      }
+    },
+    "comp_setup_switcher_RMxCxm": {
+      "type": "comp-setup-switcher",
+      "blocks": {
+        "space_item_8AGBdA": {
+          "type": "space_item",
+          "settings": {
+            "label": "GARAGE",
+            "image": "shopify://shop_images/image_467_BTloog_1.png",
+            "caption": ""
+          }
+        },
+        "space_item_LHyzjz": {
+          "type": "space_item",
+          "settings": {
+            "label": "OUTDOOR",
+            "image": "shopify://shop_images/image_456_BT_logo_copy_1.png",
+            "caption": ""
+          }
+        },
+        "space_item_mwfRnx": {
+          "type": "space_item",
+          "settings": {
+            "label": "INDOOR",
+            "image": "shopify://shop_images/image_455_BT_logo_edited_1.png",
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "space_item_8AGBdA",
+        "space_item_LHyzjz",
+        "space_item_mwfRnx"
+      ],
+      "name": "Comp Setup Switcher",
+      "settings": {
+        "custom_section_id": "",
+        "eyebrow": "THE SETUP",
+        "heading": "YOUR RANGE.<br>YOUR SPACE.",
+        "background_color": "#f4f4f1",
+        "padding_top": 70,
+        "padding_bottom": 90,
+        "autoplay": true,
+        "autoplay_speed": 4
+      }
+    },
+    "comp_bundle_story_tQ8CdU": {
+      "type": "comp-bundle-story",
+      "blocks": {
+        "bundle_piece_NRPdXg": {
+          "type": "bundle_piece",
+          "settings": {
+            "image": "shopify://shop_images/Product_image.png",
+            "step": "01 · THE DATA",
+            "title": "RAINMAKER LAUNCH MONITOR",
+            "price": "$599",
+            "description": "Real shot data at home. 12 metrics free for life, 20+ with the LAUNCH app."
+          }
+        },
+        "bundle_piece_C7kUy6": {
+          "type": "bundle_piece",
+          "settings": {
+            "image": "shopify://shop_images/Product_image-1.png",
+            "step": "02 · THE HITTING EXPERIENCE",
+            "title": "PREMIUM HITTING MAT",
+            "price": "$399",
+            "description": "Premium nylon iron strip, engineered layered strike surface, and 20 mm EVA cushioning for realistic turf interaction and softer impact."
+          }
+        },
+        "bundle_piece_L3wmnr": {
+          "type": "bundle_piece",
+          "settings": {
+            "image": "shopify://shop_images/Product_image-2.png",
+            "step": "03 · THE COMPLETE SETUP",
+            "title": "PREMIUM GOLF NET",
+            "price": "$699",
+            "description": "6063 aluminum, a five section frame and impact absorbing netting. One person, about 15 minutes, zero tools."
+          }
+        }
+      },
+      "block_order": [
+        "bundle_piece_NRPdXg",
+        "bundle_piece_C7kUy6",
+        "bundle_piece_L3wmnr"
+      ],
+      "name": "Comp: Bundle Story",
+      "settings": {
+        "custom_section_id": "",
+        "background_color": "#0a0e13",
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "eyebrow": "SAVE $500 (Only 300 Units)",
+        "heading": "HOLIDAY BUNDLE EXCLUSIVE",
+        "show_value_equation": true,
+        "equation_text": "$599.99 + $399 + $699 = $1,697.99 in individual value",
+        "bundle_price_text": "$1,097.99 for the complete bundle",
+        "cta_link": "#bundle-cart"
+      }
+    },
+    "comp_bundle_cart_RwY3cC": {
+      "type": "comp-bundle-cart",
+      "blocks": {
+        "bundle_item_VFHQna": {
+          "type": "bundle_item",
+          "settings": {
+            "product": "rainmaker",
+            "image": "shopify://shop_images/thumbnail6.png",
+            "title": "Rainmaker Launch Monitor",
+            "price": "$599",
+            "subtitle": "Includes hardshell carrying case",
+            "is_included": true,
+            "details_anchor_id": "rainmaker-tab",
+            "details_url": ""
+          }
+        },
+        "bundle_item_YQVbni": {
+          "type": "bundle_item",
+          "settings": {
+            "product": "hitting-net-v1",
+            "image": "shopify://shop_images/Frame_1410106002.png",
+            "title": "Premium Golf Net",
+            "price": "$699",
+            "subtitle": "Full swing practice net",
+            "is_included": true,
+            "details_anchor_id": "net-tab",
+            "details_url": ""
+          }
+        },
+        "bundle_item_wMQFzV": {
+          "type": "bundle_item",
+          "settings": {
+            "product": "premium-hitting-mat-v1",
+            "image": "shopify://shop_images/Frame_1410106014_219befb2-7a04-4a25-99f8-aa3cf240e2a8.png",
+            "title": "Premium Hitting Mat",
+            "price": "$399",
+            "subtitle": "Turf mat with iron and driver strips",
+            "is_included": true,
+            "details_anchor_id": "turf-tab",
+            "details_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "bundle_item_VFHQna",
+        "bundle_item_YQVbni",
+        "bundle_item_wMQFzV"
+      ],
+      "name": "Comp: Bundle Cart Card",
+      "settings": {
+        "custom_section_id": "bundle-cart",
+        "background_image": "shopify://shop_images/image_455_BT_logo_edited_1.png",
+        "padding_top": 60,
+        "padding_bottom": 80,
+        "heading": "THE VALUE ADDS UP. THE PRICE STAYS SIMPLE.",
+        "subtitle": "Three premium products. One complete setup. Available in a limited run of 300 bundles.",
+        "card_eyebrow": "Save when you bundle",
+        "card_title": "RAINMAKER SIMULATION BUNDLE",
+        "bundle_label": "Black Friday Bundle",
+        "bundle_price": "$1,097.99",
+        "savings_text": "Bought separately $1,697.99 · YOU SAVE $600",
+        "button_text": "ADD TO CART",
+        "bundle_product": ""
+      }
+    },
+    "comp_faq_section_FNjBAq": {
+      "type": "comp-faq-section",
+      "blocks": {
+        "faq_item_wNhzbU": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Setup",
+            "question": "What’s included in the Rainmaker Simulation Bundle?",
+            "answer": "<p>The bundle includes the Rainmaker Launch Monitor, premium golf net, 4 × 5 ft hitting mat, interchangeable iron and driver hitting strips, 70 mm rubber tee, IR remote, protective carry case, USB-C cable, and quick start guide.</p>",
+            "is_open": true
+          }
+        },
+        "faq_item_jKQgqM": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Setup",
+            "question": "How long does setup take?",
+            "answer": "<p>The golf net is designed for tool-free assembly in approximately 15 minutes. Total setup time for the complete bundle may vary depending on your space and configuration.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_tWB7K7": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Setup",
+            "question": "How much space do I need?",
+            "answer": "<p>Allow enough room for your full swing and the complete hitting setup. For accurate shot tracking, position the Rainmaker 5 ft behind the golf ball, at the same height as the ball and aligned with your target.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_qKFdab": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Setup",
+            "question": "Does Rainmaker work without a phone?",
+            "answer": "<p>Yes. Rainmaker works as a standalone launch monitor with its own 4.3-inch full-color display. Pair it with the Blue Tees LAUNCH app to access 3D ball flight, multiple camera views, shot dispersion, and simulation features.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_LTTk3k": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Setup",
+            "question": "Can I play simulated golf courses?",
+            "answer": "<p>Yes. Rainmaker’s simulation mode provides access to 40,000 courses through the Blue Tees LAUNCH app. GSPro compatibility is also available for Windows PC with a separate subscription.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_Fc7dWK": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Setup",
+            "question": "Can I practice with both irons and a driver?",
+            "answer": "<p>Yes. The hitting mat includes interchangeable iron and driver hitting strips, giving you dedicated surfaces for different types of shots.</p>",
+            "is_open": false
+          }
+        },
+        "faq_item_7bc4bP": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Setup",
+            "question": "Can I use the setup outdoors?",
+            "answer": "<p>The golf net is designed for indoor and outdoor practice. Rainmaker is IPX4 splash resistant, so protect the device from heavy rain and prolonged exposure to water.</p>",
+            "is_open": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_wNhzbU",
+        "faq_item_jKQgqM",
+        "faq_item_tWB7K7",
+        "faq_item_qKFdab",
+        "faq_item_LTTk3k",
+        "faq_item_Fc7dWK",
+        "faq_item_7bc4bP"
+      ],
+      "name": "FAQ Pro Showcase",
+      "settings": {
+        "custom_section_id": "",
+        "image": "shopify://shop_images/Frame_1410106007.png",
+        "heading": "GOT QUESTIONS?\nWE'VE GOT ANSWERS.",
+        "heading_color": "#0f172a",
+        "show_categories": false,
+        "tabs": "Setup,Products,Trial & App",
+        "active_tab": "Setup",
+        "enable_load_more": true,
+        "load_more_text": "LOAD MORE QUESTIONS",
+        "background_color": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "comp_ultimate_setup_734Dan": {
+      "type": "comp-ultimate-setup",
+      "name": "Comp Ultimate Setup",
+      "settings": {
+        "custom_section_id": "",
+        "background_color": "#0b0f15",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "heading": "THREE PRODUCTS.\nYOUR ULTIMATE SETUP.",
+        "subtitle": "Get the complete home range for $1,097.99 and save $600 compared with buying each product separately.",
+        "price": "$1,097.99",
+        "notice_text": "Black Friday exclusive. Only 300 complete bundles available.",
+        "button_text": "ADD TO CART",
+        "action_target": "cart",
+        "product_1": "rainmaker",
+        "product_2": "hitting-net-v1",
+        "product_3": "premium-hitting-mat-v1",
+        "bundle_product": ""
+      }
+    },
+    "sub": {
+      "type": "product-full-width",
+      "disabled": true,
+      "settings": {
+        "max_width": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": false,
+        "product_recommendations_heading": "You may also like",
+        "related_count": 5
+      }
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "disabled": true,
+      "settings": {
+        "recent_count": 5
+      }
+    },
+    "loox-product-reviews-app-section": {
+      "type": "apps",
+      "blocks": {
+        "loox-product-reviews": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "reviews_to_display": "",
+            "default_tab": "automatic",
+            "only_photos": true,
+            "aggregated": false,
+            "limit": 20,
+            "hide_thumbnails": false,
+            "maxwidth": 1080,
+            "is_sample": true
+          }
+        }
+      },
+      "block_order": [
+        "loox-product-reviews"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
+    },
+    "collection-return": {
+      "type": "collection-return",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "comp_hotspot_showcase_tMUBiM",
+    "comp_product_tabs_M9zTWb",
+    "comp_tech_grid_jqPQAP",
+    "comp_spec_callout_3MtaQw",
+    "comp_tech_grid_JY9UBj",
+    "comp_setup_switcher_RMxCxm",
+    "comp_bundle_story_tQ8CdU",
+    "comp_bundle_cart_RwY3cC",
+    "comp_faq_section_FNjBAq",
+    "comp_ultimate_setup_734Dan",
+    "sub",
+    "product-recommendations",
+    "recently-viewed",
+    "loox-product-reviews-app-section",
+    "collection-return"
+  ]
+}

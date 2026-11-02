@@ -41,19 +41,17 @@
     {%- endif -%}
 
     <div class="new-comp-video__card" data-ncv-card>
-      <!-- Video Element: starts in 5s preview loop mode -->
+      <!-- Video Element: plays full video normally in loop -->
       <video
         class="new-comp-video__player"
         data-ncv-player
         data-src="{{ video_url }}"
-        src="{{ video_url }}"
-        autoplay
         loop
         muted
         playsinline
         preload="none"
         {% if section.settings.poster_image != blank %}
-          poster="{{ section.settings.poster_image | img_url: '1600x' }}"
+          poster="{{ section.settings.poster_image | image_url: width: 1200 }}"
         {% endif %}
       ></video>
 
@@ -298,9 +296,6 @@
 
       if (!video) return;
 
-      var previewCutoff = 5; // 5-second preview loop initially
-      var inPreviewMode = true;
-
       function formatTime(seconds) {
         if (isNaN(seconds) || seconds < 0) return '00:00';
         var m = Math.floor(seconds / 60);
@@ -316,19 +311,12 @@
 
       video.addEventListener('loadedmetadata', function () {
         updateDuration();
-        video.currentTime = 0;
         video.muted = true;
         video.play().catch(function () {});
       });
 
       video.addEventListener('timeupdate', function () {
         currentEl.textContent = formatTime(video.currentTime);
-
-        // In 5s preview mode, loop seamlessly between 0 and 5s
-        if (inPreviewMode && video.currentTime >= previewCutoff) {
-          video.currentTime = 0;
-          video.play().catch(function () {});
-        }
       });
 
       // Mute / Unmute Toggle
@@ -338,11 +326,6 @@
           video.muted = !video.muted;
           muteBtn.classList.toggle('is-muted', video.muted);
           muteBtn.setAttribute('aria-label', video.muted ? 'Unmute video' : 'Mute video');
-
-          // If user unmutes, break out of 5-second preview and let full video play with audio
-          if (!video.muted && inPreviewMode) {
-            inPreviewMode = false;
-          }
         });
       }
 
@@ -351,8 +334,6 @@
         playBtn.addEventListener('click', function (e) {
           e.stopPropagation();
           if (video.paused) {
-            // Once user explicitly plays, let full video run
-            inPreviewMode = false;
             video.play().then(function () {
               playBtn.classList.add('is-playing');
               playBtn.setAttribute('aria-label', 'Pause video');
@@ -365,13 +346,22 @@
         });
       }
 
-      // Intersection Observer: pause video when section scrolls off-screen to save CPU and battery
+      // Intersection Observer: load and play video when section scrolls into view; pause when off-screen
       if ('IntersectionObserver' in window) {
         var videoObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              if (video.paused && playBtn && playBtn.classList.contains('is-playing')) {
-                video.play().catch(function () {});
+              if (!video.getAttribute('src')) {
+                var dSrc = video.getAttribute('data-src');
+                if (dSrc) {
+                  video.src = dSrc;
+                  video.load();
+                }
+              }
+              if (video.paused && (!playBtn || playBtn.classList.contains('is-playing'))) {
+                video.play().then(function() {
+                  if (playBtn) playBtn.classList.add('is-playing');
+                }).catch(function () {});
               }
             } else {
               if (!video.paused) {
@@ -379,8 +369,13 @@
               }
             }
           });
-        }, { threshold: 0.25 });
+        }, { rootMargin: '200px' });
         videoObserver.observe(root);
+      } else {
+        if (!video.getAttribute('src')) {
+          var dSrc = video.getAttribute('data-src');
+          if (dSrc) video.src = dSrc;
+        }
       }
 
       updateDuration();

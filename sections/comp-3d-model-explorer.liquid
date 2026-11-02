@@ -18,6 +18,7 @@
   class="comp-3d-explorer comp-3d-explorer-{{ section.id }}"
   data-comp-3d-explorer
   data-model-src="{{ section.settings.model_glb_url | escape }}"
+  style="{% if section.settings.card_width_mobile != blank %}--c3d-card-width-mobile: {{ section.settings.card_width_mobile }}%;{% endif %}"
 >
   <!-- Background radial spotlight & optional watermark -->
   <div class="comp-3d-explorer__spotlight"></div>
@@ -27,7 +28,11 @@
       {{
         section.settings.bg_watermark_image
         | image_url: width: 1800
-        | image_tag: loading: 'lazy', alt: section.settings.heading | default: '3D Background' | escape
+        | image_tag:
+          loading: 'lazy',
+          widths: '600, 900, 1200, 1800',
+          sizes: '(max-width: 768px) 100vw, 1400px',
+          alt: section.settings.heading | default: '3D Background' | escape
       }}
     </div>
   {%- endif -%}
@@ -41,30 +46,36 @@
 
       <!-- Camera Angle Switcher -->
       <nav class="comp-3d-explorer__nav" aria-label="Camera angles">
-        <button
-          type="button"
-          class="comp-3d-explorer__nav-btn custom_subHeading-text"
-          data-angle="side"
-          data-orbit="{{ section.settings.angle_side_deg | default: 90 }}deg {{ section.settings.angle_side_pitch | default: 75 }}deg 105%"
-        >
-          {{ section.settings.pill_side_label | default: 'SIDE' }}
-        </button>
-        <button
-          type="button"
-          class="comp-3d-explorer__nav-btn comp-3d-explorer__nav-btn--active custom_subHeading-text"
-          data-angle="front"
-          data-orbit="{{ section.settings.angle_front_deg | default: 0 }}deg {{ section.settings.angle_front_pitch | default: 75 }}deg 105%"
-        >
-          {{ section.settings.pill_front_label | default: 'FRONT' }}
-        </button>
-        <button
-          type="button"
-          class="comp-3d-explorer__nav-btn custom_subHeading-text"
-          data-angle="back"
-          data-orbit="{{ section.settings.angle_back_deg | default: 180 }}deg {{ section.settings.angle_back_pitch | default: 75 }}deg 105%"
-        >
-          {{ section.settings.pill_back_label | default: 'BACK' }}
-        </button>
+        {%- if section.settings.show_side_pill != false -%}
+          <button
+            type="button"
+            class="comp-3d-explorer__nav-btn custom_subHeading-text"
+            data-angle="side"
+            data-orbit="{{ section.settings.angle_side_deg | default: 90 }}deg {{ section.settings.angle_side_pitch | default: 75 }}deg 105%"
+          >
+            {{ section.settings.pill_side_label | default: 'SIDE' }}
+          </button>
+        {%- endif -%}
+        {%- if section.settings.show_front_pill != false -%}
+          <button
+            type="button"
+            class="comp-3d-explorer__nav-btn comp-3d-explorer__nav-btn--active custom_subHeading-text"
+            data-angle="front"
+            data-orbit="{{ section.settings.angle_front_deg | default: 0 }}deg {{ section.settings.angle_front_pitch | default: 75 }}deg 105%"
+          >
+            {{ section.settings.pill_front_label | default: 'FRONT' }}
+          </button>
+        {%- endif -%}
+        {%- if section.settings.show_back_pill != false -%}
+          <button
+            type="button"
+            class="comp-3d-explorer__nav-btn custom_subHeading-text"
+            data-angle="back"
+            data-orbit="{{ section.settings.angle_back_deg | default: 180 }}deg {{ section.settings.angle_back_pitch | default: 75 }}deg 105%"
+          >
+            {{ section.settings.pill_back_label | default: 'BACK' }}
+          </button>
+        {%- endif -%}
       </nav>
     </header>
 
@@ -72,6 +83,27 @@
     <div class="comp-3d-explorer__stage">
       <div class="comp-3d-explorer__viewer-container" data-viewer-container>
         {%- if section.settings.model_glb_url != blank -%}
+          <!-- Custom Loading & Retry State -->
+          <div class="comp-3d-loader" data-3d-loader>
+            <!-- Loading spinner -->
+            <div class="comp-3d-loader__spinner-box" data-3d-spinner>
+              <div class="comp-3d-loader__spinner"></div>
+              <span class="comp-3d-loader__text custom_subHeading-text">LOADING 3D MODEL...</span>
+            </div>
+
+            <!-- Error & Retry Button -->
+            <div class="comp-3d-loader__error-box" data-3d-error style="display: none;">
+              <span class="comp-3d-loader__error-text custom_subHeading-text">Taking longer than expected to load</span>
+              <button type="button" class="comp-3d-loader__retry-btn custom_subHeading-text" data-3d-retry>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="1 4 1 10 7 10"></polyline>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                </svg>
+                <span>TRY AGAIN</span>
+              </button>
+            </div>
+          </div>
+
           <model-viewer
             id="viewer-{{ section.id }}"
             data-src="{{ section.settings.model_glb_url }}"
@@ -108,12 +140,39 @@
                 {%- assign position_str = pos_x | append: ' ' | append: pos_y | append: ' ' | append: pos_z -%}
                 {%- assign normal_str = norm_x | append: 'm ' | append: norm_y | append: 'm ' | append: norm_z | append: 'm' -%}
               {%- endif -%}
+              {%- liquid
+                assign is_mobile_pos = false
+                if block.settings.enable_mobile_hotspot_position
+                  if block.settings.hotspot_position_exact_mobile != blank
+                    assign is_mobile_pos = true
+                    assign position_mob_str = block.settings.hotspot_position_exact_mobile
+                    assign normal_mob_str = block.settings.hotspot_normal_exact_mobile | default: normal_str
+                  elsif block.settings.pos_x_mobile != blank
+                    assign is_mobile_pos = true
+                    assign pos_x_mob = block.settings.pos_x_mobile | default: 0 | divided_by: 100.0 | append: 'm'
+                    assign pos_y_mob = block.settings.pos_y_mobile | default: 0 | divided_by: 100.0 | append: 'm'
+                    assign pos_z_mob = block.settings.pos_z_mobile | default: 0 | divided_by: 100.0 | append: 'm'
+                    assign position_mob_str = pos_x_mob | append: ' ' | append: pos_y_mob | append: ' ' | append: pos_z_mob
+                    assign normal_mob_str = normal_str
+                  else
+                    assign position_mob_str = position_str
+                    assign normal_mob_str = normal_str
+                  endif
+                else
+                  assign position_mob_str = position_str
+                  assign normal_mob_str = normal_str
+                endif
+              -%}
               <button
                 type="button"
                 class="comp-3d-hotspot"
                 slot="{{ slot_name }}"
                 data-position="{{ position_str }}"
                 data-normal="{{ normal_str }}"
+                data-position-desktop="{{ position_str }}"
+                data-normal-desktop="{{ normal_str }}"
+                data-position-mobile="{{ position_mob_str }}"
+                data-normal-mobile="{{ normal_mob_str }}"
                 data-visible-view="{{ block.settings.visible_view | default: 'all' }}"
                 data-block-id="{{ block.id }}"
                 data-target-drawer="drawer-{{ block.id }}"
@@ -148,10 +207,21 @@
 
             <!-- Static hotspots preview over fallback image -->
             {%- for block in section.blocks -%}
+              {%- liquid
+                assign s_top = block.settings.static_top | default: 50
+                assign s_left = block.settings.static_left | default: 50
+                if block.settings.enable_mobile_hotspot_position
+                  assign s_top_mob = block.settings.static_top_mobile | default: s_top
+                  assign s_left_mob = block.settings.static_left_mobile | default: s_left
+                else
+                  assign s_top_mob = s_top
+                  assign s_left_mob = s_left
+                endif
+              -%}
               <button
                 type="button"
                 class="comp-3d-hotspot comp-3d-hotspot--static"
-                style="top: {{ block.settings.static_top | default: 50 }}%; left: {{ block.settings.static_left | default: 50 }}%;"
+                style="--comp-static-top: {{ s_top }}%; --comp-static-left: {{ s_left }}%; --comp-static-top-mob: {{ s_top_mob }}%; --comp-static-left-mob: {{ s_left_mob }}%;"
                 data-target-drawer="drawer-{{ block.id }}"
                 aria-label="{{ block.settings.title | escape }}"
                 {{ block.shopify_attributes }}
@@ -225,97 +295,181 @@
         {%- endif -%}
 
         <div class="comp-3d-drawer__body">
-          <div class="comp-3d-drawer__header-content">
-            <h3 class="comp-3d-drawer__title custom_heading">
-              {{ block.settings.drawer_title | default: 'ELEVATE YOUR GAME' }}
-            </h3>
+          {%- if block.settings.show_drawer_cards -%}
+            {%- assign show_row1_heading = block.settings.show_drawer_heading | default: true -%}
+            {%- if show_row1_heading -%}
+              {%- if block.settings.drawer_title != blank or block.settings.drawer_subtitle != blank -%}
+                <div class="comp-3d-drawer__header-content">
+                  {%- if block.settings.drawer_title != blank -%}
+                    <h3 class="comp-3d-drawer__title custom_heading">
+                      {{ block.settings.drawer_title }}
+                    </h3>
+                  {%- endif -%}
 
-            <p class="comp-3d-drawer__subtext custom_body-text">
-              {{ block.settings.drawer_subtitle | default: 'Player Pro redefines what a golf speaker can be. A full-color touchscreen brings every hole to life with visual layouts, green heat maps, and real-time distances, while AI-powered insights help you choose the right shot with confidence. Dynamic hazards, shot distance tracking, and on-device scoring turn every round into a smarter one.' }}
-            </p>
-          </div>
+                  {%- if block.settings.drawer_subtitle != blank -%}
+                    <p class="comp-3d-drawer__subtext custom_body-text">
+                      {{ block.settings.drawer_subtitle }}
+                    </p>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            {%- endif -%}
 
-          <!-- 3-Column Feature Cards Row 1 -->
-          <div class="comp-3d-drawer__cards-grid">
-            {% render 'comp-3d-drawer-card',
-              image: block.settings.card_1_image,
-              title: block.settings.card_1_title,
-              default_title: 'FRONT, CENTER, BACK GPS DISTANCES',
-              desc: block.settings.card_1_desc,
-              default_desc: 'Instantly view FCB yardages across 42,000+ courses to dial in every shot with confidence, wherever you play, round after round.'
-            %}
+            <!-- 3-Column Feature Cards Row 1 -->
+            {%- assign drawer_cards_ui = block.settings.drawer_cards_ui | default: 'ui_v1' -%}
+            <div class="comp-3d-drawer__cards-grid comp-3d-drawer__cards-grid--{{ drawer_cards_ui }}">
+              {% render 'comp-3d-drawer-card',
+                card_ui: drawer_cards_ui,
+                image: block.settings.card_1_image,
+                title: block.settings.card_1_title,
+                default_title: 'FRONT, CENTER, BACK GPS DISTANCES',
+                desc: block.settings.card_1_desc,
+                default_desc: 'Instantly view FCB yardages across 42,000+ courses to dial in every shot with confidence, wherever you play, round after round.'
+              %}
 
-            {% render 'comp-3d-drawer-card',
-              image: block.settings.card_2_image,
-              title: block.settings.card_2_title,
-              default_title: 'SHOT DISTANCE TRACKING',
-              desc: block.settings.card_2_desc,
-              default_desc: 'Automatically track the distance of every shot to measure performance, dial in your yardages, and play with more confidence—all directly on your screen.'
-            %}
+              {% render 'comp-3d-drawer-card',
+                card_ui: drawer_cards_ui,
+                image: block.settings.card_2_image,
+                title: block.settings.card_2_title,
+                default_title: 'SHOT DISTANCE TRACKING',
+                desc: block.settings.card_2_desc,
+                default_desc: 'Automatically track the distance of every shot to measure performance, dial in your yardages, and play with more confidence—all directly on your screen.'
+              %}
 
-            {% render 'comp-3d-drawer-card',
-              image: block.settings.card_3_image,
-              title: block.settings.card_3_title,
-              default_title: 'DYNAMIC HAZARD DISTANCES',
-              desc: block.settings.card_3_desc,
-              default_desc: 'Get real-time distances to bunkers, water, trees, and trouble. Every hazard is mapped and surfaced clearly, helping you navigate the course with smarter decisions.'
-            %}
-          </div>
+              {% render 'comp-3d-drawer-card',
+                card_ui: drawer_cards_ui,
+                image: block.settings.card_3_image,
+                title: block.settings.card_3_title,
+                default_title: 'DYNAMIC HAZARD DISTANCES',
+                desc: block.settings.card_3_desc,
+                default_desc: 'Get real-time distances to bunkers, water, trees, and trouble. Every hazard is mapped and surfaced clearly, helping you navigate the course with smarter decisions.'
+              %}
 
-          <!-- Full Width Highlight Video / Media Banner -->
-          {%- assign hl_vid = block.settings.highlight_video_url | default: 'https://cdn.shopify.com/videos/c/o/v/9332cf75afbe41a9bca83d732d2074c4.mp4' -%}
-          <div class="comp-3d-drawer__highlight-wrap">
-            <div class="comp-3d-drawer__highlight-header">
-              <h4 class="comp-3d-drawer__highlight-title custom_heading">
-                {{ block.settings.highlight_title | default: 'DYNAMIC HOLE VIEWS' }}
-              </h4>
-              <p class="comp-3d-drawer__highlight-desc custom_body-text">
-                {{ block.settings.highlight_desc | default: 'Read every green with clarity before you putt. Green Heat Maps provide a color-coded view of slopes and breaks on your Player Pro screen—revealing elevation changes, subtle undulations, and fall lines at a glance so you can choose better lines and control speed with confidence.' }}
-              </p>
-            </div>
-            <div class="comp-3d-drawer__highlight-media">
-              {%- if hl_vid != blank -%}
-                {% render 'comp-video-player',
-                  video_url: hl_vid,
-                  poster: block.settings.highlight_image,
-                  is_active: true,
-                  title: block.settings.highlight_title,
-                  video_class: 'comp-3d-drawer__highlight-video',
-                  data_attr: 'data-3d-drawer-video',
-                  controls_variant: 'full'
+              {%- if drawer_cards_ui == 'ui_v2' -%}
+                {%- assign r1_c4_img = block.settings.row1_card_4_image | default: block.settings.card_4_image -%}
+                {%- assign r1_c4_title = block.settings.row1_card_4_title | default: block.settings.card_4_title -%}
+                {%- assign r1_c4_desc = block.settings.row1_card_4_desc | default: block.settings.card_4_desc -%}
+                {% render 'comp-3d-drawer-card',
+                  card_ui: drawer_cards_ui,
+                  image: r1_c4_img,
+                  title: r1_c4_title,
+                  default_title: 'DYNAMIC HOLE VIEWS',
+                  desc: r1_c4_desc,
+                  default_desc: 'Full layout from tee to green. View fairway curves, landing areas, hazards, and green shapes in high definition right on your screen.'
                 %}
-              {%- elsif block.settings.highlight_image != blank -%}
-                {{ block.settings.highlight_image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'comp-3d-drawer__highlight-img', alt: block.settings.highlight_title | default: '' }}
               {%- endif -%}
             </div>
-          </div>
+          {%- endif -%}
+
+          <!-- Full Width Highlight Video / Media Banner -->
+          {%- assign hl_media_type = block.settings.highlight_media_type | default: 'video' -%}
+          {%- assign hl_vid = block.settings.highlight_video_url -%}
+          {%- assign show_hl_block = false -%}
+          {%- if hl_media_type == 'image' and block.settings.highlight_image != blank -%}
+            {%- assign show_hl_block = true -%}
+          {%- elsif hl_media_type == 'video' and hl_vid != blank -%}
+            {%- assign show_hl_block = true -%}
+          {%- elsif block.settings.highlight_title != blank or block.settings.highlight_desc != blank -%}
+            {%- assign show_hl_block = true -%}
+          {%- endif -%}
+
+          {%- if show_hl_block -%}
+            <div class="comp-3d-drawer__highlight-wrap">
+              {%- if block.settings.highlight_title != blank or block.settings.highlight_desc != blank -%}
+                <div class="comp-3d-drawer__highlight-header">
+                  {%- if block.settings.highlight_title != blank -%}
+                    <h4 class="comp-3d-drawer__highlight-title custom_heading">
+                      {{ block.settings.highlight_title }}
+                    </h4>
+                  {%- endif -%}
+                  {%- if block.settings.highlight_desc != blank -%}
+                    <p class="comp-3d-drawer__highlight-desc custom_body-text">
+                      {{ block.settings.highlight_desc }}
+                    </p>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+              <div class="comp-3d-drawer__highlight-media">
+                {%- if hl_media_type == 'image' -%}
+                  {%- if block.settings.highlight_image != blank -%}
+                    {{
+                      block.settings.highlight_image
+                      | image_url: width: 1400
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'comp-3d-drawer__highlight-img',
+                        alt: block.settings.highlight_title | default: 'Feature Highlight' | escape
+                    }}
+                  {%- endif -%}
+                {%- else -%}
+                  {%- if hl_vid != blank -%}
+                    {% render 'comp-video-player',
+                      video_url: hl_vid,
+                      poster: block.settings.highlight_image,
+                      is_active: true,
+                      title: block.settings.highlight_title,
+                      video_class: 'comp-3d-drawer__highlight-video',
+                      data_attr: 'data-3d-drawer-video',
+                      controls_variant: 'full'
+                    %}
+                  {%- elsif block.settings.highlight_image != blank -%}
+                    {{
+                      block.settings.highlight_image
+                      | image_url: width: 1400
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'comp-3d-drawer__highlight-img',
+                        alt: block.settings.highlight_title | default: 'Feature Highlight' | escape
+                    }}
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
 
           <!-- 3-Column Feature Cards Row 2 -->
-          <div class="comp-3d-drawer__cards-grid">
-            {% render 'comp-3d-drawer-card',
-              image: block.settings.card_4_image,
-              title: block.settings.card_4_title,
-              default_title: 'ON-DEVICE SCORING',
-              desc: block.settings.card_4_desc,
-              default_desc: 'Keep score without pulling out your phone. Track your round shot-by-shot with an intuitive, full-color interface.'
-            %}
+          {%- if block.settings.show_drawer_cards_bottom -%}
+            {%- assign drawer_cards_ui = block.settings.drawer_cards_ui | default: 'ui_v1' -%}
+            <div class="comp-3d-drawer__cards-grid comp-3d-drawer__cards-grid--{{ drawer_cards_ui }}">
+              {% render 'comp-3d-drawer-card',
+                card_ui: drawer_cards_ui,
+                image: block.settings.card_4_image,
+                title: block.settings.card_4_title,
+                default_title: 'ON-DEVICE SCORING',
+                desc: block.settings.card_4_desc,
+                default_desc: 'Keep score without pulling out your phone. Track your round shot-by-shot with an intuitive, full-color interface.'
+              %}
 
-            {% render 'comp-3d-drawer-card',
-              image: block.settings.card_5_image,
-              title: block.settings.card_5_title,
-              default_title: 'CLOCK + ROUND TIMER',
-              desc: block.settings.card_5_desc,
-              default_desc: 'Stay on pace and in rhythm with an integrated clock and hole-by-hole round timer designed for focus and flow.'
-            %}
+              {% render 'comp-3d-drawer-card',
+                card_ui: drawer_cards_ui,
+                image: block.settings.card_5_image,
+                title: block.settings.card_5_title,
+                default_title: 'CLOCK + ROUND TIMER',
+                desc: block.settings.card_5_desc,
+                default_desc: 'Stay on pace and in rhythm with an integrated clock and hole-by-hole round timer designed for focus and flow.'
+              %}
 
-            {% render 'comp-3d-drawer-card',
-              image: block.settings.card_6_image,
-              title: block.settings.card_6_title,
-              default_title: 'MUSIC PLAYER WITH ALBUM ART',
-              desc: block.settings.card_6_desc,
-              default_desc: 'Get real-time distances to bunkers, water, trees, and trouble. Every hazard is mapped and surfaced clearly, helping you navigate the course with smarter decisions.'
-            %}
-          </div>
+              {% render 'comp-3d-drawer-card',
+                card_ui: drawer_cards_ui,
+                image: block.settings.card_6_image,
+                title: block.settings.card_6_title,
+                default_title: 'MUSIC PLAYER WITH ALBUM ART',
+                desc: block.settings.card_6_desc,
+                default_desc: 'Get real-time distances to bunkers, water, trees, and trouble. Every hazard is mapped and surfaced clearly, helping you navigate the course with smarter decisions.'
+              %}
+
+              {%- if drawer_cards_ui == 'ui_v2' and block.settings.card_7_title != blank or block.settings.card_7_image != blank -%}
+                {% render 'comp-3d-drawer-card',
+                  card_ui: drawer_cards_ui,
+                  image: block.settings.card_7_image,
+                  title: block.settings.card_7_title,
+                  default_title: 'WEATHER AND ELEVATION',
+                  desc: block.settings.card_7_desc,
+                  default_desc: 'Live course conditions, temperature, humidity, and elevation adjustments to calculate your True Distance on every shot.'
+                %}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
         </div>
       </div>
     </div>
@@ -373,7 +527,7 @@
 
   #{{ section_id }} .comp-3d-explorer__inner {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
@@ -466,9 +620,108 @@
     height: 100%;
     --poster-color: transparent;
     outline: none;
+    position: relative;
   }
 
-  /* Hotspot Pin & Halo */
+  /* Custom 3D Model Loader & Retry State */
+  #{{ section_id }} .comp-3d-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    z-index: 25;
+    pointer-events: auto;
+    transition: opacity 0.35s ease;
+  }
+
+  #{{ section_id }} .comp-3d-loader__bg {
+    display: none;
+  }
+
+  #{{ section_id }} .comp-3d-loader__spinner-box,
+  #{{ section_id }} .comp-3d-loader__error-box {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 24px 32px;
+    background: rgba(17, 24, 33, 0.92);
+    border: 1px solid #26303D;
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    max-width: 320px;
+  }
+
+  #{{ section_id }} .comp-3d-loader__spinner {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.12);
+    border-top-color: #CCFF08;
+    animation: comp-3d-spin 0.85s linear infinite;
+  }
+
+  @keyframes comp-3d-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  #{{ section_id }} .comp-3d-loader__text {
+    font-size: 11px;
+    line-height: 1.2;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #CCFF08;
+  }
+
+  #{{ section_id }} .comp-3d-loader__error-text {
+    font-size: 13px;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    opacity: 0.85;
+  }
+
+  #{{ section_id }} .comp-3d-loader__retry-btn {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #CCFF08;
+    color: #111821;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 12px 22px;
+    border-radius: 100px;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 14px rgba(204, 255, 8, 0.3);
+  }
+
+  #{{ section_id }} .comp-3d-loader__retry-btn:hover {
+    background: #ddff38;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(204, 255, 8, 0.45);
+  }
+
+  #{{ section_id }} .comp-3d-loader__retry-btn svg {
+    flex-shrink: 0;
+  }
+
+  /* Hotspots - Hidden until model is fully loaded */
   #{{ section_id }} .comp-3d-hotspot {
     appearance: none;
     border: none;
@@ -482,7 +735,21 @@
     transform: translate(-18px, -18px);
     z-index: 10;
     outline: none;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.2s ease;
+  }
+
+  #{{ section_id }} .comp-3d-explorer__viewer-container.is-model-loaded .comp-3d-hotspot {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Hide default model-viewer progress bar/slot if any */
+  #{{ section_id }} model-viewer::part(default-progress-bar) {
+    display: none !important;
   }
 
   /* Hide when filtered out by active angle pill */
@@ -492,6 +759,15 @@
 
   #{{ section_id }} .comp-3d-hotspot--static {
     position: absolute;
+    top: var(--comp-static-top);
+    left: var(--comp-static-left);
+  }
+
+  @media screen and (max-width: 768px) {
+    #{{ section_id }} .comp-3d-hotspot--static {
+      top: var(--comp-static-top-mob);
+      left: var(--comp-static-left-mob);
+    }
   }
 
   #{{ section_id }} .comp-3d-hotspot__halo {
@@ -527,7 +803,19 @@
     color: #FFFFFF;
     white-space: nowrap;
     text-shadow: 0 1px 4px rgba(0,0,0,0.8);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-6px);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #{{ section_id }} .comp-3d-hotspot:hover .comp-3d-hotspot__label,
+  #{{ section_id }} .comp-3d-hotspot:focus .comp-3d-hotspot__label,
+  #{{ section_id }} .comp-3d-hotspot:focus-visible .comp-3d-hotspot__label {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
   }
 
   #{{ section_id }} .comp-3d-hotspot:hover .comp-3d-hotspot__halo {
@@ -558,6 +846,12 @@
     border-radius: 12px;
   }
 
+  /* Scroll lock when drawer open */
+  body.lock-scroll {
+    overflow: hidden !important;
+    touch-action: none;
+  }
+
   /* Bottom Drawer Modal */
   .comp-3d-drawer-backdrop {
     position: fixed;
@@ -569,6 +863,7 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
+    overscroll-behavior: contain;
   }
 
   .comp-3d-drawer-backdrop.is-active {
@@ -596,6 +891,7 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+    overscroll-behavior: contain;
   }
 
   .comp-3d-drawer.is-active {
@@ -638,6 +934,7 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     height: 100%;
+    overscroll-behavior: contain;
   }
 
   .comp-3d-drawer__hero {
@@ -665,7 +962,7 @@
     position: absolute;
     top: 24px;
     left: 28px;
-    font-size: 28px;
+    font-size: clamp(16px, 2vw, 28px);
     color: #FFFFFF;
     text-transform: uppercase;
     text-shadow: 0 2px 8px rgba(0,0,0,0.6);
@@ -685,7 +982,7 @@
   }
 
   .comp-3d-drawer__title {
-    font-size: 26px;
+    font-size: clamp(24px, 1.7vw, 26px);
     line-height: 1.1;
     color: #101820;
     margin: 0 0 10px;
@@ -698,6 +995,7 @@
     line-height: 1.55;
     color: #55595F;
     margin: 0 0 32px;
+    padding:0px;
   }
 
   .comp-3d-drawer__hero-video {
@@ -728,7 +1026,7 @@
 
   .comp-3d-drawer-card__media {
     width: 100%;
-    height: 240px;
+    height: clamp(200px, 20vw, 325px);
     overflow: hidden;
     background: #252930;
   }
@@ -742,7 +1040,7 @@
 
   .comp-3d-drawer-card__title {
     margin: 20px 20px 10px;
-    font-size: 14px;
+    font-size: 20px;
     line-height: 1.25;
     color: #FFFFFF;
     text-transform: uppercase;
@@ -751,9 +1049,85 @@
 
   .comp-3d-drawer-card__desc {
     margin: 0 20px 22px;
-    font-size: 12.5px;
+    font-size: 16px;
     line-height: 1.45;
-    color: #A0A5AE;
+    color: #fff;
+    padding:0px;
+  }
+
+  /* UI V2: Clean Figma Rangefinder/Features Style (4 Cards Layout) */
+  .comp-3d-drawer__cards-grid--ui_v2 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .comp-3d-drawer__cards-grid--ui_v2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .comp-3d-drawer-card--ui_v2 {
+    background: transparent;
+    border-radius: 10px;
+    padding: 0 0 24px;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .comp-3d-drawer-card--ui_v2 .comp-3d-drawer-card__media {
+    width: 100%;
+    height: 204px;
+    background: #000000;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 16px;
+    box-sizing: border-box;
+  }
+
+  .comp-3d-drawer-card--ui_v2 .comp-3d-drawer-card__img {
+    width: 100%;
+    max-width: 260px;
+    height: 100%;
+    max-height: 186px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .comp-3d-drawer-card--ui_v2 .comp-3d-drawer-card__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 0 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .comp-3d-drawer-card--ui_v2 .comp-3d-drawer-card__title {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.2;
+    color: #0D0D0D;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+
+  .comp-3d-drawer-card--ui_v2 .comp-3d-drawer-card__desc {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #0D0D0D;
+    text-align: center;
+    letter-spacing: 0.02em;
   }
 
   /* Highlight Media Banner (Full Width Video/Image) */
@@ -789,15 +1163,20 @@
   .comp-3d-drawer__highlight-img {
     width: 100%;
     display: block;
-    max-height: 520px;
+    /* max-height: 520px; */
     object-fit: cover;
+    height: 100%;
   }
 
   /* Responsive Mobile */
-  @media (max-width: 768px) {
+  @media (max-width: 991px) {
+
+    #{{ section_id }} .comp-3d-hotspot__label{
+      font-size: 10px;
+    }
     #{{ section_id }}.comp-3d-explorer {
       min-height: auto;
-      padding-bottom: 40px;
+      {% comment %} padding-bottom: 40px; {% endcomment %}
     }
 
     #{{ section_id }} .comp-3d-explorer__inner {
@@ -825,11 +1204,19 @@
     .comp-3d-drawer__cards-grid {
       grid-template-columns: 1fr;
       gap: 16px;
+      justify-items: center;
+    }
+
+    #{{ section_id }} .comp-3d-drawer-card {
+      width: var(--c3d-card-width-mobile, 100%);
+      max-width: 100%;
+      margin-inline: auto;
     }
 
     .comp-3d-drawer__body {
       padding: 24px 20px 40px;
     }
+    .comp-3d-drawer__highlight-title{margin-right: 38px;}
   }
 </style>
 
@@ -840,6 +1227,97 @@
 
     // 1. Non-blocking lazy load for Google <model-viewer> and 3D GLB
     const viewer = root.querySelector('model-viewer');
+    const loader = root.querySelector('[data-3d-loader]');
+    const spinnerBox = root.querySelector('[data-3d-spinner]');
+    const errorBox = root.querySelector('[data-3d-error]');
+    const retryBtn = root.querySelector('[data-3d-retry]');
+
+    let loadTimeout = null;
+
+    function startLoadTimer() {
+      clearTimeout(loadTimeout);
+      // If model not loaded after 10s, show error with retry button
+      loadTimeout = setTimeout(() => {
+        if (viewer && !viewer.loaded && errorBox && spinnerBox) {
+          spinnerBox.style.display = 'none';
+          errorBox.style.display = 'flex';
+        }
+      }, 10000);
+    }
+
+    const viewerContainer = root.querySelector('[data-viewer-container]');
+
+    function onModelLoaded() {
+      clearTimeout(loadTimeout);
+      if (viewerContainer) {
+        viewerContainer.classList.add('is-model-loaded');
+      }
+      if (loader) {
+        loader.style.opacity = '0';
+        loader.style.pointerEvents = 'none';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 350);
+      }
+    }
+
+    function onModelError() {
+      clearTimeout(loadTimeout);
+      if (spinnerBox && errorBox) {
+        spinnerBox.style.display = 'none';
+        errorBox.style.display = 'flex';
+      }
+    }
+
+    if (viewer) {
+      viewer.addEventListener('load', onModelLoaded);
+      viewer.addEventListener('error', onModelError);
+    }
+
+    if (retryBtn && viewer) {
+      retryBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (viewerContainer) {
+          viewerContainer.classList.remove('is-model-loaded');
+        }
+        if (errorBox && spinnerBox) {
+          errorBox.style.display = 'none';
+          spinnerBox.style.display = 'flex';
+        }
+        const src = viewer.getAttribute('data-src') || viewer.getAttribute('src');
+        if (src) {
+          // Force reload by appending timestamp cache buster
+          const separator = src.indexOf('?') !== -1 ? '&' : '?';
+          const freshSrc = src.split('?v3d=')[0] + separator + 'v3d=' + Date.now();
+          viewer.removeAttribute('src');
+          viewer.setAttribute('src', freshSrc);
+          startLoadTimer();
+        }
+      });
+    }
+
+    // Fix for Pastel QA tool: Pastel proxies DOM nodes, causing Lit inside model-viewer to throw on TreeWalker.currentNode
+    try {
+      const origDescriptor = Object.getOwnPropertyDescriptor(TreeWalker.prototype, 'currentNode');
+      if (origDescriptor && origDescriptor.set) {
+        Object.defineProperty(TreeWalker.prototype, 'currentNode', {
+          get: origDescriptor.get,
+          set: function (val) {
+            try {
+              origDescriptor.set.call(this, val);
+            } catch (err) {
+              if (val && typeof val === 'object' && val.nodeType) {
+                const unwrapped = val.__target || val._target || val;
+                try { origDescriptor.set.call(this, unwrapped); } catch (e) {}
+              }
+            }
+          },
+          configurable: true,
+          enumerable: true
+        });
+      }
+    } catch (e) {}
 
     function init3DModel() {
       if (!viewer) return;
@@ -850,6 +1328,7 @@
         function attachSource() {
           const dataSrc = viewer.getAttribute('data-src');
           if (dataSrc && !viewer.getAttribute('src')) {
+            startLoadTimer();
             viewer.setAttribute('src', dataSrc);
           }
         }
@@ -863,7 +1342,7 @@
           const script = document.createElement('script');
           script.id = 'model-viewer-script';
           script.type = 'module';
-          script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js';
+          script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js';
           script.onload = () => {
             if (window.customElements && window.customElements.whenDefined) {
               window.customElements.whenDefined('model-viewer').then(attachSource);
@@ -908,6 +1387,24 @@
         }
       });
     }
+
+    // Responsive Hotspot Position Switcher for 3D
+    function applyResponsiveHotspots() {
+      const isMobile = window.innerWidth <= 768;
+      allHotspots.forEach(hs => {
+        const targetPos = isMobile ? hs.getAttribute('data-position-mobile') : hs.getAttribute('data-position-desktop');
+        const targetNorm = isMobile ? hs.getAttribute('data-normal-mobile') : hs.getAttribute('data-normal-desktop');
+        if (targetPos) {
+          hs.setAttribute('data-position', targetPos);
+        }
+        if (targetNorm) {
+          hs.setAttribute('data-normal', targetNorm);
+        }
+      });
+    }
+
+    applyResponsiveHotspots();
+    window.addEventListener('resize', applyResponsiveHotspots);
 
     // Set initial visibility
     updateHotspotVisibility('front');
@@ -1042,6 +1539,12 @@
       "content": "Pill Labels & Angles"
     },
     {
+      "type": "checkbox",
+      "id": "show_front_pill",
+      "label": "Show Front View Button",
+      "default": true
+    },
+    {
       "type": "text",
       "id": "pill_front_label",
       "label": "Front Button Label",
@@ -1066,6 +1569,12 @@
       "step": 1,
       "unit": "deg",
       "default": 75
+    },
+    {
+      "type": "checkbox",
+      "id": "show_side_pill",
+      "label": "Show Side View Button",
+      "default": true
     },
     {
       "type": "text",
@@ -1094,6 +1603,12 @@
       "default": 75
     },
     {
+      "type": "checkbox",
+      "id": "show_back_pill",
+      "label": "Show Back View Button",
+      "default": true
+    },
+    {
       "type": "text",
       "id": "pill_back_label",
       "label": "Back Button Label",
@@ -1118,6 +1633,20 @@
       "step": 1,
       "unit": "deg",
       "default": 75
+    },
+    {
+      "type": "header",
+      "content": "Mobile Drawer Card Layout"
+    },
+    {
+      "type": "range",
+      "id": "card_width_mobile",
+      "label": "Drawer Cards Width Mobile (%)",
+      "min": 60,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "default": 100
     }
   ],
   "blocks": [
@@ -1136,10 +1665,22 @@
           "id": "visible_view",
           "label": "Show on Angle",
           "options": [
-            { "value": "all", "label": "All Views" },
-            { "value": "front", "label": "Front View Only" },
-            { "value": "side", "label": "Side View Only" },
-            { "value": "back", "label": "Back View Only" }
+            {
+              "value": "all",
+              "label": "All Views"
+            },
+            {
+              "value": "front",
+              "label": "Front View Only"
+            },
+            {
+              "value": "side",
+              "label": "Side View Only"
+            },
+            {
+              "value": "back",
+              "label": "Back View Only"
+            }
           ],
           "default": "all",
           "info": "Prevents hotspot overlapping by only showing on its relevant angle"
@@ -1155,6 +1696,31 @@
           "id": "hotspot_normal_exact",
           "label": "Exact Normal Override (nx ny nz)",
           "info": "Optional normal string like '0m 1m 0m'"
+        },
+        {
+          "type": "header",
+          "content": "3D Hotspot Position Mobile"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_mobile_hotspot_position",
+          "label": "Enable Custom Mobile Hotspot Position",
+          "default": false,
+          "info": "Turn on to set a custom hotspot position on mobile for this item"
+        },
+        {
+          "type": "text",
+          "id": "hotspot_position_exact_mobile",
+          "label": "Mobile Exact Position Override (x y z)",
+          "info": "Optional mobile position string like '0.01m 0.12m 0.05m'",
+          "visible_if": "{{ block.settings.enable_mobile_hotspot_position }}"
+        },
+        {
+          "type": "text",
+          "id": "hotspot_normal_exact_mobile",
+          "label": "Mobile Exact Normal Override (nx ny nz)",
+          "info": "Optional mobile normal string like '0m 1m 0m'",
+          "visible_if": "{{ block.settings.enable_mobile_hotspot_position }}"
         },
         {
           "type": "header",
@@ -1245,6 +1811,31 @@
         },
         {
           "type": "header",
+          "content": "Fallback 2D Position Mobile (% if no 3D file)",
+          "visible_if": "{{ block.settings.enable_mobile_hotspot_position }}"
+        },
+        {
+          "type": "range",
+          "id": "static_top_mobile",
+          "label": "Top Position % (Mobile)",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "default": 35,
+          "visible_if": "{{ block.settings.enable_mobile_hotspot_position }}"
+        },
+        {
+          "type": "range",
+          "id": "static_left_mobile",
+          "label": "Left Position % (Mobile)",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "default": 55,
+          "visible_if": "{{ block.settings.enable_mobile_hotspot_position }}"
+        },
+        {
+          "type": "header",
           "content": "Bottom Drawer: Header Media"
         },
         {
@@ -1259,71 +1850,132 @@
           "info": "Optional video background in drawer hero banner"
         },
         {
+          "type": "header",
+          "content": "Drawer: Top Feature Cards (Row 1)"
+        },
+        {
+          "type": "select",
+          "id": "drawer_cards_ui",
+          "label": "Drawer Feature Cards UI Style",
+          "options": [
+            {
+              "value": "ui_v1",
+              "label": "UI Style 1 - Dark Cards (Default)"
+            },
+            {
+              "value": "ui_v2",
+              "label": "UI Style 2 - Minimal Rounded Cards (Image 1 Figma)"
+            }
+          ],
+          "default": "ui_v1"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_drawer_cards",
+          "label": "Show Top Feature Cards (Row 1)",
+          "default": true,
+          "info": "Toggle off to hide the top 3 cards"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_drawer_heading",
+          "label": "Show Heading Above Top Cards",
+          "default": true,
+          "info": "Toggle off to hide the title and description above the top cards"
+        },
+        {
           "type": "text",
           "id": "drawer_title",
           "label": "Drawer Title",
-          "default": "ELEVATE YOUR GAME"
+          "default": "ELEVATE YOUR GAME",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "textarea",
           "id": "drawer_subtitle",
           "label": "Drawer Description",
-          "default": "Player Pro redefines what a golf speaker can be. A full-color touchscreen brings every hole to life with visual layouts, green heat maps, and real-time distances, while AI-powered insights help you choose the right shot with confidence. Dynamic hazards, shot distance tracking, and on-device scoring turn every round into a smarter one."
-        },
-        {
-          "type": "header",
-          "content": "Drawer: Row 1 Cards (3 Columns)"
+          "default": "Player Pro redefines what a golf speaker can be. A full-color touchscreen brings every hole to life with visual layouts, green heat maps, and real-time distances, while AI-powered insights help you choose the right shot with confidence. Dynamic hazards, shot distance tracking, and on-device scoring turn every round into a smarter one.",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "image_picker",
           "id": "card_1_image",
-          "label": "Card 1 Image"
+          "label": "Card 1 Image",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "text",
           "id": "card_1_title",
           "label": "Card 1 Title",
-          "default": "FRONT, CENTER, BACK GPS DISTANCES"
+          "default": "FRONT, CENTER, BACK GPS DISTANCES",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "textarea",
           "id": "card_1_desc",
           "label": "Card 1 Description",
-          "default": "Instantly view FCB yardages across 42,000+ courses to dial in every shot with confidence, wherever you play, round after round."
+          "default": "Instantly view FCB yardages across 42,000+ courses to dial in every shot with confidence, wherever you play, round after round.",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "image_picker",
           "id": "card_2_image",
-          "label": "Card 2 Image"
+          "label": "Card 2 Image",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "text",
           "id": "card_2_title",
           "label": "Card 2 Title",
-          "default": "SHOT DISTANCE TRACKING"
+          "default": "SHOT DISTANCE TRACKING",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "textarea",
           "id": "card_2_desc",
           "label": "Card 2 Description",
-          "default": "Automatically track the distance of every shot to measure performance, dial in your yardages, and play with more confidence—all directly on your screen."
+          "default": "Automatically track the distance of every shot to measure performance, dial in your yardages, and play with more confidence—all directly on your screen.",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "image_picker",
           "id": "card_3_image",
-          "label": "Card 3 Image"
+          "label": "Card 3 Image",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "text",
           "id": "card_3_title",
           "label": "Card 3 Title",
-          "default": "DYNAMIC HAZARD DISTANCES"
+          "default": "DYNAMIC HAZARD DISTANCES",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "textarea",
           "id": "card_3_desc",
           "label": "Card 3 Description",
-          "default": "Get real-time distances to bunkers, water, trees, and trouble. Every hazard is mapped and surfaced clearly, helping you navigate the course with smarter decisions."
+          "default": "Get real-time distances to bunkers, water, trees, and trouble. Every hazard is mapped and surfaced clearly, helping you navigate the course with smarter decisions.",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
+        },
+        {
+          "type": "image_picker",
+          "id": "row1_card_4_image",
+          "label": "Card 4 Image (Card UI 2)",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
+        },
+        {
+          "type": "text",
+          "id": "row1_card_4_title",
+          "label": "Card 4 Title (Card UI 2)",
+          "default": "DYNAMIC HOLE VIEWS",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
+        },
+        {
+          "type": "textarea",
+          "id": "row1_card_4_desc",
+          "label": "Card 4 Description (Card UI 2)",
+          "default": "Full layout from tee to green. View fairway curves, landing areas, hazards, and green shapes in high definition right on your screen.",
+          "visible_if": "{{ block.settings.show_drawer_cards }}"
         },
         {
           "type": "header",
@@ -1342,70 +1994,102 @@
           "default": "Read every green with clarity before you putt. Green Heat Maps provide a color-coded view of slopes and breaks on your Player Pro screen—revealing elevation changes, subtle undulations, and fall lines at a glance so you can choose better lines and control speed with confidence."
         },
         {
+          "type": "select",
+          "id": "highlight_media_type",
+          "label": "Highlight Media Type",
+          "options": [
+            {
+              "value": "video",
+              "label": "Video"
+            },
+            {
+              "value": "image",
+              "label": "Image Only"
+            }
+          ],
+          "default": "video"
+        },
+        {
           "type": "text",
           "id": "highlight_video_url",
           "label": "Highlight Video URL (.mp4)",
-          "default": "https://cdn.shopify.com/videos/c/o/v/9332cf75afbe41a9bca83d732d2074c4.mp4"
+          "info": "Used when Media Type is set to Video"
         },
         {
           "type": "image_picker",
           "id": "highlight_image",
-          "label": "Highlight Fallback Image / Poster"
+          "label": "Highlight Image / Video Poster"
         },
         {
           "type": "header",
-          "content": "Drawer: Row 2 Cards (3 Columns)"
+          "content": "Drawer: Bottom Feature Cards (Row 2)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_drawer_cards_bottom",
+          "label": "Show Bottom Feature Cards (Row 2)",
+          "default": true,
+          "info": "Toggle off to hide the bottom 3 cards (Cards 4, 5, and 6)"
         },
         {
           "type": "image_picker",
           "id": "card_4_image",
-          "label": "Card 4 Image"
+          "label": "Card 4 Image",
+          "visible_if": "{{ block.settings.show_drawer_cards_bottom }}"
         },
         {
           "type": "text",
           "id": "card_4_title",
           "label": "Card 4 Title",
-          "default": "ON-DEVICE SCORING"
+          "default": "ON-DEVICE SCORING",
+          "visible_if": "{{ block.settings.show_drawer_cards_bottom }}"
         },
         {
           "type": "textarea",
           "id": "card_4_desc",
           "label": "Card 4 Description",
-          "default": "Keep score without pulling out your phone. Track your round shot-by-shot with an intuitive, full-color interface."
+          "default": "Keep score without pulling out your phone. Track your round shot-by-shot with an intuitive, full-color interface.",
+          "visible_if": "{{ block.settings.show_drawer_cards_bottom }}"
         },
         {
           "type": "image_picker",
           "id": "card_5_image",
-          "label": "Card 5 Image"
+          "label": "Card 5 Image",
+          "visible_if": "{{ block.settings.show_drawer_cards_bottom }}"
         },
         {
           "type": "text",
           "id": "card_5_title",
           "label": "Card 5 Title",
-          "default": "CLOCK + ROUND TIMER"
+          "default": "CLOCK + ROUND TIMER",
+          "visible_if": "{{ block.settings.show_drawer_cards_bottom }}"
         },
         {
           "type": "textarea",
           "id": "card_5_desc",
           "label": "Card 5 Description",
-          "default": "Stay on pace and in rhythm with an integrated clock and hole-by-hole round timer designed for focus and flow."
+          "default": "Stay on pace and in rhythm with an integrated clock and hole-by-hole round timer designed for focus and flow.",
+          "visible_if": "{{ block.settings.show_drawer_cards_bottom }}"
         },
         {
           "type": "image_picker",
           "id": "card_6_image",
-          "label": "Card 6 Image"
+          "label": "Card 6 Image",
+          "visible_if": "{{ block.settings.show_drawer_cards_bottom }}"
         },
         {
           "type": "text",
           "id": "card_6_title",
           "label": "Card 6 Title",
-          "default": "MUSIC PLAYER WITH ALBUM ART"
+          "default": "MUSIC PLAYER WITH ALBUM ART",
+          "visible_if": "{{ block.settings.show_drawer_cards_bottom }}"
         },
         {
           "type": "textarea",
           "id": "card_6_desc",
           "label": "Card 6 Description",
-          "default": "Get real-time distances to bunkers, water, trees, and trouble. Every hazard is mapped and surfaced clearly, helping you navigate the course with smarter decisions."
+          "default": "Get real-time distances to bunkers, water, trees, and trouble. Every hazard is mapped and surfaced clearly, helping you navigate the course with smarter decisions.",
+          "visible_if": "{{ block.settings.show_drawer_cards_bottom }}"
         }
       ]
     }

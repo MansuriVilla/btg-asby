@@ -517,6 +517,9 @@
                     
                     {% render 'product-list-pdp' %}
 
+                  {%- when 'bundle_callout' -%}
+                    {%- render 'comp-pdp-bundle-callout', block: block -%}
+
                   {%- when 'buy_buttons' -%}
                     <div class="product-block" {{ block.shopify_attributes }}>
                       {%- unless product.empty? -%}

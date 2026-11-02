@@ -15,53 +15,59 @@
   %}
 {% endcomment %}
 
-{% liquid
-  assign prod = product | default: item
-  if prod.title == blank and prod != blank
-    assign prod = all_products[prod]
-  endif
-  assign v = prod.selected_or_first_available_variant
+{% assign prod = product | default: item %}
+{% if prod.title == blank and prod != blank %}
+  {% assign prod = all_products[prod] %}
+{% endif %}
+{% assign v = prod.selected_or_first_available_variant %}
 
-  assign row_title = custom_title
-  if row_title == blank and prod != blank
-    assign row_title = prod.title
-  endif
-  if row_title == blank
-    assign row_title = 'Product'
-  endif
+{% assign row_title = custom_title %}
+{% if row_title == blank and prod != blank %}
+  {% assign row_title = prod.title %}
+{% endif %}
+{% if row_title == blank %}
+  {% assign row_title = 'Product' %}
+{% endif %}
 
-  assign row_sub = subtitle
-  if row_sub == blank and prod != blank
-    assign row_sub = prod.description | strip_html | truncate: 70
-  endif
+{% assign row_sub = subtitle %}
+{% if row_sub == blank and prod != blank %}
+  {% assign row_sub = prod.description | strip_html | truncate: 70 %}
+{% endif %}
 
-  assign row_url = '#'
-  if prod != blank
-    assign row_url = prod.url
-  endif
+{% assign row_url = '#' %}
+{% if prod != blank %}
+  {% assign row_url = prod.url %}
+{% endif %}
 
-  assign row_variant_id = ''
-  assign is_available = true
-  if prod != blank
-    assign row_variant_id = v.id
-    assign is_available = v.available
-  endif
+{% assign row_variant_id = '' %}
+{% assign is_available = true %}
+{% if prod != blank %}
+  {% assign v = prod.selected_or_first_available_variant | default: prod.variants.first %}
+  {% assign row_variant_id = v.id %}
+  {% assign is_available = v.available %}
+  {% if is_available == nil or is_available == false %}
+    {% if prod.available %}
+      {% assign is_available = true %}
+    {% endif %}
+  {% endif %}
+{% endif %}
 
-  assign row_price = custom_price
-  if row_price == blank and v != blank
-    assign row_price = v.price | money_without_trailing_zeros
-  endif
-  if row_price == blank
-    assign row_price = '$0'
-  endif
+{% assign row_price = custom_price %}
+{% if row_price == blank and v != blank %}
+  {% assign row_price = v.price | money_without_trailing_zeros | strip_html %}
+{% endif %}
+{% if row_price == blank %}
+  {% assign row_price = '$0' %}
+{% endif %}
 
-  assign row_compare = custom_compare_price
-  if row_compare == blank and v != blank and v.compare_at_price > v.price
-    assign row_compare = v.compare_at_price | money_without_trailing_zeros
-  endif
-%}
+{% assign row_compare = custom_compare_price %}
+{% if row_compare == blank and v != blank and v.compare_at_price > v.price %}
+  {% assign row_compare = v.compare_at_price | money_without_trailing_zeros | strip_html %}
+{% endif %}
+{% assign is_instant = instant_add | default: false %}
+{% assign is_checked = is_preselected | default: false %}
 
-<div class="comp-accessory-row" data-variant-id="{{ row_variant_id }}">
+<div class="comp-accessory-row{% if is_checked %} is-selected{% endif %}" data-variant-id="{{ row_variant_id }}" data-instant-add="{{ is_instant }}">
   <a href="{{ row_url }}" class="comp-accessory-row__thumb" tabindex="-1" aria-hidden="true">
     {% if custom_image != blank %}
       {{ custom_image | image_url: width: 180 | image_tag: loading: 'lazy', widths: '90,180', alt: row_title }}
@@ -90,16 +96,22 @@
   <div class="comp-accessory-row__action">
     <button
       type="button"
-      class="comp-accessory-row__add"
+      class="comp-accessory-row__add{% if is_checked %} is-selected{% endif %}"
       data-comp-accessory-add
       data-variant-id="{{ row_variant_id }}"
-      aria-label="Add {{ row_title | escape }} to cart"
+      data-instant-add="{{ is_instant }}"
+      aria-label="{% if is_checked %}Remove accessory{% else %}Add {{ row_title | escape }}{% if is_instant %} to cart{% else %} with product{% endif %}{% endif %}"
       {% unless is_available %}disabled{% endunless %}
     >
       <span class="comp-accessory-row__add-label" data-label>{% if is_available %}ADD{% else %}SOLD OUT{% endif %}</span>
-      <span class="comp-accessory-row__add-icon" aria-hidden="true">
+      <span class="comp-accessory-row__add-icon comp-accessory-row__add-icon--plus" aria-hidden="true">
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
           <path d="M5 1v8M1 5h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="comp-accessory-row__check-badge" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2.5 6.2L4.8 8.5L9.5 3.8" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </span>
     </button>

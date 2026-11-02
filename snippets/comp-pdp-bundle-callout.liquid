@@ -1,0 +1,448 @@
+{%- comment -%}
+  Bundle Callout Block for PDP (White portion)
+  Figma / Spec: "MAKE IT A BUNDLE / YOUR COMPLETE GOLF SIMULATOR SETUP"
+{%- endcomment -%}
+
+{%- liquid
+  assign badge_text = block.settings.badge_text | default: 'BLACK FRIDAY EXCLUSIVE | ONLINE ONLY'
+  assign heading = block.settings.heading | default: 'MAKE IT A BUNDLE'
+  assign subheading = block.settings.subheading | default: 'YOUR COMPLETE GOLF SIMULATOR SETUP'
+  assign description = block.settings.description | default: 'Get the Rainmaker, premium golf net and hitting mat together and save $599 compared to buying separately.'
+  assign hero_image = block.settings.hero_image
+
+  assign item1_image = block.settings.item1_image
+  assign item1_title = block.settings.item1_title | default: 'Rainmaker'
+  assign item1_price = block.settings.item1_price | default: '$599'
+
+  assign item2_image = block.settings.item2_image
+  assign item2_title = block.settings.item2_title | default: "7.5' Hitting Net"
+  assign item2_price = block.settings.item2_price | default: '$699'
+
+  assign item3_image = block.settings.item3_image
+  assign item3_title = block.settings.item3_title | default: "4x5' Mat"
+  assign item3_price = block.settings.item3_price | default: '$399'
+
+  assign total_retail_label = block.settings.total_retail_label | default: 'Total Retail Value'
+  assign total_retail_value = block.settings.total_retail_value | default: '$1,697'
+
+  assign bundle_price_label = block.settings.bundle_price_label | default: 'Bundle Price'
+  assign bundle_price = block.settings.bundle_price | default: '$1,098'
+
+  assign btn_text = block.settings.btn_text | default: 'CLAIM OFFER'
+  assign btn_url = block.settings.btn_url | default: '#'
+-%}
+
+<div class="pdp_component" {{ block.shopify_attributes }}>
+  <div class="comp-pdp-bundle-callout">
+    {%- if badge_text != blank -%}
+      <div class="bundle-callout__badge">
+        <span class="bundle-callout__badge-text">{{ badge_text }}</span>
+      </div>
+    {%- endif -%}
+
+    <div class="bundle-callout__header">
+      {%- if heading != blank -%}
+        <h3 class="bundle-callout__heading custom_heading">{{ heading }}</h3>
+      {%- endif -%}
+      {%- if subheading != blank -%}
+        <p class="bundle-callout__subheading custom_subHeading-text">{{ subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if description != blank -%}
+      <div class="bundle-callout__description custom_body-text">
+        {{ description }}
+      </div>
+    {%- endif -%}
+
+    <div class="bundle-callout__hero-image-wrap">
+      {%- if hero_image != blank -%}
+        <img
+          src="{{ hero_image | image_url: width: 800 }}"
+          alt="{{ hero_image.alt | default: heading | escape }}"
+          loading="lazy"
+          width="{{ hero_image.width }}"
+          height="{{ hero_image.height }}"
+          class="bundle-callout__hero-image"
+        >
+      {%- else -%}
+        <div class="bundle-callout__hero-placeholder">
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="bundle-callout__items-row">
+      <!-- Item 1 -->
+      <div class="bundle-callout__item">
+        <div class="bundle-callout__item-img-wrap">
+          {%- if item1_image != blank -%}
+            <img
+              src="{{ item1_image | image_url: width: 240 }}"
+              alt="{{ item1_title | escape }}"
+              loading="lazy"
+              width="{{ item1_image.width }}"
+              height="{{ item1_image.height }}"
+              class="bundle-callout__item-img"
+            >
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg bundle-callout__item-img' }}
+          {%- endif -%}
+        </div>
+        <div class="bundle-callout__item-info">
+          <span class="bundle-callout__item-title custom_subHeading-text">{{ item1_title }}</span>
+          <span class="bundle-callout__item-price custom_heading">{{ item1_price }}</span>
+        </div>
+      </div>
+
+      <div class="bundle-callout__plus-divider">+</div>
+
+      <!-- Item 2 -->
+      <div class="bundle-callout__item">
+        <div class="bundle-callout__item-img-wrap">
+          {%- if item2_image != blank -%}
+            <img
+              src="{{ item2_image | image_url: width: 240 }}"
+              alt="{{ item2_title | escape }}"
+              loading="lazy"
+              width="{{ item2_image.width }}"
+              height="{{ item2_image.height }}"
+              class="bundle-callout__item-img"
+            >
+          {%- else -%}
+            {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg bundle-callout__item-img' }}
+          {%- endif -%}
+        </div>
+        <div class="bundle-callout__item-info">
+          <span class="bundle-callout__item-title custom_subHeading-text">{{ item2_title }}</span>
+          <span class="bundle-callout__item-price custom_heading">{{ item2_price }}</span>
+        </div>
+      </div>
+
+      <div class="bundle-callout__plus-divider">+</div>
+
+      <!-- Item 3 -->
+      <div class="bundle-callout__item">
+        <div class="bundle-callout__item-img-wrap">
+          {%- if item3_image != blank -%}
+            <img
+              src="{{ item3_image | image_url: width: 240 }}"
+              alt="{{ item3_title | escape }}"
+              loading="lazy"
+              width="{{ item3_image.width }}"
+              height="{{ item3_image.height }}"
+              class="bundle-callout__item-img"
+            >
+          {%- else -%}
+            {{ 'product-3' | placeholder_svg_tag: 'placeholder-svg bundle-callout__item-img' }}
+          {%- endif -%}
+        </div>
+        <div class="bundle-callout__item-info">
+          <span class="bundle-callout__item-title custom_subHeading-text">{{ item3_title }}</span>
+          <span class="bundle-callout__item-price custom_heading">{{ item3_price }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bundle-callout__pricing">
+      {%- if total_retail_value != blank -%}
+        <div class="bundle-callout__pricing-row">
+          <span class="bundle-callout__pricing-label custom_subHeading-text">{{ total_retail_label }}</span>
+          <span class="bundle-callout__pricing-strike custom_subHeading-text">{{ total_retail_value }}</span>
+        </div>
+      {%- endif -%}
+      {%- if bundle_price != blank -%}
+        <div class="bundle-callout__pricing-row bundle-callout__pricing-row--final">
+          <span class="bundle-callout__pricing-label custom_subHeading-text">{{ bundle_price_label }}</span>
+          <span class="bundle-callout__pricing-final custom_heading">{{ bundle_price }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if btn_text != blank -%}
+      <div class="bundle-callout__cta-wrap">
+        {%- render 'cta-button',
+          text: btn_text,
+          url: btn_url,
+          variant: 'outline',
+          class: 'bundle-callout__btn'
+        -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .comp-pdp-bundle-callout {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    padding: 17px 20px 24px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-family: inherit;
+  }
+
+  .bundle-callout__badge {
+    align-self: flex-start;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 12px;
+    background: #FF0000;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .bundle-callout__badge-text {
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.1em;
+    color: #FFFFFF;
+    text-transform: uppercase;
+  }
+
+  .bundle-callout__header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .bundle-callout__heading {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #0D0D0D;
+  }
+
+  .bundle-callout__subheading {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    color: #000000;
+    text-transform: uppercase;
+  }
+
+  .bundle-callout__description {
+    font-size: 12px;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    color: #000000;
+    margin-bottom: 12px;
+  }
+
+  .bundle-callout__description strong,
+  .bundle-callout__description b {
+    font-weight: 700;
+  }
+
+  .bundle-callout__hero-image-wrap {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bundle-callout__hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .bundle-callout__hero-placeholder {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bundle-callout__items-row {
+    background: rgba(102, 102, 102, 0.12);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 8px;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+
+  .bundle-callout__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1 1 0;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .bundle-callout__item-img-wrap {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+  }
+
+  .bundle-callout__item-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .bundle-callout__item-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    width: 100%;
+  }
+
+  .bundle-callout__item-title {
+    font-size: 11px;
+    line-height: 1.1;
+    color: #0D0D0D;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .bundle-callout__item-price {
+    font-size: 14px;
+    line-height: 1.1;
+    color: #0D0D0D;
+  }
+
+  .bundle-callout__plus-divider {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0D0D0D;
+    flex: 0 0 auto;
+    padding: 0 2px;
+  }
+
+  .bundle-callout__pricing {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .bundle-callout__pricing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .bundle-callout__pricing-label {
+    font-size: 13px;
+    line-height: 1.2;
+    color: #0D0D0D;
+  }
+
+  .bundle-callout__pricing-strike {
+    font-size: 13px;
+    line-height: 1.2;
+    color: #0D0D0D;
+    text-decoration: line-through;
+  }
+
+  .bundle-callout__pricing-final {
+    font-size: 18px;
+    line-height: 1.1;
+    color: #FF0000;
+  }
+
+  .bundle-callout__cta-wrap {
+    width: 100%;
+  }
+
+  .bundle-callout__cta-wrap .content-cta,
+  .bundle-callout__cta-wrap .bundle-callout__btn {
+    width: 100% !important;
+    background: #FF0000 !important;
+    border: 1px solid #FF0000 !important;
+    color: #FFFFFF !important;
+    border-radius: 100px !important;
+    padding: 14px 20px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+    text-align: center !important;
+    justify-content: center !important;
+    text-transform: uppercase !important;
+    box-shadow: none !important;
+    transition: border-color 0.4s ease, color 0.4s ease, background 0.4s ease;
+  }
+
+  .bundle-callout__cta-wrap .content-cta .content-cta__text,
+  .bundle-callout__cta-wrap .bundle-callout__btn .content-cta__text {
+    color: #FFFFFF !important;
+    transition: color 0.4s ease;
+  }
+
+  .bundle-callout__cta-wrap .content-cta.content-cta--fill-hover .content-cta__bg-fill {
+    background-color: #FFFFFF !important;
+  }
+
+  .bundle-callout__cta-wrap .content-cta:hover,
+  .bundle-callout__cta-wrap .bundle-callout__btn:hover {
+    background: #FFFFFF !important;
+    border-color: #FF0000 !important;
+    color: #FF0000 !important;
+  }
+
+  .bundle-callout__cta-wrap .content-cta:hover .content-cta__text,
+  .bundle-callout__cta-wrap .bundle-callout__btn:hover .content-cta__text {
+    color: #FF0000 !important;
+  }
+
+  @media screen and (max-width: 480px) {
+    .comp-pdp-bundle-callout {
+      padding: 14px 14px 18px;
+    }
+    .bundle-callout__heading {
+      font-size: 20px;
+    }
+    .bundle-callout__subheading {
+      font-size: 12px;
+    }
+    .bundle-callout__description {
+      font-size: 11px;
+    }
+    .bundle-callout__item-img-wrap {
+      height: 52px;
+    }
+    .bundle-callout__item-title {
+      font-size: 10px;
+    }
+    .bundle-callout__item-price {
+      font-size: 12px;
+    }
+  }
+</style>
+

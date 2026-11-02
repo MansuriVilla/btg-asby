@@ -3,8 +3,28 @@
   assign title = section.settings.heading | default: 'SEE IT IN PLAY'
   assign subtitle = section.settings.subtitle | default: 'Real rounds. Real setups. See how Player Pro shows up when it matters most.'
   assign bg_image = section.settings.background_image
+  assign hide_products = section.settings.hide_products | default: false
+  assign hide_video_reel = section.settings.hide_video_reel | default: false
   assign video_blocks = section.blocks | where: 'type', 'video_reel'
   assign product_blocks = section.blocks | where: 'type', 'product_item'
+  assign vis_video_count = 0
+  assign vis_product_count = 0
+  for pb_check in product_blocks
+    if pb_check.settings.show_video != false
+      assign vis_video_count = vis_video_count | plus: 1
+    endif
+    if pb_check.settings.show_product != false
+      assign vis_product_count = vis_product_count | plus: 1
+    endif
+  endfor
+  if product_blocks.size > 0
+    if vis_video_count == 0
+      assign hide_video_reel = true
+    endif
+    if vis_product_count == 0
+      assign hide_products = true
+    endif
+  endif
   assign section_id = section.settings.custom_section_id | default: ''
   if section_id == blank
     assign section_id = 'comp-see-play-' | append: s_id
@@ -34,14 +54,19 @@
     </header>
 
     <!-- Desktop Floating White Card (hidden on mobile <= 991px) -->
-    <div class="comp-see-in-play__card comp-see-in-play__card--desktop">
-      <div class="comp-see-in-play__grid">
+    {% unless hide_products and hide_video_reel %}
+    <div class="comp-see-in-play__card comp-see-in-play__card--desktop {% if hide_products %}comp-see-in-play__card--reel-only{% endif %}{% if hide_video_reel %} comp-see-in-play__card--products-only{% endif %}">
+      <div class="comp-see-in-play__grid {% if hide_products %}comp-see-in-play__grid--reel-only{% endif %}{% if hide_video_reel %} comp-see-in-play__grid--products-only{% endif %}">
         
+        {% unless hide_video_reel %}
         <!-- Left Column: Video Reel Player -->
         <div class="comp-see-in-play__video-col">
           {% capture reel_thumbs %}
             {% if product_blocks.size > 0 %}
+              {% assign thumb_n = 0 %}
               {% for block in product_blocks %}
+                {% if block.settings.show_video == false %}{% continue %}{% endif %}
+                {% assign thumb_n = thumb_n | plus: 1 %}
                 {% liquid
                   assign v_src = ''
                   if block.settings.video.sources
@@ -101,13 +126,18 @@
                         assign c_handle = '@BLUETEES'
                     endcase
                   endif
+                  assign c_link = block.settings.creator_link
+                  if c_link == blank and video_blocks[forloop.index0] != blank
+                    assign c_link = video_blocks[forloop.index0].settings.creator_link
+                  endif
                 %}
                 <button
                   type="button"
-                  class="comp-video-reel__thumb-btn {% if forloop.first %}is-active{% endif %}"
+                  class="comp-video-reel__thumb-btn {% if thumb_n == 1 %}is-active{% endif %}"
                   data-video-src="{{ v_src }}"
                   data-poster-src="{{ p_src }}"
                   data-creator-handle="{{ c_handle }}"
+                  {% if c_link != blank %}data-creator-link="{{ c_link }}"{% endif %}
                   aria-label="Play video {{ forloop.index }} by {{ c_handle }}"
                 >
                   {% if p_src != blank %}
@@ -115,8 +145,17 @@
                   {% else %}
                     <img src="{{ 'player-speaker-img.png' | asset_url }}" alt="{{ c_handle }}" class="comp-video-reel__thumb-img" loading="lazy">
                   {% endif %}
-                  <span class="comp-video-reel__thumb-icon comp-video-reel__thumb-icon--play">▶</span>
-                  <span class="comp-video-reel__thumb-icon comp-video-reel__thumb-icon--pause">❚❚</span>
+                  <span class="comp-video-reel__thumb-icon comp-video-reel__thumb-icon--play">
+                    <svg viewBox="0 0 24 24" width="8" height="8" fill="currentColor">
+                      <polygon points="6,4 20,12 6,20"/>
+                    </svg>
+                  </span>
+                  <span class="comp-video-reel__thumb-icon comp-video-reel__thumb-icon--pause">
+                    <svg viewBox="0 0 24 24" width="8" height="8" fill="currentColor">
+                      <rect x="5" y="4" width="4" height="16" rx="1"/>
+                      <rect x="15" y="4" width="4" height="16" rx="1"/>
+                    </svg>
+                  </span>
                 </button>
               {% endfor %}
             {% elsif video_blocks.size > 0 %}
@@ -145,6 +184,10 @@
                   endif
 
                   assign c_handle = block.settings.creator_handle | default: '@ALLIE.GOLFS'
+                  assign c_link = block.settings.creator_link
+                  if c_link == blank and video_blocks[forloop.index0] != blank
+                    assign c_link = video_blocks[forloop.index0].settings.creator_link
+                  endif
                 %}
                 <button
                   type="button"
@@ -152,6 +195,7 @@
                   data-video-src="{{ v_src }}"
                   data-poster-src="{{ p_src }}"
                   data-creator-handle="{{ c_handle }}"
+                  {% if c_link != blank %}data-creator-link="{{ c_link }}"{% endif %}
                   aria-label="Play video {{ forloop.index }} by {{ c_handle }}"
                 >
                   {% if p_src != blank %}
@@ -237,9 +281,15 @@
             assign first_v_src = 'https://cdn.shopify.com/videos/c/o/v/0fca515419e743d4a7ed6047598c316c.mp4'
             assign first_p_src = ''
             assign first_handle = '@ALLIE.GOLFS'
+            assign first_link = ''
 
             if product_blocks.size > 0
-              assign first_pb = product_blocks.first
+              for pb_first in product_blocks
+                if pb_first.settings.show_video != false
+                  assign first_pb = pb_first
+                  break
+                endif
+              endfor
               if first_pb.settings.video.sources
                 for source in first_pb.settings.video.sources
                   if source.format == 'mp4'
@@ -264,6 +314,11 @@
               elsif video_blocks.size > 0 and video_blocks.first.settings.creator_handle != blank
                 assign first_handle = video_blocks.first.settings.creator_handle
               endif
+              if first_pb.settings.creator_link != blank
+                assign first_link = first_pb.settings.creator_link
+              elsif video_blocks.size > 0 and video_blocks.first.settings.creator_link != blank
+                assign first_link = video_blocks.first.settings.creator_link
+              endif
             elsif video_blocks.size > 0
               assign first_b = video_blocks.first
               if first_b.settings.video.sources
@@ -282,6 +337,9 @@
               if first_b.settings.creator_handle != blank
                 assign first_handle = first_b.settings.creator_handle
               endif
+              if first_b.settings.creator_link != blank
+                assign first_link = first_b.settings.creator_link
+              endif
             endif
           %}
 
@@ -290,57 +348,68 @@
              default_video: first_v_src,
              default_poster: first_p_src,
              default_handle: first_handle,
+             default_link: first_link,
              reel_thumbs: reel_thumbs
           %}
         </div>
+        {% endunless %}
 
-        <!-- Right Column: Shop Their Bag -->
-        <div class="comp-see-in-play__shop-col">
-          <h3 class="comp-see-in-play__shop-heading custom_heading">{{ section.settings.shop_heading | default: 'SHOP THEIR BAG' }}</h3>
-          
-          <div class="comp-see-in-play__products-list">
-            {% if product_blocks.size > 0 %}
-              {% for block in product_blocks %}
+        {% unless hide_products %}
+          <!-- Right Column: Shop Their Bag -->
+          <div class="comp-see-in-play__shop-col">
+            <h3 class="comp-see-in-play__shop-heading custom_heading">{{ section.settings.shop_heading | default: 'SHOP THEIR BAG' }}</h3>
+            
+            <div class="comp-see-in-play__products-list">
+              {% if product_blocks.size > 0 %}
+                {% for block in product_blocks %}
+                  {% if block.settings.show_product == false %}{% continue %}{% endif %}
+                  {% render 'comp-accessory-row',
+                     product: block.settings.product,
+                     custom_title: block.settings.custom_title,
+                     subtitle: block.settings.subtitle,
+                     custom_price: block.settings.custom_price,
+                     custom_compare_price: block.settings.custom_compare_price,
+                     custom_image: block.settings.custom_image,
+                     fallback_img: block.settings.fallback_asset_img,
+                     enable_modal: block.settings.enable_modal,
+                     instant_add: true
+                  %}
+                {% endfor %}
+              {% else %}
                 {% render 'comp-accessory-row',
-                   product: block.settings.product,
-                   custom_title: block.settings.custom_title,
-                   subtitle: block.settings.subtitle,
-                   custom_price: block.settings.custom_price,
-                   custom_compare_price: block.settings.custom_compare_price,
-                   custom_image: block.settings.custom_image,
-                   fallback_img: block.settings.fallback_asset_img,
-                   enable_modal: block.settings.enable_modal
+                   custom_title: 'Player Pro',
+                   subtitle: 'Compact golf speaker',
+                   custom_price: '$179',
+                   custom_compare_price: '$199',
+                   fallback_img: 'player-speaker-img.png',
+                   instant_add: true
                 %}
-              {% endfor %}
-            {% else %}
-              {% render 'comp-accessory-row',
-                 custom_title: 'Player Pro',
-                 subtitle: 'Compact golf speaker',
-                 custom_price: '$179',
-                 custom_compare_price: '$199',
-                 fallback_img: 'player-speaker-img.png'
-              %}
-              {% render 'comp-accessory-row',
-                 custom_title: 'Icon Series MagTowel',
-                 subtitle: '4-In-1 utility golf towel keeps your clubs and balls clean',
-                 custom_price: '$39',
-                 custom_compare_price: '$50',
-                 fallback_img: 'mag-towel-img.png'
-              %}
-              {% render 'comp-accessory-row',
-                 custom_title: 'Divot Tool',
-                 subtitle: 'Six Functions In One ultimate divot tool',
-                 custom_price: '$19.98',
-                 custom_compare_price: '$50',
-                 fallback_img: 'divot-img1.png'
-              %}
-            {% endif %}
+                {% render 'comp-accessory-row',
+                   custom_title: 'Icon Series MagTowel',
+                   subtitle: '4-In-1 utility golf towel keeps your clubs and balls clean',
+                   custom_price: '$39',
+                   custom_compare_price: '$50',
+                   fallback_img: 'mag-towel-img.png',
+                   instant_add: true
+                %}
+                {% render 'comp-accessory-row',
+                   custom_title: 'Divot Tool',
+                   subtitle: 'Six Functions In One ultimate divot tool',
+                   custom_price: '$19.98',
+                   custom_compare_price: '$50',
+                   fallback_img: 'divot-img1.png',
+                   instant_add: true
+                %}
+              {% endif %}
+            </div>
           </div>
-        </div>
+        {% endunless %}
 
       </div>
     </div>
+    {% endunless %}
 
+    {% unless hide_video_reel %}
     <!-- Mobile 3-Card Grid (Image 2 on mobile) -->
     <div class="comp-see-in-play__mobile-grid">
       {% liquid
@@ -355,7 +424,9 @@
           assign idx = forloop.index0
           assign block = product_blocks[idx]
           assign v_block = video_blocks[idx]
-
+          if block.settings.show_video == false
+            continue
+          endif
           assign v_url = ''
           if block.settings.video.sources
             for source in block.settings.video.sources
@@ -403,6 +474,11 @@
             endcase
           endif
 
+          assign c_link = block.settings.creator_link
+          if c_link == blank and v_block != blank
+            assign c_link = v_block.settings.creator_link
+          endif
+
           assign poster_src = ''
           if block.settings.poster != blank
             assign poster_src = block.settings.poster | image_url: width: 600
@@ -426,6 +502,9 @@
           endif
 
           assign p = block.settings.product
+          if p.title == blank and p != blank
+            assign p = all_products[p]
+          endif
           assign p_title = block.settings.custom_title
           if p_title == blank and p != blank
             assign p_title = p.title
@@ -455,9 +534,9 @@
 
           assign p_price = block.settings.custom_price
           if p_price == blank and p != blank
-            assign p_price = p.price | money_without_trailing_zeros
+            assign p_price = p.price | money_without_trailing_zeros | strip_html
           endif
-          if p_price == blank
+          if p_price == blank and p == blank
             case i
               when 1
                 assign p_price = '$179'
@@ -469,10 +548,14 @@
           endif
 
           assign p_compare = block.settings.custom_compare_price
-          if p_compare == blank and p != blank and p.compare_at_price > p.price
-            assign p_compare = p.compare_at_price | money_without_trailing_zeros
+          if p_compare == blank and p != blank
+            if p.compare_at_price > p.price
+              assign p_compare = p.compare_at_price | money_without_trailing_zeros | strip_html
+            else
+              assign p_compare = ''
+            endif
           endif
-          if p_compare == blank
+          if p_compare == blank and p == blank
             case i
               when 1
                 assign p_compare = '$199'
@@ -503,7 +586,8 @@
 
           assign v_id = ''
           if p != blank
-            assign v_id = p.selected_or_first_available_variant.id
+            assign p_var = p.selected_or_first_available_variant | default: p.variants.first
+            assign v_id = p_var.id
           endif
         %}
 
@@ -512,12 +596,14 @@
           data-video-index="{{ idx }}"
           data-video-url="{{ v_url }}"
           data-creator="{{ c_handle }}"
+          data-creator-link="{{ c_link | escape }}"
           data-product-title="{{ p_title }}"
           data-product-sub="{{ p_sub }}"
           data-product-price="{{ p_price }}"
           data-product-compare="{{ p_compare }}"
           data-product-img="{{ p_img }}"
           data-variant-id="{{ v_id }}"
+          {% if block.settings.show_product == false %}data-hide-product="true"{% endif %}
         >
           <div class="comp-see-in-play__mobile-card-media">
             {% if poster_src != blank %}
@@ -532,9 +618,11 @@
         </div>
       {% endfor %}
     </div>
+    {% endunless %}
 
   </div>
 
+  {% unless hide_video_reel %}
   <!-- Full-screen Mobile Video Reel Modal (Image 3) -->
   <div class="comp-sip-modal" id="comp-sip-modal-{{ s_id }}" aria-hidden="true">
     <div class="comp-sip-modal__backdrop" data-modal-close></div>
@@ -543,14 +631,14 @@
       
       <!-- Top Bar: Creator pill & Close button -->
       <div class="comp-sip-modal__top-bar">
-        <div class="comp-sip-modal__creator-pill">
+        <a class="comp-sip-modal__creator-pill" data-modal-creator-pill target="_blank" rel="noopener noreferrer">
           <span class="comp-sip-modal__creator-avatar">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
           </span>
           <span class="comp-sip-modal__creator-text" data-modal-creator>@ALLIE.GOLFS</span>
-        </div>
+        </a>
 
         <button type="button" class="comp-sip-modal__close-btn" data-modal-close aria-label="Close video">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -572,40 +660,42 @@
         ></video>
       </div>
 
-      <!-- Floating Tied Product Card (Bottom Drawer) -->
-      <div class="comp-sip-modal__product-drawer" data-product-drawer>
-        <!-- Floating Toggle Chevron on top-left of the card -->
-        <button type="button" class="comp-sip-modal__drawer-toggle" data-drawer-toggle aria-label="Toggle product card">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
+      {% unless hide_products %}
+        <!-- Floating Tied Product Card (Bottom Drawer) -->
+        <div class="comp-sip-modal__product-drawer" data-product-drawer>
+          <!-- Floating Toggle Chevron on top-left of the card -->
+          <button type="button" class="comp-sip-modal__drawer-toggle" data-drawer-toggle aria-label="Toggle product card">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
 
-        <div class="comp-sip-modal__product-card" data-product-card>
-          <div class="comp-sip-modal__product-top">
-            <div class="comp-sip-modal__product-img-wrap">
-              <img src="" alt="" class="comp-sip-modal__product-img" data-product-img loading="lazy">
-            </div>
-            
-            <div class="comp-sip-modal__product-details">
-              <div class="comp-sip-modal__product-title-row">
-                <span class="comp-sip-modal__product-title custom_subHeading-text" data-product-title>Product Title</span>
+          <div class="comp-sip-modal__product-card" data-product-card>
+            <div class="comp-sip-modal__product-top">
+              <div class="comp-sip-modal__product-img-wrap">
+                <img src="" alt="" class="comp-sip-modal__product-img" data-product-img loading="lazy">
               </div>
-              <div class="comp-sip-modal__product-price-row">
-                <span class="comp-sip-modal__product-price" data-product-price>$179</span>
-                <span class="comp-sip-modal__product-compare" data-product-compare>$199</span>
-              </div>
-              <p class="comp-sip-modal__product-sub custom_body-text" data-product-sub>Compact golf speaker</p>
+              
+              <div class="comp-sip-modal__product-details">
+                <div class="comp-sip-modal__product-title-row">
+                  <span class="comp-sip-modal__product-title custom_subHeading-text" data-product-title>Product Title</span>
+                </div>
+                <div class="comp-sip-modal__product-price-row">
+                  <span class="comp-sip-modal__product-price" data-sip-modal-price>$179</span>
+                  <span class="comp-sip-modal__product-compare" data-sip-modal-compare>$199</span>
+                </div>
+                <p class="comp-sip-modal__product-sub custom_body-text" data-product-sub>Compact golf speaker</p>
+              </div>  
             </div>
-          </div>
 
-          <div class="comp-sip-modal__product-cta-wrap">
-            <button type="button" class="comp-sip-modal__atc-btn js-modal-atc" data-modal-atc>
-              <span class="comp-sip-modal__atc-text">ADD TO CART</span>
-            </button>
+            <div class="comp-sip-modal__product-cta-wrap">
+              <button type="button" class="comp-sip-modal__atc-btn js-modal-atc" data-modal-atc>
+                <span class="comp-sip-modal__atc-text">ADD TO CART</span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      {% endunless %}
 
       <!-- Controls Overlay: Time counter, Next Video Arrow, Mute button, Play/Pause -->
       <div class="comp-sip-modal__controls">
@@ -650,6 +740,7 @@
 
     </div>
   </div>
+  {% endunless %}
 
 </div>
 
@@ -657,10 +748,17 @@
   .comp-see-in-play-{{ s_id }} {
     width: 100%;
     position: relative;
-    padding-top: clamp(2.5rem, 1.8rem + 3vw, 5.5rem);
-    padding-bottom: clamp(2.5rem, 1.8rem + 3vw, 5.5rem);
+    padding-top: clamp(30px, 6vw, var(--comp-sip-pt, 60px));
+    padding-bottom: clamp(30px, 6vw, var(--comp-sip-pb, 60px));
     overflow: hidden;
     box-sizing: border-box;
+  }
+
+  @media (max-width: 768px) {
+    .comp-see-in-play-{{ s_id }} {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
   }
 
   .comp-see-in-play-{{ s_id }} * {
@@ -721,7 +819,9 @@
     color: #475569;
     font-size: clamp(0.875rem, 0.82rem + 0.3vw, 1.05rem);
     line-height: 1.5;
-    max-width: 48ch;
+    max-width: 600px;
+    padding:0px;
+    width: 100%;
   }
 
   /* Floating White Card (Desktop) */
@@ -736,6 +836,32 @@
     display: grid;
     grid-template-columns: minmax(0, 43%) minmax(0, 57%);
     align-items: center;
+  }
+
+  .comp-see-in-play__card--reel-only {
+    max-width: 520px;
+    margin: 0 auto;
+    background: transparent;
+    padding: 0;
+  }
+
+  .comp-see-in-play__grid--reel-only {
+    display: block;
+    width: 100%;
+  }
+
+  .comp-see-in-play__grid--products-only {
+    display: block;
+    width: 100%;
+  }
+
+  .comp-see-in-play__grid--products-only .comp-see-in-play__shop-col {
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .comp-see-in-play__grid--reel-only .comp-see-in-play__video-col {
+    width: 100%;
   }
 
   .comp-see-in-play__video-col {
@@ -767,6 +893,167 @@
     flex-direction: column;
     gap: 8px;
     width: 100%;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__title {
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-size: clamp(14px, 1.1vw, 16px);
+    line-height: 1.2;
+    color: #000000;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    text-transform: capitalize;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__price {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 80px 0px 0px;
+    gap: 10px;
+    isolation: isolate;
+    width: 100%;
+    min-height: clamp(96px, 7.5vw, 108px);
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__thumb {
+    flex: none;
+    flex-shrink: 0;
+    width: clamp(90px, 7vw, 103px);
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 14px 0px;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+    z-index: 1;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__sub {
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #4F4F4F;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__action {
+    position: static;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__add {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    gap: 4px;
+    position: absolute;
+    width: auto;
+    min-width: 32px;
+    height: 32px;
+    right: 9px;
+    top: 9px;
+    border: none;
+    border-radius: 100px;
+    background: transparent;
+    cursor: pointer;
+    z-index: 3;
+    white-space: nowrap;
+    transition: background 0.25s ease, transform 0.2s ease;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__add:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__add-label {
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 1px;
+    color: #4F4F4F !important;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__add-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    color: #4F4F4F !important;
+    flex-shrink: 0;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__add-icon svg,
+  .comp-see-in-play__products-list .comp-accessory-row__add-icon svg path,
+  .comp-see-in-play__products-list .comp-accessory-row__add-icon svg * {
+    color: #4F4F4F !important;
+    stroke: #4F4F4F !important;
+  }
+
+  .comp-see-in-play__products-list .comp-accessory-row__details {
+    position: absolute;
+    right: 21px;
+    bottom: 20px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    text-decoration-line: underline;
+    color: #0149E3;
+    z-index: 2;
   }
 
   /* Mobile 3-Card Grid (Hidden on Desktop) */
@@ -831,7 +1118,7 @@
     width: 100vw;
     height: 100vh;
     height: 100dvh;
-    z-index: 100000;
+    z-index: 6;
     display: none;
     align-items: center;
     justify-content: center;
@@ -902,6 +1189,18 @@
     border-radius: 999px;
     color: #ffffff;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    text-decoration: none;
+    transition: background 150ms ease, transform 100ms ease;
+  }
+
+  .comp-sip-modal__creator-pill[href]:hover {
+    background: rgba(18, 22, 28, 0.85);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .comp-sip-modal__creator-pill[href]:active {
+    transform: scale(0.97);
   }
 
   .comp-sip-modal__creator-avatar {
@@ -1152,8 +1451,12 @@
   }
 
   @media (max-width: 991px) {
-    .comp-see-in-play__card--desktop {
+    .comp-see-in-play__card--desktop:not(.comp-see-in-play__card--products-only) {
       display: none;
+    }
+
+    .comp-see-in-play__card--products-only .comp-see-in-play__shop-col {
+      padding: clamp(16px, 4vw, 24px);
     }
 
     .comp-see-in-play__mobile-grid {
@@ -1195,9 +1498,12 @@
               'Content-Type': 'application/json',
               'Accept': 'application/json'
             },
-            body: JSON.stringify({ id: variantId, quantity: 1 })
+            body: JSON.stringify({ items: [{ id: parseInt(variantId, 10), quantity: 1 }] })
           })
-          .then(res => res.json())
+          .then(res => {
+            if (!res.ok) throw new Error('Failed to add to cart');
+            return res.json();
+          })
           .then(itemData => {
             btn.classList.remove('is-loading');
             btn.disabled = false;
@@ -1205,8 +1511,16 @@
               btnText.textContent = 'ADDED ✓';
               setTimeout(() => { btnText.textContent = 'ADD +'; }, 2000);
             }
-            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: itemData } }));
-            document.dispatchEvent(new CustomEvent('cart:open'));
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: itemData }, bubbles: true }));
+            document.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true }));
+            document.dispatchEvent(new CustomEvent('cart:open', { bubbles: true }));
+            if (window.jQuery) {
+              window.jQuery('body').trigger('added.ajaxProduct');
+              window.jQuery(document).trigger('ajaxCart.afterCartLoad');
+            }
+            if (window.theme && window.theme.CartDrawer) {
+              try { new window.theme.CartDrawer().open(); } catch (e) {}
+            }
           })
           .catch(err => {
             console.error('Error adding to cart:', err);
@@ -1223,12 +1537,13 @@
 
       const videoEl = modal.querySelector('[data-modal-video]');
       const creatorEl = modal.querySelector('[data-modal-creator]');
+      const creatorPillEl = modal.querySelector('[data-modal-creator-pill]');
       const pDrawer = modal.querySelector('[data-product-drawer]');
       const drawerToggle = modal.querySelector('[data-drawer-toggle]');
       const pTitle = modal.querySelector('[data-product-title]');
       const pSub = modal.querySelector('[data-product-sub]');
-      const pPrice = modal.querySelector('[data-product-price]');
-      const pCompare = modal.querySelector('[data-product-compare]');
+      const pPrice = modal.querySelector('[data-sip-modal-price]');
+      const pCompare = modal.querySelector('[data-sip-modal-compare]');
       const pImg = modal.querySelector('[data-product-img]');
       const atcBtn = modal.querySelector('[data-modal-atc]');
       const timeCurrent = modal.querySelector('[data-modal-time-current]');
@@ -1254,6 +1569,7 @@
         const card = mobileCards[currentIndex];
         const vUrl = card.getAttribute('data-video-url');
         const creator = card.getAttribute('data-creator');
+        const creatorLink = card.getAttribute('data-creator-link');
         const title = card.getAttribute('data-product-title');
         const sub = card.getAttribute('data-product-sub');
         const price = card.getAttribute('data-product-price');
@@ -1262,24 +1578,44 @@
         const variantId = card.getAttribute('data-variant-id');
 
         if (creatorEl) creatorEl.textContent = creator || '@ALLIE.GOLFS';
+        if (creatorPillEl) {
+          if (creatorLink) {
+            creatorPillEl.setAttribute('href', creatorLink);
+            creatorPillEl.setAttribute('target', '_blank');
+            creatorPillEl.setAttribute('rel', 'noopener noreferrer');
+            creatorPillEl.style.cursor = 'pointer';
+          } else {
+            creatorPillEl.removeAttribute('href');
+            creatorPillEl.removeAttribute('target');
+            creatorPillEl.removeAttribute('rel');
+            creatorPillEl.style.cursor = 'default';
+          }
+        }
         if (pTitle) pTitle.textContent = title;
         if (pSub) pSub.textContent = sub;
         if (pPrice) {
-          pPrice.textContent = price;
-          if (compare && compare.trim() !== '') {
+          var cleanPrice = (price || '').replace(/<[^>]*>/g, '').trim();
+          var cleanCompare = (compare || '').replace(/<[^>]*>/g, '').trim();
+          var hasDiscount = cleanCompare !== '' && cleanCompare !== cleanPrice;
+          pPrice.textContent = cleanPrice;
+          if (hasDiscount) {
             pPrice.classList.add('is-on-sale');
           } else {
             pPrice.classList.remove('is-on-sale');
           }
         }
         if (pCompare) {
-          pCompare.textContent = compare || '';
-          pCompare.style.display = (compare && compare.trim() !== '') ? '' : 'none';
+          var hasDiscount = cleanCompare !== '' && cleanCompare !== cleanPrice;
+          pCompare.textContent = hasDiscount ? cleanCompare : '';
+          pCompare.style.display = hasDiscount ? '' : 'none';
         }
         if (pImg) pImg.src = img;
         if (atcBtn) atcBtn.setAttribute('data-variant-id', variantId || '');
 
-        if (pDrawer) pDrawer.classList.remove('is-collapsed');
+        if (pDrawer) {
+          pDrawer.classList.remove('is-collapsed');
+          pDrawer.style.display = card.getAttribute('data-hide-product') ? 'none' : '';
+        }
 
         if (videoEl) {
           videoEl.pause();
@@ -1411,15 +1747,26 @@
               'Content-Type': 'application/json',
               'Accept': 'application/json'
             },
-            body: JSON.stringify({ id: variantId, quantity: 1 })
+            body: JSON.stringify({ items: [{ id: parseInt(variantId, 10), quantity: 1 }] })
           })
-          .then(res => res.json())
+          .then(res => {
+            if (!res.ok) throw new Error('Failed to add to cart');
+            return res.json();
+          })
           .then(itemData => {
             this.disabled = false;
             btnText.textContent = 'ADDED ✓';
             setTimeout(() => { btnText.textContent = 'ADD TO CART'; }, 2000);
-            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: itemData } }));
-            document.dispatchEvent(new CustomEvent('cart:open'));
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: { product: itemData }, bubbles: true }));
+            document.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true }));
+            document.dispatchEvent(new CustomEvent('cart:open', { bubbles: true }));
+            if (window.jQuery) {
+              window.jQuery('body').trigger('added.ajaxProduct');
+              window.jQuery(document).trigger('ajaxCart.afterCartLoad');
+            }
+            if (window.theme && window.theme.CartDrawer) {
+              try { new window.theme.CartDrawer().open(); } catch (e) {}
+            }
           })
           .catch(err => {
             console.error('Error adding to cart:', err);
@@ -1466,6 +1813,20 @@
       "id": "shop_heading",
       "label": "Shop Card Heading",
       "default": "SHOP THEIR BAG"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_products",
+      "label": "Hide Products (Reel Only)",
+      "default": false,
+      "info": "Check to display only the video reel player without the products column / cards."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_video_reel",
+      "label": "Hide Video Reel (Products Only)",
+      "default": false,
+      "info": "Check to display only the product list without the video reel."
     },
     {
       "type": "image_picker",
@@ -1518,6 +1879,11 @@
           "id": "creator_handle",
           "label": "Creator Handle",
           "default": "@ALLIE.GOLFS"
+        },
+        {
+          "type": "url",
+          "id": "creator_link",
+          "label": "Creator Instagram / Profile Link"
         }
       ]
     },
@@ -1526,48 +1892,78 @@
       "name": "Shop Bag Product",
       "settings": [
         {
+          "type": "header",
+          "content": "Visibility"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product",
+          "label": "Show product card",
+          "default": true,
+          "info": "Uncheck to hide this item's product while keeping its video."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_video",
+          "label": "Show video reel",
+          "default": true,
+          "info": "Uncheck to hide this item's video while keeping its product."
+        },
+        {
+          "type": "header",
+          "content": "Product"
+        },
+        {
           "type": "product",
           "id": "product",
-          "label": "Select Product"
+          "label": "Select Product",
+          "visible_if": "{{ block.settings.show_product }}"
         },
         {
           "type": "text",
           "id": "custom_title",
-          "label": "Custom Title (Optional override)"
+          "label": "Custom Title (Optional override)",
+          "visible_if": "{{ block.settings.show_product }}"
         },
         {
           "type": "text",
           "id": "subtitle",
           "label": "Feature Subtitle",
-          "default": "Compact golf speaker"
+          "default": "Compact golf speaker",
+          "visible_if": "{{ block.settings.show_product }}"
         },
         {
           "type": "text",
           "id": "custom_price",
-          "label": "Custom Price (Optional override, e.g. $179)"
+          "label": "Custom Price (Optional override, e.g. $179)",
+          "visible_if": "{{ block.settings.show_product }}"
         },
         {
           "type": "text",
           "id": "custom_compare_price",
-          "label": "Custom Compare Price (Optional override, e.g. $199)"
+          "label": "Custom Compare Price (Optional override, e.g. $199)",
+          "visible_if": "{{ block.settings.show_product }}"
         },
         {
           "type": "image_picker",
           "id": "custom_image",
-          "label": "Custom Image (Optional override)"
+          "label": "Custom Image (Optional override)",
+          "visible_if": "{{ block.settings.show_product }}"
         },
         {
           "type": "text",
           "id": "fallback_asset_img",
           "label": "Fallback Asset Filename",
-          "info": "e.g. player-speaker-img.png, mag-towel-img.png, divot-img1.png"
+          "info": "e.g. player-speaker-img.png, mag-towel-img.png, divot-img1.png",
+          "visible_if": "{{ block.settings.show_product }}"
         },
         {
           "type": "checkbox",
           "id": "enable_modal",
           "label": "Open popup modal on Details click",
           "default": false,
-          "info": "If unchecked, clicking Details links directly to the product's PDP page."
+          "info": "If unchecked, clicking Details links directly to the product's PDP page.",
+          "visible_if": "{{ block.settings.show_product }}"
         },
         {
           "type": "header",
@@ -1576,23 +1972,33 @@
         {
           "type": "video",
           "id": "video",
-          "label": "Shopify Video"
+          "label": "Shopify Video",
+          "visible_if": "{{ block.settings.show_video }}"
         },
         {
           "type": "text",
           "id": "video_url",
-          "label": "Or Video MP4 URL"
+          "label": "Or Video MP4 URL",
+          "visible_if": "{{ block.settings.show_video }}"
         },
         {
           "type": "image_picker",
           "id": "poster",
-          "label": "Video Poster / Thumbnail"
+          "label": "Video Poster / Thumbnail",
+          "visible_if": "{{ block.settings.show_video }}"
         },
         {
           "type": "text",
           "id": "creator_handle",
           "label": "Creator Handle",
-          "default": "@ALLIE.GOLFS"
+          "default": "@ALLIE.GOLFS",
+          "visible_if": "{{ block.settings.show_video }}"
+        },
+        {
+          "type": "url",
+          "id": "creator_link",
+          "label": "Creator Instagram / Profile Link",
+          "visible_if": "{{ block.settings.show_video }}"
         }
       ]
     }

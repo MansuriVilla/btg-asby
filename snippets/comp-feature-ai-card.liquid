@@ -12,15 +12,25 @@
   assign a_btn = block.settings.button_text | default: 'Learn more'
   assign slots = '1,2,3,4' | split: ','
   assign video_src = block.settings.video_url
+
+  assign is_captain_pro = false
+  assign is_captain_air = false
+  assign is_rainmaker = false
+  if product.handle contains 'captain-pro' or product.template_suffix == 'captain-pro'
+    assign is_captain_pro = true
+  elsif product.handle contains 'captain-air' or product.template_suffix == 'product-new'
+    assign is_captain_air = true
+  elsif product.handle contains 'rainmaker' or product.template_suffix contains 'rainmaker'
+    assign is_rainmaker = true
+  endif
 %}
 
 {% render 'comp-feature-card-base' %}
 <div class="pdp_component">
 <div class="comp-feature-card comp-feature-card--ai" {{ block.shopify_attributes }}>
   <div class="comp-feature-card__aura" aria-hidden="true">
-    <div class="comp-feature-card__aura-1"></div>
-    <div class="comp-feature-card__aura-2"></div>
-    <div class="comp-feature-card__aura-3"></div>
+       <img src="{{ 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ai-card-bg.webp?v=1792565398' }}" alt="" loading="lazy" class="comp-ai-media__img">
+
   </div>
 
   <div class="comp-feature-card__top">
@@ -28,7 +38,7 @@
       <h2 class="comp-feature-card__title">{{ a_title }}</h2>
       {% if block.settings.promo_text != blank %}
         <p class="comp-feature-card__sub comp-feature-card__sub--ai">
-          <span class="comp-feature-card__sub-highlight">{{ block.settings.promo_text }}</span>
+          <span class="comp-feature-card__sub-highlight"> <b>{{ block.settings.promo_text }}</b></span>
           {% if block.settings.old_price != blank %}<s>{{ block.settings.old_price }}</s>{% endif %}
         </p>
       {% endif %}
@@ -50,8 +60,7 @@
       <video
         class="comp-ai-media__video"
         data-comp-ai-preview-video
-        src="{{ video_src }}"
-        autoplay
+        data-src="{{ video_src }}"
         loop
         muted
         playsinline
@@ -74,8 +83,10 @@
       {% liquid
         assign icon_key = 'feature_' | append: n | append: '_icon'
         assign label_key = 'feature_' | append: n | append: '_label'
+        assign note_key = 'feature_' | append: n | append: '_note'
         assign f_icon = block.settings[icon_key]
         assign f_label = block.settings[label_key]
+        assign f_note = block.settings[note_key]
       %}
       {% if f_label != blank %}
         <li class="comp-ai-features__item">
@@ -86,7 +97,12 @@
               <span class="comp-ai-features__icon-fallback"></span>
             {% endif %}
           </span>
-          <span class="comp-ai-features__label">{{ f_label }}</span>
+          <div class="comp-ai-features__text-wrap">
+            <span class="comp-ai-features__label">{{ f_label }}</span>
+            {% if f_note != blank %}
+              <span class="comp-ai-features__note">{{ f_note }}</span>
+            {% endif %}
+          </div>
         </li>
       {% endif %}
     {% endfor %}
@@ -104,197 +120,448 @@
       </svg>
     </button>
 
-    <!-- Top Media Carousel with Floating Dock (Supports images, gifs, and video) -->
+    <!-- Top Media Viewport: Video Only -->
     <div class="comp-ai-modal__media-viewport" data-ai-modal-viewport>
+      <!-- Video Loading State Overlay -->
+      <div class="comp-ai-modal__loader" data-ai-modal-loader aria-label="Loading video">
+        <div class="comp-ai-modal__spinner"></div>
+      </div>
       <div class="comp-ai-modal__slides" data-ai-modal-slides>
-        <!-- Slide 1: Golf cart with speaker (Image from user screenshot) -->
-        <div class="comp-ai-modal__slide is-active" data-ai-modal-slide data-index="0" data-type="image">
-          <img
-            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105683.png?v=1758027539"
-            alt="Golf cart speaker on course"
-            class="comp-ai-modal__slide-media"
-            loading="lazy"
-          >
-        </div>
-
-        <!-- Slide 2: Video (or user MP4 video if present) -->
         {% if video_src != blank %}
-          <div class="comp-ai-modal__slide" data-ai-modal-slide data-index="1" data-type="video">
+          <div class="comp-ai-modal__slide is-active" data-ai-modal-slide data-index="0" data-type="video">
             {% render 'comp-video-player',
               video_url: video_src,
               is_active: false,
               title: 'Game AI Presentation Video',
               video_class: 'comp-ai-modal__slide-media comp-ai-modal__slide-video',
               controls_variant: 'buttonsonly'
+              show_mute: false
             %}
           </div>
         {% else %}
-          <div class="comp-ai-modal__slide" data-ai-modal-slide data-index="1" data-type="image">
-            <img
-              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/6mons-upsell-popup.svg?v=1782822954"
-              alt="Game AI presentation"
-              class="comp-ai-modal__slide-media"
-              loading="lazy"
-            >
+          <div class="comp-ai-modal__slide is-active" data-ai-modal-slide data-index="0" data-type="video">
+            <video
+              class="comp-ai-modal__slide-media comp-ai-modal__slide-video"
+              controls
+              playsinline
+              preload="metadata"
+            ></video>
           </div>
         {% endif %}
-
-        <!-- Slide 3: Live GPS Display / Green Map -->
-        <div class="comp-ai-modal__slide" data-ai-modal-slide data-index="2" data-type="image">
-          <img
-            src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Widgets_Icons.svg?v=1758027539"
-            alt="Course navigation"
-            class="comp-ai-modal__slide-media"
-            style="background:#0b1118; object-fit: contain; padding: 40px;"
-            loading="lazy"
-          >
-        </div>
       </div>
 
-      <!-- Universal Mac Dock Overlay inside Modal -->
-      {% capture modal_dock_items %}
-        <div
-          class="comp-mac-dock__item is-active"
-          data-mac-dock-item
-          data-index="0"
-          role="button"
-          tabindex="0"
-          aria-label="Slide 1"
-        >
-          <svg class="comp-mac-dock__item-timer" data-mac-item-timer width="20" height="20" viewBox="0 0 24 24">
-            <circle class="comp-mac-dock__timer-track" cx="12" cy="12" r="9" />
-            <circle class="comp-mac-dock__timer-progress" data-mac-timer-progress cx="12" cy="12" r="9" />
-          </svg>
-          <span class="comp-mac-dock__item-dot" data-mac-item-dot></span>
-          <div class="comp-mac-dock__item-thumb" data-mac-item-thumb>
-            <img
-              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_1410105683.png?v=1758027539"
-              alt="Cart on course"
-              loading="lazy"
-              width="32"
-              height="32"
-            >
-          </div>
+      {% comment %} {% if is_captain_pro or is_captain_air %}
+        <div class="comp-ai-modal__dots-indicator" aria-hidden="true">
+          <span class="comp-ai-modal__dot is-active"></span>
+          <span class="comp-ai-modal__dot"></span>
+          <span class="comp-ai-modal__dot"></span>
         </div>
-
-        <div
-          class="comp-mac-dock__item is-video-item"
-          data-mac-dock-item
-          data-index="1"
-          role="button"
-          tabindex="0"
-          aria-label="Slide 2"
-        >
-          <svg class="comp-mac-dock__item-timer" data-mac-item-timer width="20" height="20" viewBox="0 0 24 24">
-            <circle class="comp-mac-dock__timer-track" cx="12" cy="12" r="9" />
-            <circle class="comp-mac-dock__timer-progress" data-mac-timer-progress cx="12" cy="12" r="9" />
-          </svg>
-          <span class="comp-mac-dock__item-dot comp-mac-dock__item-dot--video" data-mac-item-dot>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="8,5 19,12 8,19" fill="#ffffff"/></svg>
-          </span>
-          <div class="comp-mac-dock__item-thumb" data-mac-item-thumb>
-            <img
-              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/6mons-upsell-popup.svg?v=1782822954"
-              alt="Game AI presentation"
-              loading="lazy"
-              width="32"
-              height="32"
-            >
-            <span class="comp-mac-dock__item-thumb-play">
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="8,5 19,12 8,19" fill="#ffffff"/></svg>
-            </span>
-          </div>
-        </div>
-
-        <div
-          class="comp-mac-dock__item"
-          data-mac-dock-item
-          data-index="2"
-          role="button"
-          tabindex="0"
-          aria-label="Slide 3"
-        >
-          <svg class="comp-mac-dock__item-timer" data-mac-item-timer width="20" height="20" viewBox="0 0 24 24">
-            <circle class="comp-mac-dock__timer-track" cx="12" cy="12" r="9" />
-            <circle class="comp-mac-dock__timer-progress" data-mac-timer-progress cx="12" cy="12" r="9" />
-          </svg>
-          <span class="comp-mac-dock__item-dot" data-mac-item-dot></span>
-          <div class="comp-mac-dock__item-thumb" data-mac-item-thumb>
-            <img
-              src="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Widgets_Icons.svg?v=1758027539"
-              alt="Course navigation"
-              loading="lazy"
-              width="32"
-              height="32"
-            >
-          </div>
-        </div>
-      {% endcapture %}
-
-      {% render 'comp-mac-dock',
-        dock_id: 'AiModalDock',
-        custom_class: 'comp-ai-modal__dock',
-        content: modal_dock_items
-      %}
+      {% endif %} {% endcomment %}
     </div>
 
-    <!-- Modal Body Content (Exact design from Image 4) -->
+    <!-- Scrollable Modal Body -->
     <div class="comp-ai-modal__body">
-      <div class="comp-ai-modal__badge">6 MONTHS FREE ACCESS</div>
-      <div class="comp-ai-modal__badge-sub">INCLUDED WITH PURCHASE</div>
+      <div class="comp-ai-modal__header-block">
+        <div class="comp-ai-modal__badge custom_subHeading-text">{% if is_rainmaker %}12 MONTHS FREE ACCESS{% else %}6 Months Free Access{% endif %}</div>
+        <div class="comp-ai-modal__badge-sub custom_subHeading-text">INCLUDED WITH PURCHASE</div>
+      </div>
 
-      <h3 class="comp-ai-modal__heading">
-        UPGRADE YOUR PLAYER<br>PRO WITH GAME AI
+      <h3 class="comp-ai-modal__heading custom_heading">
+        {% if is_rainmaker %}TAKE YOUR RAINMAKER<br>FURTHER WITH LAUNCH.{% elsif is_captain_pro %}UPGRADE YOUR CAPTAIN<br>PRO WITH GAME AI{% elsif is_captain_air %}UPGRADE YOUR CAPTAIN<br>AIR WITH GAME AI{% else %}UPGRADE YOUR PLAYER<br>PRO WITH GAME AI{% endif %}
       </h3>
 
-      <p class="comp-ai-modal__desc">
-        Transform your speaker into a personalized on-course assistant, combining GPS data, environmental conditions, shot history, and performance analytics to help you make smarter decisions throughout every round.
+      <p class="comp-ai-modal__desc custom_body-text">
+        {% if is_rainmaker %}Turn every practice session into a clearer picture of your game. Connect Rainmaker to the LAUNCH App to visualize ball flight, explore shot patterns, and track your performance over time, and more.{% elsif is_captain_pro %}Transform your Captain Pro rangefinder into a personalized on-course assistant, combining GPS data, environmental conditions, shot history, and performance analytics to help you make smarter decisions throughout every round.{% else %}Transform your speaker into a personalized on-course assistant, combining GPS data, environmental conditions, shot history, and performance analytics to help you make smarter decisions throughout every round.{% endif %}
       </p>
 
-      <!-- Side-by-Side Comparison Table -->
+      <!-- Comparison Table -->
       <div class="comp-ai-modal__table">
         <div class="comp-ai-modal__table-header">
-          <div class="comp-ai-modal__col-head comp-ai-modal__col-head--left">
-            INCLUDED WITH PLAYER PRO
+          <div class="comp-ai-modal__col-head comp-ai-modal__col-head--left custom_heading">
+            <span>{% if is_rainmaker %}STANDALONE FEATURES{% elsif is_captain_pro %}INCLUDED WITH CAPTAIN PRO{% elsif is_captain_air %}INCLUDED WITH CAPTAIN AIR{% else %}INCLUDED WITH PLAYER PRO{% endif %}</span>
           </div>
-          <div class="comp-ai-modal__col-head comp-ai-modal__col-head--right">
-            WITH GAME AI
-          </div>
-        </div>
-
-        <div class="comp-ai-modal__table-row">
-          <div class="comp-ai-modal__col-cell">
-            <span class="comp-ai-modal__check">✔</span> Lifetime Access 42k+ Course FCB
-          </div>
-          <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
-            <span class="comp-ai-modal__check">✔</span> Premium Access Game APP
+          <div class="comp-ai-modal__col-head comp-ai-modal__col-head--right custom_heading">
+            <img src="{{ 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Frame_2085664388.png?v=1792569517' }}" alt="" loading="lazy" class="col_bg">
+            <span class="comp-ai-modal__col-head-text">{% if is_rainmaker %}WITH LAUNCH{% else %}WITH GAME AI{% endif %}</span>
           </div>
         </div>
 
-        <div class="comp-ai-modal__table-row">
-          <div class="comp-ai-modal__col-cell">
-            <span class="comp-ai-modal__check">✔</span> Dynamic Hazards
-          </div>
-          <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
-            <span class="comp-ai-modal__check">✔</span> Scout AI Caddie™
-          </div>
+        <div class="comp-ai-modal__table-body">
+          {% if is_rainmaker %}
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Practice Mode</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Session Insights</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Swing Speed Mode</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Shot Dispersion Charts</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Target Distance Mode</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Virtual Driving Range</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">12 Default Shot Data Metrics</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Additional Metrics (20+ Total)</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Unlocks All Connected Captain Air Displays</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">True Distance™ Technology</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">AI Club Recommendations</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Advanced Score Keeping & Shot Tracking</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Live Leaderboards</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">AI Post-Round Report & 3D Playbacks</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Shot Dispersion & Accuracy Data</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Comparative Analytics</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Satellite Course Maps</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">More...</span>
+              </div>
+            </div>
+          {% elsif is_captain_pro or is_captain_air %}
+            {% assign captain_name = 'Captain Pro' %}
+            {% if is_captain_air %}
+              {% assign captain_name = 'Captain Air' %}
+            {% endif %}
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Angle</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Unlocks All Connected {{ captain_name }} Displays</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Slope</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">True Distance™ Technology</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Flag Lock w/Vibration</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">AI Club Recommendations</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Advanced Score Keeping & Shot Tracking</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Live Leaderboards</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">AI Post-Round Report & 3D Playbacks</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Shot Dispersion & Accuracy Data</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Comparative Analytics</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Satellite Course Maps</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--empty"></div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">More...</span>
+              </div>
+            </div>
+          {% else %}
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Lifetime Access 42k+ Course FCB</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Premium Access Game APP</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Dynamic Hazards</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Scout AI Caddie™</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Club Recommendations</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Plays Like Distance</span>
+              </div>
+            </div>
+
+            <div class="comp-ai-modal__table-row">
+              <div class="comp-ai-modal__col-cell">
+                <span class="comp-ai-modal__check comp-ai-modal__check--dark">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Scorecard & Stats</span>
+              </div>
+              <div class="comp-ai-modal__col-cell comp-ai-modal__col-cell--right">
+                <span class="comp-ai-modal__check comp-ai-modal__check--ai">
+                  <svg width="6" height="5" viewBox="0 0 6 5" fill="none"><path d="M1 2.2L2.5 3.8L5 1" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="comp-ai-modal__cell-label custom_body-text">Advanced Green Maps</span>
+              </div>
+            </div>
+          {% endif %}
         </div>
       </div>
+    </div>
 
-      <!-- Bottom Free CTA & Terms -->
-      <div class="comp-ai-modal__pricing">
-        <div class="comp-ai-modal__price-wrap">
-          <span class="comp-ai-modal__price-main">FREE</span>
-          <span class="comp-ai-modal__price-old">$39.50</span>
-        </div>
-        <div class="comp-ai-modal__commit-row">
-          <span><svg width="14" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg> NO COMMITMENT</span>
-          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg> CANCEL ANYTIME</span>
-        </div>
-        <p class="comp-ai-modal__footnote">
-          *all subscriptions billed annually after promotional period at $79/yr and are subject to our <a href="/pages/terms-and-conditions">terms and conditions</a>.
-        </p>
+    <!-- Sticky Bottom Bar -->
+    <div class="comp-ai-modal__sticky-footer">
+      <div class="comp-ai-modal__price-wrap">
+        <span class="comp-ai-modal__price-main custom_heading">Free</span>
+        <span class="comp-ai-modal__price-old custom_subHeading-text">{% if is_rainmaker %}$79.99{% else %}$39.50{% endif %}</span>
       </div>
+      <div class="comp-ai-modal__commit-row custom_subHeading-text">
+        <span class="comp-ai-modal__commit-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A8291" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+          NO COMMITMENT
+        </span>
+        <span class="comp-ai-modal__commit-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A8291" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <polyline points="9 16 11 18 15 14"></polyline>
+          </svg>
+          CANCEL ANYTIME
+        </span>
+      </div>
+      <p class="comp-ai-modal__footnote custom_body-text italic">
+        *all subscriptions billed annually after promotional period at $79/yr and are subject to our <a href="/pages/terms-conditions" target="_blank">terms and conditions</a>.
+      </p>
     </div>
   </div>
 </div>
@@ -311,7 +578,7 @@
     gap: 12px;
     isolation: isolate;
     width: 100%;
-    min-height: 382px;
+    /* min-height: 382px; */
     background: #101820 !important;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 10px;
@@ -374,7 +641,7 @@
   .comp-feature-card--ai h2.comp-feature-card__title {
     margin: 0;
     font-family: 'Blue Tees Headline Italic', sans-serif;
-    font-size: clamp(18px, 1.6vw, 22px);
+    font-size: clamp(16px, 1.6vw, 22px);
     line-height: 1.1;
     letter-spacing: -0.01em;
     text-transform: uppercase;
@@ -393,6 +660,7 @@
     font-size: 12px;
     line-height: 1;
     text-transform: uppercase;
+    padding:0px;
   }
   .comp-feature-card__sub-highlight {
     color: #CDFF07 !important;
@@ -425,7 +693,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.55;
+    /* opacity: 0.55; */
   }
   .comp-ai-media__btn {
     position: relative;
@@ -450,6 +718,7 @@
     text-decoration: none;
     transition: background 0.2s ease, transform 0.15s ease;
   }
+  .col_bg{position:absolute; bottom:0; display:flex;}
   .comp-ai-media__btn:hover {
     background: rgba(27, 30, 34, 0.8);
     transform: scale(1.02);
@@ -489,8 +758,8 @@
   .comp-ai-features__icon-wrap {
     flex: none;
     position: relative;
-    width: 28px;
-    height: 28px;
+    width: clamp(28px, 2.7vw, 48px);
+    height: clamp(28px, 2.7vw, 48px);
     border-radius: 100px;
     display: flex;
     align-items: center;
@@ -501,18 +770,39 @@
     overflow: hidden;
   }
   .comp-ai-features__icon {
-    width: 14px;
-    height: 14px;
+    width: clamp(14px, 1.4vw, 22px);
+    height: clamp(14px, 1.4vw, 22px);
     object-fit: contain;
     filter: brightness(0) invert(1);
     position: relative;
     z-index: 1;
   }
+  .comp-ai-features__text-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3px;
+  }
   .comp-ai-features__label {
     font-family: 'Blue Tees Paragraph', sans-serif;
-    font-size: 12px;
-    line-height: 1.4;
+    font-size: clamp(12px, 1.1vw, 16px);
+    line-height: 1.3;
     color: #FFFFFF !important;
+  }
+  .comp-ai-features__note {
+    font-family: 'Roboto Flex', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 8px;
+    line-height: 100%;
+    display: flex;
+    align-items: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #B4B4B4;
+    font-stretch: 130%;
+    font-variation-settings: 'GRAD' 0, 'XOPQ' 96, 'XTRA' 468, 'YOPQ' 79, 'YTAS' 750, 'YTDE' -203, 'YTFI' 738, 'YTLC' 514, 'YTUC' 712, 'slnt' 0;
   }
 
   /* Modal Overlay */
@@ -538,37 +828,45 @@
   .comp-ai-modal__backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.78);
+    background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
   .comp-ai-modal__dialog {
     position: relative;
     z-index: 2;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    isolation: isolate;
     width: 100%;
-    max-width: 440px;
-    max-height: 92vh;
-    background: #ffffff;
-    border-radius: 20px;
+    max-width: 620px;
+    height: 836px;
+    max-height: 94vh;
+    background: #FFFFFF;
+    border-radius: 18px;
     overflow-y: auto;
     overflow-x: hidden;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-    transform: scale(0.94) translateY(12px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95) translateY(12px);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .comp-ai-modal.is-open .comp-ai-modal__dialog {
     transform: scale(1) translateY(0);
   }
   .comp-ai-modal__close {
+    box-sizing: border-box;
     position: absolute;
-    top: 14px;
-    right: 14px;
-    z-index: 10;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(18, 22, 28, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 38px;
+    height: 38px;
+    right: 20px;
+    top: 20px;
+    z-index: 20;
+    background: rgba(27, 30, 34, 0.55);
+    border: 1px solid #474646;
+    border-radius: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -576,17 +874,60 @@
     transition: transform 0.2s ease, background 0.2s ease;
   }
   .comp-ai-modal__close:hover {
-    transform: scale(1.1);
-    background: #000000;
+    transform: scale(1.08);
+    background: rgba(27, 30, 34, 0.85);
   }
 
   /* Media Viewport + Floating Dock */
   .comp-ai-modal__media-viewport {
     position: relative;
     width: 100%;
-    height: 250px;
+    min-height: 348px;
+    height: 348.75px;
     background: #000000;
     overflow: hidden;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    z-index: 0;
+  }
+  .comp-ai-modal__loader {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(16, 24, 32, 0.75) 0%, rgba(0, 0, 0, 0.92) 100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .comp-ai-modal__media-viewport.is-loading .comp-ai-modal__loader {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .comp-ai-modal__spinner {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #FFFFFF;
+    animation: compAiModalSpin 0.75s linear infinite;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.25);
+  }
+  @keyframes compAiModalSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  /* Hide controls while video is buffering / loading */
+  .comp-ai-modal__media-viewport.is-loading .comp-video-player__controls {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.2s ease;
+  }
+  .comp-ai-modal__media-viewport .comp-video-player__controls {
+    z-index: 6;
   }
   .comp-ai-modal__slides {
     position: relative;
@@ -612,219 +953,339 @@
     object-fit: cover;
     display: block;
   }
-  .comp-ai-modal__slide .comp-video-player__controls {
-    padding-bottom: 54px;
-  }
   .comp-ai-modal__dock {
     position: absolute;
-    bottom: 12px;
+    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 5;
-    padding: 5px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 10;
   }
-  .comp-ai-modal__dock-bg {
+  {% comment %} .comp-ai-modal__dots-indicator {
     position: absolute;
-    inset: 0;
-    background: rgba(22, 27, 34, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 999px;
-  }
-  .comp-ai-modal__dock-items {
-    position: relative;
-    z-index: 1;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 8px;
-  }
-  .comp-ai-modal__dock-dot {
-    position: relative;
-    width: 14px;
-    height: 14px;
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .comp-ai-modal__dot-circle {
+    gap: 6px;
+    pointer-events: none;
+  } {% endcomment %}
+  .comp-ai-modal__dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.45);
-    transition: background 0.2s, transform 0.2s;
+    background: #FFFFFF;
+    opacity: 0.4;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
-  .comp-ai-modal__dock-dot.is-active .comp-ai-modal__dot-circle {
-    background: #ffffff;
-    transform: scale(1.15);
-  }
-  .comp-ai-modal__timer-svg {
-    position: absolute;
-    inset: -2px;
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    transform: rotate(-90deg);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-  }
-  .comp-ai-modal__dock-dot.is-active .comp-ai-modal__timer-svg {
+  .comp-ai-modal__dot.is-active {
     opacity: 1;
-  }
-  .comp-ai-modal__timer-track {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.2);
-    stroke-width: 2;
-  }
-  .comp-ai-modal__timer-bar {
-    fill: none;
-    stroke: #ffffff;
-    stroke-width: 2;
-    stroke-dasharray: 56.55;
-    stroke-dashoffset: 56.55;
-    stroke-linecap: round;
+    transform: scale(1.15);
   }
 
   /* Body Content */
   .comp-ai-modal__body {
-    padding: 24px 20px 20px;
-    text-align: center;
-    color: #111111;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 32px 32px;
+    gap: 16px;
+    width: 100%;
+    flex: 1 0 auto;
+    z-index: 1;
+  }
+  .comp-ai-modal__header-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    gap: 6px;
   }
   .comp-ai-modal__badge {
-    display: inline-block;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 10px;
     background: #CDFF07;
-    color: #000000;
-    font-family: 'Blue Tees Headline', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    padding: 4px 10px;
     border-radius: 4px;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: #272C35;
   }
   .comp-ai-modal__badge-sub {
-    font-size: 9px;
-    color: #888888;
-    letter-spacing: 0.08em;
-    margin-top: 4px;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: #7A8291;
+    text-align: center;
   }
   .comp-ai-modal__heading {
-    margin: 12px 0 8px;
-    font-family: 'Blue Tees Headline Italic', sans-serif;
-    font-size: 20px;
-    line-height: 1.15;
+    margin: 0;
+    font-size: clamp(22px, 2.5vw, 27px);
+    line-height: 1.1;
+    display: flex;
+    align-items: center;
+    text-align: center;
     text-transform: uppercase;
-    color: #111111;
+    color: #1B2029;
+    opacity: 0.95;
     letter-spacing: -0.01em;
   }
   .comp-ai-modal__desc {
-    font-size: 11px;
+    margin: 0;
+    font-size: 14px;
     line-height: 1.5;
-    color: #555555;
-    margin: 0 auto 18px;
-    max-width: 380px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #4F4F4F;
+    max-width: 556px;
   }
 
   /* Comparison Table */
   .comp-ai-modal__table {
-    border: 1px solid #ebebeb;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    text-align: left;
-    font-size: 11px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+    max-width: 556px;
+    background: #FFFFFF;
+    margin-top: 8px;
   }
   .comp-ai-modal__table-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background: #f7f7f8;
-    font-size: 10px;
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid #ebebeb;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 43px;
+    position: relative;
   }
   .comp-ai-modal__col-head {
-    padding: 8px 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 43px;
+    font-size: 12px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: #1B1E22;
+  }
+  .comp-ai-modal__col-head--left,  .comp-ai-modal__col-head--right {
+    border-bottom: 1px solid #D9D9D9;
   }
   .comp-ai-modal__col-head--right {
-    background: linear-gradient(90deg, rgba(160, 210, 255, 0.4) 0%, rgba(200, 180, 255, 0.4) 100%);
-    border-left: 1px solid #ebebeb;
+    position: relative;
+    isolation: isolate;
   }
-  .comp-ai-modal__table-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-bottom: 1px solid #f0f0f0;
+  .comp-ai-modal__col-head-text {
+    position: relative;
+    z-index: 4;
+    text-align: center;
   }
-  .comp-ai-modal__table-row:last-child {
-    border-bottom: none;
+  .comp-ai-modal__glow-1 {
+    position: absolute;
+    width: 162px;
+    height: 29px;
+    right: 15px;
+    top: 15px;
+    background: #7C51FF;
+    filter: blur(12px);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.75;
   }
-  .comp-ai-modal__col-cell {
-    padding: 8px 10px;
-    color: #222222;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  .comp-ai-modal__glow-2 {
+    position: absolute;
+    width: 172px;
+    height: 28px;
+    left: 10px;
+    top: 15px;
+    background: #00A1FF;
+    filter: blur(12px);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.75;
   }
-  .comp-ai-modal__col-cell--right {
-    border-left: 1px solid #ebebeb;
+  .comp-ai-modal__glow-3 {
+    position: absolute;
+    inset: 0;
+    background: #FFFFFF;
+    filter: blur(12px);
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.35;
   }
-  .comp-ai-modal__check {
-    color: #0b78e3;
-    font-size: 12px;
+  .comp-ai-modal__glow-line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(0, 161, 255, 0) 0%, #00A1FF 32.21%, #7C51FF 61.54%, rgba(124, 81, 255, 0) 100%), #D9D9D9;
+    z-index: 3;
   }
 
-  /* Pricing & Terms */
-  .comp-ai-modal__pricing {
+  .comp-ai-modal__table-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .comp-ai-modal__table-row {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    min-height: 38px;
+  }
+  .comp-ai-modal__col-cell {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 0;
+    gap: 8px;
+    width: 50%;
+    height: 100%;
+  }
+  .comp-ai-modal__col-cell:first-child {
+    border-right: 1px solid #D9D9D9;
+    padding-right: 12px;
+  }
+  .comp-ai-modal__col-cell--right {
+    padding-left: 18px;
+  }
+  .comp-ai-modal__col-cell--empty {
+    min-height: 38px;
+    border-right: 1px solid #D9D9D9;
+  }
+  .comp-ai-modal__check {
+    box-sizing: border-box;
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .comp-ai-modal__check--dark {
+    background: #1B1E22;
+  }
+  .comp-ai-modal__check--ai {
+    background: #081C4C;
+    box-shadow: 3px -4px 7px -2px rgba(124, 81, 255, 0.4), -2px 4px 7px -2px rgba(0, 161, 255, 0.4);
+  }
+  .comp-ai-modal__cell-label {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #000000;
+  }
+
+  /* Sticky Footer */
+  .comp-ai-modal__sticky-footer {
+    position: sticky;
+    bottom: 0;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    padding: 20px 32px;
+    gap: 12px;
+    width: 100%;
+    background: #FFFFFF;
+    border-top: 1px solid #D9D9D9;
+    box-shadow: 0px -10px 32px -10px rgba(16, 24, 32, 0.15);
+    z-index: 10;
+    margin-top: auto;
   }
   .comp-ai-modal__price-wrap {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: baseline;
     gap: 6px;
   }
   .comp-ai-modal__price-main {
-    font-family: 'Blue Tees Headline Italic', sans-serif;
-    font-size: 26px;
-    color: #111111;
+    font-size: 27px;
+    line-height: 1;
+    color: #1B2029;
+    text-transform: uppercase;
+    opacity: 0.95;
   }
   .comp-ai-modal__price-old {
     font-size: 13px;
-    text-decoration: line-through;
-    color: #888888;
+    line-height: 1;
+    text-decoration-line: line-through;
+    color: #B4B4B4;
   }
   .comp-ai-modal__commit-row {
+    box-sizing: border-box;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    gap: 16px;
-    font-size: 10px;
-    letter-spacing: 0.05em;
-    color: #555555;
+    gap: 24px;
+    width: 100%;
   }
-  .comp-ai-modal__commit-row span {
-    display: inline-flex;
+  .comp-ai-modal__commit-item {
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7A8291;
   }
   .comp-ai-modal__footnote {
-    font-size: 9px;
-    color: #888888;
+    margin: 0;
+    font-size: 12px;
     line-height: 1.4;
-    margin-top: 4px;
+    text-align: center;
+    color: #4F4F4F;
     max-width: 360px;
   }
   .comp-ai-modal__footnote a {
-    color: #555555;
+    color: #4F4F4F;
     text-decoration: underline;
+  }
+
+  @media screen and (max-width: 640px) {
+    .comp-ai-modal__dialog {
+      height: 90vh;
+      border-radius: 14px;
+    }
+    .comp-ai-modal__media-viewport {
+      min-height: 220px;
+      height: 220px;
+    }
+    .comp-ai-modal__body {
+      padding: 20px 16px;
+    }
+    .comp-ai-modal__col-cell--right {
+      padding-left: 10px;
+    }
+    .comp-ai-modal__col-cell:first-child {
+      padding-right: 6px;
+    }
+    .comp-ai-modal__sticky-footer {
+      padding: 16px 16px;
+    }
   }
 </style>
 
@@ -842,6 +1303,33 @@
     var dockEl = modal.querySelector('[data-mac-dock]');
     var dockCtrl = null;
 
+    function positionAiModal() {
+      var dialog = modal.querySelector('.comp-ai-modal__dialog');
+      if (!dialog) return;
+
+      if (window.innerWidth <= 991) {
+        modal.style.justifyContent = 'center';
+        modal.style.alignItems = 'center';
+        modal.style.padding = '12px';
+        dialog.style.width = '100%';
+        dialog.style.maxWidth = '100%';
+        dialog.style.marginLeft = '0px';
+        dialog.style.marginRight = '0px';
+        return;
+      }
+
+      var panel = document.querySelector('.comp-pdp-panel') || document.querySelector('.product-single__meta');
+      if (panel) {
+        var rect = panel.getBoundingClientRect();
+        modal.style.justifyContent = 'flex-start';
+        modal.style.alignItems = 'center';
+        modal.style.padding = '16px';
+        dialog.style.marginLeft = Math.max(16, Math.round(rect.left)) + 'px';
+        dialog.style.width = Math.min(620, Math.round(rect.width)) + 'px';
+        dialog.style.maxWidth = Math.round(rect.width) + 'px';
+      }
+    }
+
     function initModalDock() {
       if (dockCtrl || !dockEl || !window.initMacDock) return;
       dockCtrl = window.initMacDock({
@@ -858,11 +1346,85 @@
       });
     }
 
+    var viewport = modal.querySelector('[data-ai-modal-viewport]');
+    var modalVideo = modal.querySelector('video');
+
+    function setVideoLoading(loading) {
+      if (viewport) {
+        viewport.classList.toggle('is-loading', !!loading);
+      }
+      var playBtn = modal.querySelector('[data-video-btn-play]');
+      if (playBtn && modalVideo) {
+        if (loading) {
+          playBtn.classList.remove('is-playing');
+        } else if (!modalVideo.paused) {
+          playBtn.classList.add('is-playing');
+        } else {
+          playBtn.classList.remove('is-playing');
+        }
+      }
+    }
+
+    if (modalVideo) {
+      modalVideo.addEventListener('loadstart', function () {
+        if (modal.classList.contains('is-open')) setVideoLoading(true);
+      });
+      modalVideo.addEventListener('waiting', function () {
+        if (modal.classList.contains('is-open')) setVideoLoading(true);
+      });
+      modalVideo.addEventListener('seeking', function () {
+        if (modal.classList.contains('is-open')) setVideoLoading(true);
+      });
+      modalVideo.addEventListener('canplay', function () {
+        setVideoLoading(false);
+      });
+      modalVideo.addEventListener('playing', function () {
+        setVideoLoading(false);
+      });
+      modalVideo.addEventListener('error', function () {
+        setVideoLoading(false);
+      });
+    }
+
     function openModal() {
+      positionAiModal();
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
       initModalDock();
+
+      if (modalVideo) {
+        var vSrc = modalVideo.getAttribute('data-src');
+        if (vSrc && (!modalVideo.currentSrc && !modalVideo.src)) {
+          setVideoLoading(true);
+          modalVideo.src = vSrc;
+          modalVideo.load();
+        } else if (modalVideo.readyState < 3) {
+          setVideoLoading(true);
+        } else {
+          setVideoLoading(false);
+        }
+
+        modalVideo.currentTime = 0;
+        var playPromise = modalVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.then(function () {
+            setVideoLoading(false);
+          }).catch(function () {
+            if (!modalVideo.muted) {
+              modalVideo.muted = true;
+              modalVideo.play().then(function() {
+                setVideoLoading(false);
+              }).catch(function() {
+                setVideoLoading(false);
+              });
+            } else {
+              setVideoLoading(false);
+            }
+          });
+        }
+      }
+
       if (dockCtrl) {
         dockCtrl.select(0);
         dockCtrl.resume();
@@ -912,6 +1474,12 @@
     if (trigger) trigger.addEventListener('click', openModal);
     closeButtons.forEach(function (b) { b.addEventListener('click', closeModal); });
 
+    window.addEventListener('resize', function () {
+      if (modal.classList.contains('is-open')) {
+        positionAiModal();
+      }
+    });
+
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && modal.classList.contains('is-open')) {
         closeModal();
@@ -922,15 +1490,45 @@
     var previewVideo = card.querySelector('[data-comp-ai-preview-video]');
     if (previewVideo) {
       var previewCutoff = 5;
+
+      if ('IntersectionObserver' in window) {
+        var cardObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              if (!previewVideo.getAttribute('src')) {
+                var dSrc = previewVideo.getAttribute('data-src');
+                if (dSrc) {
+                  previewVideo.src = dSrc;
+                  previewVideo.load();
+                }
+              }
+              if (previewVideo.paused) {
+                previewVideo.play().catch(function() {});
+              }
+            } else {
+              if (!previewVideo.paused) {
+                previewVideo.pause();
+              }
+            }
+          });
+        }, { rootMargin: '200px' });
+        cardObs.observe(card);
+      } else {
+        if (!previewVideo.getAttribute('src')) {
+          var dSrc = previewVideo.getAttribute('data-src');
+          if (dSrc) previewVideo.src = dSrc;
+        }
+      }
+
       previewVideo.addEventListener('loadedmetadata', function () {
         previewVideo.currentTime = 0;
         previewVideo.muted = true;
         previewVideo.play().catch(function () {});
       });
+
       previewVideo.addEventListener('timeupdate', function () {
         if (previewVideo.currentTime >= previewCutoff) {
           previewVideo.currentTime = 0;
-          previewVideo.play().catch(function () {});
         }
       });
     }

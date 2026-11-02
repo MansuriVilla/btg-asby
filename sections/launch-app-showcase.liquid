@@ -1,0 +1,1490 @@
+{% comment %}
+  Launch App Showcase Section (Game AI / Launch App Figma Specs)
+  - Top 2-column split: Hero mockup image (786x761 on desktop) + Heading (42px), Description (16px) & App Store / Google Play badges (right)
+  - Bottom custom slider of feature cards (524x537, #E9E9E9 or dark #1B2029 variant, 32px gap, 10px radius)
+  - Supports both Light Centered cards (Style 1: 380x276 top image + centered 18px title & 14px description) and Dark Split cards (Style 2: 524x295 top media + device preview / icon + left-aligned copy)
+  - Includes hover navigation arrows (44x44) and bottom progress bar (1060px wide, 2px height)
+  - Uses clamp() for fluid typography and spacing, and visible_if for conditional schema fields
+{% endcomment %}
+
+{%- liquid
+  assign section_id = section.settings.custom_section_id | default: ''
+  if section_id == blank
+    assign section_id = 'launch-app-showcase-' | append: section.id
+  endif
+
+  assign section_loading = 'lazy'
+  assign section_fetchpriority = 'auto'
+  if section.index == 1 or section.index == nil or section.settings.eager_load
+    assign section_loading = 'eager'
+    assign section_fetchpriority = 'high'
+  endif
+
+  assign hero_alt = section.settings.heading | strip_html | escape | default: 'Launch App Showcase'
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="launch-app-showcase launch-app-showcase--{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-launch-app-showcase
+  style="
+    --las-bg: {{ section.settings.bg_color | default: '#FFFFFF' }};
+    --las-text: {{ section.settings.text_color | default: '#101820' }};
+    --las-subtext: {{ section.settings.subtext_color | default: '#101820' }};
+    --las-card-bg: {{ section.settings.card_bg_color | default: '#E9E9E9' }};
+  "
+>
+  <div class="launch-app-showcase__inner">
+    <!-- Top Split Hero Area (1440px container) -->
+    <div class="launch-app-showcase__hero {% if section.settings.reverse_hero_layout %}launch-app-showcase__hero--reverse{% endif %}">
+      <!-- Left Column: Hero Mockup Image (778x778 frame / 786x761 image) -->
+      <div class="launch-app-showcase__hero-media">
+        {%- if section.settings.hero_image != blank -%}
+          <picture>
+            {%- if section.settings.has_mobile_hero_image and section.settings.hero_image_mobile != blank -%}
+              <source
+                media="(max-width: 860px)"
+                srcset="
+                  {{ section.settings.hero_image_mobile | image_url: width: 600 }} 600w,
+                  {{ section.settings.hero_image_mobile | image_url: width: 900 }} 900w,
+                  {{ section.settings.hero_image_mobile | image_url: width: 1200 }} 1200w
+                "
+                sizes="100vw"
+              >
+            {%- endif -%}
+            {{
+              section.settings.hero_image
+              | image_url: width: 1600
+              | image_tag:
+                alt: hero_alt,
+                class: 'launch-app-showcase__hero-img',
+                loading: section_loading,
+                fetchpriority: section_fetchpriority,
+                widths: '400, 600, 800, 1100, 1400, 1600',
+                sizes: '(max-width: 860px) 100vw, 786px'
+            }}
+          </picture>
+        {%- else -%}
+          <div class="launch-app-showcase__hero-placeholder custom_subHeading-text">
+            Upload Hero Mockup Image (786 × 761px)
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Right Column: Content (534px wide, gap 24.61px) -->
+      <div class="launch-app-showcase__hero-content">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="launch-app-showcase__eyebrow custom_subHeading-text">
+            {{ section.settings.eyebrow }}
+          </span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="launch-app-showcase__heading custom_heading">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="launch-app-showcase__description custom_body-text">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_store_badges -%}
+          {%- if section.settings.combined_store_image != blank
+            or section.settings.app_store_image != blank
+            or section.settings.play_store_image != blank
+          -%}
+            <div class="launch-app-showcase__stores">
+              {%- if section.settings.combined_store_image != blank -%}
+                {%- assign comb_alt = section.settings.combined_store_image.alt | default: 'Download on App Store and Google Play' | escape -%}
+                {{
+                  section.settings.combined_store_image
+                  | image_url: width: 482
+                  | image_tag:
+                    alt: comb_alt,
+                    class: 'launch-app-showcase__store-combined-img',
+                    loading: 'lazy'
+                }}
+              {%- else -%}
+                {%- if section.settings.app_store_image != blank -%}
+                  {%- assign app_store_alt = section.settings.app_store_image.alt | default: 'Download on the App Store' | escape -%}
+                  {%- if section.settings.app_store_link != blank -%}
+                    <a
+                      href="{{ section.settings.app_store_link }}"
+                      class="launch-app-showcase__store-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {{
+                        section.settings.app_store_image
+                        | image_url: width: 320
+                        | image_tag:
+                          alt: app_store_alt,
+                          class: 'launch-app-showcase__store-img',
+                          loading: 'lazy'
+                      }}
+                    </a>
+                  {%- else -%}
+                    <span class="launch-app-showcase__store-link">
+                      {{
+                        section.settings.app_store_image
+                        | image_url: width: 320
+                        | image_tag:
+                          alt: app_store_alt,
+                          class: 'launch-app-showcase__store-img',
+                          loading: 'lazy'
+                      }}
+                    </span>
+                  {%- endif -%}
+                {%- endif -%}
+
+                {%- if section.settings.play_store_image != blank -%}
+                  {%- assign play_store_alt = section.settings.play_store_image.alt | default: 'Get it on Google Play' | escape -%}
+                  {%- if section.settings.play_store_link != blank -%}
+                    <a
+                      href="{{ section.settings.play_store_link }}"
+                      class="launch-app-showcase__store-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {{
+                        section.settings.play_store_image
+                        | image_url: width: 320
+                        | image_tag:
+                          alt: play_store_alt,
+                          class: 'launch-app-showcase__store-img',
+                          loading: 'lazy'
+                      }}
+                    </a>
+                  {%- else -%}
+                    <span class="launch-app-showcase__store-link">
+                      {{
+                        section.settings.play_store_image
+                        | image_url: width: 320
+                        | image_tag:
+                          alt: play_store_alt,
+                          class: 'launch-app-showcase__store-img',
+                          loading: 'lazy'
+                      }}
+                    </span>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if section.settings.show_cta and section.settings.cta_text != blank -%}
+          <div class="launch-app-showcase__cta-wrap">
+            <a
+              href="{{ section.settings.cta_link | default: '#' }}"
+              class="content-cta content-cta__solid launch-app-showcase__cta"
+            >
+              {{ section.settings.cta_text }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- Bottom GameAI Slider Area -->
+    {%- if section.blocks.size > 0 -%}
+      <div class="launch-app-showcase__slider-section">
+        {%- if section.settings.enable_slider_header -%}
+          {%- if section.settings.slider_heading != blank or section.settings.slider_subheading != blank -%}
+            <div class="launch-app-showcase__slider-header">
+              {%- if section.settings.slider_heading != blank -%}
+                <h3 class="launch-app-showcase__slider-title custom_heading">
+                  {{ section.settings.slider_heading }}
+                </h3>
+              {%- endif -%}
+              {%- if section.settings.slider_subheading != blank -%}
+                <div class="launch-app-showcase__slider-subtitle custom_body-text">
+                  {{ section.settings.slider_subheading }}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        <div class="launch-app-showcase__slider-wrapper">
+          <div class="launch-app-showcase__slider" data-las-slider>
+            <div class="launch-app-showcase__track" data-las-track>
+              {%- for block in section.blocks -%}
+                {%- liquid
+                  assign card_alt = block.settings.title | strip_html | escape | default: 'App Feature'
+                  assign is_dark_card = block.settings.enable_dark_card
+                -%}
+                <div
+                  class="launch-app-showcase__slide {% if forloop.first %}is-active{% endif %}"
+                  data-las-slide="{{ forloop.index0 }}"
+                  {{ block.shopify_attributes }}
+                >
+                  <div class="launch-app-showcase__card {% if is_dark_card %}launch-app-showcase__card--dark{% endif %}">
+                    <!-- Top Image / Media Area -->
+                    <div class="launch-app-showcase__card-media">
+                      {%- if block.settings.image != blank -%}
+                        {{
+                          block.settings.image
+                          | image_url: width: 1050
+                          | image_tag:
+                            alt: card_alt,
+                            class: 'launch-app-showcase__card-img',
+                            loading: 'lazy',
+                            widths: '380, 524, 760, 1050',
+                            sizes: '(max-width: 768px) 85vw, 524px'
+                        }}
+                      {%- else -%}
+                        <div class="launch-app-showcase__card-img-placeholder"></div>
+                      {%- endif -%}
+                    </div>
+
+                    <!-- Bottom Text Area (242px height in Figma) -->
+                    <div class="launch-app-showcase__card-bottom">
+                      {%- if is_dark_card -%}
+                        <div class="launch-app-showcase__card-dark-inner">
+                          {%- if block.settings.device_image != blank or block.settings.show_badge_icon -%}
+                            <div class="launch-app-showcase__card-device-wrap">
+                              {%- if block.settings.device_image != blank -%}
+                                {%- assign dev_alt = block.settings.title | strip_html | escape -%}
+                                {{
+                                  block.settings.device_image
+                                  | image_url: width: 444
+                                  | image_tag:
+                                    alt: dev_alt,
+                                    class: 'launch-app-showcase__card-device-img',
+                                    loading: 'lazy'
+                                }}
+                              {%- endif -%}
+                              {%- if block.settings.show_badge_icon -%}
+                                <div class="launch-app-showcase__card-badge-icon">
+                                  {%- if block.settings.badge_icon != blank -%}
+                                    {{
+                                      block.settings.badge_icon
+                                      | image_url: width: 80
+                                      | image_tag:
+                                        alt: '',
+                                        loading: 'lazy'
+                                    }}
+                                  {%- else -%}
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                      <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#FFFFFF"/>
+                                    </svg>
+                                  {%- endif -%}
+                                </div>
+                              {%- endif -%}
+                            </div>
+                          {%- endif -%}
+
+                          <div class="launch-app-showcase__card-text-group launch-app-showcase__card-text-group--left">
+                            {%- if block.settings.title != blank -%}
+                              <h3 class="launch-app-showcase__card-title custom_heading">
+                                {{ block.settings.title }}
+                              </h3>
+                            {%- endif -%}
+                            {%- if block.settings.description != blank -%}
+                              <div class="launch-app-showcase__card-desc custom_body-text">
+                                {{ block.settings.description }}
+                              </div>
+                            {%- endif -%}
+                          </div>
+                        </div>
+                      {%- else -%}
+                        <div class="launch-app-showcase__card-text-group">
+                          {%- if block.settings.title != blank -%}
+                            <h3 class="launch-app-showcase__card-title custom_heading">
+                              {{ block.settings.title }}
+                            </h3>
+                          {%- endif -%}
+                          {%- if block.settings.description != blank -%}
+                            <div class="launch-app-showcase__card-desc custom_body-text {% if block.settings.wide_description %}launch-app-showcase__card-desc--wide{% endif %}">
+                              {{ block.settings.description }}
+                            </div>
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <!-- Slider Floating Side Arrows & Bottom Progress Track -->
+          {%- if section.blocks.size > 1 -%}
+            <div class="launch-app-showcase__controls">
+              <button
+                type="button"
+                class="launch-app-showcase__arrow launch-app-showcase__arrow--prev"
+                data-las-prev
+                aria-label="Previous slide"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M15.8333 10H4.16666M4.16666 10L9.16666 5M4.16666 10L9.16666 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+              {%- if section.settings.show_progress_bar -%}
+                <div class="launch-app-showcase__progress-track" data-las-progress-track>
+                  <div class="launch-app-showcase__progress-bar" data-las-progress-bar></div>
+                </div>
+              {%- endif -%}
+
+              <button
+                type="button"
+                class="launch-app-showcase__arrow launch-app-showcase__arrow--next"
+                data-las-next
+                aria-label="Next slide"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M4.16666 10H15.8333M15.8333 10L10.8333 5M15.8333 10L10.8333 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  /* ==========================================================================
+     Launch App Showcase (Figma 1440px Spec + Fluid Clamp)
+     ========================================================================== */
+  .launch-app-showcase--{{ section.id }} {
+    position: relative;
+    width: 100%;
+    background-color: var(--las-bg, #FFFFFF);
+    color: var(--las-text, #101820);
+    padding-top: clamp(36px, 3.5vw, 49px);
+    padding-bottom: clamp(48px, 6vw, 90px);
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 2;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__inner {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  /* ==========================================================================
+     Top Hero Split (Frame 1410105721)
+     ========================================================================== */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 786fr) minmax(0, 534fr);
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(24px, 3.5vw, 56px);
+    width: 100%;
+    padding-inline: clamp(16px, 4vw, 64px);
+    margin-bottom: clamp(24px, 2vw, 38px);
+    box-sizing: border-box;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero--reverse {
+    grid-template-columns: minmax(0, 534fr) minmax(0, 786fr);
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero--reverse .launch-app-showcase__hero-media {
+    order: 2;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero--reverse .launch-app-showcase__hero-content {
+    order: 1;
+  }
+
+  /* Left Mockup Image (Frame 1410105930 / image 325: 786px x 761px) */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero-media {
+    position: relative;
+    width: 100%;
+    max-width: 786px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero-img {
+    width: 100%;
+    max-width: clamp(320px, 54.5vw, 786px);
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero-placeholder {
+    width: 100%;
+    aspect-ratio: 786 / 761;
+    max-height: 560px;
+    background: #F4F5F7;
+    border: 1px dashed #CBD5E1;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748B;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Right Content Column (Frame 1171277703: width 534px, gap 24.61px) */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: clamp(16px, 1.7vw, 24.61px);
+    width: 100%;
+    max-width: 536px;
+    margin-inline: auto;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__eyebrow {
+    font-size: clamp(11px, 0.85vw, 13px);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--new-blue, #004df5);
+  }
+
+  /* Heading: 42px, line-height 100%, letter-spacing -0.02em, #101820 */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__heading {
+    font-size: clamp(26px, 2.92vw, 42px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--las-text, #101820);
+    margin: 0;
+    max-width: 536px;
+    width: 100%;
+  }
+
+  /* Body Copy - M: 456px width, 16px font-size, 150% line-height, 0.02em letter-spacing, #101820 */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__description {
+    font-size: clamp(14px, 1.11vw, 16px);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: var(--las-subtext, #101820);
+    max-width: 456px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__description p {
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+  }
+
+  /* App Store / Google Play Badges (241px x 58px container in Figma) */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__stores {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(8px, 0.7vw, 10px);
+    min-height: clamp(42px, 4vw, 58px);
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__store-combined-img {
+    width: clamp(190px, 16.7vw, 241px);
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__store-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .launch-app-showcase--{{ section.id }} a.launch-app-showcase__store-link:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+  }
+
+  .launch-app-showcase--{{ section.id }} a.launch-app-showcase__store-link:active {
+    transform: scale(0.98);
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__store-img {
+    height: clamp(34px, 2.7vw, 40px);
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__cta-wrap {
+    margin-top: 4px;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(10px, 0.9vw, 14px) clamp(24px, 2vw, 34px);
+    font-size: clamp(13px, 0.9vw, 15px);
+    font-weight: 700;
+  }
+
+  /* ==========================================================================
+     GameAI Slider Section (width 1440px, left offset 80px, gap 32px)
+     ========================================================================== */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__slider-section {
+    position: relative;
+    width: 100%;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__slider-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto clamp(24px, 3vw, 40px) auto;
+    padding-inline: 20px;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__slider-title {
+    font-size: clamp(22px, 2.2vw, 36px);
+    line-height: 1.05;
+    color: var(--las-text, #101820);
+    text-transform: uppercase;
+    margin: 0 0 12px 0;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__slider-subtitle {
+    font-size: clamp(14px, 1vw, 16px);
+    line-height: 1.5;
+    color: var(--las-subtext, #101820);
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__slider-subtitle p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__slider-wrapper {
+    position: relative;
+    width: 100%;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__slider {
+    position: relative;
+    width: 100%;
+    padding-left: clamp(16px, 5.55vw, 80px);
+    padding-right: clamp(16px, 5.55vw, 80px);
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  /* Frame 1410105709: flex-direction row, gap 32px */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__track {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: clamp(16px, 2.22vw, 32px);
+    will-change: transform;
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: grab;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__track.is-dragging {
+    cursor: grabbing;
+    transition: none;
+  }
+
+  /* Style_2 Card: width 524px, height 537px, border-radius 10px, background #E9E9E9 */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__slide {
+    flex: 0 0 auto;
+    width: clamp(300px, 36.38vw, 524px);
+    box-sizing: border-box;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card {
+    position: relative;
+    width: 100%;
+    height: clamp(430px, 37.29vw, 537px);
+    background: var(--las-card-bg, #E9E9E9);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+
+  /* Top Image Stage (image 295: width 380px, height 276px, left 72px, top 38px) */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-media {
+    position: relative;
+    width: 100%;
+    height: clamp(220px, 20.48vw, 295px);
+    padding: clamp(24px, 2.63vw, 38px) clamp(28px, 5vw, 72px) 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-img {
+    width: 100%;
+    max-width: clamp(240px, 26.38vw, 380px);
+    height: clamp(180px, 19.16vw, 276px);
+    object-fit: contain;
+    object-position: center center;
+    display: block;
+    pointer-events: none;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-img-placeholder {
+    width: 100%;
+    max-width: 380px;
+    height: 100%;
+    background: rgba(16, 24, 32, 0.06);
+    border-radius: 8px;
+  }
+
+  /* Bottom Content Frame (Frame 1410105729: width 524px, height 242px, top 295px) */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-bottom {
+    position: relative;
+    width: 100%;
+    height: clamp(190px, 16.8vw, 242px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(16px, 1.8vw, 24px);
+    box-sizing: border-box;
+    flex: 1;
+  }
+
+  /* Frame 1410105726: flex-direction column, align-items center, gap 8px */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-text-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  /* Card Title: 18px, line-height 100%, uppercase, #101820, opacity 0.95, width 312px */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-title {
+    font-size: clamp(16px, 1.25vw, 18px);
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--las-text, #101820);
+    opacity: 0.95;
+    margin: 0;
+    max-width: 312px;
+    width: 100%;
+  }
+
+  /* Card Description: 14px, line-height 150% (21px), letter-spacing 0.02em, #101820, width 312px–384px */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-desc {
+    font-size: clamp(12.5px, 0.97vw, 14px);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: var(--las-subtext, #101820);
+    max-width: 330px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-desc--wide {
+    max-width: 384px;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-desc p {
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+  }
+
+  /* ==========================================================================
+     Dark Card Variant (Order 3 in Figma: #1B2029, full 524x295 top media)
+     ========================================================================== */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card--dark {
+    background: #1B2029;
+    color: #FFFFFF;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card--dark .launch-app-showcase__card-media {
+    padding: 0;
+    height: clamp(210px, 20.48vw, 295px);
+    overflow: hidden;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card--dark .launch-app-showcase__card-img {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-dark-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-device-wrap {
+    position: absolute;
+    left: clamp(-36px, -2.5vw, -23px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(140px, 15.4vw, 222px);
+    height: clamp(140px, 15.4vw, 222px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-device-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* CLUB REC Glowing 40x40 Icon Badge */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-badge-icon {
+    position: absolute;
+    left: clamp(24px, 3.8vw, 55px);
+    top: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    border: 0.5px solid #FFFFFF;
+    box-shadow: 0 0 8px rgba(0, 161, 255, 0.8), 0 0 14px rgba(64, 0, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-badge-icon img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-text-group--left {
+    align-items: flex-start;
+    text-align: left;
+    max-width: 312px;
+    margin-left: auto;
+    padding-right: clamp(8px, 1.2vw, 18px);
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card--dark .launch-app-showcase__card-title,
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__card--dark .launch-app-showcase__card-desc {
+    color: #FFFFFF;
+  }
+
+  /* ==========================================================================
+     Slider Controls (44x44 Buttons at left/right 40px + 1060px Progress Bar)
+     ========================================================================== */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow {
+    appearance: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 1000px;
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    cursor: pointer;
+    z-index: 10;
+    transition:
+      opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      visibility 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 0.2s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow:hover {
+    background: #1B2029;
+    transform: translateY(-50%) scale(1.06);
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow:active {
+    transform: translateY(-50%) scale(0.96);
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow:focus-visible {
+    outline: 2px solid #004df5;
+    outline-offset: 2px;
+  }
+
+  @media (min-width: 992px) {
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow {
+      position: absolute;
+      top: calc(50% - 22px);
+      transform: translateY(-50%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow--prev {
+      left: 40px;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow--next {
+      right: 40px;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__slider-wrapper:hover .launch-app-showcase__arrow:not([disabled]) {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__slider-wrapper:hover .launch-app-showcase__arrow[disabled] {
+      opacity: 0.25;
+      visibility: visible;
+      pointer-events: none;
+    }
+  }
+
+  /* Frame 1410105710: width 1060px, height 2px, top 577px (40px below 537px cards) */
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 1060px;
+    margin: clamp(24px, 2.77vw, 40px) auto 0;
+    padding-inline: 20px;
+    box-sizing: border-box;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__progress-track {
+    position: relative;
+    width: 100%;
+    max-width: 1060px;
+    height: 2px;
+    background: rgba(16, 24, 32, 0.16);
+    border-radius: 100px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .launch-app-showcase--{{ section.id }} .launch-app-showcase__progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 40.9%;
+    background: var(--las-text, #101820);
+    border-radius: 100px;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* ==========================================================================
+     Responsive Mobile & Tablet Breakpoints
+     ========================================================================== */
+  @media (max-width: 991px) {
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero,
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero--reverse {
+      grid-template-columns: 1fr;
+      gap: clamp(20px, 4vw, 32px);
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero--reverse .launch-app-showcase__hero-media {
+      order: 0;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero-media {
+      max-width: 600px;
+      margin-inline: auto;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__hero-img {
+      max-width: 100%;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow {
+      position: static;
+      transform: none;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow:hover,
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow:active {
+      transform: scale(0.98);
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__arrow[disabled] {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__slide {
+      width: 84vw;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__card {
+      height: auto;
+      min-height: 420px;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-media {
+      padding: 24px 24px 0;
+      height: auto;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-img {
+      height: auto;
+      max-height: 220px;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-bottom {
+      height: auto;
+      padding: 24px 20px 28px;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-dark-inner {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-device-wrap {
+      position: relative;
+      left: 0;
+      top: 0;
+      transform: none;
+      width: 120px;
+      height: 120px;
+    }
+
+    .launch-app-showcase--{{ section.id }} .launch-app-showcase__card-text-group--left {
+      align-items: center;
+      text-align: center;
+      margin-left: 0;
+      padding-right: 0;
+    }
+  }
+</style>
+
+{%- if section.blocks.size > 0 -%}
+  <script>
+    (function () {
+      function initLaunchAppShowcase(section) {
+        if (!section || section.dataset.lasInit === 'true') return;
+        section.dataset.lasInit = 'true';
+
+        var slider = section.querySelector('[data-las-slider]');
+        var track = section.querySelector('[data-las-track]');
+        var slides = Array.from(section.querySelectorAll('[data-las-slide]'));
+        var prevBtn = section.querySelector('[data-las-prev]');
+        var nextBtn = section.querySelector('[data-las-next]');
+        var progressTrack = section.querySelector('[data-las-progress-track]');
+        var progressBar = section.querySelector('[data-las-progress-bar]');
+
+        if (!slider || !track || slides.length === 0) return;
+
+        var currentIndex = 0;
+        var totalSlides = slides.length;
+        var currentTranslate = 0;
+        var isDragging = false;
+        var startX = 0;
+        var dragStartTranslate = 0;
+
+        track.querySelectorAll('img, a').forEach(function (el) {
+          el.setAttribute('draggable', 'false');
+        });
+
+        function getGap() {
+          var style = window.getComputedStyle(track);
+          return parseFloat(style.gap || style.columnGap) || 32;
+        }
+
+        function getSlideStep() {
+          return slides[0].offsetWidth + getGap();
+        }
+
+        function getMaxTranslate() {
+          var padLeft = parseFloat(window.getComputedStyle(slider).paddingLeft) || 0;
+          var padRight = parseFloat(window.getComputedStyle(slider).paddingRight) || 0;
+          var visibleWidth = slider.clientWidth - padLeft - padRight;
+          return Math.max(0, track.scrollWidth - visibleWidth);
+        }
+
+        function updateUI() {
+          slides.forEach(function (slide, idx) {
+            slide.classList.toggle('is-active', idx === currentIndex);
+          });
+
+          var maxT = getMaxTranslate();
+          if (prevBtn) prevBtn.disabled = currentIndex <= 0;
+          if (nextBtn) nextBtn.disabled = currentIndex >= totalSlides - 1 || Math.abs(currentTranslate) >= maxT - 5;
+
+          if (progressBar) {
+            if (maxT <= 0) {
+              progressBar.style.width = '100%';
+              progressBar.style.transform = 'translateX(0%)';
+            } else {
+              var barWidthPct = Math.max(25, Math.min(100, (1 / totalSlides) * 100 * 1.6));
+              progressBar.style.width = barWidthPct + '%';
+              var progressRatio = Math.min(1, Math.max(0, Math.abs(currentTranslate) / maxT));
+              var maxShift = ((100 - barWidthPct) / barWidthPct) * 100;
+              progressBar.style.transform = 'translateX(' + (progressRatio * maxShift).toFixed(2) + '%)';
+            }
+          }
+        }
+
+        function setTranslate(targetX, animate) {
+          var maxT = getMaxTranslate();
+          currentTranslate = Math.min(0, Math.max(-maxT, targetX));
+
+          if (animate) {
+            track.classList.remove('is-dragging');
+          } else {
+            track.classList.add('is-dragging');
+          }
+          track.style.transform = 'translate3d(' + currentTranslate + 'px, 0, 0)';
+          updateUI();
+        }
+
+        function goToSlide(index) {
+          currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
+          var step = getSlideStep();
+          var maxT = getMaxTranslate();
+          var targetX = -(currentIndex * step);
+          if (Math.abs(targetX) > maxT) {
+            targetX = -maxT;
+          }
+          setTranslate(targetX, true);
+        }
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', function () {
+            goToSlide(currentIndex - 1);
+          });
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function () {
+            goToSlide(currentIndex + 1);
+          });
+        }
+
+        if (progressTrack) {
+          progressTrack.addEventListener('click', function (e) {
+            var rect = progressTrack.getBoundingClientRect();
+            var ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+            goToSlide(Math.round(ratio * (totalSlides - 1)));
+          });
+        }
+
+        // Pointer / Touch Drag Support
+        track.addEventListener('pointerdown', function (e) {
+          if (e.button !== 0 && e.pointerType === 'mouse') return;
+          isDragging = true;
+          startX = e.clientX;
+          dragStartTranslate = currentTranslate;
+          track.classList.add('is-dragging');
+          if (track.setPointerCapture) {
+            try { track.setPointerCapture(e.pointerId); } catch (err) {}
+          }
+        });
+
+        track.addEventListener('pointermove', function (e) {
+          if (!isDragging) return;
+          var deltaX = e.clientX - startX;
+          setTranslate(dragStartTranslate + deltaX, false);
+        });
+
+        function endDrag(e) {
+          if (!isDragging) return;
+          isDragging = false;
+          track.classList.remove('is-dragging');
+          var movedBy = e.clientX - startX;
+          var step = getSlideStep();
+
+          if (Math.abs(movedBy) > 50) {
+            if (movedBy < 0 && currentIndex < totalSlides - 1) {
+              currentIndex += 1;
+            } else if (movedBy > 0 && currentIndex > 0) {
+              currentIndex -= 1;
+            }
+          } else {
+            currentIndex = Math.max(0, Math.min(totalSlides - 1, Math.round(Math.abs(currentTranslate) / step)));
+          }
+          goToSlide(currentIndex);
+        }
+
+        track.addEventListener('pointerup', endDrag);
+        track.addEventListener('pointercancel', endDrag);
+
+        // Support Shopify Theme Editor Block Selection
+        document.addEventListener('shopify:block:select', function (e) {
+          if (!section.contains(e.target)) return;
+          var idx = e.target.getAttribute('data-las-slide');
+          if (idx !== null) {
+            goToSlide(parseInt(idx, 10));
+          }
+        });
+
+        window.addEventListener('resize', function () {
+          goToSlide(currentIndex);
+        });
+
+        goToSlide(0);
+      }
+
+      function initAll() {
+        document.querySelectorAll('[data-launch-app-showcase]').forEach(initLaunchAppShowcase);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAll);
+      } else {
+        initAll();
+      }
+
+      document.addEventListener('shopify:section:load', function (e) {
+        var root = e.target.querySelector('[data-launch-app-showcase]');
+        if (root) initLaunchAppShowcase(root);
+      });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Launch App Showcase",
+  "tag": "section",
+  "class": "section-launch-app-showcase",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Layout & Colors"
+    },
+    {
+      "type": "text",
+      "id": "custom_section_id",
+      "label": "Custom Section ID",
+      "info": "Optional anchor ID for scrolling links"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading Color",
+      "default": "#101820"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Description Color",
+      "default": "#101820"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Default Card Background Color",
+      "default": "#E9E9E9"
+    },
+    {
+      "type": "checkbox",
+      "id": "eager_load",
+      "label": "Eager Load Hero Image (Above the fold)",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Hero Media (Left Column)"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Mockup Image (Desktop - 786×761px)"
+    },
+    {
+      "type": "checkbox",
+      "id": "has_mobile_hero_image",
+      "label": "Use Different Mobile Hero Image",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_mobile",
+      "label": "Hero Mockup Image (Mobile)",
+      "visible_if": "{{ section.settings.has_mobile_hero_image }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_hero_layout",
+      "label": "Reverse Hero Columns on Desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Hero Content (Right Column)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Optional Eyebrow Text"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Hero Heading",
+      "default": "GO DEEPER INTO<br>YOUR GAME WITH<br>THE LAUNCH APP"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Hero Description",
+      "default": "<p>Take Rainmaker further when you use the companion tablet or mobile app experience to get deeper insights, 3D simulation, and personalized club data.</p>"
+    },
+    {
+      "type": "header",
+      "content": "App Store Badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_store_badges",
+      "label": "Show App Store & Google Play Badges",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "combined_store_image",
+      "label": "Combined App Store / Google Play Image (241×58px)",
+      "info": "Optional single image containing both badges. Leave blank to use individual linked badges below.",
+      "visible_if": "{{ section.settings.show_store_badges }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "app_store_image",
+      "label": "App Store Badge Image",
+      "visible_if": "{{ section.settings.show_store_badges }}"
+    },
+    {
+      "type": "url",
+      "id": "app_store_link",
+      "label": "App Store Link",
+      "visible_if": "{{ section.settings.show_store_badges }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "play_store_image",
+      "label": "Google Play Badge Image",
+      "visible_if": "{{ section.settings.show_store_badges }}"
+    },
+    {
+      "type": "url",
+      "id": "play_store_link",
+      "label": "Google Play Link",
+      "visible_if": "{{ section.settings.show_store_badges }}"
+    },
+    {
+      "type": "header",
+      "content": "Optional Hero CTA Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA Button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Label",
+      "default": "EXPLORE THE APP",
+      "visible_if": "{{ section.settings.show_cta }}"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link",
+      "visible_if": "{{ section.settings.show_cta }}"
+    },
+    {
+      "type": "header",
+      "content": "Feature Cards Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider_header",
+      "label": "Show Extra Heading Above Slider",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "slider_heading",
+      "label": "Slider Heading",
+      "visible_if": "{{ section.settings.enable_slider_header }}"
+    },
+    {
+      "type": "richtext",
+      "id": "slider_subheading",
+      "label": "Slider Subheading",
+      "visible_if": "{{ section.settings.enable_slider_header }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "label": "Show Bottom Slider Progress Bar",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_card",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Card Media & Copy"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Top Image (380×276px)"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Card Title",
+          "default": "DISPERSION MAPS"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Card Description",
+          "default": "<p>Visualize your ball flight patterns with clean dispersion charts that show shot tendencies, left/right bias, and consistency over time.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "wide_description",
+          "label": "Use Wider Description Box (384px)",
+          "default": false,
+          "info": "Enable for longer 5-line descriptions like Card 2"
+        },
+        {
+          "type": "header",
+          "content": "Dark Card Style (Optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_dark_card",
+          "label": "Use Dark Split Card Style (#1B2029)",
+          "default": false,
+          "info": "Matches the 4th Figma card (Club Recommendations)"
+        },
+        {
+          "type": "image_picker",
+          "id": "device_image",
+          "label": "Bottom Left Device Preview (222×222px)",
+          "visible_if": "{{ block.settings.enable_dark_card }}"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_badge_icon",
+          "label": "Show Glowing Badge Icon",
+          "default": true,
+          "visible_if": "{{ block.settings.enable_dark_card }}"
+        },
+        {
+          "type": "image_picker",
+          "id": "badge_icon",
+          "label": "Custom Badge Icon (40×40px)",
+          "visible_if": "{{ block.settings.enable_dark_card }}"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Launch App Showcase",
+      "blocks": [
+        {
+          "type": "feature_card",
+          "settings": {
+            "title": "DISPERSION MAPS",
+            "description": "<p>Visualize your ball flight patterns with clean dispersion charts that show shot tendencies, left/right bias, and consistency over time.</p>",
+            "wide_description": false,
+            "enable_dark_card": false
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "title": "ADVANCED<br>APP-EXCLUSIVE METRICS",
+            "description": "<p>Unlock deeper insights powered by the Blue Tees Physics Engine to give yourself a full picture of things like shot performance, peak height, ball flight shape, and descent characteristics—ideal for dialing in wedges, long irons, and more.</p>",
+            "wide_description": true,
+            "enable_dark_card": false
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "title": "“MY BAG”<br>CUSTOMIZATION & SYNC",
+            "description": "<p>Set-up and store a digital twin of your actual bag so you can get personalized club data that’s constantly being updated as you use it.</p>",
+            "wide_description": false,
+            "enable_dark_card": false
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "title": "CLUB<br>RECOMMENDATIONS",
+            "description": "<p>AI analyzes your past performance and shot tendencies to recommend the right club for every situation, factoring in distance and course conditions to deliver confident, data-driven decisions.</p>",
+            "wide_description": false,
+            "enable_dark_card": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

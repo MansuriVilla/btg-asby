@@ -644,7 +644,7 @@
   {% endif %}
 
 {% else %}
-{%unless product.template_suffix == 'pdp-new'%}
+{%unless product.template_suffix == 'pdp-new' or product.template_suffix == 'captain-pro' or product.template_suffix == 'rainmaker-bf-bundle' or product.template_suffix == 'product-new' or product.template_suffix == 'rainmaker' or product.template_suffix == 'player-pro' %}
   {%render 'footer-floating-atc' %}
 {%endunless%}
 

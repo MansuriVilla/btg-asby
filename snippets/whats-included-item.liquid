@@ -1,0 +1,38 @@
+{%- comment -%}
+  Renders a single what's included item with image and text.
+  Usage:
+    {% render 'whats-included-item',
+      image: 'rainmaker-launch-monitor.png',
+      image_url: 'https://...',
+      title: 'Rainmaker Launch Monitor +',
+      subtitle: 'IR remote',
+      class: ''
+    %}
+{%- endcomment -%}
+
+{%- liquid
+  assign img_src = ''
+  if image_url != blank
+    assign img_src = image_url
+  elsif image != blank
+    if image contains 'http://' or image contains 'https://' or image contains '//cdn.shopify.com'
+      assign img_src = image
+    else
+      assign img_src = image | asset_url
+    endif
+  endif
+-%}
+
+<div class="pdp-whats-included__item {{ class }}">
+  <div class="pdp-whats-included__img-wrap">
+    {%- if img_src != blank -%}
+      <img src="{{ img_src }}" alt="{{ title }} {{ subtitle }}" loading="lazy" class="pdp-whats-included__img">
+    {%- endif -%}
+  </div>
+  <span class="pdp-whats-included__text">
+    {{ title }}
+    {%- if subtitle != blank -%}
+      <br>{{ subtitle }}
+    {%- endif -%}
+  </span>
+</div>
