@@ -1,0 +1,506 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color | default: '#FFFFFF'
+  assign eyebrow = section.settings.eyebrow | default: 'PRACTICE WITH PURPOSE'
+  assign heading = section.settings.heading | default: 'RAINMAKER<br>LAUNCH MONITORS'
+  assign description = section.settings.description | default: 'Understand your swing beyond what you see. Rainmaker and the LAUNCH app bring performance data and ball flight insights to your practice, helping you track key metrics and build a more consistent game.'
+  assign main_image = section.settings.main_image
+  assign section_id = 'comp-product-showcase-' | append: section.id
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-prod-showcase section-{{ section.id }}"
+  style="
+    --cps-bg: {{ bg_color }};
+    --cps-pt: {{ section.settings.padding_top | default: 48 }}px;
+    --cps-pb: {{ section.settings.padding_bottom | default: 60 }}px;
+  "
+>
+  <div class="comp-prod-showcase__container">
+    <!-- Left Column: Hero Device Visual -->
+    <div class="comp-prod-showcase__left">
+      <div class="comp-prod-showcase__hero-stage">
+        {%- if main_image != blank -%}
+          {{
+            main_image
+            | image_url: width: 900
+            | image_tag:
+              loading: 'lazy',
+              decoding: 'async',
+              class: 'comp-prod-showcase__hero-img',
+              alt: heading | strip_html | escape
+          }}
+        {%- else -%}
+          <!-- Placeholder if no image uploaded -->
+          <div class="comp-prod-showcase__hero-placeholder">
+            <svg viewBox="0 0 450 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="450" height="450" rx="16" fill="#F4F4F6"/>
+              <path d="M150 310L210 220L255 275L290 225L340 310H150Z" fill="#C5CCD6"/>
+              <circle cx="210" cy="180" r="24" fill="#C5CCD6"/>
+            </svg>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- Right Column: Info & Product Cards -->
+    <div class="comp-prod-showcase__right">
+      <!-- Eyebrow -->
+      {%- if eyebrow != blank -%}
+        <div class="comp-prod-showcase__eyebrow custom_subHeading-text">
+          {{ eyebrow }}
+        </div>
+      {%- endif -%}
+
+      <!-- Heading -->
+      {%- if heading != blank -%}
+        <h2 class="comp-prod-showcase__heading custom_heading">
+          {{ heading }}
+        </h2>
+      {%- endif -%}
+
+      <!-- Divider Accent Line -->
+      <div class="comp-prod-showcase__accent-line" aria-hidden="true"></div>
+
+      <!-- Description -->
+      {%- if description != blank -%}
+        <div class="comp-prod-showcase__description custom_body-text">
+          {{ description }}
+        </div>
+      {%- endif -%}
+
+      <!-- Product Cards Row -->
+      <div class="comp-prod-showcase__cards">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign prod = block.settings.product
+            assign card_title = block.settings.title
+            if card_title == blank and prod != blank
+              assign card_title = prod.title
+            endif
+            if card_title == blank
+              assign card_title = 'Rainmaker Portable Launch Monitor'
+            endif
+
+            assign card_url = block.settings.button_link
+            if card_url == blank and prod != blank
+              assign card_url = prod.url
+            endif
+            if card_url == blank
+              assign card_url = '#'
+            endif
+
+            assign card_img = block.settings.image
+            if card_img == blank and prod != blank and prod.featured_image
+              assign card_img = prod.featured_image
+            endif
+
+            assign btn_label = block.settings.button_label | default: 'EXPLORE'
+          -%}
+          <div
+            class="comp-prod-showcase__card"
+            {{ block.shopify_attributes }}
+          >
+            <!-- Card Image Area -->
+            <a href="{{ card_url }}" class="comp-prod-showcase__card-img-wrap" tabindex="-1" aria-hidden="true">
+              {%- if card_img != blank -%}
+                {{
+                  card_img
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    decoding: 'async',
+                    class: 'comp-prod-showcase__card-img',
+                    alt: card_title | strip_html | escape
+                }}
+              {%- else -%}
+                <div class="comp-prod-showcase__card-img-placeholder"></div>
+              {%- endif -%}
+            </a>
+
+            <!-- Card Bottom Body -->
+            <div class="comp-prod-showcase__card-body">
+              <a href="{{ card_url }}" class="comp-prod-showcase__card-title custom_subHeading-text">
+                {{ card_title }}
+              </a>
+
+              <a href="{{ card_url }}" class="comp-prod-showcase__card-btn custom_subHeading-text">
+                {{ btn_label }}
+              </a>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #{{ section_id }} {
+    background-color: var(--cps-bg);
+    padding-top: var(--cps-pt);
+    padding-bottom: var(--cps-pb);
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__container {
+    max-width: {{ section.settings.max_width | default: 1440 }}px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 4.8vw, 70px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(24px, 4vw, 50px);
+    box-sizing: border-box;
+  }
+
+  /* Left Hero Visual */
+  #{{ section_id }} .comp-prod-showcase__left {
+    flex: 0 0 42%;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__hero-stage {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__hero-img {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: contain;
+    display: block;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__hero-placeholder svg {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    display: block;
+  }
+
+  /* Right Column Content */
+  #{{ section_id }} .comp-prod-showcase__right {
+    flex: 1;
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__eyebrow {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: {{ section.settings.accent_color | default: '#004DF5' }};
+    margin-bottom: 12px;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__heading {
+    font-size: clamp(32px, 3.8vw, 54px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #1B1E22;
+    margin: 0 0 16px 0;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__accent-line {
+    width: 63px;
+    height: 4px;
+    background-color: {{ section.settings.accent_color | default: '#004DF5' }};
+    margin-bottom: 16px;
+    border-radius: 2px;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__description {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #1B1E22;
+    margin: 0 0 32px 0;
+    max-width: 620px;
+  }
+
+  /* Product Cards Row */
+  #{{ section_id }} .comp-prod-showcase__cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    width: 100%;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card {
+    width: 300px;
+    border: 1px solid #D6D6D6;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    border-color: #A0A0A0;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card-img-wrap {
+    width: 100%;
+    height: 200px;
+    background: #EAEAEA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.35s ease;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card:hover .comp-prod-showcase__card-img {
+    transform: scale(1.05);
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card-img-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #E5E5E5 0%, #F5F5F5 100%);
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card-body {
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    flex: 1;
+    background: #FFFFFF;
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card-title {
+    font-size: 17px;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+    color: #1B1E22;
+    text-decoration: none;
+    margin: 0;
+    transition: color 0.2s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card-title:hover {
+    color: {{ section.settings.accent_color | default: '#004DF5' }};
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 18px;
+    border: 1.5px solid #000000;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #000000;
+    text-decoration: none;
+    background: transparent;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  #{{ section_id }} .comp-prod-showcase__card-btn:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+  }
+
+  @media (max-width: 991px) {
+    #{{ section_id }} .comp-prod-showcase__container {
+      flex-direction: column;
+      align-items: center;
+      gap: 36px;
+      padding: 0 20px;
+    }
+
+    #{{ section_id }} .comp-prod-showcase__left {
+      max-width: 380px;
+      width: 100%;
+    }
+
+    #{{ section_id }} .comp-prod-showcase__right {
+      width: 100%;
+      align-items: flex-start;
+    }
+
+    #{{ section_id }} .comp-prod-showcase__cards {
+      justify-content: flex-start;
+    }
+
+    #{{ section_id }} .comp-prod-showcase__card {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #{{ section_id }} .comp-prod-showcase__card {
+      max-width: 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Comp Product Showcase",
+  "tag": "section",
+  "class": "section-comp-product-showcase",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Eyebrow & Line)",
+      "default": "#004DF5"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "PRACTICE WITH PURPOSE"
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading (HTML allowed for <br>)",
+      "default": "RAINMAKER<br>LAUNCH MONITORS"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description Text",
+      "default": "Understand your swing beyond what you see. Rainmaker and the LAUNCH app bring performance data and ball flight insights to your practice, helping you track key metrics and build a more consistent game."
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Left Hero Visual"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max Container Width (px)",
+      "min": 1000,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1440
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product (Auto-populates title, image, link)"
+        },
+        {
+          "type": "header",
+          "content": "Custom Overrides (Optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Product Image",
+          "info": "Overrides selected product featured image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom Product Title",
+          "info": "Overrides selected product title"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Custom Link URL",
+          "info": "Overrides selected product link"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "EXPLORE"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comp Product Showcase",
+      "blocks": [
+        {
+          "type": "product_card",
+          "settings": {
+            "title": "Rainmaker\nPortable Launch Monitor",
+            "button_label": "EXPLORE"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

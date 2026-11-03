@@ -136,6 +136,7 @@
           {% render 'comp-showcase-card',
             block: block,
             preview_image: block.settings.preview_image,
+            preview_image_mobile: block.settings.preview_image_mobile,
             video: block.settings.video,
             video_url: block.settings.video_url,
             product_thumb: block.settings.product_thumb,
@@ -732,7 +733,7 @@
         });
       });
 
-      // Card click -> sync active pin & play video
+      // Card click -> sync active pin, play video & slide/scroll to card
       cards.forEach(function (card, idx) {
         card.addEventListener('click', function (e) {
           if (e.target.closest('[data-play-video]') || e.target.closest('a')) return;
@@ -741,6 +742,14 @@
           if (pins[idx]) {
             pins.forEach(function (p) { p.classList.remove('is-active'); });
             pins[idx].classList.add('is-active');
+          }
+
+          if (track) {
+            var cardOffsetLeft = card.offsetLeft - track.offsetLeft;
+            track.scrollTo({
+              left: cardOffsetLeft,
+              behavior: 'smooth'
+            });
           }
         });
       });
@@ -970,6 +979,11 @@
           "type": "image_picker",
           "id": "preview_image",
           "label": "Card Media Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "preview_image_mobile",
+          "label": "Card Media Image Mobile (Optional)"
         },
         {
           "type": "video",

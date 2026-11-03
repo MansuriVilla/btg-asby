@@ -405,9 +405,9 @@
     line-height: 1.25;
     font-weight: 600;
     color: #000000;
-    white-space: nowrap;
+    /* white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
   }
   .comp-bundle-cart__item-price {
     font-size: 14px;
@@ -608,6 +608,8 @@
     .comp-bundle-cart__item {
       padding: 8px 10px;
       gap: 10px;
+      position: relative;
+    min-height: 200px;
     }
     .comp-bundle-cart__item-thumb {
       width: 64px;
@@ -622,6 +624,17 @@
       align-items: flex-start;
       text-align: left;
     }
+    .comp-bundle-cart__item-info{
+      max-width: 160px;
+  width: 100%;
+    }
+
+    .comp-bundle-cart__item-meta{position: absolute;
+  width: 100%;
+  right: 10px;
+  height: 80%;
+  top: 20px;
+  z-index: 2;}
   }
 </style>
 

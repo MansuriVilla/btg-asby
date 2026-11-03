@@ -10,6 +10,7 @@
     - video: Video object (Shopify hosted video)
     - video_url: External mp4 URL string
     - preview_image: Image object for preview/media
+    - preview_image_mobile: Image object for preview/media on mobile (<= 768px)
     - gif_image: Image object for GIF animation
     - overlay_badge: Image object for top overlay badge
     - device_preview: Image object for bottom device/product preview
@@ -30,6 +31,7 @@
   assign c_video = video | default: block.settings.video
   assign c_video_url = video_url | default: block.settings.video_url
   assign c_img = preview_image | default: block.settings.preview_image | default: block.settings.image
+  assign c_img_mobile = preview_image_mobile | default: block.settings.preview_image_mobile | default: block.settings.image_mobile
   assign c_gif = gif_image | default: block.settings.gif_image
   assign c_badge = overlay_badge | default: block.settings.overlay_badge
   assign c_device = device_preview | default: block.settings.device_preview | default: block.settings.product_thumb
@@ -99,15 +101,31 @@
           alt: c_title | escape
       }}
     {%- elsif c_img != blank -%}
-      {{
-        c_img
-        | image_url: width: 900
-        | image_tag:
-          loading: 'lazy',
-          decoding: 'async',
-          class: 'comp-showcase-card__img',
-          alt: c_title | escape
-      }}
+      {%- if c_img_mobile != blank -%}
+        <picture class="comp-showcase-card__picture">
+          <source media="(max-width: 768px)" srcset="{{ c_img_mobile | image_url: width: 750 }}">
+          <source media="(min-width: 769px)" srcset="{{ c_img | image_url: width: 900 }}">
+          {{
+            c_img
+            | image_url: width: 900
+            | image_tag:
+              loading: 'lazy',
+              decoding: 'async',
+              class: 'comp-showcase-card__img',
+              alt: c_title | escape
+          }}
+        </picture>
+      {%- else -%}
+        {{
+          c_img
+          | image_url: width: 900
+          | image_tag:
+            loading: 'lazy',
+            decoding: 'async',
+            class: 'comp-showcase-card__img',
+            alt: c_title | escape
+        }}
+      {%- endif -%}
     {%- else -%}
       <div class="comp-showcase-card__placeholder"></div>
     {%- endif -%}
@@ -201,6 +219,8 @@
   }
 
   .comp-showcase-card__img,
+  .comp-showcase-card__picture,
+  .comp-showcase-card__picture img,
   .comp-showcase-card__video,
   .comp-showcase-card__media video {
     position: absolute;
@@ -212,7 +232,8 @@
     transition: transform 0.4s ease;
   }
 
-  .comp-showcase-card:hover .comp-showcase-card__img {
+  .comp-showcase-card:hover .comp-showcase-card__img,
+  .comp-showcase-card:hover .comp-showcase-card__picture img {
     transform: scale(1.03);
   }
 

@@ -3491,46 +3491,33 @@ changeImageOnVarient();
 
 
 /* ===================================================
-   BUNDLE FREE GIFT RULES
-   A free product stays in the cart only while ALL of its
-   required products are in the cart. If one is removed,
-   the free product is removed too.
-   - Only removes the free product when it is actually free
-     (its line has the discount below), so a customer who
-     buys Rainmaker on its own is not affected.
+   BUNDLE DISCOUNT CODE RULES
+   When ALL products of a rule are in the cart, the rule's
+   discount code is added to the cart. If any of them is
+   removed, only the discount code is removed – the products
+   stay in the cart at full price.
+   - The discount must be a discount CODE in Shopify admin
+     (not an automatic discount), with the same code as below.
+   - Other discount codes the customer entered are kept.
    - Add more rules to the list in the same format.
 =================================================== */
 (function () {
-  var BUNDLE_GIFT_RULES = [
+  var BUNDLE_DISCOUNT_RULES = [
     {
       name: 'Rainmaker free with Premium Golf Net + Premium Hitting Mat',
       required: [
         '50778758512837', // Premium Golf Net
-        '50778760347845'  // Premium Hitting Mat
+        '50778760347845', // Premium Hitting Mat
+        '45724258697413'  // Rainmaker
       ],
-      free: '45724258697413', // Rainmaker
-      discountTitle: 'Rainmaker Portable Launch Monitor Free', // discount title in Shopify admin
-      alsoRemove: [
-        '45793869299909' // free gift that comes with Rainmaker (see FREE_GIFTS_BY_VARIANT)
-      ]
+      discountCode: 'RAINMAKERFREE' // discount code in Shopify admin
     }
   ];
 
   var isChecking = false;
   var checkTimer = null;
 
-  function hasDiscount(item, title) {
-    var allocations = item.line_level_discount_allocations || [];
-    var matchesAllocation = allocations.some(function (a) {
-      return a.amount > 0 && a.discount_application && a.discount_application.title === title;
-    });
-    if (matchesAllocation) return true;
-    return (item.discounts || []).some(function (d) {
-      return d.amount > 0 && d.title === title;
-    });
-  }
-
-  function checkBundleGiftRules() {
+  function checkBundleDiscountRules() {
     if (isChecking) return;
     isChecking = true;
 
@@ -3543,32 +3530,24 @@ changeImageOnVarient();
           inCart[id] = (inCart[id] || 0) + item.quantity;
         });
 
-        var updates = {};
+        var currentCodes = (cart.discount_codes || []).map(function (d) { return d.code; });
+        var newCodes = currentCodes.slice();
 
-        BUNDLE_GIFT_RULES.forEach(function (rule) {
-          var allRequiredInCart = rule.required.every(function (id) {
+        BUNDLE_DISCOUNT_RULES.forEach(function (rule) {
+          var code = rule.discountCode.toUpperCase();
+          var allInCart = rule.required.every(function (id) {
             return inCart[String(id)] > 0;
           });
-          if (allRequiredInCart) return;
+          var hasCode = newCodes.some(function (c) { return c.toUpperCase() === code; });
 
-          cart.items.forEach(function (item) {
-            if (String(item.variant_id) !== String(rule.free)) return;
-            if (!hasDiscount(item, rule.discountTitle)) return;
-
-            // Take off only the free unit; keep any extra units the customer pays for
-            updates[item.key] = Math.max(item.quantity - 1, 0);
-
-            if (updates[item.key] === 0) {
-              (rule.alsoRemove || []).forEach(function (giftId) {
-                cart.items.forEach(function (giftItem) {
-                  if (String(giftItem.variant_id) === String(giftId)) updates[giftItem.key] = 0;
-                });
-              });
-            }
-          });
+          if (allInCart && !hasCode) {
+            newCodes.push(rule.discountCode);
+          } else if (!allInCart && hasCode) {
+            newCodes = newCodes.filter(function (c) { return c.toUpperCase() !== code; });
+          }
         });
 
-        if (!Object.keys(updates).length) return;
+        if (newCodes.join(',') === currentCodes.join(',')) return;
 
         return fetch('/cart/update.js', {
           method: 'POST',
@@ -3576,19 +3555,19 @@ changeImageOnVarient();
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: JSON.stringify({ updates: updates })
+          body: JSON.stringify({ discount: newCodes.join(',') })
         }).then(function () {
           // Refresh the cart drawer / cart page the same way the theme does
           document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
         });
       })
-      .catch(function (err) { console.error('Bundle gift rules error:', err); })
+      .catch(function (err) { console.error('Bundle discount rules error:', err); })
       .then(function () { isChecking = false; });
   }
 
   function scheduleCheck() {
     clearTimeout(checkTimer);
-    checkTimer = setTimeout(checkBundleGiftRules, 400);
+    checkTimer = setTimeout(checkBundleDiscountRules, 400);
   }
 
   // Cart changed (remove link, qty buttons, add to cart)

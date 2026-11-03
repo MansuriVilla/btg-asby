@@ -145,13 +145,17 @@
             <source src="{{ section.settings.hero_stage_video_url }}" type="video/mp4">
           </video>
         {%- elsif section.settings.hero_stage_image != blank -%}
+          {%- assign img_desktop_class = 'comp-game-ai__hero-stage-img' -%}
+          {%- if has_mobile_hero_video -%}
+            {%- assign img_desktop_class = img_desktop_class | append: ' comp-game-ai__video--desktop' -%}
+          {%- endif -%}
           {{
             section.settings.hero_stage_image
             | image_url: width: 1400
             | image_tag:
               loading: 'eager',
               decoding: 'async',
-              class: 'comp-game-ai__hero-stage-img' | append: desktop_hero_class,
+              class: img_desktop_class,
               alt: section.settings.promo_text | default: 'Game AI Speaker & Features'
           }}
         {%- elsif has_mobile_hero_video == false -%}
@@ -1115,6 +1119,100 @@
         });
       });
 
+      // Touch & Mouse Dragging for Mobile / Desktop swipe
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchCurrentX = 0;
+      let touchDeltaX = 0;
+      let isSwiping = false;
+      let isHorizontal = null;
+
+      function onTouchStart(e) {
+        const touch = e.touches ? e.touches[0] : e;
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        touchCurrentX = touch.clientX;
+        touchDeltaX = 0;
+        isSwiping = true;
+        isHorizontal = null;
+        isDragging = false;
+        track.style.transition = 'none';
+      }
+
+      function onTouchMove(e) {
+        if (!isSwiping) return;
+        const touch = e.touches ? e.touches[0] : e;
+        touchCurrentX = touch.clientX;
+        touchDeltaX = touchCurrentX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        if (isHorizontal === null) {
+          if (Math.abs(touchDeltaX) > 8 || Math.abs(deltaY) > 8) {
+            isHorizontal = Math.abs(touchDeltaX) > Math.abs(deltaY);
+          }
+        }
+
+        if (isHorizontal) {
+          if (e.cancelable) e.preventDefault();
+          isDragging = true;
+          const maxT = getMaxTranslate();
+          let newX = prevTranslate + touchDeltaX;
+          // Resistance at bounds
+          if (newX > 0) {
+            newX = touchDeltaX * 0.3;
+          } else if (newX < -maxT) {
+            newX = -maxT + (newX + maxT) * 0.3;
+          }
+          currentTranslate = newX;
+          track.style.transform = 'translateX(' + newX + 'px)';
+        }
+      }
+
+      function onTouchEnd() {
+        if (!isSwiping) return;
+        isSwiping = false;
+
+        if (isDragging && isHorizontal) {
+          const slideW = getSlideWidth();
+          const threshold = slideW * 0.2;
+
+          if (touchDeltaX < -threshold) {
+            goToSlide(currentIndex + 1);
+          } else if (touchDeltaX > threshold) {
+            goToSlide(currentIndex - 1);
+          } else {
+            goToSlide(currentIndex);
+          }
+        } else {
+          track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+          track.style.transform = 'translateX(' + prevTranslate + 'px)';
+        }
+
+        setTimeout(function () {
+          isDragging = false;
+          isHorizontal = null;
+        }, 50);
+      }
+
+      track.addEventListener('touchstart', onTouchStart, { passive: true });
+      track.addEventListener('touchmove', onTouchMove, { passive: false });
+      track.addEventListener('touchend', onTouchEnd, { passive: true });
+      track.addEventListener('touchcancel', onTouchEnd, { passive: true });
+
+      // Mouse drag support
+      track.addEventListener('mousedown', function (e) {
+        if (e.target.closest('button, [data-video-controls], a')) return;
+        onTouchStart(e);
+        const onMouseMove = function (ev) { onTouchMove(ev); };
+        const onMouseUp = function (ev) {
+          onTouchEnd();
+          window.removeEventListener('mousemove', onMouseMove);
+          window.removeEventListener('mouseup', onMouseUp);
+        };
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+      });
+
       // Prepare initial 5s cue for inactive video previews
       slides.forEach(function (slide, idx) {
         const vid = slide.querySelector('[data-game-ai-video]');
@@ -1601,6 +1699,11 @@
           "type": "image_picker",
           "id": "image",
           "label": "Card Feature Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Card Feature Image Mobile (Optional)"
         },
         {
           "type": "image_picker",

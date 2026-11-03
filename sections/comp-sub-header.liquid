@@ -1,0 +1,456 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color | default: '#FFFFFF'
+  assign border_bottom_color = section.settings.border_bottom_color | default: '#EAEAEA'
+  assign active_bar_color = section.settings.active_bar_color | default: '#0066FF'
+  assign text_color = section.settings.text_color | default: '#000000'
+  assign active_text_color = section.settings.active_text_color | default: '#000000'
+  assign bar_height = section.settings.bar_height | default: 79
+  assign sticky_header = section.settings.sticky_header
+  assign section_id = 'comp-sub-header-' | append: section.id
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-sub-header{% if sticky_header %} comp-sub-header--sticky{% endif %}"
+  style="
+    --csh-bg: {{ bg_color }};
+    --csh-border: {{ border_bottom_color }};
+    --csh-active-bar: {{ active_bar_color }};
+    --csh-text: {{ text_color }};
+    --csh-active-text: {{ active_text_color }};
+    --csh-height: {{ bar_height }}px;
+  "
+>
+  <div class="comp-sub-header__container">
+    <nav class="comp-sub-header__nav" aria-label="Sub navigation" data-sub-nav>
+      <ul class="comp-sub-header__list" role="tablist">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign is_active = false
+            if block.settings.is_active
+              assign is_active = true
+            elsif forloop.first and section.settings.auto_activate_first
+              assign is_active = true
+            endif
+
+            assign nav_url = block.settings.link_url
+            if nav_url == blank and block.settings.target_id != blank
+              assign clean_id = block.settings.target_id | remove: '#'
+              assign nav_url = '#' | append: clean_id
+            endif
+            if nav_url == blank
+              assign nav_url = 'javascript:void(0);'
+            endif
+          -%}
+          <li
+            class="comp-sub-header__item{% if is_active %} is-active{% endif %}"
+            data-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <a
+              href="{{ nav_url }}"
+              class="comp-sub-header__link custom_subHeading-text"
+              {% if is_active %}aria-current="page"{% endif %}
+              {% if block.settings.target_id != blank %}data-target-id="{{ block.settings.target_id | remove: '#' }}"{% endif %}
+            >
+              {{ block.settings.title | default: 'NAV ITEM' }}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<style>
+  #{{ section_id }} {
+    width: 100%;
+    background-color: var(--csh-bg);
+    border-bottom: 1px solid var(--csh-border);
+    position: relative;
+    z-index: 40;
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }}.comp-sub-header--sticky {
+    position: sticky;
+    top: 0;
+  }
+
+  #{{ section_id }} .comp-sub-header__container {
+    max-width: {{ section.settings.max_width | default: 1440 }}px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 3vw, 40px);
+    height: var(--csh-height);
+    display: flex;
+    align-items: stretch;
+    justify-content: {{ section.settings.alignment | default: 'center' }};
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} .comp-sub-header__nav {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    scroll-behavior: smooth;
+  }
+
+  #{{ section_id }} .comp-sub-header__nav::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+
+  #{{ section_id }} .comp-sub-header__list {
+    display: flex;
+    align-items: stretch;
+    justify-content: {{ section.settings.alignment | default: 'center' }};
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: clamp(24px, 4vw, 56px);
+    width: 100%;
+    min-width: max-content;
+  }
+
+  #{{ section_id }} .comp-sub-header__item {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  #{{ section_id }} .comp-sub-header__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--csh-text);
+    text-decoration: none;
+    font-size: clamp(14px, 1.1vw, 16px);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0 4px;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s ease, opacity 0.2s ease;
+    opacity: 0.85;
+  }
+
+  #{{ section_id }} .comp-sub-header__link:hover {
+    opacity: 1;
+    color: var(--csh-active-text);
+  }
+
+  #{{ section_id }} .comp-sub-header__item.is-active .comp-sub-header__link {
+    color: var(--csh-active-text);
+    opacity: 1;
+  }
+
+  /* Active Indicator Bar */
+  #{{ section_id }} .comp-sub-header__item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: transparent;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+  }
+
+  #{{ section_id }} .comp-sub-header__item.is-active::after {
+    background-color: var(--csh-active-bar);
+  }
+
+  @media (max-width: 768px) {
+    #{{ section_id }} .comp-sub-header__container {
+      padding: 0 16px;
+      height: 56px;
+    }
+
+    #{{ section_id }} .comp-sub-header__list {
+      justify-content: flex-start;
+      gap: 28px;
+      padding: 0 16px;
+    }
+
+    #{{ section_id }} .comp-sub-header__link {
+      font-size: 13px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const section = document.getElementById('{{ section_id }}');
+    if (!section) return;
+
+    const nav = section.querySelector('[data-sub-nav]');
+    const items = section.querySelectorAll('.comp-sub-header__item');
+    if (!nav || !items.length) return;
+
+    // Helper: Scroll active item to horizontal center of scroll container
+    function centerActiveItem(item, smooth = true) {
+      if (!item || !nav) return;
+      const navRect = nav.getBoundingClientRect();
+      const itemRect = item.getBoundingClientRect();
+
+      const currentScrollLeft = nav.scrollLeft;
+      const itemOffsetLeft = itemRect.left - navRect.left + currentScrollLeft;
+      const targetScroll = itemOffsetLeft - (navRect.width / 2) + (itemRect.width / 2);
+
+      nav.scrollTo({
+        left: Math.max(0, targetScroll),
+        behavior: smooth ? 'smooth' : 'auto'
+      });
+    }
+
+    // Initial center on load for the active item
+    function initActiveCenter() {
+      const activeItem = section.querySelector('.comp-sub-header__item.is-active') || items[0];
+      if (activeItem) {
+        centerActiveItem(activeItem, false);
+      }
+    }
+
+    // Click handler: Switch active class and center item
+    items.forEach((item) => {
+      const link = item.querySelector('.comp-sub-header__link');
+      if (!link) return;
+
+      link.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('data-target-id');
+        const href = this.getAttribute('href');
+
+        items.forEach((i) => i.classList.remove('is-active'));
+        item.classList.add('is-active');
+        centerActiveItem(item, true);
+
+        // Smooth scroll to section if targetId provided or hash link
+        if (targetId) {
+          const targetElem = document.getElementById(targetId);
+          if (targetElem) {
+            e.preventDefault();
+            const headerHeight = section.offsetHeight;
+            const targetPos = targetElem.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            window.scrollTo({
+              top: targetPos,
+              behavior: 'smooth'
+            });
+          }
+        } else if (href && href.startsWith('#') && href.length > 1) {
+          const targetElem = document.querySelector(href);
+          if (targetElem) {
+            e.preventDefault();
+            const headerHeight = section.offsetHeight;
+            const targetPos = targetElem.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            window.scrollTo({
+              top: targetPos,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
+    // Auto-highlight on scroll (Scrollspy) if items target on-page IDs
+    const targetsWithItems = [];
+    items.forEach((item) => {
+      const link = item.querySelector('.comp-sub-header__link');
+      const targetId = link ? (link.getAttribute('data-target-id') || (link.getAttribute('href') && link.getAttribute('href').startsWith('#') ? link.getAttribute('href').replace('#', '') : null)) : null;
+      if (targetId) {
+        const elem = document.getElementById(targetId);
+        if (elem) {
+          targetsWithItems.push({ elem, item });
+        }
+      }
+    });
+
+    if (targetsWithItems.length > 0) {
+      let scrollTimer;
+      window.addEventListener('scroll', function () {
+        if (scrollTimer) clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          const headerHeight = section.offsetHeight + 20;
+          const scrollPos = window.pageYOffset + headerHeight;
+
+          for (let i = targetsWithItems.length - 1; i >= 0; i--) {
+            const { elem, item } = targetsWithItems[i];
+            const elemTop = elem.offsetTop;
+            const elemBottom = elemTop + elem.offsetHeight;
+
+            if (scrollPos >= elemTop && scrollPos < elemBottom) {
+              if (!item.classList.contains('is-active')) {
+                items.forEach((it) => it.classList.remove('is-active'));
+                item.classList.add('is-active');
+                centerActiveItem(item, true);
+              }
+              break;
+            }
+          }
+        }, 50);
+      }, { passive: true });
+    }
+
+    window.addEventListener('load', initActiveCenter);
+    setTimeout(initActiveCenter, 200);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Comp Sub Header",
+  "tag": "section",
+  "class": "section-comp-sub-header",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "border_bottom_color",
+      "label": "Bottom Border Color",
+      "default": "#EAEAEA"
+    },
+    {
+      "type": "color",
+      "id": "active_bar_color",
+      "label": "Active Indicator Bar Color",
+      "default": "#0066FF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "active_text_color",
+      "label": "Active Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "bar_height",
+      "label": "Header Height (Desktop)",
+      "min": 50,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "default": 79
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max Container Width (px)",
+      "min": 1000,
+      "max": 1920,
+      "step": 20,
+      "unit": "px",
+      "default": 1440
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Items Alignment (Desktop)",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "flex-start", "label": "Left" },
+        { "value": "flex-end", "label": "Right" },
+        { "value": "space-between", "label": "Space Between" },
+        { "value": "space-around", "label": "Space Around" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Make Sticky on Scroll",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_activate_first",
+      "label": "Auto-activate first item if none active",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Navigation Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Item Label",
+          "default": "RAINMAKER"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL (Optional if using Section ID)"
+        },
+        {
+          "type": "text",
+          "id": "target_id",
+          "label": "Target Section ID (Optional for on-page scroll)",
+          "info": "e.g. rainmaker or CompGameAI. Smooth scrolls to section on click."
+        },
+        {
+          "type": "checkbox",
+          "id": "is_active",
+          "label": "Set as Active Item",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comp Sub Header",
+      "blocks": [
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "RAINMAKER",
+            "is_active": true
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "CAPTAIN"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "PLAYER"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "RINGER"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "PLAYMAKER"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
