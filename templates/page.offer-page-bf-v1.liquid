@@ -23,6 +23,9 @@
         decoding="async"
       >
     </div>
+     {% render 'countdown-timer' %}
+    {% section 'gps-collection-section' %}
+    {% comment %}
     <div class="new-offer_exclusive-section">
       <div class="page-width">
         <div class="exclusive-section_title">
@@ -126,7 +129,7 @@
 
                     <p>#1 NEW RELEASE</p>
                   </div>
-                  <div class="clock-builder-output"></div>
+                  {% comment %} <div class="clock-builder-output"></div> {% endcomment %}
                 </div>
                 <div class="exclusive-section_item-title">
                   <h3 class="exclusive-section_product-title">RAINMAKER LAUNCH MONITOR</h3>
@@ -136,18 +139,22 @@
                     <span style="color:#E90000;">($79.99 Value)</span>
                   </p>
                 </div>
-                <div class="exclusive-section_slider-item-rate">
-                  <span class="slash-out_price" style="display:flex !important;">
-                    {{- all_products.rainmaker.compare_at_price_max | money -}}
-                  </span>
+                   <div class="exclusive-section_slider-item-rate">
+  {% if all_products.rainmaker.compare_at_price_max > all_products.rainmaker.price %}
+    <span class="slash-out_price" style="display:flex !important;">
+      {{- all_products.rainmaker.compare_at_price_max | money -}}
+    </span>
+  {% endif %}
 
-                  <p>{{ all_products.rainmaker.price | money }}</p>
+  <p>{{ all_products.rainmaker.price | money }}</p>
 
-                  <span class="save__price"
-                    >SAVE
-                    {{ all_products.rainmaker.compare_at_price_max | minus: all_products.rainmaker.price | money -}}
-                  </span>
-                </div>
+  {% if all_products.rainmaker.compare_at_price_max > all_products.rainmaker.price %}
+    <span class="save__price">
+      SAVE
+      {{ all_products.rainmaker.compare_at_price_max | minus: all_products.rainmaker.price | money -}}
+    </span>
+  {% endif %}
+</div>
                 <div class="exclusive-section_slider-item-cta playmaker-cta_offer">
                   <a class="btn" href="/products/rainmaker" aria-label="Shop now – Rainmaker">SHOP NOW</a>
                   <button
@@ -277,7 +284,7 @@
                     {% comment %} <p>{% render 'sale-name' %}</p> {% endcomment %}
                     <p>#1 SELLING LASER</p>
                   </div>
-                  <div class="clock-builder-output"></div>
+                  {% comment %} <div class="clock-builder-output"></div> {% endcomment %}
                 </div>
                 <div class="exclusive-section_item-title">
                   <h3 class="exclusive-section_product-title">CAPTAIN PRO RANGEFINDER</h3>
@@ -288,25 +295,25 @@
                   </p>
                 </div>
                 <div class="exclusive-section_slider-item-rate">
+  {% if all_products['captain-pro'].compare_at_price_max > all_products['captain-pro'].price %}
+    <span class="slash-out_price" style="display:flex !important;">
+      {{- all_products['captain-pro'].compare_at_price_max | money -}}
+    </span>
+  {% endif %}
 
-                    <span class="slash-out_price" style="display:flex !important;">
-                      {{- all_products['captain-pro'].compare_at_price_max | money -}}
-                    </span>
-                  
+  <p>{{ all_products['captain-pro'].price | money }}</p>
 
-                  <p>{{ all_products['captain-pro'].price | money }}</p>
-
-                  
-                    <span class="save__price"
-                      >SAVE
-                      {{
-                        all_products['captain-pro'].compare_at_price_max
-                        | minus: all_products['captain-pro'].price
-                        | money
-                      -}}
-                    </span>
-                  
-                </div>
+  {% if all_products['captain-pro'].compare_at_price_max > all_products['captain-pro'].price %}
+    <span class="save__price">
+      SAVE
+      {{
+        all_products['captain-pro'].compare_at_price_max
+        | minus: all_products['captain-pro'].price
+        | money
+      -}}
+    </span>
+  {% endif %}
+</div>
               </div>
               <div class="exclusive-section_slider-item-cta">
                 {% comment %} <a class="btn" href="/products/captain-pro">PRE-ORDER NOW</a> {% endcomment %}
@@ -418,7 +425,7 @@
                     {% comment %} <p>{% render 'sale-name' %}</p> {% endcomment %}
                     <p>#1 GPS SPEAKER</p>
                   </div>
-                  <div class="clock-builder-output"></div>
+                  {% comment %} <div class="clock-builder-output"></div> {% endcomment %}
                 </div>
                 <div class="exclusive-section_item-title">
                   <h3 class="exclusive-section_product-title">PLAYER PRO GPS SPEAKER</h3>
@@ -427,24 +434,26 @@
                     6-months free AI package <span style="color:var(--new-red-lighter);">($39.50 Value)</span>
                   </p>
                 </div>
-                <div class="exclusive-section_slider-item-rate ">
-                  
-                    <span class="slash-out_price">
-                      {{- all_products['player-pro'].compare_at_price_max | money -}}
-                    </span>
-               
-                  <p>{{ all_products['player-pro'].price | money }}</p>
-                  
-                    <span class="save__price"
-                      >SAVE
-                      {{
-                        all_products['player-pro'].compare_at_price_max
-                        | minus: all_products['player-pro'].price
-                        | money
-                      -}}
-                    </span>
-                  
-                </div>
+               <div class="exclusive-section_slider-item-rate">
+  {% if all_products['player-pro'].compare_at_price_max > all_products['player-pro'].price %}
+    <span class="slash-out_price">
+      {{- all_products['player-pro'].compare_at_price_max | money -}}
+    </span>
+  {% endif %}
+
+  <p>{{ all_products['player-pro'].price | money }}</p>
+
+  {% if all_products['player-pro'].compare_at_price_max > all_products['player-pro'].price %}
+    <span class="save__price">
+      SAVE
+      {{
+        all_products['player-pro'].compare_at_price_max
+        | minus: all_products['player-pro'].price
+        | money
+      -}}
+    </span>
+  {% endif %}
+</div>
                 <div class="exclusive-section_slider-item-cta">
                   <a class="btn" href="/products/player-pro" aria-label="Shop now – Player Pro">SHOP NOW</a>
                   <button
@@ -469,6 +478,8 @@
         </div>
       </div>
     </div>
+  </div>
+  {% endcomment %}
   </div>
   {% section 'image-with-text-new' %}
   <div class="new-offer_video-section">
@@ -1627,6 +1638,8 @@
               .new_design-bg-000 .audio_exp-section .audio_exp-section-inner { height: 380px; }
                }
               /* EXCLUSIVE PRODUCT CSS START */
+              .new-offer_main .collection-heading { text-align: center; }
+              .new-offer_main .collection-heading h2 { font-size: clamp(28px, 4vw, 60px); line-height: 1; }
               .new-offer_exclusive-section { margin-bottom: 26px; }
               .new-offer_exclusive-section .exclusive-section_title { text-align: center; padding: 70px 0 29px; }
               .new-offer_exclusive-section .exclusive-section_title h2 { font-size: 60px; font-weight: 900; line-height: 70px; letter-spacing: -2px; }
@@ -2042,7 +2055,7 @@
                }
 </style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 {{ 'owl.theme.css' | asset_url | stylesheet_tag }}
 {{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
 {{ 'owl.carousel.js' | asset_url | script_tag }}

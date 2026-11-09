@@ -91,7 +91,13 @@ document.addEventListener("DOMContentLoaded", function () {
               link.href = url.toString();
 
               if (link.classList.contains('content-cta') || link.classList.contains('item-cta__button')) {
-                link.textContent = isAvailable ? 'SHOP NOW' : 'SOLD OUT';
+                const textEl = link.querySelector('.content-cta__text');
+                const targetText = isAvailable ? 'SHOP NOW' : 'SOLD OUT';
+                if (textEl) {
+                  textEl.textContent = targetText;
+                } else {
+                  link.textContent = targetText;
+                }
                 link.classList.toggle('product-sold_cta', !isAvailable);
               }
             } catch (err) {
@@ -2256,10 +2262,12 @@ document.addEventListener("DOMContentLoaded", function () {
   ----------------*/
 
   function handleVideoPreview() {
+    var is_previewing = true; // Set to true for 5s preview loop, false to disable preview
+
     const videoPreviews = document.querySelectorAll(".video-preview");
     const specialCase = window.location.pathname === "/pages/careers";
     const startTime = specialCase ? 11 : 0;
-    // const endTime = specialCase ? 16 : 5; // [Disabled for now] 5-second preview cutoff
+    const endTime = specialCase ? 16 : 5; // 5-second preview cutoff
 
     const videoInstances = [];
 
@@ -2365,10 +2373,21 @@ document.addEventListener("DOMContentLoaded", function () {
           if (isVimeo && vimeoPlayer) {
             vimeoPlayer.pause();
             if (startTime > 0) vimeoPlayer.setCurrentTime(startTime);
+            if (is_previewing) {
+              vimeoPlayer.setLoop(true);
+              vimeoPlayer.play().catch(() => {});
+            }
           } else {
             previewVideo.removeAttribute("controls");
-            previewVideo.pause();
             if (startTime > 0) previewVideo.currentTime = startTime;
+            if (is_previewing) {
+              previewVideo.currentTime = startTime;
+              previewVideo.loop = true;
+              previewVideo.muted = true;
+              previewVideo.play().catch(() => {});
+            } else {
+              previewVideo.pause();
+            }
           }
 
           playButtonContent.style.opacity = "1";
@@ -2394,16 +2413,33 @@ document.addEventListener("DOMContentLoaded", function () {
           vimeoPlayer.on("play", safeHideLoader);
 
           vimeoPlayer.on("loaded", () => {
-            if (startTime > 0) {
+            if (is_previewing) {
               vimeoPlayer.setCurrentTime(startTime).then(() => {
-                vimeoPlayer.pause();
-                safeHideLoader();
+                vimeoPlayer.play().catch((err) => {
+                  console.log(`Vimeo autoplay blocked ${index + 1}:`, err);
+                  safeHideLoader();
+                });
               });
             } else {
-              vimeoPlayer.pause();
-              safeHideLoader();
+              if (startTime > 0) {
+                vimeoPlayer.setCurrentTime(startTime).then(() => {
+                  vimeoPlayer.pause();
+                  safeHideLoader();
+                });
+              } else {
+                vimeoPlayer.pause();
+                safeHideLoader();
+              }
             }
           });
+
+          if (is_previewing) {
+            vimeoPlayer.on("timeupdate", (data) => {
+              if (isPreviewMode && data.seconds >= endTime) {
+                vimeoPlayer.setCurrentTime(startTime);
+              }
+            });
+          }
 
           vimeoPlayer.on("error", (err) => {
             console.error(`Vimeo error ${index + 1}:`, err);
@@ -2416,15 +2452,45 @@ document.addEventListener("DOMContentLoaded", function () {
           safeHideLoader();
         }
       } else {
-        // HTML5 <video> - keep paused safely without aborting network stream
-        previewVideo.removeAttribute("autoplay");
+        // HTML5 <video>
         previewVideo.muted = true;
 
-        if (previewVideo.readyState >= 1) {
-          safeHideLoader();
+        if (is_previewing) {
+          previewVideo.loop = true;
+
+          previewVideo.addEventListener("loadedmetadata", () => {
+            previewVideo.currentTime = startTime;
+            previewVideo.muted = true;
+            previewVideo.loop = true;
+            previewVideo.play().catch((err) => {
+              console.log(`HTML5 autoplay blocked ${index + 1}:`, err);
+              safeHideLoader();
+            });
+            safeHideLoader();
+          });
+
+          if (previewVideo.readyState >= 1) {
+            previewVideo.currentTime = startTime;
+            previewVideo.play().catch(() => {});
+            safeHideLoader();
+          } else {
+            previewVideo.addEventListener("canplay", safeHideLoader, { once: true });
+          }
+
+          previewVideo.addEventListener("timeupdate", () => {
+            if (isPreviewMode && previewVideo.currentTime >= endTime) {
+              previewVideo.currentTime = startTime;
+            }
+          });
         } else {
-          previewVideo.addEventListener("loadedmetadata", safeHideLoader, { once: true });
-          previewVideo.addEventListener("canplay", safeHideLoader, { once: true });
+          // Keep paused if is_previewing is false
+          previewVideo.removeAttribute("autoplay");
+          if (previewVideo.readyState >= 1) {
+            safeHideLoader();
+          } else {
+            previewVideo.addEventListener("loadedmetadata", safeHideLoader, { once: true });
+            previewVideo.addEventListener("canplay", safeHideLoader, { once: true });
+          }
         }
 
         previewVideo.addEventListener("error", (e) => {
@@ -2471,12 +2537,18 @@ document.addEventListener("DOMContentLoaded", function () {
               isPreviewMode = true;
               isPlayingFull = false;
               vimeoPlayer.setCurrentTime(startTime).catch(() => {});
-              vimeoPlayer.pause().catch(() => {});
+              if (is_previewing) {
+                vimeoPlayer.setLoop(true).catch(() => {});
+                vimeoPlayer.play().catch(() => {});
+              } else {
+                vimeoPlayer.pause().catch(() => {});
+              }
             });
           } else {
             // HTML5 full - enable video controls without download option
             previewVideo.setAttribute("controls", "true");
             previewVideo.setAttribute("controlsList", "nodownload");
+            previewVideo.currentTime = 0;
             previewVideo.loop = false;
             previewVideo.muted = false;
 
@@ -2497,7 +2569,13 @@ document.addEventListener("DOMContentLoaded", function () {
               isPreviewMode = true;
               isPlayingFull = false;
               previewVideo.currentTime = startTime;
-              previewVideo.pause();
+              if (is_previewing) {
+                previewVideo.loop = true;
+                previewVideo.muted = true;
+                previewVideo.play().catch(() => {});
+              } else {
+                previewVideo.pause();
+              }
               previewVideo.removeEventListener("ended", onEnd);
             };
             previewVideo.addEventListener("ended", onEnd);
@@ -2569,8 +2647,13 @@ document.addEventListener("DOMContentLoaded", function () {
               videoPopup.style.pointerEvents = "none";
               document.body.classList.remove("dialog-box__open");
 
-              if (isVimeo && vimeoPlayer) vimeoPlayer.pause();
-              else previewVideo.pause();
+              if (is_previewing) {
+                if (isVimeo && vimeoPlayer) vimeoPlayer.play().catch(() => {});
+                else previewVideo.play().catch(() => {});
+              } else {
+                if (isVimeo && vimeoPlayer) vimeoPlayer.pause();
+                else previewVideo.pause();
+              }
             },
           });
         });
@@ -3404,4 +3487,110 @@ changeImageOnVarient();
         }
       });
   });
+})();
+
+
+/* ===================================================
+   BUNDLE DISCOUNT CODE RULES
+   When ALL products of a rule are in the cart, the rule's
+   discount codes are added to the cart. If any of them is
+   removed, only the discount codes are removed – the products
+   stay in the cart at full price.
+   - Each discount must be a discount CODE in Shopify admin
+     (not an automatic discount), with the same code as below.
+   - When a rule has more than one code, each discount must be
+     allowed to combine with product discounts in Shopify admin.
+   - Other discount codes the customer entered are kept.
+   - Add more rules to the list in the same format.
+=================================================== */
+(function () {
+  var BUNDLE_DISCOUNT_RULES = [
+    {
+      name: 'Rainmaker bundle: Premium Golf Net + Premium Hitting Mat + Rainmaker = $1,097.99',
+      required: [
+        '50778758512837', // Premium Golf Net
+        '50778760347845', // Premium Hitting Mat
+        '45724258697413'  // Rainmaker
+      ],
+      // discount codes in Shopify admin – all are added together
+      discountCodes: [
+        'RAINMAKERBUNDLE' // $499.99 off Premium Golf Net + Premium Hitting Mat, once per order (Net -$318.30, Mat -$181.69)
+      ]
+    }
+  ];
+
+  // Old codes that are no longer used – removed from any cart that still has them
+  var RETIRED_DISCOUNT_CODES = ['RAINMAKERFREE', 'RAINMAKERBUNDLE-NET', 'RAINMAKERBUNDLE-MAT'];
+
+  var isChecking = false;
+  var checkTimer = null;
+
+  function checkBundleDiscountRules() {
+    if (isChecking) return;
+    isChecking = true;
+
+    fetch('/cart.js?_=' + Date.now(), { headers: { 'Accept': 'application/json' } })
+      .then(function (res) { return res.json(); })
+      .then(function (cart) {
+        var inCart = {};
+        cart.items.forEach(function (item) {
+          var id = String(item.variant_id);
+          inCart[id] = (inCart[id] || 0) + item.quantity;
+        });
+
+        var currentCodes = (cart.discount_codes || []).map(function (d) { return d.code; });
+        var newCodes = currentCodes.filter(function (c) {
+          return RETIRED_DISCOUNT_CODES.indexOf(c.toUpperCase()) === -1;
+        });
+
+        BUNDLE_DISCOUNT_RULES.forEach(function (rule) {
+          var allInCart = rule.required.every(function (id) {
+            return inCart[String(id)] > 0;
+          });
+
+          rule.discountCodes.forEach(function (ruleCode) {
+            var code = ruleCode.toUpperCase();
+            var hasCode = newCodes.some(function (c) { return c.toUpperCase() === code; });
+
+            if (allInCart && !hasCode) {
+              newCodes.push(ruleCode);
+            } else if (!allInCart && hasCode) {
+              newCodes = newCodes.filter(function (c) { return c.toUpperCase() !== code; });
+            }
+          });
+        });
+
+        if (newCodes.join(',') === currentCodes.join(',')) return;
+
+        return fetch('/cart/update.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ discount: newCodes.join(',') })
+        }).then(function () {
+          // Refresh the cart drawer / cart page the same way the theme does
+          document.dispatchEvent(new CustomEvent('ajaxProduct:added', { detail: {} }));
+        });
+      })
+      .catch(function (err) { console.error('Bundle discount rules error:', err); })
+      .then(function () { isChecking = false; });
+  }
+
+  function scheduleCheck() {
+    clearTimeout(checkTimer);
+    checkTimer = setTimeout(checkBundleDiscountRules, 400);
+  }
+
+  // Cart changed (remove link, qty buttons, add to cart)
+  document.addEventListener('ajaxProduct:added', scheduleCheck);
+  document.addEventListener('cart:updated', scheduleCheck);
+
+  // Page load (cart page, or cart changed in another tab)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleCheck);
+  } else {
+    scheduleCheck();
+  }
 })();

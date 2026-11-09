@@ -796,7 +796,7 @@
                 </div>
               </div>
               <div class="play_top-right">
-                <a href="javascript:void(0)" class="download_app dynamic_link">
+                <a href="javascript:void(0);" class="download_app dynamic_link">
                   DOWNLOAD THE APP</a>
               </div>
             </div>
@@ -1063,7 +1063,7 @@
         </div>
 
         <div class="play_area_bottom_btn">
-          <a href="" class="download_app dynamic_link"> DOWNLOAD THE APP</a>
+          <a href="javascript:void(0);" class="download_app dynamic_link"> DOWNLOAD THE APP</a>
         </div>
       </div>
     </div>
@@ -2618,7 +2618,7 @@
 
     .carousel-control-btn, .slider-toggle-btn {
       position: absolute;
-      bottom: 20px;
+      bottom: 0px;
       right: 20px;
       z-index: 10;
       width: 28px;
@@ -2832,7 +2832,11 @@
       justify-content: center;
       align-items: center;
       row-gap: 30px;
+      padding-block: 0 40px;
     }
+    .slide_in-view__container.none_sm {
+  position: relative;
+}
 
     .slide_in-view__container .slide_in-view__row .slide_in-view__images {
       white-space: nowrap;

@@ -148,6 +148,12 @@
                     </span>
                     {% comment %} <small id="new-tag">NEW</small>  {% endcomment %}
                   {% endif %}
+                  {% if product.template_suffix == 's4-ultra' %}
+                    <div class="top-tag">
+                <small id="new-tag">NEW</small> 
+                OUR MOST ADVANCED LASER EVER
+              </div>
+                  {% endif %}
                   <h1 class="h1 product-single__title {% if product.title contains "Series 3 Max" %}editonlythis{% endif %}">
                     {{ product.title }}
                   </h1>
@@ -338,9 +344,9 @@
                         </div>
                       {%- endif -%}
                     </div>
-                    {% if hide_upsell %}
+                    {% comment %} {% if hide_upsell %}
                       {% render 'bonus-pdp-upshell' %}
-                    {% endif %}
+                    {% endif %} {% endcomment %}
                     {% if product.metafields.custom.discount_code != blank %}
                       <div class="discount-code">
                         Use code: {{ product.metafields.custom.discount_code | metafield_tag }}
@@ -464,7 +470,7 @@
                     {% endif %}
                     <div class="prod_options fdsf">
                       <div class="after-pay"></div>
-                      {%if theme.role == 'unpublished' or theme.role == 'development'%}
+                      
                        <div class="options_extend-protection">
                         <span class="anchor_holder">
                           <a
@@ -476,8 +482,10 @@
                           </a>
                         </span>
                       </div> 
-                      {% endif %}
+                 
                     </div>
+                  {%- when 'bundle_callout' -%}
+                    {%- render 'comp-pdp-bundle-callout', block: block -%}
                   {%- when 'buy_buttons' -%}
                     {% if hide_upsell %}
                       {% unless product.handle contains 'hat' %}

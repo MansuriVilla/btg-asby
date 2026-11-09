@@ -147,9 +147,13 @@
 
       {%- if product.line_level_discount_allocations != blank -%}
         {%- for discount_allocation in product.line_level_discount_allocations -%}
-          <small class="cart__discount">
-            {{- discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})</small
-          >
+          {%- if discount_allocation.amount > 0 -%}
+            <small class="cart__discount">
+              {%- comment -%} Show bundle discount codes as "Bundle savings" so the code name isn't visible in the cart {%- endcomment -%}
+              {%- assign discount_title_upcase = discount_allocation.discount_application.title | upcase -%}
+              {%- if discount_title_upcase contains 'RAINMAKERBUNDLE' -%}Bundle savings{%- else -%}{{ discount_allocation.discount_application.title }}{%- endif %} (-{{ discount_allocation.amount | money }})</small
+            >
+          {%- endif -%}
         {%- endfor -%}
       {%- endif -%}
 

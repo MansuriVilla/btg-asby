@@ -71,6 +71,9 @@
               {% else %}
                 {% assign tag = 'h1' %}
               {% endif %}
+              {% if section.settings.eyebrow_text != blank %}
+              <span class="eyebrow_text-collection">{{ section.settings.eyebrow_text }}</span>
+              {% endif %}
      
               <{{tag}} class="section_hero--title">
                 {{ section.settings.custom_title }}
@@ -83,12 +86,14 @@
           </div>
           {% if section.settings.hero_cta_url != blank %}
             <div class="section_hero--cta">
-              <a
-                class="content-cta content-cta__solid smooth-scroll-link"
-                href="{{section.settings.hero_cta_url}}"
-              >
-                {{- section.settings.hero_cta_text -}}
-              </a>
+             
+              {% render 'cta-button'
+                text: section.settings.hero_cta_text,
+            url: section.settings.hero_cta_url,
+            type: 'link',
+            variant: 'solid',
+            class: 'content-cta content-cta__solid smooth-scroll-link page_button'
+              %}
             </div>
           {% endif %}
         </div>
@@ -108,6 +113,21 @@
     /*-------------------------
       Hero Styles
       ----------------*/
+       .eyebrow_text-collection{
+
+font-family: 'Roboto Flex';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 150%;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+
+color: #C3C3C3;
+font-stretch: 130;
+font-variation-settings: 'GRAD' 0, 'slnt' 0, 'XOPQ' 96, 'YOPQ' 79, 'XTRA' 468, 'YTUC' 712, 'YTLC' 514, 'YTAS' 750, 'YTDE' -203, 'YTFI' 738;
+
+}
       .page-width.page-content.hero-full_content { padding: 0; width: 100%; max-width: 100%; display: flex; }
       {% unless section.settings.hero_normal %}
         #SiteHeader:not( .site-header.site-header--megamenu-active, #SiteHeader.site-header.fixed ) { background: transparent; }
@@ -148,15 +168,35 @@
       {% endunless %}
       {% comment %} .hero-full_content{height:clamp(390px, 39vw, 500px);} {% endcomment %}
       {% if section.settings.align_content_left %}
-        .section_hero--content-text { padding-left: clamp(80px, calc(80px + 100 * (100vw - 860px) / 1060), 182px); justify-content: flex-start; align-items: flex-start; text-align:left;}
+        {% assign pad = 'clamp(80px, calc(80px + 100 * (100vw - 860px) / 1060), 182px)' %}
+        {% case page.template_suffix %}
+        {% when 'product-lineup' %}
+            {% assign pad = 'clamp(40px, 8vw, 130px)' %}
+            
+            
+        {% endcase %}
+        .section_hero--content-text { padding-left:{{pad}} ; justify-content: flex-start; align-items: flex-start; text-align:left;}
         .section_hero--content{justify-content: flex-start; }
         .hero_image { scale: none;}
         .section_hero--content-background{background: var(--new-black); height: clamp(300px, 39vw, 715px); min-height:550px;}
-        .section_hero--cta a { padding-inline: clamp(30px,4.7vw,90px); }
+        {% comment %} .section_hero--cta a { padding-inline: clamp(30px,4.7vw,90px); } {% endcomment %}
       {% endif %}
 
       .custom_section--hero--contact-us .section_hero--content-text{padding-bottom: clamp(30px,3.4vw,60px);}
       .custom_section--hero--contact-us .section_hero--content{align-items: flex-end;}
+         {% assign height = '720px' %}
+        {% case page.template_suffix %}
+        {% when 'product-lineup' %}
+            {% assign height = '540px' %}
+            
+            
+        {% endcase %}
+         
+          {% if height %}
+
+.section_hero--content-background picture, .custom_section--hero, .hero_image{background: #1a1e21;}
+{% endif %}
+      
       @media only screen and (max-width:860px){
         {% comment %} .hero_image{object-position: 75% center; scale:1;} {% endcomment %}
         .section_hero--description{padding-inline: 25px;}
@@ -166,7 +206,21 @@
         {% if section.settings.align_content_left %}
           .section_hero--content-text{padding: 20px; justify-content: center; align-items: center; text-align: center; bottom: 0;}
           .section_hero--content{ background: var(--new-black); justify-content: center; align-items: flex-start; overflow: hidden; }
-          .section_hero--content-background, .section_hero--content { min-height: 720px;}
+          {% assign height = '720px' %}
+        {% case page.template_suffix %}
+        {% when 'product-lineup' %}
+            {% assign height = '540px' %}
+            
+            
+        {% endcase %}
+          .section_hero--content-background, .section_hero--content { min-height: {{height}};}
+          {% if height %}
+          .hero_image {
+    scale: 0.9 !important;
+}
+.section_hero--content-background picture, .custom_section--hero, .hero_image{background: #1a1e21;}
+{% endif %}
+          {% comment %} .section_hero--content-background, .section_hero--content { min-height: 720px;} {% endcomment %}
           .section_hero--content-background .hero_image { object-position: top; object-fit:contain;}
           .section_hero--title br{display:none;}
         {% endif %}
@@ -278,6 +332,12 @@
       "id": "custom_image_mobile",
       "label": "Hero Image Mobile",
       "visible_if": "{{ section.settings.has_mobile_image }}"
+    },
+        {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow text",
+      "visible_if": "{{ section.settings.show_hero_v2 }}"
     },
     {
       "type": "html",

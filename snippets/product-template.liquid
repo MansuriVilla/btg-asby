@@ -517,6 +517,9 @@
                     
                     {% render 'product-list-pdp' %}
 
+                  {%- when 'bundle_callout' -%}
+                    {%- render 'comp-pdp-bundle-callout', block: block -%}
+
                   {%- when 'buy_buttons' -%}
                     <div class="product-block" {{ block.shopify_attributes }}>
                       {%- unless product.empty? -%}
@@ -799,6 +802,7 @@
 
     .site_header-link.active .nav_offer--link::before { opacity: 1 !important; }
     .site_header-link.active .nav_offer--link { font-weight: 900; }
+
 
     @media only screen and (max-width:991px){
     .header__nav-offer .nav_link.nav_offer--link{width: fit-content;}

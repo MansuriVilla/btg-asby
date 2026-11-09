@@ -13,51 +13,6 @@
       "type": "Home-static-slider",
       "settings": {}
     },
-    "row_features_fJjdcj": {
-      "type": "row-features",
-      "blocks": {
-        "feature_aAQg9h": {
-          "type": "Feature",
-          "settings": {
-            "featureIcon": "shopify://shop_images/Frame_1171277599.svg",
-            "featureText": "FREE  SHIPPING"
-          }
-        },
-        "feature_XNJRrA": {
-          "type": "Feature",
-          "settings": {
-            "featureIcon": "shopify://shop_images/Frame_1171277600.svg",
-            "featureText": "100 DAY RETURNS"
-          }
-        },
-        "feature_hJBUBB": {
-          "type": "Feature",
-          "settings": {
-            "featureIcon": "shopify://shop_images/Frame_1171277601.svg",
-            "featureText": "SECURE  CHECKOUT"
-          }
-        },
-        "feature_VVLXAr": {
-          "type": "Feature",
-          "settings": {
-            "featureIcon": "shopify://shop_images/Frame_1171277602.svg",
-            "featureText": "2-YEAR  WARRANTY"
-          }
-        }
-      },
-      "block_order": [
-        "feature_aAQg9h",
-        "feature_XNJRrA",
-        "feature_hJBUBB",
-        "feature_VVLXAr"
-      ],
-      "disabled": true,
-      "name": "Feature Items",
-      "settings": {
-        "rowPadding": 55,
-        "rowBackground": "#ffffff"
-      }
-    },
     "new_product_card_layout_B8PVDA": {
       "type": "new-product-card-layout",
       "blocks": {
@@ -176,6 +131,7 @@
         },
         "product_NphwGe": {
           "type": "Product",
+          "disabled": true,
           "settings": {
             "product": "magnetic-golf-speaker",
             "featureImage": "shopify://shop_images/DSC09007-Enhanced-NR_edited_1.png",
@@ -192,6 +148,7 @@
         },
         "product_Tc8FfP": {
           "type": "Product",
+          "disabled": true,
           "settings": {
             "product": "playmaker-watch",
             "featureImage": "shopify://shop_images/DSC01578-Enhanced-NR_edited_2_1.png",
@@ -208,6 +165,7 @@
         },
         "product_3PGAzB": {
           "type": "Product",
+          "disabled": true,
           "settings": {
             "product": "series-4-ultra-rangefinder",
             "featureImage": "shopify://shop_images/6-Lifestyle_1_1.png",
@@ -240,82 +198,6 @@
         "backgroundColor": "#f3f4f7",
         "productCardHeading": "built to perform. priced to play.",
         "productCardDesc": "Every purchase includes free shipping, an extended two-year warranty, and a 100-day risk-free guarantee.",
-        "sectionCtaText": "",
-        "allProductURL": ""
-      }
-    },
-    "new_product_card_layout_7XqCbB": {
-      "type": "new-product-card-layout",
-      "blocks": {
-        "product_MP8WxU": {
-          "type": "Product",
-          "settings": {
-            "product": "",
-            "featureImage": "shopify://shop_images/image_259.png",
-            "featureImageMobile": "shopify://shop_images/image_259.png",
-            "prodName": "PLAYER PRO",
-            "label": true,
-            "subText": "Magnetic GPS Golf Speaker",
-            "solidCtaText": "",
-            "outlineCtaText": "LEARN MORE",
-            "learnMoreUrl": "shopify://pages/player-pro"
-          }
-        },
-        "product_nLDjfp": {
-          "type": "Product",
-          "settings": {
-            "product": "",
-            "featureImage": "shopify://shop_images/Launch-Monitor0019-edited_2.png",
-            "featureImageMobile": "shopify://shop_images/Launch-Monitor0019-edited_2.png",
-            "prodName": "RAINMAKER",
-            "label": false,
-            "subText": "Portable Launch Monitor & App",
-            "solidCtaText": "",
-            "outlineCtaText": "LEARN MORE",
-            "learnMoreUrl": "shopify://pages/launch-monitor"
-          }
-        },
-        "product_YQzUQN": {
-          "type": "Product",
-          "settings": {
-            "product": "",
-            "featureImage": "shopify://shop_images/DSC08264_1.png",
-            "featureImageMobile": "shopify://shop_images/DSC08264_1.png",
-            "prodName": "CAPTAIN PRO",
-            "label": false,
-            "subText": "Magnetic OLED Bluetooth Rangefinder",
-            "solidCtaText": "",
-            "outlineCtaText": "LEARN MORE",
-            "learnMoreUrl": "shopify://pages/captain-pro"
-          }
-        },
-        "product_PzrTX3": {
-          "type": "Product",
-          "settings": {
-            "product": "",
-            "featureImage": "shopify://shop_images/Captain-Air-42_1.png",
-            "featureImageMobile": "shopify://shop_images/Captain-Air-42_1.png",
-            "prodName": "CAPTAIN AIR",
-            "label": false,
-            "subText": "Magnetic Bluetooth Rangefinder",
-            "solidCtaText": "",
-            "outlineCtaText": "LEARN MORE",
-            "learnMoreUrl": "shopify://pages/captain-air"
-          }
-        }
-      },
-      "block_order": [
-        "product_MP8WxU",
-        "product_nLDjfp",
-        "product_YQzUQN",
-        "product_PzrTX3"
-      ],
-      "disabled": true,
-      "name": "Product Card",
-      "settings": {
-        "backgroundColor": "",
-        "productCardHeading": "COMING SOON",
-        "productCardDesc": "",
         "sectionCtaText": "",
         "allProductURL": ""
       }
@@ -470,55 +352,6 @@
         "bg_color_top": "#1b2029"
       }
     },
-    "built_section_slider_YtW7QM": {
-      "type": "built-section-slider",
-      "blocks": {
-        "slide_NBexLF": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC03741-Enhanced-NR_1.png",
-            "title": "ON THE COURSE",
-            "description": "Precision where it matters most"
-          }
-        },
-        "slide_FwqXFg": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/dsc01589-enhanced-nr_edited-1_1.png",
-            "title": "At the Range",
-            "description": "Dial it in before your next round"
-          }
-        },
-        "slide_zXkFVr": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC07574_1.png",
-            "title": "On the Road",
-            "description": "Built to travel, built to perform"
-          }
-        },
-        "slide_M6a7dX": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/1_5.png",
-            "title": "Training at Home",
-            "description": "Progress doesn’t stop between rounds"
-          }
-        }
-      },
-      "block_order": [
-        "slide_NBexLF",
-        "slide_FwqXFg",
-        "slide_zXkFVr",
-        "slide_M6a7dX"
-      ],
-      "disabled": true,
-      "name": "Built For Play Slider",
-      "settings": {
-        "heading": "BUILT FOR THE WAY<br>YOU PLAY",
-        "bg_color": "#ffffff"
-      }
-    },
     "bt_difference_section_RVQzwd": {
       "type": "bt-difference-section",
       "name": "Subscription Box",
@@ -663,12 +496,9 @@
   },
   "order": [
     "16579402989e5a1548",
-    "row_features_fJjdcj",
     "new_product_card_layout_B8PVDA",
-    "new_product_card_layout_7XqCbB",
     "round_out_slider_section_XjnTQb",
     "all_in_one_section_QVFFeq",
-    "built_section_slider_YtW7QM",
     "bt_difference_section_RVQzwd",
     "custom_video_block_MpHNGq",
     "logo_slider_TTPDkW",

@@ -1,0 +1,181 @@
+{%- comment -%}
+  Per-product 'What's Included' content grid, rendered inside the "tab" product block or comp-pdp-tabs.
+  Supports image layout with fallback per product template suffix.
+{%- endcomment -%}
+
+<div class="pdp-whats-included-content">
+  {%- case product.template_suffix -%}
+
+    {%- when 'pdp-new', 'player-pro' -%}
+      <div class="pdp-whats-included__grid">
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/PlayerPro_012_2.png?v=1793080980',
+          title: 'Player Pro GPS',
+          subtitle: 'Speaker'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check321.png?v=1793080979',
+          title: 'USB-C',
+          subtitle: 'Charging Cable'
+        %}
+      </div>
+    {%- when 'captain-pro' -%}
+      <div class="pdp-whats-included__grid">
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check_b1ddca4e-fe2b-4d6a-b084-5dea73bf2415.png?v=1793163430',
+          title: 'Captain Pro',
+          subtitle: 'Rangefinder'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-1_4c3a4756-933d-4da6-84c9-8c11b5f485a4.png?v=1793163429',
+          title: 'USB-C cable',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-2_01d8c656-135a-477f-b4c3-39d3761529a1.png?v=1793163430',
+          title: 'Rangefinder',
+          subtitle: 'Carrying Case'
+        %}
+      </div>
+    {%- when 'product-new' -%}
+      <div class="pdp-whats-included__grid">
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check_8c26f8f4-db64-47de-a8a7-c3dd3ce0ff47.png?v=1793163420',
+          title: 'Captain Air',
+          subtitle: 'Rangefinder'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-1_4c3a4756-933d-4da6-84c9-8c11b5f485a4.png?v=1793163429',
+          title: 'USB-C cable',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-2_7ef144b0-7737-4ac5-bac0-1a6b400e44fd.png?v=1793163419',
+          title: 'Rangefinder',
+          subtitle: 'Carrying Case'
+        %}
+      </div>
+    {%- when 'rainmaker' -%}
+      <div class="pdp-whats-included__grid">
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check_1a7742c4-f08f-436b-898b-4c203fc8e8be.png?v=1793173808',
+          title: 'Rainmaker Launch Monitor',
+          subtitle: '+ IR remote'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-1_3f8d6fa0-91f0-4989-a9ba-5a801b060ab7.png?v=1793173808',
+          title: 'Protective carry',
+          subtitle: 'case'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-2_80ca394a-ff1a-4fef-a263-a3324d5f16f7.png?v=1793173807',
+          title: 'USB-C cable',
+          subtitle: ''
+        %}
+      </div>
+    {%- when 'rainmaker-bf-bundle' -%}
+      <div class="pdp-whats-included__grid">
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check.png?v=1793080836',
+          title: 'Rainmaker Launch Monitor +',
+          subtitle: 'IR remote'
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-1.png?v=1793080836',
+          title: 'Protective carry case',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-2.png?v=1793080836',
+          title: 'USB-C cable',
+          subtitle: ''
+        %}
+        {% comment %} {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-3.png?v=1793080836',
+          title: 'Quick start guide',
+          subtitle: ''
+        %} {% endcomment %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-4.png?v=1793080836',
+          title: 'Premium golf net',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-5.png?v=1793080836',
+          title: '4 × 5 ft hitting mat',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-6.png?v=1793080836',
+          title: '70 mm rubber tee',
+          subtitle: ''
+        %}
+      </div>
+      {%- when 'hitting-mat-glof-net-bundle' -%}
+      <div class="pdp-whats-included__grid">
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-4.png?v=1793080836',
+          title: 'Premium golf net',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-5.png?v=1793080836',
+          title: '4 × 5 ft hitting mat',
+          subtitle: ''
+        %}
+        {% render 'whats-included-item',
+          image: 'https://cdn.shopify.com/s/files/1/0057/8958/1381/files/Check-6.png?v=1793080836',
+          title: '70 mm rubber tee',
+          subtitle: ''
+        %}
+      </div>
+  {%- endcase -%}
+</div>
+
+<style>
+  .pdp-whats-included-content {
+    width: 100%;
+    padding: 10px 0;
+  }
+  .pdp-whats-included__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    align-items: center;
+  }
+  .pdp-whats-included__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .pdp-whats-included__img-wrap {
+    width: 60px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .pdp-whats-included__img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .pdp-whats-included__img--crop-cable {
+    object-position: 85% center;
+    transform: scale(1.6);
+  }
+  .pdp-whats-included__text {
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: 13px;
+    line-height: 1.35;
+    color: #334155;
+  }
+  .pdp-whats-included__banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+  }
+</style>

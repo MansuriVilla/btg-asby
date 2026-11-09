@@ -13,7 +13,7 @@ assets/*.pdf
 assets/*.ico
 
 # Old or backup files
-*.bak
+*.bak$env:NODE_OPTIONS="--max-old-space-size=8192"; shopify theme dev
 *.backup
 *~
 .DS_Store

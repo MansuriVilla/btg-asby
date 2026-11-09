@@ -187,7 +187,7 @@
       compare to your competition out on the links!
     </p>
     <div class="bottom">
-      <a href="#">Write a Review</a>
+      <a href="#looxReviews" data-write-review data-product-id="{{ all_products['series-3-max-golf-rangefinder-with-slope'].id }}">Write a Review</a>
     </div>
   </div>
 </div>
@@ -197,6 +197,19 @@
     <div id="looxReviews" data-loox-aggregate data-limit="20"></div>
   </div>
 </div>
+
+<script>
+  document.querySelectorAll('[data-write-review]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      var productId = link.dataset.productId;
+      if (productId && window.LOOX && typeof window.LOOX.showReviewForm === 'function') {
+        event.preventDefault();
+        window.LOOX.showReviewForm(productId);
+      }
+      // Otherwise the link's #looxReviews href scrolls down to the reviews.
+    });
+  });
+</script>
 <!--
   div class="reviews_box_bg">
     <div class="page-width">

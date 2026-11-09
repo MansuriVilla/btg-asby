@@ -5,7 +5,7 @@
       <script src="https://app.termly.io/resource-blocker/814c3560-92de-488c-801f-f93fe4c3322c?autoBlock=on"></script>
     {% endcomment %}
 
-    {%- if settings.favicon != blank -%}
+    {% if settings.favicon != blank %}
       {% comment %} <!-- Modern Standard Favicons --> {% endcomment %}
       <link rel="icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" sizes="32x32">
       <link rel="icon" href="{{ settings.favicon | img_url: '48x48' }}" type="image/png" sizes="48x48">
@@ -16,13 +16,93 @@
       <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
       <meta name="msapplication-TileImage" content="{{ settings.favicon | img_url: '144x144' }}">
       <meta name="msapplication-TileColor" content="#ffffff">
-    {%- endif -%}
+    {% endif %}
 
     <script>
       if (window.location.pathname === '/cart') {
         window.location.href = '/checkout';
       }
     </script>
+
+    {% comment %}
+      Collection ItemList Schema is rendered inside collection sections (gps-collection-section / main-collection)
+    {% endcomment %}
+
+    {% if page.handle == 'app-download-lp' %}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "MobileApplication",
+          "name": "Blue Tees GAME: AI Golf GPS",
+          "description": "AI-powered golf GPS and shot-tracking app with course data for over 42,000 courses, True Distance plays-like yardages, Scout AI caddie club recommendations, live leaderboards, 3D round playback and USGA Handicap Index integration.",
+          "applicationCategory": "SportsApplication",
+          "operatingSystem": "iOS",
+          "offers": {
+            "@type": "Offer",
+            "price": 0,
+            "priceCurrency": "USD"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": 4.9,
+            "ratingCount": 25251
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Blue Tees Golf"
+          },
+          "featureList": [
+            "GPS distances to front, centre and back for 42,000+ courses",
+            "True Distance plays-like yardage adjusting for slope, wind, temperature and elevation",
+            "Scout AI caddie club recommendations",
+            "Advanced shot tracking and dispersion analysis",
+            "3D round playback and course flyovers",
+            "Live leaderboards and multiple scoring formats",
+            "USGA Handicap Index integration and automatic score posting",
+            "Syncs with Captain rangefinders, Player Pro speaker, PlayMaker+ watch and Rainmaker"
+          ],
+          "installUrl": "https://apps.apple.com/us/app/blue-tees-game/id6448720121",
+          "downloadUrl": "https://apps.apple.com/us/app/blue-tees-game/id6448720121"
+        }
+      </script>
+
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "MobileApplication",
+          "name": "Blue Tees GAME: AI Golf GPS",
+          "description": "AI-powered golf GPS and shot-tracking app with course data for over 42,000 courses, True Distance plays-like yardages, Scout AI caddie club recommendations, live leaderboards, 3D round playback and USGA Handicap Index integration.",
+          "applicationCategory": "SportsApplication",
+          "operatingSystem": "ANDROID",
+          "offers": {
+            "@type": "Offer",
+            "price": 0,
+            "priceCurrency": "USD"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": 4.8,
+            "ratingCount": 4671
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Blue Tees Golf"
+          },
+          "featureList": [
+            "GPS distances to front, centre and back for 42,000+ courses",
+            "True Distance plays-like yardage adjusting for slope, wind, temperature and elevation",
+            "Scout AI caddie club recommendations",
+            "Advanced shot tracking and dispersion analysis",
+            "3D round playback and course flyovers",
+            "Live leaderboards and multiple scoring formats",
+            "USGA Handicap Index integration and automatic score posting",
+            "Syncs with Captain rangefinders, Player Pro speaker, PlayMaker+ watch and Rainmaker"
+          ],
+          "installUrl": "https://play.google.com/store/apps/details?id=com.bluetees",
+          "downloadUrl": "https://play.google.com/store/apps/details?id=com.bluetees"
+        }
+      </script>
+    {%- endif -%}
 
     {% comment %} schema markup for organization {% endcomment %}
     <script type="application/ld+json">
@@ -44,7 +124,7 @@
           "https://www.facebook.com/blueteesgolf",
           "https://www.instagram.com/blueteesgolf",
           "https://x.com/blue_tees_golf",
-          "https://www.youtube.com/@blueteesgolf5614",
+          "https://www.youtube.com/@blueteesgolf",
           "https://www.tiktok.com/@bluetees_golf",
           "https://www.snapchat.com/@blueteesgolf",
           "https://www.linkedin.com/company/blue-tees"
@@ -65,7 +145,7 @@
           "https://www.facebook.com/blueteesgolf",
           "https://www.instagram.com/blueteesgolf",
           "https://x.com/blue_tees_golf",
-          "https://www.youtube.com/@blueteesgolf5614",
+          "https://www.youtube.com/@blueteesgolf",
           "https://www.tiktok.com/@bluetees_golf",
           "https://www.snapchat.com/@blueteesgolf",
           "https://www.linkedin.com/company/blue-tees"
@@ -301,25 +381,6 @@
     {% endstyle %}
 
     {%- capture captured_content -%}{{ content_for_layout }}{%- endcapture -%}
-    {%- assign has_h1 = false -%}
-    {%- if captured_content contains '<h1' or captured_content contains '<H1' -%}
-      {%- assign has_h1 = true -%}
-    {%- endif -%}
-
-    {%- unless has_h1 -%}
-      {%- if request.path contains 'pages' and page.metafields.custom.seo_title_h1_tag != blank -%}
-        <h1 class="visually-hidden custom_h1_tag">{{ page.metafields.custom.seo_title_h1_tag }}</h1>
-      {%- endif -%}
-      {%- if request.path contains 'collections' and collection.metafields.custom.seo_title_h1 != blank -%}
-        <h1 class="visually-hidden custom_h1_tag">{{ collection.metafields.custom.seo_title_h1 }}</h1>
-      {%- endif -%}
-    {%- endunless -%}
-
-    {%- if template.name == 'index' -%}
-      <h1 class="visually-hidden custom_h1_tag">
-        Smart Golf Technology — Rangefinders, GPS Speakers & More By Blue Tees Golf
-      </h1>
-    {%- endif -%}
 
     {% if page.handle == 'your-privacy-choices' %}
       <script>
@@ -420,15 +481,6 @@
       })();
     </script>
 
-    <link
-      rel="preload"
-      href="https://cdn.shopify.com/s/files/1/0057/8958/1381/files/bluetees-logo-full-new.svg?v=1767964501"
-      as="image"
-      type="image/svg+xml"
-      fetchpriority="high"
-      crossorigin="anonymous"
-    >
-
     {% if request.path contains '/products/' %}
       {% comment %} <!-- Facebook Microdata Tags --> {% endcomment %}
       <meta property="og:type" content="product">
@@ -447,18 +499,7 @@
       >
     {% endif %}
     {% comment %} <!-- Title and description ================================================== --> {% endcomment %}
-    <title>
-      {% if request.path contains '/a/loop_subscriptions/' %}
-        Request Subscription Login Link | {{ shop.name }}
-      {% else %}
-        {{ page_title }}
-        {% if current_tags -%}
-          {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
-        {%- endif %}
-        {% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
-        {% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
-      {% endif %}
-    </title>
+    <title>{% render 'seo-title-website' %}</title>
 
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
@@ -507,7 +548,7 @@
       }
     </script>
 
-    <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
+    {% comment %} <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
       gtag('js', new Date());
       gtag('config', 'AW-720010703');
 
@@ -515,16 +556,16 @@
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-720010703';
       document.head.appendChild(s);
-    </script>
+    </script> {% endcomment %}
 
-    <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
+    {% comment %} <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
       var head = document.head;
       var script = document.createElement('script');
       script.type = 'text/javascript';
       script.src =
         'https://181813.tracking.hyros.com/v1/lst/universal-script?ph=ad8c7cdb2127f2f95a2108d8459dd9087ec9382b4c93b16e48d069b8529fc4f0&tag=!tracking';
       head.appendChild(script);
-    </script>
+    </script> {% endcomment %}
 
     {% comment %}
       script>
@@ -557,7 +598,7 @@
     {% endcomment %}
 
     {% comment %} <!-- Hotjar Tracking Code for https://www.blueteesgolf.com/ --> {% endcomment %}
-    <script type="text/plain" data-btg-category="analytics" data-consentmo-category="analytics">
+    {% comment %} <script type="text/plain" data-btg-category="analytics" data-consentmo-category="analytics">
       (function (h, o, t, j, a, r) {
         h.hj =
           h.hj ||
@@ -571,9 +612,9 @@
         r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
         a.appendChild(r);
       })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
-    </script>
+    </script> {% endcomment %}
 
-    <script type="text/plain" data-btg-category="analytics" data-consentmo-category="analytics">
+    {% comment %} <script type="text/plain" data-btg-category="analytics" data-consentmo-category="analytics">
       (function (c, l, a, r, i, t, y) {
         c[a] =
           c[a] ||
@@ -586,11 +627,11 @@
         y = l.getElementsByTagName(r)[0];
         y.parentNode.insertBefore(t, y);
       })(window, document, 'clarity', 'script', 'iyqwzntz51');
-    </script>
+    </script> {% endcomment %}
 
     {% comment %} <!-- Third Party Tracking Goaffpro --> {% endcomment %}
 
-    <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
+    {% comment %} <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
       (function (w, d, t, r, u) {
         var f, n, i;
         (w[u] = w[u] || []),
@@ -609,7 +650,7 @@
           (i = d.getElementsByTagName(t)[0]),
           i.parentNode.insertBefore(n, i);
       })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
-    </script>
+    </script> {% endcomment %}
 
     {% include 'ufe-offer' %}
 
@@ -624,11 +665,6 @@
     {% endcomment %}
 
     {% comment %} {%- render 'seo-title' -%} {% endcomment %}
-
-    {%- if page_description -%}
-      <meta name="description" content="{{ page_description | escape }}">
-    {%- endif -%}
-
     {%- render 'social-meta-tags' -%}
 
     {%- render 'font-face' -%}
@@ -696,7 +732,9 @@
     {{ 'HorizonSlider.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'HorizonSlider.min.js.js' | asset_url }}" defer></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
-    <script src="{{ 'privacy-compliance.js' | asset_url }}" defer></script>
+    {% if theme.role == 'unpublished' %}
+      <script src="{{ 'privacy-compliance.js' | asset_url }}" defer></script>
+    {% endif %}
     <script src="{{ 'uuid.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'register-data.js' | asset_url }}" defer="defer"></script>
 
@@ -717,9 +755,15 @@
 
     <script type="text/javascript" id="loop-subscription-script" src="{{ 'loop-widget.js' | asset_url }}"></script>
     {{ 'custom.css' | asset_url | stylesheet_tag }}
+    {%- if template contains 'product' -%}
+      {{ 'custom-components.css' | asset_url | stylesheet_tag }}
+      {{ 'animation.css' | asset_url | stylesheet_tag }}
+      <script src="{{ 'custom-components.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'animation.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
 
     {% comment %} <!-- Meta Pixel Code --> {% endcomment %}
-    <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
+    {% comment %} <script type="text/plain" data-btg-category="marketing" data-consentmo-category="marketing">
       !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
         n = f.fbq = function () {
@@ -745,7 +789,7 @@
         width="1"
         style="display:none"
         src="https://www.facebook.com/tr?id=7304912509600603&ev=PageView&noscript=1"
-    ></noscript>
+    ></noscript> {% endcomment %}
     {% comment %} <!-- End Meta Pixel Code --> {% endcomment %}
 
     <meta name="google-site-verification" content="UtHNlCq8QaKM2N6B8WDzPc0MimFlnszYYTNKrALRzA8">
@@ -769,6 +813,8 @@
       data-disable-animations="true"
     {% endif %}
   >
+    {% render 'pdp-preloader' %}
+
     <div
       id="a11y-live-region"
       aria-live="polite"
@@ -796,7 +842,8 @@
       {% render 'countdown-timer' %}
       {% endif %}
     {% endcomment %}
-    <main class="main-content" id="MainContent">
+    <main class="main-content main_animation" id="MainContent">
+      {% render 'h1-seo', captured_content: captured_content %}
       {%- if request.path contains 'loop_subscriptions/bundle' -%}
         {% render 'loop_loader' %}
       {%- endif -%}
@@ -881,7 +928,7 @@
       <!-- Gorgias Chat Widget End -->
     {% endif %}
 
-    <script async type="text/javascript" src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=LuhztW"></script>
+    {% comment %} <script async type="text/javascript" src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=LuhztW"></script> {% endcomment %}
 
     {% include 'smile-initializer' %}
 

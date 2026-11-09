@@ -1,0 +1,650 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color | default: '#FFFFFF'
+  assign border_bottom_color = section.settings.border_bottom_color | default: '#EAEAEA'
+  assign active_bar_color = section.settings.active_bar_color | default: '#0066FF'
+  assign text_color = section.settings.text_color | default: '#000000'
+  assign active_text_color = section.settings.active_text_color | default: '#000000'
+  assign bar_height = section.settings.bar_height | default: 79
+  assign sticky_header = section.settings.sticky_header
+  assign section_id = 'comp-sub-header-' | append: section.id
+-%}
+
+<div
+  id="{{ section_id }}"
+  class="comp-sub-header{% if sticky_header %} comp-sub-header--sticky{% endif %}"
+  style="
+    --csh-bg: {{ bg_color }};
+    --csh-border: {{ border_bottom_color }};
+    --csh-active-bar: {{ active_bar_color }};
+    --csh-text: {{ text_color }};
+    --csh-active-text: {{ active_text_color }};
+    --csh-height: {{ bar_height }}px;
+  "
+>
+  <div class="comp-sub-header__container">
+    <nav class="comp-sub-header__nav" aria-label="Sub navigation" data-sub-nav>
+      <ul class="comp-sub-header__list" role="tablist">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign is_active = false
+            if block.settings.is_active
+              assign is_active = true
+            elsif forloop.first and section.settings.auto_activate_first
+              assign is_active = true
+            endif
+
+            assign nav_url = block.settings.link_url
+            if nav_url == blank and block.settings.target_id != blank
+              assign clean_id = block.settings.target_id | remove: '#'
+              assign nav_url = '#' | append: clean_id
+            endif
+            if nav_url == blank
+              assign nav_url = 'javascript:void(0);'
+            endif
+          -%}
+          <li
+            class="comp-sub-header__item{% if is_active %} is-active{% endif %}"
+            data-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <a
+              href="{{ nav_url }}"
+              class="comp-sub-header__link custom_subHeading-text"
+              {% if is_active %}aria-current="page"{% endif %}
+              {% if block.settings.target_id != blank %}data-target-id="{{ block.settings.target_id | remove: '#' }}"{% endif %}
+            >
+              {{ block.settings.title | default: 'NAV ITEM' }}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .section-comp-sub-header {
+    position: relative;
+    z-index: 90;
+  }
+
+  .section-comp-sub-header:has(#{{ section_id }}.comp-sub-header--sticky) {
+    position: sticky;
+    top: 0;
+    top: var(--site-header-height, 0px);
+    z-index: 90;
+    transition: top 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #{{ section_id }} {
+    width: 100%;
+    background-color: var(--csh-bg);
+    position: relative;
+    z-index: 90;
+    box-sizing: border-box;
+    transition: box-shadow 0.25s ease, top 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  #{{ section_id }}.comp-sub-header--sticky {
+    position: sticky;
+    top: 0;
+    top: var(--site-header-height, 0px);
+    z-index: 90;
+  }
+
+  /* Fixed state fallback for Lenis or virtual-scroll environments */
+  #{{ section_id }}.is-fixed-stuck {
+    position: fixed !important;
+    top: 0 !important;
+    top: var(--site-header-height, 0px) !important;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  }
+  
+  #{{ section_id }} .comp-sub-header__container {
+    max-width: {{ section.settings.max_width | default: 1440 }}px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 3vw, 40px);
+    height: var(--csh-height);
+    display: flex;
+    align-items: stretch;
+    justify-content: {{ section.settings.alignment | default: 'Right' }};
+    {% comment %} box-sizing: border-box; {% endcomment %}
+  }
+  
+  #{{ section_id }} .comp-sub-header__nav {
+    display: flex;
+    align-items: stretch;
+    justify-content: {{ section.settings.alignment | default: 'Right' }};
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    scroll-behavior: smooth;
+  }
+  
+  #{{ section_id }} .comp-sub-header__nav::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+  
+  #{{ section_id }} .comp-sub-header__list {
+    display: flex;
+    align-items: stretch;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    {% comment %} gap: clamp(24px, 4vw, 56px); {% endcomment %}
+    width: 100%;
+    max-width: max-content;
+    border-bottom: 1px solid var(--csh-border);
+  }
+
+  #{{ section_id }} .comp-sub-header__item {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    flex-shrink: 0;
+    margin:0px;
+    min-width: 176px;
+  }
+
+  #{{ section_id }} .comp-sub-header__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--csh-text);
+    text-decoration: none;
+    font-size: clamp(14px, 1.1vw, 16px);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0 4px;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s ease, opacity 0.2s ease;
+    opacity: 0.85;
+  }
+
+  #{{ section_id }} .comp-sub-header__link:hover {
+    opacity: 1;
+    color: var(--csh-active-text);
+  }
+
+  #{{ section_id }} .comp-sub-header__item.is-active .comp-sub-header__link {
+    color: var(--csh-active-text);
+    opacity: 1;
+  }
+
+  /* Active Indicator Bar */
+  #{{ section_id }} .comp-sub-header__item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: transparent;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+  }
+
+  #{{ section_id }} .comp-sub-header__item.is-active::after {
+    background-color: var(--csh-active-bar);
+  }
+
+  @media (max-width: 768px) {
+    #{{ section_id }} .comp-sub-header__container {
+      padding: 0 16px;
+      height: 56px;
+    }
+
+    #{{ section_id }} .comp-sub-header__list {
+      justify-content: flex-start;
+      gap: 28px;
+      padding: 0 16px;
+    }
+
+    #{{ section_id }} .comp-sub-header__link {
+      font-size: 13px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const section = document.getElementById('{{ section_id }}');
+    if (!section) return;
+
+    const nav = section.querySelector('[data-sub-nav]');
+    const items = section.querySelectorAll('.comp-sub-header__item');
+    if (!nav || !items.length) return;
+
+    const isStickyEnabled = section.classList.contains('comp-sub-header--sticky');
+    let placeholder = null;
+
+    // Helper: calculate visible main site header height dynamically
+    function getHeaderOffset() {
+      const siteHeader = document.getElementById('SiteHeader') || document.querySelector('.site-header');
+      if (siteHeader) {
+        // If site header has class 'scrolled' or 'hidden', it has translated/moved off-screen
+        if (siteHeader.classList.contains('scrolled') || siteHeader.classList.contains('hidden')) {
+          return 0;
+        }
+
+        const rect = siteHeader.getBoundingClientRect();
+        // Check if header is actually visible in the viewport
+        if (rect.bottom > 0 && rect.height > 0) {
+          const style = window.getComputedStyle(siteHeader);
+          if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') {
+            return 0;
+          }
+          if (style.position === 'fixed' || style.position === 'sticky') {
+            return Math.max(0, Math.round(rect.bottom));
+          }
+        }
+      }
+      return 0;
+    }
+
+    // Keep CSS variable updated
+    function updateHeaderOffset() {
+      const offset = getHeaderOffset();
+      section.style.setProperty('--site-header-height', offset + 'px');
+      const parentSection = section.closest('.section-comp-sub-header') || section.parentElement;
+      if (parentSection && parentSection !== section) {
+        parentSection.style.setProperty('--site-header-height', offset + 'px');
+      }
+      return offset;
+    }
+
+    // Lenis / Virtual Scroll sticky fallback
+    if (isStickyEnabled) {
+      placeholder = document.createElement('div');
+      placeholder.className = 'comp-sub-header-placeholder';
+      placeholder.style.display = 'none';
+      placeholder.style.width = '100%';
+      section.parentNode.insertBefore(placeholder, section);
+
+      function updateStickyState() {
+        const headerOffset = updateHeaderOffset();
+        const placeholderRect = placeholder.getBoundingClientRect();
+        const sectionRect = section.getBoundingClientRect();
+
+        const triggerPoint = placeholder.style.display !== 'none' 
+          ? placeholderRect.top 
+          : sectionRect.top;
+
+        if (triggerPoint <= headerOffset) {
+          if (!section.classList.contains('is-fixed-stuck')) {
+            placeholder.style.height = section.offsetHeight + 'px';
+            placeholder.style.display = 'block';
+            section.classList.add('is-fixed-stuck');
+          }
+          section.style.top = headerOffset + 'px';
+        } else {
+          if (section.classList.contains('is-fixed-stuck')) {
+            section.classList.remove('is-fixed-stuck');
+            section.style.top = '';
+            placeholder.style.display = 'none';
+          }
+        }
+      }
+
+      window.addEventListener('scroll', updateStickyState, { passive: true });
+      window.addEventListener('resize', updateStickyState, { passive: true });
+      document.addEventListener('lenis:scroll', updateStickyState, { passive: true });
+
+      // Observe mutations/class changes on SiteHeader (e.g. .scrolled, .hidden, .fixed)
+      const siteHeader = document.getElementById('SiteHeader') || document.querySelector('.site-header');
+      if (siteHeader && window.MutationObserver) {
+        const headerObserver = new MutationObserver(() => {
+          updateStickyState();
+        });
+        headerObserver.observe(siteHeader, { attributes: true, attributeFilter: ['class', 'style'] });
+      }
+
+      // If Lenis is present on window, hook into its raf/scroll
+      function hookLenis() {
+        if (window.lenis && typeof window.lenis.on === 'function') {
+          window.lenis.on('scroll', updateStickyState);
+        }
+        if (window.gsap && window.gsap.ticker) {
+          window.gsap.ticker.add(updateStickyState);
+        }
+      }
+      hookLenis();
+      setTimeout(hookLenis, 500);
+      setTimeout(hookLenis, 1500);
+      setTimeout(hookLenis, 2500);
+      updateStickyState();
+    }
+
+    // Helper: Scroll active item to horizontal center of scroll container
+    function centerActiveItem(item, smooth = true) {
+      if (!item || !nav) return;
+      const navRect = nav.getBoundingClientRect();
+      const itemRect = item.getBoundingClientRect();
+
+      const currentScrollLeft = nav.scrollLeft;
+      const itemOffsetLeft = itemRect.left - navRect.left + currentScrollLeft;
+      const targetScroll = itemOffsetLeft - (navRect.width / 2) + (itemRect.width / 2);
+
+      nav.scrollTo({
+        left: Math.max(0, targetScroll),
+        behavior: smooth ? 'smooth' : 'auto'
+      });
+    }
+
+    // Initial center on load for the active item
+    function initActiveCenter() {
+      updateHeaderOffset();
+      const activeItem = section.querySelector('.comp-sub-header__item.is-active') || items[0];
+      if (activeItem) {
+        centerActiveItem(activeItem, false);
+      }
+    }
+
+    // Helper: Lenis-compatible smooth scrolling
+    function scrollToTarget(targetElem) {
+      if (!targetElem) return;
+      const headerOffset = getHeaderOffset();
+      const subHeaderHeight = section.offsetHeight || 79;
+      const totalOffset = headerOffset + subHeaderHeight + 10;
+
+      if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+        window.lenis.scrollTo(targetElem, { offset: -totalOffset, duration: 1.2 });
+      } else if (window.gsap && window.ScrollToPlugin) {
+        window.gsap.to(window, {
+          duration: 1.2,
+          scrollTo: { y: targetElem, offsetY: totalOffset },
+          ease: 'power2.inOut'
+        });
+      } else {
+        const targetPos = targetElem.getBoundingClientRect().top + window.pageYOffset - totalOffset;
+        window.scrollTo({
+          top: targetPos,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Click handler: Switch active class and center item
+    items.forEach((item) => {
+      const link = item.querySelector('.comp-sub-header__link');
+      if (!link) return;
+
+      link.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('data-target-id');
+        const href = this.getAttribute('href');
+
+        items.forEach((i) => i.classList.remove('is-active'));
+        item.classList.add('is-active');
+        centerActiveItem(item, true);
+
+        // Smooth scroll to section if targetId provided or hash link
+        if (targetId) {
+          const targetElem = document.getElementById(targetId);
+          if (targetElem) {
+            e.preventDefault();
+            scrollToTarget(targetElem);
+          }
+        } else if (href && href.startsWith('#') && href.length > 1) {
+          const targetElem = document.querySelector(href);
+          if (targetElem) {
+            e.preventDefault();
+            scrollToTarget(targetElem);
+          }
+        }
+      });
+    });
+
+    // Auto-highlight on scroll (Scrollspy) if items target on-page IDs
+    function getTargetsWithItems() {
+      const list = [];
+      items.forEach((item) => {
+        const link = item.querySelector('.comp-sub-header__link');
+        const rawTarget = link ? (link.getAttribute('data-target-id') || (link.getAttribute('href') && link.getAttribute('href').startsWith('#') ? link.getAttribute('href').replace('#', '') : null)) : null;
+        if (rawTarget) {
+          const cleanTarget = rawTarget.trim();
+          const elem = document.getElementById(cleanTarget) ||
+                       document.getElementById(cleanTarget.toLowerCase()) ||
+                       document.querySelector(`[data-section-id="${cleanTarget}"]`) ||
+                       document.querySelector(`.${cleanTarget}`);
+          if (elem) {
+            list.push({ elem, item });
+          }
+        }
+      });
+      return list;
+    }
+
+    let targetsWithItems = getTargetsWithItems();
+
+    function checkScrollspy() {
+      if (!targetsWithItems.length) {
+        targetsWithItems = getTargetsWithItems();
+        if (!targetsWithItems.length) return;
+      }
+
+      const headerOffset = getHeaderOffset();
+      const subHeaderHeight = section.offsetHeight || 79;
+      // Activation line: slightly below the sticky subheader
+      const referenceLine = headerOffset + subHeaderHeight + 60;
+
+      let activeTarget = null;
+
+      for (let i = 0; i < targetsWithItems.length; i++) {
+        const { elem, item } = targetsWithItems[i];
+        const rect = elem.getBoundingClientRect();
+        
+        // Check if the section's top has reached or passed the reference line,
+        // and its bottom hasn't scrolled completely past the reference line
+        if (rect.top <= referenceLine && rect.bottom > referenceLine) {
+          activeTarget = item;
+          break;
+        }
+      }
+
+      // If at the very bottom of page, activate last item
+      const isAtBottom = (window.innerHeight + window.pageYOffset) >= (document.documentElement.scrollHeight - 60);
+      if (isAtBottom && targetsWithItems.length > 0) {
+        activeTarget = targetsWithItems[targetsWithItems.length - 1].item;
+      }
+
+      // If above the first section, keep first item active
+      if (!activeTarget && targetsWithItems.length > 0) {
+        const firstElemRect = targetsWithItems[0].elem.getBoundingClientRect();
+        if (firstElemRect.top > referenceLine) {
+          activeTarget = targetsWithItems[0].item;
+        }
+      }
+
+      if (activeTarget && !activeTarget.classList.contains('is-active')) {
+        items.forEach((it) => it.classList.remove('is-active'));
+        activeTarget.classList.add('is-active');
+        centerActiveItem(activeTarget, true);
+      }
+    }
+
+    // Scroll listeners for standard scroll, window resize, Lenis, and GSAP ticker
+    window.addEventListener('scroll', checkScrollspy, { passive: true });
+    window.addEventListener('resize', checkScrollspy, { passive: true });
+    document.addEventListener('lenis:scroll', checkScrollspy, { passive: true });
+
+    function hookScrollspyToLenis() {
+      if (window.lenis && typeof window.lenis.on === 'function') {
+        window.lenis.on('scroll', checkScrollspy);
+      }
+      if (window.gsap && window.gsap.ticker) {
+        window.gsap.ticker.add(checkScrollspy);
+      }
+      targetsWithItems = getTargetsWithItems();
+      checkScrollspy();
+    }
+    hookScrollspyToLenis();
+    setTimeout(hookScrollspyToLenis, 300);
+    setTimeout(hookScrollspyToLenis, 1000);
+    setTimeout(hookScrollspyToLenis, 2500);
+
+    window.addEventListener('load', initActiveCenter);
+    setTimeout(initActiveCenter, 200);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Comp Sub Header",
+  "tag": "section",
+  "class": "section-comp-sub-header",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "border_bottom_color",
+      "label": "Bottom Border Color",
+      "default": "#EAEAEA"
+    },
+    {
+      "type": "color",
+      "id": "active_bar_color",
+      "label": "Active Indicator Bar Color",
+      "default": "#0066FF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "active_text_color",
+      "label": "Active Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "bar_height",
+      "label": "Header Height (Desktop)",
+      "min": 50,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "default": 79
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max Container Width (px)",
+      "min": 1000,
+      "max": 1920,
+      "step": 20,
+      "unit": "px",
+      "default": 1440
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Items Alignment (Desktop)",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "flex-start", "label": "Left" },
+        { "value": "flex-end", "label": "Right" },
+        { "value": "space-between", "label": "Space Between" },
+        { "value": "space-around", "label": "Space Around" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Make Sticky on Scroll",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_activate_first",
+      "label": "Auto-activate first item if none active",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Navigation Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Item Label",
+          "default": "RAINMAKER"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL (Optional if using Section ID)"
+        },
+        {
+          "type": "text",
+          "id": "target_id",
+          "label": "Target Section ID (Optional for on-page scroll)",
+          "info": "e.g. rainmaker or CompGameAI. Smooth scrolls to section on click."
+        },
+        {
+          "type": "checkbox",
+          "id": "is_active",
+          "label": "Set as Active Item",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comp Sub Header",
+      "blocks": [
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "RAINMAKER",
+            "is_active": true
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "CAPTAIN"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "PLAYER"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "RINGER"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "title": "PLAYMAKER"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

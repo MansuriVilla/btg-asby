@@ -1,0 +1,483 @@
+{% comment %}
+  Component: comp-faq-accordion
+  Usage: Handles accordion interaction, GSAP smooth stagger tab switching, and accessibility/screen-reader announcements.
+{% endcomment %}
+
+{% liquid
+  assign s_id = section_id | default: 'faq-acc'
+%}
+
+<div class="comp-faq-accordion-wrapper">
+  <!-- Screen reader live announcement region -->
+  <div
+    class="comp-faq-sr-announcer sr-only"
+    id="comp-sr-{{ s_id }}"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  ></div>
+
+  <div class="comp-faq-accordion" id="comp-accordion-{{ s_id }}" role="presentation">
+    {{ content }}
+  </div>
+
+  {% if enable_load_more %}
+    <div class="comp-faq-load-more-wrap" id="comp-faq-load-more-wrap-{{ s_id }}" style="display: none;">
+      <button
+        type="button"
+        class="comp-faq-load-more-btn custom_subHeading-text"
+        id="comp-faq-load-more-btn-{{ s_id }}"
+        aria-label="Load more frequently asked questions"
+      >
+        <span>{{ load_more_text | default: 'LOAD MORE QUESTIONS' }}</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+  .comp-faq-accordion-wrapper {
+    width: 100%;
+    position: relative;
+  }
+
+  .comp-faq-accordion {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  /* Screen reader only utility */
+  .sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  /* Shared FAQ item styles */
+  .comp-faq-item {
+    border-bottom: 1px solid #e5e7eb;
+    background: transparent;
+    width: 100%;
+    will-change: transform, opacity;
+  }
+
+  .comp-faq-item.is-hidden {
+    display: none !important;
+  }
+
+  .comp-faq-item__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: clamp(0.95rem, 0.75rem + 0.6vw, 1.35rem) 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    gap: clamp(0.75rem, 0.5rem + 0.6vw, 1.25rem);
+    font-family: inherit;
+    outline: none;
+  }
+
+  .comp-faq-item__header:focus-visible {
+    outline: 2px solid #175cff;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .comp-faq-item__question {
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-size: clamp(0.95rem, 0.88rem + 0.35vw, 1.125rem);
+    color: #0f172a;
+    line-height: 1.38;
+    transition: color 0.2s ease;
+  }
+
+  .comp-faq-item__header:hover .comp-faq-item__question {
+    color: #175cff;
+  }
+
+  .comp-faq-item__icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .comp-faq-item__body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .comp-faq-item.is-open .comp-faq-item__body {
+    grid-template-rows: 1fr;
+  }
+
+  .comp-faq-item__content {
+    overflow: hidden;
+  }
+
+  .comp-faq-item__text {
+    padding-bottom: clamp(1rem, 0.85rem + 0.5vw, 1.45rem);
+    font-family: 'Blue Tees Paragraph', sans-serif;
+    font-size: clamp(0.85rem, 0.8rem + 0.2vw, 0.95rem);
+    line-height: 1.65;
+    color: #475569;
+  }
+
+  .comp-faq-item__text p {
+    padding-top: 0;
+    margin: 0 0 clamp(0.5rem, 0.35rem + 0.3vw, 0.75rem) 0;
+  }
+
+  .comp-faq-item__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .comp-faq-item.is-paged-hidden {
+    display: none !important;
+  }
+
+  /* Load More Button */
+  .comp-faq-load-more-wrap {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .comp-faq-load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: transparent;
+    border: 1.5px solid #0f172a;
+    border-radius: 100px;
+    color: #0f172a;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .comp-faq-load-more-btn:hover {
+    background: #0f172a;
+    color: #ffffff;
+  }
+
+  .comp-faq-load-more-btn svg {
+    transition: transform 0.25s ease;
+  }
+
+  .comp-faq-load-more-btn:hover svg {
+    transform: translateY(2px);
+  }
+
+  .comp-faq-load-more-btn.is-expanded svg {
+    transform: rotate(180deg);
+  }
+
+  .comp-faq-load-more-btn.is-expanded:hover svg {
+    transform: rotate(180deg) translateY(2px);
+  }
+</style>
+
+<script>
+  (function() {
+    function initFaqAccordion() {
+      const container = document.getElementById('comp-accordion-{{ s_id }}');
+      const announcer = document.getElementById('comp-sr-{{ s_id }}');
+      const tabsNav = document.getElementById('comp-tabs-{{ s_id }}');
+      const loadMoreWrap = document.getElementById('comp-faq-load-more-wrap-{{ s_id }}');
+      const loadMoreBtn = document.getElementById('comp-faq-load-more-btn-{{ s_id }}');
+      const enableLoadMore = {{ enable_load_more | default: false | json }};
+      const PAGE_LIMIT = 5;
+      let isExpanded = false;
+
+      if (!container) return;
+
+      const items = Array.from(container.querySelectorAll('.comp-faq-item'));
+
+      // Helper to handle load more pagination
+      function applyPagination(visibleItems, animateReveal) {
+        if (!enableLoadMore) {
+          if (loadMoreWrap) loadMoreWrap.style.display = 'none';
+          return;
+        }
+
+        if (visibleItems.length <= PAGE_LIMIT) {
+          visibleItems.forEach(function(item) {
+            item.classList.remove('is-paged-hidden');
+          });
+          if (loadMoreWrap) loadMoreWrap.style.display = 'none';
+          return;
+        }
+
+        if (loadMoreWrap) loadMoreWrap.style.display = 'flex';
+        const labelSpan = loadMoreBtn ? loadMoreBtn.querySelector('span') : null;
+
+        if (isExpanded) {
+          if (loadMoreBtn) loadMoreBtn.classList.add('is-expanded');
+          if (labelSpan) labelSpan.textContent = 'SHOW LESS';
+          const newlyShown = [];
+          visibleItems.forEach(function(item, idx) {
+            if (idx >= PAGE_LIMIT && item.classList.contains('is-paged-hidden')) {
+              newlyShown.push(item);
+            }
+            item.classList.remove('is-paged-hidden');
+          });
+
+          if (animateReveal && newlyShown.length > 0) {
+            if (typeof gsap !== 'undefined') {
+              gsap.fromTo(
+                newlyShown,
+                { opacity: 0, y: 16 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.35,
+                  stagger: 0.05,
+                  ease: 'power2.out',
+                  clearProps: 'transform,opacity'
+                }
+              );
+            }
+          }
+        } else {
+          if (loadMoreBtn) loadMoreBtn.classList.remove('is-expanded');
+          if (labelSpan) labelSpan.textContent = {{ load_more_text | default: 'LOAD MORE QUESTIONS' | json }};
+          visibleItems.forEach(function(item, idx) {
+            if (idx >= PAGE_LIMIT) {
+              item.classList.add('is-paged-hidden');
+              item.classList.remove('is-open');
+              const hdr = item.querySelector('.comp-faq-item__header');
+              const icn = item.querySelector('.comp-faq-icon');
+              if (hdr) hdr.setAttribute('aria-expanded', 'false');
+              if (icn) icn.classList.remove('is-open');
+            } else {
+              item.classList.remove('is-paged-hidden');
+            }
+          });
+        }
+      }
+
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+          isExpanded = !isExpanded;
+          // Find currently active visible items
+          const visibleItems = items.filter(function(item) {
+            return !item.classList.contains('is-hidden');
+          });
+          applyPagination(visibleItems, true);
+          if (!isExpanded && container) {
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        });
+      }
+
+      // Accordion click expand / collapse
+      items.forEach(function(item) {
+        const header = item.querySelector('.comp-faq-item__header');
+        const icon = item.querySelector('.comp-faq-icon');
+
+        if (!header) return;
+
+        header.addEventListener('click', function() {
+          const isOpen = item.classList.contains('is-open');
+
+          // Close all siblings
+          items.forEach(function(otherItem) {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              const otherHeader = otherItem.querySelector('.comp-faq-item__header');
+              const otherIcon = otherItem.querySelector('.comp-faq-icon');
+              if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+              if (otherIcon) otherIcon.classList.remove('is-open');
+            }
+          });
+
+          // Toggle current
+          if (isOpen) {
+            item.classList.remove('is-open');
+            header.setAttribute('aria-expanded', 'false');
+            if (icon) icon.classList.remove('is-open');
+          } else {
+            item.classList.add('is-open');
+            header.setAttribute('aria-expanded', 'true');
+            if (icon) icon.classList.add('is-open');
+          }
+        });
+      });
+
+      // Tab switching with GSAP height morph & staggered entry
+      if (tabsNav) {
+        const tabBtns = Array.from(tabsNav.querySelectorAll('.comp-faq-tabs__btn'));
+
+        function switchTab(btn, isInitial, isKeyboard) {
+          const category = btn.getAttribute('data-category');
+          const tabLabel = btn.querySelector('.comp-faq-tabs__btn-text')?.textContent?.trim() || category;
+
+          // Update ARIA tab states
+          tabBtns.forEach(function(b) {
+            const isTarget = (b === btn);
+            b.classList.toggle('is-active', isTarget);
+            b.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+            b.setAttribute('tabindex', isTarget ? '0' : '-1');
+          });
+
+          if (isKeyboard) {
+            btn.focus();
+          }
+
+          // Height locking to eliminate jumpiness
+          const prevHeight = container.getBoundingClientRect().height;
+
+          // Filter matching items
+          const visibleItems = [];
+          items.forEach(function(item) {
+            const itemCat = item.getAttribute('data-category');
+            const matches = (!category || category === 'all' || itemCat === category);
+
+            if (matches) {
+              item.classList.remove('is-hidden');
+              visibleItems.push(item);
+            } else {
+              item.classList.add('is-hidden');
+              item.classList.remove('is-open');
+              const hdr = item.querySelector('.comp-faq-item__header');
+              const icn = item.querySelector('.comp-faq-icon');
+              if (hdr) hdr.setAttribute('aria-expanded', 'false');
+              if (icn) icn.classList.remove('is-open');
+            }
+          });
+
+          // Auto-open first item in selected tab
+          visibleItems.forEach(function(item, idx) {
+            const isFirst = (idx === 0);
+            item.classList.toggle('is-open', isFirst);
+            const hdr = item.querySelector('.comp-faq-item__header');
+            const icn = item.querySelector('.comp-faq-icon');
+            if (hdr) hdr.setAttribute('aria-expanded', isFirst ? 'true' : 'false');
+            if (icn) icn.classList.toggle('is-open', isFirst);
+          });
+
+          // Screen reader live status announcement
+          if (announcer) {
+            announcer.textContent = 'Showing ' + visibleItems.length + ' questions for ' + tabLabel + '.';
+          }
+
+          // Reset pagination state on tab switch
+          isExpanded = false;
+          applyPagination(visibleItems, false);
+
+          // If initial load or GSAP missing, skip animation
+          if (isInitial || typeof gsap === 'undefined' || visibleItems.length === 0) {
+            return;
+          }
+
+          // Measure new target height
+          container.style.height = 'auto';
+          const newHeight = container.getBoundingClientRect().height;
+          container.style.height = prevHeight + 'px';
+          container.style.overflow = 'hidden';
+
+          // GSAP smooth container height transition
+          gsap.to(container, {
+            height: newHeight,
+            duration: 0.35,
+            ease: 'power2.out',
+            onComplete: function() {
+              container.style.height = 'auto';
+              container.style.overflow = '';
+            }
+          });
+
+          // GSAP smooth staggered entry for items
+          gsap.fromTo(
+            visibleItems,
+            { opacity: 0, y: 14 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.3,
+              stagger: 0.05,
+              ease: 'power2.out',
+              clearProps: 'transform,opacity'
+            }
+          );
+        }
+
+        // Click handler
+        tabBtns.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            switchTab(this, false);
+          });
+        });
+
+        // WAI-ARIA Keyboard navigation: ArrowLeft / ArrowRight / Home / End
+        tabsNav.addEventListener('keydown', function(e) {
+          const activeIndex = tabBtns.findIndex(b => b.getAttribute('aria-selected') === 'true');
+          if (activeIndex === -1) return;
+
+          let targetIndex = null;
+          if (e.key === 'ArrowRight') {
+            targetIndex = (activeIndex + 1) % tabBtns.length;
+          } else if (e.key === 'ArrowLeft') {
+            targetIndex = (activeIndex - 1 + tabBtns.length) % tabBtns.length;
+          } else if (e.key === 'Home') {
+            targetIndex = 0;
+          } else if (e.key === 'End') {
+            targetIndex = tabBtns.length - 1;
+          }
+
+          if (targetIndex !== null) {
+            e.preventDefault();
+            switchTab(tabBtns[targetIndex], false, true);
+          }
+        });
+
+        // Initial setup for default active tab
+        const initialActive = tabsNav.querySelector('.comp-faq-tabs__btn.is-active') || tabBtns[0];
+        if (initialActive) {
+          switchTab(initialActive, true);
+        }
+      } else {
+        // No category tabs: show all FAQs normally
+        items.forEach(function(item, idx) {
+          item.classList.remove('is-hidden');
+          const isInitiallyOpen = (idx === 0) || item.classList.contains('is-open');
+          item.classList.toggle('is-open', isInitiallyOpen);
+          const hdr = item.querySelector('.comp-faq-item__header');
+          const icn = item.querySelector('.comp-faq-icon');
+          if (hdr) hdr.setAttribute('aria-expanded', isInitiallyOpen ? 'true' : 'false');
+          if (icn) icn.classList.toggle('is-open', isInitiallyOpen);
+        });
+        isExpanded = false;
+        applyPagination(items, false);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFaqAccordion);
+    } else {
+      initFaqAccordion();
+    }
+  })();
+</script>

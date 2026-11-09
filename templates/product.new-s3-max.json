@@ -40,11 +40,11 @@
             "cta_note_text": ""
           }
         },
-        "tab_A4eama": {
+        "tab_MxxYqM": {
           "type": "tab",
           "settings": {
             "title": "FEATURES",
-            "content": "<img src=\"https://cdn.shopify.com/s/files/1/0057/8958/1381/files/ContentArea_70bdf5b8-78e1-45b1-a7d5-730bb13b52c2.png?v=1772609249\" alt=\"Blue Tees Series 3 Max golf rangefinder features including Crystal Clear Display, Magnetic Strip, Slope Switch, Red/Black Control, Active Tracking, Advanced Flag Lock, Pulse Vibration, 1000 Yard Range, Waterproof USB-C, and Water Resistant\">",
+            "content": "{%render 'pdp-feature-content' %}",
             "page": ""
           }
         },
@@ -70,7 +70,7 @@
         "description_WHDbc7",
         "variant_picker",
         "buy_buttons",
-        "tab_A4eama",
+        "tab_MxxYqM",
         "tab_8BNUPf",
         "tab_e3Mfgq"
       ],

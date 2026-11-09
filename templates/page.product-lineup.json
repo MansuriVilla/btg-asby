@@ -1,0 +1,290 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_hero_v2": true,
+        "hero_normal": false,
+        "align_content_left": true,
+        "bg_clr": "",
+        "custom_image": "shopify://shop_images/Frame_1410105901.png",
+        "no_bg_scale": false,
+        "has_mobile_image": true,
+        "custom_image_mobile": "shopify://shop_images/Frame_1410105902.png",
+        "eyebrow_text": "THE BLUE TEES GOLF PRODUCT LINEUP",
+        "custom_title": "BUILT TO PERFORM. <br>\npriced to play.",
+        "custom_description": "From the practice session to the final putt. Explore five product lines built to bring more insight, confidence, and enjoyment to your game.",
+        "hero_cta_text": "SHOP THE LINEUP",
+        "hero_cta_url": "shopify://collections/all-products",
+        "text_color": "#ffffff",
+        "hide_default_content": false
+      }
+    },
+    "comp_sub_header_HcK7Qn": {
+      "type": "comp-sub-header",
+      "blocks": {
+        "nav_item_TFzYFg": {
+          "type": "nav_item",
+          "settings": {
+            "title": "RAINMAKER",
+            "link_url": "",
+            "target_id": "rainmaker",
+            "is_active": true
+          }
+        },
+        "nav_item_7jTajU": {
+          "type": "nav_item",
+          "settings": {
+            "title": "CAPTAIN",
+            "link_url": "",
+            "target_id": "captains",
+            "is_active": false
+          }
+        },
+        "nav_item_XJYaWQ": {
+          "type": "nav_item",
+          "settings": {
+            "title": "PLAYER",
+            "link_url": "",
+            "target_id": "player",
+            "is_active": false
+          }
+        },
+        "nav_item_cyqYea": {
+          "type": "nav_item",
+          "settings": {
+            "title": "RINGER",
+            "link_url": "",
+            "target_id": "ringer",
+            "is_active": false
+          }
+        },
+        "nav_item_aQHamY": {
+          "type": "nav_item",
+          "settings": {
+            "title": "PLAYMAKER",
+            "link_url": "",
+            "target_id": "playmaker",
+            "is_active": false
+          }
+        }
+      },
+      "block_order": [
+        "nav_item_TFzYFg",
+        "nav_item_7jTajU",
+        "nav_item_XJYaWQ",
+        "nav_item_cyqYea",
+        "nav_item_aQHamY"
+      ],
+      "name": "Comp Sub Header",
+      "settings": {
+        "bg_color": "#ffffff",
+        "border_bottom_color": "#eaeaea",
+        "active_bar_color": "#0066ff",
+        "text_color": "#000000",
+        "active_text_color": "#000000",
+        "bar_height": 79,
+        "max_width": 1440,
+        "alignment": "flex-end",
+        "sticky_header": true,
+        "auto_activate_first": true
+      }
+    },
+    "comp_product_showcase_86Hjbh": {
+      "type": "comp-product-showcase",
+      "blocks": {
+        "product_card_kQWJii": {
+          "type": "product_card",
+          "settings": {
+            "product": "rainmaker",
+            "image": "shopify://shop_images/Rainmaker_HERO_packaging_v2_1_086d70ba-c5a3-4f89-8f4b-37dd176c2e57.png",
+            "title": "Rainmaker Portable Launch Monitor",
+            "description": "",
+            "btn_label_enable": true,
+            "button_link": "",
+            "button_label": "EXPLORE"
+          }
+        }
+      },
+      "block_order": [
+        "product_card_kQWJii"
+      ],
+      "name": "Comp Product Showcase",
+      "settings": {
+        "custom_section_id": "rainmaker",
+        "bg_color": "#ffffff",
+        "accent_color": "#004df5",
+        "eyebrow": "PRACTICE WITH PURPOSE",
+        "heading": "RAINMAKER<br>LAUNCH MONITORS",
+        "description": "Understand your swing beyond what you see. Rainmaker and the LAUNCH app bring performance data and ball flight insights to your practice, helping you track key metrics and build a more consistent game.",
+        "main_image": "shopify://shop_images/Frame_1171277846.png",
+        "max_width": 1440,
+        "padding_top": 48,
+        "padding_bottom": 60
+      }
+    },
+    "comp_product_showcase_zichMj": {
+      "type": "comp-product-showcase",
+      "blocks": {
+        "product_card_XyrpPa": {
+          "type": "product_card",
+          "settings": {
+            "product": "captain-pro",
+            "image": "shopify://shop_images/Group_1410105794.png",
+            "title": "Captain Pro Connected Rangefinder",
+            "description": "",
+            "btn_label_enable": true,
+            "button_link": "",
+            "button_label": ""
+          }
+        },
+        "product_card_7AxAQh": {
+          "type": "product_card",
+          "settings": {
+            "product": "captain-air",
+            "image": "shopify://shop_images/CaptainAir_008_02_3ef376dc-7daa-4a9a-9d9a-cc03e4fb0a09.png",
+            "title": "Captain Air Connected Rangefinder",
+            "description": "",
+            "btn_label_enable": true,
+            "button_link": "",
+            "button_label": "EXPLORE"
+          }
+        }
+      },
+      "block_order": [
+        "product_card_XyrpPa",
+        "product_card_7AxAQh"
+      ],
+      "name": "Comp Product Showcase",
+      "settings": {
+        "custom_section_id": "captains",
+        "bg_color": "#ffffff",
+        "accent_color": "#004df5",
+        "eyebrow": "KNOW THE DISTANCE",
+        "heading": "CAPTAIN <br> rangefinders",
+        "description": "Every shot starts with knowing your distance. The Captain family combines precision laser measurement with golf-focused features to help you make confident decisions on the course.",
+        "main_image": "shopify://shop_images/Frame_1171277846-1.png",
+        "max_width": 1440,
+        "padding_top": 48,
+        "padding_bottom": 60
+      }
+    },
+    "comp_product_showcase_c9zBxK": {
+      "type": "comp-product-showcase",
+      "blocks": {
+        "product_card_6VphCY": {
+          "type": "product_card",
+          "settings": {
+            "product": "player-pro",
+            "image": "shopify://shop_images/PlayerPro_HERO_UI_1_2.png",
+            "title": "Player Pro Golf Speaker",
+            "description": "",
+            "btn_label_enable": true,
+            "button_link": "",
+            "button_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_card_6VphCY"
+      ],
+      "name": "Comp Product Showcase",
+      "settings": {
+        "custom_section_id": "player",
+        "bg_color": "#ffffff",
+        "accent_color": "#004df5",
+        "eyebrow": "Bring your own soundtrack",
+        "heading": "PLAYER  <br> GOLF SPEAKERS",
+        "description": "The Player Pro brings premium audio to your golf experience, with GPS-equipped models that keep course information close. Player Pro golf speakers help set the tone from the first tee to the ride back.",
+        "main_image": "shopify://shop_images/PlayerPro_012_2_65de3e22-a1dd-4f93-81ea-28880f692716.png",
+        "max_width": 1440,
+        "padding_top": 48,
+        "padding_bottom": 60
+      }
+    },
+    "comp_product_showcase_mGpG4y": {
+      "type": "comp-product-showcase",
+      "blocks": {
+        "product_card_CJgYym": {
+          "type": "product_card",
+          "settings": {
+            "product": "ringer",
+            "image": "shopify://shop_images/Ringer_PDP_Black_1_1.png",
+            "title": "Ringer Handheld GPS",
+            "description": "",
+            "btn_label_enable": true,
+            "button_link": "",
+            "button_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_card_CJgYym"
+      ],
+      "name": "Comp Product Showcase",
+      "settings": {
+        "custom_section_id": "ringer",
+        "bg_color": "#ffffff",
+        "accent_color": "#004df5",
+        "eyebrow": "See the hole ahead",
+        "heading": "RINGER <br> HANDHELD GPS",
+        "description": "The Ringer puts golf GPS information in a dedicated handheld device. With touchscreen navigation and a magnetic design, Ringer devices keep course information accessible throughout your round.",
+        "main_image": "shopify://shop_images/Render_0010.png",
+        "max_width": 1440,
+        "padding_top": 48,
+        "padding_bottom": 60
+      }
+    },
+    "comp_product_showcase_WwJrrF": {
+      "type": "comp-product-showcase",
+      "blocks": {
+        "product_card_erBHgi": {
+          "type": "product_card",
+          "settings": {
+            "product": "playmaker-watch",
+            "image": "shopify://shop_images/PlayMaker__PDP_1_1.png",
+            "title": "",
+            "description": "The PlayMaker+ watch is no longer offered for purchase. This section preserves the product family's place in the Blue Tees Golf collection.",
+            "btn_label_enable": false,
+            "button_link": "",
+            "button_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_card_erBHgi"
+      ],
+      "name": "Comp Product Showcase",
+      "settings": {
+        "custom_section_id": "playmaker",
+        "bg_color": "#ffffff",
+        "accent_color": "#004df5",
+        "eyebrow": "Stay in the moment",
+        "heading": "PLAYMAKER <br> GPS GOLF WATCHes",
+        "description": "Golf insights, right on your wrist. The PlayMaker+ represents Blue Tees' approach to wearable golf technology, with GPS distances and on-course information designed to not interfere with your swing.",
+        "main_image": "shopify://shop_images/Playmaker__Still_19_edited_UI_1.png",
+        "max_width": 1440,
+        "padding_top": 48,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "main",
+    "comp_sub_header_HcK7Qn",
+    "comp_product_showcase_86Hjbh",
+    "comp_product_showcase_zichMj",
+    "comp_product_showcase_c9zBxK",
+    "comp_product_showcase_mGpG4y",
+    "comp_product_showcase_WwJrrF"
+  ]
+}

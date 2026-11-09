@@ -66,7 +66,10 @@
               {%- endcase -%}
             </div>
           {%- endfor -%}
-
+          {%- render 'schema-collection-itemlist',
+            target_collection: collection,
+            target_products: collection.products
+          -%}
           {%- endpaginate -%}
         </div>
       </div>
@@ -85,7 +88,7 @@
 {% endstyle %}
 {%- endif -%}
 
-<script type="application/ld+json">
+{% comment %} <script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "CollectionPage",
@@ -103,7 +106,7 @@
   {% endif %}
   "name": {{ collection.title | json }}
 }
-</script>
+</script> {% endcomment %}
 
 {% schema %}
 {

@@ -144,7 +144,7 @@
                       loop 
                       muted 
                       playsinline
-                      preload="metadata"
+                      preload="none"
                     >
                       <source src="{{ desktop_video }}" type="video/mp4">
                       Your browser does not support the video tag.
@@ -168,7 +168,7 @@
                       loop 
                       muted 
                       playsinline
-                      preload="metadata"
+                      preload="none"
                     >
                       <source src="{{ mobile_video }}" type="video/mp4">
                       Your browser does not support the video tag.
@@ -182,6 +182,7 @@
 
               {% else %}
                 <!-- Image Content -->
+                {% assign slide_alt = block.settings.heading | strip_html | escape %}
                 <picture>
                   {% if block.settings.image_desktop %}
                     <source media="(min-width: 861px)" srcset="{{ block.settings.image_desktop | img_url: 'master' }}">
@@ -193,7 +194,7 @@
                     class="am-slider_media am-slider_img" 
                     decoding="async" 
                     src="{{ block.settings.image_desktop | default: block.settings.image_mobile | img_url: 'master' }}" 
-                    alt="{{ block.settings.heading }}"
+                    alt="{{ slide_alt }}"
                   >
                 </picture>
               {% endif %}

@@ -1,10 +1,11 @@
 {{ 'flipclock.css' | asset_url | stylesheet_tag }}
-
 <div class="countdown-timer">
-  {% comment %} <div class="countdown-title">  EXCLUSIVE OFFERS </div> {% endcomment %}
+<div class="countdown-timer_inner">
+  <div class="countdown-title">  COUNTDOWN TO BLACK FRIDAY </div>
   <div class="clock"></div>
   {% comment %} <div class="message">60 DAY RETURNS & FREE SHIPPING</div> {% endcomment %}
     {% comment %} <a href="/pages/offer" class="shop-now-btn">SHOP NOW</a> {% endcomment %}
+</div>
 </div>
 <style>
    .shop-now-btn {
@@ -25,14 +26,35 @@ margin: 34px 0 20px;
      min-height: inherit !important;
 }
 
+.countdown-title{
+        padding-bottom: 35px;
+}
+@media only screen and (min-width:991px){
+.flip-clock-wrapper ul{    width: 51px;
+    height: 51px;}
+
+    
+    .flip-clock-wrapper ul li a div div.inn{font-size: 37px  ;}
+    .countdown-timer .clock.flip-clock-wrapper{max-width: 550px;}
+    
+.flip-clock-divider .flip-clock-label{right: -76px;}
+}
+.flip-clock-wrapper ul li a div div.inn{    background: linear-gradient(180deg, #323232 0%, #151515 100%);
+    border-radius: 7px; display: flex;
+    justify-content: center;
+    align-items: center;}
+
  .shop-now-btn:hover {
   background-color: var(--new-blue);
    color:#fff;
 }
   .countdown-timer {
   text-align: center;
-        background: #0000 !important;
+        background: #000 !important;
+            padding-block: clamp(20px, 2vw, 30px) clamp(15px, 1.3vw, 20px);
 }
+
+
 
 @media only screen and (max-width:560px){
   .shop-now-btn{
@@ -41,6 +63,9 @@ margin: 34px 0 20px;
     max-width: 138px;
     font-size:12px;
   }
+  .countdown-title{
+    font-size:12px;
+}
 }
   
 </style>
@@ -126,12 +151,12 @@ $(document).ready(function() {
     var clock;
 
     // -------------------------------------------------
-    // 1. Target UNIX timestamp (seconds) for 2025-11-22 12:00 PM ET
+    // 1. Target UNIX timestamp (seconds) for 2026-11-29 11:59 PM PST
     // -------------------------------------------------
-    // 12:00 PM ET = 16:00 UTC  (ET = UTC-4 during standard time)
-    // Date.UTC(2025,10,22,16,0,0) → month is 0-based → 10 = November
-    var targetUnix = Math.floor(Date.UTC(2025, 10, 22, 16, 0, 0) / 1000);
-    // → 1765713600
+    // 11:59 PM PST = 07:59 UTC on November 30
+    // Date.UTC(year, monthIndex, day, hour, min, sec) → month is 0-based (10 = November)
+    var targetUnix = Math.floor(Date.UTC(2026, 10, 30, 7, 59, 0) / 1000);
+    // → 1796025540
 
     // -------------------------------------------------
     // 2. Current UNIX timestamp (seconds)
@@ -142,7 +167,6 @@ $(document).ready(function() {
     // 3. Seconds remaining (never negative)
     // -------------------------------------------------
     var secondsLeft = Math.max(1, targetUnix - nowUnix);
-    // → ~ 6 days 23 h 49 min from 2025-11-15 11:11 AM IST
 
     clock = $('.clock').FlipClock({
         clockFace: 'DailyCounter',

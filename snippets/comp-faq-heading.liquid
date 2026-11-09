@@ -1,0 +1,35 @@
+{% comment %}
+  Component: comp-faq-heading
+  Usage: {% render 'comp-faq-heading', title: 'GOT QUESTIONS?\nWE’VE GOT ANSWERS.', tag: 'h2' %}
+{% endcomment %}
+
+{% liquid
+  assign heading_text = title | default: "GOT QUESTIONS?<br>WE'VE GOT ANSWERS."
+  assign heading_tag = tag | default: 'h2'
+  assign heading_color = color | default: '#0f172a'
+  assign heading_class = class | default: ''
+%}
+
+<div class="comp-faq-heading-wrapper {{ heading_class }}">
+  <{{ heading_tag }} class="comp-faq-heading" style="--comp-heading-color: {{ heading_color }};">
+    {{ heading_text | newline_to_br }}
+  </{{ heading_tag }}>
+</div>
+
+<style>
+  .comp-faq-heading-wrapper {
+    width: 100%;
+    margin-bottom: clamp(1.1rem, 0.9rem + 1vw, 1.75rem);
+  }
+
+  .comp-faq-heading {
+    margin: 0;
+    padding: 0;
+    font-family: 'Blue Tees Headline Italic', sans-serif;
+    color: var(--comp-heading-color, #0f172a);
+    text-transform: uppercase;
+    font-size: clamp(26px, 1.2rem + 2.1vw, 32px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+</style>

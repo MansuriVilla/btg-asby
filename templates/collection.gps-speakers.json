@@ -108,7 +108,8 @@
         "filter_style": "sidebar",
         "enable_color_swatches": false,
         "enable_sort": false,
-        "accURL": ""
+        "accURL": "",
+        "schema_starting_position": 1
       }
     },
     "custom_video_block_9Wqq87": {
@@ -150,7 +151,8 @@
         "filter_style": "sidebar",
         "enable_color_swatches": false,
         "enable_sort": false,
-        "accURL": "accessories"
+        "accURL": "accessories",
+        "schema_starting_position": 5
       }
     },
     "gps_platform_section_z4DFjm": {

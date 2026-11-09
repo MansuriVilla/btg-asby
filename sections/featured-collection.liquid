@@ -17,7 +17,7 @@
         </h2>
         {%- if section.settings.view_all and section.settings.rows == 1 -%}
           <a
-            href="{{ collections[section.settings.home_featured_products].url }}"
+            href="{{ section.settings.home_featured_products_custom_link | default: collections[section.settings.home_featured_products].url }}"
             class="btn btn--secondary btn--small section-header__link"
           >
             {% comment %} {{- 'collections.general.all_of_collection' | t -}} {% endcomment %}
@@ -138,6 +138,11 @@
       "type": "collection",
       "id": "home_featured_products",
       "label": "t:sections.featured-collection.settings.home_featured_products.label"
+    },
+    {
+      "type": "url",
+      "id": "home_featured_products_custom_link",
+      "label": "Custom Link"
     },
     {
       "type": "range",

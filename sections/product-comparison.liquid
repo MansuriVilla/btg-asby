@@ -52,12 +52,13 @@
           <article class="product-comparison__product-card" {{ block.shopify_attributes }}>
             <figure class="product-comparison__product-image-wrapper">
               {%- if block.settings.product_image != blank -%}
+                {%- assign product_alt = block.settings.product_name | strip_html | escape | default: 'Product Image' -%}
                 {{
                   block.settings.product_image
                   | image_url: width: 300
                   | image_tag:
                     class: 'product-comparison__product-image',
-                    alt: block.settings.product_name,
+                    alt: product_alt,
                     loading: 'lazy'
                 }}
               {%- else -%}

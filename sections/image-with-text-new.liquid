@@ -37,42 +37,50 @@
           width="100%"
         >
       {% endif %}
+      {% if section.settings.eyebrow != blank %}
+      <span class="comp-setup-switcher__eyebrow custom_subHeading-text">
+        {{ section.settings.eyebrow }}
+      </span>
+      {% endif %}
       {% if section.settings.contentQuote != blank %}
         <h3 class="content-floating__quote custom_heading">{{ section.settings.contentQuote }}</h3>
       {% endif %}
       {% if section.settings.contentCaption != blank %}
         <span class="content-floating__caption">{{ section.settings.contentCaption }}</span>
       {% endif %}
+      {% if section.settings.description != blank %}
+        <p class="content-floating__description">{{ section.settings.description }}</p>
+      {% endif %}
       {% if sale_page %}
         <div class="content-floating__price custom_heading">
-          <div class="floating_price--area" style="display:flex;gap: clamp(12px,2vw, 20px);">
-          <p class="floating-price__actual">{{ all_products.rainmaker.price | money }}</p>
+          <div class="floating_price--area" style="display:flex;align-items: center;gap: clamp(12px,2vw, 20px);">
+            <p class="floating-price__actual">{{ all_products.rainmaker.price | money }}</p>
 
-
-             <p class="price__compare ">
-                            <span class="price__compare--price  custom_heading">
-                              {{- all_products['rainmaker'].compare_at_price_max | money }}
-                              <svg
-                                width="403"
-                                height="9"
-                                viewBox="0 0 403 9"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path d="M201.497 8.43298V4.21649H0C21.221 6.36282 118.858 8.43298 201.497 8.43298Z" fill="var(--new-sale-red)"></path> <path d="M201.503 8.43698V4.22049H403C381.779 6.36682 284.142 8.43698 201.503 8.43698Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H402.994C381.773 2.07016 284.136 0 201.497 0Z" fill="var(--new-sale-red)"></path> <path d="M201.497 0L201.497 4.21649H0C21.221 2.07016 118.857 0 201.497 0Z" fill="var(--new-sale-red)"></path>
-                              </svg>
-                            </span>
-                            <span class="price__compare--save">
-                              <span class="save_textd">SAVE</span>
-                              {{
-                                all_products['rainmaker'].compare_at_price_max
-                                | minus: all_products['rainmaker'].price
-                                | money
-                              }}
-                            </span>
-                          </p>
-
-                        </div>     
+            {% if all_products['rainmaker'].compare_at_price_max > all_products['rainmaker'].price %}
+              <p class="price__compare">
+                <span class="price__compare--price custom_heading">
+                  {{- all_products['rainmaker'].compare_at_price_max | money }}
+                  <svg
+                    width="403"
+                    height="9"
+                    viewBox="0 0 403 9"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M201.497 8.43298V4.21649H0C21.221 6.36282 118.858 8.43298 201.497 8.43298Z" fill="var(--new-sale-red, #E50000)"></path> <path d="M201.503 8.43698V4.22049H403C381.779 6.36682 284.142 8.43698 201.503 8.43698Z" fill="var(--new-sale-red, #E50000)"></path> <path d="M201.497 0L201.497 4.21649H402.994C381.773 2.07016 284.136 0 201.497 0Z" fill="var(--new-sale-red, #E50000)"></path> <path d="M201.497 0L201.497 4.21649H0C21.221 2.07016 118.857 0 201.497 0Z" fill="var(--new-sale-red, #E50000)"></path>
+                  </svg>
+                </span>
+                <span class="price__compare--save">
+                  <span class="save_textd">SAVE</span>
+                  {{
+                    all_products['rainmaker'].compare_at_price_max
+                    | minus: all_products['rainmaker'].price
+                    | money
+                  }}
+                </span>
+              </p>
+            {% endif %}
+          </div>
           <p class="floating-price__compare">
             <span style="color: #2A2E41;background:#CDFF07;line-height:1;border-radius: 2.96px;padding:5px 10px;display: inline-flex;letter-spacing: 1.48px;font-family: Blue Tees Subhead;font-size: clamp(10px,0.3vw,12px);text-transform: uppercase;"
               >1 YEAR SIMULATION INCLUDED</span
@@ -82,7 +90,7 @@
       {% endif %}
       {% if section.settings.ctaText != blank %}
         <a
-          class="content-cta {%if sale_page %} content-cta__solid{%else%} content-cta__outline{%endif %}"
+          class="content-cta {%if sale_page or product.handle == 'hitting-mat-golf-net-bundle'  %} content-cta__solid{%else%} content-cta__outline{%endif %}"
           href="{{section.settings.ctaUrl}}"
         >
           {{ section.settings.ctaText }}
@@ -91,6 +99,73 @@
     </div>
   </div>
 </div>
+
+<style>
+  .promo_banner--{{ section.id }} .content-floating__price p.price__compare {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+  }
+
+  .promo_banner--{{ section.id }} .price__compare--price {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    font-size: 20.63px;
+    line-height: 87.69%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .promo_banner--{{ section.id }} .price__compare--price svg {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+  }
+
+  .promo_banner--{{ section.id }} .price__compare--save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-width: 71.36px;
+    height: 17.49px;
+    padding: 2px 6px;
+    background: #E50000;
+    border-radius: 2.07px;
+    font-family: 'Blue Tees Subhead', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 8.4px;
+    line-height: 13px;
+    text-align: center;
+    letter-spacing: 1.04px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    white-space: nowrap;
+  }
+
+.comp-setup-switcher__eyebrow {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0149E3;
+  }
+
+</style>
 
 {% schema %}
 {
@@ -119,6 +194,11 @@
     },
     {
       "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+    },
+    {
+      "type": "text",
       "id": "contentQuote",
       "label": "Add Quote"
     },
@@ -126,6 +206,11 @@
       "type": "text",
       "id": "contentCaption",
       "label": "Add Caption"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
     },
     {
       "type": "text",

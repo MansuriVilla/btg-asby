@@ -118,7 +118,43 @@
         "filter_style": "sidebar",
         "enable_color_swatches": false,
         "enable_sort": false,
-        "accURL": ""
+        "accURL": "",
+        "schema_starting_position": 1
+      }
+    },
+    "gps_collection_section_87T78H": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "video_3z3RkE": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Rainmaker Bundle Pdp 16X9(1).mp4",
+            "card_size": "small",
+            "selectIndex": "2",
+            "playText": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_3z3RkE"
+      ],
+      "custom_css": [
+        ".collection-content__new {padding-top: 0px;}",
+        ".collection-grid__wrapper {gap: 0px;}"
+      ],
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "black-friday-collection",
+        "collectionHeading": "<span></span>",
+        "hide_title": false,
+        "enable_sidebar": true,
+        "collapsed": true,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": true,
+        "accURL": "",
+        "schema_starting_position": 1,
+        "enable_schema_itemlist": false
       }
     },
     "gps_platform_section_JUNFqe": {
@@ -146,6 +182,7 @@
     "round_out_slider_section_zJCjFq",
     "main-collection",
     "gps_collection_section_wMqU44",
+    "gps_collection_section_87T78H",
     "gps_platform_section_JUNFqe"
   ]
 }

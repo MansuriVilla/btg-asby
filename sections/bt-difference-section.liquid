@@ -5,12 +5,13 @@
         or section.settings.differenceSubText != blank
         or section.settings.differenceImage != blank
       %}
+        {% assign diff_alt = section.settings.differenceHeading | strip_html | newline_to_br | strip_newlines | replace: '<br />', ' ' | replace: '<br>', ' ' | split: ' ' | join: ' ' | escape | default: 'Blue Tees Difference' %}
         <div class="bt-difference__top" data-reveal-init>
           <div class="difference-top__right">
             <img
               data-reveal
               src="{{ section.settings.differenceImage | image_url }}"
-              alt="{{ section.settings.differenceHeading | escape | strip_html }}"
+              alt="{{ diff_alt }}"
               height="100%"
               width="100%"
               decoding="async"
@@ -44,7 +45,7 @@
             <img
               class="floading-content__image"
               src="{{ section.settings.floatingImage | image_url  }}"
-              alt="{{ section.settings.differenceHeading | strip_html | escape }}"
+              alt="{{ diff_alt }}"
               height="100%"
               width="100%"
               decoding="async"

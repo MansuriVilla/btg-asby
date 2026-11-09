@@ -69,77 +69,110 @@
 
     {%- else -%}
       {%- liquid
-        if has_video and video_style == 'unmuted'
+        if has_video
+          if featured_media.preview_image.aspect_ratio
+            assign media_aspect_ratio = featured_media.preview_image.aspect_ratio
+          elsif featured_media.aspect_ratio
+            assign media_aspect_ratio = featured_media.aspect_ratio
+          elsif media.preview_image.aspect_ratio
+            assign media_aspect_ratio = media.preview_image.aspect_ratio
+          endif
+        elsif media.preview_image.aspect_ratio
           assign media_aspect_ratio = media.preview_image.aspect_ratio
         endif
       -%}
-      <div class="image-wrap{% if has_video and video_modal == false %} hide{% endif %}" style="height: 0; padding-bottom: {{ 100 | divided_by: media_aspect_ratio }}%;">
+      {%- if has_video and video_type == 'mp4' -%}
         {%- liquid
-          assign img_url = media | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
-          assign zoom_img_url = media.preview_image | img_url: product_zoom_size
+          if featured_media.preview_image.aspect_ratio
+            assign media_aspect_ratio = featured_media.preview_image.aspect_ratio
+          elsif featured_media.aspect_ratio
+            assign media_aspect_ratio = featured_media.aspect_ratio
+          elsif media.preview_image.aspect_ratio
+            assign media_aspect_ratio = media.preview_image.aspect_ratio
+          endif
         -%}
-        <img class="{% if product_zoom_enable %}photoswipe__image{% endif %}{% if is_featured %} lazyloaded{% else %} lazyload{% endif %}"
-          {% if is_featured %}
-            src="{{ media | img_url: '720x' }}"
-            srcset="
-              {{ media | img_url: '360x' }} 360w,
-              {{ media | img_url: '540x' }} 540w,
-              {{ media | img_url: '720x' }} 720w,
-              {{ media | img_url: '900x' }} 900w,
-              {{ media | img_url: '1080x' }} 1080w
-            "
-            sizes="(max-width: 768px) 100vw, 50vw"
-          {% endif %}
-          data-photoswipe-src="{{ zoom_img_url }}"
-          data-photoswipe-width="{{ media_width }}"
-          data-photoswipe-height="{{ media_height }}"
-          data-index="{{ loopIndex }}"
-          data-src="{{ img_url }}"
-          data-widths="[360, 540, 720, 900, 1080]"
-          data-aspectratio="{{ media_aspect_ratio }}"
-          data-sizes="auto"
-          alt="{{ media.alt | default: product.title | escape }}"
-          {% if is_featured %}
-            loading="eager"
-            fetchpriority="high"
-          {% else %}
-            loading="lazy"
-          {% endif %}>
+        <div class="image-wrap image-wrap--video-slide" style="height: 0; padding-bottom: {{ 100 | divided_by: media_aspect_ratio }}%;">
+          {% assign mp4_url = media.sources[1].url | default: media.sources[0].url %}
+          {% assign vid_title = media.alt | default: product.title %}
+          {% render 'comp-video-player',
+            video_url: mp4_url,
+            is_active: false,
+            title: vid_title,
+            controls_variant: 'centerplay'
+          %}
+        </div>
+      {%- else -%}
+        <div class="image-wrap{% if has_video %} image-wrap--video-slide{% endif %}" style="height: 0; padding-bottom: {{ 100 | divided_by: media_aspect_ratio }}%;">
+          {%- liquid
+            assign img_url = media | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
+            assign zoom_img_url = media.preview_image | img_url: product_zoom_size
+          -%}
+          <img class="{% if product_zoom_enable and media.media_type == 'image' %}photoswipe__image{% endif %}{% if is_featured %} lazyloaded{% else %} lazyload{% endif %}"
+            {% if is_featured %}
+              src="{{ media | img_url: '720x' }}"
+              srcset="
+                {{ media | img_url: '360x' }} 360w,
+                {{ media | img_url: '540x' }} 540w,
+                {{ media | img_url: '720x' }} 720w,
+                {{ media | img_url: '900x' }} 900w,
+                {{ media | img_url: '1080x' }} 1080w
+              "
+              sizes="(max-width: 768px) 100vw, 50vw"
+            {% endif %}
+            data-photoswipe-src="{{ zoom_img_url }}"
+            data-photoswipe-width="{{ media_width }}"
+            data-photoswipe-height="{{ media_height }}"
+            data-index="{{ loopIndex }}"
+            data-src="{{ img_url }}"
+            data-widths="[360, 540, 720, 900, 1080]"
+            data-aspectratio="{{ media_aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ media.alt | default: product.title | escape }}"
+            {% if is_featured %}
+              loading="eager"
+              fetchpriority="high"
+            {% else %}
+              loading="lazy"
+            {% endif %}>
 
-        <noscript>
-          <img class="lazyloaded"
-            src="{{ media | img_url: '1400x' }}"
-            alt="{{ media.alt | default: product.title | escape }}">
-        </noscript>
+          <noscript>
+            <img class="lazyloaded"
+              src="{{ media | img_url: '1400x' }}"
+              alt="{{ media.alt | default: product.title | escape }}">
+          </noscript>
 
-        {%- if product_zoom_enable and media.media_type == 'image' -%}
-          <button 
-            type="button" 
-            class="btn btn--body btn--circle js-photoswipe__zoom product__photo-zoom"
-            aria-label="Zoom image: {{ media.alt | default: product.title | escape }}">
-            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 64 64"><path d="M47.16 28.58A18.58 18.58 0 1 1 28.58 10a18.58 18.58 0 0 1 18.58 18.58zM54 54L41.94 42"/></svg>
-            <span class="icon__fallback-text">{{ 'general.accessibility.zoom_image' | t }}</span>
-          </button>
-        {%- endif -%}
-      </div>
+          {%- if product_zoom_enable and media.media_type == 'image' -%}
+            <button 
+              type="button" 
+              class="btn btn--body btn--circle js-photoswipe__zoom product__photo-zoom"
+              aria-label="Zoom image: {{ media.alt | default: product.title | escape }}">
+              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 64 64"><path d="M47.16 28.58A18.58 18.58 0 1 1 28.58 10a18.58 18.58 0 0 1 18.58 18.58zM54 54L41.94 42"/></svg>
+              <span class="icon__fallback-text">{{ 'general.accessibility.zoom_image' | t }}</span>
+            </button>
+          {%- endif -%}
+        </div>
 
-      {%- if has_video and video_modal -%}
-        {%- if video_type == 'youtube' -%}
-          <a 
-            href="https://youtube.com/watch?v={{ media.external_id }}" 
-            class="btn btn--circle btn--large btn--static product-video-trigger"
-            aria-label="Play YouTube video: {{ media.alt | default: product.title | escape }}">
-            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-play" viewBox="18.24 17.35 24.52 28.3"><path fill="#323232" d="M22.1 19.151v25.5l20.4-13.489-20.4-12.011z"/></svg>
-          </a>
-        {%- endif -%}
-
-        {%- if video_type == 'mp4' -%}
-          <button 
-            type="button" 
-            class="btn btn--circle btn--large btn--static product-video-trigger product-video-trigger--mp4"
-            aria-label="Play video: {{ media.alt | default: product.title | escape }}">
-            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-play" viewBox="18.24 17.35 24.52 28.3"><path fill="#323232" d="M22.1 19.151v25.5l20.4-13.489-20.4-12.011z"/></svg>
-          </button>
+        {%- if has_video and video_type == 'youtube' -%}
+          <div class="product-video-inline-wrapper" data-inline-video-wrapper>
+            <button 
+              type="button" 
+              class="product-video-play-btn product-video-play-btn--inline"
+              data-inline-play-btn
+              aria-label="Play YouTube video: {{ media.alt | default: product.title | escape }}">
+              <span class="product-video-play-btn__icon">
+                <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19" fill="#ffffff"/></svg>
+              </span>
+              <span class="product-video-play-btn__text">PLAY</span>
+            </button>
+            <iframe
+              class="product-video-inline-frame hide"
+              data-inline-iframe
+              data-src="https://www.youtube.com/embed/{{ media.external_id }}?enablejsapi=1&autoplay=1&rel=0&playsinline=1"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
         {%- endif -%}
       {%- endif -%}
 

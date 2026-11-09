@@ -108,7 +108,8 @@
         "filter_style": "sidebar",
         "enable_color_swatches": false,
         "enable_sort": false,
-        "accURL": ""
+        "accURL": "",
+        "schema_starting_position": 1
       }
     },
     "gps_collection_section_BfRexB": {
@@ -137,7 +138,8 @@
         "filter_style": "sidebar",
         "enable_color_swatches": true,
         "enable_sort": false,
-        "accURL": ""
+        "accURL": "",
+        "schema_starting_position": 1
       }
     },
     "gps_collection_section_zXtq43": {
@@ -176,7 +178,53 @@
         "filter_style": "sidebar",
         "enable_color_swatches": false,
         "enable_sort": false,
-        "accURL": ""
+        "accURL": "",
+        "schema_starting_position": 1
+      }
+    },
+    "gps_collection_section_77hDJf": {
+      "type": "gps-collection-section",
+      "blocks": {
+        "video_qzKRWC": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Rainmaker Bundle Pdp 16X9(1).mp4",
+            "card_size": "small",
+            "selectIndex": "2",
+            "playText": ""
+          }
+        },
+        "product_grid_fJ9Tye": {
+          "type": "product_grid",
+          "settings": {
+            "enable_collection_count": true,
+            "per_row": 3,
+            "rows_per_page": 7,
+            "mobile_flush_grid": false
+          }
+        }
+      },
+      "block_order": [
+        "video_qzKRWC",
+        "product_grid_fJ9Tye"
+      ],
+      "custom_css": [
+        ".collection-content__new {padding-top: 0px;}",
+        ".collection-grid__wrapper{gap: 0px;}"
+      ],
+      "name": "Collection GPS",
+      "settings": {
+        "featured_collection": "black-friday-collection",
+        "collectionHeading": "<span></span>",
+        "hide_title": false,
+        "enable_sidebar": false,
+        "collapsed": false,
+        "filter_style": "sidebar",
+        "enable_color_swatches": false,
+        "enable_sort": false,
+        "accURL": "",
+        "schema_starting_position": 1,
+        "enable_schema_itemlist": false
       }
     },
     "gps_collection_section_NBjMa7": {
@@ -205,37 +253,8 @@
         "filter_style": "sidebar",
         "enable_color_swatches": false,
         "enable_sort": false,
-        "accURL": ""
-      }
-    },
-    "gps_collection_section_77hDJf": {
-      "type": "gps-collection-section",
-      "blocks": {
-        "product_grid_fJ9Tye": {
-          "type": "product_grid",
-          "settings": {
-            "enable_collection_count": true,
-            "per_row": 3,
-            "rows_per_page": 7,
-            "mobile_flush_grid": false
-          }
-        }
-      },
-      "block_order": [
-        "product_grid_fJ9Tye"
-      ],
-      "disabled": true,
-      "name": "Collection GPS",
-      "settings": {
-        "featured_collection": "gps-ready-bundles",
-        "collectionHeading": "",
-        "hide_title": false,
-        "enable_sidebar": false,
-        "collapsed": false,
-        "filter_style": "sidebar",
-        "enable_color_swatches": false,
-        "enable_sort": false,
-        "accURL": ""
+        "accURL": "",
+        "schema_starting_position": 1
       }
     },
     "image_with_text_new_KQT9AT": {
@@ -279,7 +298,8 @@
         "filter_style": "sidebar",
         "enable_color_swatches": false,
         "enable_sort": true,
-        "accURL": ""
+        "accURL": "",
+        "schema_starting_position": 1
       }
     },
     "gps_collection_section_zx4KXJ": {
@@ -308,7 +328,8 @@
         "filter_style": "sidebar",
         "enable_color_swatches": false,
         "enable_sort": true,
-        "accURL": ""
+        "accURL": "",
+        "schema_starting_position": 1
       }
     },
     "image_with_text_new_CB3YEa": {
@@ -352,7 +373,8 @@
         "filter_style": "sidebar",
         "enable_color_swatches": false,
         "enable_sort": true,
-        "accURL": ""
+        "accURL": "",
+        "schema_starting_position": 1
       }
     },
     "gps_collection_section_PzhLp6": {
@@ -381,7 +403,8 @@
         "filter_style": "sidebar",
         "enable_color_swatches": false,
         "enable_sort": true,
-        "accURL": ""
+        "accURL": "",
+        "schema_starting_position": 1
       }
     },
     "gps_platform_section_WmrcGf": {
@@ -411,8 +434,8 @@
     "gps_collection_section_EiYcFC",
     "gps_collection_section_BfRexB",
     "gps_collection_section_zXtq43",
-    "gps_collection_section_NBjMa7",
     "gps_collection_section_77hDJf",
+    "gps_collection_section_NBjMa7",
     "image_with_text_new_KQT9AT",
     "gps_collection_section_ienNVP",
     "gps_collection_section_zx4KXJ",

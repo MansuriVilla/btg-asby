@@ -1,0 +1,426 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "new-main-prod",
+      "blocks": {
+        "pdp_header_YKyLW6": {
+          "type": "pdp_header",
+          "settings": {
+            "show_title": true,
+            "show_rating": false,
+            "gift_text": "",
+            "enable_limited_stock": false,
+            "stock_badge": "LIMITED STOCK",
+            "stock_available": "Only 300 Bundles Available",
+            "stock_percent": 20,
+            "enable_savings_line": false,
+            "savings_text": ""
+          }
+        },
+        "pdp_tabs_zYnYAU": {
+          "type": "pdp_tabs",
+          "settings": {
+            "overview_label": "Overview",
+            "overview_content": "<p>Build your home practice setup with a premium golf net and layered hitting mat. Designed for convenient, repeatable practice, this bundle gives you a dedicated space to work on your swing, from iron shots to drives.</p>"
+          }
+        },
+        "tab_ckXf4y": {
+          "type": "tab",
+          "settings": {
+            "title": "Features",
+            "content": "<p>A durable 6063 aluminum net pairs with a premium layered hitting mat featuring interchangeable iron and driver strips. The net sets up in just 15 minutes with one person and no tools, making it easy to get your practice session started.</p>",
+            "page": ""
+          }
+        },
+        "tab_3pkbMH": {
+          "type": "tab",
+          "settings": {
+            "title": "What’s Included",
+            "content": "{%render 'pdp-whats-included' %}",
+            "page": ""
+          }
+        },
+        "tab_bdq8PT": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "title": "Manual",
+            "content": "Download Net + Mat Bundle Manual",
+            "page": ""
+          }
+        },
+        "bundle_callout_3Vm6fF": {
+          "type": "bundle_callout",
+          "settings": {
+            "badge_text": "BLACK FRIDAY EXCLUSIVE | ONLINE ONLY",
+            "heading": "MAKE IT A BUNDLE",
+            "subheading": "YOUR COMPLETE GOLF SIMULATOR SETUP",
+            "description": "Get the Rainmaker, premium golf net and hitting mat together and save $599 compared to buying separately.",
+            "hero_image": "shopify://shop_images/image_453.png",
+            "item1_image": "shopify://shop_images/Frame_1410106400.png",
+            "item1_title": "Rainmaker",
+            "item1_price": "$599",
+            "item2_image": "shopify://shop_images/Frame_1410106400-1.png",
+            "item2_title": "7.5' Hitting Net",
+            "item2_price": "$699",
+            "item3_image": "shopify://shop_images/Frame_1410106400-2.png",
+            "item3_title": "4x5' Mat",
+            "item3_price": "$399",
+            "total_retail_label": "Total Retail Value",
+            "total_retail_value": "$1,697",
+            "bundle_price_label": "Bundle Price",
+            "bundle_price": "$1,098",
+            "btn_text": "CLAIM OFFER",
+            "btn_url": ""
+          }
+        },
+        "feature_metrics_TqDgwB": {
+          "type": "feature_metrics",
+          "disabled": true,
+          "settings": {
+            "title": "12 REAL-TIME METRICS",
+            "badge": "INCLUDED",
+            "subtitle": "FREE FOR LIFE | NO SUBSCRIPTION REQUIRED",
+            "app_image": "shopify://shop_images/Group_1410105790.png",
+            "app_title": "20+ METRICS WHEN CONNECTED TO THE LAUNCH APP WITH SIMULATION",
+            "app_package": "INCLUDES 12 MONTHS OF GAME AI + LAUNCH APP PACKAGE."
+          }
+        },
+        "protect_player_fmUHkp": {
+          "type": "protect_player",
+          "disabled": true,
+          "settings": {
+            "heading": "Protect your Player",
+            "product_1": "blue-tees-care",
+            "features_1": "",
+            "product_2": "",
+            "features_2": ""
+          }
+        },
+        "pdp_sticky_cta_7mHFyc": {
+          "type": "pdp_sticky_cta",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "pre_order": false,
+            "cta_note_text": "",
+            "badge_1": "Free shipping over $50",
+            "badge_2": "100 DAY RETURNS",
+            "enable_product_selection": true,
+            "hide_product_switcher": true,
+            "hidden_bundle_button_text": "ADD TO CART",
+            "product_selection_heading": "Choose Your Product:",
+            "switch_product_1": "rainmaker",
+            "switch_product_2": "hitting-net-v1",
+            "switch_product_3": "premium-hitting-mat-v1",
+            "switch_product_4": "",
+            "enable_sticky_bar": true,
+            "sticky_bar_title": "",
+            "sticky_bar_badge": "",
+            "sticky_bar_button_text": "",
+            "sticky_nav_1_label": "Products",
+            "sticky_nav_1_anchor": "products",
+            "sticky_nav_2_label": "MAT",
+            "sticky_nav_2_anchor": "mat",
+            "sticky_nav_3_label": "Net",
+            "sticky_nav_3_anchor": "net",
+            "sticky_nav_4_label": "FAQS",
+            "sticky_nav_4_anchor": "faqs",
+            "sticky_nav_5_label": "REVIEWS",
+            "sticky_nav_5_anchor": "reviews"
+          }
+        }
+      },
+      "block_order": [
+        "pdp_header_YKyLW6",
+        "pdp_tabs_zYnYAU",
+        "tab_ckXf4y",
+        "tab_3pkbMH",
+        "tab_bdq8PT",
+        "bundle_callout_3Vm6fF",
+        "feature_metrics_TqDgwB",
+        "protect_player_fmUHkp",
+        "pdp_sticky_cta_7mHFyc"
+      ],
+      "settings": {
+        "promo_text": "",
+        "promo_subtitle": "",
+        "promo_bg_image": "shopify://shop_images/popup-promo_3ec8d59d-6430-4243-9aeb-d306a6fc7261.png",
+        "promo_link": "",
+        "promo_bg_color": "#0b1220",
+        "promo_text_color": "#ffffff",
+        "enable_offer_bug": true,
+        "offer_bug_text": "BLACK FRIDAY EXCLUSIVE | ONLY 300 BUNDLES AVAILABLE",
+        "offer_bug_bg": "#ff0000",
+        "offer_bug_color": "#ffffff",
+        "must_watch": "",
+        "display_review_button": false,
+        "review_video": "",
+        "show_label": false,
+        "sku_enable": true,
+        "image_position": "left",
+        "image_size": "large",
+        "product_zoom_enable": true,
+        "thumbnail_position": "below",
+        "thumbnail_arrows": true,
+        "mobile_layout": "full",
+        "enable_video_looping": true,
+        "product_video_style": "muted",
+        "enable_sticky_bar": true,
+        "sticky_bar_title": "",
+        "sticky_bar_badge": "",
+        "sticky_nav_1_label": "HARDWARE",
+        "sticky_nav_1_anchor": "hardware",
+        "sticky_nav_2_label": "FEATURES",
+        "sticky_nav_2_anchor": "features",
+        "sticky_nav_3_label": "GAME AI",
+        "sticky_nav_3_anchor": "game-ai",
+        "sticky_nav_4_label": "FAQS",
+        "sticky_nav_4_anchor": "faqs",
+        "sticky_nav_5_label": "REVIEWS",
+        "sticky_nav_5_anchor": "reviews"
+      }
+    },
+    "comp_setup_switcher_RMxCxm": {
+      "type": "comp-setup-switcher",
+      "blocks": {
+        "space_item_mwfRnx": {
+          "type": "space_item",
+          "settings": {
+            "label": "INDOOR",
+            "image": "shopify://shop_images/image_455_BT_logo_edited_1.png",
+            "caption": ""
+          }
+        },
+        "space_item_LHyzjz": {
+          "type": "space_item",
+          "settings": {
+            "label": "OUTDOOR",
+            "image": "shopify://shop_images/image_456_BT_logo_copy_1.png",
+            "caption": ""
+          }
+        },
+        "space_item_8AGBdA": {
+          "type": "space_item",
+          "settings": {
+            "label": "GARAGE",
+            "image": "shopify://shop_images/image_467_BTloog_1.png",
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "space_item_mwfRnx",
+        "space_item_LHyzjz",
+        "space_item_8AGBdA"
+      ],
+      "name": "Comp Setup Switcher",
+      "settings": {
+        "custom_section_id": "",
+        "eyebrow": "THE SETUP",
+        "heading": "BRING THE<br>RANGE HOME.",
+        "description": "Turn your backyard, garage, or any space with room to swing into your own practice station. Built for lasting durability, our premium golf net and mat stand up to repeated practice so you can keep your game sharp between rounds.",
+        "background_color": "#f4f4f1",
+        "padding_top": 70,
+        "padding_bottom": 90,
+        "autoplay": true,
+        "autoplay_speed": 4
+      }
+    },
+    "comp_product_tabs_etHRFT": {
+      "type": "comp-product-tabs",
+      "blocks": {
+        "tab_item_UHJQ9D": {
+          "type": "tab_item",
+          "settings": {
+            "custom_tab_id": "",
+            "tab_sublabel": "",
+            "tab_title": "",
+            "image": "shopify://shop_images/Background.png",
+            "eyebrow": "PREMIUM GOLF NET",
+            "title": "BUILT TO TAKE<br>\nEVERY SWING.",
+            "description": "Every component of this $699 net is specified for repeated full-swing impact: a 6063 aluminum frame, a five-section structure, cut-and-sewn impact-absorbing netting and an electrostatic powder-coat finish. And one person sets it up in about 15 minutes, with zero tools.",
+            "feature_1_num": "01",
+            "feature_1_text": "6063 Corrosion-resistant  aluminum alloy",
+            "feature_2_num": "02",
+            "feature_2_text": "Five-section frame",
+            "feature_3_num": "03",
+            "feature_3_text": "Impact-absorbing polyester netting",
+            "feature_4_num": "04",
+            "feature_4_text": "Electrostatic powder-coated finish",
+            "enable_specs": true,
+            "specs_title": "VIEW KEY SPECIFICATION",
+            "spec_1_label": "Dimensions",
+            "spec_1_val": "7.5 × 7.5 × 3.6 ft",
+            "spec_2_label": "Assembly time",
+            "spec_2_val": "Approximately 15 minutes",
+            "spec_3_label": "Frame material",
+            "spec_3_val": "6063 aluminum alloy",
+            "spec_4_label": "Frame construction",
+            "spec_4_val": "Advanced five section frame",
+            "spec_5_label": "Netting material",
+            "spec_5_val": "Cut and sewn polyester",
+            "spec_6_label": "Frame finish",
+            "spec_6_val": "Electrostatic powder coat"
+          }
+        }
+      },
+      "block_order": [
+        "tab_item_UHJQ9D"
+      ],
+      "custom_css": [
+        ".comp-prod-tabs {background: linear-gradient(180deg, #000000 0%, #1b2029 100%);}",
+        ".comp-prod-tabs__nav-wrap {display: none;}"
+      ],
+      "name": "Comp Product Tabs",
+      "settings": {
+        "custom_section_id": "",
+        "background_color": "#000000",
+        "padding_top": 60,
+        "padding_bottom": 80
+      }
+    },
+    "comp_product_tabs_M9zTWb": {
+      "type": "comp-product-tabs",
+      "blocks": {
+        "tab_item_JiVYT9": {
+          "type": "tab_item",
+          "settings": {
+            "custom_tab_id": "turf-tab",
+            "tab_sublabel": "",
+            "tab_title": "",
+            "image": "shopify://shop_images/Hitting_Mat.png",
+            "eyebrow": "Premium Hitting Mat",
+            "title": "REALISTIC FEEL WITH TRU-TURF TECHNOLOGY.",
+            "description": "4’x5’ surface to hit every club in the bag. This premium hitting mat features a 15 mm nylon iron strip for realistic turf interaction, a 35 mm Tee Line strip for driver practice, and a 20 mm EVA cushioning layer to absorb impact. Switch between hitting surfaces depending on your club, and when a strip wears out, simply replace it instead of the entire mat.",
+            "feature_1_num": "01",
+            "feature_1_text": "15 mm nylon iron strip and a 35 mm Driver Tee Line",
+            "feature_2_num": "02",
+            "feature_2_text": "12 × 24 in replaceable hitting zone: swap the strip, not the mat.",
+            "feature_3_num": "03",
+            "feature_3_text": "20 mm EVA cushion beneath a 4 × 5 ft PP turf base.",
+            "feature_4_num": "",
+            "feature_4_text": "",
+            "enable_specs": true,
+            "specs_title": "VIEW KEY SPECIFICATIONS",
+            "spec_1_label": "Dimensions",
+            "spec_1_val": "4 × 5 ft",
+            "spec_2_label": "Replaceable hitting zone",
+            "spec_2_val": "12 × 24 in",
+            "spec_3_label": "Total base thickness",
+            "spec_3_val": "35 mm",
+            "spec_4_label": "Iron hitting strip",
+            "spec_4_val": "15 mm nylon turf, 10 mm 3D layer, 10 mm NBR rubber",
+            "spec_5_label": "Base construction",
+            "spec_5_val": "15 mm PP turf layer over 20 mm high resilience EVA foam",
+            "spec_6_label": "Driver hitting strip",
+            "spec_6_val": "35 mm nylon tee line turf over a rubber base"
+          }
+        }
+      },
+      "block_order": [
+        "tab_item_JiVYT9"
+      ],
+      "custom_css": [
+        ".comp-prod-tabs {background: linear-gradient(180deg, #1b2029 0%, #000000 100%);}",
+        ".comp-prod-tabs__nav-wrap {display: none;}"
+      ],
+      "name": "Comp Product Tabs",
+      "settings": {
+        "custom_section_id": "",
+        "background_color": "#000000",
+        "padding_top": 60,
+        "padding_bottom": 80
+      }
+    },
+    "image_with_text_new_68dKmN": {
+      "type": "image-with-text-new",
+      "name": "Image With Text New",
+      "settings": {
+        "containerTrue": false,
+        "backgroundImage": "shopify://shop_images/Frame_1000012105.webp",
+        "backgroundImageMobile": "shopify://shop_images/RAINMAKER_fda21b65-baec-48c9-8bd9-3947e498e2f0.jpg",
+        "eyebrow": "COMPLETE YOUR SETUP",
+        "contentQuote": "RAINMAKER",
+        "contentCaption": "INDOOR/OUTDOOR PORTABLE LAUNCH MONITOR",
+        "description": "Elevate your practice even further with Rainmaker to track key shot metrics and make every session count.",
+        "ctaText": "SHOP NOW",
+        "ctaUrl": "shopify://products/rainmaker"
+      }
+    },
+    "sub": {
+      "type": "product-full-width",
+      "disabled": true,
+      "settings": {
+        "max_width": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": false,
+        "product_recommendations_heading": "You may also like",
+        "related_count": 5
+      }
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "disabled": true,
+      "settings": {
+        "recent_count": 5
+      }
+    },
+    "loox-product-reviews-app-section": {
+      "type": "apps",
+      "blocks": {
+        "loox-product-reviews": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "reviews_to_display": "",
+            "default_tab": "automatic",
+            "only_photos": true,
+            "aggregated": false,
+            "limit": 20,
+            "hide_thumbnails": false,
+            "maxwidth": 1080,
+            "is_sample": true
+          }
+        }
+      },
+      "block_order": [
+        "loox-product-reviews"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
+    },
+    "collection-return": {
+      "type": "collection-return",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "comp_setup_switcher_RMxCxm",
+    "comp_product_tabs_etHRFT",
+    "comp_product_tabs_M9zTWb",
+    "image_with_text_new_68dKmN",
+    "sub",
+    "product-recommendations",
+    "recently-viewed",
+    "loox-product-reviews-app-section",
+    "collection-return"
+  ]
+}

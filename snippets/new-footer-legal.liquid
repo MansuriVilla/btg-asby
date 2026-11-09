@@ -1,4 +1,8 @@
- <div class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
+{%- assign enable_footer_anim = true -%}
+{%- if settings.enable_sticky_footer_animation == false or settings.disable_animations == true -%}
+  {%- assign enable_footer_anim = false -%}
+{%- endif -%}
+ <div class="site-footer{% if enable_footer_anim %} footer_animation{% endif %}" data-section-id="{{ section.id }}" data-section-type="footer-section">
       <div class="new-page-width">
         <div class="footer-col-list">
           <div class="col-4 footer-item">
@@ -28,7 +32,7 @@
                       nav_link: '/collections/launch-monitors'
                     %}
                     {% render 'footer-nav-item',
-                      nav_text: 'GPS Handhelds & Wearables',
+                      nav_text: 'GPS Handhelds',
                       nav_link: '/collections/gps-devices'
                     %}
                     {% render 'footer-nav-item', nav_text: 'Accessories', nav_link: '/collections/accessories' %}
@@ -455,6 +459,7 @@
         border: none;
         color: var(--new-black);
         padding: 0;
+        width: 100%;
       }
                       .footer-logo img {
                         max-width: clamp(200px,17vw,250px);
